@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="sets/INM-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>INM visual spoiler</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			display: none;
+			transform: rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 3%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 20px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.icon-bar {
+			display: grid;
+			grid-template-columns: repeat(10, 3fr 2fr) 3fr;
+			gap: 1px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-top: 2%;
+			padding-bottom: 1%;
+			justify-items: center;
+			align-items: center;
+		}
+		.icon-bar .icon img {
+			width: 90%;
+			max-width: 80px;
+			height: auto;
+			display: block;
+			padding: 5%;
+			margin: auto;
+			text-align: center;
+		}
+		.icon-bar .dot img {
+			width: 50%;
+			max-width: 65px;
+			height: auto;
+			display: block;
+			margin: auto;
+			text-align: center;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/INM-files/logo.png" />
+	<img class="preload-hidden" src="/sets/2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/AUR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ERR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HEL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/INK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/INM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/KDT-files/icon.png" />
+		<img class="preload-hidden" src="/sets/MSK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PTXX-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SHF-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SHS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOV-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="icon-bar">
+			<div class="icon"><a href="2HU-spoiler"><img src="sets/2HU-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="AUR-spoiler"><img src="sets/AUR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="ERR-spoiler"><img src="sets/ERR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="HEL-spoiler"><img src="sets/HEL-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="INK-spoiler"><img src="sets/INK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="INM-spoiler"><img src="sets/INM-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="KDT-spoiler"><img src="sets/KDT-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="MSK-spoiler"><img src="sets/MSK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="ONI-spoiler"><img src="sets/ONI-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="PTXX-spoiler"><img src="sets/PTXX-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="SHF-spoiler"><img src="sets/SHF-files/icon.png"></img></a></div>
+		<div class="icon"><a href="SHS-spoiler"><img src="sets/SHS-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="SOV-spoiler"><img src="sets/SOV-files/icon.png"></img></a></div>
+
+		</div>
+		<div class="banner">
+		<img class="logo" src="sets/INM-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+				<div class="container"><img alt="sets\INM-files\img\4_Avacyn, the Savior.jpg" id="4_Avacyn, the Savior" data-flag="@X" onclick="openSidebar('4_Avacyn, the Savior',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\61_Fathom the Unfathomable.jpg" id="61_Fathom the Unfathomable" data-flag="@X" onclick="openSidebar('61_Fathom the Unfathomable',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\92_Archdemon Shilgengar.jpg" id="92_Archdemon Shilgengar" data-flag="@X" onclick="openSidebar('92_Archdemon Shilgengar',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\162_Marzela Falkenrath.jpg" id="162_Marzela Falkenrath" data-flag="@X" onclick="openSidebar('162_Marzela Falkenrath',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\201_Kernon, Primeval Ritualist.jpg" id="201_Kernon, Primeval Ritualist" data-flag="@X" onclick="openSidebar('201_Kernon, Primeval Ritualist',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\20_Flight of Angels.jpg" id="20_Flight of Angels" data-flag="@X" onclick="openSidebar('20_Flight of Angels',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\73_Occult Metamorphosis.jpg" id="73_Occult Metamorphosis" data-flag="@X" onclick="openSidebar('73_Occult Metamorphosis',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\126_Sorin, Vampire Maverick.jpg" id="126_Sorin, Vampire Maverick" data-flag="@X" onclick="openSidebar('126_Sorin, Vampire Maverick',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\174_Utter Pandemonium.jpg" id="174_Utter Pandemonium" data-flag="@X" onclick="openSidebar('174_Utter Pandemonium',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\204_Krendel of Kessig_back.jpg" alt="sets\INM-files\img\204_Krendel of Kessig_front.jpg" id="204_Krendel of Kessig" data-flag="@XD" onclick="openSidebar('204_Krendel of Kessig',false)"><button class="flip-btn" onclick="imgFlip(204_Krendel of Kessig)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\31_Polina Elgaud.jpg" id="31_Polina Elgaud" data-flag="@X" onclick="openSidebar('31_Polina Elgaud',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\84_Stitched Gargantua.jpg" id="84_Stitched Gargantua" data-flag="@X" onclick="openSidebar('84_Stitched Gargantua',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\135_Wurgelurg.jpg" id="135_Wurgelurg" data-flag="@X" onclick="openSidebar('135_Wurgelurg',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\177_Volcanic Malignus.jpg" id="177_Volcanic Malignus" data-flag="@X" onclick="openSidebar('177_Volcanic Malignus',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\215_Prayers for the Hunted.jpg" id="215_Prayers for the Hunted" data-flag="@X" onclick="openSidebar('215_Prayers for the Hunted',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\7_Beseech Aid.jpg" id="7_Beseech Aid" data-flag="@X" onclick="openSidebar('7_Beseech Aid',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\54_Curse of the Breathless.jpg" id="54_Curse of the Breathless" data-flag="@X" onclick="openSidebar('54_Curse of the Breathless',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\98_Corpse Thief_back.jpg" alt="sets\INM-files\img\98_Corpse Thief_front.jpg" id="98_Corpse Thief" data-flag="@XD" onclick="openSidebar('98_Corpse Thief',false)"><button class="flip-btn" onclick="imgFlip(98_Corpse Thief)"></button></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\138_Charging Commando_back.jpg" alt="sets\INM-files\img\138_Charging Commando_front.jpg" id="138_Charging Commando" data-flag="@XD" onclick="openSidebar('138_Charging Commando',false)"><button class="flip-btn" onclick="imgFlip(138_Charging Commando)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\197_Glutton of Zhava.jpg" id="197_Glutton of Zhava" data-flag="@X" onclick="openSidebar('197_Glutton of Zhava',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\11_Cathar's Armory.jpg" id="11_Cathars Armory" data-flag="@X" onclick="openSidebar('11_Cathars Armory',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\56_Curse of Time.jpg" id="56_Curse of Time" data-flag="@X" onclick="openSidebar('56_Curse of Time',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\100_Curse of Fangs.jpg" id="100_Curse of Fangs" data-flag="@X" onclick="openSidebar('100_Curse of Fangs',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\141_Curse of Hallucinations.jpg" id="141_Curse of Hallucinations" data-flag="@X" onclick="openSidebar('141_Curse of Hallucinations',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\199_Harness Nature.jpg" id="199_Harness Nature" data-flag="@X" onclick="openSidebar('199_Harness Nature',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\13_Cenotaph Possessor.jpg" id="13_Cenotaph Possessor" data-flag="@X" onclick="openSidebar('13_Cenotaph Possessor',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\62_Geist of Yesterdays.jpg" id="62_Geist of Yesterdays" data-flag="@X" onclick="openSidebar('62_Geist of Yesterdays',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\103_Dark Ascension.jpg" id="103_Dark Ascension" data-flag="@X" onclick="openSidebar('103_Dark Ascension',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\148_Exhaust Possibilities.jpg" id="148_Exhaust Possibilities" data-flag="@X" onclick="openSidebar('148_Exhaust Possibilities',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\208_Mistwood Rites_back.jpg" alt="sets\INM-files\img\208_Mistwood Rites_front.jpg" id="208_Mistwood Rites" data-flag="@XD" onclick="openSidebar('208_Mistwood Rites',false)"><button class="flip-btn" onclick="imgFlip(208_Mistwood Rites)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\15_Dawnhart's Envoy.jpg" id="15_Dawnharts Envoy" data-flag="@X" onclick="openSidebar('15_Dawnharts Envoy',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\66_Krothuss, Abyssal Terror.jpg" id="66_Krothuss, Abyssal Terror" data-flag="@X" onclick="openSidebar('66_Krothuss, Abyssal Terror',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\105_Deathless Butcher.jpg" id="105_Deathless Butcher" data-flag="@X" onclick="openSidebar('105_Deathless Butcher',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\151_Fangs of Wesgoth.jpg" id="151_Fangs of Wesgoth" data-flag="@X" onclick="openSidebar('151_Fangs of Wesgoth',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\209_Molderkin.jpg" id="209_Molderkin" data-flag="@X" onclick="openSidebar('209_Molderkin',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\24_Hecatomb Haunter.jpg" id="24_Hecatomb Haunter" data-flag="@X" onclick="openSidebar('24_Hecatomb Haunter',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\71_Nephalia Inquisitors.jpg" id="71_Nephalia Inquisitors" data-flag="@X" onclick="openSidebar('71_Nephalia Inquisitors',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\107_Doomsday Horde.jpg" id="107_Doomsday Horde" data-flag="@X" onclick="openSidebar('107_Doomsday Horde',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\157_Infernal Direwolf.jpg" id="157_Infernal Direwolf" data-flag="@X" onclick="openSidebar('157_Infernal Direwolf',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\214_Phantom of Wolf's Run.jpg" id="214_Phantom of Wolfs Run" data-flag="@X" onclick="openSidebar('214_Phantom of Wolfs Run',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\28_Outrider Captain.jpg" id="28_Outrider Captain" data-flag="@X" onclick="openSidebar('28_Outrider Captain',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\75_Paranormal Convergence_back.jpg" alt="sets\INM-files\img\75_Paranormal Convergence_front.jpg" id="75_Paranormal Convergence" data-flag="@XD" onclick="openSidebar('75_Paranormal Convergence',false)"><button class="flip-btn" onclick="imgFlip(75_Paranormal Convergence)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\111_Falkenrath Bladesire.jpg" id="111_Falkenrath Bladesire" data-flag="@X" onclick="openSidebar('111_Falkenrath Bladesire',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\161_Leyran Spellchainer_back.jpg" alt="sets\INM-files\img\161_Leyran Spellchainer_front.jpg" id="161_Leyran Spellchainer" data-flag="@XD" onclick="openSidebar('161_Leyran Spellchainer',false)"><button class="flip-btn" onclick="imgFlip(161_Leyran Spellchainer)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\218_Risen Lumberknot.jpg" id="218_Risen Lumberknot" data-flag="@X" onclick="openSidebar('218_Risen Lumberknot',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\33_Resting Tombs_back.jpg" alt="sets\INM-files\img\33_Resting Tombs_front.jpg" id="33_Resting Tombs" data-flag="@XD" onclick="openSidebar('33_Resting Tombs',false)"><button class="flip-btn" onclick="imgFlip(33_Resting Tombs)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\82_Snag Apparition.jpg" id="82_Snag Apparition" data-flag="@X" onclick="openSidebar('82_Snag Apparition',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\116_Left for Dead.jpg" id="116_Left for Dead" data-flag="@X" onclick="openSidebar('116_Left for Dead',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\164_Pyromantic Duo_back.jpg" alt="sets\INM-files\img\164_Pyromantic Duo_front.jpg" id="164_Pyromantic Duo" data-flag="@XD" onclick="openSidebar('164_Pyromantic Duo',false)"><button class="flip-btn" onclick="imgFlip(164_Pyromantic Duo)"></button></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\223_Ulvenwald Ranger_back.jpg" alt="sets\INM-files\img\223_Ulvenwald Ranger_front.jpg" id="223_Ulvenwald Ranger" data-flag="@XD" onclick="openSidebar('223_Ulvenwald Ranger',false)"><button class="flip-btn" onclick="imgFlip(223_Ulvenwald Ranger)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\42_Sword of the Heavens.jpg" id="42_Sword of the Heavens" data-flag="@X" onclick="openSidebar('42_Sword of the Heavens',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\86_Trawler Skaab.jpg" id="86_Trawler Skaab" data-flag="@X" onclick="openSidebar('86_Trawler Skaab',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\121_Oswin, Skirsdag Diabolist_back.jpg" alt="sets\INM-files\img\121_Oswin, Skirsdag Diabolist_front.jpg" id="121_Oswin, Skirsdag Diabolist" data-flag="@XD" onclick="openSidebar('121_Oswin, Skirsdag Diabolist',false)"><button class="flip-btn" onclick="imgFlip(121_Oswin, Skirsdag Diabolist)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\170_Tallowkeep.jpg" id="170_Tallowkeep" data-flag="@X" onclick="openSidebar('170_Tallowkeep',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\224_Ursagore.jpg" id="224_Ursagore" data-flag="@X" onclick="openSidebar('224_Ursagore',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\44_Traft, Lunarch's Edge.jpg" id="44_Traft, Lunarchs Edge" data-flag="@X" onclick="openSidebar('44_Traft, Lunarchs Edge',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\88_Undercroft Portal_back.jpg" alt="sets\INM-files\img\88_Undercroft Portal_front.jpg" id="88_Undercroft Portal" data-flag="@XD" onclick="openSidebar('88_Undercroft Portal',false)"><button class="flip-btn" onclick="imgFlip(88_Undercroft Portal)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\128_Syphon Dreams.jpg" id="128_Syphon Dreams" data-flag="@X" onclick="openSidebar('128_Syphon Dreams',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\180_Welcome to the Ashmouth.jpg" id="180_Welcome to the Ashmouth" data-flag="@X" onclick="openSidebar('180_Welcome to the Ashmouth',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\225_Vartrossen Primalist_back.jpg" alt="sets\INM-files\img\225_Vartrossen Primalist_front.jpg" id="225_Vartrossen Primalist" data-flag="@XD" onclick="openSidebar('225_Vartrossen Primalist',false)"><button class="flip-btn" onclick="imgFlip(225_Vartrossen Primalist)"></button></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\1_Alabaster Halo_back.jpg" alt="sets\INM-files\img\1_Alabaster Halo_front.jpg" id="1_Alabaster Halo" data-flag="@XD" onclick="openSidebar('1_Alabaster Halo',false)"><button class="flip-btn" onclick="imgFlip(1_Alabaster Halo)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\47_Braineater Abominus.jpg" id="47_Braineater Abominus" data-flag="@X" onclick="openSidebar('47_Braineater Abominus',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\95_Bone Lich.jpg" id="95_Bone Lich" data-flag="@X" onclick="openSidebar('95_Bone Lich',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\139_Clash at Geier Reach.jpg" id="139_Clash at Geier Reach" data-flag="@X" onclick="openSidebar('139_Clash at Geier Reach',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\181_Adderblade Exterminator_back.jpg" alt="sets\INM-files\img\181_Adderblade Exterminator_front.jpg" id="181_Adderblade Exterminator" data-flag="@XD" onclick="openSidebar('181_Adderblade Exterminator',false)"><button class="flip-btn" onclick="imgFlip(181_Adderblade Exterminator)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\3_Angel of Sunrise.jpg" id="3_Angel of Sunrise" data-flag="@X" onclick="openSidebar('3_Angel of Sunrise',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\53_Curse of Scuttling Thoughts.jpg" id="53_Curse of Scuttling Thoughts" data-flag="@X" onclick="openSidebar('53_Curse of Scuttling Thoughts',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\96_Carnage Throne_back.jpg" alt="sets\INM-files\img\96_Carnage Throne_front.jpg" id="96_Carnage Throne" data-flag="@XD" onclick="openSidebar('96_Carnage Throne',false)"><button class="flip-btn" onclick="imgFlip(96_Carnage Throne)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\142_Curse of Raining Daggers.jpg" id="142_Curse of Raining Daggers" data-flag="@X" onclick="openSidebar('142_Curse of Raining Daggers',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\183_Barge Through.jpg" id="183_Barge Through" data-flag="@X" onclick="openSidebar('183_Barge Through',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\5_Avacyn's Mark.jpg" id="5_Avacyns Mark" data-flag="@X" onclick="openSidebar('5_Avacyns Mark',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\55_Curse of the Tattletale.jpg" id="55_Curse of the Tattletale" data-flag="@X" onclick="openSidebar('55_Curse of the Tattletale',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\101_Curse of Nightmares.jpg" id="101_Curse of Nightmares" data-flag="@X" onclick="openSidebar('101_Curse of Nightmares',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\144_Curse of the Hunter's Moon.jpg" id="144_Curse of the Hunters Moon" data-flag="@X" onclick="openSidebar('144_Curse of the Hunters Moon',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\185_Briarswine.jpg" id="185_Briarswine" data-flag="@X" onclick="openSidebar('185_Briarswine',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\8_Blessed Bladewright.jpg" id="8_Blessed Bladewright" data-flag="@X" onclick="openSidebar('8_Blessed Bladewright',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\57_Drunau Egg_back.jpg" alt="sets\INM-files\img\57_Drunau Egg_front.jpg" id="57_Drunau Egg" data-flag="@XD" onclick="openSidebar('57_Drunau Egg',false)"><button class="flip-btn" onclick="imgFlip(57_Drunau Egg)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\104_Death Undone.jpg" id="104_Death Undone" data-flag="@X" onclick="openSidebar('104_Death Undone',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\146_Dance with Devils.jpg" id="146_Dance with Devils" data-flag="@X" onclick="openSidebar('146_Dance with Devils',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\186_Brutalizer Gear.jpg" id="186_Brutalizer Gear" data-flag="@X" onclick="openSidebar('186_Brutalizer Gear',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\12_Cathedral Gargoyle.jpg" id="12_Cathedral Gargoyle" data-flag="@X" onclick="openSidebar('12_Cathedral Gargoyle',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\58_Ensnaring Possessor.jpg" id="58_Ensnaring Possessor" data-flag="@X" onclick="openSidebar('58_Ensnaring Possessor',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\106_Diregraf Skulleater.jpg" id="106_Diregraf Skulleater" data-flag="@X" onclick="openSidebar('106_Diregraf Skulleater',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\154_Hanweir Miscreant_back.jpg" alt="sets\INM-files\img\154_Hanweir Miscreant_front.jpg" id="154_Hanweir Miscreant" data-flag="@XD" onclick="openSidebar('154_Hanweir Miscreant',false)"><button class="flip-btn" onclick="imgFlip(154_Hanweir Miscreant)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\187_Cabin Golem.jpg" id="187_Cabin Golem" data-flag="@X" onclick="openSidebar('187_Cabin Golem',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\18_Evanescence.jpg" id="18_Evanescence" data-flag="@X" onclick="openSidebar('18_Evanescence',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\65_Havengul Banshee_back.jpg" alt="sets\INM-files\img\65_Havengul Banshee_front.jpg" id="65_Havengul Banshee" data-flag="@XD" onclick="openSidebar('65_Havengul Banshee',false)"><button class="flip-btn" onclick="imgFlip(65_Havengul Banshee)"></button></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\108_Dowager of Traublassen_back.jpg" alt="sets\INM-files\img\108_Dowager of Traublassen_front.jpg" id="108_Dowager of Traublassen" data-flag="@XD" onclick="openSidebar('108_Dowager of Traublassen',false)"><button class="flip-btn" onclick="imgFlip(108_Dowager of Traublassen)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\156_Hellfreaks.jpg" id="156_Hellfreaks" data-flag="@X" onclick="openSidebar('156_Hellfreaks',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\189_Curse of Venom.jpg" id="189_Curse of Venom" data-flag="@X" onclick="openSidebar('189_Curse of Venom',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\23_Haunted Waif_back.jpg" alt="sets\INM-files\img\23_Haunted Waif_front.jpg" id="23_Haunted Waif" data-flag="@XD" onclick="openSidebar('23_Haunted Waif',false)"><button class="flip-btn" onclick="imgFlip(23_Haunted Waif)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\68_Mistmourner.jpg" id="68_Mistmourner" data-flag="@X" onclick="openSidebar('68_Mistmourner',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\114_Grim Raven of Wesgoth.jpg" id="114_Grim Raven of Wesgoth" data-flag="@X" onclick="openSidebar('114_Grim Raven of Wesgoth',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\158_Insidious Communion.jpg" id="158_Insidious Communion" data-flag="@X" onclick="openSidebar('158_Insidious Communion',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\190_Dawnhart Ceremony_back.jpg" alt="sets\INM-files\img\190_Dawnhart Ceremony_front.jpg" id="190_Dawnhart Ceremony" data-flag="@XD" onclick="openSidebar('190_Dawnhart Ceremony',false)"><button class="flip-btn" onclick="imgFlip(190_Dawnhart Ceremony)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\30_Phantom Presence.jpg" id="30_Phantom Presence" data-flag="@X" onclick="openSidebar('30_Phantom Presence',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\69_Morkrut Gryff.jpg" id="69_Morkrut Gryff" data-flag="@X" onclick="openSidebar('69_Morkrut Gryff',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\119_Malicious Eclipse.jpg" id="119_Malicious Eclipse" data-flag="@X" onclick="openSidebar('119_Malicious Eclipse',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\159_Irascible Bloodwitch.jpg" id="159_Irascible Bloodwitch" data-flag="@X" onclick="openSidebar('159_Irascible Bloodwitch',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\196_Gavony Cavaliers.jpg" id="196_Gavony Cavaliers" data-flag="@X" onclick="openSidebar('196_Gavony Cavaliers',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\32_Puresoul Possessor.jpg" id="32_Puresoul Possessor" data-flag="@X" onclick="openSidebar('32_Puresoul Possessor',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\72_Niblis of Hail.jpg" id="72_Niblis of Hail" data-flag="@X" onclick="openSidebar('72_Niblis of Hail',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\122_Plague Herald.jpg" id="122_Plague Herald" data-flag="@X" onclick="openSidebar('122_Plague Herald',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\160_Kessig Jeweler_back.jpg" alt="sets\INM-files\img\160_Kessig Jeweler_front.jpg" id="160_Kessig Jeweler" data-flag="@XD" onclick="openSidebar('160_Kessig Jeweler',false)"><button class="flip-btn" onclick="imgFlip(160_Kessig Jeweler)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\200_Hungering Howlpack.jpg" id="200_Hungering Howlpack" data-flag="@X" onclick="openSidebar('200_Hungering Howlpack',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\34_Righteous Chaplain.jpg" id="34_Righteous Chaplain" data-flag="@X" onclick="openSidebar('34_Righteous Chaplain',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\74_Omendancer.jpg" id="74_Omendancer" data-flag="@X" onclick="openSidebar('74_Omendancer',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\125_Skirsdag Edict.jpg" id="125_Skirsdag Edict" data-flag="@X" onclick="openSidebar('125_Skirsdag Edict',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\163_Obsidian Hellkite.jpg" id="163_Obsidian Hellkite" data-flag="@X" onclick="openSidebar('163_Obsidian Hellkite',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\216_Primordial Slime.jpg" id="216_Primordial Slime" data-flag="@X" onclick="openSidebar('216_Primordial Slime',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\35_Sacralize.jpg" id="35_Sacralize" data-flag="@X" onclick="openSidebar('35_Sacralize',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\79_Severed Hands.jpg" id="79_Severed Hands" data-flag="@X" onclick="openSidebar('79_Severed Hands',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\130_Umbersteed.jpg" id="130_Umbersteed" data-flag="@X" onclick="openSidebar('130_Umbersteed',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\165_Silvershot Crossbow.jpg" id="165_Silvershot Crossbow" data-flag="@X" onclick="openSidebar('165_Silvershot Crossbow',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\217_Pushing Daisies.jpg" id="217_Pushing Daisies" data-flag="@X" onclick="openSidebar('217_Pushing Daisies',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\37_Silverblade Cathar.jpg" id="37_Silverblade Cathar" data-flag="@X" onclick="openSidebar('37_Silverblade Cathar',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\80_Shackled Memories.jpg" id="80_Shackled Memories" data-flag="@X" onclick="openSidebar('80_Shackled Memories',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\132_Undead Necromancer.jpg" id="132_Undead Necromancer" data-flag="@X" onclick="openSidebar('132_Undead Necromancer',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\169_Surfacing Horripede.jpg" id="169_Surfacing Horripede" data-flag="@X" onclick="openSidebar('169_Surfacing Horripede',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\219_Rosenhulk.jpg" id="219_Rosenhulk" data-flag="@X" onclick="openSidebar('219_Rosenhulk',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\43_Thraben Redeemer.jpg" id="43_Thraben Redeemer" data-flag="@X" onclick="openSidebar('43_Thraben Redeemer',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\83_Spine-Chilling Discovery.jpg" id="83_Spine-Chilling Discovery" data-flag="@X" onclick="openSidebar('83_Spine-Chilling Discovery',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\134_Vespercloak Vampire.jpg" id="134_Vespercloak Vampire" data-flag="@X" onclick="openSidebar('134_Vespercloak Vampire',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\179_Voldaren Heartslicer_back.jpg" alt="sets\INM-files\img\179_Voldaren Heartslicer_front.jpg" id="179_Voldaren Heartslicer" data-flag="@XD" onclick="openSidebar('179_Voldaren Heartslicer',false)"><button class="flip-btn" onclick="imgFlip(179_Voldaren Heartslicer)"></button></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\222_Treeline Archer_back.jpg" alt="sets\INM-files\img\222_Treeline Archer_front.jpg" id="222_Treeline Archer" data-flag="@XD" onclick="openSidebar('222_Treeline Archer',false)"><button class="flip-btn" onclick="imgFlip(222_Treeline Archer)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\2_Alert the Village.jpg" id="2_Alert the Village" data-flag="@X" onclick="openSidebar('2_Alert the Village',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\46_Body and Mind.jpg" id="46_Body and Mind" data-flag="@X" onclick="openSidebar('46_Body and Mind',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\91_Acolyte of Griselbrand.jpg" id="91_Acolyte of Griselbrand" data-flag="@X" onclick="openSidebar('91_Acolyte of Griselbrand',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\136_Affluent Host.jpg" id="136_Affluent Host" data-flag="@X" onclick="openSidebar('136_Affluent Host',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\182_Banewidow.jpg" id="182_Banewidow" data-flag="@X" onclick="openSidebar('182_Banewidow',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\6_Avacyn's Partisan_back.jpg" alt="sets\INM-files\img\6_Avacyn's Partisan_front.jpg" id="6_Avacyns Partisan" data-flag="@XD" onclick="openSidebar('6_Avacyns Partisan',false)"><button class="flip-btn" onclick="imgFlip(6_Avacyns Partisan)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\48_Brine Cultist.jpg" id="48_Brine Cultist" data-flag="@X" onclick="openSidebar('48_Brine Cultist',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\93_Augury of Misfortunes.jpg" id="93_Augury of Misfortunes" data-flag="@X" onclick="openSidebar('93_Augury of Misfortunes',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\137_Alchemist's Grimoire.jpg" id="137_Alchemists Grimoire" data-flag="@X" onclick="openSidebar('137_Alchemists Grimoire',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\184_Blossoming Defense.jpg" id="184_Blossoming Defense" data-flag="@X" onclick="openSidebar('184_Blossoming Defense',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\9_Breaking Dawn.jpg" id="9_Breaking Dawn" data-flag="@X" onclick="openSidebar('9_Breaking Dawn',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\49_Carrion Drake.jpg" id="49_Carrion Drake" data-flag="@X" onclick="openSidebar('49_Carrion Drake',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\94_Bitter Goodbye.jpg" id="94_Bitter Goodbye" data-flag="@X" onclick="openSidebar('94_Bitter Goodbye',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\140_Crater Thing.jpg" id="140_Crater Thing" data-flag="@X" onclick="openSidebar('140_Crater Thing',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\188_Creep of the Crop.jpg" id="188_Creep of the Crop" data-flag="@X" onclick="openSidebar('188_Creep of the Crop',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\10_Candlecrown Stag.jpg" id="10_Candlecrown Stag" data-flag="@X" onclick="openSidebar('10_Candlecrown Stag',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\50_Claim of the Deep.jpg" id="50_Claim of the Deep" data-flag="@X" onclick="openSidebar('50_Claim of the Deep',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\97_Contagious Ghoul.jpg" id="97_Contagious Ghoul" data-flag="@X" onclick="openSidebar('97_Contagious Ghoul',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\143_Curse of Slaughter.jpg" id="143_Curse of Slaughter" data-flag="@X" onclick="openSidebar('143_Curse of Slaughter',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\191_Dawnhart Druids.jpg" id="191_Dawnhart Druids" data-flag="@X" onclick="openSidebar('191_Dawnhart Druids',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\14_Cobblespook.jpg" id="14_Cobblespook" data-flag="@X" onclick="openSidebar('14_Cobblespook',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\51_Corrupted Sorcerer_back.jpg" alt="sets\INM-files\img\51_Corrupted Sorcerer_front.jpg" id="51_Corrupted Sorcerer" data-flag="@XD" onclick="openSidebar('51_Corrupted Sorcerer',false)"><button class="flip-btn" onclick="imgFlip(51_Corrupted Sorcerer)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\99_Crypt Viper.jpg" id="99_Crypt Viper" data-flag="@X" onclick="openSidebar('99_Crypt Viper',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\145_Curse of the Vein.jpg" id="145_Curse of the Vein" data-flag="@X" onclick="openSidebar('145_Curse of the Vein',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\192_Death in Bloom.jpg" id="192_Death in Bloom" data-flag="@X" onclick="openSidebar('192_Death in Bloom',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\16_Departed Butler.jpg" id="16_Departed Butler" data-flag="@X" onclick="openSidebar('16_Departed Butler',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\52_Curse of Doubt.jpg" id="52_Curse of Doubt" data-flag="@X" onclick="openSidebar('52_Curse of Doubt',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\102_Curse of the Unburied.jpg" id="102_Curse of the Unburied" data-flag="@X" onclick="openSidebar('102_Curse of the Unburied',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\147_Embercut Duelist_back.jpg" alt="sets\INM-files\img\147_Embercut Duelist_front.jpg" id="147_Embercut Duelist" data-flag="@XD" onclick="openSidebar('147_Embercut Duelist',false)"><button class="flip-btn" onclick="imgFlip(147_Embercut Duelist)"></button></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\193_Desperate Botanist_back.jpg" alt="sets\INM-files\img\193_Desperate Botanist_front.jpg" id="193_Desperate Botanist" data-flag="@XD" onclick="openSidebar('193_Desperate Botanist',false)"><button class="flip-btn" onclick="imgFlip(193_Desperate Botanist)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\17_Drogskol Possessor.jpg" id="17_Drogskol Possessor" data-flag="@X" onclick="openSidebar('17_Drogskol Possessor',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\59_Erase Identity.jpg" id="59_Erase Identity" data-flag="@X" onclick="openSidebar('59_Erase Identity',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\109_Drain Youth.jpg" id="109_Drain Youth" data-flag="@X" onclick="openSidebar('109_Drain Youth',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\149_Faithless Razing.jpg" id="149_Faithless Razing" data-flag="@X" onclick="openSidebar('149_Faithless Razing',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\194_Druid's Grimoire.jpg" id="194_Druids Grimoire" data-flag="@X" onclick="openSidebar('194_Druids Grimoire',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\19_Flawless Finesse.jpg" id="19_Flawless Finesse" data-flag="@X" onclick="openSidebar('19_Flawless Finesse',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\60_Escaped Ooze.jpg" id="60_Escaped Ooze" data-flag="@X" onclick="openSidebar('60_Escaped Ooze',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\110_Dread Elk.jpg" id="110_Dread Elk" data-flag="@X" onclick="openSidebar('110_Dread Elk',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\150_Falkenrath Fletcher.jpg" id="150_Falkenrath Fletcher" data-flag="@X" onclick="openSidebar('150_Falkenrath Fletcher',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\195_Entropy's Descent.jpg" id="195_Entropys Descent" data-flag="@X" onclick="openSidebar('195_Entropys Descent',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\21_Frightful Visitation.jpg" id="21_Frightful Visitation" data-flag="@X" onclick="openSidebar('21_Frightful Visitation',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\63_Geistmage's Grimoire.jpg" id="63_Geistmages Grimoire" data-flag="@X" onclick="openSidebar('63_Geistmages Grimoire',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\112_Falkenrath Ordainer.jpg" id="112_Falkenrath Ordainer" data-flag="@X" onclick="openSidebar('112_Falkenrath Ordainer',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\152_Go Feral.jpg" id="152_Go Feral" data-flag="@X" onclick="openSidebar('152_Go Feral',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\198_Grizzled Woodcutter.jpg" id="198_Grizzled Woodcutter" data-flag="@X" onclick="openSidebar('198_Grizzled Woodcutter',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\22_Harvesttide Healer.jpg" id="22_Harvesttide Healer" data-flag="@X" onclick="openSidebar('22_Harvesttide Healer',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\64_Ghastly Guidance.jpg" id="64_Ghastly Guidance" data-flag="@X" onclick="openSidebar('64_Ghastly Guidance',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\113_Final Destination.jpg" id="113_Final Destination" data-flag="@X" onclick="openSidebar('113_Final Destination',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\153_Grasping Carriage.jpg" id="153_Grasping Carriage" data-flag="@X" onclick="openSidebar('153_Grasping Carriage',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\202_Kernon's Consecration.jpg" id="202_Kernons Consecration" data-flag="@X" onclick="openSidebar('202_Kernons Consecration',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\25_Lifted Spirits.jpg" id="25_Lifted Spirits" data-flag="@X" onclick="openSidebar('25_Lifted Spirits',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\67_Memory Surgeon.jpg" id="67_Memory Surgeon" data-flag="@X" onclick="openSidebar('67_Memory Surgeon',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\115_It Came from the Bog.jpg" id="115_It Came from the Bog" data-flag="@X" onclick="openSidebar('115_It Came from the Bog',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\155_Hatefire.jpg" id="155_Hatefire" data-flag="@X" onclick="openSidebar('155_Hatefire',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\203_Killer Scorpion.jpg" id="203_Killer Scorpion" data-flag="@X" onclick="openSidebar('203_Killer Scorpion',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\26_Loyal Retriever.jpg" id="26_Loyal Retriever" data-flag="@X" onclick="openSidebar('26_Loyal Retriever',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\70_Nebelgast Possessor.jpg" id="70_Nebelgast Possessor" data-flag="@X" onclick="openSidebar('70_Nebelgast Possessor',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\117_Lich's Grimoire.jpg" id="117_Lichs Grimoire" data-flag="@X" onclick="openSidebar('117_Lichs Grimoire',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\166_Stensia Cavalcade.jpg" id="166_Stensia Cavalcade" data-flag="@X" onclick="openSidebar('166_Stensia Cavalcade',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\205_Lambholt Tracker.jpg" id="205_Lambholt Tracker" data-flag="@X" onclick="openSidebar('205_Lambholt Tracker',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\27_Moonscythe.jpg" id="27_Moonscythe" data-flag="@X" onclick="openSidebar('27_Moonscythe',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\76_Remove Soul.jpg" id="76_Remove Soul" data-flag="@X" onclick="openSidebar('76_Remove Soul',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\118_Lone Zombie_back.jpg" alt="sets\INM-files\img\118_Lone Zombie_front.jpg" id="118_Lone Zombie" data-flag="@XD" onclick="openSidebar('118_Lone Zombie',false)"><button class="flip-btn" onclick="imgFlip(118_Lone Zombie)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\167_Stromkirk Sangromancer.jpg" id="167_Stromkirk Sangromancer" data-flag="@X" onclick="openSidebar('167_Stromkirk Sangromancer',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\206_Lupine Prowler.jpg" id="206_Lupine Prowler" data-flag="@X" onclick="openSidebar('206_Lupine Prowler',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\29_Parish Slayer.jpg" id="29_Parish Slayer" data-flag="@X" onclick="openSidebar('29_Parish Slayer',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\77_Scare Away.jpg" id="77_Scare Away" data-flag="@X" onclick="openSidebar('77_Scare Away',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\120_Markov Fencer.jpg" id="120_Markov Fencer" data-flag="@X" onclick="openSidebar('120_Markov Fencer',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\168_Suffer the Blade.jpg" id="168_Suffer the Blade" data-flag="@X" onclick="openSidebar('168_Suffer the Blade',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\207_Lycanthropic Outburst.jpg" id="207_Lycanthropic Outburst" data-flag="@X" onclick="openSidebar('207_Lycanthropic Outburst',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\36_Sigarda's Shepherd.jpg" id="36_Sigardas Shepherd" data-flag="@X" onclick="openSidebar('36_Sigardas Shepherd',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\78_Seagraf Shamblers.jpg" id="78_Seagraf Shamblers" data-flag="@X" onclick="openSidebar('78_Seagraf Shamblers',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\123_Sanguine Salvation.jpg" id="123_Sanguine Salvation" data-flag="@X" onclick="openSidebar('123_Sanguine Salvation',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\171_Thunderwolf.jpg" id="171_Thunderwolf" data-flag="@X" onclick="openSidebar('171_Thunderwolf',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\210_Moldgraf Wurm.jpg" id="210_Moldgraf Wurm" data-flag="@X" onclick="openSidebar('210_Moldgraf Wurm',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\38_Slayer's Grimoire.jpg" id="38_Slayers Grimoire" data-flag="@X" onclick="openSidebar('38_Slayers Grimoire',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\81_Skaab Grappler.jpg" id="81_Skaab Grappler" data-flag="@X" onclick="openSidebar('81_Skaab Grappler',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\124_Shilgengar's Harvester.jpg" id="124_Shilgengars Harvester" data-flag="@X" onclick="openSidebar('124_Shilgengars Harvester',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\172_Torch Reveler.jpg" id="172_Torch Reveler" data-flag="@X" onclick="openSidebar('172_Torch Reveler',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\211_Nettlehowler.jpg" id="211_Nettlehowler" data-flag="@X" onclick="openSidebar('211_Nettlehowler',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\39_Spectral Salvo.jpg" id="39_Spectral Salvo" data-flag="@X" onclick="openSidebar('39_Spectral Salvo',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\85_Sunken One.jpg" id="85_Sunken One" data-flag="@X" onclick="openSidebar('85_Sunken One',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\127_Strangleroot's Clutches.jpg" id="127_Strangleroots Clutches" data-flag="@X" onclick="openSidebar('127_Strangleroots Clutches',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\173_Troublesome Throng_back.jpg" alt="sets\INM-files\img\173_Troublesome Throng_front.jpg" id="173_Troublesome Throng" data-flag="@XD" onclick="openSidebar('173_Troublesome Throng',false)"><button class="flip-btn" onclick="imgFlip(173_Troublesome Throng)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\212_Never Give Up.jpg" id="212_Never Give Up" data-flag="@X" onclick="openSidebar('212_Never Give Up',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\40_Stalwart Cathar.jpg" id="40_Stalwart Cathar" data-flag="@X" onclick="openSidebar('40_Stalwart Cathar',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\87_Uncovered Secrets.jpg" id="87_Uncovered Secrets" data-flag="@X" onclick="openSidebar('87_Uncovered Secrets',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\129_True Blood.jpg" id="129_True Blood" data-flag="@X" onclick="openSidebar('129_True Blood',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\175_Vampiric Vice.jpg" id="175_Vampiric Vice" data-flag="@X" onclick="openSidebar('175_Vampiric Vice',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\213_Orchard Overseer.jpg" id="213_Orchard Overseer" data-flag="@X" onclick="openSidebar('213_Orchard Overseer',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\41_Subdue the Monster.jpg" id="41_Subdue the Monster" data-flag="@X" onclick="openSidebar('41_Subdue the Monster',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\89_Unethical Research.jpg" id="89_Unethical Research" data-flag="@X" onclick="openSidebar('89_Unethical Research',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\131_Undead Hex.jpg" id="131_Undead Hex" data-flag="@X" onclick="openSidebar('131_Undead Hex',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\176_Volatile Alchemist.jpg" id="176_Volatile Alchemist" data-flag="@X" onclick="openSidebar('176_Volatile Alchemist',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\220_Somberwald Rider_back.jpg" alt="sets\INM-files\img\220_Somberwald Rider_front.jpg" id="220_Somberwald Rider" data-flag="@XD" onclick="openSidebar('220_Somberwald Rider',false)"><button class="flip-btn" onclick="imgFlip(220_Somberwald Rider)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\45_Weizenmother.jpg" id="45_Weizenmother" data-flag="@X" onclick="openSidebar('45_Weizenmother',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\90_Widow Wisp.jpg" id="90_Widow Wisp" data-flag="@X" onclick="openSidebar('90_Widow Wisp',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\133_Undead Servant.jpg" id="133_Undead Servant" data-flag="@X" onclick="openSidebar('133_Undead Servant',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\178_Voldaren Crypt-Guard.jpg" id="178_Voldaren Crypt-Guard" data-flag="@X" onclick="openSidebar('178_Voldaren Crypt-Guard',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\221_Terror of the Ulvenwald.jpg" id="221_Terror of the Ulvenwald" data-flag="@X" onclick="openSidebar('221_Terror of the Ulvenwald',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\226_Bruna, Shepherd of Souls.jpg" id="226_Bruna, Shepherd of Souls" data-flag="@X" onclick="openSidebar('226_Bruna, Shepherd of Souls',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\230_Drownyard Colossus.jpg" id="230_Drownyard Colossus" data-flag="@X" onclick="openSidebar('230_Drownyard Colossus',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\245_Olivia Voldaren, Progenitrix.jpg" id="245_Olivia Voldaren, Progenitrix" data-flag="@X" onclick="openSidebar('245_Olivia Voldaren, Progenitrix',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\249_Valseid, Leyran Brute_back.jpg" alt="sets\INM-files\img\249_Valseid, Leyran Brute_front.jpg" id="249_Valseid, Leyran Brute" data-flag="@XD" onclick="openSidebar('249_Valseid, Leyran Brute',false)"><button class="flip-btn" onclick="imgFlip(249_Valseid, Leyran Brute)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\233_Ghrin-Danu, the Dawnhart.jpg" id="233_Ghrin-Danu, the Dawnhart" data-flag="@X" onclick="openSidebar('233_Ghrin-Danu, the Dawnhart',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\248_Tattergeist.jpg" id="248_Tattergeist" data-flag="@X" onclick="openSidebar('248_Tattergeist',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\229_Drownyard Captain.jpg" id="229_Drownyard Captain" data-flag="@X" onclick="openSidebar('229_Drownyard Captain',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\250_Voldaren Sovereign.jpg" id="250_Voldaren Sovereign" data-flag="@X" onclick="openSidebar('250_Voldaren Sovereign',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\238_Leyran Hunting Pack.jpg" id="238_Leyran Hunting Pack" data-flag="@X" onclick="openSidebar('238_Leyran Hunting Pack',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\247_Sigarda, Dawn of Mercy.jpg" id="247_Sigarda, Dawn of Mercy" data-flag="@X" onclick="openSidebar('247_Sigarda, Dawn of Mercy',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\236_Heron's Grace Patrol.jpg" id="236_Herons Grace Patrol" data-flag="@X" onclick="openSidebar('236_Herons Grace Patrol',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\228_Divine Decree.jpg" id="228_Divine Decree" data-flag="@X" onclick="openSidebar('228_Divine Decree',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\237_Krallenmaw, the Tempter.jpg" id="237_Krallenmaw, the Tempter" data-flag="@X" onclick="openSidebar('237_Krallenmaw, the Tempter',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\241_Makodonis, Master of Form.jpg" id="241_Makodonis, Master of Form" data-flag="@X" onclick="openSidebar('241_Makodonis, Master of Form',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\227_Curse of Whispers.jpg" id="227_Curse of Whispers" data-flag="@X" onclick="openSidebar('227_Curse of Whispers',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\234_Gisela, Blade of Morning.jpg" id="234_Gisela, Blade of Morning" data-flag="@X" onclick="openSidebar('234_Gisela, Blade of Morning',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\239_Liesa, Enemy of Shadow.jpg" id="239_Liesa, Enemy of Shadow" data-flag="@X" onclick="openSidebar('239_Liesa, Enemy of Shadow',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\232_Garden Ghoul.jpg" id="232_Garden Ghoul" data-flag="@X" onclick="openSidebar('232_Garden Ghoul',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\242_Makodonis's Wolfbro.jpg" id="242_Makodoniss Wolfbro" data-flag="@X" onclick="openSidebar('242_Makodoniss Wolfbro',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\243_Malevolus.jpg" id="243_Malevolus" data-flag="@X" onclick="openSidebar('243_Malevolus',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\235_Goldnight Seraph.jpg" id="235_Goldnight Seraph" data-flag="@X" onclick="openSidebar('235_Goldnight Seraph',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\244_March of the Unhallowed.jpg" id="244_March of the Unhallowed" data-flag="@X" onclick="openSidebar('244_March of the Unhallowed',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\240_Liturgy of Brine.jpg" id="240_Liturgy of Brine" data-flag="@X" onclick="openSidebar('240_Liturgy of Brine',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\246_The Selhoff Twins.jpg" id="246_The Selhoff Twins" data-flag="@X" onclick="openSidebar('246_The Selhoff Twins',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\231_Edgar Markov, Bloodsire.jpg" id="231_Edgar Markov, Bloodsire" data-flag="@X" onclick="openSidebar('231_Edgar Markov, Bloodsire',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\254_Exsanguinator.jpg" id="254_Exsanguinator" data-flag="@X" onclick="openSidebar('254_Exsanguinator',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\257_Helvault, Shard of the Moon.jpg" id="257_Helvault, Shard of the Moon" data-flag="@X" onclick="openSidebar('257_Helvault, Shard of the Moon',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\259_Phylactery of Forbidden Arts.jpg" id="259_Phylactery of Forbidden Arts" data-flag="@X" onclick="openSidebar('259_Phylactery of Forbidden Arts',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\261_Scrolls of Succession.jpg" id="261_Scrolls of Succession" data-flag="@X" onclick="openSidebar('261_Scrolls of Succession',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\264_The Wickerscreech of Gatstaf.jpg" id="264_The Wickerscreech of Gatstaf" data-flag="@X" onclick="openSidebar('264_The Wickerscreech of Gatstaf',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\251_Angelic Statue.jpg" id="251_Angelic Statue" data-flag="@X" onclick="openSidebar('251_Angelic Statue',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\253_Demonrune Wall.jpg" id="253_Demonrune Wall" data-flag="@X" onclick="openSidebar('253_Demonrune Wall',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\256_Harvesttide Nemesis.jpg" id="256_Harvesttide Nemesis" data-flag="@X" onclick="openSidebar('256_Harvesttide Nemesis',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\263_Survivor's Torch.jpg" id="263_Survivors Torch" data-flag="@X" onclick="openSidebar('263_Survivors Torch',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\252_Bodyless Knight.jpg" id="252_Bodyless Knight" data-flag="@X" onclick="openSidebar('252_Bodyless Knight',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\255_Guardian Grotesque.jpg" id="255_Guardian Grotesque" data-flag="@X" onclick="openSidebar('255_Guardian Grotesque',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\258_Hunter's Arsenal.jpg" id="258_Hunters Arsenal" data-flag="@X" onclick="openSidebar('258_Hunters Arsenal',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\260_Pulse Seeker.jpg" id="260_Pulse Seeker" data-flag="@X" onclick="openSidebar('260_Pulse Seeker',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\262_Soul-Capturing Lantern.jpg" id="262_Soul-Capturing Lantern" data-flag="@X" onclick="openSidebar('262_Soul-Capturing Lantern',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\269_Fog-Ridden Wharf.jpg" id="269_Fog-Ridden Wharf" data-flag="@X" onclick="openSidebar('269_Fog-Ridden Wharf',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\273_Macabre Pools.jpg" id="273_Macabre Pools" data-flag="@X" onclick="openSidebar('273_Macabre Pools',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\272_Hellfire Crater.jpg" id="272_Hellfire Crater" data-flag="@X" onclick="openSidebar('272_Hellfire Crater',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\267_Eerie Wildwood.jpg" id="267_Eerie Wildwood" data-flag="@X" onclick="openSidebar('267_Eerie Wildwood',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\265_Blessed Grounds.jpg" id="265_Blessed Grounds" data-flag="@X" onclick="openSidebar('265_Blessed Grounds',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\277_Solemn Bastion.jpg" id="277_Solemn Bastion" data-flag="@X" onclick="openSidebar('277_Solemn Bastion',false)"></div>
+			<div class="container"><img data-alt_src="sets\INM-files\img\279_Wesgoth Cemetery_back.jpg" alt="sets\INM-files\img\279_Wesgoth Cemetery_front.jpg" id="279_Wesgoth Cemetery" data-flag="@XD" onclick="openSidebar('279_Wesgoth Cemetery',false)"><button class="flip-btn" onclick="imgFlip(279_Wesgoth Cemetery)"></button></div>
+			<div class="container"><img alt="sets\INM-files\img\275_Secret Lagoon.jpg" id="275_Secret Lagoon" data-flag="@X" onclick="openSidebar('275_Secret Lagoon',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\266_Coastal Cairn.jpg" id="266_Coastal Cairn" data-flag="@X" onclick="openSidebar('266_Coastal Cairn',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\278_Sunswept Grange.jpg" id="278_Sunswept Grange" data-flag="@X" onclick="openSidebar('278_Sunswept Grange',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\274_Putrid Corcass.jpg" id="274_Putrid Corcass" data-flag="@X" onclick="openSidebar('274_Putrid Corcass',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\268_Elgaud Fortress.jpg" id="268_Elgaud Fortress" data-flag="@X" onclick="openSidebar('268_Elgaud Fortress',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\270_Genesis Grove.jpg" id="270_Genesis Grove" data-flag="@X" onclick="openSidebar('270_Genesis Grove',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\271_Ghoulcaller's Graf.jpg" id="271_Ghoulcallers Graf" data-flag="@X" onclick="openSidebar('271_Ghoulcallers Graf',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\276_Sinister Thicket.jpg" id="276_Sinister Thicket" data-flag="@X" onclick="openSidebar('276_Sinister Thicket',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\280_Plains.jpg" id="280_Plains" data-flag="@X" onclick="openSidebar('280_Plains',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\283_Island.jpg" id="283_Island" data-flag="@X" onclick="openSidebar('283_Island',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\286_Swamp.jpg" id="286_Swamp" data-flag="@X" onclick="openSidebar('286_Swamp',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\289_Mountain.jpg" id="289_Mountain" data-flag="@X" onclick="openSidebar('289_Mountain',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\292_Forest.jpg" id="292_Forest" data-flag="@X" onclick="openSidebar('292_Forest',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\281_Plains2.jpg" id="281_Plains2" data-flag="@X" onclick="openSidebar('281_Plains2',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\284_Island2.jpg" id="284_Island2" data-flag="@X" onclick="openSidebar('284_Island2',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\287_Swamp2.jpg" id="287_Swamp2" data-flag="@X" onclick="openSidebar('287_Swamp2',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\290_Mountain2.jpg" id="290_Mountain2" data-flag="@X" onclick="openSidebar('290_Mountain2',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\293_Forest2.jpg" id="293_Forest2" data-flag="@X" onclick="openSidebar('293_Forest2',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\282_Plains3.jpg" id="282_Plains3" data-flag="@X" onclick="openSidebar('282_Plains3',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\285_Island3.jpg" id="285_Island3" data-flag="@X" onclick="openSidebar('285_Island3',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\288_Swamp3.jpg" id="288_Swamp3" data-flag="@X" onclick="openSidebar('288_Swamp3',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\291_Mountain3.jpg" id="291_Mountain3" data-flag="@X" onclick="openSidebar('291_Mountain3',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\294_Forest3.jpg" id="294_Forest3" data-flag="@X" onclick="openSidebar('294_Forest3',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\1t_Angel.jpg" id="1t_Angel" data-flag="@X" onclick="openSidebar('1t_Angel',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\2t_Human.jpg" id="2t_Human" data-flag="@X" onclick="openSidebar('2t_Human',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\3t_Intangible Virtue.jpg" id="3t_Intangible Virtue" data-flag="@X" onclick="openSidebar('3t_Intangible Virtue',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\4t_Spirit.jpg" id="4t_Spirit" data-flag="@X" onclick="openSidebar('4t_Spirit',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\5t_Crab.jpg" id="5t_Crab" data-flag="@X" onclick="openSidebar('5t_Crab',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\6t_Bat.jpg" id="6t_Bat" data-flag="@X" onclick="openSidebar('6t_Bat',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\7t_Human Warlock.jpg" id="7t_Human Warlock" data-flag="@X" onclick="openSidebar('7t_Human Warlock',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\8t_Zombie.jpg" id="8t_Zombie" data-flag="@X" onclick="openSidebar('8t_Zombie',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\9t_Devil.jpg" id="9t_Devil" data-flag="@X" onclick="openSidebar('9t_Devil',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\10t_Elemental Spirit.jpg" id="10t_Elemental Spirit" data-flag="@X" onclick="openSidebar('10t_Elemental Spirit',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\11t_Human Survivor.jpg" id="11t_Human Survivor" data-flag="@X" onclick="openSidebar('11t_Human Survivor',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\12t_Bear Spirit.jpg" id="12t_Bear Spirit" data-flag="@X" onclick="openSidebar('12t_Bear Spirit',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\13t_Plant.jpg" id="13t_Plant" data-flag="@X" onclick="openSidebar('13t_Plant',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\14t_Wolf.jpg" id="14t_Wolf" data-flag="@X" onclick="openSidebar('14t_Wolf',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\15t_Vampire.jpg" id="15t_Vampire" data-flag="@X" onclick="openSidebar('15t_Vampire',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\16t_Treasure.jpg" id="16t_Treasure" data-flag="@X" onclick="openSidebar('16t_Treasure',false)"></div>
+			<div class="container"><img alt="sets\INM-files\img\17t_Weapon.jpg" id="17t_Weapon" data-flag="@X" onclick="openSidebar('17t_Weapon',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+	</div>
+</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+		
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = 'img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		tmp = document.getElementById(num).src;
+		document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+		document.getElementById(num).dataset.alt_src = tmp;
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		if (horizontal && rotated_img.style.display == 'none')
+		{
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+	}
+
+	function openSidebar(id, h=false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+		
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.src = document.getElementById(id).src;
+
+		if (horizontal)
+		{
+			rotated_img.src = document.getElementById(id).src;
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+		
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+		
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				search();
+			}
+		});
+
+		function search() {
+			window.location = ("/search?search=" + document.getElementById("search").value);
+		}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let card_name = card_list_arrayified[i].card_name;
+				for (const char of specialchars)
+				{
+					card_name = card_name.replaceAll(char, "");
+				}
+
+				window.location = ('/cards/' + card_list_arrayified[i].set + '/' + card_list_arrayified[i].number + '_' + card_name);
+			}
+	</script>
+</body>
+</html>

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="sets/MSK-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>MSK visual spoiler</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			display: none;
+			transform: rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 3%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 20px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.icon-bar {
+			display: grid;
+			grid-template-columns: repeat(10, 3fr 2fr) 3fr;
+			gap: 1px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-top: 2%;
+			padding-bottom: 1%;
+			justify-items: center;
+			align-items: center;
+		}
+		.icon-bar .icon img {
+			width: 90%;
+			max-width: 80px;
+			height: auto;
+			display: block;
+			padding: 5%;
+			margin: auto;
+			text-align: center;
+		}
+		.icon-bar .dot img {
+			width: 50%;
+			max-width: 65px;
+			height: auto;
+			display: block;
+			margin: auto;
+			text-align: center;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/MSK-files/logo.png" />
+	<img class="preload-hidden" src="/sets/2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/AUR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ERR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HEL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/INK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/INM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/KDT-files/icon.png" />
+		<img class="preload-hidden" src="/sets/MSK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PTXX-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SHF-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SHS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOV-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="icon-bar">
+			<div class="icon"><a href="2HU-spoiler"><img src="sets/2HU-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="AUR-spoiler"><img src="sets/AUR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="ERR-spoiler"><img src="sets/ERR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="HEL-spoiler"><img src="sets/HEL-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="INK-spoiler"><img src="sets/INK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="INM-spoiler"><img src="sets/INM-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="KDT-spoiler"><img src="sets/KDT-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="MSK-spoiler"><img src="sets/MSK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="ONI-spoiler"><img src="sets/ONI-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="PTXX-spoiler"><img src="sets/PTXX-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="SHF-spoiler"><img src="sets/SHF-files/icon.png"></img></a></div>
+		<div class="icon"><a href="SHS-spoiler"><img src="sets/SHS-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="SOV-spoiler"><img src="sets/SOV-files/icon.png"></img></a></div>
+
+		</div>
+		<div class="banner">
+		<img class="logo" src="sets/MSK-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+				<div class="container"><img alt="sets\MSK-files\img\7_Dietrich's Regret.jpg" id="7_Dietrichs Regret" data-flag="@X" onclick="openSidebar('7_Dietrichs Regret',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\40_Belligerent Muckamuck.jpg" id="40_Belligerent Muckamuck" data-flag="@X" onclick="openSidebar('40_Belligerent Muckamuck',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\81_Commit to Memory.jpg" id="81_Commit to Memory" data-flag="@X" onclick="openSidebar('81_Commit to Memory',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\118_Chorus of Flames.jpg" id="118_Chorus of Flames" data-flag="@X" onclick="openSidebar('118_Chorus of Flames',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\155_Censor of the Veiled.jpg" id="155_Censor of the Veiled" data-flag="@X" onclick="openSidebar('155_Censor of the Veiled',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\9_A Dream of Horizons.jpg" id="9_A Dream of Horizons" data-flag="@X" onclick="openSidebar('9_A Dream of Horizons',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\46_A Dream of Mirrors.jpg" id="46_A Dream of Mirrors" data-flag="@X" onclick="openSidebar('46_A Dream of Mirrors',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\83_Creeping Inadequacy.jpg" id="83_Creeping Inadequacy" data-flag="@X" onclick="openSidebar('83_Creeping Inadequacy',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\119_Crestfallen Roseblade.jpg" id="119_Crestfallen Roseblade" data-flag="@X" onclick="openSidebar('119_Crestfallen Roseblade',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\157_Curator of Copses.jpg" id="157_Curator of Copses" data-flag="@X" onclick="openSidebar('157_Curator of Copses',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\25_Play the Part.jpg" id="25_Play the Part" data-flag="@X" onclick="openSidebar('25_Play the Part',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\49_Erkinder Cataloger.jpg" id="49_Erkinder Cataloger" data-flag="@X" onclick="openSidebar('49_Erkinder Cataloger',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\84_Custodian of Corpses.jpg" id="84_Custodian of Corpses" data-flag="@X" onclick="openSidebar('84_Custodian of Corpses',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\120_Descent of Swift Death.jpg" id="120_Descent of Swift Death" data-flag="@X" onclick="openSidebar('120_Descent of Swift Death',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\163_A Dream of Yesterdays.jpg" id="163_A Dream of Yesterdays" data-flag="@X" onclick="openSidebar('163_A Dream of Yesterdays',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\26_Principality of Dawn.jpg" id="26_Principality of Dawn" data-flag="@X" onclick="openSidebar('26_Principality of Dawn',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\51_Fond Memories.jpg" id="51_Fond Memories" data-flag="@X" onclick="openSidebar('51_Fond Memories',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\91_A Dream of Stillness.jpg" id="91_A Dream of Stillness" data-flag="@X" onclick="openSidebar('91_A Dream of Stillness',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\121_A Dream of Reunion.jpg" id="121_A Dream of Reunion" data-flag="@X" onclick="openSidebar('121_A Dream of Reunion',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\166_From Hope to Action.jpg" id="166_From Hope to Action" data-flag="@X" onclick="openSidebar('166_From Hope to Action',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\28_Rousing Sentinel.jpg" id="28_Rousing Sentinel" data-flag="@X" onclick="openSidebar('28_Rousing Sentinel',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\52_Fount of the Wandering.jpg" id="52_Fount of the Wandering" data-flag="@X" onclick="openSidebar('52_Fount of the Wandering',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\92_Droning Beats of War.jpg" id="92_Droning Beats of War" data-flag="@X" onclick="openSidebar('92_Droning Beats of War',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\124_Eike, Masked with the Flame.jpg" id="124_Eike, Masked with the Flame" data-flag="@X" onclick="openSidebar('124_Eike, Masked with the Flame',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\170_Kriemhild of One Truth.jpg" id="170_Kriemhild of One Truth" data-flag="@X" onclick="openSidebar('170_Kriemhild of One Truth',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\29_Ruhe, Season of Silence.jpg" id="29_Ruhe, Season of Silence" data-flag="@X" onclick="openSidebar('29_Ruhe, Season of Silence',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\55_Jaegrin Woodweaver.jpg" id="55_Jaegrin Woodweaver" data-flag="@X" onclick="openSidebar('55_Jaegrin Woodweaver',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\95_Echo of Agony.jpg" id="95_Echo of Agony" data-flag="@X" onclick="openSidebar('95_Echo of Agony',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\125_Foraged Arms.jpg" id="125_Foraged Arms" data-flag="@X" onclick="openSidebar('125_Foraged Arms',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\171_Magniloquent Soulcaller.jpg" id="171_Magniloquent Soulcaller" data-flag="@X" onclick="openSidebar('171_Magniloquent Soulcaller',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\30_Silence's Blade.jpg" id="30_Silences Blade" data-flag="@X" onclick="openSidebar('30_Silences Blade',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\63_Prank of the Ages.jpg" id="63_Prank of the Ages" data-flag="@X" onclick="openSidebar('63_Prank of the Ages',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\97_Feeder of Lost Thoughts.jpg" id="97_Feeder of Lost Thoughts" data-flag="@X" onclick="openSidebar('97_Feeder of Lost Thoughts',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\128_Liberator of Petals.jpg" id="128_Liberator of Petals" data-flag="@X" onclick="openSidebar('128_Liberator of Petals',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\178_Rambunctious Mount.jpg" id="178_Rambunctious Mount" data-flag="@X" onclick="openSidebar('178_Rambunctious Mount',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\34_Together As One.jpg" id="34_Together As One" data-flag="@X" onclick="openSidebar('34_Together As One',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\65_Reaping Whirlwind.jpg" id="65_Reaping Whirlwind" data-flag="@X" onclick="openSidebar('65_Reaping Whirlwind',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\104_Rationalize.jpg" id="104_Rationalize" data-flag="@X" onclick="openSidebar('104_Rationalize',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\129_Lord Commander Ute IX.jpg" id="129_Lord Commander Ute IX" data-flag="@X" onclick="openSidebar('129_Lord Commander Ute IX',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\180_Slinking Sulfur.jpg" id="180_Slinking Sulfur" data-flag="@X" onclick="openSidebar('180_Slinking Sulfur',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\37_Virtue of Dawn.jpg" id="37_Virtue of Dawn" data-flag="@X" onclick="openSidebar('37_Virtue of Dawn',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\68_Season's End Festivalist.jpg" id="68_Seasons End Festivalist" data-flag="@X" onclick="openSidebar('68_Seasons End Festivalist',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\113_Treacherous Subterfuge.jpg" id="113_Treacherous Subterfuge" data-flag="@X" onclick="openSidebar('113_Treacherous Subterfuge',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\141_Return to Placidity.jpg" id="141_Return to Placidity" data-flag="@X" onclick="openSidebar('141_Return to Placidity',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\190_Zwiewald Crusher.jpg" id="190_Zwiewald Crusher" data-flag="@X" onclick="openSidebar('190_Zwiewald Crusher',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\1_Authority of Dawn.jpg" id="1_Authority of Dawn" data-flag="@X" onclick="openSidebar('1_Authority of Dawn',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\41_Carved Histories.jpg" id="41_Carved Histories" data-flag="@X" onclick="openSidebar('41_Carved Histories',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\77_Abandon the Calling.jpg" id="77_Abandon the Calling" data-flag="@X" onclick="openSidebar('77_Abandon the Calling',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\115_Autumn Bonfire.jpg" id="115_Autumn Bonfire" data-flag="@X" onclick="openSidebar('115_Autumn Bonfire',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\153_Buboh Shaman.jpg" id="153_Buboh Shaman" data-flag="@X" onclick="openSidebar('153_Buboh Shaman',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\2_Beaten but Not Broken.jpg" id="2_Beaten but Not Broken" data-flag="@X" onclick="openSidebar('2_Beaten but Not Broken',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\43_Courier of the Tribes.jpg" id="43_Courier of the Tribes" data-flag="@X" onclick="openSidebar('43_Courier of the Tribes',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\78_Alone Together.jpg" id="78_Alone Together" data-flag="@X" onclick="openSidebar('78_Alone Together',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\116_Boundary Seer.jpg" id="116_Boundary Seer" data-flag="@X" onclick="openSidebar('116_Boundary Seer',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\156_Corpseborn Verdant.jpg" id="156_Corpseborn Verdant" data-flag="@X" onclick="openSidebar('156_Corpseborn Verdant',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\3_Coerced Contemplation.jpg" id="3_Coerced Contemplation" data-flag="@X" onclick="openSidebar('3_Coerced Contemplation',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\44_Culinary Experimentalists.jpg" id="44_Culinary Experimentalists" data-flag="@X" onclick="openSidebar('44_Culinary Experimentalists',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\79_Be Reborn.jpg" id="79_Be Reborn" data-flag="@X" onclick="openSidebar('79_Be Reborn',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\117_Calamitous Whispers.jpg" id="117_Calamitous Whispers" data-flag="@X" onclick="openSidebar('117_Calamitous Whispers',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\162_Devoted of Zwiewald.jpg" id="162_Devoted of Zwiewald" data-flag="@X" onclick="openSidebar('162_Devoted of Zwiewald',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\8_Disinherited Scion.jpg" id="8_Disinherited Scion" data-flag="@X" onclick="openSidebar('8_Disinherited Scion',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\53_Irresistible Drums.jpg" id="53_Irresistible Drums" data-flag="@X" onclick="openSidebar('53_Irresistible Drums',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\86_Deathcap Overseer.jpg" id="86_Deathcap Overseer" data-flag="@X" onclick="openSidebar('86_Deathcap Overseer',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\122_Dwell on Despair.jpg" id="122_Dwell on Despair" data-flag="@X" onclick="openSidebar('122_Dwell on Despair',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\165_Fassahd Speaker.jpg" id="165_Fassahd Speaker" data-flag="@X" onclick="openSidebar('165_Fassahd Speaker',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\10_Escapade Collector.jpg" id="10_Escapade Collector" data-flag="@X" onclick="openSidebar('10_Escapade Collector',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\59_Overflowing Imagination.jpg" id="59_Overflowing Imagination" data-flag="@X" onclick="openSidebar('59_Overflowing Imagination',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\87_Delighted Madcap.jpg" id="87_Delighted Madcap" data-flag="@X" onclick="openSidebar('87_Delighted Madcap',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\126_From Blood, Blades.jpg" id="126_From Blood, Blades" data-flag="@X" onclick="openSidebar('126_From Blood, Blades',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\167_Harken the Past.jpg" id="167_Harken the Past" data-flag="@X" onclick="openSidebar('167_Harken the Past',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\12_Fassahd Elders.jpg" id="12_Fassahd Elders" data-flag="@X" onclick="openSidebar('12_Fassahd Elders',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\60_Paragon of Greed.jpg" id="60_Paragon of Greed" data-flag="@X" onclick="openSidebar('60_Paragon of Greed',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\88_Despondency on Wings High.jpg" id="88_Despondency on Wings High" data-flag="@X" onclick="openSidebar('88_Despondency on Wings High',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\130_Lorn Executioner.jpg" id="130_Lorn Executioner" data-flag="@X" onclick="openSidebar('130_Lorn Executioner',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\168_Hostile Watch.jpg" id="168_Hostile Watch" data-flag="@X" onclick="openSidebar('168_Hostile Watch',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\14_Great Lunadoptera.jpg" id="14_Great Lunadoptera" data-flag="@X" onclick="openSidebar('14_Great Lunadoptera',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\61_Parallel Possibility.jpg" id="61_Parallel Possibility" data-flag="@X" onclick="openSidebar('61_Parallel Possibility',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\89_Diviner of False Omens.jpg" id="89_Diviner of False Omens" data-flag="@X" onclick="openSidebar('89_Diviner of False Omens',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\132_Mark of Conquest.jpg" id="132_Mark of Conquest" data-flag="@X" onclick="openSidebar('132_Mark of Conquest',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\172_Marker of Odd Maps.jpg" id="172_Marker of Odd Maps" data-flag="@X" onclick="openSidebar('172_Marker of Odd Maps',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\15_Gregarious Buboh.jpg" id="15_Gregarious Buboh" data-flag="@X" onclick="openSidebar('15_Gregarious Buboh',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\64_Proclaim the End.jpg" id="64_Proclaim the End" data-flag="@X" onclick="openSidebar('64_Proclaim the End',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\90_Doleful Poleman.jpg" id="90_Doleful Poleman" data-flag="@X" onclick="openSidebar('90_Doleful Poleman',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\135_Now or Never.jpg" id="135_Now or Never" data-flag="@X" onclick="openSidebar('135_Now or Never',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\173_Mend the Scenery.jpg" id="173_Mend the Scenery" data-flag="@X" onclick="openSidebar('173_Mend the Scenery',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\16_Indifferent Landsknecht.jpg" id="16_Indifferent Landsknecht" data-flag="@X" onclick="openSidebar('16_Indifferent Landsknecht',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\67_Season's End Celebrant.jpg" id="67_Seasons End Celebrant" data-flag="@X" onclick="openSidebar('67_Seasons End Celebrant',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\103_Prune.jpg" id="103_Prune" data-flag="@X" onclick="openSidebar('103_Prune',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\136_Opulent Settler.jpg" id="136_Opulent Settler" data-flag="@X" onclick="openSidebar('136_Opulent Settler',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\176_Parsimonious Scamp.jpg" id="176_Parsimonious Scamp" data-flag="@X" onclick="openSidebar('176_Parsimonious Scamp',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\20_Make Peace.jpg" id="20_Make Peace" data-flag="@X" onclick="openSidebar('20_Make Peace',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\69_Spell Pierce.jpg" id="69_Spell Pierce" data-flag="@X" onclick="openSidebar('69_Spell Pierce',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\107_Rot Begets Regrowth.jpg" id="107_Rot Begets Regrowth" data-flag="@X" onclick="openSidebar('107_Rot Begets Regrowth',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\139_Quell.jpg" id="139_Quell" data-flag="@X" onclick="openSidebar('139_Quell',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\179_Revenge of the Zwiewald.jpg" id="179_Revenge of the Zwiewald" data-flag="@X" onclick="openSidebar('179_Revenge of the Zwiewald',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\22_Out-of-Body Experience.jpg" id="22_Out-of-Body Experience" data-flag="@X" onclick="openSidebar('22_Out-of-Body Experience',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\71_Swap Stories.jpg" id="71_Swap Stories" data-flag="@X" onclick="openSidebar('71_Swap Stories',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\110_Subvert Weakness.jpg" id="110_Subvert Weakness" data-flag="@X" onclick="openSidebar('110_Subvert Weakness',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\144_Scatterbrained Scamp.jpg" id="144_Scatterbrained Scamp" data-flag="@X" onclick="openSidebar('144_Scatterbrained Scamp',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\181_Stewards of the Fassahd.jpg" id="181_Stewards of the Fassahd" data-flag="@X" onclick="openSidebar('181_Stewards of the Fassahd',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\23_Part Missing a Whole.jpg" id="23_Part Missing a Whole" data-flag="@X" onclick="openSidebar('23_Part Missing a Whole',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\72_Swift Repetition.jpg" id="72_Swift Repetition" data-flag="@X" onclick="openSidebar('72_Swift Repetition',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\111_Those of Distant Familiarity.jpg" id="111_Those of Distant Familiarity" data-flag="@X" onclick="openSidebar('111_Those of Distant Familiarity',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\145_Swooping Indignation.jpg" id="145_Swooping Indignation" data-flag="@X" onclick="openSidebar('145_Swooping Indignation',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\185_Twin Mystagogues.jpg" id="185_Twin Mystagogues" data-flag="@X" onclick="openSidebar('185_Twin Mystagogues',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\31_Soaring Paragon.jpg" id="31_Soaring Paragon" data-flag="@X" onclick="openSidebar('31_Soaring Paragon',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\73_Throat of the World.jpg" id="73_Throat of the World" data-flag="@X" onclick="openSidebar('73_Throat of the World',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\112_Tiller of Memories.jpg" id="112_Tiller of Memories" data-flag="@X" onclick="openSidebar('112_Tiller of Memories',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\147_Wandering Contempt.jpg" id="147_Wandering Contempt" data-flag="@X" onclick="openSidebar('147_Wandering Contempt',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\186_Unleash Enmity.jpg" id="186_Unleash Enmity" data-flag="@X" onclick="openSidebar('186_Unleash Enmity',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\38_Waning Moon Adept.jpg" id="38_Waning Moon Adept" data-flag="@X" onclick="openSidebar('38_Waning Moon Adept',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\75_Unforeseen Illuminator.jpg" id="75_Unforeseen Illuminator" data-flag="@X" onclick="openSidebar('75_Unforeseen Illuminator',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\114_Unseam.jpg" id="114_Unseam" data-flag="@X" onclick="openSidebar('114_Unseam',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\150_Warkrei Bladedancer.jpg" id="150_Warkrei Bladedancer" data-flag="@X" onclick="openSidebar('150_Warkrei Bladedancer',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\187_Untamed Capacity of Growth.jpg" id="187_Untamed Capacity of Growth" data-flag="@X" onclick="openSidebar('187_Untamed Capacity of Growth',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\4_Courier Sergeant.jpg" id="4_Courier Sergeant" data-flag="@X" onclick="openSidebar('4_Courier Sergeant',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\39_Aural Gardener.jpg" id="39_Aural Gardener" data-flag="@X" onclick="openSidebar('39_Aural Gardener',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\80_Better to Forget.jpg" id="80_Better to Forget" data-flag="@X" onclick="openSidebar('80_Better to Forget',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\123_Dynamic Entry.jpg" id="123_Dynamic Entry" data-flag="@X" onclick="openSidebar('123_Dynamic Entry',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\154_Cartographer of History.jpg" id="154_Cartographer of History" data-flag="@X" onclick="openSidebar('154_Cartographer of History',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\5_Dancer on the Wind.jpg" id="5_Dancer on the Wind" data-flag="@X" onclick="openSidebar('5_Dancer on the Wind',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\42_Consider.jpg" id="42_Consider" data-flag="@X" onclick="openSidebar('42_Consider',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\82_Conspiracy of Ravens.jpg" id="82_Conspiracy of Ravens" data-flag="@X" onclick="openSidebar('82_Conspiracy of Ravens',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\127_Let Go.jpg" id="127_Let Go" data-flag="@X" onclick="openSidebar('127_Let Go',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\158_Custodian of Cycles.jpg" id="158_Custodian of Cycles" data-flag="@X" onclick="openSidebar('158_Custodian of Cycles',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\6_Deliverance of Dawn.jpg" id="6_Deliverance of Dawn" data-flag="@X" onclick="openSidebar('6_Deliverance of Dawn',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\45_Discern.jpg" id="45_Discern" data-flag="@X" onclick="openSidebar('45_Discern',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\85_Dead Weight.jpg" id="85_Dead Weight" data-flag="@X" onclick="openSidebar('85_Dead Weight',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\131_Lumbering Nomad.jpg" id="131_Lumbering Nomad" data-flag="@X" onclick="openSidebar('131_Lumbering Nomad',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\159_Deadly Recluse.jpg" id="159_Deadly Recluse" data-flag="@X" onclick="openSidebar('159_Deadly Recluse',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\11_Faithful Harrier.jpg" id="11_Faithful Harrier" data-flag="@X" onclick="openSidebar('11_Faithful Harrier',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\47_Dwell on Unknown Pasts.jpg" id="47_Dwell on Unknown Pasts" data-flag="@X" onclick="openSidebar('47_Dwell on Unknown Pasts',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\93_Drown Hope.jpg" id="93_Drown Hope" data-flag="@X" onclick="openSidebar('93_Drown Hope',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\133_Merry Marauder.jpg" id="133_Merry Marauder" data-flag="@X" onclick="openSidebar('133_Merry Marauder',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\160_Deepwoods Sentinel.jpg" id="160_Deepwoods Sentinel" data-flag="@X" onclick="openSidebar('160_Deepwoods Sentinel',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\13_Fassahd Hunting Party.jpg" id="13_Fassahd Hunting Party" data-flag="@X" onclick="openSidebar('13_Fassahd Hunting Party',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\48_Erkinder Analyst.jpg" id="48_Erkinder Analyst" data-flag="@X" onclick="openSidebar('48_Erkinder Analyst',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\94_Dweller in Shadow.jpg" id="94_Dweller in Shadow" data-flag="@X" onclick="openSidebar('94_Dweller in Shadow',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\134_Monarch-Clad Fae.jpg" id="134_Monarch-Clad Fae" data-flag="@X" onclick="openSidebar('134_Monarch-Clad Fae',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\161_Deprecate.jpg" id="161_Deprecate" data-flag="@X" onclick="openSidebar('161_Deprecate',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\17_Innocence Denied.jpg" id="17_Innocence Denied" data-flag="@X" onclick="openSidebar('17_Innocence Denied',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\50_Fassahd Breezeseer.jpg" id="50_Fassahd Breezeseer" data-flag="@X" onclick="openSidebar('50_Fassahd Breezeseer',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\96_Fall Apart.jpg" id="96_Fall Apart" data-flag="@X" onclick="openSidebar('96_Fall Apart',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\137_Protean Bloom.jpg" id="137_Protean Bloom" data-flag="@X" onclick="openSidebar('137_Protean Bloom',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\164_Edge of Autumn.jpg" id="164_Edge of Autumn" data-flag="@X" onclick="openSidebar('164_Edge of Autumn',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\18_Keep Moving.jpg" id="18_Keep Moving" data-flag="@X" onclick="openSidebar('18_Keep Moving',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\54_Jaegrin Outrider.jpg" id="54_Jaegrin Outrider" data-flag="@X" onclick="openSidebar('54_Jaegrin Outrider',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\98_Fledgling Cultivator.jpg" id="98_Fledgling Cultivator" data-flag="@X" onclick="openSidebar('98_Fledgling Cultivator',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\138_Pyrodancer.jpg" id="138_Pyrodancer" data-flag="@X" onclick="openSidebar('138_Pyrodancer',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\169_Jolly Scopuinter.jpg" id="169_Jolly Scopuinter" data-flag="@X" onclick="openSidebar('169_Jolly Scopuinter',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\19_Luminous Rearguard.jpg" id="19_Luminous Rearguard" data-flag="@X" onclick="openSidebar('19_Luminous Rearguard',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\56_Listlessness.jpg" id="56_Listlessness" data-flag="@X" onclick="openSidebar('56_Listlessness',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\99_Gallant of Singing Steel.jpg" id="99_Gallant of Singing Steel" data-flag="@X" onclick="openSidebar('99_Gallant of Singing Steel',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\140_Rally the Dragoons.jpg" id="140_Rally the Dragoons" data-flag="@X" onclick="openSidebar('140_Rally the Dragoons',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\174_Myth Given Voice.jpg" id="174_Myth Given Voice" data-flag="@X" onclick="openSidebar('174_Myth Given Voice',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\21_Mellifluous Hussar.jpg" id="21_Mellifluous Hussar" data-flag="@X" onclick="openSidebar('21_Mellifluous Hussar',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\57_Misfortune's Steed.jpg" id="57_Misfortunes Steed" data-flag="@X" onclick="openSidebar('57_Misfortunes Steed',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\100_Hardened Heart.jpg" id="100_Hardened Heart" data-flag="@X" onclick="openSidebar('100_Hardened Heart',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\142_Rip and Tear.jpg" id="142_Rip and Tear" data-flag="@X" onclick="openSidebar('142_Rip and Tear',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\175_A New Direction.jpg" id="175_A New Direction" data-flag="@X" onclick="openSidebar('175_A New Direction',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\24_Patriotic Landsknecht.jpg" id="24_Patriotic Landsknecht" data-flag="@X" onclick="openSidebar('24_Patriotic Landsknecht',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\58_Mite Errant.jpg" id="58_Mite Errant" data-flag="@X" onclick="openSidebar('58_Mite Errant',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\101_Keeper of Those Lost.jpg" id="101_Keeper of Those Lost" data-flag="@X" onclick="openSidebar('101_Keeper of Those Lost',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\143_Roused Elder.jpg" id="143_Roused Elder" data-flag="@X" onclick="openSidebar('143_Roused Elder',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\177_Push the Advantage.jpg" id="177_Push the Advantage" data-flag="@X" onclick="openSidebar('177_Push the Advantage',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\27_Quaint Harvest.jpg" id="27_Quaint Harvest" data-flag="@X" onclick="openSidebar('27_Quaint Harvest',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\62_Pelagic Inquiry.jpg" id="62_Pelagic Inquiry" data-flag="@X" onclick="openSidebar('62_Pelagic Inquiry',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\102_Needling Lancer.jpg" id="102_Needling Lancer" data-flag="@X" onclick="openSidebar('102_Needling Lancer',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\146_Vitrified Memory.jpg" id="146_Vitrified Memory" data-flag="@X" onclick="openSidebar('146_Vitrified Memory',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\182_Strike from Afar.jpg" id="182_Strike from Afar" data-flag="@X" onclick="openSidebar('182_Strike from Afar',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\32_Stoop.jpg" id="32_Stoop" data-flag="@X" onclick="openSidebar('32_Stoop',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\66_Restless Nights.jpg" id="66_Restless Nights" data-flag="@X" onclick="openSidebar('66_Restless Nights',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\105_Reason to Beware.jpg" id="105_Reason to Beware" data-flag="@X" onclick="openSidebar('105_Reason to Beware',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\148_Wandering Curiosity.jpg" id="148_Wandering Curiosity" data-flag="@X" onclick="openSidebar('148_Wandering Curiosity',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\183_Student of the Oldest Oak.jpg" id="183_Student of the Oldest Oak" data-flag="@X" onclick="openSidebar('183_Student of the Oldest Oak',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\33_Thorough Preparations.jpg" id="33_Thorough Preparations" data-flag="@X" onclick="openSidebar('33_Thorough Preparations',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\70_Student of Syncopation.jpg" id="70_Student of Syncopation" data-flag="@X" onclick="openSidebar('70_Student of Syncopation',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\106_Roaming Anguish.jpg" id="106_Roaming Anguish" data-flag="@X" onclick="openSidebar('106_Roaming Anguish',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\149_Wandering Sorrow.jpg" id="149_Wandering Sorrow" data-flag="@X" onclick="openSidebar('149_Wandering Sorrow',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\184_Timber Pummeler.jpg" id="184_Timber Pummeler" data-flag="@X" onclick="openSidebar('184_Timber Pummeler',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\35_Vanguard Naturalist.jpg" id="35_Vanguard Naturalist" data-flag="@X" onclick="openSidebar('35_Vanguard Naturalist',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\74_Transpose.jpg" id="74_Transpose" data-flag="@X" onclick="openSidebar('74_Transpose',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\108_Secrets of the Dead.jpg" id="108_Secrets of the Dead" data-flag="@X" onclick="openSidebar('108_Secrets of the Dead',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\151_Warkrei Commander.jpg" id="151_Warkrei Commander" data-flag="@X" onclick="openSidebar('151_Warkrei Commander',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\188_Wary Wanderer.jpg" id="188_Wary Wanderer" data-flag="@X" onclick="openSidebar('188_Wary Wanderer',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\36_Veiled Foreboding.jpg" id="36_Veiled Foreboding" data-flag="@X" onclick="openSidebar('36_Veiled Foreboding',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\76_Zyklinder Herbalist.jpg" id="76_Zyklinder Herbalist" data-flag="@X" onclick="openSidebar('76_Zyklinder Herbalist',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\109_Shambling Canker.jpg" id="109_Shambling Canker" data-flag="@X" onclick="openSidebar('109_Shambling Canker',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\152_Wrap Up.jpg" id="152_Wrap Up" data-flag="@X" onclick="openSidebar('152_Wrap Up',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\189_Yellowcap Centurion.jpg" id="189_Yellowcap Centurion" data-flag="@X" onclick="openSidebar('189_Yellowcap Centurion',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\191_Dietrich, Fassahd Seer.jpg" id="191_Dietrich, Fassahd Seer" data-flag="@X" onclick="openSidebar('191_Dietrich, Fassahd Seer',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\196_Serenity's Guide.jpg" id="196_Serenitys Guide" data-flag="@X" onclick="openSidebar('196_Serenitys Guide',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\200_Brunhild.jpg" id="200_Brunhild" data-flag="@X" onclick="openSidebar('200_Brunhild',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\204_Crowned Croaker.jpg" id="204_Crowned Croaker" data-flag="@X" onclick="openSidebar('204_Crowned Croaker',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\207_Anina, Breath of the Winds.jpg" id="207_Anina, Breath of the Winds" data-flag="@X" onclick="openSidebar('207_Anina, Breath of the Winds',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\192_Elissia, Alone.jpg" id="192_Elissia, Alone" data-flag="@X" onclick="openSidebar('192_Elissia, Alone',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\198_Ziel, Season of Endings.jpg" id="198_Ziel, Season of Endings" data-flag="@X" onclick="openSidebar('198_Ziel, Season of Endings',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\201_Ludolf, Wartorn.jpg" id="201_Ludolf, Wartorn" data-flag="@X" onclick="openSidebar('201_Ludolf, Wartorn',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\206_Kriemhild of Many Masks.jpg" id="206_Kriemhild of Many Masks" data-flag="@X" onclick="openSidebar('206_Kriemhild of Many Masks',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\210_Lessons Learned Trials Won.jpg" id="210_Lessons Learned Trials Won" data-flag="@X" onclick="openSidebar('210_Lessons Learned Trials Won',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\193_Erkinder Explorer.jpg" id="193_Erkinder Explorer" data-flag="@X" onclick="openSidebar('193_Erkinder Explorer',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\195_Hall of Echoes.jpg" id="195_Hall of Echoes" data-flag="@X" onclick="openSidebar('195_Hall of Echoes',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\199_Breaker of Stagnancy.jpg" id="199_Breaker of Stagnancy" data-flag="@X" onclick="openSidebar('199_Breaker of Stagnancy',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\203_Behold Ruhigwelt.jpg" id="203_Behold Ruhigwelt" data-flag="@X" onclick="openSidebar('203_Behold Ruhigwelt',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\208_Boasting Rootwalla.jpg" id="208_Boasting Rootwalla" data-flag="@X" onclick="openSidebar('208_Boasting Rootwalla',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\194_Tentative Peace.jpg" id="194_Tentative Peace" data-flag="@X" onclick="openSidebar('194_Tentative Peace',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\197_Strands of Life's Web.jpg" id="197_Strands of Lifes Web" data-flag="@X" onclick="openSidebar('197_Strands of Lifes Web',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\202_Witness to Many Ends.jpg" id="202_Witness to Many Ends" data-flag="@X" onclick="openSidebar('202_Witness to Many Ends',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\205_Gatherer of Many Masks.jpg" id="205_Gatherer of Many Masks" data-flag="@X" onclick="openSidebar('205_Gatherer of Many Masks',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\209_Horns of Drained Ichor.jpg" id="209_Horns of Drained Ichor" data-flag="@X" onclick="openSidebar('209_Horns of Drained Ichor',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\211_Expelled.jpg" id="211_Expelled" data-flag="@X" onclick="openSidebar('211_Expelled',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\221_Kriemhild, Unbidden End.jpg" id="221_Kriemhild, Unbidden End" data-flag="@X" onclick="openSidebar('221_Kriemhild, Unbidden End',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\229_The Call of the Zwiewald.jpg" id="229_The Call of the Zwiewald" data-flag="@X" onclick="openSidebar('229_The Call of the Zwiewald',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\216_Invigorating Discovery.jpg" id="216_Invigorating Discovery" data-flag="@X" onclick="openSidebar('216_Invigorating Discovery',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\223_Dammern, Season of Song.jpg" id="223_Dammern, Season of Song" data-flag="@X" onclick="openSidebar('223_Dammern, Season of Song',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\212_Motte, Season of Origins.jpg" id="212_Motte, Season of Origins" data-flag="@X" onclick="openSidebar('212_Motte, Season of Origins',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\222_Leave For Rot.jpg" id="222_Leave For Rot" data-flag="@X" onclick="openSidebar('222_Leave For Rot',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\230_Magali.jpg" id="230_Magali" data-flag="@X" onclick="openSidebar('230_Magali',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\218_Rauchi.jpg" id="218_Rauchi" data-flag="@X" onclick="openSidebar('218_Rauchi',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\226_Ute's Honor Guard.jpg" id="226_Utes Honor Guard" data-flag="@X" onclick="openSidebar('226_Utes Honor Guard',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\213_Odd-Eyed Animist.jpg" id="213_Odd-Eyed Animist" data-flag="@X" onclick="openSidebar('213_Odd-Eyed Animist',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\219_Fool's Errand.jpg" id="219_Fools Errand" data-flag="@X" onclick="openSidebar('219_Fools Errand',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\227_Apis Rider.jpg" id="227_Apis Rider" data-flag="@X" onclick="openSidebar('227_Apis Rider',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\215_Galvanized Ink.jpg" id="215_Galvanized Ink" data-flag="@X" onclick="openSidebar('215_Galvanized Ink',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\224_Decisive Brightblade.jpg" id="224_Decisive Brightblade" data-flag="@X" onclick="openSidebar('224_Decisive Brightblade',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\214_Shrine to the First Dawn.jpg" id="214_Shrine to the First Dawn" data-flag="@X" onclick="openSidebar('214_Shrine to the First Dawn',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\220_Inexorable Rot.jpg" id="220_Inexorable Rot" data-flag="@X" onclick="openSidebar('220_Inexorable Rot',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\228_Breitmeer Delver.jpg" id="228_Breitmeer Delver" data-flag="@X" onclick="openSidebar('228_Breitmeer Delver',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\217_Newborn Grausamkeit.jpg" id="217_Newborn Grausamkeit" data-flag="@X" onclick="openSidebar('217_Newborn Grausamkeit',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\225_Unblooded Edge.jpg" id="225_Unblooded Edge" data-flag="@X" onclick="openSidebar('225_Unblooded Edge',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\231_The Wolf and the Lamb.jpg" id="231_The Wolf and the Lamb" data-flag="@X" onclick="openSidebar('231_The Wolf and the Lamb',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\237_Kriemhild's First Mask.jpg" id="237_Kriemhilds First Mask" data-flag="@X" onclick="openSidebar('237_Kriemhilds First Mask',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\240_Nasaj.jpg" id="240_Nasaj" data-flag="@X" onclick="openSidebar('240_Nasaj',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\233_Assimilated Explorer.jpg" id="233_Assimilated Explorer" data-flag="@X" onclick="openSidebar('233_Assimilated Explorer',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\238_Longshot Resident.jpg" id="238_Longshot Resident" data-flag="@X" onclick="openSidebar('238_Longshot Resident',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\239_Monument to the Fallen Man.jpg" id="239_Monument to the Fallen Man" data-flag="@X" onclick="openSidebar('239_Monument to the Fallen Man',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\232_Apotropaic Maw.jpg" id="232_Apotropaic Maw" data-flag="@X" onclick="openSidebar('232_Apotropaic Maw',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\234_Cryptic Pioneer.jpg" id="234_Cryptic Pioneer" data-flag="@X" onclick="openSidebar('234_Cryptic Pioneer',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\235_Far-Flung Voyager.jpg" id="235_Far-Flung Voyager" data-flag="@X" onclick="openSidebar('235_Far-Flung Voyager',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\236_Flowing Blade.jpg" id="236_Flowing Blade" data-flag="@X" onclick="openSidebar('236_Flowing Blade',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\241_Skull of Titan's Past.jpg" id="241_Skull of Titans Past" data-flag="@X" onclick="openSidebar('241_Skull of Titans Past',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\242_Steward of New Horizons.jpg" id="242_Steward of New Horizons" data-flag="@X" onclick="openSidebar('242_Steward of New Horizons',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\257_Fassahd Outpost.jpg" id="257_Fassahd Outpost" data-flag="@X" onclick="openSidebar('257_Fassahd Outpost',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\262_Jaegrin Outpost.jpg" id="262_Jaegrin Outpost" data-flag="@X" onclick="openSidebar('262_Jaegrin Outpost',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\260_Grabeih Outpost.jpg" id="260_Grabeih Outpost" data-flag="@X" onclick="openSidebar('260_Grabeih Outpost',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\278_Warkrei Outpost.jpg" id="278_Warkrei Outpost" data-flag="@X" onclick="openSidebar('278_Warkrei Outpost',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\280_Zyklinder Outpost.jpg" id="280_Zyklinder Outpost" data-flag="@X" onclick="openSidebar('280_Zyklinder Outpost',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\271_Scenic Meadow.jpg" id="271_Scenic Meadow" data-flag="@X" onclick="openSidebar('271_Scenic Meadow',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\268_Scenic Coast.jpg" id="268_Scenic Coast" data-flag="@X" onclick="openSidebar('268_Scenic Coast',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\270_Scenic Hollow.jpg" id="270_Scenic Hollow" data-flag="@X" onclick="openSidebar('270_Scenic Hollow',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\267_Scenic Caldera.jpg" id="267_Scenic Caldera" data-flag="@X" onclick="openSidebar('267_Scenic Caldera',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\269_Scenic Copse.jpg" id="269_Scenic Copse" data-flag="@X" onclick="openSidebar('269_Scenic Copse',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\255_Crossroads of Unity.jpg" id="255_Crossroads of Unity" data-flag="@X" onclick="openSidebar('255_Crossroads of Unity',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\246_Crossroads of Amnesty.jpg" id="246_Crossroads of Amnesty" data-flag="@X" onclick="openSidebar('246_Crossroads of Amnesty',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\251_Crossroads of Finality.jpg" id="251_Crossroads of Finality" data-flag="@X" onclick="openSidebar('251_Crossroads of Finality',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\252_Crossroads of History.jpg" id="252_Crossroads of History" data-flag="@X" onclick="openSidebar('252_Crossroads of History',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\249_Crossroads of Charity.jpg" id="249_Crossroads of Charity" data-flag="@X" onclick="openSidebar('249_Crossroads of Charity',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\253_Crossroads of Serenity.jpg" id="253_Crossroads of Serenity" data-flag="@X" onclick="openSidebar('253_Crossroads of Serenity',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\254_Crossroads of Tenacity.jpg" id="254_Crossroads of Tenacity" data-flag="@X" onclick="openSidebar('254_Crossroads of Tenacity',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\250_Crossroads of Efficiency.jpg" id="250_Crossroads of Efficiency" data-flag="@X" onclick="openSidebar('250_Crossroads of Efficiency',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\247_Crossroads of Artistry.jpg" id="247_Crossroads of Artistry" data-flag="@X" onclick="openSidebar('247_Crossroads of Artistry',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\248_Crossroads of Bravery.jpg" id="248_Crossroads of Bravery" data-flag="@X" onclick="openSidebar('248_Crossroads of Bravery',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\266_Path of the Unremembered.jpg" id="266_Path of the Unremembered" data-flag="@X" onclick="openSidebar('266_Path of the Unremembered',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\276_Totem of the Forgotten.jpg" id="276_Totem of the Forgotten" data-flag="@X" onclick="openSidebar('276_Totem of the Forgotten',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\244_Ash Barrens.jpg" id="244_Ash Barrens" data-flag="@X" onclick="openSidebar('244_Ash Barrens',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\256_Demolition Field.jpg" id="256_Demolition Field" data-flag="@X" onclick="openSidebar('256_Demolition Field',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\259_Forgotten Monoliths.jpg" id="259_Forgotten Monoliths" data-flag="@X" onclick="openSidebar('259_Forgotten Monoliths',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\274_Testament to Memory.jpg" id="274_Testament to Memory" data-flag="@X" onclick="openSidebar('274_Testament to Memory',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\277_Valley of the Lost.jpg" id="277_Valley of the Lost" data-flag="@X" onclick="openSidebar('277_Valley of the Lost',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\243_Amber Hills.jpg" id="243_Amber Hills" data-flag="@X" onclick="openSidebar('243_Amber Hills',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\245_Barren Desolation.jpg" id="245_Barren Desolation" data-flag="@X" onclick="openSidebar('245_Barren Desolation',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\258_Flooded Depths.jpg" id="258_Flooded Depths" data-flag="@X" onclick="openSidebar('258_Flooded Depths',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\261_Grim Bastion.jpg" id="261_Grim Bastion" data-flag="@X" onclick="openSidebar('261_Grim Bastion',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\263_Magmatic Torrent.jpg" id="263_Magmatic Torrent" data-flag="@X" onclick="openSidebar('263_Magmatic Torrent',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\264_Mysterious Cataract.jpg" id="264_Mysterious Cataract" data-flag="@X" onclick="openSidebar('264_Mysterious Cataract',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\265_Ocean Monastery.jpg" id="265_Ocean Monastery" data-flag="@X" onclick="openSidebar('265_Ocean Monastery',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\272_Shardstone Rift.jpg" id="272_Shardstone Rift" data-flag="@X" onclick="openSidebar('272_Shardstone Rift',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\273_Sunlit Highland.jpg" id="273_Sunlit Highland" data-flag="@X" onclick="openSidebar('273_Sunlit Highland',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\275_Timber Range.jpg" id="275_Timber Range" data-flag="@X" onclick="openSidebar('275_Timber Range',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\279_Wayfarer's Shrine.jpg" id="279_Wayfarers Shrine" data-flag="@X" onclick="openSidebar('279_Wayfarers Shrine',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\281_Plains.jpg" id="281_Plains" data-flag="@X" onclick="openSidebar('281_Plains',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\282_Island.jpg" id="282_Island" data-flag="@X" onclick="openSidebar('282_Island',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\283_Swamp.jpg" id="283_Swamp" data-flag="@X" onclick="openSidebar('283_Swamp',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\284_Mountain.jpg" id="284_Mountain" data-flag="@X" onclick="openSidebar('284_Mountain',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\285_Forest.jpg" id="285_Forest" data-flag="@X" onclick="openSidebar('285_Forest',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\1t_Warrior.jpg" id="1t_Warrior" data-flag="@X" onclick="openSidebar('1t_Warrior',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\2t_Wolf Spirit.jpg" id="2t_Wolf Spirit" data-flag="@X" onclick="openSidebar('2t_Wolf Spirit',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\3t_ElementalBlue.jpg" id="3t_ElementalBlue" data-flag="@X" onclick="openSidebar('3t_ElementalBlue',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\4t_Goblin.jpg" id="4t_Goblin" data-flag="@X" onclick="openSidebar('4t_Goblin',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\5t_Spirit.jpg" id="5t_Spirit" data-flag="@X" onclick="openSidebar('5t_Spirit',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\6t_Avatar.jpg" id="6t_Avatar" data-flag="@X" onclick="openSidebar('6t_Avatar',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\7t_ElementalGreen.jpg" id="7t_ElementalGreen" data-flag="@X" onclick="openSidebar('7t_ElementalGreen',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\8t_Treasure.jpg" id="8t_Treasure" data-flag="@X" onclick="openSidebar('8t_Treasure',false)"></div>
+			<div class="container"><img alt="sets\MSK-files\img\9t_Weapon.jpg" id="9t_Weapon" data-flag="@X" onclick="openSidebar('9t_Weapon',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+	</div>
+</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+		
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = 'img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		tmp = document.getElementById(num).src;
+		document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+		document.getElementById(num).dataset.alt_src = tmp;
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		if (horizontal && rotated_img.style.display == 'none')
+		{
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+	}
+
+	function openSidebar(id, h=false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+		
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.src = document.getElementById(id).src;
+
+		if (horizontal)
+		{
+			rotated_img.src = document.getElementById(id).src;
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+		
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+		
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				search();
+			}
+		});
+
+		function search() {
+			window.location = ("/search?search=" + document.getElementById("search").value);
+		}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let card_name = card_list_arrayified[i].card_name;
+				for (const char of specialchars)
+				{
+					card_name = card_name.replaceAll(char, "");
+				}
+
+				window.location = ('/cards/' + card_list_arrayified[i].set + '/' + card_list_arrayified[i].number + '_' + card_name);
+			}
+	</script>
+</body>
+</html>

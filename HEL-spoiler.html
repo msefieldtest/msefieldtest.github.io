@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="sets/HEL-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>HEL visual spoiler</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			display: none;
+			transform: rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 3%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 20px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.icon-bar {
+			display: grid;
+			grid-template-columns: repeat(10, 3fr 2fr) 3fr;
+			gap: 1px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-top: 2%;
+			padding-bottom: 1%;
+			justify-items: center;
+			align-items: center;
+		}
+		.icon-bar .icon img {
+			width: 90%;
+			max-width: 80px;
+			height: auto;
+			display: block;
+			padding: 5%;
+			margin: auto;
+			text-align: center;
+		}
+		.icon-bar .dot img {
+			width: 50%;
+			max-width: 65px;
+			height: auto;
+			display: block;
+			margin: auto;
+			text-align: center;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/HEL-files/logo.png" />
+	<img class="preload-hidden" src="/sets/2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/AUR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ERR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HEL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/INK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/INM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/KDT-files/icon.png" />
+		<img class="preload-hidden" src="/sets/MSK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PTXX-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SHF-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SHS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOV-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="icon-bar">
+			<div class="icon"><a href="2HU-spoiler"><img src="sets/2HU-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="AUR-spoiler"><img src="sets/AUR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="ERR-spoiler"><img src="sets/ERR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="HEL-spoiler"><img src="sets/HEL-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="INK-spoiler"><img src="sets/INK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="INM-spoiler"><img src="sets/INM-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="KDT-spoiler"><img src="sets/KDT-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="MSK-spoiler"><img src="sets/MSK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="ONI-spoiler"><img src="sets/ONI-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="PTXX-spoiler"><img src="sets/PTXX-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="SHF-spoiler"><img src="sets/SHF-files/icon.png"></img></a></div>
+		<div class="icon"><a href="SHS-spoiler"><img src="sets/SHS-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="SOV-spoiler"><img src="sets/SOV-files/icon.png"></img></a></div>
+
+		</div>
+		<div class="banner">
+		<img class="logo" src="sets/HEL-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+				<div class="container"><img alt="sets\HEL-files\img\7_Bloodlord Kinnamon.jpg" id="7_Bloodlord Kinnamon" data-flag="@X" onclick="openSidebar('7_Bloodlord Kinnamon',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\50_Demonlord Orbisfaber.jpg" id="50_Demonlord Orbisfaber" data-flag="@X" onclick="openSidebar('50_Demonlord Orbisfaber',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\90_Davriel, the Pactmaker.jpg" id="90_Davriel, the Pactmaker" data-flag="@X" onclick="openSidebar('90_Davriel, the Pactmaker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\138_Davriel's Dealbroker.jpg" id="138_Davriels Dealbroker" data-flag="@X" onclick="openSidebar('138_Davriels Dealbroker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\174_Demonlord Silfidiae.jpg" id="174_Demonlord Silfidiae" data-flag="@X" onclick="openSidebar('174_Demonlord Silfidiae',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\20_Hallowed Mist.jpg" id="20_Hallowed Mist" data-flag="@X" onclick="openSidebar('20_Hallowed Mist',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\72_Osavotus, Contract Dealer.jpg" id="72_Osavotus, Contract Dealer" data-flag="@X" onclick="openSidebar('72_Osavotus, Contract Dealer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\95_Demonlord Morideus.jpg" id="95_Demonlord Morideus" data-flag="@X" onclick="openSidebar('95_Demonlord Morideus',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\139_Demonlord Zeramander.jpg" id="139_Demonlord Zeramander" data-flag="@X" onclick="openSidebar('139_Demonlord Zeramander',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\194_Scavenging Hydra.jpg" id="194_Scavenging Hydra" data-flag="@X" onclick="openSidebar('194_Scavenging Hydra',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\35_Sorin, Vengeful Sangrablade.jpg" id="35_Sorin, Vengeful Sangrablade" data-flag="@X" onclick="openSidebar('35_Sorin, Vengeful Sangrablade',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\74_Rescedite, the Souls Cradle.jpg" id="74_Rescedite, the Souls Cradle" data-flag="@X" onclick="openSidebar('74_Rescedite, the Souls Cradle',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\118_Smoldering Tormentor.jpg" id="118_Smoldering Tormentor" data-flag="@X" onclick="openSidebar('118_Smoldering Tormentor',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\142_Hateful Amalgam.jpg" id="142_Hateful Amalgam" data-flag="@X" onclick="openSidebar('142_Hateful Amalgam',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\202_Thicket Taker.jpg" id="202_Thicket Taker" data-flag="@X" onclick="openSidebar('202_Thicket Taker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\10_Castle Salus's Catacombs.jpg" id="10_Castle Saluss Catacombs" data-flag="@X" onclick="openSidebar('10_Castle Saluss Catacombs',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\44_Bone Collector.jpg" id="44_Bone Collector" data-flag="@X" onclick="openSidebar('44_Bone Collector',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\87_Cerebral Devilfish.jpg" id="87_Cerebral Devilfish" data-flag="@X" onclick="openSidebar('87_Cerebral Devilfish',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\129_Bloodthirsty Howler.jpg" id="129_Bloodthirsty Howler" data-flag="@X" onclick="openSidebar('129_Bloodthirsty Howler',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\165_Aggravator of Herds.jpg" id="165_Aggravator of Herds" data-flag="@X" onclick="openSidebar('165_Aggravator of Herds',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\15_Dreaded Savior.jpg" id="15_Dreaded Savior" data-flag="@X" onclick="openSidebar('15_Dreaded Savior',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\55_Fervens, the Boiling Lake.jpg" id="55_Fervens, the Boiling Lake" data-flag="@X" onclick="openSidebar('55_Fervens, the Boiling Lake',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\94_Demonic Vortex.jpg" id="94_Demonic Vortex" data-flag="@X" onclick="openSidebar('94_Demonic Vortex',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\133_Calicinere, World Burner.jpg" id="133_Calicinere, World Burner" data-flag="@X" onclick="openSidebar('133_Calicinere, World Burner',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\170_Bones to Flesh.jpg" id="170_Bones to Flesh" data-flag="@X" onclick="openSidebar('170_Bones to Flesh',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\19_Fides, Dilligent Commander.jpg" id="19_Fides, Dilligent Commander" data-flag="@X" onclick="openSidebar('19_Fides, Dilligent Commander',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\56_Fiendish Scheming.jpg" id="56_Fiendish Scheming" data-flag="@X" onclick="openSidebar('56_Fiendish Scheming',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\96_Donum-Dei, Lake of Blood.jpg" id="96_Donum-Dei, Lake of Blood" data-flag="@X" onclick="openSidebar('96_Donum-Dei, Lake of Blood',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\135_Cliff-Pit Hanger.jpg" id="135_Cliff-Pit Hanger" data-flag="@X" onclick="openSidebar('135_Cliff-Pit Hanger',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\172_Copacra, The Soul Willow.jpg" id="172_Copacra, The Soul Willow" data-flag="@X" onclick="openSidebar('172_Copacra, The Soul Willow',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\22_Ignosco, Death's Absolution.jpg" id="22_Ignosco, Deaths Absolution" data-flag="@X" onclick="openSidebar('22_Ignosco, Deaths Absolution',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\62_Grunse, Twisted Whisper.jpg" id="62_Grunse, Twisted Whisper" data-flag="@X" onclick="openSidebar('62_Grunse, Twisted Whisper',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\97_Fling Through Hell.jpg" id="97_Fling Through Hell" data-flag="@X" onclick="openSidebar('97_Fling Through Hell',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\137_Crumbling Monstrosity.jpg" id="137_Crumbling Monstrosity" data-flag="@X" onclick="openSidebar('137_Crumbling Monstrosity',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\176_Eafem, Lethal Arachne.jpg" id="176_Eafem, Lethal Arachne" data-flag="@X" onclick="openSidebar('176_Eafem, Lethal Arachne',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\23_Kinnamon's Influence.jpg" id="23_Kinnamons Influence" data-flag="@X" onclick="openSidebar('23_Kinnamons Influence',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\63_Hibernating Dragon.jpg" id="63_Hibernating Dragon" data-flag="@X" onclick="openSidebar('63_Hibernating Dragon',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\99_Hellemental.jpg" id="99_Hellemental" data-flag="@X" onclick="openSidebar('99_Hellemental',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\143_Ignition Devil.jpg" id="143_Ignition Devil" data-flag="@X" onclick="openSidebar('143_Ignition Devil',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\180_From the Woods.jpg" id="180_From the Woods" data-flag="@X" onclick="openSidebar('180_From the Woods',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\31_Schefelix, Abyssal Retriever.jpg" id="31_Schefelix, Abyssal Retriever" data-flag="@X" onclick="openSidebar('31_Schefelix, Abyssal Retriever',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\66_Lich's Assembly.jpg" id="66_Lichs Assembly" data-flag="@X" onclick="openSidebar('66_Lichs Assembly',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\104_March From Beyond.jpg" id="104_March From Beyond" data-flag="@X" onclick="openSidebar('104_March From Beyond',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\144_Invigorating Corpsemancer.jpg" id="144_Invigorating Corpsemancer" data-flag="@X" onclick="openSidebar('144_Invigorating Corpsemancer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\181_Gnarled Hydra.jpg" id="181_Gnarled Hydra" data-flag="@X" onclick="openSidebar('181_Gnarled Hydra',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\36_Soul Devouring Core.jpg" id="36_Soul Devouring Core" data-flag="@X" onclick="openSidebar('36_Soul Devouring Core',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\71_Orbisfaber's Influence.jpg" id="71_Orbisfabers Influence" data-flag="@X" onclick="openSidebar('71_Orbisfabers Influence',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\106_Morideus's Influence.jpg" id="106_Morideuss Influence" data-flag="@X" onclick="openSidebar('106_Morideuss Influence',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\150_Rattler's Crusade.jpg" id="150_Rattlers Crusade" data-flag="@X" onclick="openSidebar('150_Rattlers Crusade',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\187_Mirumea, Ambush Master.jpg" id="187_Mirumea, Ambush Master" data-flag="@X" onclick="openSidebar('187_Mirumea, Ambush Master',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\37_Tenacious Legion.jpg" id="37_Tenacious Legion" data-flag="@X" onclick="openSidebar('37_Tenacious Legion',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\75_Rotting Leviathan.jpg" id="75_Rotting Leviathan" data-flag="@X" onclick="openSidebar('75_Rotting Leviathan',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\113_Scouring Flames.jpg" id="113_Scouring Flames" data-flag="@X" onclick="openSidebar('113_Scouring Flames',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\161_Viscera Blast.jpg" id="161_Viscera Blast" data-flag="@X" onclick="openSidebar('161_Viscera Blast',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\195_Silfidiae's Influence.jpg" id="195_Silfidiaes Influence" data-flag="@X" onclick="openSidebar('195_Silfidiaes Influence',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\40_Watchdog Liches.jpg" id="40_Watchdog Liches" data-flag="@X" onclick="openSidebar('40_Watchdog Liches',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\79_Tundra Screecher.jpg" id="79_Tundra Screecher" data-flag="@X" onclick="openSidebar('79_Tundra Screecher',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\116_Skinned Abomination.jpg" id="116_Skinned Abomination" data-flag="@X" onclick="openSidebar('116_Skinned Abomination',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\163_Zeramander's Influence.jpg" id="163_Zeramanders Influence" data-flag="@X" onclick="openSidebar('163_Zeramanders Influence',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\203_Twisted Guardian.jpg" id="203_Twisted Guardian" data-flag="@X" onclick="openSidebar('203_Twisted Guardian',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\1_Abyssal Captain.jpg" id="1_Abyssal Captain" data-flag="@X" onclick="openSidebar('1_Abyssal Captain',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\43_Bloodmoon Champion.jpg" id="43_Bloodmoon Champion" data-flag="@X" onclick="openSidebar('43_Bloodmoon Champion',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\88_Chaining Hellspawn.jpg" id="88_Chaining Hellspawn" data-flag="@X" onclick="openSidebar('88_Chaining Hellspawn',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\124_Ashen Crasher.jpg" id="124_Ashen Crasher" data-flag="@X" onclick="openSidebar('124_Ashen Crasher',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\167_Begin Again.jpg" id="167_Begin Again" data-flag="@X" onclick="openSidebar('167_Begin Again',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\3_Assume Power.jpg" id="3_Assume Power" data-flag="@X" onclick="openSidebar('3_Assume Power',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\45_Callous Willbreaker.jpg" id="45_Callous Willbreaker" data-flag="@X" onclick="openSidebar('45_Callous Willbreaker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\89_Culling Demon.jpg" id="89_Culling Demon" data-flag="@X" onclick="openSidebar('89_Culling Demon',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\127_Bloodbag Slaughterer.jpg" id="127_Bloodbag Slaughterer" data-flag="@X" onclick="openSidebar('127_Bloodbag Slaughterer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\169_Bloodroot Demon.jpg" id="169_Bloodroot Demon" data-flag="@X" onclick="openSidebar('169_Bloodroot Demon',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\4_Awoken Pariah.jpg" id="4_Awoken Pariah" data-flag="@X" onclick="openSidebar('4_Awoken Pariah',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\47_Craftiness of the Meek.jpg" id="47_Craftiness of the Meek" data-flag="@X" onclick="openSidebar('47_Craftiness of the Meek',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\92_Demonic Butcher.jpg" id="92_Demonic Butcher" data-flag="@X" onclick="openSidebar('92_Demonic Butcher',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\141_Eternal Slayer.jpg" id="141_Eternal Slayer" data-flag="@X" onclick="openSidebar('141_Eternal Slayer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\171_Composting Hellion.jpg" id="171_Composting Hellion" data-flag="@X" onclick="openSidebar('171_Composting Hellion',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\6_Bloodied Lieutenant.jpg" id="6_Bloodied Lieutenant" data-flag="@X" onclick="openSidebar('6_Bloodied Lieutenant',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\48_Creeping Frost.jpg" id="48_Creeping Frost" data-flag="@X" onclick="openSidebar('48_Creeping Frost',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\98_Forlorn Scouring.jpg" id="98_Forlorn Scouring" data-flag="@X" onclick="openSidebar('98_Forlorn Scouring',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\145_Mad Summoner.jpg" id="145_Mad Summoner" data-flag="@X" onclick="openSidebar('145_Mad Summoner',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\177_Eafems' Brood.jpg" id="177_Eafems Brood" data-flag="@X" onclick="openSidebar('177_Eafems Brood',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\8_Bloodscent Tracker.jpg" id="8_Bloodscent Tracker" data-flag="@X" onclick="openSidebar('8_Bloodscent Tracker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\54_Faber's Hatching.jpg" id="54_Fabers Hatching" data-flag="@X" onclick="openSidebar('54_Fabers Hatching',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\100_Hellfire Ant.jpg" id="100_Hellfire Ant" data-flag="@X" onclick="openSidebar('100_Hellfire Ant',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\148_Rambunctious Bonewalkers.jpg" id="148_Rambunctious Bonewalkers" data-flag="@X" onclick="openSidebar('148_Rambunctious Bonewalkers',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\178_Explosive Might.jpg" id="178_Explosive Might" data-flag="@X" onclick="openSidebar('178_Explosive Might',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\12_Cryptkeepers Vow.jpg" id="12_Cryptkeepers Vow" data-flag="@X" onclick="openSidebar('12_Cryptkeepers Vow',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\58_Gaping Skimmer.jpg" id="58_Gaping Skimmer" data-flag="@X" onclick="openSidebar('58_Gaping Skimmer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\103_Lavablood Dragon.jpg" id="103_Lavablood Dragon" data-flag="@X" onclick="openSidebar('103_Lavablood Dragon',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\151_Rattletroop.jpg" id="151_Rattletroop" data-flag="@X" onclick="openSidebar('151_Rattletroop',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\182_Gnarledroot Demon.jpg" id="182_Gnarledroot Demon" data-flag="@X" onclick="openSidebar('182_Gnarledroot Demon',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\14_Desperate Sealing.jpg" id="14_Desperate Sealing" data-flag="@X" onclick="openSidebar('14_Desperate Sealing',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\64_Icicle Crasher.jpg" id="64_Icicle Crasher" data-flag="@X" onclick="openSidebar('64_Icicle Crasher',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\109_Reflections of Death.jpg" id="109_Reflections of Death" data-flag="@X" onclick="openSidebar('109_Reflections of Death',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\156_Twisted Eruption.jpg" id="156_Twisted Eruption" data-flag="@X" onclick="openSidebar('156_Twisted Eruption',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\184_Infected Wolf.jpg" id="184_Infected Wolf" data-flag="@X" onclick="openSidebar('184_Infected Wolf',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\30_Salvaged Legionnaire.jpg" id="30_Salvaged Legionnaire" data-flag="@X" onclick="openSidebar('30_Salvaged Legionnaire',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\67_Misleading Mist.jpg" id="67_Misleading Mist" data-flag="@X" onclick="openSidebar('67_Misleading Mist',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\112_Rotten Insight.jpg" id="112_Rotten Insight" data-flag="@X" onclick="openSidebar('112_Rotten Insight',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\157_Unflinching Bloodlust.jpg" id="157_Unflinching Bloodlust" data-flag="@X" onclick="openSidebar('157_Unflinching Bloodlust',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\186_Midnight Stalker.jpg" id="186_Midnight Stalker" data-flag="@X" onclick="openSidebar('186_Midnight Stalker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\32_Secure Mortality.jpg" id="32_Secure Mortality" data-flag="@X" onclick="openSidebar('32_Secure Mortality',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\76_Secret Dealings.jpg" id="76_Secret Dealings" data-flag="@X" onclick="openSidebar('76_Secret Dealings',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\122_Whispering Walls.jpg" id="122_Whispering Walls" data-flag="@X" onclick="openSidebar('122_Whispering Walls',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\160_Vampire Hemoblade.jpg" id="160_Vampire Hemoblade" data-flag="@X" onclick="openSidebar('160_Vampire Hemoblade',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\193_Savage Snapper.jpg" id="193_Savage Snapper" data-flag="@X" onclick="openSidebar('193_Savage Snapper',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\2_Ashen Watcher.jpg" id="2_Ashen Watcher" data-flag="@X" onclick="openSidebar('2_Ashen Watcher',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\42_Bloodied Stalker.jpg" id="42_Bloodied Stalker" data-flag="@X" onclick="openSidebar('42_Bloodied Stalker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\83_Abyssal Smoke.jpg" id="83_Abyssal Smoke" data-flag="@X" onclick="openSidebar('83_Abyssal Smoke',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\125_Bemused Gorger.jpg" id="125_Bemused Gorger" data-flag="@X" onclick="openSidebar('125_Bemused Gorger',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\166_Aggressive Foraging.jpg" id="166_Aggressive Foraging" data-flag="@X" onclick="openSidebar('166_Aggressive Foraging',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\5_Blood Heron.jpg" id="5_Blood Heron" data-flag="@X" onclick="openSidebar('5_Blood Heron',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\46_Corrupted Nightwing.jpg" id="46_Corrupted Nightwing" data-flag="@X" onclick="openSidebar('46_Corrupted Nightwing',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\84_Aloof Ichormancer.jpg" id="84_Aloof Ichormancer" data-flag="@X" onclick="openSidebar('84_Aloof Ichormancer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\126_Blazing Raid.jpg" id="126_Blazing Raid" data-flag="@X" onclick="openSidebar('126_Blazing Raid',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\168_Bloodied Overgrowth.jpg" id="168_Bloodied Overgrowth" data-flag="@X" onclick="openSidebar('168_Bloodied Overgrowth',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\9_Bloodswords Blessing.jpg" id="9_Bloodswords Blessing" data-flag="@X" onclick="openSidebar('9_Bloodswords Blessing',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\49_Deceptive Shadow.jpg" id="49_Deceptive Shadow" data-flag="@X" onclick="openSidebar('49_Deceptive Shadow',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\85_Bloodflow Dragon.jpg" id="85_Bloodflow Dragon" data-flag="@X" onclick="openSidebar('85_Bloodflow Dragon',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\128_Bloodclot Traveler.jpg" id="128_Bloodclot Traveler" data-flag="@X" onclick="openSidebar('128_Bloodclot Traveler',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\173_Decomposing Guardian.jpg" id="173_Decomposing Guardian" data-flag="@X" onclick="openSidebar('173_Decomposing Guardian',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\11_Crypt Defenders.jpg" id="11_Crypt Defenders" data-flag="@X" onclick="openSidebar('11_Crypt Defenders',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\51_Doubling Imp.jpg" id="51_Doubling Imp" data-flag="@X" onclick="openSidebar('51_Doubling Imp',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\86_Bloodied Corpse.jpg" id="86_Bloodied Corpse" data-flag="@X" onclick="openSidebar('86_Bloodied Corpse',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\130_Bone Brigade.jpg" id="130_Bone Brigade" data-flag="@X" onclick="openSidebar('130_Bone Brigade',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\175_Disturb the Undergrowth.jpg" id="175_Disturb the Undergrowth" data-flag="@X" onclick="openSidebar('175_Disturb the Undergrowth',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\13_Deeptomb Guardian.jpg" id="13_Deeptomb Guardian" data-flag="@X" onclick="openSidebar('13_Deeptomb Guardian',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\52_Drag Under.jpg" id="52_Drag Under" data-flag="@X" onclick="openSidebar('52_Drag Under',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\91_Deathless Ceremony.jpg" id="91_Deathless Ceremony" data-flag="@X" onclick="openSidebar('91_Deathless Ceremony',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\131_Burning Walker.jpg" id="131_Burning Walker" data-flag="@X" onclick="openSidebar('131_Burning Walker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\179_Ferocious Maneater.jpg" id="179_Ferocious Maneater" data-flag="@X" onclick="openSidebar('179_Ferocious Maneater',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\16_Duskrider Cavalry.jpg" id="16_Duskrider Cavalry" data-flag="@X" onclick="openSidebar('16_Duskrider Cavalry',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\53_End's Embrace.jpg" id="53_Ends Embrace" data-flag="@X" onclick="openSidebar('53_Ends Embrace',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\93_Demonic Influence.jpg" id="93_Demonic Influence" data-flag="@X" onclick="openSidebar('93_Demonic Influence',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\132_Burst Forth.jpg" id="132_Burst Forth" data-flag="@X" onclick="openSidebar('132_Burst Forth',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\183_Harvesting Revenant.jpg" id="183_Harvesting Revenant" data-flag="@X" onclick="openSidebar('183_Harvesting Revenant',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\17_Dutybound Lich.jpg" id="17_Dutybound Lich" data-flag="@X" onclick="openSidebar('17_Dutybound Lich',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\57_Fractured Epiphany.jpg" id="57_Fractured Epiphany" data-flag="@X" onclick="openSidebar('57_Fractured Epiphany',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\101_Husked Consumer.jpg" id="101_Husked Consumer" data-flag="@X" onclick="openSidebar('101_Husked Consumer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\134_Capricious Count.jpg" id="134_Capricious Count" data-flag="@X" onclick="openSidebar('134_Capricious Count',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\185_Invigorating Essence.jpg" id="185_Invigorating Essence" data-flag="@X" onclick="openSidebar('185_Invigorating Essence',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\18_Faithful Gaze.jpg" id="18_Faithful Gaze" data-flag="@X" onclick="openSidebar('18_Faithful Gaze',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\59_Ghastly Tide.jpg" id="59_Ghastly Tide" data-flag="@X" onclick="openSidebar('59_Ghastly Tide',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\102_Ichorsplosion.jpg" id="102_Ichorsplosion" data-flag="@X" onclick="openSidebar('102_Ichorsplosion',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\136_Crackshot Skeleton.jpg" id="136_Crackshot Skeleton" data-flag="@X" onclick="openSidebar('136_Crackshot Skeleton',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\188_Nightmare Webbing.jpg" id="188_Nightmare Webbing" data-flag="@X" onclick="openSidebar('188_Nightmare Webbing',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\21_Hungering Sentinel.jpg" id="21_Hungering Sentinel" data-flag="@X" onclick="openSidebar('21_Hungering Sentinel',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\60_Gigas Screamer.jpg" id="60_Gigas Screamer" data-flag="@X" onclick="openSidebar('60_Gigas Screamer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\105_Moon Renegade.jpg" id="105_Moon Renegade" data-flag="@X" onclick="openSidebar('105_Moon Renegade',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\140_Dweller's Hound.jpg" id="140_Dwellers Hound" data-flag="@X" onclick="openSidebar('140_Dwellers Hound',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\189_Overwhelming Presence.jpg" id="189_Overwhelming Presence" data-flag="@X" onclick="openSidebar('189_Overwhelming Presence',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\24_Kinnamon's Stitched.jpg" id="24_Kinnamons Stitched" data-flag="@X" onclick="openSidebar('24_Kinnamons Stitched',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\61_Gloom Fracture.jpg" id="61_Gloom Fracture" data-flag="@X" onclick="openSidebar('61_Gloom Fracture',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\107_Phylactery Crafter.jpg" id="107_Phylactery Crafter" data-flag="@X" onclick="openSidebar('107_Phylactery Crafter',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\146_Magma Spray.jpg" id="146_Magma Spray" data-flag="@X" onclick="openSidebar('146_Magma Spray',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\190_Predator's Gaze.jpg" id="190_Predators Gaze" data-flag="@X" onclick="openSidebar('190_Predators Gaze',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\25_Processing Revenant.jpg" id="25_Processing Revenant" data-flag="@X" onclick="openSidebar('25_Processing Revenant',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\65_Last Sip.jpg" id="65_Last Sip" data-flag="@X" onclick="openSidebar('65_Last Sip',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\108_Puppet Weaver.jpg" id="108_Puppet Weaver" data-flag="@X" onclick="openSidebar('108_Puppet Weaver',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\147_Overwhelming Consumption.jpg" id="147_Overwhelming Consumption" data-flag="@X" onclick="openSidebar('147_Overwhelming Consumption',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\191_Quarter Crasher.jpg" id="191_Quarter Crasher" data-flag="@X" onclick="openSidebar('191_Quarter Crasher',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\26_Radiant Chains.jpg" id="26_Radiant Chains" data-flag="@X" onclick="openSidebar('26_Radiant Chains',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\68_Obsessive Rumination.jpg" id="68_Obsessive Rumination" data-flag="@X" onclick="openSidebar('68_Obsessive Rumination',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\110_Resilient Rot.jpg" id="110_Resilient Rot" data-flag="@X" onclick="openSidebar('110_Resilient Rot',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\149_Ransack the Tombs.jpg" id="149_Ransack the Tombs" data-flag="@X" onclick="openSidebar('149_Ransack the Tombs',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\192_Rattling Gorger.jpg" id="192_Rattling Gorger" data-flag="@X" onclick="openSidebar('192_Rattling Gorger',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\27_Retributive Hellknight.jpg" id="27_Retributive Hellknight" data-flag="@X" onclick="openSidebar('27_Retributive Hellknight',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\69_Orbisfaber's Corruption.jpg" id="69_Orbisfabers Corruption" data-flag="@X" onclick="openSidebar('69_Orbisfabers Corruption',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\111_Return for Duty.jpg" id="111_Return for Duty" data-flag="@X" onclick="openSidebar('111_Return for Duty',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\152_Reduce to Embers.jpg" id="152_Reduce to Embers" data-flag="@X" onclick="openSidebar('152_Reduce to Embers',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\196_Skittering Host.jpg" id="196_Skittering Host" data-flag="@X" onclick="openSidebar('196_Skittering Host',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\28_Return from Ash.jpg" id="28_Return from Ash" data-flag="@X" onclick="openSidebar('28_Return from Ash',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\70_Orbisfaber's Hellspawn.jpg" id="70_Orbisfabers Hellspawn" data-flag="@X" onclick="openSidebar('70_Orbisfabers Hellspawn',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\114_Sign in Blood.jpg" id="114_Sign in Blood" data-flag="@X" onclick="openSidebar('114_Sign in Blood',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\153_Repurposed Bloodrinker.jpg" id="153_Repurposed Bloodrinker" data-flag="@X" onclick="openSidebar('153_Repurposed Bloodrinker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\197_Skittering Skullsifter.jpg" id="197_Skittering Skullsifter" data-flag="@X" onclick="openSidebar('197_Skittering Skullsifter',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\29_Return the Forsaken.jpg" id="29_Return the Forsaken" data-flag="@X" onclick="openSidebar('29_Return the Forsaken',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\73_Osavotus's Pet.jpg" id="73_Osavotuss Pet" data-flag="@X" onclick="openSidebar('73_Osavotuss Pet',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\115_Skeletonfy.jpg" id="115_Skeletonfy" data-flag="@X" onclick="openSidebar('115_Skeletonfy',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\154_Skittering Demon.jpg" id="154_Skittering Demon" data-flag="@X" onclick="openSidebar('154_Skittering Demon',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\198_Skullcrushing Fiend.jpg" id="198_Skullcrushing Fiend" data-flag="@X" onclick="openSidebar('198_Skullcrushing Fiend',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\33_Skyclaws.jpg" id="33_Skyclaws" data-flag="@X" onclick="openSidebar('33_Skyclaws',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\77_Shadowbender Lich.jpg" id="77_Shadowbender Lich" data-flag="@X" onclick="openSidebar('77_Shadowbender Lich',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\117_Skittering Hellflayer.jpg" id="117_Skittering Hellflayer" data-flag="@X" onclick="openSidebar('117_Skittering Hellflayer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\155_Spitting Hellfire.jpg" id="155_Spitting Hellfire" data-flag="@X" onclick="openSidebar('155_Spitting Hellfire',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\199_Smeltingtree.jpg" id="199_Smeltingtree" data-flag="@X" onclick="openSidebar('199_Smeltingtree',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\34_Smoke Whisperer.jpg" id="34_Smoke Whisperer" data-flag="@X" onclick="openSidebar('34_Smoke Whisperer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\78_Shambling Mistwalker.jpg" id="78_Shambling Mistwalker" data-flag="@X" onclick="openSidebar('78_Shambling Mistwalker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\119_Terryfying Form.jpg" id="119_Terryfying Form" data-flag="@X" onclick="openSidebar('119_Terryfying Form',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\158_Unhinged Giant.jpg" id="158_Unhinged Giant" data-flag="@X" onclick="openSidebar('158_Unhinged Giant',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\200_Splintering Growth.jpg" id="200_Splintering Growth" data-flag="@X" onclick="openSidebar('200_Splintering Growth',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\38_Tranquil Repose.jpg" id="38_Tranquil Repose" data-flag="@X" onclick="openSidebar('38_Tranquil Repose',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\80_Twisted Underling.jpg" id="80_Twisted Underling" data-flag="@X" onclick="openSidebar('80_Twisted Underling',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\120_Through the Skull.jpg" id="120_Through the Skull" data-flag="@X" onclick="openSidebar('120_Through the Skull',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\159_Unshackled Desire.jpg" id="159_Unshackled Desire" data-flag="@X" onclick="openSidebar('159_Unshackled Desire',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\201_Stranded Hatchling.jpg" id="201_Stranded Hatchling" data-flag="@X" onclick="openSidebar('201_Stranded Hatchling',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\39_Upholder of Rites.jpg" id="39_Upholder of Rites" data-flag="@X" onclick="openSidebar('39_Upholder of Rites',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\81_Unidentifiable Mass.jpg" id="81_Unidentifiable Mass" data-flag="@X" onclick="openSidebar('81_Unidentifiable Mass',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\121_Wandering Lich.jpg" id="121_Wandering Lich" data-flag="@X" onclick="openSidebar('121_Wandering Lich',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\162_Zeramander's Infiltrator.jpg" id="162_Zeramanders Infiltrator" data-flag="@X" onclick="openSidebar('162_Zeramanders Infiltrator',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\204_Valley Lurker.jpg" id="204_Valley Lurker" data-flag="@X" onclick="openSidebar('204_Valley Lurker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\41_Welcoming Touch.jpg" id="41_Welcoming Touch" data-flag="@X" onclick="openSidebar('41_Welcoming Touch',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\82_Warping Whisper.jpg" id="82_Warping Whisper" data-flag="@X" onclick="openSidebar('82_Warping Whisper',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\123_Widespread Cataclysm.jpg" id="123_Widespread Cataclysm" data-flag="@X" onclick="openSidebar('123_Widespread Cataclysm',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\164_Zeramander's Spawn.jpg" id="164_Zeramanders Spawn" data-flag="@X" onclick="openSidebar('164_Zeramanders Spawn',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\214_Immortal Oath.jpg" id="214_Immortal Oath" data-flag="@X" onclick="openSidebar('214_Immortal Oath',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\208_Bloodsoaked Mass.jpg" id="208_Bloodsoaked Mass" data-flag="@X" onclick="openSidebar('208_Bloodsoaked Mass',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\206_Anord, Maddening Lich.jpg" id="206_Anord, Maddening Lich" data-flag="@X" onclick="openSidebar('206_Anord, Maddening Lich',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\230_Tanglemess Hydra.jpg" id="230_Tanglemess Hydra" data-flag="@X" onclick="openSidebar('230_Tanglemess Hydra',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\234_Vengeful Grovekeeper.jpg" id="234_Vengeful Grovekeeper" data-flag="@X" onclick="openSidebar('234_Vengeful Grovekeeper',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\205_Aged Warmage.jpg" id="205_Aged Warmage" data-flag="@X" onclick="openSidebar('205_Aged Warmage',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\209_Crashing Murmurer.jpg" id="209_Crashing Murmurer" data-flag="@X" onclick="openSidebar('209_Crashing Murmurer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\219_Legion Bonecracker.jpg" id="219_Legion Bonecracker" data-flag="@X" onclick="openSidebar('219_Legion Bonecracker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\207_Blood Petunia.jpg" id="207_Blood Petunia" data-flag="@X" onclick="openSidebar('207_Blood Petunia',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\215_Impending Return.jpg" id="215_Impending Return" data-flag="@X" onclick="openSidebar('215_Impending Return',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\223_Provoking the Masses.jpg" id="223_Provoking the Masses" data-flag="@X" onclick="openSidebar('223_Provoking the Masses',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\221_Malicious Mimicry.jpg" id="221_Malicious Mimicry" data-flag="@X" onclick="openSidebar('221_Malicious Mimicry',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\224_Remains of Despair.jpg" id="224_Remains of Despair" data-flag="@X" onclick="openSidebar('224_Remains of Despair',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\211_Deerstalker.jpg" id="211_Deerstalker" data-flag="@X" onclick="openSidebar('211_Deerstalker',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\231_Thickets Ghostcaller.jpg" id="231_Thickets Ghostcaller" data-flag="@X" onclick="openSidebar('231_Thickets Ghostcaller',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\233_Unholy Communion.jpg" id="233_Unholy Communion" data-flag="@X" onclick="openSidebar('233_Unholy Communion',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\218_Intruding Undergrowth.jpg" id="218_Intruding Undergrowth" data-flag="@X" onclick="openSidebar('218_Intruding Undergrowth',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\235_Vile Summoning.jpg" id="235_Vile Summoning" data-flag="@X" onclick="openSidebar('235_Vile Summoning',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\217_Infusing Ritual.jpg" id="217_Infusing Ritual" data-flag="@X" onclick="openSidebar('217_Infusing Ritual',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\225_Repulsive Blast.jpg" id="225_Repulsive Blast" data-flag="@X" onclick="openSidebar('225_Repulsive Blast',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\227_Saintly Remains.jpg" id="227_Saintly Remains" data-flag="@X" onclick="openSidebar('227_Saintly Remains',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\210_Cryptborn Bones.jpg" id="210_Cryptborn Bones" data-flag="@X" onclick="openSidebar('210_Cryptborn Bones',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\222_Marsh Grower.jpg" id="222_Marsh Grower" data-flag="@X" onclick="openSidebar('222_Marsh Grower',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\212_Disembodied Lich.jpg" id="212_Disembodied Lich" data-flag="@X" onclick="openSidebar('212_Disembodied Lich',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\216_Inflaming Smite.jpg" id="216_Inflaming Smite" data-flag="@X" onclick="openSidebar('216_Inflaming Smite',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\228_Shamble En Masse.jpg" id="228_Shamble En Masse" data-flag="@X" onclick="openSidebar('228_Shamble En Masse',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\213_Frenzied Predation.jpg" id="213_Frenzied Predation" data-flag="@X" onclick="openSidebar('213_Frenzied Predation',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\226_Repulsive Drake.jpg" id="226_Repulsive Drake" data-flag="@X" onclick="openSidebar('226_Repulsive Drake',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\220_Maddening Descent.jpg" id="220_Maddening Descent" data-flag="@X" onclick="openSidebar('220_Maddening Descent',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\229_Skullspeaker.jpg" id="229_Skullspeaker" data-flag="@X" onclick="openSidebar('229_Skullspeaker',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\232_Undue, Death Devourer.jpg" id="232_Undue, Death Devourer" data-flag="@X" onclick="openSidebar('232_Undue, Death Devourer',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\236_Adapted Servant.jpg" id="236_Adapted Servant" data-flag="@X" onclick="openSidebar('236_Adapted Servant',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\239_Fabricated Phylactery.jpg" id="239_Fabricated Phylactery" data-flag="@X" onclick="openSidebar('239_Fabricated Phylactery',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\237_Broken Shortsword.jpg" id="237_Broken Shortsword" data-flag="@X" onclick="openSidebar('237_Broken Shortsword',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\238_Crypt Vessel.jpg" id="238_Crypt Vessel" data-flag="@X" onclick="openSidebar('238_Crypt Vessel',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\240_Foreboding Milestone.jpg" id="240_Foreboding Milestone" data-flag="@X" onclick="openSidebar('240_Foreboding Milestone',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\241_Grafted Boneshatterer.jpg" id="241_Grafted Boneshatterer" data-flag="@X" onclick="openSidebar('241_Grafted Boneshatterer',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\242_Hellride Juggernaut.jpg" id="242_Hellride Juggernaut" data-flag="@X" onclick="openSidebar('242_Hellride Juggernaut',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\251_Receding Coastline.jpg" id="251_Receding Coastline" data-flag="@X" onclick="openSidebar('251_Receding Coastline',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\244_Despairing Marsh.jpg" id="244_Despairing Marsh" data-flag="@X" onclick="openSidebar('244_Despairing Marsh',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\252_Rotting Mineshaft.jpg" id="252_Rotting Mineshaft" data-flag="@X" onclick="openSidebar('252_Rotting Mineshaft',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\257_Tunneling Hideaway.jpg" id="257_Tunneling Hideaway" data-flag="@X" onclick="openSidebar('257_Tunneling Hideaway',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\249_Overgrowing Burial.jpg" id="249_Overgrowing Burial" data-flag="@X" onclick="openSidebar('249_Overgrowing Burial',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\246_Imposing Sanctum.jpg" id="246_Imposing Sanctum" data-flag="@X" onclick="openSidebar('246_Imposing Sanctum',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\258_Winding Quagmire.jpg" id="258_Winding Quagmire" data-flag="@X" onclick="openSidebar('258_Winding Quagmire',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\255_Submerging Grotto.jpg" id="255_Submerging Grotto" data-flag="@X" onclick="openSidebar('255_Submerging Grotto',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\254_Striking Waterfalls.jpg" id="254_Striking Waterfalls" data-flag="@X" onclick="openSidebar('254_Striking Waterfalls',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\253_Slumbering Lavafields.jpg" id="253_Slumbering Lavafields" data-flag="@X" onclick="openSidebar('253_Slumbering Lavafields',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\243_Agonizing Pit.jpg" id="243_Agonizing Pit" data-flag="@X" onclick="openSidebar('243_Agonizing Pit',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\245_Forest.jpg" id="245_Forest" data-flag="@X" onclick="openSidebar('245_Forest',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\247_Island.jpg" id="247_Island" data-flag="@X" onclick="openSidebar('247_Island',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\248_Mountain.jpg" id="248_Mountain" data-flag="@X" onclick="openSidebar('248_Mountain',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\250_Plains.jpg" id="250_Plains" data-flag="@X" onclick="openSidebar('250_Plains',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\256_Swamp.jpg" id="256_Swamp" data-flag="@X" onclick="openSidebar('256_Swamp',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\1t_Vampire Soldier.jpg" id="1t_Vampire Soldier" data-flag="@X" onclick="openSidebar('1t_Vampire Soldier',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\2t_Zombie.jpg" id="2t_Zombie" data-flag="@X" onclick="openSidebar('2t_Zombie',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\3t_Merfolk Horror.jpg" id="3t_Merfolk Horror" data-flag="@X" onclick="openSidebar('3t_Merfolk Horror',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\4t_Skeleton.jpg" id="4t_Skeleton" data-flag="@X" onclick="openSidebar('4t_Skeleton',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\5t_Hydra Tentacle.jpg" id="5t_Hydra Tentacle" data-flag="@X" onclick="openSidebar('5t_Hydra Tentacle',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\6t_Spider.jpg" id="6t_Spider" data-flag="@X" onclick="openSidebar('6t_Spider',false)"></div>
+			<div class="container"><img alt="sets\HEL-files\img\7t_Skeleton Horse.jpg" id="7t_Skeleton Horse" data-flag="@X" onclick="openSidebar('7t_Skeleton Horse',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+	</div>
+</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+		
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = 'img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		tmp = document.getElementById(num).src;
+		document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+		document.getElementById(num).dataset.alt_src = tmp;
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		if (horizontal && rotated_img.style.display == 'none')
+		{
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+	}
+
+	function openSidebar(id, h=false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+		
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.src = document.getElementById(id).src;
+
+		if (horizontal)
+		{
+			rotated_img.src = document.getElementById(id).src;
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+		
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+		
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				search();
+			}
+		});
+
+		function search() {
+			window.location = ("/search?search=" + document.getElementById("search").value);
+		}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let card_name = card_list_arrayified[i].card_name;
+				for (const char of specialchars)
+				{
+					card_name = card_name.replaceAll(char, "");
+				}
+
+				window.location = ('/cards/' + card_list_arrayified[i].set + '/' + card_list_arrayified[i].number + '_' + card_name);
+			}
+	</script>
+</body>
+</html>

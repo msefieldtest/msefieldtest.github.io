@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="sets/PTXX-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>PTXX visual spoiler</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			display: none;
+			transform: rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 3%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 20px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.icon-bar {
+			display: grid;
+			grid-template-columns: repeat(10, 3fr 2fr) 3fr;
+			gap: 1px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-top: 2%;
+			padding-bottom: 1%;
+			justify-items: center;
+			align-items: center;
+		}
+		.icon-bar .icon img {
+			width: 90%;
+			max-width: 80px;
+			height: auto;
+			display: block;
+			padding: 5%;
+			margin: auto;
+			text-align: center;
+		}
+		.icon-bar .dot img {
+			width: 50%;
+			max-width: 65px;
+			height: auto;
+			display: block;
+			margin: auto;
+			text-align: center;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/PTXX-files/logo.png" />
+	<img class="preload-hidden" src="/sets/2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/AUR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ERR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HEL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/INK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/INM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/KDT-files/icon.png" />
+		<img class="preload-hidden" src="/sets/MSK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PTXX-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SHF-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SHS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOV-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="icon-bar">
+			<div class="icon"><a href="2HU-spoiler"><img src="sets/2HU-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="AUR-spoiler"><img src="sets/AUR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="ERR-spoiler"><img src="sets/ERR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="HEL-spoiler"><img src="sets/HEL-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="INK-spoiler"><img src="sets/INK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="INM-spoiler"><img src="sets/INM-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="KDT-spoiler"><img src="sets/KDT-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="MSK-spoiler"><img src="sets/MSK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="ONI-spoiler"><img src="sets/ONI-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="PTXX-spoiler"><img src="sets/PTXX-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="SHF-spoiler"><img src="sets/SHF-files/icon.png"></img></a></div>
+		<div class="icon"><a href="SHS-spoiler"><img src="sets/SHS-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="SOV-spoiler"><img src="sets/SOV-files/icon.png"></img></a></div>
+
+		</div>
+		<div class="banner">
+		<img class="logo" src="sets/PTXX-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+				<div class="container"><img alt="sets\PTXX-files\img\5_Memorialize.jpg" id="5_Memorialize" data-flag="@X" onclick="openSidebar('5_Memorialize',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\12_Endless Breakthroughs.jpg" id="12_Endless Breakthroughs" data-flag="@X" onclick="openSidebar('12_Endless Breakthroughs',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\26_Dream of Oblivion.jpg" id="26_Dream of Oblivion" data-flag="@X" onclick="openSidebar('26_Dream of Oblivion',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\36_Anne, Thunderbringer.jpg" id="36_Anne, Thunderbringer" data-flag="@X" onclick="openSidebar('36_Anne, Thunderbringer',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\53_Roar of Seasons' End.jpg" id="53_Roar of Seasons End" data-flag="@X" onclick="openSidebar('53_Roar of Seasons End',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\6_Myth Realized.jpg" id="6_Myth Realized" data-flag="@X" onclick="openSidebar('6_Myth Realized',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\14_Impossibility.jpg" id="14_Impossibility" data-flag="@X" onclick="openSidebar('14_Impossibility',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\27_Her Oversight.jpg" id="27_Her Oversight" data-flag="@X" onclick="openSidebar('27_Her Oversight',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\40_Fortunehunter Captain.jpg" id="40_Fortunehunter Captain" data-flag="@X" onclick="openSidebar('40_Fortunehunter Captain',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\52_Herald of Spring.jpg" id="52_Herald of Spring" data-flag="@X" onclick="openSidebar('52_Herald of Spring',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\7_Oakgrove Superstar.jpg" id="7_Oakgrove Superstar" data-flag="@X" onclick="openSidebar('7_Oakgrove Superstar',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\19_Volta, Disaster Technician.jpg" id="19_Volta, Disaster Technician" data-flag="@X" onclick="openSidebar('19_Volta, Disaster Technician',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\29_Maw of Unlife.jpg" id="29_Maw of Unlife" data-flag="@X" onclick="openSidebar('29_Maw of Unlife',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\46_Minyet, Hoardseeker.jpg" id="46_Minyet, Hoardseeker" data-flag="@X" onclick="openSidebar('46_Minyet, Hoardseeker',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\51_Biosphere Cultivator.jpg" id="51_Biosphere Cultivator" data-flag="@X" onclick="openSidebar('51_Biosphere Cultivator',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\2_Communal Defense.jpg" id="2_Communal Defense" data-flag="@X" onclick="openSidebar('2_Communal Defense',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\22_Ziya, Expert Angler.jpg" id="22_Ziya, Expert Angler" data-flag="@X" onclick="openSidebar('22_Ziya, Expert Angler',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\33_Thin the Veil.jpg" id="33_Thin the Veil" data-flag="@X" onclick="openSidebar('33_Thin the Veil',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\38_Brash Pyromancer.jpg" id="38_Brash Pyromancer" data-flag="@X" onclick="openSidebar('38_Brash Pyromancer',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\4_Maolong's Disciple.jpg" id="4_Maolongs Disciple" data-flag="@X" onclick="openSidebar('4_Maolongs Disciple',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\9_Achievement Antithesis.jpg" id="9_Achievement Antithesis" data-flag="@X" onclick="openSidebar('9_Achievement Antithesis',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\24_Apathetic Edict.jpg" id="24_Apathetic Edict" data-flag="@X" onclick="openSidebar('24_Apathetic Edict',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\43_Learn from Dragons.jpg" id="43_Learn from Dragons" data-flag="@X" onclick="openSidebar('43_Learn from Dragons',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\8_Whisper Parade.jpg" id="8_Whisper Parade" data-flag="@X" onclick="openSidebar('8_Whisper Parade',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\10_Archmage's Will.jpg" id="10_Archmages Will" data-flag="@X" onclick="openSidebar('10_Archmages Will',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\25_Captivating Count.jpg" id="25_Captivating Count" data-flag="@X" onclick="openSidebar('25_Captivating Count',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\44_Life of the Party.jpg" id="44_Life of the Party" data-flag="@X" onclick="openSidebar('44_Life of the Party',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\1_The Chapter Ends.jpg" id="1_The Chapter Ends" data-flag="@X" onclick="openSidebar('1_The Chapter Ends',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\16_Sent to Safety.jpg" id="16_Sent to Safety" data-flag="@X" onclick="openSidebar('16_Sent to Safety',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\28_Malediction.jpg" id="28_Malediction" data-flag="@X" onclick="openSidebar('28_Malediction',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\45_Living the Yaneta Lifestyle.jpg" id="45_Living the Yaneta Lifestyle" data-flag="@X" onclick="openSidebar('45_Living the Yaneta Lifestyle',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\3_Extradict.jpg" id="3_Extradict" data-flag="@X" onclick="openSidebar('3_Extradict',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\17_Spiteful Sprite.jpg" id="17_Spiteful Sprite" data-flag="@X" onclick="openSidebar('17_Spiteful Sprite',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\31_Render Helpless.jpg" id="31_Render Helpless" data-flag="@X" onclick="openSidebar('31_Render Helpless',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\47_Scarlet District Punk.jpg" id="47_Scarlet District Punk" data-flag="@X" onclick="openSidebar('47_Scarlet District Punk',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\18_Tamper.jpg" id="18_Tamper" data-flag="@X" onclick="openSidebar('18_Tamper',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\32_Ruins Banshee.jpg" id="32_Ruins Banshee" data-flag="@X" onclick="openSidebar('32_Ruins Banshee',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\48_Scorching Superiority.jpg" id="48_Scorching Superiority" data-flag="@X" onclick="openSidebar('48_Scorching Superiority',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\11_Deflect.jpg" id="11_Deflect" data-flag="@X" onclick="openSidebar('11_Deflect',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\35_Winter's Silencer.jpg" id="35_Winters Silencer" data-flag="@X" onclick="openSidebar('35_Winters Silencer',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\50_Wicked Blaze.jpg" id="50_Wicked Blaze" data-flag="@X" onclick="openSidebar('50_Wicked Blaze',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\13_Garden Fountain.jpg" id="13_Garden Fountain" data-flag="@X" onclick="openSidebar('13_Garden Fountain',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\23_Accursed Pilgrim.jpg" id="23_Accursed Pilgrim" data-flag="@X" onclick="openSidebar('23_Accursed Pilgrim',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\37_Arcana Unbound.jpg" id="37_Arcana Unbound" data-flag="@X" onclick="openSidebar('37_Arcana Unbound',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\15_Practiced Forbiddance.jpg" id="15_Practiced Forbiddance" data-flag="@X" onclick="openSidebar('15_Practiced Forbiddance',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\30_Pluck Thoughts.jpg" id="30_Pluck Thoughts" data-flag="@X" onclick="openSidebar('30_Pluck Thoughts',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\39_Bum a Light.jpg" id="39_Bum a Light" data-flag="@X" onclick="openSidebar('39_Bum a Light',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\20_Walk with Grace.jpg" id="20_Walk with Grace" data-flag="@X" onclick="openSidebar('20_Walk with Grace',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\34_Unwaking Mausoleum.jpg" id="34_Unwaking Mausoleum" data-flag="@X" onclick="openSidebar('34_Unwaking Mausoleum',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\41_Gleeful Arson.jpg" id="41_Gleeful Arson" data-flag="@X" onclick="openSidebar('41_Gleeful Arson',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\21_Wisdom's Warning.jpg" id="21_Wisdoms Warning" data-flag="@X" onclick="openSidebar('21_Wisdoms Warning',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\42_Gloryscourge's Outrider.jpg" id="42_Gloryscourges Outrider" data-flag="@X" onclick="openSidebar('42_Gloryscourges Outrider',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\49_Taldon's Touch.jpg" id="49_Taldons Touch" data-flag="@X" onclick="openSidebar('49_Taldons Touch',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\58_Maolong, Defiant Tactician.jpg" id="58_Maolong, Defiant Tactician" data-flag="@X" onclick="openSidebar('58_Maolong, Defiant Tactician',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\55_Apex Films Dealbroker.jpg" id="55_Apex Films Dealbroker" data-flag="@X" onclick="openSidebar('55_Apex Films Dealbroker',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\54_Alexa, Called to War.jpg" id="54_Alexa, Called to War" data-flag="@X" onclick="openSidebar('54_Alexa, Called to War',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\59_Prince Beau.jpg" id="59_Prince Beau" data-flag="@X" onclick="openSidebar('59_Prince Beau',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\60_Ravenous Ambition.jpg" id="60_Ravenous Ambition" data-flag="@X" onclick="openSidebar('60_Ravenous Ambition',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\66_Vikalden, Queen Hunter.jpg" id="66_Vikalden, Queen Hunter" data-flag="@X" onclick="openSidebar('66_Vikalden, Queen Hunter',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\56_Deadly Deception.jpg" id="56_Deadly Deception" data-flag="@X" onclick="openSidebar('56_Deadly Deception',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\57_Iviana, Speaker of Fangs.jpg" id="57_Iviana, Speaker of Fangs" data-flag="@X" onclick="openSidebar('57_Iviana, Speaker of Fangs',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\62_Rouser of Mortals.jpg" id="62_Rouser of Mortals" data-flag="@X" onclick="openSidebar('62_Rouser of Mortals',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\67_Wasteland Guide.jpg" id="67_Wasteland Guide" data-flag="@X" onclick="openSidebar('67_Wasteland Guide',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\63_A Simple Life.jpg" id="63_A Simple Life" data-flag="@X" onclick="openSidebar('63_A Simple Life',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\61_Retired Monsterhunter.jpg" id="61_Retired Monsterhunter" data-flag="@X" onclick="openSidebar('61_Retired Monsterhunter',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\64_An Uninvited Guest.jpg" id="64_An Uninvited Guest" data-flag="@X" onclick="openSidebar('64_An Uninvited Guest',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\65_Veilcrossed Claimant.jpg" id="65_Veilcrossed Claimant" data-flag="@X" onclick="openSidebar('65_Veilcrossed Claimant',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\68_Shrine to Freedom.jpg" id="68_Shrine to Freedom" data-flag="@X" onclick="openSidebar('68_Shrine to Freedom',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\69_Vitin Orrery.jpg" id="69_Vitin Orrery" data-flag="@X" onclick="openSidebar('69_Vitin Orrery',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\84_Waking Shoreline.jpg" id="84_Waking Shoreline" data-flag="@X" onclick="openSidebar('84_Waking Shoreline',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\83_Waking Fen.jpg" id="83_Waking Fen" data-flag="@X" onclick="openSidebar('83_Waking Fen',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\86_Whispering Clearing.jpg" id="86_Whispering Clearing" data-flag="@X" onclick="openSidebar('86_Whispering Clearing',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\88_Whispering Village.jpg" id="88_Whispering Village" data-flag="@X" onclick="openSidebar('88_Whispering Village',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\87_Whispering Port.jpg" id="87_Whispering Port" data-flag="@X" onclick="openSidebar('87_Whispering Port',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\85_Whispering Citadel.jpg" id="85_Whispering Citadel" data-flag="@X" onclick="openSidebar('85_Whispering Citadel',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\73_Forgotten Arch.jpg" id="73_Forgotten Arch" data-flag="@X" onclick="openSidebar('73_Forgotten Arch',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\74_Forgotten Passage.jpg" id="74_Forgotten Passage" data-flag="@X" onclick="openSidebar('74_Forgotten Passage',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\76_Imposing Copse.jpg" id="76_Imposing Copse" data-flag="@X" onclick="openSidebar('76_Imposing Copse',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\77_Imposing Grove.jpg" id="77_Imposing Grove" data-flag="@X" onclick="openSidebar('77_Imposing Grove',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\82_Reclaimed Academy.jpg" id="82_Reclaimed Academy" data-flag="@X" onclick="openSidebar('82_Reclaimed Academy',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\71_Dormant Crag.jpg" id="71_Dormant Crag" data-flag="@X" onclick="openSidebar('71_Dormant Crag',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\70_Dormant Bay.jpg" id="70_Dormant Bay" data-flag="@X" onclick="openSidebar('70_Dormant Bay',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\78_Imposing Rooftops.jpg" id="78_Imposing Rooftops" data-flag="@X" onclick="openSidebar('78_Imposing Rooftops',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\75_Forgotten Stacks.jpg" id="75_Forgotten Stacks" data-flag="@X" onclick="openSidebar('75_Forgotten Stacks',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\79_Imposing Tower.jpg" id="79_Imposing Tower" data-flag="@X" onclick="openSidebar('79_Imposing Tower',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\80_Magnificent Garden.jpg" id="80_Magnificent Garden" data-flag="@X" onclick="openSidebar('80_Magnificent Garden',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\72_Empty Halls.jpg" id="72_Empty Halls" data-flag="@X" onclick="openSidebar('72_Empty Halls',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\81_New Divide.jpg" id="81_New Divide" data-flag="@X" onclick="openSidebar('81_New Divide',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\89_Plains.jpg" id="89_Plains" data-flag="@X" onclick="openSidebar('89_Plains',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\90_Island.jpg" id="90_Island" data-flag="@X" onclick="openSidebar('90_Island',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\91_Swamp.jpg" id="91_Swamp" data-flag="@X" onclick="openSidebar('91_Swamp',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\92_Mountain.jpg" id="92_Mountain" data-flag="@X" onclick="openSidebar('92_Mountain',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\93_Forest.jpg" id="93_Forest" data-flag="@X" onclick="openSidebar('93_Forest',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\1t_Spirit.jpg" id="1t_Spirit" data-flag="@X" onclick="openSidebar('1t_Spirit',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\2t_Wizard.jpg" id="2t_Wizard" data-flag="@X" onclick="openSidebar('2t_Wizard',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\3t_Serf.jpg" id="3t_Serf" data-flag="@X" onclick="openSidebar('3t_Serf',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\4t_Zombie.jpg" id="4t_Zombie" data-flag="@X" onclick="openSidebar('4t_Zombie',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\5t_Dragon.jpg" id="5t_Dragon" data-flag="@X" onclick="openSidebar('5t_Dragon',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\6t_Warrior.jpg" id="6t_Warrior" data-flag="@X" onclick="openSidebar('6t_Warrior',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\7t_Elemental.jpg" id="7t_Elemental" data-flag="@X" onclick="openSidebar('7t_Elemental',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\8t_Souvenir.jpg" id="8t_Souvenir" data-flag="@X" onclick="openSidebar('8t_Souvenir',false)"></div>
+			<div class="container"><img alt="sets\PTXX-files\img\9t_Treasure.jpg" id="9t_Treasure" data-flag="@X" onclick="openSidebar('9t_Treasure',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+	</div>
+</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+		
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = 'img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		tmp = document.getElementById(num).src;
+		document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+		document.getElementById(num).dataset.alt_src = tmp;
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		if (horizontal && rotated_img.style.display == 'none')
+		{
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+	}
+
+	function openSidebar(id, h=false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+		
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.src = document.getElementById(id).src;
+
+		if (horizontal)
+		{
+			rotated_img.src = document.getElementById(id).src;
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+		
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+		
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				search();
+			}
+		});
+
+		function search() {
+			window.location = ("/search?search=" + document.getElementById("search").value);
+		}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let card_name = card_list_arrayified[i].card_name;
+				for (const char of specialchars)
+				{
+					card_name = card_name.replaceAll(char, "");
+				}
+
+				window.location = ('/cards/' + card_list_arrayified[i].set + '/' + card_list_arrayified[i].number + '_' + card_name);
+			}
+	</script>
+</body>
+</html>
