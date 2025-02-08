@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="sets/PRISM-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>PRISM visual spoiler</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			display: none;
+			transform: rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 3%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 20px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.icon-bar {
+			display: grid;
+			grid-template-columns: repeat(10, 3fr 2fr) 3fr;
+			gap: 1px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-top: 2%;
+			padding-bottom: 1%;
+			justify-items: center;
+			align-items: center;
+		}
+		.icon-bar .icon img {
+			width: 90%;
+			max-width: 80px;
+			height: auto;
+			display: block;
+			padding: 5%;
+			margin: auto;
+			text-align: center;
+		}
+		.icon-bar .dot img {
+			width: 50%;
+			max-width: 65px;
+			height: auto;
+			display: block;
+			margin: auto;
+			text-align: center;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/PRISM-files/logo.png" />
+	<img class="preload-hidden" src="/sets/AUR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PRISM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SHS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOV-files/icon.png" />
+		<img class="preload-hidden" src="/sets/2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WAW-files/icon.png" />
+		<img class="preload-hidden" src="/sets/MSK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SHF-files/icon.png" />
+		<img class="preload-hidden" src="/sets/INM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/INK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PBA-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PTXX-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ERR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/KDT-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HEL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/EOR-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="icon-bar">
+			<div class="icon"><a href="AUR-spoiler"><img src="sets/AUR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="PRISM-spoiler"><img src="sets/PRISM-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="SHS-spoiler"><img src="sets/SHS-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="SOV-spoiler"><img src="sets/SOV-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="2HU-spoiler"><img src="sets/2HU-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="WAW-spoiler"><img src="sets/WAW-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="MSK-spoiler"><img src="sets/MSK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="SHF-spoiler"><img src="sets/SHF-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="INM-spoiler"><img src="sets/INM-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="INK-spoiler"><img src="sets/INK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="PBA-spoiler"><img src="sets/PBA-files/icon.png"></img></a></div>
+		<div class="icon"><a href="PTXX-spoiler"><img src="sets/PTXX-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="ONI-spoiler"><img src="sets/ONI-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="ERR-spoiler"><img src="sets/ERR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="KDT-spoiler"><img src="sets/KDT-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="HEL-spoiler"><img src="sets/HEL-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="img/dot.png"></img></div>
+		<div class="icon"><a href="EOR-spoiler"><img src="sets/EOR-files/icon.png"></img></a></div>
+
+		</div>
+		<div class="banner">
+		<img class="logo" src="sets/PRISM-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+				<div class="container"><img alt="sets\PRISM-files\img\20_Edu, Supreme Judge.jpg" id="20_Edu, Supreme Judge" data-flag="@X" onclick="openSidebar('20_Edu, Supreme Judge',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\76_Starship Prototype_back.jpg" alt="sets\PRISM-files\img\76_Starship Prototype_front.jpg" id="76_Starship Prototype" data-flag="@XD" onclick="openSidebar('76_Starship Prototype',false)"><button class="flip-btn" onclick="imgFlip(76_Starship Prototype)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\84_Captain Aether.jpg" id="84_Captain Aether" data-flag="@X" onclick="openSidebar('84_Captain Aether',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\136_Never Give Up!.jpg" id="136_Never Give Up!" data-flag="@X" onclick="openSidebar('136_Never Give Up!',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\164_Hero Twins.jpg" id="164_Hero Twins" data-flag="@X" onclick="openSidebar('164_Hero Twins',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\23_Ishi, Silent Samurai_back.jpg" alt="sets\PRISM-files\img\23_Ishi, Silent Samurai_front.jpg" id="23_Ishi, Silent Samurai" data-flag="@XD" onclick="openSidebar('23_Ishi, Silent Samurai',false)"><button class="flip-btn" onclick="imgFlip(23_Ishi, Silent Samurai)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\77_Steal Souls.jpg" id="77_Steal Souls" data-flag="@X" onclick="openSidebar('77_Steal Souls',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\106_Part-Time Shinigami_back.jpg" alt="sets\PRISM-files\img\106_Part-Time Shinigami_front.jpg" id="106_Part-Time Shinigami" data-flag="@XD" onclick="openSidebar('106_Part-Time Shinigami',false)"><button class="flip-btn" onclick="imgFlip(106_Part-Time Shinigami)"></button></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\145_Shiro, Naive Kid_back.jpg" alt="sets\PRISM-files\img\145_Shiro, Naive Kid_front.jpg" id="145_Shiro, Naive Kid" data-flag="@XD" onclick="openSidebar('145_Shiro, Naive Kid',false)"><button class="flip-btn" onclick="imgFlip(145_Shiro, Naive Kid)"></button></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\183_Transformation Sequence_back.jpg" alt="sets\PRISM-files\img\183_Transformation Sequence_front.jpg" id="183_Transformation Sequence" data-flag="@XD" onclick="openSidebar('183_Transformation Sequence',false)"><button class="flip-btn" onclick="imgFlip(183_Transformation Sequence)"></button></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\27_Laura, True Friend_back.jpg" alt="sets\PRISM-files\img\27_Laura, True Friend_front.jpg" id="27_Laura, True Friend" data-flag="@XD" onclick="openSidebar('27_Laura, True Friend',false)"><button class="flip-btn" onclick="imgFlip(27_Laura, True Friend)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\48_Cursed Costume.jpg" id="48_Cursed Costume" data-flag="@X" onclick="openSidebar('48_Cursed Costume',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\83_A Bleak and Tiresome World.jpg" id="83_A Bleak and Tiresome World" data-flag="@X" onclick="openSidebar('83_A Bleak and Tiresome World',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\118_Burnout Mahou.jpg" id="118_Burnout Mahou" data-flag="@X" onclick="openSidebar('118_Burnout Mahou',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\161_Eri, Peacemaker_back.jpg" alt="sets\PRISM-files\img\161_Eri, Peacemaker_front.jpg" id="161_Eri, Peacemaker" data-flag="@XD" onclick="openSidebar('161_Eri, Peacemaker',false)"><button class="flip-btn" onclick="imgFlip(161_Eri, Peacemaker)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\12_Cheering Crowd.jpg" id="12_Cheering Crowd" data-flag="@X" onclick="openSidebar('12_Cheering Crowd',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\50_Force of Apathy.jpg" id="50_Force of Apathy" data-flag="@X" onclick="openSidebar('50_Force of Apathy',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\87_Defeat Means Friendship.jpg" id="87_Defeat Means Friendship" data-flag="@X" onclick="openSidebar('87_Defeat Means Friendship',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\122_Demiplanar Collapse.jpg" id="122_Demiplanar Collapse" data-flag="@X" onclick="openSidebar('122_Demiplanar Collapse',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\173_Monster Trainer_back.jpg" alt="sets\PRISM-files\img\173_Monster Trainer_front.jpg" id="173_Monster Trainer" data-flag="@XD" onclick="openSidebar('173_Monster Trainer',false)"><button class="flip-btn" onclick="imgFlip(173_Monster Trainer)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\14_Crystal Voice, Solo Act.jpg" id="14_Crystal Voice, Solo Act" data-flag="@X" onclick="openSidebar('14_Crystal Voice, Solo Act',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\54_Hero Incognito_back.jpg" alt="sets\PRISM-files\img\54_Hero Incognito_front.jpg" id="54_Hero Incognito" data-flag="@XD" onclick="openSidebar('54_Hero Incognito',false)"><button class="flip-btn" onclick="imgFlip(54_Hero Incognito)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\88_Denizens of Yamara.jpg" id="88_Denizens of Yamara" data-flag="@X" onclick="openSidebar('88_Denizens of Yamara',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\125_Ekno Dragon.jpg" id="125_Ekno Dragon" data-flag="@X" onclick="openSidebar('125_Ekno Dragon',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\174_People to Protect.jpg" id="174_People to Protect" data-flag="@X" onclick="openSidebar('174_People to Protect',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\15_Cut the Sky.jpg" id="15_Cut the Sky" data-flag="@X" onclick="openSidebar('15_Cut the Sky',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\56_Kei, MALICE Future_back.jpg" alt="sets\PRISM-files\img\56_Kei, MALICE Future_front.jpg" id="56_Kei, MALICE Future" data-flag="@XD" onclick="openSidebar('56_Kei, MALICE Future',false)"><button class="flip-btn" onclick="imgFlip(56_Kei, MALICE Future)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\90_Dreamdrinker.jpg" id="90_Dreamdrinker" data-flag="@X" onclick="openSidebar('90_Dreamdrinker',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\126_Empowered Daredevil.jpg" id="126_Empowered Daredevil" data-flag="@X" onclick="openSidebar('126_Empowered Daredevil',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\175_Power Up!.jpg" id="175_Power Up!" data-flag="@X" onclick="openSidebar('175_Power Up!',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\16_Dance Magic Dance.jpg" id="16_Dance Magic Dance" data-flag="@X" onclick="openSidebar('16_Dance Magic Dance',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\63_Masked Rider.jpg" id="63_Masked Rider" data-flag="@X" onclick="openSidebar('63_Masked Rider',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\92_Extract Fears.jpg" id="92_Extract Fears" data-flag="@X" onclick="openSidebar('92_Extract Fears',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\128_Go Down Swinging.jpg" id="128_Go Down Swinging" data-flag="@X" onclick="openSidebar('128_Go Down Swinging',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\181_Stoneslumber Tiger.jpg" id="181_Stoneslumber Tiger" data-flag="@X" onclick="openSidebar('181_Stoneslumber Tiger',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\18_Draconic Kekkaishi.jpg" id="18_Draconic Kekkaishi" data-flag="@X" onclick="openSidebar('18_Draconic Kekkaishi',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\64_Mecha Designer.jpg" id="64_Mecha Designer" data-flag="@X" onclick="openSidebar('64_Mecha Designer',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\97_Kass, MALICE Present_back.jpg" alt="sets\PRISM-files\img\97_Kass, MALICE Present_front.jpg" id="97_Kass, MALICE Present" data-flag="@XD" onclick="openSidebar('97_Kass, MALICE Present',false)"><button class="flip-btn" onclick="imgFlip(97_Kass, MALICE Present)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\130_Hapless Villain.jpg" id="130_Hapless Villain" data-flag="@X" onclick="openSidebar('130_Hapless Villain',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\182_Susan, Princess of Vorkezo.jpg" id="182_Susan, Princess of Vorkezo" data-flag="@X" onclick="openSidebar('182_Susan, Princess of Vorkezo',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\28_Laura, Would-Be Hero_back.jpg" alt="sets\PRISM-files\img\28_Laura, Would-Be Hero_front.jpg" id="28_Laura, Would-Be Hero" data-flag="@XD" onclick="openSidebar('28_Laura, Would-Be Hero',false)"><button class="flip-btn" onclick="imgFlip(28_Laura, Would-Be Hero)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\66_Monster of the Week.jpg" id="66_Monster of the Week" data-flag="@X" onclick="openSidebar('66_Monster of the Week',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\109_Reluctant Villain_back.jpg" alt="sets\PRISM-files\img\109_Reluctant Villain_front.jpg" id="109_Reluctant Villain" data-flag="@XD" onclick="openSidebar('109_Reluctant Villain',false)"><button class="flip-btn" onclick="imgFlip(109_Reluctant Villain)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\132_John, Legendary Sunranger.jpg" id="132_John, Legendary Sunranger" data-flag="@X" onclick="openSidebar('132_John, Legendary Sunranger',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\185_Win the Contest.jpg" id="185_Win the Contest" data-flag="@X" onclick="openSidebar('185_Win the Contest',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\31_Protector of the World.jpg" id="31_Protector of the World" data-flag="@X" onclick="openSidebar('31_Protector of the World',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\75_Spirit-Home Wand.jpg" id="75_Spirit-Home Wand" data-flag="@X" onclick="openSidebar('75_Spirit-Home Wand',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\116_Yumeko, Princess of Dream.jpg" id="116_Yumeko, Princess of Dream" data-flag="@X" onclick="openSidebar('116_Yumeko, Princess of Dream',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\137_Nightmare Attack.jpg" id="137_Nightmare Attack" data-flag="@X" onclick="openSidebar('137_Nightmare Attack',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\186_World-Saver.jpg" id="186_World-Saver" data-flag="@X" onclick="openSidebar('186_World-Saver',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\35_Savior of the Weak.jpg" id="35_Savior of the Weak" data-flag="@X" onclick="openSidebar('35_Savior of the Weak',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\80_Yu, Former Villain.jpg" id="80_Yu, Former Villain" data-flag="@X" onclick="openSidebar('80_Yu, Former Villain',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\82_Ami Ryoka, Mayor.jpg" id="82_Ami Ryoka, Mayor" data-flag="@X" onclick="openSidebar('82_Ami Ryoka, Mayor',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\119_Calling Your Attacks.jpg" id="119_Calling Your Attacks" data-flag="@X" onclick="openSidebar('119_Calling Your Attacks',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\187_The X-Team.jpg" id="187_The X-Team" data-flag="@X" onclick="openSidebar('187_The X-Team',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\6_Acquisitions Expert_back.jpg" alt="sets\PRISM-files\img\6_Acquisitions Expert_front.jpg" id="6_Acquisitions Expert" data-flag="@XD" onclick="openSidebar('6_Acquisitions Expert',false)"><button class="flip-btn" onclick="imgFlip(6_Acquisitions Expert)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\44_AI Mech.jpg" id="44_AI Mech" data-flag="@X" onclick="openSidebar('44_AI Mech',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\85_Celebrity Mahou_back.jpg" alt="sets\PRISM-files\img\85_Celebrity Mahou_front.jpg" id="85_Celebrity Mahou" data-flag="@XD" onclick="openSidebar('85_Celebrity Mahou',false)"><button class="flip-btn" onclick="imgFlip(85_Celebrity Mahou)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\123_Disinterested Predator.jpg" id="123_Disinterested Predator" data-flag="@X" onclick="openSidebar('123_Disinterested Predator',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\152_By Our Powers Combined....jpg" id="152_By Our Powers Combined..." data-flag="@X" onclick="openSidebar('152_By Our Powers Combined...',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\13_Crystal Voice_back.jpg" alt="sets\PRISM-files\img\13_Crystal Voice_front.jpg" id="13_Crystal Voice" data-flag="@XD" onclick="openSidebar('13_Crystal Voice',false)"><button class="flip-btn" onclick="imgFlip(13_Crystal Voice)"></button></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\45_Bereaved Genius_back.jpg" alt="sets\PRISM-files\img\45_Bereaved Genius_front.jpg" id="45_Bereaved Genius" data-flag="@XD" onclick="openSidebar('45_Bereaved Genius',false)"><button class="flip-btn" onclick="imgFlip(45_Bereaved Genius)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\86_Dark Essence Strike.jpg" id="86_Dark Essence Strike" data-flag="@X" onclick="openSidebar('86_Dark Essence Strike',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\124_Dream of Pain.jpg" id="124_Dream of Pain" data-flag="@X" onclick="openSidebar('124_Dream of Pain',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\154_Challenge the King.jpg" id="154_Challenge the King" data-flag="@X" onclick="openSidebar('154_Challenge the King',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\19_Eager Familiar_back.jpg" alt="sets\PRISM-files\img\19_Eager Familiar_front.jpg" id="19_Eager Familiar" data-flag="@XD" onclick="openSidebar('19_Eager Familiar',false)"><button class="flip-btn" onclick="imgFlip(19_Eager Familiar)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\47_Collaborative Thinking.jpg" id="47_Collaborative Thinking" data-flag="@X" onclick="openSidebar('47_Collaborative Thinking',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\91_Exhausted Champion_back.jpg" alt="sets\PRISM-files\img\91_Exhausted Champion_front.jpg" id="91_Exhausted Champion" data-flag="@XD" onclick="openSidebar('91_Exhausted Champion',false)"><button class="flip-btn" onclick="imgFlip(91_Exhausted Champion)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\138_Passionate Painter.jpg" id="138_Passionate Painter" data-flag="@X" onclick="openSidebar('138_Passionate Painter',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\157_Croissant Crabs.jpg" id="157_Croissant Crabs" data-flag="@X" onclick="openSidebar('157_Croissant Crabs',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\21_Fanatical Fanartist_back.jpg" alt="sets\PRISM-files\img\21_Fanatical Fanartist_front.jpg" id="21_Fanatical Fanartist" data-flag="@XD" onclick="openSidebar('21_Fanatical Fanartist',false)"><button class="flip-btn" onclick="imgFlip(21_Fanatical Fanartist)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\52_Freezing Armaments.jpg" id="52_Freezing Armaments" data-flag="@X" onclick="openSidebar('52_Freezing Armaments',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\98_Kerovotz Familiar.jpg" id="98_Kerovotz Familiar" data-flag="@X" onclick="openSidebar('98_Kerovotz Familiar',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\139_Pose as a Team.jpg" id="139_Pose as a Team" data-flag="@X" onclick="openSidebar('139_Pose as a Team',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\158_Demiplanar Division.jpg" id="158_Demiplanar Division" data-flag="@X" onclick="openSidebar('158_Demiplanar Division',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\24_Keeper of the Seals.jpg" id="24_Keeper of the Seals" data-flag="@X" onclick="openSidebar('24_Keeper of the Seals',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\59_Lantalian Emissary.jpg" id="59_Lantalian Emissary" data-flag="@X" onclick="openSidebar('59_Lantalian Emissary',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\101_Monster-to-Be.jpg" id="101_Monster-to-Be" data-flag="@X" onclick="openSidebar('101_Monster-to-Be',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\144_Royal Wedding.jpg" id="144_Royal Wedding" data-flag="@X" onclick="openSidebar('144_Royal Wedding',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\160_Earthranger.jpg" id="160_Earthranger" data-flag="@X" onclick="openSidebar('160_Earthranger',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\26_Last-Second Heroics.jpg" id="26_Last-Second Heroics" data-flag="@X" onclick="openSidebar('26_Last-Second Heroics',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\65_Mirio Mori, Mad Mechanic_back.jpg" alt="sets\PRISM-files\img\65_Mirio Mori, Mad Mechanic_front.jpg" id="65_Mirio Mori, Mad Mechanic" data-flag="@XD" onclick="openSidebar('65_Mirio Mori, Mad Mechanic',false)"><button class="flip-btn" onclick="imgFlip(65_Mirio Mori, Mad Mechanic)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\103_Murderer.jpg" id="103_Murderer" data-flag="@X" onclick="openSidebar('103_Murderer',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\148_Sunranger.jpg" id="148_Sunranger" data-flag="@X" onclick="openSidebar('148_Sunranger',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\162_Flower Storm, the Idealistic_back.jpg" alt="sets\PRISM-files\img\162_Flower Storm, the Idealistic_front.jpg" id="162_Flower Storm, the Idealistic" data-flag="@XD" onclick="openSidebar('162_Flower Storm, the Idealistic',false)"><button class="flip-btn" onclick="imgFlip(162_Flower Storm, the Idealistic)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\32_Proven Worthy.jpg" id="32_Proven Worthy" data-flag="@X" onclick="openSidebar('32_Proven Worthy',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\67_Moonranger.jpg" id="67_Moonranger" data-flag="@X" onclick="openSidebar('67_Moonranger',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\105_Oni Monstrosity.jpg" id="105_Oni Monstrosity" data-flag="@X" onclick="openSidebar('105_Oni Monstrosity',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\150_Unexpected Attack.jpg" id="150_Unexpected Attack" data-flag="@X" onclick="openSidebar('150_Unexpected Attack',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\170_Masked Dragonrider_back.jpg" alt="sets\PRISM-files\img\170_Masked Dragonrider_front.jpg" id="170_Masked Dragonrider" data-flag="@XD" onclick="openSidebar('170_Masked Dragonrider',false)"><button class="flip-btn" onclick="imgFlip(170_Masked Dragonrider)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\36_Shining Armaments.jpg" id="36_Shining Armaments" data-flag="@X" onclick="openSidebar('36_Shining Armaments',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\71_Robokaiju.jpg" id="71_Robokaiju" data-flag="@X" onclick="openSidebar('71_Robokaiju',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\107_Pledge Your Soul.jpg" id="107_Pledge Your Soul" data-flag="@X" onclick="openSidebar('107_Pledge Your Soul',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\151_Would-Be Hero_back.jpg" alt="sets\PRISM-files\img\151_Would-Be Hero_front.jpg" id="151_Would-Be Hero" data-flag="@XD" onclick="openSidebar('151_Would-Be Hero',false)"><button class="flip-btn" onclick="imgFlip(151_Would-Be Hero)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\171_Mentor Mascot.jpg" id="171_Mentor Mascot" data-flag="@X" onclick="openSidebar('171_Mentor Mascot',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\38_Starranger.jpg" id="38_Starranger" data-flag="@X" onclick="openSidebar('38_Starranger',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\73_Secret Identity.jpg" id="73_Secret Identity" data-flag="@X" onclick="openSidebar('73_Secret Identity',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\113_Voidranger.jpg" id="113_Voidranger" data-flag="@X" onclick="openSidebar('113_Voidranger',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\117_Berserk Mode.jpg" id="117_Berserk Mode" data-flag="@X" onclick="openSidebar('117_Berserk Mode',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\184_Wandering Kaiju.jpg" id="184_Wandering Kaiju" data-flag="@X" onclick="openSidebar('184_Wandering Kaiju',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\40_Taki Ryoka, Househusband.jpg" id="40_Taki Ryoka, Househusband" data-flag="@X" onclick="openSidebar('40_Taki Ryoka, Househusband',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\79_The Throne Beneath the Seas.jpg" id="79_The Throne Beneath the Seas" data-flag="@X" onclick="openSidebar('79_The Throne Beneath the Seas',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\81_Ambitious Nobody.jpg" id="81_Ambitious Nobody" data-flag="@X" onclick="openSidebar('81_Ambitious Nobody',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\120_Centennial Crossed Lovers.jpg" id="120_Centennial Crossed Lovers" data-flag="@X" onclick="openSidebar('120_Centennial Crossed Lovers',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\188_Yamaran Invasion.jpg" id="188_Yamaran Invasion" data-flag="@X" onclick="openSidebar('188_Yamaran Invasion',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\43_Yamara's Punisher.jpg" id="43_Yamaras Punisher" data-flag="@N" onclick="openSidebar('43_Yamaras Punisher',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\46_Cerulean Witch.jpg" id="46_Cerulean Witch" data-flag="@X" onclick="openSidebar('46_Cerulean Witch',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\89_Drain Emotions.jpg" id="89_Drain Emotions" data-flag="@X" onclick="openSidebar('89_Drain Emotions',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\121_Centennial Vanguard.jpg" id="121_Centennial Vanguard" data-flag="@X" onclick="openSidebar('121_Centennial Vanguard',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\153_Captivating Kappa.jpg" id="153_Captivating Kappa" data-flag="@X" onclick="openSidebar('153_Captivating Kappa',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\7_Alabaster Witch.jpg" id="7_Alabaster Witch" data-flag="@X" onclick="openSidebar('7_Alabaster Witch',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\49_Cyberknight Frame.jpg" id="49_Cyberknight Frame" data-flag="@X" onclick="openSidebar('49_Cyberknight Frame',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\93_Finishing Blow.jpg" id="93_Finishing Blow" data-flag="@X" onclick="openSidebar('93_Finishing Blow',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\127_Fire Strike.jpg" id="127_Fire Strike" data-flag="@X" onclick="openSidebar('127_Fire Strike',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\155_Combo Attack!.jpg" id="155_Combo Attack!" data-flag="@X" onclick="openSidebar('155_Combo Attack!',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\8_Arcadian Acolyte_back.jpg" alt="sets\PRISM-files\img\8_Arcadian Acolyte_front.jpg" id="8_Arcadian Acolyte" data-flag="@XD" onclick="openSidebar('8_Arcadian Acolyte',false)"><button class="flip-btn" onclick="imgFlip(8_Arcadian Acolyte)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\51_Freeze Desires.jpg" id="51_Freeze Desires" data-flag="@X" onclick="openSidebar('51_Freeze Desires',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\94_Flamboyant Villain.jpg" id="94_Flamboyant Villain" data-flag="@X" onclick="openSidebar('94_Flamboyant Villain',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\129_Golden Spirit.jpg" id="129_Golden Spirit" data-flag="@X" onclick="openSidebar('129_Golden Spirit',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\156_Commencement of Festivities.jpg" id="156_Commencement of Festivities" data-flag="@X" onclick="openSidebar('156_Commencement of Festivities',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\9_Arcadian Princess.jpg" id="9_Arcadian Princess" data-flag="@X" onclick="openSidebar('9_Arcadian Princess',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\53_Gear Up.jpg" id="53_Gear Up" data-flag="@X" onclick="openSidebar('53_Gear Up',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\95_Friendly Nightmare.jpg" id="95_Friendly Nightmare" data-flag="@X" onclick="openSidebar('95_Friendly Nightmare',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\131_Hot-Blooded Hero.jpg" id="131_Hot-Blooded Hero" data-flag="@X" onclick="openSidebar('131_Hot-Blooded Hero',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\159_Desperate Druid.jpg" id="159_Desperate Druid" data-flag="@X" onclick="openSidebar('159_Desperate Druid',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\10_Back Alley Crew.jpg" id="10_Back Alley Crew" data-flag="@X" onclick="openSidebar('10_Back Alley Crew',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\55_Interfering Catgeist.jpg" id="55_Interfering Catgeist" data-flag="@X" onclick="openSidebar('55_Interfering Catgeist',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\96_Heroic Sacrifice.jpg" id="96_Heroic Sacrifice" data-flag="@X" onclick="openSidebar('96_Heroic Sacrifice',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\133_Lady of Fire.jpg" id="133_Lady of Fire" data-flag="@X" onclick="openSidebar('133_Lady of Fire',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\163_Garden Kekkaishi.jpg" id="163_Garden Kekkaishi" data-flag="@X" onclick="openSidebar('163_Garden Kekkaishi',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\11_Centennial Referee.jpg" id="11_Centennial Referee" data-flag="@X" onclick="openSidebar('11_Centennial Referee',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\57_Lady of Water.jpg" id="57_Lady of Water" data-flag="@X" onclick="openSidebar('57_Lady of Water',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\99_Late Night Bystander.jpg" id="99_Late Night Bystander" data-flag="@X" onclick="openSidebar('99_Late Night Bystander',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\134_Laserknuckle.jpg" id="134_Laserknuckle" data-flag="@X" onclick="openSidebar('134_Laserknuckle',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\165_Hydra's Acolyte.jpg" id="165_Hydras Acolyte" data-flag="@N" onclick="openSidebar('165_Hydras Acolyte',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\17_Disenchant.jpg" id="17_Disenchant" data-flag="@X" onclick="openSidebar('17_Disenchant',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\58_Lantalian Acolyte_back.jpg" alt="sets\PRISM-files\img\58_Lantalian Acolyte_front.jpg" id="58_Lantalian Acolyte" data-flag="@XD" onclick="openSidebar('58_Lantalian Acolyte',false)"><button class="flip-btn" onclick="imgFlip(58_Lantalian Acolyte)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\100_Malicious Baku.jpg" id="100_Malicious Baku" data-flag="@X" onclick="openSidebar('100_Malicious Baku',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\135_Music's Acolyte.jpg" id="135_Musics Acolyte" data-flag="@N" onclick="openSidebar('135_Musics Acolyte',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\166_Infused Beast.jpg" id="166_Infused Beast" data-flag="@X" onclick="openSidebar('166_Infused Beast',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\22_Friend to Dragons.jpg" id="22_Friend to Dragons" data-flag="@X" onclick="openSidebar('22_Friend to Dragons',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\60_Lantalian Princess.jpg" id="60_Lantalian Princess" data-flag="@X" onclick="openSidebar('60_Lantalian Princess',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\102_Monstifier.jpg" id="102_Monstifier" data-flag="@X" onclick="openSidebar('102_Monstifier',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\140_Princess of Vyuren.jpg" id="140_Princess of Vyuren" data-flag="@X" onclick="openSidebar('140_Princess of Vyuren',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\167_Lady of Earth.jpg" id="167_Lady of Earth" data-flag="@X" onclick="openSidebar('167_Lady of Earth',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\25_Lady of Air.jpg" id="25_Lady of Air" data-flag="@X" onclick="openSidebar('25_Lady of Air',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\61_Lesser Monstrosity.jpg" id="61_Lesser Monstrosity" data-flag="@X" onclick="openSidebar('61_Lesser Monstrosity',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\104_Nightmare's Acolyte.jpg" id="104_Nightmares Acolyte" data-flag="@N" onclick="openSidebar('104_Nightmares Acolyte',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\141_Raging Daymare.jpg" id="141_Raging Daymare" data-flag="@X" onclick="openSidebar('141_Raging Daymare',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\168_Living Lunch.jpg" id="168_Living Lunch" data-flag="@X" onclick="openSidebar('168_Living Lunch',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\29_Masked Hero Team.jpg" id="29_Masked Hero Team" data-flag="@X" onclick="openSidebar('29_Masked Hero Team',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\62_Lost to Apathy.jpg" id="62_Lost to Apathy" data-flag="@X" onclick="openSidebar('62_Lost to Apathy',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\108_The Power of Despair.jpg" id="108_The Power of Despair" data-flag="@X" onclick="openSidebar('108_The Power of Despair',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\142_Reckless Driving.jpg" id="142_Reckless Driving" data-flag="@X" onclick="openSidebar('142_Reckless Driving',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\169_Make My Monster Grow!.jpg" id="169_Make My Monster Grow!" data-flag="@X" onclick="openSidebar('169_Make My Monster Grow!',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\30_Not My Problem.jpg" id="30_Not My Problem" data-flag="@X" onclick="openSidebar('30_Not My Problem',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\68_Oni Silencer.jpg" id="68_Oni Silencer" data-flag="@X" onclick="openSidebar('68_Oni Silencer',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\110_School Bullies.jpg" id="110_School Bullies" data-flag="@X" onclick="openSidebar('110_School Bullies',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\143_Retired Hero.jpg" id="143_Retired Hero" data-flag="@X" onclick="openSidebar('143_Retired Hero',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\172_Momo's Arrival.jpg" id="172_Momos Arrival" data-flag="@N" onclick="openSidebar('172_Momos Arrival',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\33_Resolute Rescue.jpg" id="33_Resolute Rescue" data-flag="@X" onclick="openSidebar('33_Resolute Rescue',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\69_Pearl of Lantalia.jpg" id="69_Pearl of Lantalia" data-flag="@X" onclick="openSidebar('69_Pearl of Lantalia',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\111_Tenebrous Witch.jpg" id="111_Tenebrous Witch" data-flag="@X" onclick="openSidebar('111_Tenebrous Witch',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\146_Spiritfire.jpg" id="146_Spiritfire" data-flag="@X" onclick="openSidebar('146_Spiritfire',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\176_Prince of the Wilds.jpg" id="176_Prince of the Wilds" data-flag="@X" onclick="openSidebar('176_Prince of the Wilds',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\34_Royal Restoration.jpg" id="34_Royal Restoration" data-flag="@X" onclick="openSidebar('34_Royal Restoration',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\70_Research Program.jpg" id="70_Research Program" data-flag="@X" onclick="openSidebar('70_Research Program',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\112_Treacherous Neighbors.jpg" id="112_Treacherous Neighbors" data-flag="@X" onclick="openSidebar('112_Treacherous Neighbors',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\147_Spunky Engineer.jpg" id="147_Spunky Engineer" data-flag="@X" onclick="openSidebar('147_Spunky Engineer',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\177_Ranger of the Green Wood.jpg" id="177_Ranger of the Green Wood" data-flag="@X" onclick="openSidebar('177_Ranger of the Green Wood',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\37_Skilled Kekkaishi.jpg" id="37_Skilled Kekkaishi" data-flag="@X" onclick="openSidebar('37_Skilled Kekkaishi',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\72_Scientists.jpg" id="72_Scientists" data-flag="@X" onclick="openSidebar('72_Scientists',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\114_We Can't Give Up!.jpg" id="114_We Cant Give Up!" data-flag="@N" onclick="openSidebar('114_We Cant Give Up!',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\149_Tragic Backstory.jpg" id="149_Tragic Backstory" data-flag="@X" onclick="openSidebar('149_Tragic Backstory',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\178_Showdown.jpg" id="178_Showdown" data-flag="@X" onclick="openSidebar('178_Showdown',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\39_Supportive Bystanders.jpg" id="39_Supportive Bystanders" data-flag="@X" onclick="openSidebar('39_Supportive Bystanders',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\74_Send Away.jpg" id="74_Send Away" data-flag="@X" onclick="openSidebar('74_Send Away',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\115_Wish Granter.jpg" id="115_Wish Granter" data-flag="@X" onclick="openSidebar('115_Wish Granter',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\179_Skyscraper Attack!.jpg" id="179_Skyscraper Attack!" data-flag="@X" onclick="openSidebar('179_Skyscraper Attack!',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\41_Wandworker.jpg" id="41_Wandworker" data-flag="@X" onclick="openSidebar('41_Wandworker',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\78_Tengu of Vorkezo.jpg" id="78_Tengu of Vorkezo" data-flag="@X" onclick="openSidebar('78_Tengu of Vorkezo',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\180_Spiderburger.jpg" id="180_Spiderburger" data-flag="@X" onclick="openSidebar('180_Spiderburger',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\42_Yamaran High Uniform.jpg" id="42_Yamaran High Uniform" data-flag="@X" onclick="openSidebar('42_Yamaran High Uniform',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\207_Weaponry Enthusiast.jpg" id="207_Weaponry Enthusiast" data-flag="@X" onclick="openSidebar('207_Weaponry Enthusiast',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\204_Surrender to Despair.jpg" id="204_Surrender to Despair" data-flag="@X" onclick="openSidebar('204_Surrender to Despair',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\196_King Nightmare.jpg" id="196_King Nightmare" data-flag="@X" onclick="openSidebar('196_King Nightmare',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\208_Wildflower's Warcry.jpg" id="208_Wildflowers Warcry" data-flag="@N" onclick="openSidebar('208_Wildflowers Warcry',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\193_Divine Prison.jpg" id="193_Divine Prison" data-flag="@X" onclick="openSidebar('193_Divine Prison',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\195_Hoshi, Relic Hunter_back.jpg" alt="sets\PRISM-files\img\195_Hoshi, Relic Hunter_front.jpg" id="195_Hoshi, Relic Hunter" data-flag="@XD" onclick="openSidebar('195_Hoshi, Relic Hunter',false)"><button class="flip-btn" onclick="imgFlip(195_Hoshi, Relic Hunter)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\201_Nanashi, Apostle of Apathy.jpg" id="201_Nanashi, Apostle of Apathy" data-flag="@X" onclick="openSidebar('201_Nanashi, Apostle of Apathy',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\210_Yumeko, Self-Centered_back.jpg" alt="sets\PRISM-files\img\210_Yumeko, Self-Centered_front.jpg" id="210_Yumeko, Self-Centered" data-flag="@XD" onclick="openSidebar('210_Yumeko, Self-Centered',false)"><button class="flip-btn" onclick="imgFlip(210_Yumeko, Self-Centered)"></button></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\197_Koro, Passionate Gardener_back.jpg" alt="sets\PRISM-files\img\197_Koro, Passionate Gardener_front.jpg" id="197_Koro, Passionate Gardener" data-flag="@XD" onclick="openSidebar('197_Koro, Passionate Gardener',false)"><button class="flip-btn" onclick="imgFlip(197_Koro, Passionate Gardener)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\200_Momo, Jaded Kekkaishi.jpg" id="200_Momo, Jaded Kekkaishi" data-flag="@X" onclick="openSidebar('200_Momo, Jaded Kekkaishi',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\225_Part Time Samurai.jpg" id="225_Part Time Samurai" data-flag="@X" onclick="openSidebar('225_Part Time Samurai',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\226_Silent Colossus.jpg" id="226_Silent Colossus" data-flag="@X" onclick="openSidebar('226_Silent Colossus',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\221_Hero Hunter.jpg" id="221_Hero Hunter" data-flag="@X" onclick="openSidebar('221_Hero Hunter',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\213_Centennial Ritualist.jpg" id="213_Centennial Ritualist" data-flag="@X" onclick="openSidebar('213_Centennial Ritualist',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\219_Flowerpower.jpg" id="219_Flowerpower" data-flag="@X" onclick="openSidebar('219_Flowerpower',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\230_Workshop Arms.jpg" id="230_Workshop Arms" data-flag="@X" onclick="openSidebar('230_Workshop Arms',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\218_Energy Drainer.jpg" id="218_Energy Drainer" data-flag="@X" onclick="openSidebar('218_Energy Drainer',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\217_Dreamborn Terrorizer.jpg" id="217_Dreamborn Terrorizer" data-flag="@X" onclick="openSidebar('217_Dreamborn Terrorizer',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\229_Walking Disaster.jpg" id="229_Walking Disaster" data-flag="@X" onclick="openSidebar('229_Walking Disaster',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\211_Altar to Yamara.jpg" id="211_Altar to Yamara" data-flag="@X" onclick="openSidebar('211_Altar to Yamara',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\206_Suzuna Ryoka, Kid Hero.jpg" id="206_Suzuna Ryoka, Kid Hero" data-flag="@X" onclick="openSidebar('206_Suzuna Ryoka, Kid Hero',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\205_Susan, Temple Maid_back.jpg" alt="sets\PRISM-files\img\205_Susan, Temple Maid_front.jpg" id="205_Susan, Temple Maid" data-flag="@XD" onclick="openSidebar('205_Susan, Temple Maid',false)"><button class="flip-btn" onclick="imgFlip(205_Susan, Temple Maid)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\209_Yu, MALICE Apprentice.jpg" id="209_Yu, MALICE Apprentice" data-flag="@X" onclick="openSidebar('209_Yu, MALICE Apprentice',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\199_Mass-Produced Mecha.jpg" id="199_Mass-Produced Mecha" data-flag="@X" onclick="openSidebar('199_Mass-Produced Mecha',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\203_Ready to Rock.jpg" id="203_Ready to Rock" data-flag="@X" onclick="openSidebar('203_Ready to Rock',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\190_Akira, Financial Backer.jpg" id="190_Akira, Financial Backer" data-flag="@X" onclick="openSidebar('190_Akira, Financial Backer',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\227_Teacher.jpg" id="227_Teacher" data-flag="@X" onclick="openSidebar('227_Teacher',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\222_MALICE Charm.jpg" id="222_MALICE Charm" data-flag="@X" onclick="openSidebar('222_MALICE Charm',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\202_The Prototype.jpg" id="202_The Prototype" data-flag="@X" onclick="openSidebar('202_The Prototype',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\192_Crystal Guitar.jpg" id="192_Crystal Guitar" data-flag="@X" onclick="openSidebar('192_Crystal Guitar',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\224_Not as Dead as We Thought.jpg" id="224_Not as Dead as We Thought" data-flag="@X" onclick="openSidebar('224_Not as Dead as We Thought',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\220_Grizzled Mentor.jpg" id="220_Grizzled Mentor" data-flag="@X" onclick="openSidebar('220_Grizzled Mentor',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\228_Villainous Activity.jpg" id="228_Villainous Activity" data-flag="@X" onclick="openSidebar('228_Villainous Activity',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\223_Mecha Sword.jpg" id="223_Mecha Sword" data-flag="@X" onclick="openSidebar('223_Mecha Sword',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\216_Crystal Keys.jpg" id="216_Crystal Keys" data-flag="@X" onclick="openSidebar('216_Crystal Keys',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\212_Catgirl and Girl Cat.jpg" id="212_Catgirl and Girl Cat" data-flag="@X" onclick="openSidebar('212_Catgirl and Girl Cat',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\215_Combining Mecha.jpg" id="215_Combining Mecha" data-flag="@X" onclick="openSidebar('215_Combining Mecha',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\214_Chosen Buskers.jpg" id="214_Chosen Buskers" data-flag="@X" onclick="openSidebar('214_Chosen Buskers',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\198_Malazoga, the Secret Spell.jpg" id="198_Malazoga, the Secret Spell" data-flag="@X" onclick="openSidebar('198_Malazoga, the Secret Spell',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\189_Aki, Wandering Musician_back.jpg" alt="sets\PRISM-files\img\189_Aki, Wandering Musician_front.jpg" id="189_Aki, Wandering Musician" data-flag="@XD" onclick="openSidebar('189_Aki, Wandering Musician',false)"><button class="flip-btn" onclick="imgFlip(189_Aki, Wandering Musician)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\191_Centennial Ritual.jpg" id="191_Centennial Ritual" data-flag="@X" onclick="openSidebar('191_Centennial Ritual',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\194_Elya, MALICE Eternal.jpg" id="194_Elya, MALICE Eternal" data-flag="@X" onclick="openSidebar('194_Elya, MALICE Eternal',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\2_Sapentia.jpg" id="2_Sapentia" data-flag="@X" onclick="openSidebar('2_Sapentia',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\231_Armor of the One.jpg" id="231_Armor of the One" data-flag="@X" onclick="openSidebar('231_Armor of the One',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\237_Monument to the Heroes.jpg" id="237_Monument to the Heroes" data-flag="@X" onclick="openSidebar('237_Monument to the Heroes',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\1_Indifference.jpg" id="1_Indifference" data-flag="@X" onclick="openSidebar('1_Indifference',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\235_Mid-Size Sedan.jpg" id="235_Mid-Size Sedan" data-flag="@X" onclick="openSidebar('235_Mid-Size Sedan',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\240_Super Robot Galaxy Rise.jpg" id="240_Super Robot Galaxy Rise" data-flag="@X" onclick="openSidebar('240_Super Robot Galaxy Rise',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\3_Sapentia's Censor.jpg" id="3_Sapentias Censor" data-flag="@N" onclick="openSidebar('3_Sapentias Censor',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\4_Sapentia's Henchmen.jpg" id="4_Sapentias Henchmen" data-flag="@N" onclick="openSidebar('4_Sapentias Henchmen',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\232_Combining Weapon_back.jpg" alt="sets\PRISM-files\img\232_Combining Weapon_front.jpg" id="232_Combining Weapon" data-flag="@XD" onclick="openSidebar('232_Combining Weapon',false)"><button class="flip-btn" onclick="imgFlip(232_Combining Weapon)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\233_Delivery Truck.jpg" id="233_Delivery Truck" data-flag="@X" onclick="openSidebar('233_Delivery Truck',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\238_Power Crystal.jpg" id="238_Power Crystal" data-flag="@X" onclick="openSidebar('238_Power Crystal',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\241_Transformation Trinket_back.jpg" alt="sets\PRISM-files\img\241_Transformation Trinket_front.jpg" id="241_Transformation Trinket" data-flag="@XD" onclick="openSidebar('241_Transformation Trinket',false)"><button class="flip-btn" onclick="imgFlip(241_Transformation Trinket)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\5_Sapentia's Vanguard.jpg" id="5_Sapentias Vanguard" data-flag="@N" onclick="openSidebar('5_Sapentias Vanguard',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\234_Magnificent Jewelry.jpg" id="234_Magnificent Jewelry" data-flag="@X" onclick="openSidebar('234_Magnificent Jewelry',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\236_Monsterbane Pistol.jpg" id="236_Monsterbane Pistol" data-flag="@X" onclick="openSidebar('236_Monsterbane Pistol',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\239_Stoneslumber Dragon.jpg" id="239_Stoneslumber Dragon" data-flag="@X" onclick="openSidebar('239_Stoneslumber Dragon',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\245_The Kingdom of Hope_back.jpg" alt="sets\PRISM-files\img\245_The Kingdom of Hope_front.jpg" id="245_The Kingdom of Hope" data-flag="@XD" onclick="openSidebar('245_The Kingdom of Hope',false)"><button class="flip-btn" onclick="imgFlip(245_The Kingdom of Hope)"></button></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\246_The Land Beneath the Sea_back.jpg" alt="sets\PRISM-files\img\246_The Land Beneath the Sea_front.jpg" id="246_The Land Beneath the Sea" data-flag="@XD" onclick="openSidebar('246_The Land Beneath the Sea',false)"><button class="flip-btn" onclick="imgFlip(246_The Land Beneath the Sea)"></button></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\251_The Realm of Sorcery_back.jpg" alt="sets\PRISM-files\img\251_The Realm of Sorcery_front.jpg" id="251_The Realm of Sorcery" data-flag="@XD" onclick="openSidebar('251_The Realm of Sorcery',false)"><button class="flip-btn" onclick="imgFlip(251_The Realm of Sorcery)"></button></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\257_The World of Fire_back.jpg" alt="sets\PRISM-files\img\257_The World of Fire_front.jpg" id="257_The World of Fire" data-flag="@XD" onclick="openSidebar('257_The World of Fire',false)"><button class="flip-btn" onclick="imgFlip(257_The World of Fire)"></button></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\256_The Wilds_back.jpg" alt="sets\PRISM-files\img\256_The Wilds_front.jpg" id="256_The Wilds" data-flag="@XD" onclick="openSidebar('256_The Wilds',false)"><button class="flip-btn" onclick="imgFlip(256_The Wilds)"></button></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\250_The Realm of Dreams_back.jpg" alt="sets\PRISM-files\img\250_The Realm of Dreams_front.jpg" id="250_The Realm of Dreams" data-flag="@XD" onclick="openSidebar('250_The Realm of Dreams',false)"><button class="flip-btn" onclick="imgFlip(250_The Realm of Dreams)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\247_Music's Heart.jpg" id="247_Musics Heart" data-flag="@N" onclick="openSidebar('247_Musics Heart',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\242_The Afterlife_back.jpg" alt="sets\PRISM-files\img\242_The Afterlife_front.jpg" id="242_The Afterlife" data-flag="@XD" onclick="openSidebar('242_The Afterlife',false)"><button class="flip-btn" onclick="imgFlip(242_The Afterlife)"></button></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\252_Scientopia_back.jpg" alt="sets\PRISM-files\img\252_Scientopia_front.jpg" id="252_Scientopia" data-flag="@XD" onclick="openSidebar('252_Scientopia',false)"><button class="flip-btn" onclick="imgFlip(252_Scientopia)"></button></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\244_Home of Monsters_back.jpg" alt="sets\PRISM-files\img\244_Home of Monsters_front.jpg" id="244_Home of Monsters" data-flag="@XD" onclick="openSidebar('244_Home of Monsters',false)"><button class="flip-btn" onclick="imgFlip(244_Home of Monsters)"></button></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\243_Formless Chaos_back.jpg" alt="sets\PRISM-files\img\243_Formless Chaos_front.jpg" id="243_Formless Chaos" data-flag="@XD" onclick="openSidebar('243_Formless Chaos',false)"><button class="flip-btn" onclick="imgFlip(243_Formless Chaos)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\249_The Quarry.jpg" id="249_The Quarry" data-flag="@X" onclick="openSidebar('249_The Quarry',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\253_Team HQ.jpg" id="253_Team HQ" data-flag="@X" onclick="openSidebar('253_Team HQ',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\255_Thriving Neighborhood.jpg" id="255_Thriving Neighborhood" data-flag="@X" onclick="openSidebar('255_Thriving Neighborhood',false)"></div>
+			<div class="container"><img data-alt_src="sets\PRISM-files\img\248_The Ordinary World_back.jpg" alt="sets\PRISM-files\img\248_The Ordinary World_front.jpg" id="248_The Ordinary World" data-flag="@XD" onclick="openSidebar('248_The Ordinary World',false)"><button class="flip-btn" onclick="imgFlip(248_The Ordinary World)"></button></div>
+			<div class="container"><img alt="sets\PRISM-files\img\254_Terramorphic Expanse.jpg" id="254_Terramorphic Expanse" data-flag="@X" onclick="openSidebar('254_Terramorphic Expanse',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="img\er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\1t_Azra.jpg" id="1t_Azra" data-flag="@X" onclick="openSidebar('1t_Azra',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\2t_Wall.jpg" id="2t_Wall" data-flag="@X" onclick="openSidebar('2t_Wall',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\3t_Cat Soldier.jpg" id="3t_Cat Soldier" data-flag="@X" onclick="openSidebar('3t_Cat Soldier',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\4t_Spirit.jpg" id="4t_Spirit" data-flag="@X" onclick="openSidebar('4t_Spirit',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\5t_Blades.jpg" id="5t_Blades" data-flag="@X" onclick="openSidebar('5t_Blades',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\6t_Costume.jpg" id="6t_Costume" data-flag="@X" onclick="openSidebar('6t_Costume',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\7t_Merfolk Soldier.jpg" id="7t_Merfolk Soldier" data-flag="@X" onclick="openSidebar('7t_Merfolk Soldier',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\8t_Wolf Rogue.jpg" id="8t_Wolf Rogue" data-flag="@X" onclick="openSidebar('8t_Wolf Rogue',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\9t_Azra.jpg" id="9t_Azra" data-flag="@X" onclick="openSidebar('9t_Azra',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\10t_Cat Spirit.jpg" id="10t_Cat Spirit" data-flag="@X" onclick="openSidebar('10t_Cat Spirit',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\11t_A Handful of Minions.jpg" id="11t_A Handful of Minions" data-flag="@X" onclick="openSidebar('11t_A Handful of Minions',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\12t_Minion.jpg" id="12t_Minion" data-flag="@X" onclick="openSidebar('12t_Minion',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\13t_Rat Ninja.jpg" id="13t_Rat Ninja" data-flag="@X" onclick="openSidebar('13t_Rat Ninja',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\14t_Cat Warrior.jpg" id="14t_Cat Warrior" data-flag="@X" onclick="openSidebar('14t_Cat Warrior',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\15t_Dragon.jpg" id="15t_Dragon" data-flag="@X" onclick="openSidebar('15t_Dragon',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\16t_Nightmare Devil.jpg" id="16t_Nightmare Devil" data-flag="@X" onclick="openSidebar('16t_Nightmare Devil',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\17t_Cat.jpg" id="17t_Cat" data-flag="@X" onclick="openSidebar('17t_Cat',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\18t_Elk.jpg" id="18t_Elk" data-flag="@X" onclick="openSidebar('18t_Elk',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\19t_Ox Monk.jpg" id="19t_Ox Monk" data-flag="@X" onclick="openSidebar('19t_Ox Monk',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\20t_Plant Beast.jpg" id="20t_Plant Beast" data-flag="@X" onclick="openSidebar('20t_Plant Beast',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\21t_Artificer.jpg" id="21t_Artificer" data-flag="@X" onclick="openSidebar('21t_Artificer',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\22t_Avatar.jpg" id="22t_Avatar" data-flag="@X" onclick="openSidebar('22t_Avatar',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\23t_Minion.jpg" id="23t_Minion" data-flag="@X" onclick="openSidebar('23t_Minion',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\24t_Music Elemental.jpg" id="24t_Music Elemental" data-flag="@X" onclick="openSidebar('24t_Music Elemental',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\25t_Nightmare.jpg" id="25t_Nightmare" data-flag="@X" onclick="openSidebar('25t_Nightmare',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\26t_Nightmare Ally.jpg" id="26t_Nightmare Ally" data-flag="@X" onclick="openSidebar('26t_Nightmare Ally',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\27t_Nightmare Beast.jpg" id="27t_Nightmare Beast" data-flag="@X" onclick="openSidebar('27t_Nightmare Beast',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\28t_Clue.jpg" id="28t_Clue" data-flag="@X" onclick="openSidebar('28t_Clue',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\29t_Food.jpg" id="29t_Food" data-flag="@X" onclick="openSidebar('29t_Food',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\30t_Mech.jpg" id="30t_Mech" data-flag="@X" onclick="openSidebar('30t_Mech',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\31t_Treasure.jpg" id="31t_Treasure" data-flag="@X" onclick="openSidebar('31t_Treasure',false)"></div>
+			<div class="container"><img alt="sets\PRISM-files\img\32t_Weapon.jpg" id="32t_Weapon" data-flag="@X" onclick="openSidebar('32t_Weapon',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="img\e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+	</div>
+</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+		
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = 'img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		tmp = document.getElementById(num).src;
+		document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+		document.getElementById(num).dataset.alt_src = tmp;
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		if (horizontal && rotated_img.style.display == 'none')
+		{
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+	}
+
+	function openSidebar(id, h=false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+		
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.src = document.getElementById(id).src;
+
+		if (horizontal)
+		{
+			rotated_img.src = document.getElementById(id).src;
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+		
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+		
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				search();
+			}
+		});
+
+		function search() {
+			window.location = ("/search?search=" + document.getElementById("search").value);
+		}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let card_name = card_list_arrayified[i].card_name;
+				for (const char of specialchars)
+				{
+					card_name = card_name.replaceAll(char, "");
+				}
+
+				window.location = ('/cards/' + card_list_arrayified[i].set + '/' + card_list_arrayified[i].number + '_' + card_name);
+			}
+	</script>
+</body>
+</html>
