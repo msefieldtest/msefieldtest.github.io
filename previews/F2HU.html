@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="/sets/F2HU-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>F2HU visual preview</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			display: none;
+			transform: rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('/img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('/img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 20px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('/img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('/img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.icon-bar {
+			display: grid;
+			grid-template-columns: repeat(10, 3fr 2fr) 3fr;
+			gap: 1px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-top: 2%;
+			padding-bottom: 1%;
+			justify-items: center;
+			align-items: center;
+		}
+		.icon-bar .icon img {
+			width: 90%;
+			max-width: 80px;
+			height: auto;
+			display: block;
+			padding: 5%;
+			margin: auto;
+			text-align: center;
+		}
+		.icon-bar .dot img {
+			width: 50%;
+			max-width: 65px;
+			height: auto;
+			display: block;
+			margin: auto;
+			text-align: center;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/F2HU-files/logo.png" />
+	<img class="preload-hidden" src="/sets/AEK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/AVA-files/icon.png" />
+		<img class="preload-hidden" src="/sets/DCO-files/icon.png" />
+		<img class="preload-hidden" src="/sets/DES-files/icon.png" />
+		<img class="preload-hidden" src="/sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HQZ-files/icon.png" />
+		<img class="preload-hidden" src="/sets/KEC-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PBA-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/TRO-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VRN-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="icon-bar">
+			<div class="icon"><a href="AEK"><img src="/sets/AEK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="AVA"><img src="/sets/AVA-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="DCO"><img src="/sets/DCO-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="DES"><img src="/sets/DES-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="EOR"><img src="/sets/EOR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="F2HU"><img src="/sets/F2HU-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="HEX"><img src="/sets/HEX-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="HQZ"><img src="/sets/HQZ-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="KEC"><img src="/sets/KEC-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="ONI"><img src="/sets/ONI-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="PBA"><img src="/sets/PBA-files/icon.png"></img></a></div>
+		<div class="icon"><a href="SOL"><img src="/sets/SOL-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="TGS"><img src="/sets/TGS-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="TRO"><img src="/sets/TRO-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="VRN"><img src="/sets/VRN-files/icon.png"></img></a></div>
+
+		</div>
+		<div class="banner">
+		<img class="logo" src="/sets/F2HU-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+				<div class="container"><img alt="/sets/F2HU-files/img/16_Mumei, Discarded Pottery.png" id="16_Mumei, Discarded Pottery" data-flag="@X" onclick="openSidebar('16_Mumei, Discarded Pottery',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/33_Gensokyo's Longest Day.png" id="33_Gensokyos Longest Day" data-flag="@X" onclick="openSidebar('33_Gensokyos Longest Day',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/59_Hako, Ark of Death.png" id="59_Hako, Ark of Death" data-flag="@X" onclick="openSidebar('59_Hako, Ark of Death',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/87_Mayonaka, the Kishin.png" id="87_Mayonaka, the Kishin" data-flag="@X" onclick="openSidebar('87_Mayonaka, the Kishin',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/105_Eight Million Gods.png" id="105_Eight Million Gods" data-flag="@X" onclick="openSidebar('105_Eight Million Gods',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/8_Iesua, the Forgiver.png" id="8_Iesua, the Forgiver" data-flag="@X" onclick="openSidebar('8_Iesua, the Forgiver',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/39_Patricia Turing.png" id="39_Patricia Turing" data-flag="@X" onclick="openSidebar('39_Patricia Turing',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/67_Musaraku, Source of Nightmares.png" id="67_Musaraku, Source of Nightmares" data-flag="@X" onclick="openSidebar('67_Musaraku, Source of Nightmares',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/88_Megumu, Newborn Dragon.png" id="88_Megumu, Newborn Dragon" data-flag="@X" onclick="openSidebar('88_Megumu, Newborn Dragon',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/113_Mihana, Princess of Greenery.png" id="113_Mihana, Princess of Greenery" data-flag="@X" onclick="openSidebar('113_Mihana, Princess of Greenery',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/9_Inori, Shrine Maiden of Sakura.png" id="9_Inori, Shrine Maiden of Sakura" data-flag="@X" onclick="openSidebar('9_Inori, Shrine Maiden of Sakura',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/38_Nua, Captain of the Ark.png" id="38_Nua, Captain of the Ark" data-flag="@X" onclick="openSidebar('38_Nua, Captain of the Ark',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/52_Aelivia Grapeseedling.png" id="52_Aelivia Grapeseedling" data-flag="@X" onclick="openSidebar('52_Aelivia Grapeseedling',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/77_Amanozako, Crimson Tyrant.png" id="77_Amanozako, Crimson Tyrant" data-flag="@X" onclick="openSidebar('77_Amanozako, Crimson Tyrant',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/102_An, Kodoma of Tobiume.png" id="102_An, Kodoma of Tobiume" data-flag="@X" onclick="openSidebar('102_An, Kodoma of Tobiume',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/11_Jinka, the Yearning Light.png" id="11_Jinka, the Yearning Light" data-flag="@X" onclick="openSidebar('11_Jinka, the Yearning Light',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/41_Philippa A.T.B. von Hohenheim.png" id="41_Philippa A.T.B. von Hohenheim" data-flag="@X" onclick="openSidebar('41_Philippa A.T.B. von Hohenheim',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/53_Aimi, Dreaming Heartbroken Girl.png" id="53_Aimi, Dreaming Heartbroken Girl" data-flag="@X" onclick="openSidebar('53_Aimi, Dreaming Heartbroken Girl',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/81_Everyone's Everlasting Danmaku.png" id="81_Everyones Everlasting Danmaku" data-flag="@X" onclick="openSidebar('81_Everyones Everlasting Danmaku',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/107_The Festival Starts Today.png" id="107_The Festival Starts Today" data-flag="@X" onclick="openSidebar('107_The Festival Starts Today',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/12_Luciana Abatangelo.png" id="12_Luciana Abatangelo" data-flag="@X" onclick="openSidebar('12_Luciana Abatangelo',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/44_Shiina, Deep-Sea Conductor.png" id="44_Shiina, Deep-Sea Conductor" data-flag="@X" onclick="openSidebar('44_Shiina, Deep-Sea Conductor',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/58_General Set.png" id="58_General Set" data-flag="@X" onclick="openSidebar('58_General Set',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/89_Mirei, Deep-Sea Symphonist.png" id="89_Mirei, Deep-Sea Symphonist" data-flag="@X" onclick="openSidebar('89_Mirei, Deep-Sea Symphonist',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/110_Kiseki, the Pruning Saw.png" id="110_Kiseki, the Pruning Saw" data-flag="@X" onclick="openSidebar('110_Kiseki, the Pruning Saw',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/15_Michel Sant'Angelo.png" id="15_Michel SantAngelo" data-flag="@X" onclick="openSidebar('15_Michel SantAngelo',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/46_Soukai, Rain Dragon.png" id="46_Soukai, Rain Dragon" data-flag="@X" onclick="openSidebar('46_Soukai, Rain Dragon',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/60_Keshika, Flower of Evil.png" id="60_Keshika, Flower of Evil" data-flag="@X" onclick="openSidebar('60_Keshika, Flower of Evil',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/90_Mitama, Vengeful Spirit.png" id="90_Mitama, Vengeful Spirit" data-flag="@X" onclick="openSidebar('90_Mitama, Vengeful Spirit',false)"></div>
+			<div class="container"><img data-alt_src="/sets/F2HU-files/img/112_Leaf Ponders the Flower_back.png" alt="/sets/F2HU-files/img/112_Leaf Ponders the Flower_front.png" id="112_Leaf Ponders the Flower" data-flag="@XD" onclick="openSidebar('112_Leaf Ponders the Flower',false)"><button class="flip-btn" onclick="imgFlip('112_Leaf Ponders the Flower')"></button></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/18_Nueko, Castle Protector.png" id="18_Nueko, Castle Protector" data-flag="@X" onclick="openSidebar('18_Nueko, Castle Protector',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/49_Umikaze, Sea Angel.png" id="49_Umikaze, Sea Angel" data-flag="@X" onclick="openSidebar('49_Umikaze, Sea Angel',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/61_Lokhens, Blind Night Raven.png" id="61_Lokhens, Blind Night Raven" data-flag="@X" onclick="openSidebar('61_Lokhens, Blind Night Raven',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/96_Steel is Born from Flame.png" id="96_Steel is Born from Flame" data-flag="@X" onclick="openSidebar('96_Steel is Born from Flame',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/114_Munomoto, Bud of Lost Dreams.png" id="114_Munomoto, Bud of Lost Dreams" data-flag="@X" onclick="openSidebar('114_Munomoto, Bud of Lost Dreams',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/21_Senkiusei, the Supernova.png" id="21_Senkiusei, the Supernova" data-flag="@X" onclick="openSidebar('21_Senkiusei, the Supernova',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/50_Yamoto, Steam Age Remnant.png" id="50_Yamoto, Steam Age Remnant" data-flag="@X" onclick="openSidebar('50_Yamoto, Steam Age Remnant',false)"></div>
+			<div class="container"><img data-alt_src="/sets/F2HU-files/img/62_Mariko, the Downtrodden_back.png" alt="/sets/F2HU-files/img/62_Mariko, the Downtrodden_front.png" id="62_Mariko, the Downtrodden" data-flag="@XD" onclick="openSidebar('62_Mariko, the Downtrodden',false)"><button class="flip-btn" onclick="imgFlip('62_Mariko, the Downtrodden')"></button></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/100_Yomimi, Ultimate Phantom.png" id="100_Yomimi, Ultimate Phantom" data-flag="@X" onclick="openSidebar('100_Yomimi, Ultimate Phantom',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/115_Nanahiyakumi, Song Saint.png" id="115_Nanahiyakumi, Song Saint" data-flag="@X" onclick="openSidebar('115_Nanahiyakumi, Song Saint',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/24_Yuyuko, Host of the Banquet.png" id="24_Yuyuko, Host of the Banquet" data-flag="@X" onclick="openSidebar('24_Yuyuko, Host of the Banquet',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/27_End of History.png" id="27_End of History" data-flag="@X" onclick="openSidebar('27_End of History',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/64_Medicine, Queen of Dolls.png" id="64_Medicine, Queen of Dolls" data-flag="@X" onclick="openSidebar('64_Medicine, Queen of Dolls',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/83_Kousan, Spear of Chaos.png" id="83_Kousan, Spear of Chaos" data-flag="@X" onclick="openSidebar('83_Kousan, Spear of Chaos',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/122_Valloside, Pure Suzuran.png" id="122_Valloside, Pure Suzuran" data-flag="@X" onclick="openSidebar('122_Valloside, Pure Suzuran',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/3_Birds of a Feather.png" id="3_Birds of a Feather" data-flag="@X" onclick="openSidebar('3_Birds of a Feather',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/35_Hikariko Aosagi.png" id="35_Hikariko Aosagi" data-flag="@X" onclick="openSidebar('35_Hikariko Aosagi',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/68_Nezu, Wicked Kitsune.png" id="68_Nezu, Wicked Kitsune" data-flag="@X" onclick="openSidebar('68_Nezu, Wicked Kitsune',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/84_Kousen, Drought Deity.png" id="84_Kousen, Drought Deity" data-flag="@X" onclick="openSidebar('84_Kousen, Drought Deity',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/124_Yamatoyo no Momohime.png" id="124_Yamatoyo no Momohime" data-flag="@X" onclick="openSidebar('124_Yamatoyo no Momohime',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/5_Fairy Contest.png" id="5_Fairy Contest" data-flag="@X" onclick="openSidebar('5_Fairy Contest',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/36_Himemiko, Erased Princess.png" id="36_Himemiko, Erased Princess" data-flag="@X" onclick="openSidebar('36_Himemiko, Erased Princess',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/72_Padma, Molting Zeal.png" id="72_Padma, Molting Zeal" data-flag="@X" onclick="openSidebar('72_Padma, Molting Zeal',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/85_Lightning Word.png" id="85_Lightning Word" data-flag="@X" onclick="openSidebar('85_Lightning Word',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/120_Seiryuu, Willow Spirit.png" id="120_Seiryuu, Willow Spirit" data-flag="@X" onclick="openSidebar('120_Seiryuu, Willow Spirit',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/6_Golden Hymn.png" id="6_Golden Hymn" data-flag="@X" onclick="openSidebar('6_Golden Hymn',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/40_Phiased, the Magi.png" id="40_Phiased, the Magi" data-flag="@X" onclick="openSidebar('40_Phiased, the Magi',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/76_Unrepentant Mantra.png" id="76_Unrepentant Mantra" data-flag="@X" onclick="openSidebar('76_Unrepentant Mantra',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/86_Magura, the Taotie.png" id="86_Magura, the Taotie" data-flag="@X" onclick="openSidebar('86_Magura, the Taotie',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/121_Sunrise Moon Viewing.png" id="121_Sunrise Moon Viewing" data-flag="@X" onclick="openSidebar('121_Sunrise Moon Viewing',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/10_Janet Arc'Angelo.png" id="10_Janet ArcAngelo" data-flag="@X" onclick="openSidebar('10_Janet ArcAngelo',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/42_Prune Reality.png" id="42_Prune Reality" data-flag="@X" onclick="openSidebar('42_Prune Reality',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/55_Bon, the Greedy Beast.png" id="55_Bon, the Greedy Beast" data-flag="@X" onclick="openSidebar('55_Bon, the Greedy Beast',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/93_Rebellion God Force.png" id="93_Rebellion God Force" data-flag="@X" onclick="openSidebar('93_Rebellion God Force',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/101_An Addendum to the Past.png" id="101_An Addendum to the Past" data-flag="@X" onclick="openSidebar('101_An Addendum to the Past',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/13_Ma Sekisei, Fabled Baker.png" id="13_Ma Sekisei, Fabled Baker" data-flag="@X" onclick="openSidebar('13_Ma Sekisei, Fabled Baker',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/47_Starry Wisdom.png" id="47_Starry Wisdom" data-flag="@X" onclick="openSidebar('47_Starry Wisdom',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/56_Datura, Weaver of Death.png" id="56_Datura, Weaver of Death" data-flag="@X" onclick="openSidebar('56_Datura, Weaver of Death',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/94_Sekito, Shadow-Severing Speed.png" id="94_Sekito, Shadow-Severing Speed" data-flag="@X" onclick="openSidebar('94_Sekito, Shadow-Severing Speed',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/103_Apple Girlington.png" id="103_Apple Girlington" data-flag="@X" onclick="openSidebar('103_Apple Girlington',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/14_Mankind Salvation Plan.png" id="14_Mankind Salvation Plan" data-flag="@X" onclick="openSidebar('14_Mankind Salvation Plan',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/51_Yuuto, Out-of-Place Magician.png" id="51_Yuuto, Out-of-Place Magician" data-flag="@X" onclick="openSidebar('51_Yuuto, Out-of-Place Magician',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/57_Fantasy Withdrawl Syndrome.png" id="57_Fantasy Withdrawl Syndrome" data-flag="@X" onclick="openSidebar('57_Fantasy Withdrawl Syndrome',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/78_Annika A.T.B von Hohenheim.png" id="78_Annika A.T.B von Hohenheim" data-flag="@X" onclick="openSidebar('78_Annika A.T.B von Hohenheim',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/104_Birds Return at Dusk.png" id="104_Birds Return at Dusk" data-flag="@X" onclick="openSidebar('104_Birds Return at Dusk',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/20_Sasuta no Izuhime.png" id="20_Sasuta no Izuhime" data-flag="@X" onclick="openSidebar('20_Sasuta no Izuhime',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/25_Artistic Dedication.png" id="25_Artistic Dedication" data-flag="@X" onclick="openSidebar('25_Artistic Dedication',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/63_Masahi, the Carefree Princess.png" id="63_Masahi, the Carefree Princess" data-flag="@X" onclick="openSidebar('63_Masahi, the Carefree Princess',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/79_Casual Arson.png" id="79_Casual Arson" data-flag="@X" onclick="openSidebar('79_Casual Arson',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/106_Fabritis and Iphonea.png" id="106_Fabritis and Iphonea" data-flag="@X" onclick="openSidebar('106_Fabritis and Iphonea',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/23_Tanboku, Austral Pearl.png" id="23_Tanboku, Austral Pearl" data-flag="@X" onclick="openSidebar('23_Tanboku, Austral Pearl',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/26_Chirplagarism.png" id="26_Chirplagarism" data-flag="@X" onclick="openSidebar('26_Chirplagarism',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/65_Meimei, the Wishing Doll.png" id="65_Meimei, the Wishing Doll" data-flag="@X" onclick="openSidebar('65_Meimei, the Wishing Doll',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/80_Corin Charite.png" id="80_Corin Charite" data-flag="@X" onclick="openSidebar('80_Corin Charite',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/108_High-Angle Shot.png" id="108_High-Angle Shot" data-flag="@X" onclick="openSidebar('108_High-Angle Shot',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/1_Amanojaku's Folly.png" id="1_Amanojakus Folly" data-flag="@X" onclick="openSidebar('1_Amanojakus Folly',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/28_Epro, the Programmer.png" id="28_Epro, the Programmer" data-flag="@X" onclick="openSidebar('28_Epro, the Programmer',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/66_Mumumu, the Morning Star.png" id="66_Mumumu, the Morning Star" data-flag="@X" onclick="openSidebar('66_Mumumu, the Morning Star',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/82_Fog Sign.png" id="82_Fog Sign" data-flag="@X" onclick="openSidebar('82_Fog Sign',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/109_Horizon Sign.png" id="109_Horizon Sign" data-flag="@X" onclick="openSidebar('109_Horizon Sign',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/2_Bird Sign.png" id="2_Bird Sign" data-flag="@X" onclick="openSidebar('2_Bird Sign',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/29_Excessive Monologuing.png" id="29_Excessive Monologuing" data-flag="@X" onclick="openSidebar('29_Excessive Monologuing',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/73_Salomé, Patasola.png" id="73_Salomé, Patasola" data-flag="@N" onclick="openSidebar('73_Salomé, Patasola',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/91_Nene, Mountain Shouter.png" id="91_Nene, Mountain Shouter" data-flag="@X" onclick="openSidebar('91_Nene, Mountain Shouter',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/111_Konoha, Uncaptured Raccoon.png" id="111_Konoha, Uncaptured Raccoon" data-flag="@X" onclick="openSidebar('111_Konoha, Uncaptured Raccoon',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/4_Chii, Toothpick Tsukumogami.png" id="4_Chii, Toothpick Tsukumogami" data-flag="@X" onclick="openSidebar('4_Chii, Toothpick Tsukumogami',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/30_Fiction Sign.png" id="30_Fiction Sign" data-flag="@X" onclick="openSidebar('30_Fiction Sign',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/74_Shiran, the Fake Priest.png" id="74_Shiran, the Fake Priest" data-flag="@X" onclick="openSidebar('74_Shiran, the Fake Priest',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/92_Ranran, Scarlet Monkey.png" id="92_Ranran, Scarlet Monkey" data-flag="@X" onclick="openSidebar('92_Ranran, Scarlet Monkey',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/116_Noah, Sugar-Spun.png" id="116_Noah, Sugar-Spun" data-flag="@X" onclick="openSidebar('116_Noah, Sugar-Spun',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/7_Hyp, Wandering White.png" id="7_Hyp, Wandering White" data-flag="@X" onclick="openSidebar('7_Hyp, Wandering White',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/31_Footprints of Treiste.png" id="31_Footprints of Treiste" data-flag="@X" onclick="openSidebar('31_Footprints of Treiste',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/54_Ammolite Light.png" id="54_Ammolite Light" data-flag="@X" onclick="openSidebar('54_Ammolite Light',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/95_Shirane, Thunderbird.png" id="95_Shirane, Thunderbird" data-flag="@X" onclick="openSidebar('95_Shirane, Thunderbird',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/117_Oxas, Fairy of Clovers.png" id="117_Oxas, Fairy of Clovers" data-flag="@X" onclick="openSidebar('117_Oxas, Fairy of Clovers',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/17_Nana Fumoto, Doll Dealer.png" id="17_Nana Fumoto, Doll Dealer" data-flag="@X" onclick="openSidebar('17_Nana Fumoto, Doll Dealer',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/32_Fujioki, Soul of Cuckoos.png" id="32_Fujioki, Soul of Cuckoos" data-flag="@X" onclick="openSidebar('32_Fujioki, Soul of Cuckoos',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/69_Nix, Messenger of Darkness.png" id="69_Nix, Messenger of Darkness" data-flag="@X" onclick="openSidebar('69_Nix, Messenger of Darkness',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/97_Theophilia, the Mad Host.png" id="97_Theophilia, the Mad Host" data-flag="@X" onclick="openSidebar('97_Theophilia, the Mad Host',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/118_Rebirth of Dreams.png" id="118_Rebirth of Dreams" data-flag="@X" onclick="openSidebar('118_Rebirth of Dreams',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/19_Nunokae, the Grateful Crane.png" id="19_Nunokae, the Grateful Crane" data-flag="@X" onclick="openSidebar('19_Nunokae, the Grateful Crane',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/34_Hate Not the Wind.png" id="34_Hate Not the Wind" data-flag="@X" onclick="openSidebar('34_Hate Not the Wind',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/70_Nue Sign.png" id="70_Nue Sign" data-flag="@X" onclick="openSidebar('70_Nue Sign',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/98_Traitor's Requiem.png" id="98_Traitors Requiem" data-flag="@X" onclick="openSidebar('98_Traitors Requiem',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/119_Ruka, Fawn Spirit.png" id="119_Ruka, Fawn Spirit" data-flag="@X" onclick="openSidebar('119_Ruka, Fawn Spirit',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/22_Sever Relationship.png" id="22_Sever Relationship" data-flag="@X" onclick="openSidebar('22_Sever Relationship',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/37_Naruko, the Whirlpool.png" id="37_Naruko, the Whirlpool" data-flag="@X" onclick="openSidebar('37_Naruko, the Whirlpool',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/71_Omen of Black Clouds.png" id="71_Omen of Black Clouds" data-flag="@X" onclick="openSidebar('71_Omen of Black Clouds',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/99_Tsumugi Enishi.png" id="99_Tsumugi Enishi" data-flag="@X" onclick="openSidebar('99_Tsumugi Enishi',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/123_Withered Bounty.png" id="123_Withered Bounty" data-flag="@X" onclick="openSidebar('123_Withered Bounty',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/43_Shekle, Snowflake Fairy.png" id="43_Shekle, Snowflake Fairy" data-flag="@X" onclick="openSidebar('43_Shekle, Snowflake Fairy',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/75_Unane, the Composer.png" id="75_Unane, the Composer" data-flag="@X" onclick="openSidebar('75_Unane, the Composer',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/45_Shizuka, Solitary Hunter.png" id="45_Shizuka, Solitary Hunter" data-flag="@X" onclick="openSidebar('45_Shizuka, Solitary Hunter',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/48_A Thousand Fathoms Under.png" id="48_A Thousand Fathoms Under" data-flag="@X" onclick="openSidebar('48_A Thousand Fathoms Under',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+<div id="gold" class="anchor"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/151_Mitori, the Crimson Grudge.png" id="151_Mitori, the Crimson Grudge" data-flag="@X" onclick="openSidebar('151_Mitori, the Crimson Grudge',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/154_Mizuho, Onmyouji.png" id="154_Mizuho, Onmyouji" data-flag="@X" onclick="openSidebar('154_Mizuho, Onmyouji',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/148_Lovia Joutsela, Hiisi.png" id="148_Lovia Joutsela, Hiisi" data-flag="@X" onclick="openSidebar('148_Lovia Joutsela, Hiisi',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/128_Cathu, Dreaming Herald.png" id="128_Cathu, Dreaming Herald" data-flag="@X" onclick="openSidebar('128_Cathu, Dreaming Herald',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/133_Ei, the Eternal Stillness.png" id="133_Ei, the Eternal Stillness" data-flag="@X" onclick="openSidebar('133_Ei, the Eternal Stillness',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/157_Nijie of Earthly Amusements.png" id="157_Nijie of Earthly Amusements" data-flag="@X" onclick="openSidebar('157_Nijie of Earthly Amusements',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/146_Lethal Entertainment.png" id="146_Lethal Entertainment" data-flag="@X" onclick="openSidebar('146_Lethal Entertainment',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/144_Lamis Corrosa.png" id="144_Lamis Corrosa" data-flag="@X" onclick="openSidebar('144_Lamis Corrosa',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/139_Hideka, Queen of Dragons.png" id="139_Hideka, Queen of Dragons" data-flag="@X" onclick="openSidebar('139_Hideka, Queen of Dragons',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/136_Feza, Blessed Pathfinder.png" id="136_Feza, Blessed Pathfinder" data-flag="@X" onclick="openSidebar('136_Feza, Blessed Pathfinder',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/174_Tamako Sant'Angelo.png" id="174_Tamako SantAngelo" data-flag="@X" onclick="openSidebar('174_Tamako SantAngelo',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/149_Megumi, the Mermaid's Dream.png" id="149_Megumi, the Mermaids Dream" data-flag="@X" onclick="openSidebar('149_Megumi, the Mermaids Dream',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/130_Choo-Eunae, Snake's Bite.png" id="130_Choo-Eunae, Snakes Bite" data-flag="@X" onclick="openSidebar('130_Choo-Eunae, Snakes Bite',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/141_Inasa, Warring Celestial.png" id="141_Inasa, Warring Celestial" data-flag="@X" onclick="openSidebar('141_Inasa, Warring Celestial',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/180_Tokuko, Divine Swordbearer.png" id="180_Tokuko, Divine Swordbearer" data-flag="@X" onclick="openSidebar('180_Tokuko, Divine Swordbearer',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/183_Yanduo, Dance of Fabric.png" id="183_Yanduo, Dance of Fabric" data-flag="@X" onclick="openSidebar('183_Yanduo, Dance of Fabric',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/155_Mizukami, Aqua Seraph.png" id="155_Mizukami, Aqua Seraph" data-flag="@X" onclick="openSidebar('155_Mizukami, Aqua Seraph',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/134_Eléonore, Alligator's Bite.png" id="134_Eléonore, Alligators Bite" data-flag="@N" onclick="openSidebar('134_Eléonore, Alligators Bite',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/165_Rin Satsuki, Protagonist.png" id="165_Rin Satsuki, Protagonist" data-flag="@X" onclick="openSidebar('165_Rin Satsuki, Protagonist',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/181_Touko, Harvest God.png" id="181_Touko, Harvest God" data-flag="@X" onclick="openSidebar('181_Touko, Harvest God',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/153_Miyo and Tsubame, Wavecasters.png" id="153_Miyo and Tsubame, Wavecasters" data-flag="@X" onclick="openSidebar('153_Miyo and Tsubame, Wavecasters',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/166_Ruine, Discarded Data.png" id="166_Ruine, Discarded Data" data-flag="@X" onclick="openSidebar('166_Ruine, Discarded Data',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/160_Pale Fanhead, Fan Enjoyer.png" id="160_Pale Fanhead, Fan Enjoyer" data-flag="@X" onclick="openSidebar('160_Pale Fanhead, Fan Enjoyer',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/129_Chieka, the Artist.png" id="129_Chieka, the Artist" data-flag="@X" onclick="openSidebar('129_Chieka, the Artist',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/158_Ophelia, the Writer.png" id="158_Ophelia, the Writer" data-flag="@X" onclick="openSidebar('158_Ophelia, the Writer',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/176_Tenmu Suitokuin, Daitengu.png" id="176_Tenmu Suitokuin, Daitengu" data-flag="@X" onclick="openSidebar('176_Tenmu Suitokuin, Daitengu',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/179_Tobiko, Cunning Reporter.png" id="179_Tobiko, Cunning Reporter" data-flag="@X" onclick="openSidebar('179_Tobiko, Cunning Reporter',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/186_Mystia, Daystruck.png" id="186_Mystia, Daystruck" data-flag="@X" onclick="openSidebar('186_Mystia, Daystruck',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/138_Hazuki, Onmyouji.png" id="138_Hazuki, Onmyouji" data-flag="@X" onclick="openSidebar('138_Hazuki, Onmyouji',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/164_Reverence U'n-Llisardggy.png" id="164_Reverence Un-Llisardggy" data-flag="@X" onclick="openSidebar('164_Reverence Un-Llisardggy',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/169_Shizuka, the Transient Elegance.png" id="169_Shizuka, the Transient Elegance" data-flag="@X" onclick="openSidebar('169_Shizuka, the Transient Elegance',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/131_Cindy Plum, Rakshasa.png" id="131_Cindy Plum, Rakshasa" data-flag="@X" onclick="openSidebar('131_Cindy Plum, Rakshasa',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/135_Elfin Mint.png" id="135_Elfin Mint" data-flag="@X" onclick="openSidebar('135_Elfin Mint',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/147_Lily White, Fairy Imperator.png" id="147_Lily White, Fairy Imperator" data-flag="@X" onclick="openSidebar('147_Lily White, Fairy Imperator',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/178_Tenxka Shin.png" id="178_Tenxka Shin" data-flag="@X" onclick="openSidebar('178_Tenxka Shin',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/172_Sizuka, Dissector of Fairies.png" id="172_Sizuka, Dissector of Fairies" data-flag="@X" onclick="openSidebar('172_Sizuka, Dissector of Fairies',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/143_Kazuha, Compiler of Waka.png" id="143_Kazuha, Compiler of Waka" data-flag="@X" onclick="openSidebar('143_Kazuha, Compiler of Waka',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/125_Ai Hinoide, Perfect Human.png" id="125_Ai Hinoide, Perfect Human" data-flag="@X" onclick="openSidebar('125_Ai Hinoide, Perfect Human',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/177_Tensei, the Star God.png" id="177_Tensei, the Star God" data-flag="@X" onclick="openSidebar('177_Tensei, the Star God',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/162_Rachel, Unstable Scientist.png" id="162_Rachel, Unstable Scientist" data-flag="@X" onclick="openSidebar('162_Rachel, Unstable Scientist',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/184_Yukiko, Heart of the Swarm.png" id="184_Yukiko, Heart of the Swarm" data-flag="@X" onclick="openSidebar('184_Yukiko, Heart of the Swarm',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/163_Reimu, the Final Dream.png" id="163_Reimu, the Final Dream" data-flag="@X" onclick="openSidebar('163_Reimu, the Final Dream',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/126_Aoi, Creator Deity.png" id="126_Aoi, Creator Deity" data-flag="@X" onclick="openSidebar('126_Aoi, Creator Deity',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/188_World's End Testament.png" id="188_Worlds End Testament" data-flag="@X" onclick="openSidebar('188_Worlds End Testament',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/142_Kasumi, Submarine Illusion.png" id="142_Kasumi, Submarine Illusion" data-flag="@X" onclick="openSidebar('142_Kasumi, Submarine Illusion',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/170_Shushu, Igniter of Night Skies.png" id="170_Shushu, Igniter of Night Skies" data-flag="@X" onclick="openSidebar('170_Shushu, Igniter of Night Skies',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/156_Muu, Tragedy Princess.png" id="156_Muu, Tragedy Princess" data-flag="@X" onclick="openSidebar('156_Muu, Tragedy Princess',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/187_Nebet Tefet.png" id="187_Nebet Tefet" data-flag="@X" onclick="openSidebar('187_Nebet Tefet',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/145_Lepus Timidys Snowy.png" id="145_Lepus Timidys Snowy" data-flag="@X" onclick="openSidebar('145_Lepus Timidys Snowy',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/167_Saraka, Fallen Angel.png" id="167_Saraka, Fallen Angel" data-flag="@X" onclick="openSidebar('167_Saraka, Fallen Angel',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/161_Phantasm Paradise.png" id="161_Phantasm Paradise" data-flag="@X" onclick="openSidebar('161_Phantasm Paradise',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/185_Marry Shepherd.png" id="185_Marry Shepherd" data-flag="@X" onclick="openSidebar('185_Marry Shepherd',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/175_Tarumi, World Yamataizer.png" id="175_Tarumi, World Yamataizer" data-flag="@X" onclick="openSidebar('175_Tarumi, World Yamataizer',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/137_Fuma Mishandra.png" id="137_Fuma Mishandra" data-flag="@X" onclick="openSidebar('137_Fuma Mishandra',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/127_Ayame, Essence of Chaos.png" id="127_Ayame, Essence of Chaos" data-flag="@X" onclick="openSidebar('127_Ayame, Essence of Chaos',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/132_Cisa Perlach Augusta.png" id="132_Cisa Perlach Augusta" data-flag="@X" onclick="openSidebar('132_Cisa Perlach Augusta',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/168_Shirogane, Bravehearted.png" id="168_Shirogane, Bravehearted" data-flag="@X" onclick="openSidebar('168_Shirogane, Bravehearted',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/150_Mikoto, Mother Goddess.png" id="150_Mikoto, Mother Goddess" data-flag="@X" onclick="openSidebar('150_Mikoto, Mother Goddess',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/171_Shuuu, God of Weapons.png" id="171_Shuuu, God of Weapons" data-flag="@X" onclick="openSidebar('171_Shuuu, God of Weapons',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/152_Miyako, Lamp of Life.png" id="152_Miyako, Lamp of Life" data-flag="@X" onclick="openSidebar('152_Miyako, Lamp of Life',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/159_Otohime Kanpukugu.png" id="159_Otohime Kanpukugu" data-flag="@X" onclick="openSidebar('159_Otohime Kanpukugu',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/182_Ummu, Antediluvian.png" id="182_Ummu, Antediluvian" data-flag="@X" onclick="openSidebar('182_Ummu, Antediluvian',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/140_Horou, Crested Ibis.png" id="140_Horou, Crested Ibis" data-flag="@X" onclick="openSidebar('140_Horou, Crested Ibis',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/173_Taeyori, the Leader.png" id="173_Taeyori, the Leader" data-flag="@X" onclick="openSidebar('173_Taeyori, the Leader',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+<div id="colorless" class="anchor"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/191_The Divine Mirror.png" id="191_The Divine Mirror" data-flag="@X" onclick="openSidebar('191_The Divine Mirror',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/192_The Divine Sword.png" id="192_The Divine Sword" data-flag="@X" onclick="openSidebar('192_The Divine Sword',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/193_Emerald Tablet.png" id="193_Emerald Tablet" data-flag="@X" onclick="openSidebar('193_Emerald Tablet',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/194_The Great Ark.png" id="194_The Great Ark" data-flag="@X" onclick="openSidebar('194_The Great Ark',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/196_The Lesser Key of Solomon.png" id="196_The Lesser Key of Solomon" data-flag="@X" onclick="openSidebar('196_The Lesser Key of Solomon',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/199_Douraku Kazane, Colorless Tone.png" id="199_Douraku Kazane, Colorless Tone" data-flag="@X" onclick="openSidebar('199_Douraku Kazane, Colorless Tone',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/190_The Divine Jewel.png" id="190_The Divine Jewel" data-flag="@X" onclick="openSidebar('190_The Divine Jewel',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/189_Chirper Phone.png" id="189_Chirper Phone" data-flag="@X" onclick="openSidebar('189_Chirper Phone',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/195_Ibis Feather.png" id="195_Ibis Feather" data-flag="@X" onclick="openSidebar('195_Ibis Feather',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/197_Nomi no Hanie.png" id="197_Nomi no Hanie" data-flag="@X" onclick="openSidebar('197_Nomi no Hanie',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/198_Treasure Lantern.png" id="198_Treasure Lantern" data-flag="@X" onclick="openSidebar('198_Treasure Lantern',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/200_Memento Forest.png" id="200_Memento Forest" data-flag="@X" onclick="openSidebar('200_Memento Forest',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+<div id="token" class="anchor"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/1t_Bird.png" id="1t_Bird" data-flag="@X" onclick="openSidebar('1t_Bird',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/2t_Faerie.png" id="2t_Faerie" data-flag="@X" onclick="openSidebar('2t_Faerie',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/3t_Homunculus.png" id="3t_Homunculus" data-flag="@X" onclick="openSidebar('3t_Homunculus',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/4t_Bubble Universe.png" id="4t_Bubble Universe" data-flag="@X" onclick="openSidebar('4t_Bubble Universe',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/5t_Fujunryu.png" id="5t_Fujunryu" data-flag="@X" onclick="openSidebar('5t_Fujunryu',false)"></div>
+			<div class="container"><img alt="/sets/F2HU-files/img/6t_Zankurou.png" id="6t_Zankurou" data-flag="@X" onclick="openSidebar('6t_Zankurou',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+	</div>
+</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+		
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		tmp = document.getElementById(num).src;
+		console.log(num);
+		document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+		document.getElementById(num).dataset.alt_src = tmp;
+
+		if (num == 'sidebar_img')
+		{
+			const rotated_img = document.getElementById('sidebar_h_img');
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal && rotated_img.style.display == 'none')
+			{
+				rotated_img.style.display = "block";
+				sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+			}
+			else
+			{
+				rotated_img.style.display = "none";
+				sidebar_img.style.filter = "";
+			}
+		}
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+		
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+		
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+		
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL('search', window.location.origin);
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL('card', window.location.origin);
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url;
+			}
+	</script>
+</body>
+</html>

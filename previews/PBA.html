@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="/sets/PBA-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>PBA visual preview</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			display: none;
+			transform: rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('/img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('/img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 20px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('/img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('/img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.icon-bar {
+			display: grid;
+			grid-template-columns: repeat(10, 3fr 2fr) 3fr;
+			gap: 1px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-top: 2%;
+			padding-bottom: 1%;
+			justify-items: center;
+			align-items: center;
+		}
+		.icon-bar .icon img {
+			width: 90%;
+			max-width: 80px;
+			height: auto;
+			display: block;
+			padding: 5%;
+			margin: auto;
+			text-align: center;
+		}
+		.icon-bar .dot img {
+			width: 50%;
+			max-width: 65px;
+			height: auto;
+			display: block;
+			margin: auto;
+			text-align: center;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/PBA-files/logo.png" />
+	<img class="preload-hidden" src="/sets/AEK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/AVA-files/icon.png" />
+		<img class="preload-hidden" src="/sets/DCO-files/icon.png" />
+		<img class="preload-hidden" src="/sets/DES-files/icon.png" />
+		<img class="preload-hidden" src="/sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HQZ-files/icon.png" />
+		<img class="preload-hidden" src="/sets/KEC-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PBA-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/TRO-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VRN-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="icon-bar">
+			<div class="icon"><a href="AEK"><img src="/sets/AEK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="AVA"><img src="/sets/AVA-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="DCO"><img src="/sets/DCO-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="DES"><img src="/sets/DES-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="EOR"><img src="/sets/EOR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="F2HU"><img src="/sets/F2HU-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="HEX"><img src="/sets/HEX-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="HQZ"><img src="/sets/HQZ-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="KEC"><img src="/sets/KEC-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="ONI"><img src="/sets/ONI-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="PBA"><img src="/sets/PBA-files/icon.png"></img></a></div>
+		<div class="icon"><a href="SOL"><img src="/sets/SOL-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="TGS"><img src="/sets/TGS-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="TRO"><img src="/sets/TRO-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="VRN"><img src="/sets/VRN-files/icon.png"></img></a></div>
+
+		</div>
+		<div class="banner">
+		<img class="logo" src="/sets/PBA-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+				<div class="container"><img alt="/sets/PBA-files/img/20_Glaudia, Combat Mentor.png" id="20_Glaudia, Combat Mentor" data-flag="@X" onclick="openSidebar('20_Glaudia, Combat Mentor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/88_Timewinder.png" id="88_Timewinder" data-flag="@X" onclick="openSidebar('88_Timewinder',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/95_Avid Arcanist.png" id="95_Avid Arcanist" data-flag="@X" onclick="openSidebar('95_Avid Arcanist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/157_Intish's Prodigy.png" id="157_Intishs Prodigy" data-flag="@X" onclick="openSidebar('157_Intishs Prodigy',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/190_Diligent Animator.png" id="190_Diligent Animator" data-flag="@X" onclick="openSidebar('190_Diligent Animator',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/43_Silvia, Class Favorite.png" id="43_Silvia, Class Favorite" data-flag="@X" onclick="openSidebar('43_Silvia, Class Favorite',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/48_Advanced Paradoxical Magic.png" id="48_Advanced Paradoxical Magic" data-flag="@X" onclick="openSidebar('48_Advanced Paradoxical Magic',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/97_Brightstar Aspirant.png" id="97_Brightstar Aspirant" data-flag="@X" onclick="openSidebar('97_Brightstar Aspirant',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/139_Cavern Mapper.png" id="139_Cavern Mapper" data-flag="@X" onclick="openSidebar('139_Cavern Mapper',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/203_Korra, Guest Presenter.png" id="203_Korra, Guest Presenter" data-flag="@X" onclick="openSidebar('203_Korra, Guest Presenter',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/3_Advanced Combat Techniques.png" id="3_Advanced Combat Techniques" data-flag="@X" onclick="openSidebar('3_Advanced Combat Techniques',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/49_Beloved Mentor.png" id="49_Beloved Mentor" data-flag="@X" onclick="openSidebar('49_Beloved Mentor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/102_Dauntless Theorist.png" id="102_Dauntless Theorist" data-flag="@X" onclick="openSidebar('102_Dauntless Theorist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/147_Fairah, Honor Student.png" id="147_Fairah, Honor Student" data-flag="@X" onclick="openSidebar('147_Fairah, Honor Student',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/204_Korra's Observations.png" id="204_Korras Observations" data-flag="@X" onclick="openSidebar('204_Korras Observations',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/5_ALDA Reconstructed.png" id="5_ALDA Reconstructed" data-flag="@X" onclick="openSidebar('5_ALDA Reconstructed',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/58_Fevizia's Cannoneer.png" id="58_Fevizias Cannoneer" data-flag="@X" onclick="openSidebar('58_Fevizias Cannoneer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/103_Deadly Curses and You Vol. II.png" id="103_Deadly Curses and You Vol. II" data-flag="@X" onclick="openSidebar('103_Deadly Curses and You Vol. II',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/150_Galvanizing Juggernaut.png" id="150_Galvanizing Juggernaut" data-flag="@X" onclick="openSidebar('150_Galvanizing Juggernaut',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/207_Medicine and Herbology.png" id="207_Medicine and Herbology" data-flag="@X" onclick="openSidebar('207_Medicine and Herbology',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/7_Annoyed Justiceer.png" id="7_Annoyed Justiceer" data-flag="@X" onclick="openSidebar('7_Annoyed Justiceer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/73_Paradoxical Mastery.png" id="73_Paradoxical Mastery" data-flag="@X" onclick="openSidebar('73_Paradoxical Mastery',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/109_Elevatia Mythmaker.png" id="109_Elevatia Mythmaker" data-flag="@X" onclick="openSidebar('109_Elevatia Mythmaker',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/152_Graduated Protege.png" id="152_Graduated Protege" data-flag="@X" onclick="openSidebar('152_Graduated Protege',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/209_Mythbound Monstrosity.png" id="209_Mythbound Monstrosity" data-flag="@X" onclick="openSidebar('209_Mythbound Monstrosity',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/9_Arrogant Astronomer.png" id="9_Arrogant Astronomer" data-flag="@X" onclick="openSidebar('9_Arrogant Astronomer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/74_Plagiarism.png" id="74_Plagiarism" data-flag="@X" onclick="openSidebar('74_Plagiarism',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/112_Gearworks Juggernaut.png" id="112_Gearworks Juggernaut" data-flag="@X" onclick="openSidebar('112_Gearworks Juggernaut',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/154_Homework.png" id="154_Homework" data-flag="@X" onclick="openSidebar('154_Homework',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/212_Out of the Ashes.png" id="212_Out of the Ashes" data-flag="@X" onclick="openSidebar('212_Out of the Ashes',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/29_Mesmerized Bookworm.png" id="29_Mesmerized Bookworm" data-flag="@X" onclick="openSidebar('29_Mesmerized Bookworm',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/75_Potentiomancer.png" id="75_Potentiomancer" data-flag="@X" onclick="openSidebar('75_Potentiomancer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/115_Hexomancer.png" id="115_Hexomancer" data-flag="@X" onclick="openSidebar('115_Hexomancer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/162_Mass Destruction.png" id="162_Mass Destruction" data-flag="@X" onclick="openSidebar('162_Mass Destruction',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/213_Overgrown Construct.png" id="213_Overgrown Construct" data-flag="@X" onclick="openSidebar('213_Overgrown Construct',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/36_Peaceful Morning.png" id="36_Peaceful Morning" data-flag="@X" onclick="openSidebar('36_Peaceful Morning',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/76_Practice Automaton.png" id="76_Practice Automaton" data-flag="@X" onclick="openSidebar('76_Practice Automaton',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/131_Sophia's Foresight.png" id="131_Sophias Foresight" data-flag="@X" onclick="openSidebar('131_Sophias Foresight',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/166_Paradox of Curiosity.png" id="166_Paradox of Curiosity" data-flag="@X" onclick="openSidebar('166_Paradox of Curiosity',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/216_Profane Theurgist.png" id="216_Profane Theurgist" data-flag="@X" onclick="openSidebar('216_Profane Theurgist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/39_Rooftop Friends.png" id="39_Rooftop Friends" data-flag="@X" onclick="openSidebar('39_Rooftop Friends',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/80_Ramiera, Spying Apprentice.png" id="80_Ramiera, Spying Apprentice" data-flag="@X" onclick="openSidebar('80_Ramiera, Spying Apprentice',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/99_Conjurer of the Unreal.png" id="99_Conjurer of the Unreal" data-flag="@X" onclick="openSidebar('99_Conjurer of the Unreal',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/173_Practical Pyromancy.png" id="173_Practical Pyromancy" data-flag="@X" onclick="openSidebar('173_Practical Pyromancy',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/217_Professor Rinnie.png" id="217_Professor Rinnie" data-flag="@X" onclick="openSidebar('217_Professor Rinnie',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/45_Think Outside the Box.png" id="45_Think Outside the Box" data-flag="@X" onclick="openSidebar('45_Think Outside the Box',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/81_Rookie Spellthief.png" id="81_Rookie Spellthief" data-flag="@X" onclick="openSidebar('81_Rookie Spellthief',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/106_Diligent Research.png" id="106_Diligent Research" data-flag="@X" onclick="openSidebar('106_Diligent Research',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/141_Conjuration-Track Savant.png" id="141_Conjuration-Track Savant" data-flag="@X" onclick="openSidebar('141_Conjuration-Track Savant',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/223_Vedalken Powermonger.png" id="223_Vedalken Powermonger" data-flag="@X" onclick="openSidebar('223_Vedalken Powermonger',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/8_Archery-Club Exemplar.png" id="8_Archery-Club Exemplar" data-flag="@X" onclick="openSidebar('8_Archery-Club Exemplar',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/50_Cautious Laborant.png" id="50_Cautious Laborant" data-flag="@X" onclick="openSidebar('50_Cautious Laborant',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/108_Eldritch Consultation.png" id="108_Eldritch Consultation" data-flag="@X" onclick="openSidebar('108_Eldritch Consultation',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/144_Destructive Conjuration.png" id="144_Destructive Conjuration" data-flag="@X" onclick="openSidebar('144_Destructive Conjuration',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/181_Acute Sculptor.png" id="181_Acute Sculptor" data-flag="@X" onclick="openSidebar('181_Acute Sculptor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/12_Book-Worm Faerie.png" id="12_Book-Worm Faerie" data-flag="@X" onclick="openSidebar('12_Book-Worm Faerie',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/54_Education 101.png" id="54_Education 101" data-flag="@X" onclick="openSidebar('54_Education 101',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/113_Golem of Childish Wonder.png" id="113_Golem of Childish Wonder" data-flag="@X" onclick="openSidebar('113_Golem of Childish Wonder',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/149_Flaming Practitioner.png" id="149_Flaming Practitioner" data-flag="@X" onclick="openSidebar('149_Flaming Practitioner',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/182_Artificial Witness.png" id="182_Artificial Witness" data-flag="@X" onclick="openSidebar('182_Artificial Witness',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/13_Bornheim's Archivist.png" id="13_Bornheims Archivist" data-flag="@X" onclick="openSidebar('13_Bornheims Archivist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/55_Enthusiatic Lab Partner.png" id="55_Enthusiatic Lab Partner" data-flag="@X" onclick="openSidebar('55_Enthusiatic Lab Partner',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/114_Heartless Innovator.png" id="114_Heartless Innovator" data-flag="@X" onclick="openSidebar('114_Heartless Innovator',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/153_Herald of Catastrophe.png" id="153_Herald of Catastrophe" data-flag="@X" onclick="openSidebar('153_Herald of Catastrophe',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/184_Basic Chemical Reactions.png" id="184_Basic Chemical Reactions" data-flag="@X" onclick="openSidebar('184_Basic Chemical Reactions',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/14_Cackling Guardian.png" id="14_Cackling Guardian" data-flag="@X" onclick="openSidebar('14_Cackling Guardian',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/60_Ghir, Adept Transmutor.png" id="60_Ghir, Adept Transmutor" data-flag="@X" onclick="openSidebar('60_Ghir, Adept Transmutor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/117_Immediate Expulsion.png" id="117_Immediate Expulsion" data-flag="@X" onclick="openSidebar('117_Immediate Expulsion',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/156_Impulsive Havoceer.png" id="156_Impulsive Havoceer" data-flag="@X" onclick="openSidebar('156_Impulsive Havoceer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/187_Class Trip.png" id="187_Class Trip" data-flag="@X" onclick="openSidebar('187_Class Trip',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/19_Empowerment Magic.png" id="19_Empowerment Magic" data-flag="@X" onclick="openSidebar('19_Empowerment Magic',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/61_Gleeful Researcher.png" id="61_Gleeful Researcher" data-flag="@X" onclick="openSidebar('61_Gleeful Researcher',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/119_Introduction to Necromancy.png" id="119_Introduction to Necromancy" data-flag="@X" onclick="openSidebar('119_Introduction to Necromancy',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/158_Introduction to Pyromancy.png" id="158_Introduction to Pyromancy" data-flag="@X" onclick="openSidebar('158_Introduction to Pyromancy',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/192_Distracted Botanist.png" id="192_Distracted Botanist" data-flag="@X" onclick="openSidebar('192_Distracted Botanist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/23_Heartfelt Zoologist.png" id="23_Heartfelt Zoologist" data-flag="@X" onclick="openSidebar('23_Heartfelt Zoologist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/62_Heartbreaking Failure.png" id="62_Heartbreaking Failure" data-flag="@X" onclick="openSidebar('62_Heartbreaking Failure',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/121_Jhurmi, Eternal Librarian.png" id="121_Jhurmi, Eternal Librarian" data-flag="@X" onclick="openSidebar('121_Jhurmi, Eternal Librarian',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/159_Lab Accident.png" id="159_Lab Accident" data-flag="@X" onclick="openSidebar('159_Lab Accident',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/195_Fevizia's Awakening.png" id="195_Fevizias Awakening" data-flag="@X" onclick="openSidebar('195_Fevizias Awakening',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/24_Introduction to Abjuration.png" id="24_Introduction to Abjuration" data-flag="@X" onclick="openSidebar('24_Introduction to Abjuration',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/67_Introduction to Artifice.png" id="67_Introduction to Artifice" data-flag="@X" onclick="openSidebar('67_Introduction to Artifice',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/122_Librarian's Assistant.png" id="122_Librarians Assistant" data-flag="@X" onclick="openSidebar('122_Librarians Assistant',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/160_Late for Class.png" id="160_Late for Class" data-flag="@X" onclick="openSidebar('160_Late for Class',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/196_Field Engineer.png" id="196_Field Engineer" data-flag="@X" onclick="openSidebar('196_Field Engineer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/25_Invoker of the Waning Star.png" id="25_Invoker of the Waning Star" data-flag="@X" onclick="openSidebar('25_Invoker of the Waning Star',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/68_Investigate the Core.png" id="68_Investigate the Core" data-flag="@X" onclick="openSidebar('68_Investigate the Core',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/123_Lifeless Studies.png" id="123_Lifeless Studies" data-flag="@X" onclick="openSidebar('123_Lifeless Studies',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/168_Passionate Soothsayer.png" id="168_Passionate Soothsayer" data-flag="@X" onclick="openSidebar('168_Passionate Soothsayer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/198_Fossil Processor.png" id="198_Fossil Processor" data-flag="@X" onclick="openSidebar('198_Fossil Processor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/26_Krystel's Guile.png" id="26_Krystels Guile" data-flag="@X" onclick="openSidebar('26_Krystels Guile',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/70_Mountainwide Colossus.png" id="70_Mountainwide Colossus" data-flag="@X" onclick="openSidebar('70_Mountainwide Colossus',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/127_Perilous Journey.png" id="127_Perilous Journey" data-flag="@X" onclick="openSidebar('127_Perilous Journey',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/169_Pentaga Star.png" id="169_Pentaga Star" data-flag="@X" onclick="openSidebar('169_Pentaga Star',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/201_Introduction to Animism.png" id="201_Introduction to Animism" data-flag="@X" onclick="openSidebar('201_Introduction to Animism',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/31_Momentary Detention.png" id="31_Momentary Detention" data-flag="@X" onclick="openSidebar('31_Momentary Detention',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/77_Private Lesson.png" id="77_Private Lesson" data-flag="@X" onclick="openSidebar('77_Private Lesson',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/132_Sophia's Starcaller.png" id="132_Sophias Starcaller" data-flag="@X" onclick="openSidebar('132_Sophias Starcaller',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/170_Phrunian Meddling.png" id="170_Phrunian Meddling" data-flag="@X" onclick="openSidebar('170_Phrunian Meddling',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/205_Lakeside Naturalist.png" id="205_Lakeside Naturalist" data-flag="@X" onclick="openSidebar('205_Lakeside Naturalist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/35_Passionate Mentee.png" id="35_Passionate Mentee" data-flag="@X" onclick="openSidebar('35_Passionate Mentee',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/78_Progressive Observer.png" id="78_Progressive Observer" data-flag="@X" onclick="openSidebar('78_Progressive Observer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/134_Student-Made Abomination.png" id="134_Student-Made Abomination" data-flag="@X" onclick="openSidebar('134_Student-Made Abomination',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/176_Spell-Charged Sentinel.png" id="176_Spell-Charged Sentinel" data-flag="@X" onclick="openSidebar('176_Spell-Charged Sentinel',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/210_Natural Tutor.png" id="210_Natural Tutor" data-flag="@X" onclick="openSidebar('210_Natural Tutor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/38_Prom Night.png" id="38_Prom Night" data-flag="@X" onclick="openSidebar('38_Prom Night',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/79_Rainy Day.png" id="79_Rainy Day" data-flag="@X" onclick="openSidebar('79_Rainy Day',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/135_Study of the Dark Arts.png" id="135_Study of the Dark Arts" data-flag="@X" onclick="openSidebar('135_Study of the Dark Arts',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/178_Unstable Elemental.png" id="178_Unstable Elemental" data-flag="@X" onclick="openSidebar('178_Unstable Elemental',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/211_Nixvelle Progressionist.png" id="211_Nixvelle Progressionist" data-flag="@X" onclick="openSidebar('211_Nixvelle Progressionist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/41_Seasoned Librarian.png" id="41_Seasoned Librarian" data-flag="@X" onclick="openSidebar('41_Seasoned Librarian',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/83_Sly Upgrader.png" id="83_Sly Upgrader" data-flag="@X" onclick="openSidebar('83_Sly Upgrader',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/93_Academic Exhaustion.png" id="93_Academic Exhaustion" data-flag="@X" onclick="openSidebar('93_Academic Exhaustion',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/179_Viki's Guile.png" id="179_Vikis Guile" data-flag="@X" onclick="openSidebar('179_Vikis Guile',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/214_Phyko's Trailplanner.png" id="214_Phykos Trailplanner" data-flag="@X" onclick="openSidebar('214_Phykos Trailplanner',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/44_Stressful Experimentalist.png" id="44_Stressful Experimentalist" data-flag="@X" onclick="openSidebar('44_Stressful Experimentalist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/87_Summoner of Frost.png" id="87_Summoner of Frost" data-flag="@X" onclick="openSidebar('87_Summoner of Frost',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/94_ALDA's Overseer.png" id="94_ALDAs Overseer" data-flag="@X" onclick="openSidebar('94_ALDAs Overseer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/137_Alvamar's Student.png" id="137_Alvamars Student" data-flag="@X" onclick="openSidebar('137_Alvamars Student',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/221_Seasoned Naturalist.png" id="221_Seasoned Naturalist" data-flag="@X" onclick="openSidebar('221_Seasoned Naturalist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/4_Afternoon Studies.png" id="4_Afternoon Studies" data-flag="@X" onclick="openSidebar('4_Afternoon Studies',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/51_Consult the Professor.png" id="51_Consult the Professor" data-flag="@X" onclick="openSidebar('51_Consult the Professor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/96_Break from the Pressure.png" id="96_Break from the Pressure" data-flag="@X" onclick="openSidebar('96_Break from the Pressure',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/138_Cauldron Savant.png" id="138_Cauldron Savant" data-flag="@X" onclick="openSidebar('138_Cauldron Savant',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/183_Aspiring Specialist.png" id="183_Aspiring Specialist" data-flag="@X" onclick="openSidebar('183_Aspiring Specialist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/6_Analysis Paralysis.png" id="6_Analysis Paralysis" data-flag="@X" onclick="openSidebar('6_Analysis Paralysis',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/52_Curriculum Inspector.png" id="52_Curriculum Inspector" data-flag="@X" onclick="openSidebar('52_Curriculum Inspector',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/98_Careless Cultist.png" id="98_Careless Cultist" data-flag="@X" onclick="openSidebar('98_Careless Cultist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/140_Combustive Creation.png" id="140_Combustive Creation" data-flag="@X" onclick="openSidebar('140_Combustive Creation',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/185_Blade Construct.png" id="185_Blade Construct" data-flag="@X" onclick="openSidebar('185_Blade Construct',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/10_Artificer's Plaything.png" id="10_Artificers Plaything" data-flag="@X" onclick="openSidebar('10_Artificers Plaything',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/53_Divinating Snoop.png" id="53_Divinating Snoop" data-flag="@X" onclick="openSidebar('53_Divinating Snoop',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/100_Cruel Essayist.png" id="100_Cruel Essayist" data-flag="@X" onclick="openSidebar('100_Cruel Essayist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/142_Corrupted Sigils.png" id="142_Corrupted Sigils" data-flag="@X" onclick="openSidebar('142_Corrupted Sigils',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/186_Changing Seasons.png" id="186_Changing Seasons" data-flag="@X" onclick="openSidebar('186_Changing Seasons',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/11_Blade-Dancer Prodigy.png" id="11_Blade-Dancer Prodigy" data-flag="@X" onclick="openSidebar('11_Blade-Dancer Prodigy',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/56_Exam Grading.png" id="56_Exam Grading" data-flag="@X" onclick="openSidebar('56_Exam Grading',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/101_Cursed Companion.png" id="101_Cursed Companion" data-flag="@X" onclick="openSidebar('101_Cursed Companion',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/143_Curious Flameweaver.png" id="143_Curious Flameweaver" data-flag="@X" onclick="openSidebar('143_Curious Flameweaver',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/188_Confused Cartographer.png" id="188_Confused Cartographer" data-flag="@X" onclick="openSidebar('188_Confused Cartographer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/15_Cheerful Mentor.png" id="15_Cheerful Mentor" data-flag="@X" onclick="openSidebar('15_Cheerful Mentor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/57_Faulty Flight.png" id="57_Faulty Flight" data-flag="@X" onclick="openSidebar('57_Faulty Flight',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/104_Deadly Duel.png" id="104_Deadly Duel" data-flag="@X" onclick="openSidebar('104_Deadly Duel',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/145_Eager Freshman.png" id="145_Eager Freshman" data-flag="@X" onclick="openSidebar('145_Eager Freshman',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/189_Cultivate.png" id="189_Cultivate" data-flag="@X" onclick="openSidebar('189_Cultivate',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/16_Diligent Researcher.png" id="16_Diligent Researcher" data-flag="@X" onclick="openSidebar('16_Diligent Researcher',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/59_Functional Researcher.png" id="59_Functional Researcher" data-flag="@X" onclick="openSidebar('59_Functional Researcher',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/105_Desperate Sophomore.png" id="105_Desperate Sophomore" data-flag="@X" onclick="openSidebar('105_Desperate Sophomore',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/146_Explosive Backfire.png" id="146_Explosive Backfire" data-flag="@X" onclick="openSidebar('146_Explosive Backfire',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/191_Diligent Herbalist.png" id="191_Diligent Herbalist" data-flag="@X" onclick="openSidebar('191_Diligent Herbalist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/17_Disenchant.png" id="17_Disenchant" data-flag="@X" onclick="openSidebar('17_Disenchant',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/63_Inactive Creation.png" id="63_Inactive Creation" data-flag="@X" onclick="openSidebar('63_Inactive Creation',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/107_Earworm Bard.png" id="107_Earworm Bard" data-flag="@X" onclick="openSidebar('107_Earworm Bard',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/148_Fireheart Construct.png" id="148_Fireheart Construct" data-flag="@X" onclick="openSidebar('148_Fireheart Construct',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/193_Ecstatic Zoologist.png" id="193_Ecstatic Zoologist" data-flag="@X" onclick="openSidebar('193_Ecstatic Zoologist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/18_Empathic Nurse.png" id="18_Empathic Nurse" data-flag="@X" onclick="openSidebar('18_Empathic Nurse',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/64_Inconceivable Boredom.png" id="64_Inconceivable Boredom" data-flag="@X" onclick="openSidebar('64_Inconceivable Boredom',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/111_Expendable Component.png" id="111_Expendable Component" data-flag="@X" onclick="openSidebar('111_Expendable Component',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/151_Glaudia's Prodigy.png" id="151_Glaudias Prodigy" data-flag="@X" onclick="openSidebar('151_Glaudias Prodigy',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/194_Fearless Alchemist.png" id="194_Fearless Alchemist" data-flag="@X" onclick="openSidebar('194_Fearless Alchemist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/21_Glaudia's Veteran.png" id="21_Glaudias Veteran" data-flag="@X" onclick="openSidebar('21_Glaudias Veteran',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/66_Intish's Student.png" id="66_Intishs Student" data-flag="@X" onclick="openSidebar('66_Intishs Student',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/116_Hunt for Ingredients.png" id="116_Hunt for Ingredients" data-flag="@X" onclick="openSidebar('116_Hunt for Ingredients',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/155_Hyperfixation.png" id="155_Hyperfixation" data-flag="@X" onclick="openSidebar('155_Hyperfixation',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/197_Field Studies.png" id="197_Field Studies" data-flag="@X" onclick="openSidebar('197_Field Studies',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/22_Hall Monitors.png" id="22_Hall Monitors" data-flag="@X" onclick="openSidebar('22_Hall Monitors',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/69_Library Familiar.png" id="69_Library Familiar" data-flag="@X" onclick="openSidebar('69_Library Familiar',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/118_Improvised Golem.png" id="118_Improvised Golem" data-flag="@X" onclick="openSidebar('118_Improvised Golem',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/161_Library Conundrum.png" id="161_Library Conundrum" data-flag="@X" onclick="openSidebar('161_Library Conundrum',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/199_Incidental Summoning.png" id="199_Incidental Summoning" data-flag="@X" onclick="openSidebar('199_Incidental Summoning',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/27_Krystel's Intervention.png" id="27_Krystels Intervention" data-flag="@X" onclick="openSidebar('27_Krystels Intervention',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/71_Obsessive Bookworm.png" id="71_Obsessive Bookworm" data-flag="@X" onclick="openSidebar('71_Obsessive Bookworm',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/120_Jaux's Student.png" id="120_Jauxs Student" data-flag="@X" onclick="openSidebar('120_Jauxs Student',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/163_Metallic Aggressor.png" id="163_Metallic Aggressor" data-flag="@X" onclick="openSidebar('163_Metallic Aggressor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/200_Inspiring Classmate.png" id="200_Inspiring Classmate" data-flag="@X" onclick="openSidebar('200_Inspiring Classmate',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/28_Krystel's Wingballer.png" id="28_Krystels Wingballer" data-flag="@X" onclick="openSidebar('28_Krystels Wingballer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/72_Overwhelming Distractions.png" id="72_Overwhelming Distractions" data-flag="@X" onclick="openSidebar('72_Overwhelming Distractions',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/124_Lonely Practitioner.png" id="124_Lonely Practitioner" data-flag="@X" onclick="openSidebar('124_Lonely Practitioner',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/164_Midnight Cramming.png" id="164_Midnight Cramming" data-flag="@X" onclick="openSidebar('164_Midnight Cramming',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/202_Kalimar's Powerplanner.png" id="202_Kalimars Powerplanner" data-flag="@X" onclick="openSidebar('202_Kalimars Powerplanner',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/30_Mia's Student.png" id="30_Mias Student" data-flag="@X" onclick="openSidebar('30_Mias Student',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/84_Snapcaster Professor.png" id="84_Snapcaster Professor" data-flag="@X" onclick="openSidebar('84_Snapcaster Professor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/125_Maria's Tales.png" id="125_Marias Tales" data-flag="@X" onclick="openSidebar('125_Marias Tales',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/165_Mischievous Alchemist.png" id="165_Mischievous Alchemist" data-flag="@X" onclick="openSidebar('165_Mischievous Alchemist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/206_Mechanized Monstrosity.png" id="206_Mechanized Monstrosity" data-flag="@X" onclick="openSidebar('206_Mechanized Monstrosity',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/32_Optimistic First-Year.png" id="32_Optimistic First-Year" data-flag="@X" onclick="openSidebar('32_Optimistic First-Year',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/85_Spectacular Orrery.png" id="85_Spectacular Orrery" data-flag="@X" onclick="openSidebar('85_Spectacular Orrery',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/129_Reverse Summoning.png" id="129_Reverse Summoning" data-flag="@X" onclick="openSidebar('129_Reverse Summoning',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/171_Phyko's Mentorship.png" id="171_Phykos Mentorship" data-flag="@X" onclick="openSidebar('171_Phykos Mentorship',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/208_Mutated Owl.png" id="208_Mutated Owl" data-flag="@X" onclick="openSidebar('208_Mutated Owl',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/33_Overwhelming Workload.png" id="33_Overwhelming Workload" data-flag="@X" onclick="openSidebar('33_Overwhelming Workload',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/86_Sudden Flunking.png" id="86_Sudden Flunking" data-flag="@X" onclick="openSidebar('86_Sudden Flunking',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/130_Slick Class-Cutter.png" id="130_Slick Class-Cutter" data-flag="@X" onclick="openSidebar('130_Slick Class-Cutter',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/172_Practical Mentor.png" id="172_Practical Mentor" data-flag="@X" onclick="openSidebar('172_Practical Mentor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/219_Rinnie's Student.png" id="219_Rinnies Student" data-flag="@X" onclick="openSidebar('219_Rinnies Student',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/34_Paper Dragon.png" id="34_Paper Dragon" data-flag="@X" onclick="openSidebar('34_Paper Dragon',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/89_Tireless Tinkerer.png" id="89_Tireless Tinkerer" data-flag="@X" onclick="openSidebar('89_Tireless Tinkerer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/133_Soul Preservation.png" id="133_Soul Preservation" data-flag="@X" onclick="openSidebar('133_Soul Preservation',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/175_Ruvillian Flamefoot.png" id="175_Ruvillian Flamefoot" data-flag="@X" onclick="openSidebar('175_Ruvillian Flamefoot',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/220_Scholarly Dispute.png" id="220_Scholarly Dispute" data-flag="@X" onclick="openSidebar('220_Scholarly Dispute',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/37_Peaceful Wonder.png" id="37_Peaceful Wonder" data-flag="@X" onclick="openSidebar('37_Peaceful Wonder',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/90_Truesight Prophet.png" id="90_Truesight Prophet" data-flag="@X" onclick="openSidebar('90_Truesight Prophet',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/136_Unexpected Success.png" id="136_Unexpected Success" data-flag="@X" onclick="openSidebar('136_Unexpected Success',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/177_Studied Strike.png" id="177_Studied Strike" data-flag="@X" onclick="openSidebar('177_Studied Strike',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/222_Sudden Mutation.png" id="222_Sudden Mutation" data-flag="@X" onclick="openSidebar('222_Sudden Mutation',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/42_Serene Educator.png" id="42_Serene Educator" data-flag="@X" onclick="openSidebar('42_Serene Educator',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/91_Unsatiable Curiosity.png" id="91_Unsatiable Curiosity" data-flag="@X" onclick="openSidebar('91_Unsatiable Curiosity',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/180_Volatile Prankster.png" id="180_Volatile Prankster" data-flag="@X" onclick="openSidebar('180_Volatile Prankster',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/224_Vinelarian Botanist.png" id="224_Vinelarian Botanist" data-flag="@X" onclick="openSidebar('224_Vinelarian Botanist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/47_Words of Encouragement.png" id="47_Words of Encouragement" data-flag="@X" onclick="openSidebar('47_Words of Encouragement',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/92_Unstable Dismissal.png" id="92_Unstable Dismissal" data-flag="@X" onclick="openSidebar('92_Unstable Dismissal',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/225_Wandering Scholar.png" id="225_Wandering Scholar" data-flag="@X" onclick="openSidebar('225_Wandering Scholar',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/0_AIGIS, Shadow Exterminator.png" id="0_AIGIS, Shadow Exterminator" data-flag="@X" onclick="openSidebar('0_AIGIS, Shadow Exterminator',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+<div id="gold" class="anchor"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/232_Jaux, Alchemist Supreme.png" id="232_Jaux, Alchemist Supreme" data-flag="@X" onclick="openSidebar('232_Jaux, Alchemist Supreme',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/227_Dylan, Amateur Spellcaster.png" id="227_Dylan, Amateur Spellcaster" data-flag="@X" onclick="openSidebar('227_Dylan, Amateur Spellcaster',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/229_Forbidden Hemomancy.png" id="229_Forbidden Hemomancy" data-flag="@X" onclick="openSidebar('229_Forbidden Hemomancy',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/241_Phyko, Field Scholar.png" id="241_Phyko, Field Scholar" data-flag="@X" onclick="openSidebar('241_Phyko, Field Scholar',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/245_Vienna, Guided by the Fae.png" id="245_Vienna, Guided by the Fae" data-flag="@X" onclick="openSidebar('245_Vienna, Guided by the Fae',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/234_Laboratory Assignment.png" id="234_Laboratory Assignment" data-flag="@X" onclick="openSidebar('234_Laboratory Assignment',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/226_Curious Arcanist.png" id="226_Curious Arcanist" data-flag="@X" onclick="openSidebar('226_Curious Arcanist',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/239_Mirabelle, Passionate Counsellor.png" id="239_Mirabelle, Passionate Counsellor" data-flag="@X" onclick="openSidebar('239_Mirabelle, Passionate Counsellor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/240_Phrunian Wondermakers.png" id="240_Phrunian Wondermakers" data-flag="@X" onclick="openSidebar('240_Phrunian Wondermakers',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/275_Otherworldly Field-Tester.png" id="275_Otherworldly Field-Tester" data-flag="@X" onclick="openSidebar('275_Otherworldly Field-Tester',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/247_Young Yarnweaver.png" id="247_Young Yarnweaver" data-flag="@X" onclick="openSidebar('247_Young Yarnweaver',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/242_Sophia of Pasts and Futures.png" id="242_Sophia of Pasts and Futures" data-flag="@X" onclick="openSidebar('242_Sophia of Pasts and Futures',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/236_Maria, Herald of History.png" id="236_Maria, Herald of History" data-flag="@X" onclick="openSidebar('236_Maria, Herald of History',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/233_Krystel, Team Captain.png" id="233_Krystel, Team Captain" data-flag="@X" onclick="openSidebar('233_Krystel, Team Captain',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/228_Fevizia, Creativity Unbound.png" id="228_Fevizia, Creativity Unbound" data-flag="@X" onclick="openSidebar('228_Fevizia, Creativity Unbound',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/231_Intish, Master of Elements.png" id="231_Intish, Master of Elements" data-flag="@X" onclick="openSidebar('231_Intish, Master of Elements',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/235_Malevolent Practitioner.png" id="235_Malevolent Practitioner" data-flag="@X" onclick="openSidebar('235_Malevolent Practitioner',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/244_Unpleasant Break.png" id="244_Unpleasant Break" data-flag="@X" onclick="openSidebar('244_Unpleasant Break',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/237_Mechanical Exemplar.png" id="237_Mechanical Exemplar" data-flag="@X" onclick="openSidebar('237_Mechanical Exemplar',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/243_Study Group.png" id="243_Study Group" data-flag="@X" onclick="openSidebar('243_Study Group',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/238_Mia, Strict Mentor.png" id="238_Mia, Strict Mentor" data-flag="@X" onclick="openSidebar('238_Mia, Strict Mentor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/230_Freshmen Trio.png" id="230_Freshmen Trio" data-flag="@X" onclick="openSidebar('230_Freshmen Trio',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/246_Viki, Student President.png" id="246_Viki, Student President" data-flag="@X" onclick="openSidebar('246_Viki, Student President',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+<div id="colorless" class="anchor"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/251_Door of Wonders.png" id="251_Door of Wonders" data-flag="@X" onclick="openSidebar('251_Door of Wonders',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/252_Fevizia's Gatekeeper.png" id="252_Fevizias Gatekeeper" data-flag="@X" onclick="openSidebar('252_Fevizias Gatekeeper',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/253_Gemmisomancer's Tools.png" id="253_Gemmisomancers Tools" data-flag="@X" onclick="openSidebar('253_Gemmisomancers Tools',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/254_Living Fleet.png" id="254_Living Fleet" data-flag="@X" onclick="openSidebar('254_Living Fleet',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/259_The Reality Anchor.png" id="259_The Reality Anchor" data-flag="@X" onclick="openSidebar('259_The Reality Anchor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/1_Introduction to Terramancy.png" id="1_Introduction to Terramancy" data-flag="@X" onclick="openSidebar('1_Introduction to Terramancy',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/2_Lunch Break.png" id="2_Lunch Break" data-flag="@X" onclick="openSidebar('2_Lunch Break',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/248_Bloodline Analyzer.png" id="248_Bloodline Analyzer" data-flag="@X" onclick="openSidebar('248_Bloodline Analyzer',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/260_Scholar's Workbench.png" id="260_Scholars Workbench" data-flag="@X" onclick="openSidebar('260_Scholars Workbench',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/261_Shard of the Anchor.png" id="261_Shard of the Anchor" data-flag="@X" onclick="openSidebar('261_Shard of the Anchor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/249_Class Notes.png" id="249_Class Notes" data-flag="@X" onclick="openSidebar('249_Class Notes',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/250_Damaged Dorms Maid.png" id="250_Damaged Dorms Maid" data-flag="@X" onclick="openSidebar('250_Damaged Dorms Maid',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/257_Practitioner's Blade.png" id="257_Practitioners Blade" data-flag="@X" onclick="openSidebar('257_Practitioners Blade',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/262_Skittering Surveyor.png" id="262_Skittering Surveyor" data-flag="@X" onclick="openSidebar('262_Skittering Surveyor',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/263_Student Project.png" id="263_Student Project" data-flag="@X" onclick="openSidebar('263_Student Project',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/264_Teacher's Assistant.png" id="264_Teachers Assistant" data-flag="@X" onclick="openSidebar('264_Teachers Assistant',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/266_Ghir's Classroom.png" id="266_Ghirs Classroom" data-flag="@X" onclick="openSidebar('266_Ghirs Classroom',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/272_Mia's Classroom.png" id="272_Mias Classroom" data-flag="@X" onclick="openSidebar('272_Mias Classroom',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/265_Alvamar's Classroom.png" id="265_Alvamars Classroom" data-flag="@X" onclick="openSidebar('265_Alvamars Classroom',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/273_Phyko's Classroom.png" id="273_Phykos Classroom" data-flag="@X" onclick="openSidebar('273_Phykos Classroom',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/271_Marie's Classroom.png" id="271_Maries Classroom" data-flag="@X" onclick="openSidebar('271_Maries Classroom',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/270_Kharu's Classroom.png" id="270_Kharus Classroom" data-flag="@X" onclick="openSidebar('270_Kharus Classroom',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/268_Intish's Classroom.png" id="268_Intishs Classroom" data-flag="@X" onclick="openSidebar('268_Intishs Classroom',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/269_Jaux's Classroom.png" id="269_Jauxs Classroom" data-flag="@X" onclick="openSidebar('269_Jauxs Classroom',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/267_Glaudia's Classroom.png" id="267_Glaudias Classroom" data-flag="@X" onclick="openSidebar('267_Glaudias Classroom',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/274_Rinnie's Classroom.png" id="274_Rinnies Classroom" data-flag="@X" onclick="openSidebar('274_Rinnies Classroom',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+<div id="token" class="anchor"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/5t_Cell.png" id="5t_Cell" data-flag="@X" onclick="openSidebar('5t_Cell',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/1t_Cat.png" id="1t_Cat" data-flag="@X" onclick="openSidebar('1t_Cat',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/2t_Wizard.png" id="2t_Wizard" data-flag="@X" onclick="openSidebar('2t_Wizard',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/3t_Elemental.png" id="3t_Elemental" data-flag="@X" onclick="openSidebar('3t_Elemental',false)"></div>
+			<div class="container"><img alt="/sets/PBA-files/img/4t_Weird.png" id="4t_Weird" data-flag="@X" onclick="openSidebar('4t_Weird',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+	</div>
+</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+		
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		tmp = document.getElementById(num).src;
+		console.log(num);
+		document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+		document.getElementById(num).dataset.alt_src = tmp;
+
+		if (num == 'sidebar_img')
+		{
+			const rotated_img = document.getElementById('sidebar_h_img');
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal && rotated_img.style.display == 'none')
+			{
+				rotated_img.style.display = "block";
+				sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+			}
+			else
+			{
+				rotated_img.style.display = "none";
+				sidebar_img.style.filter = "";
+			}
+		}
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+		
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+		
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+		
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL('search', window.location.origin);
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL('card', window.location.origin);
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url;
+			}
+	</script>
+</body>
+</html>
