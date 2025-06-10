@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="/sets/WTS-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>WTS visual preview</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			display: none;
+			transform: rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('/img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('/img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 20px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('/img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('/img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.icon-bar {
+			display: grid;
+			grid-template-columns: repeat(10, 3fr 2fr) 3fr;
+			gap: 1px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-top: 2%;
+			padding-bottom: 1%;
+			justify-items: center;
+			align-items: center;
+		}
+		.icon-bar .icon img {
+			width: 90%;
+			max-width: 80px;
+			height: auto;
+			display: block;
+			padding: 5%;
+			margin: auto;
+			text-align: center;
+		}
+		.icon-bar .dot img {
+			width: 50%;
+			max-width: 65px;
+			height: auto;
+			display: block;
+			margin: auto;
+			text-align: center;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/WTS-files/logo.png" />
+	<img class="preload-hidden" src="/sets/AEK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/AVA-files/icon.png" />
+		<img class="preload-hidden" src="/sets/DCO-files/icon.png" />
+		<img class="preload-hidden" src="/sets/DES-files/icon.png" />
+		<img class="preload-hidden" src="/sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HQZ-files/icon.png" />
+		<img class="preload-hidden" src="/sets/HWEL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/KEC-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PBA-files/icon.png" />
+		<img class="preload-hidden" src="/sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/TRO-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VRN-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WTS-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="icon-bar">
+			<div class="icon"><a href="AEK"><img src="/sets/AEK-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="AVA"><img src="/sets/AVA-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="DCO"><img src="/sets/DCO-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="DES"><img src="/sets/DES-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="EOR"><img src="/sets/EOR-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="F2HU"><img src="/sets/F2HU-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="HEX"><img src="/sets/HEX-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="HQZ"><img src="/sets/HQZ-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="HWEL"><img src="/sets/HWEL-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="KEC"><img src="/sets/KEC-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="ONI"><img src="/sets/ONI-files/icon.png"></img></a></div>
+		<div class="icon"><a href="PBA"><img src="/sets/PBA-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="POP2"><img src="/sets/POP2-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="SOL"><img src="/sets/SOL-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="TGS"><img src="/sets/TGS-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="TRO"><img src="/sets/TRO-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="VRN"><img src="/sets/VRN-files/icon.png"></img></a></div>
+		 <div class="dot"><img src="/img/dot.png"></img></div>
+		<div class="icon"><a href="WTS"><img src="/sets/WTS-files/icon.png"></img></a></div>
+
+		</div>
+		<div class="banner">
+		<img class="logo" src="/sets/WTS-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+				<div class="container"><img alt="/sets/WTS-files/img/2_Adventurous Investor.jpg" id="2_Adventurous Investor" data-flag="@X" onclick="openSidebar('2_Adventurous Investor',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/40_Aether's Edge Investigation.jpg" id="40_Aethers Edge Investigation" data-flag="@X" onclick="openSidebar('40_Aethers Edge Investigation',true)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/77_Aetherbirth.jpg" id="77_Aetherbirth" data-flag="@X" onclick="openSidebar('77_Aetherbirth',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/113_Aerial Arsonist.jpg" id="113_Aerial Arsonist" data-flag="@X" onclick="openSidebar('113_Aerial Arsonist',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/150_Adrenal Irregulator.jpg" id="150_Adrenal Irregulator" data-flag="@X" onclick="openSidebar('150_Adrenal Irregulator',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/3_Aether Flare.jpg" id="3_Aether Flare" data-flag="@X" onclick="openSidebar('3_Aether Flare',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/41_Argonet Oracle Harness.jpg" id="41_Argonet Oracle Harness" data-flag="@X" onclick="openSidebar('41_Argonet Oracle Harness',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/79_Bellabellum.jpg" id="79_Bellabellum" data-flag="@X" onclick="openSidebar('79_Bellabellum',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/114_Aero-Merai Artillery.jpg" id="114_Aero-Merai Artillery" data-flag="@X" onclick="openSidebar('114_Aero-Merai Artillery',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/152_Argonet Extraction Agent.jpg" id="152_Argonet Extraction Agent" data-flag="@X" onclick="openSidebar('152_Argonet Extraction Agent',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/6_Backstreets Gourmand.jpg" id="6_Backstreets Gourmand" data-flag="@X" onclick="openSidebar('6_Backstreets Gourmand',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/42_Artisanal Arms Dealer.jpg" id="42_Artisanal Arms Dealer" data-flag="@X" onclick="openSidebar('42_Artisanal Arms Dealer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/81_Blesser of Homes.jpg" id="81_Blesser of Homes" data-flag="@X" onclick="openSidebar('81_Blesser of Homes',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/115_Argonet Detonator.jpg" id="115_Argonet Detonator" data-flag="@X" onclick="openSidebar('115_Argonet Detonator',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/153_Ascendant Packleader.jpg" id="153_Ascendant Packleader" data-flag="@X" onclick="openSidebar('153_Ascendant Packleader',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/7_Blast Door.jpg" id="7_Blast Door" data-flag="@X" onclick="openSidebar('7_Blast Door',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/44_Blackout Mastermind.jpg" id="44_Blackout Mastermind" data-flag="@X" onclick="openSidebar('44_Blackout Mastermind',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/82_Bodiless Bodyguard.jpg" id="82_Bodiless Bodyguard" data-flag="@X" onclick="openSidebar('82_Bodiless Bodyguard',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/117_Baltrice, Between Jobs.jpg" id="117_Baltrice, Between Jobs" data-flag="@X" onclick="openSidebar('117_Baltrice, Between Jobs',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/154_Awles, Spadefront Protector.jpg" id="154_Awles, Spadefront Protector" data-flag="@X" onclick="openSidebar('154_Awles, Spadefront Protector',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/8_Bulletproofing Peddler.jpg" id="8_Bulletproofing Peddler" data-flag="@X" onclick="openSidebar('8_Bulletproofing Peddler',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/45_Civic Architect.jpg" id="45_Civic Architect" data-flag="@X" onclick="openSidebar('45_Civic Architect',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/83_Chloryn, Criminal Empress.jpg" id="83_Chloryn, Criminal Empress" data-flag="@X" onclick="openSidebar('83_Chloryn, Criminal Empress',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/118_Beloved of Bellabellum.jpg" id="118_Beloved of Bellabellum" data-flag="@X" onclick="openSidebar('118_Beloved of Bellabellum',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/155_Backstreets Boss.jpg" id="155_Backstreets Boss" data-flag="@X" onclick="openSidebar('155_Backstreets Boss',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/9_Climactic Firefight.jpg" id="9_Climactic Firefight" data-flag="@X" onclick="openSidebar('9_Climactic Firefight',true)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/48_Eavesdrop.jpg" id="48_Eavesdrop" data-flag="@X" onclick="openSidebar('48_Eavesdrop',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/84_Cling to Survival.jpg" id="84_Cling to Survival" data-flag="@X" onclick="openSidebar('84_Cling to Survival',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/124_Dynamic Tactics.jpg" id="124_Dynamic Tactics" data-flag="@X" onclick="openSidebar('124_Dynamic Tactics',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/156_Blackout Bandit.jpg" id="156_Blackout Bandit" data-flag="@X" onclick="openSidebar('156_Blackout Bandit',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/10_Combat Streamer.jpg" id="10_Combat Streamer" data-flag="@X" onclick="openSidebar('10_Combat Streamer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/49_Electrokinetic Maneuver.jpg" id="49_Electrokinetic Maneuver" data-flag="@X" onclick="openSidebar('49_Electrokinetic Maneuver',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/86_Corporate Takeover.jpg" id="86_Corporate Takeover" data-flag="@X" onclick="openSidebar('86_Corporate Takeover',true)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/125_Electric Knuckleduster.jpg" id="125_Electric Knuckleduster" data-flag="@X" onclick="openSidebar('125_Electric Knuckleduster',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/157_Bludgeon.jpg" id="157_Bludgeon" data-flag="@X" onclick="openSidebar('157_Bludgeon',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/16_Dual-Wielding Duelist.jpg" id="16_Dual-Wielding Duelist" data-flag="@X" onclick="openSidebar('16_Dual-Wielding Duelist',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/50_Ermetico Facility Guard.jpg" id="50_Ermetico Facility Guard" data-flag="@X" onclick="openSidebar('50_Ermetico Facility Guard',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/88_Exultation of Rushing Blood.jpg" id="88_Exultation of Rushing Blood" data-flag="@X" onclick="openSidebar('88_Exultation of Rushing Blood',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/126_Embrace the Unknown.jpg" id="126_Embrace the Unknown" data-flag="@X" onclick="openSidebar('126_Embrace the Unknown',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/159_Collective Occupation.jpg" id="159_Collective Occupation" data-flag="@X" onclick="openSidebar('159_Collective Occupation',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/17_Edgeside Repair Tech.jpg" id="17_Edgeside Repair Tech" data-flag="@X" onclick="openSidebar('17_Edgeside Repair Tech',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/51_Face in the Crowd.jpg" id="51_Face in the Crowd" data-flag="@X" onclick="openSidebar('51_Face in the Crowd',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/91_Gas Leak.jpg" id="91_Gas Leak" data-flag="@X" onclick="openSidebar('91_Gas Leak',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/128_Gensus Somatoid.jpg" id="128_Gensus Somatoid" data-flag="@X" onclick="openSidebar('128_Gensus Somatoid',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/162_Firewall Weaver.jpg" id="162_Firewall Weaver" data-flag="@X" onclick="openSidebar('162_Firewall Weaver',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/18_Electrosword.jpg" id="18_Electrosword" data-flag="@X" onclick="openSidebar('18_Electrosword',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/52_Flashbang Prism.jpg" id="52_Flashbang Prism" data-flag="@X" onclick="openSidebar('52_Flashbang Prism',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/92_Insured Investor.jpg" id="92_Insured Investor" data-flag="@X" onclick="openSidebar('92_Insured Investor',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/130_Grease Gang.jpg" id="130_Grease Gang" data-flag="@X" onclick="openSidebar('130_Grease Gang',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/163_First Responder.jpg" id="163_First Responder" data-flag="@X" onclick="openSidebar('163_First Responder',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/19_Empty Calories.jpg" id="19_Empty Calories" data-flag="@X" onclick="openSidebar('19_Empty Calories',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/53_Fundamental Analyst.jpg" id="53_Fundamental Analyst" data-flag="@X" onclick="openSidebar('53_Fundamental Analyst',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/93_Ironskull Executioner.jpg" id="93_Ironskull Executioner" data-flag="@X" onclick="openSidebar('93_Ironskull Executioner',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/131_Heat of Battle.jpg" id="131_Heat of Battle" data-flag="@X" onclick="openSidebar('131_Heat of Battle',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/165_Hearse Company Patrol.jpg" id="165_Hearse Company Patrol" data-flag="@X" onclick="openSidebar('165_Hearse Company Patrol',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/21_Gang Recruitment.jpg" id="21_Gang Recruitment" data-flag="@X" onclick="openSidebar('21_Gang Recruitment',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/55_Grapple with the Future.jpg" id="55_Grapple with the Future" data-flag="@X" onclick="openSidebar('55_Grapple with the Future',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/97_Malware Mobilizer.jpg" id="97_Malware Mobilizer" data-flag="@X" onclick="openSidebar('97_Malware Mobilizer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/132_Heavy Kinetic Gunner.jpg" id="132_Heavy Kinetic Gunner" data-flag="@X" onclick="openSidebar('132_Heavy Kinetic Gunner',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/166_Hydroponics Technician.jpg" id="166_Hydroponics Technician" data-flag="@X" onclick="openSidebar('166_Hydroponics Technician',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/23_Good Night's Sleep.jpg" id="23_Good Nights Sleep" data-flag="@X" onclick="openSidebar('23_Good Nights Sleep',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/58_Hidden-Brick Glassbreaker.jpg" id="58_Hidden-Brick Glassbreaker" data-flag="@X" onclick="openSidebar('58_Hidden-Brick Glassbreaker',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/101_Poxwalkers.jpg" id="101_Poxwalkers" data-flag="@X" onclick="openSidebar('101_Poxwalkers',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/134_Infamous Freelancer.jpg" id="134_Infamous Freelancer" data-flag="@X" onclick="openSidebar('134_Infamous Freelancer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/168_An Interested Scientist.jpg" id="168_An Interested Scientist" data-flag="@X" onclick="openSidebar('168_An Interested Scientist',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/24_Handheld Railcannon.jpg" id="24_Handheld Railcannon" data-flag="@X" onclick="openSidebar('24_Handheld Railcannon',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/60_Hypercomputer.jpg" id="60_Hypercomputer" data-flag="@X" onclick="openSidebar('60_Hypercomputer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/102_Raven, Untouchable Killer.jpg" id="102_Raven, Untouchable Killer" data-flag="@X" onclick="openSidebar('102_Raven, Untouchable Killer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/135_Lensqi Pocket Disintegrator.jpg" id="135_Lensqi Pocket Disintegrator" data-flag="@X" onclick="openSidebar('135_Lensqi Pocket Disintegrator',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/171_Missile Massacre.jpg" id="171_Missile Massacre" data-flag="@X" onclick="openSidebar('171_Missile Massacre',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/25_Hidden-Brick Champion.jpg" id="25_Hidden-Brick Champion" data-flag="@X" onclick="openSidebar('25_Hidden-Brick Champion',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/62_Implantation Rig.jpg" id="62_Implantation Rig" data-flag="@X" onclick="openSidebar('62_Implantation Rig',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/104_Schmooze.jpg" id="104_Schmooze" data-flag="@X" onclick="openSidebar('104_Schmooze',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/137_One on One.jpg" id="137_One on One" data-flag="@X" onclick="openSidebar('137_One on One',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/173_Napolese, Ol' Reliable.jpg" id="173_Napolese, Ol Reliable" data-flag="@X" onclick="openSidebar('173_Napolese, Ol Reliable',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/27_Important Interview.jpg" id="27_Important Interview" data-flag="@X" onclick="openSidebar('27_Important Interview',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/63_In Your Clutches.jpg" id="63_In Your Clutches" data-flag="@X" onclick="openSidebar('63_In Your Clutches',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/105_Shoot.jpg" id="105_Shoot" data-flag="@X" onclick="openSidebar('105_Shoot',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/138_Overheat.jpg" id="138_Overheat" data-flag="@X" onclick="openSidebar('138_Overheat',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/175_Night on the Town.jpg" id="175_Night on the Town" data-flag="@X" onclick="openSidebar('175_Night on the Town',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/28_Intricate Construction.jpg" id="28_Intricate Construction" data-flag="@X" onclick="openSidebar('28_Intricate Construction',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/66_Jayden, Self-Made Man.jpg" id="66_Jayden, Self-Made Man" data-flag="@X" onclick="openSidebar('66_Jayden, Self-Made Man',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/106_Skull Crush.jpg" id="106_Skull Crush" data-flag="@X" onclick="openSidebar('106_Skull Crush',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/139_Planebound Enthusiast.jpg" id="139_Planebound Enthusiast" data-flag="@X" onclick="openSidebar('139_Planebound Enthusiast',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/176_Nutrient Solution Tank.jpg" id="176_Nutrient Solution Tank" data-flag="@X" onclick="openSidebar('176_Nutrient Solution Tank',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/30_Magnetics Magnate.jpg" id="30_Magnetics Magnate" data-flag="@X" onclick="openSidebar('30_Magnetics Magnate',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/69_Moment of Weakness.jpg" id="69_Moment of Weakness" data-flag="@X" onclick="openSidebar('69_Moment of Weakness',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/107_Stare Down.jpg" id="107_Stare Down" data-flag="@X" onclick="openSidebar('107_Stare Down',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/140_Restless Vandal.jpg" id="140_Restless Vandal" data-flag="@X" onclick="openSidebar('140_Restless Vandal',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/177_Overthrow.jpg" id="177_Overthrow" data-flag="@X" onclick="openSidebar('177_Overthrow',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/32_Meet over Lunch.jpg" id="32_Meet over Lunch" data-flag="@X" onclick="openSidebar('32_Meet over Lunch',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/71_Reflection in the Aether.jpg" id="71_Reflection in the Aether" data-flag="@X" onclick="openSidebar('71_Reflection in the Aether',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/108_Street Rat.jpg" id="108_Street Rat" data-flag="@X" onclick="openSidebar('108_Street Rat',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/141_Ride-or-Die.jpg" id="141_Ride-or-Die" data-flag="@X" onclick="openSidebar('141_Ride-or-Die',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/179_Rooftop Contact.jpg" id="179_Rooftop Contact" data-flag="@X" onclick="openSidebar('179_Rooftop Contact',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/33_Messy Accident.jpg" id="33_Messy Accident" data-flag="@X" onclick="openSidebar('33_Messy Accident',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/72_Reload.jpg" id="72_Reload" data-flag="@X" onclick="openSidebar('72_Reload',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/109_Tactical Handler.jpg" id="109_Tactical Handler" data-flag="@X" onclick="openSidebar('109_Tactical Handler',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/142_Ritual Pit Brawl.jpg" id="142_Ritual Pit Brawl" data-flag="@X" onclick="openSidebar('142_Ritual Pit Brawl',true)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/180_Scrap Pit Trawler's Stilts.jpg" id="180_Scrap Pit Trawlers Stilts" data-flag="@X" onclick="openSidebar('180_Scrap Pit Trawlers Stilts',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/34_Robber Baron.jpg" id="34_Robber Baron" data-flag="@X" onclick="openSidebar('34_Robber Baron',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/73_Whir of Invention.jpg" id="73_Whir of Invention" data-flag="@X" onclick="openSidebar('73_Whir of Invention',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/110_Terrestrial Whiskey.jpg" id="110_Terrestrial Whiskey" data-flag="@X" onclick="openSidebar('110_Terrestrial Whiskey',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/147_Twinpistol Terror.jpg" id="147_Twinpistol Terror" data-flag="@X" onclick="openSidebar('147_Twinpistol Terror',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/182_Steelworker.jpg" id="182_Steelworker" data-flag="@X" onclick="openSidebar('182_Steelworker',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/35_Skyline Sniper.jpg" id="35_Skyline Sniper" data-flag="@X" onclick="openSidebar('35_Skyline Sniper',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/74_Window Wiper.jpg" id="74_Window Wiper" data-flag="@X" onclick="openSidebar('74_Window Wiper',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/111_Tyfloport Enforcer.jpg" id="111_Tyfloport Enforcer" data-flag="@X" onclick="openSidebar('111_Tyfloport Enforcer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/148_Tyflonaut Daredevil.jpg" id="148_Tyflonaut Daredevil" data-flag="@X" onclick="openSidebar('148_Tyflonaut Daredevil',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/183_Subway Squatter.jpg" id="183_Subway Squatter" data-flag="@X" onclick="openSidebar('183_Subway Squatter',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/36_Twelvepoint Luxury.jpg" id="36_Twelvepoint Luxury" data-flag="@X" onclick="openSidebar('36_Twelvepoint Luxury',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/75_Wiry Wiretap.jpg" id="75_Wiry Wiretap" data-flag="@X" onclick="openSidebar('75_Wiry Wiretap',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/112_Work Nights.jpg" id="112_Work Nights" data-flag="@X" onclick="openSidebar('112_Work Nights',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/149_Unstoppable Force.jpg" id="149_Unstoppable Force" data-flag="@X" onclick="openSidebar('149_Unstoppable Force',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/186_Unite the Revolutionaries.jpg" id="186_Unite the Revolutionaries" data-flag="@X" onclick="openSidebar('186_Unite the Revolutionaries',true)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/4_Argonet Pinpoint Vaporizer.jpg" id="4_Argonet Pinpoint Vaporizer" data-flag="@X" onclick="openSidebar('4_Argonet Pinpoint Vaporizer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/39_Ace Operator.jpg" id="39_Ace Operator" data-flag="@X" onclick="openSidebar('39_Ace Operator',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/76_Aero-Merai Cratermaker.jpg" id="76_Aero-Merai Cratermaker" data-flag="@X" onclick="openSidebar('76_Aero-Merai Cratermaker',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/116_Backstreets Brutalizer.jpg" id="116_Backstreets Brutalizer" data-flag="@X" onclick="openSidebar('116_Backstreets Brutalizer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/151_Anonymous Assailant.jpg" id="151_Anonymous Assailant" data-flag="@X" onclick="openSidebar('151_Anonymous Assailant',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/5_Autodirigible.jpg" id="5_Autodirigible" data-flag="@X" onclick="openSidebar('5_Autodirigible',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/43_Automation Engineering.jpg" id="43_Automation Engineering" data-flag="@X" onclick="openSidebar('43_Automation Engineering',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/78_Backstreets Hot Pot.jpg" id="78_Backstreets Hot Pot" data-flag="@X" onclick="openSidebar('78_Backstreets Hot Pot',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/119_Burned-Out Visionary.jpg" id="119_Burned-Out Visionary" data-flag="@X" onclick="openSidebar('119_Burned-Out Visionary',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/158_Buy More Guns.jpg" id="158_Buy More Guns" data-flag="@X" onclick="openSidebar('158_Buy More Guns',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/11_Convince to Surrender.jpg" id="11_Convince to Surrender" data-flag="@X" onclick="openSidebar('11_Convince to Surrender',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/46_Covert Recorder.jpg" id="46_Covert Recorder" data-flag="@X" onclick="openSidebar('46_Covert Recorder',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/80_Bellatrine Initiate.jpg" id="80_Bellatrine Initiate" data-flag="@X" onclick="openSidebar('80_Bellatrine Initiate',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/120_Call In Contractors.jpg" id="120_Call In Contractors" data-flag="@X" onclick="openSidebar('120_Call In Contractors',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/160_Corporate Security Chief.jpg" id="160_Corporate Security Chief" data-flag="@X" onclick="openSidebar('160_Corporate Security Chief',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/12_Coordination Processor.jpg" id="12_Coordination Processor" data-flag="@X" onclick="openSidebar('12_Coordination Processor',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/47_Ear to the Streets.jpg" id="47_Ear to the Streets" data-flag="@X" onclick="openSidebar('47_Ear to the Streets',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/85_Concuss.jpg" id="85_Concuss" data-flag="@X" onclick="openSidebar('85_Concuss',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/121_Data Core Cracker.jpg" id="121_Data Core Cracker" data-flag="@X" onclick="openSidebar('121_Data Core Cracker',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/161_Environmental Engineer.jpg" id="161_Environmental Engineer" data-flag="@X" onclick="openSidebar('161_Environmental Engineer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/13_Corporate Sponsorship.jpg" id="13_Corporate Sponsorship" data-flag="@X" onclick="openSidebar('13_Corporate Sponsorship',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/54_Gensus Anaesthetic Rounds.jpg" id="54_Gensus Anaesthetic Rounds" data-flag="@X" onclick="openSidebar('54_Gensus Anaesthetic Rounds',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/87_Cybernetic Installation.jpg" id="87_Cybernetic Installation" data-flag="@X" onclick="openSidebar('87_Cybernetic Installation',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/122_Demagoguery.jpg" id="122_Demagoguery" data-flag="@X" onclick="openSidebar('122_Demagoguery',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/164_Heaped Harvest.jpg" id="164_Heaped Harvest" data-flag="@X" onclick="openSidebar('164_Heaped Harvest',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/14_Delivery Driver.jpg" id="14_Delivery Driver" data-flag="@X" onclick="openSidebar('14_Delivery Driver',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/56_Hack the Mainframe.jpg" id="56_Hack the Mainframe" data-flag="@X" onclick="openSidebar('56_Hack the Mainframe',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/89_Field Repairs.jpg" id="89_Field Repairs" data-flag="@X" onclick="openSidebar('89_Field Repairs',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/123_Demand Answers.jpg" id="123_Demand Answers" data-flag="@X" onclick="openSidebar('123_Demand Answers',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/167_Industrial Sabotage.jpg" id="167_Industrial Sabotage" data-flag="@X" onclick="openSidebar('167_Industrial Sabotage',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/15_Dispositron.jpg" id="15_Dispositron" data-flag="@X" onclick="openSidebar('15_Dispositron',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/57_Hacker's Headset.jpg" id="57_Hackers Headset" data-flag="@X" onclick="openSidebar('57_Hackers Headset',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/90_Fight Dirty.jpg" id="90_Fight Dirty" data-flag="@X" onclick="openSidebar('90_Fight Dirty',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/127_Ermetico Protofission Bomb.jpg" id="127_Ermetico Protofission Bomb" data-flag="@X" onclick="openSidebar('127_Ermetico Protofission Bomb',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/169_Lunging Lych.jpg" id="169_Lunging Lych" data-flag="@X" onclick="openSidebar('169_Lunging Lych',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/20_Energy Beam.jpg" id="20_Energy Beam" data-flag="@X" onclick="openSidebar('20_Energy Beam',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/59_Holographic Designer.jpg" id="59_Holographic Designer" data-flag="@X" onclick="openSidebar('59_Holographic Designer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/94_Lensqi Mk. II Covert Sniper.jpg" id="94_Lensqi Mk. II Covert Sniper" data-flag="@X" onclick="openSidebar('94_Lensqi Mk. II Covert Sniper',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/129_Gensus Turretoma.jpg" id="129_Gensus Turretoma" data-flag="@X" onclick="openSidebar('129_Gensus Turretoma',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/170_Mealtime Ambush.jpg" id="170_Mealtime Ambush" data-flag="@X" onclick="openSidebar('170_Mealtime Ambush',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/22_Glass Casket.jpg" id="22_Glass Casket" data-flag="@X" onclick="openSidebar('22_Glass Casket',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/61_Iceware Specialist.jpg" id="61_Iceware Specialist" data-flag="@X" onclick="openSidebar('61_Iceware Specialist',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/95_Lensqi Repossession Team.jpg" id="95_Lensqi Repossession Team" data-flag="@X" onclick="openSidebar('95_Lensqi Repossession Team',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/133_Indiscriminate Fire.jpg" id="133_Indiscriminate Fire" data-flag="@X" onclick="openSidebar('133_Indiscriminate Fire',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/172_Multifunction Hand.jpg" id="172_Multifunction Hand" data-flag="@X" onclick="openSidebar('172_Multifunction Hand',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/26_Hidden-Brick Style Mentor.jpg" id="26_Hidden-Brick Style Mentor" data-flag="@X" onclick="openSidebar('26_Hidden-Brick Style Mentor',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/64_Information Monitor.jpg" id="64_Information Monitor" data-flag="@X" onclick="openSidebar('64_Information Monitor',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/96_Looming Lych.jpg" id="96_Looming Lych" data-flag="@X" onclick="openSidebar('96_Looming Lych',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/136_Money Engineer.jpg" id="136_Money Engineer" data-flag="@X" onclick="openSidebar('136_Money Engineer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/174_Navigate.jpg" id="174_Navigate" data-flag="@X" onclick="openSidebar('174_Navigate',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/29_Ironskull Opportunist.jpg" id="29_Ironskull Opportunist" data-flag="@X" onclick="openSidebar('29_Ironskull Opportunist',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/65_Ironskull Tactician.jpg" id="65_Ironskull Tactician" data-flag="@X" onclick="openSidebar('65_Ironskull Tactician',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/98_Organ Entrepreneur.jpg" id="98_Organ Entrepreneur" data-flag="@X" onclick="openSidebar('98_Organ Entrepreneur',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/143_Self-Perfectionist.jpg" id="143_Self-Perfectionist" data-flag="@X" onclick="openSidebar('143_Self-Perfectionist',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/178_Patient Headhunter.jpg" id="178_Patient Headhunter" data-flag="@X" onclick="openSidebar('178_Patient Headhunter',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/31_Makeshift Repairs.jpg" id="31_Makeshift Repairs" data-flag="@X" onclick="openSidebar('31_Makeshift Repairs',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/67_Leaping Ambusher.jpg" id="67_Leaping Ambusher" data-flag="@X" onclick="openSidebar('67_Leaping Ambusher',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/99_Overclocked Debtor.jpg" id="99_Overclocked Debtor" data-flag="@X" onclick="openSidebar('99_Overclocked Debtor',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/144_Slice.jpg" id="144_Slice" data-flag="@X" onclick="openSidebar('144_Slice',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/181_Spadefront Henchman.jpg" id="181_Spadefront Henchman" data-flag="@X" onclick="openSidebar('181_Spadefront Henchman',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/37_Tyflonaut Wings.jpg" id="37_Tyflonaut Wings" data-flag="@X" onclick="openSidebar('37_Tyflonaut Wings',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/68_Maintenance Technician.jpg" id="68_Maintenance Technician" data-flag="@X" onclick="openSidebar('68_Maintenance Technician',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/100_Perpetrate.jpg" id="100_Perpetrate" data-flag="@X" onclick="openSidebar('100_Perpetrate',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/145_Tactical Decision Matrix.jpg" id="145_Tactical Decision Matrix" data-flag="@X" onclick="openSidebar('145_Tactical Decision Matrix',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/184_Thriving Scrapper.jpg" id="184_Thriving Scrapper" data-flag="@X" onclick="openSidebar('184_Thriving Scrapper',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/38_Tyfloport Captain.jpg" id="38_Tyfloport Captain" data-flag="@X" onclick="openSidebar('38_Tyfloport Captain',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/70_Preemptive Strike.jpg" id="70_Preemptive Strike" data-flag="@X" onclick="openSidebar('70_Preemptive Strike',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/103_Return to Service.jpg" id="103_Return to Service" data-flag="@X" onclick="openSidebar('103_Return to Service',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/146_Throw Through.jpg" id="146_Throw Through" data-flag="@X" onclick="openSidebar('146_Throw Through',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/185_Twelvepoint Servitor.jpg" id="185_Twelvepoint Servitor" data-flag="@X" onclick="openSidebar('185_Twelvepoint Servitor',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+<div id="gold" class="anchor"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/197_Neon Mirage.jpg" id="197_Neon Mirage" data-flag="@X" onclick="openSidebar('197_Neon Mirage',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/187_Backstreet Locals.jpg" id="187_Backstreet Locals" data-flag="@X" onclick="openSidebar('187_Backstreet Locals',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/195_Interminable Instrument.jpg" id="195_Interminable Instrument" data-flag="@X" onclick="openSidebar('195_Interminable Instrument',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/193_Gensus Stimulant Booster.jpg" id="193_Gensus Stimulant Booster" data-flag="@X" onclick="openSidebar('193_Gensus Stimulant Booster',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/189_Cheri, Silicon Socialite.jpg" id="189_Cheri, Silicon Socialite" data-flag="@X" onclick="openSidebar('189_Cheri, Silicon Socialite',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/205_Tyfloshuttle.jpg" id="205_Tyfloshuttle" data-flag="@X" onclick="openSidebar('205_Tyfloshuttle',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/190_Constant Sabotage.jpg" id="190_Constant Sabotage" data-flag="@X" onclick="openSidebar('190_Constant Sabotage',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/202_Saturation Bombing.jpg" id="202_Saturation Bombing" data-flag="@X" onclick="openSidebar('202_Saturation Bombing',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/198_Oris, Manumeya Strategist.jpg" id="198_Oris, Manumeya Strategist" data-flag="@X" onclick="openSidebar('198_Oris, Manumeya Strategist',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/191_Corporate Luncheon.jpg" id="191_Corporate Luncheon" data-flag="@X" onclick="openSidebar('191_Corporate Luncheon',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/212_Delta-Wave Deathmacht.jpg" id="212_Delta-Wave Deathmacht" data-flag="@X" onclick="openSidebar('212_Delta-Wave Deathmacht',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/213_Experimental Sparkdrain.jpg" id="213_Experimental Sparkdrain" data-flag="@X" onclick="openSidebar('213_Experimental Sparkdrain',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/226_War in the Streets.jpg" id="226_War in the Streets" data-flag="@X" onclick="openSidebar('226_War in the Streets',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/209_Arlington Knifefight.jpg" id="209_Arlington Knifefight" data-flag="@X" onclick="openSidebar('209_Arlington Knifefight',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/214_Fayot, the Financier.jpg" id="214_Fayot, the Financier" data-flag="@X" onclick="openSidebar('214_Fayot, the Financier',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/194_Indecisive Accessorizer.jpg" id="194_Indecisive Accessorizer" data-flag="@X" onclick="openSidebar('194_Indecisive Accessorizer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/188_Big Data Trawler.jpg" id="188_Big Data Trawler" data-flag="@X" onclick="openSidebar('188_Big Data Trawler',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/192_Elusive Cyberdracula.jpg" id="192_Elusive Cyberdracula" data-flag="@X" onclick="openSidebar('192_Elusive Cyberdracula',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/201_Practical Holographer.jpg" id="201_Practical Holographer" data-flag="@X" onclick="openSidebar('201_Practical Holographer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/199_Power Distributor.jpg" id="199_Power Distributor" data-flag="@X" onclick="openSidebar('199_Power Distributor',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/196_Lensqi Operation Director.jpg" id="196_Lensqi Operation Director" data-flag="@X" onclick="openSidebar('196_Lensqi Operation Director',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/206_Vacuum-Sealed Reliquary.jpg" id="206_Vacuum-Sealed Reliquary" data-flag="@X" onclick="openSidebar('206_Vacuum-Sealed Reliquary',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/200_Power Siphoner.jpg" id="200_Power Siphoner" data-flag="@X" onclick="openSidebar('200_Power Siphoner',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/203_Shop for Supplies.jpg" id="203_Shop for Supplies" data-flag="@X" onclick="openSidebar('203_Shop for Supplies',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/204_Sofia, the Last Electrotank.jpg" id="204_Sofia, the Last Electrotank" data-flag="@X" onclick="openSidebar('204_Sofia, the Last Electrotank',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/222_Prehistoric Pocket Knife.jpg" id="222_Prehistoric Pocket Knife" data-flag="@X" onclick="openSidebar('222_Prehistoric Pocket Knife',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/219_Morelyn, Social Engineer.jpg" id="219_Morelyn, Social Engineer" data-flag="@X" onclick="openSidebar('219_Morelyn, Social Engineer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/207_Anaïs, Scrap Pit Heavy.jpg" id="207_Anaïs, Scrap Pit Heavy" data-flag="@N" onclick="openSidebar('207_Anaïs, Scrap Pit Heavy',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/223_Soleil Queen, the Superstar.jpg" id="223_Soleil Queen, the Superstar" data-flag="@X" onclick="openSidebar('223_Soleil Queen, the Superstar',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/210_Backup Battery.jpg" id="210_Backup Battery" data-flag="@X" onclick="openSidebar('210_Backup Battery',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/216_Iceware Cryogenician.jpg" id="216_Iceware Cryogenician" data-flag="@X" onclick="openSidebar('216_Iceware Cryogenician',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/220_Phish.jpg" id="220_Phish" data-flag="@X" onclick="openSidebar('220_Phish',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/215_Hurried Hitman.jpg" id="215_Hurried Hitman" data-flag="@X" onclick="openSidebar('215_Hurried Hitman',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/221_Piston Fist Prizefighter.jpg" id="221_Piston Fist Prizefighter" data-flag="@X" onclick="openSidebar('221_Piston Fist Prizefighter',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/208_Argonet Special Operative.jpg" id="208_Argonet Special Operative" data-flag="@X" onclick="openSidebar('208_Argonet Special Operative',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/211_Bar Brawl.jpg" id="211_Bar Brawl" data-flag="@X" onclick="openSidebar('211_Bar Brawl',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/217_Ideological Discourse.jpg" id="217_Ideological Discourse" data-flag="@X" onclick="openSidebar('217_Ideological Discourse',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/225_Unburied Uraniac.jpg" id="225_Unburied Uraniac" data-flag="@X" onclick="openSidebar('225_Unburied Uraniac',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/224_Tyflonaut Mattermaster.jpg" id="224_Tyflonaut Mattermaster" data-flag="@X" onclick="openSidebar('224_Tyflonaut Mattermaster',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/218_Lensqi Cleanup Team.jpg" id="218_Lensqi Cleanup Team" data-flag="@X" onclick="openSidebar('218_Lensqi Cleanup Team',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+<div id="colorless" class="anchor"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/1_Claim New Turf.jpg" id="1_Claim New Turf" data-flag="@X" onclick="openSidebar('1_Claim New Turf',true)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/227_Aero-Merai Light Security.jpg" id="227_Aero-Merai Light Security" data-flag="@X" onclick="openSidebar('227_Aero-Merai Light Security',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/228_Aero-Merai Pinnacle.jpg" id="228_Aero-Merai Pinnacle" data-flag="@X" onclick="openSidebar('228_Aero-Merai Pinnacle',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/229_Argonet Scrambler.jpg" id="229_Argonet Scrambler" data-flag="@X" onclick="openSidebar('229_Argonet Scrambler',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/230_The Bellatrine Bomb.jpg" id="230_The Bellatrine Bomb" data-flag="@X" onclick="openSidebar('230_The Bellatrine Bomb',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/231_The Biggest Gun You Can Carry.jpg" id="231_The Biggest Gun You Can Carry" data-flag="@X" onclick="openSidebar('231_The Biggest Gun You Can Carry',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/233_Customized Sidearm.jpg" id="233_Customized Sidearm" data-flag="@X" onclick="openSidebar('233_Customized Sidearm',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/235_Deconstructor Deathmacht.jpg" id="235_Deconstructor Deathmacht" data-flag="@X" onclick="openSidebar('235_Deconstructor Deathmacht',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/237_Devastator Deathmacht.jpg" id="237_Devastator Deathmacht" data-flag="@X" onclick="openSidebar('237_Devastator Deathmacht',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/240_Emptying Vessel.jpg" id="240_Emptying Vessel" data-flag="@X" onclick="openSidebar('240_Emptying Vessel',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/241_Half-Finished Walker.jpg" id="241_Half-Finished Walker" data-flag="@X" onclick="openSidebar('241_Half-Finished Walker',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/242_Immovable Object.jpg" id="242_Immovable Object" data-flag="@X" onclick="openSidebar('242_Immovable Object',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/243_Luxury Fabricator.jpg" id="243_Luxury Fabricator" data-flag="@X" onclick="openSidebar('243_Luxury Fabricator',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/244_Mechanical Masks.jpg" id="244_Mechanical Masks" data-flag="@X" onclick="openSidebar('244_Mechanical Masks',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/245_Personal Computer.jpg" id="245_Personal Computer" data-flag="@X" onclick="openSidebar('245_Personal Computer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/246_Prosthetic Arm.jpg" id="246_Prosthetic Arm" data-flag="@X" onclick="openSidebar('246_Prosthetic Arm',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/247_Prosthetic Eye.jpg" id="247_Prosthetic Eye" data-flag="@X" onclick="openSidebar('247_Prosthetic Eye',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/248_Prosthetic Face.jpg" id="248_Prosthetic Face" data-flag="@X" onclick="openSidebar('248_Prosthetic Face',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/249_Prosthetic Heart.jpg" id="249_Prosthetic Heart" data-flag="@X" onclick="openSidebar('249_Prosthetic Heart',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/250_Prosthetic Spine.jpg" id="250_Prosthetic Spine" data-flag="@X" onclick="openSidebar('250_Prosthetic Spine',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/251_Recurve Renegade.jpg" id="251_Recurve Renegade" data-flag="@X" onclick="openSidebar('251_Recurve Renegade',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/254_Trillion-Credit Bank Account.jpg" id="254_Trillion-Credit Bank Account" data-flag="@X" onclick="openSidebar('254_Trillion-Credit Bank Account',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/256_Ultraheavy Factory Walker.jpg" id="256_Ultraheavy Factory Walker" data-flag="@X" onclick="openSidebar('256_Ultraheavy Factory Walker',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/232_Burner Phone.jpg" id="232_Burner Phone" data-flag="@X" onclick="openSidebar('232_Burner Phone',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/234_Deafening Deathmacht.jpg" id="234_Deafening Deathmacht" data-flag="@X" onclick="openSidebar('234_Deafening Deathmacht',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/236_Dependable Deathmacht.jpg" id="236_Dependable Deathmacht" data-flag="@X" onclick="openSidebar('236_Dependable Deathmacht',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/238_Disruptor Deathmacht.jpg" id="238_Disruptor Deathmacht" data-flag="@X" onclick="openSidebar('238_Disruptor Deathmacht',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/239_Ductwork Deathmacht.jpg" id="239_Ductwork Deathmacht" data-flag="@X" onclick="openSidebar('239_Ductwork Deathmacht',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/252_Scrap Pit Sledgehammer.jpg" id="252_Scrap Pit Sledgehammer" data-flag="@X" onclick="openSidebar('252_Scrap Pit Sledgehammer',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/253_Smoking Gun.jpg" id="253_Smoking Gun" data-flag="@X" onclick="openSidebar('253_Smoking Gun',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/255_Twilight Street Fare.jpg" id="255_Twilight Street Fare" data-flag="@X" onclick="openSidebar('255_Twilight Street Fare',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/257_Wire Worker.jpg" id="257_Wire Worker" data-flag="@X" onclick="openSidebar('257_Wire Worker',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+<div id="land" class="anchor"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/278_Penthouse Apartment.jpg" id="278_Penthouse Apartment" data-flag="@X" onclick="openSidebar('278_Penthouse Apartment',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/280_Skyline Apartment.jpg" id="280_Skyline Apartment" data-flag="@X" onclick="openSidebar('280_Skyline Apartment',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/275_Fortified Apartment.jpg" id="275_Fortified Apartment" data-flag="@X" onclick="openSidebar('275_Fortified Apartment',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/273_Crowded Apartment.jpg" id="273_Crowded Apartment" data-flag="@X" onclick="openSidebar('273_Crowded Apartment',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/272_Basement Apartment.jpg" id="272_Basement Apartment" data-flag="@X" onclick="openSidebar('272_Basement Apartment',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/268_Argonet Headquarters.jpg" id="268_Argonet Headquarters" data-flag="@X" onclick="openSidebar('268_Argonet Headquarters',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/269_Backstreets Canal.jpg" id="269_Backstreets Canal" data-flag="@X" onclick="openSidebar('269_Backstreets Canal',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/267_Aero-Merai Factory.jpg" id="267_Aero-Merai Factory" data-flag="@X" onclick="openSidebar('267_Aero-Merai Factory',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/270_Backstreets Generator.jpg" id="270_Backstreets Generator" data-flag="@X" onclick="openSidebar('270_Backstreets Generator',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/282_Twelvepoint Residence Villa.jpg" id="282_Twelvepoint Residence Villa" data-flag="@X" onclick="openSidebar('282_Twelvepoint Residence Villa',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/277_Lensqi Megastructure.jpg" id="277_Lensqi Megastructure" data-flag="@X" onclick="openSidebar('277_Lensqi Megastructure',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/274_Edgeside Tyfloport.jpg" id="274_Edgeside Tyfloport" data-flag="@X" onclick="openSidebar('274_Edgeside Tyfloport',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/279_Scrap Pit Tenements.jpg" id="279_Scrap Pit Tenements" data-flag="@X" onclick="openSidebar('279_Scrap Pit Tenements',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/271_Backstreets Marketplace.jpg" id="271_Backstreets Marketplace" data-flag="@X" onclick="openSidebar('271_Backstreets Marketplace',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/276_Gensus Laboratory District.jpg" id="276_Gensus Laboratory District" data-flag="@X" onclick="openSidebar('276_Gensus Laboratory District',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/259_Backstreets Chop-Shop.jpg" id="259_Backstreets Chop-Shop" data-flag="@X" onclick="openSidebar('259_Backstreets Chop-Shop',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/260_Edge of the Sky.jpg" id="260_Edge of the Sky" data-flag="@X" onclick="openSidebar('260_Edge of the Sky',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/261_Electrical Plant.jpg" id="261_Electrical Plant" data-flag="@X" onclick="openSidebar('261_Electrical Plant',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/262_Entertainment Multiplex.jpg" id="262_Entertainment Multiplex" data-flag="@X" onclick="openSidebar('262_Entertainment Multiplex',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/263_Impenetrable Vault.jpg" id="263_Impenetrable Vault" data-flag="@X" onclick="openSidebar('263_Impenetrable Vault',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/264_Mercenary Safe House.jpg" id="264_Mercenary Safe House" data-flag="@X" onclick="openSidebar('264_Mercenary Safe House',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/265_Rusting Monument.jpg" id="265_Rusting Monument" data-flag="@X" onclick="openSidebar('265_Rusting Monument',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/266_Scrap Pit Weapons Assembly.jpg" id="266_Scrap Pit Weapons Assembly" data-flag="@X" onclick="openSidebar('266_Scrap Pit Weapons Assembly',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/258_Altimuth Archives.jpg" id="258_Altimuth Archives" data-flag="@X" onclick="openSidebar('258_Altimuth Archives',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/281_Subway Station.jpg" id="281_Subway Station" data-flag="@X" onclick="openSidebar('281_Subway Station',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/286_Mountain.jpg" id="286_Mountain" data-flag="@X" onclick="openSidebar('286_Mountain',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/283_Plains.jpg" id="283_Plains" data-flag="@X" onclick="openSidebar('283_Plains',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/284_Island.jpg" id="284_Island" data-flag="@X" onclick="openSidebar('284_Island',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/287_Forest.jpg" id="287_Forest" data-flag="@X" onclick="openSidebar('287_Forest',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/285_Swamp.jpg" id="285_Swamp" data-flag="@X" onclick="openSidebar('285_Swamp',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+<div id="token" class="anchor"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/1t_Player Power.jpg" id="1t_Player Power" data-flag="@X" onclick="openSidebar('1t_Player Power',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/1t_Copy.jpg" id="1t_Copy" data-flag="@X" onclick="openSidebar('1t_Copy',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/2t_Mission.jpg" id="2t_Mission" data-flag="@X" onclick="openSidebar('2t_Mission',true)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/3t_Distraction.jpg" id="3t_Distraction" data-flag="@X" onclick="openSidebar('3t_Distraction',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/4t_Food.jpg" id="4t_Food" data-flag="@X" onclick="openSidebar('4t_Food',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/5t_Mercenary Token.jpg" id="5t_Mercenary Token" data-flag="@X" onclick="openSidebar('5t_Mercenary Token',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/6t_4/3 Mercenary Token.jpg" id="6t_4/3 Mercenary Token" data-flag="@N" onclick="openSidebar('6t_4/3 Mercenary Token',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/7t_Orb Token.jpg" id="7t_Orb Token" data-flag="@X" onclick="openSidebar('7t_Orb Token',false)"></div>
+			<div class="container"><img alt="/sets/WTS-files/img/8t_Stash.jpg" id="8t_Stash" data-flag="@X" onclick="openSidebar('8t_Stash',false)"></div>
+			<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+			<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+	</div>
+</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+		
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		tmp = document.getElementById(num).src;
+		console.log(num);
+		document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+		document.getElementById(num).dataset.alt_src = tmp;
+
+		if (num == 'sidebar_img')
+		{
+			const rotated_img = document.getElementById('sidebar_h_img');
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal && rotated_img.style.display == 'none')
+			{
+				rotated_img.style.display = "block";
+				sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+			}
+			else
+			{
+				rotated_img.style.display = "none";
+				sidebar_img.style.filter = "";
+			}
+		}
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+		
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.display = "block";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.display = "none";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+		
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+		
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL('search', window.location.origin);
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL('card', window.location.origin);
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url;
+			}
+	</script>
+</body>
+</html>
