@@ -1301,10 +1301,6 @@
 						{
 							return (card_ci.split("").sort().join("") == check.split("").sort().join(""));
 						}
-						else if (modifier == ":")
-						{
-							return hasAllChars(card_ci, check);
-						}
 						else if (modifier == "<")
 						{
 							return card_ci == "c" || (check.length > card_ci.length && hasAllChars(check, card_ci));
@@ -1313,7 +1309,7 @@
 						{
 							return card_ci.length > check.length && hasAllChars(card_ci, check);
 						}
-						else if (modifier == "<=")
+						else if (modifier == ":" || modifier == "<=")
 						{
 							return card_ci == "c" || hasAllChars(check, card_ci);
 						}
