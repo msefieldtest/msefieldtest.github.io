@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="/sets/ELV-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>ELV visual preview</title>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('/resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('/img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('/img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('/img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('/img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/ELV-files/logo.png" />
+	<img class="preload-hidden" src="/sets/DRP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WCD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/AEK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/DCO-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="/sets/APH-files/icon.png" />
+		<img class="preload-hidden" src="/sets/2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="/sets/IWH-files/icon.png" />
+		<img class="preload-hidden" src="/sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ORC-files/icon.png" />
+		<img class="preload-hidden" src="/sets/IVP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/GOD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/UND-files/icon.png" />
+		<img class="preload-hidden" src="/sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VYI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PRK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/LIP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SGP-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="ELV"><img src="/sets/ELV-files/icon.png">Elegies of Vaquer</a>
+	
+		<a class="set-bar inactive" href="DRP"><img src="/sets/DRP-files/icon.png">Derek’s Piggies</a>
+	
+		<a class="set-bar inactive" href="WCD"><img src="/sets/WCD-files/icon.png">Wroszy’s Circus of Darkness</a>
+	
+		<a class="set-bar inactive" href="AEK"><img src="/sets/AEK-files/icon.png">Aekyu: Idyllic Days</a>
+	
+		<a class="set-bar inactive" href="DCO"><img src="/sets/DCO-files/icon.png">Dazon: Cosmic Outcasts</a>
+	
+		<a class="set-bar inactive" href="WDW"><img src="/sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="APH"><img src="/sets/APH-files/icon.png">Aphantasia</a>
+	
+		<a class="set-bar inactive" href="2HU"><img src="/sets/2HU-files/icon.png">Universes Beyond: The Touhou Project</a>
+	
+		<a class="set-bar inactive" href="F2HU"><img src="/sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="RPGM"><img src="/sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="RNF"><img src="/sets/RNF-files/icon.png">Ravnica Fractured</a>
+	
+		<a class="set-bar inactive" href="IWH"><img src="/sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		<a class="set-bar inactive" href="OPZ"><img src="/sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="WOO"><img src="/sets/WOO-files/icon.png">Waking of Orlige </a>
+	
+		<a class="set-bar inactive" href="ORC"><img src="/sets/ORC-files/icon.png">An Oddness in the River Cities</a>
+	
+		<a class="set-bar inactive" href="IVP"><img src="/sets/IVP-files/icon.png">Invalid Precedent</a>
+	
+		<a class="set-bar inactive" href="VLR"><img src="/sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="GOD"><img src="/sets/GOD-files/icon.png">Godspine</a>
+	
+		<a class="set-bar inactive" href="UND"><img src="/sets/UND-files/icon.png">The Underhalls</a>
+	
+		<a class="set-bar inactive" href="EOR"><img src="/sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="VYI"><img src="/sets/VYI-files/icon.png">Valdrasil: Voyage to Infinity</a>
+	
+		<a class="set-bar inactive" href="SOL"><img src="/sets/SOL-files/icon.png">Solastere</a>
+	
+		<a class="set-bar inactive" href="POP2"><img src="/sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="ORD"><img src="/sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="TGS"><img src="/sets/TGS-files/icon.png">Tales from the Grave in Space</a>
+	
+		<a class="set-bar inactive" href="PRK"><img src="/sets/PRK-files/icon.png">Prakhma</a>
+	
+		<a class="set-bar inactive" href="LIP"><img src="/sets/LIP-files/icon.png">Lost in Place</a>
+	
+		<a class="set-bar inactive" href="SGP"><img src="/sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="/sets/ELV-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/21_Murktears, the Thrum.jpg" id="21_Murktears, the Thrum" data-flag="@X" onclick="openSidebar('21_Murktears, the Thrum',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/41_Bare the Soul.jpg" id="41_Bare the Soul" data-flag="@X" onclick="openSidebar('41_Bare the Soul',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/106_The Silencers of Amel.jpg" id="106_The Silencers of Amel" data-flag="@X" onclick="openSidebar('106_The Silencers of Amel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/126_Elne, Starfall Prohpet.jpg" id="126_Elne, Starfall Prohpet" data-flag="@X" onclick="openSidebar('126_Elne, Starfall Prohpet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/163_Idra, Voracious Drowner.jpg" id="163_Idra, Voracious Drowner" data-flag="@X" onclick="openSidebar('163_Idra, Voracious Drowner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/32_Treacleblossom.jpg" id="32_Treacleblossom" data-flag="@X" onclick="openSidebar('32_Treacleblossom',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/60_Lis, Heretic of Bounds.jpg" id="60_Lis, Heretic of Bounds" data-flag="@X" onclick="openSidebar('60_Lis, Heretic of Bounds',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/114_Whispered Demise.jpg" id="114_Whispered Demise" data-flag="@X" onclick="openSidebar('114_Whispered Demise',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/123_Chaos Impending.jpg" id="123_Chaos Impending" data-flag="@X" onclick="openSidebar('123_Chaos Impending',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/152_Autumnfell Spirit.jpg" id="152_Autumnfell Spirit" data-flag="@X" onclick="openSidebar('152_Autumnfell Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/5_Daughters of Conclusion.jpg" id="5_Daughters of Conclusion" data-flag="@X" onclick="openSidebar('5_Daughters of Conclusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/50_Drowner Lord.jpg" id="50_Drowner Lord" data-flag="@X" onclick="openSidebar('50_Drowner Lord',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/85_Crypt Forest Hungerer.jpg" id="85_Crypt Forest Hungerer" data-flag="@X" onclick="openSidebar('85_Crypt Forest Hungerer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/134_Incendiary Apparition.jpg" id="134_Incendiary Apparition" data-flag="@X" onclick="openSidebar('134_Incendiary Apparition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/157_Boon Trader's Gift.jpg" id="157_Boon Traders Gift" data-flag="@X" onclick="openSidebar('157_Boon Traders Gift',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/7_Equivalence.jpg" id="7_Equivalence" data-flag="@X" onclick="openSidebar('7_Equivalence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/53_Flutesong.jpg" id="53_Flutesong" data-flag="@X" onclick="openSidebar('53_Flutesong',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/88_Doomswear.jpg" id="88_Doomswear" data-flag="@X" onclick="openSidebar('88_Doomswear',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/135_Kovara of the Ember Sun.jpg" id="135_Kovara of the Ember Sun" data-flag="@X" onclick="openSidebar('135_Kovara of the Ember Sun',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/159_Citadel Claimant.jpg" id="159_Citadel Claimant" data-flag="@X" onclick="openSidebar('159_Citadel Claimant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/13_Heir of Vrai.jpg" id="13_Heir of Vrai" data-flag="@X" onclick="openSidebar('13_Heir of Vrai',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/55_Great Unlidding.jpg" id="55_Great Unlidding" data-flag="@X" onclick="openSidebar('55_Great Unlidding',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/90_Elaye, the Lofty.jpg" id="90_Elaye, the Lofty" data-flag="@X" onclick="openSidebar('90_Elaye, the Lofty',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/136_Metanoia's Hunt.jpg" id="136_Metanoias Hunt" data-flag="@X" onclick="openSidebar('136_Metanoias Hunt',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/164_Ilhamuer, Newborn.jpg" id="164_Ilhamuer, Newborn" data-flag="@X" onclick="openSidebar('164_Ilhamuer, Newborn',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/15_Host of the Great Return.jpg" id="15_Host of the Great Return" data-flag="@X" onclick="openSidebar('15_Host of the Great Return',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/59_Interminable Dream.jpg" id="59_Interminable Dream" data-flag="@X" onclick="openSidebar('59_Interminable Dream',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/92_Emptied Court.jpg" id="92_Emptied Court" data-flag="@X" onclick="openSidebar('92_Emptied Court',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/139_Perfidumancer.jpg" id="139_Perfidumancer" data-flag="@X" onclick="openSidebar('139_Perfidumancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/170_Mist-Mourner.jpg" id="170_Mist-Mourner" data-flag="@X" onclick="openSidebar('170_Mist-Mourner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/30_Stagnant Vestige.jpg" id="30_Stagnant Vestige" data-flag="@X" onclick="openSidebar('30_Stagnant Vestige',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/62_Morose Communer.jpg" id="62_Morose Communer" data-flag="@X" onclick="openSidebar('62_Morose Communer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/97_Harvest Invitation.jpg" id="97_Harvest Invitation" data-flag="@X" onclick="openSidebar('97_Harvest Invitation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/141_Resolute Kindler.jpg" id="141_Resolute Kindler" data-flag="@X" onclick="openSidebar('141_Resolute Kindler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/171_Moribund Realm.jpg" id="171_Moribund Realm" data-flag="@X" onclick="openSidebar('171_Moribund Realm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/31_Take from Within.jpg" id="31_Take from Within" data-flag="@X" onclick="openSidebar('31_Take from Within',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/65_Seer of Five Horizons.jpg" id="65_Seer of Five Horizons" data-flag="@X" onclick="openSidebar('65_Seer of Five Horizons',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/102_Pinnacle Haunt.jpg" id="102_Pinnacle Haunt" data-flag="@X" onclick="openSidebar('102_Pinnacle Haunt',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/143_Smoke Trailer.jpg" id="143_Smoke Trailer" data-flag="@X" onclick="openSidebar('143_Smoke Trailer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/176_Persistent Roots.jpg" id="176_Persistent Roots" data-flag="@X" onclick="openSidebar('176_Persistent Roots',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/37_Winged Beckoner.jpg" id="37_Winged Beckoner" data-flag="@X" onclick="openSidebar('37_Winged Beckoner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/69_Spinneret, the Fate Taker.jpg" id="69_Spinneret, the Fate Taker" data-flag="@X" onclick="openSidebar('69_Spinneret, the Fate Taker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/105_Rise from Silt.jpg" id="105_Rise from Silt" data-flag="@X" onclick="openSidebar('105_Rise from Silt',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/147_Starfall Epiphany.jpg" id="147_Starfall Epiphany" data-flag="@X" onclick="openSidebar('147_Starfall Epiphany',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/188_World's Edge Guide.jpg" id="188_Worlds Edge Guide" data-flag="@X" onclick="openSidebar('188_Worlds Edge Guide',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/38_Zhalle, Protracted Agony.jpg" id="38_Zhalle, Protracted Agony" data-flag="@X" onclick="openSidebar('38_Zhalle, Protracted Agony',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/70_Starfall Tree.jpg" id="70_Starfall Tree" data-flag="@X" onclick="openSidebar('70_Starfall Tree',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/113_Wanderers in Mist.jpg" id="113_Wanderers in Mist" data-flag="@X" onclick="openSidebar('113_Wanderers in Mist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/115_Ash Toller.jpg" id="115_Ash Toller" data-flag="@X" onclick="openSidebar('115_Ash Toller',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/156_The Boon Trader.jpg" id="156_The Boon Trader" data-flag="@X" onclick="openSidebar('156_The Boon Trader',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/2_Betweening Boon.jpg" id="2_Betweening Boon" data-flag="@X" onclick="openSidebar('2_Betweening Boon',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/39_Andia, Wings of the Tide.jpg" id="39_Andia, Wings of the Tide" data-flag="@X" onclick="openSidebar('39_Andia, Wings of the Tide',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/77_Aftermath Preacher.jpg" id="77_Aftermath Preacher" data-flag="@X" onclick="openSidebar('77_Aftermath Preacher',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/116_Barrenwake Vestige.jpg" id="116_Barrenwake Vestige" data-flag="@X" onclick="openSidebar('116_Barrenwake Vestige',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/160_Companion of the Lost.jpg" id="160_Companion of the Lost" data-flag="@X" onclick="openSidebar('160_Companion of the Lost',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/4_Child of the Embrace.jpg" id="4_Child of the Embrace" data-flag="@X" onclick="openSidebar('4_Child of the Embrace',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/43_Blind Voyage.jpg" id="43_Blind Voyage" data-flag="@X" onclick="openSidebar('43_Blind Voyage',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/80_Catacomb Stalker.jpg" id="80_Catacomb Stalker" data-flag="@X" onclick="openSidebar('80_Catacomb Stalker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/117_Beset.jpg" id="117_Beset" data-flag="@X" onclick="openSidebar('117_Beset',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/161_Do Not Go Gentle.jpg" id="161_Do Not Go Gentle" data-flag="@X" onclick="openSidebar('161_Do Not Go Gentle',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/8_Experient Soul.jpg" id="8_Experient Soul" data-flag="@X" onclick="openSidebar('8_Experient Soul',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/44_Bridge of Yearning.jpg" id="44_Bridge of Yearning" data-flag="@X" onclick="openSidebar('44_Bridge of Yearning',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/82_Cost of Guidance.jpg" id="82_Cost of Guidance" data-flag="@X" onclick="openSidebar('82_Cost of Guidance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/121_Calamity Prophet.jpg" id="121_Calamity Prophet" data-flag="@X" onclick="openSidebar('121_Calamity Prophet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/162_Fraywing Traitor.jpg" id="162_Fraywing Traitor" data-flag="@X" onclick="openSidebar('162_Fraywing Traitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/11_Fyul, Spiritclaimer.jpg" id="11_Fyul, Spiritclaimer" data-flag="@X" onclick="openSidebar('11_Fyul, Spiritclaimer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/51_Drowners' Wake.jpg" id="51_Drowners Wake" data-flag="@X" onclick="openSidebar('51_Drowners Wake',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/83_Crop Tender.jpg" id="83_Crop Tender" data-flag="@X" onclick="openSidebar('83_Crop Tender',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/128_Fiery Remains.jpg" id="128_Fiery Remains" data-flag="@X" onclick="openSidebar('128_Fiery Remains',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/166_Kindler Scouts.jpg" id="166_Kindler Scouts" data-flag="@X" onclick="openSidebar('166_Kindler Scouts',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/17_Knight of Old Boons.jpg" id="17_Knight of Old Boons" data-flag="@X" onclick="openSidebar('17_Knight of Old Boons',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/52_Exchange of Insight.jpg" id="52_Exchange of Insight" data-flag="@X" onclick="openSidebar('52_Exchange of Insight',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/84_Cruel Reanimation.jpg" id="84_Cruel Reanimation" data-flag="@X" onclick="openSidebar('84_Cruel Reanimation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/130_Forsaken Queen.jpg" id="130_Forsaken Queen" data-flag="@X" onclick="openSidebar('130_Forsaken Queen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/172_Nacent Apparition.jpg" id="172_Nacent Apparition" data-flag="@X" onclick="openSidebar('172_Nacent Apparition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/18_Last Flagbearers.jpg" id="18_Last Flagbearers" data-flag="@X" onclick="openSidebar('18_Last Flagbearers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/54_Gray Marsh Drowner.jpg" id="54_Gray Marsh Drowner" data-flag="@X" onclick="openSidebar('54_Gray Marsh Drowner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/89_An Echo and a Light.jpg" id="89_An Echo and a Light" data-flag="@X" onclick="openSidebar('89_An Echo and a Light',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/132_Hero of the Memorial.jpg" id="132_Hero of the Memorial" data-flag="@X" onclick="openSidebar('132_Hero of the Memorial',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/173_Noble Fauna.jpg" id="173_Noble Fauna" data-flag="@X" onclick="openSidebar('173_Noble Fauna',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/19_Light of the Catacombs.jpg" id="19_Light of the Catacombs" data-flag="@X" onclick="openSidebar('19_Light of the Catacombs',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/58_Illusory Host.jpg" id="58_Illusory Host" data-flag="@X" onclick="openSidebar('58_Illusory Host',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/91_Elegy Priestess.jpg" id="91_Elegy Priestess" data-flag="@X" onclick="openSidebar('91_Elegy Priestess',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/142_Seize Charge.jpg" id="142_Seize Charge" data-flag="@X" onclick="openSidebar('142_Seize Charge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/175_Overburdened Host.jpg" id="175_Overburdened Host" data-flag="@X" onclick="openSidebar('175_Overburdened Host',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/20_Mourned Fraywings.jpg" id="20_Mourned Fraywings" data-flag="@X" onclick="openSidebar('20_Mourned Fraywings',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/63_Mystic Relic.jpg" id="63_Mystic Relic" data-flag="@X" onclick="openSidebar('63_Mystic Relic',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/93_Essence Taker.jpg" id="93_Essence Taker" data-flag="@X" onclick="openSidebar('93_Essence Taker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/144_Solitary Kindler.jpg" id="144_Solitary Kindler" data-flag="@X" onclick="openSidebar('144_Solitary Kindler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/180_Safety of the Morass.jpg" id="180_Safety of the Morass" data-flag="@X" onclick="openSidebar('180_Safety of the Morass',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/22_Outland Trader.jpg" id="22_Outland Trader" data-flag="@X" onclick="openSidebar('22_Outland Trader',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/64_Reflected Souls.jpg" id="64_Reflected Souls" data-flag="@X" onclick="openSidebar('64_Reflected Souls',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/94_Excoriate.jpg" id="94_Excoriate" data-flag="@X" onclick="openSidebar('94_Excoriate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/145_Speak in Vain to Silent Ash.jpg" id="145_Speak in Vain to Silent Ash" data-flag="@X" onclick="openSidebar('145_Speak in Vain to Silent Ash',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/181_Spire-Depths Explorer.jpg" id="181_Spire-Depths Explorer" data-flag="@X" onclick="openSidebar('181_Spire-Depths Explorer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/24_Return by Moonlight.jpg" id="24_Return by Moonlight" data-flag="@X" onclick="openSidebar('24_Return by Moonlight',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/68_Spectre of Forgetting.jpg" id="68_Spectre of Forgetting" data-flag="@X" onclick="openSidebar('68_Spectre of Forgetting',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/98_Insatiable Mists.jpg" id="98_Insatiable Mists" data-flag="@X" onclick="openSidebar('98_Insatiable Mists',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/148_Stirring Mote.jpg" id="148_Stirring Mote" data-flag="@X" onclick="openSidebar('148_Stirring Mote',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/182_Stagnant Morass.jpg" id="182_Stagnant Morass" data-flag="@X" onclick="openSidebar('182_Stagnant Morass',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/27_Slay the Host.jpg" id="27_Slay the Host" data-flag="@X" onclick="openSidebar('27_Slay the Host',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/71_Stars Are Not Wanted Now.jpg" id="71_Stars Are Not Wanted Now" data-flag="@X" onclick="openSidebar('71_Stars Are Not Wanted Now',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/99_Leave Behind.jpg" id="99_Leave Behind" data-flag="@X" onclick="openSidebar('99_Leave Behind',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/149_Uncaring Flame.jpg" id="149_Uncaring Flame" data-flag="@X" onclick="openSidebar('149_Uncaring Flame',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/185_Tillerfolk Ambush.jpg" id="185_Tillerfolk Ambush" data-flag="@X" onclick="openSidebar('185_Tillerfolk Ambush',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/29_Spirits' Foundling.jpg" id="29_Spirits Foundling" data-flag="@X" onclick="openSidebar('29_Spirits Foundling',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/73_Thoughtbriar.jpg" id="73_Thoughtbriar" data-flag="@X" onclick="openSidebar('73_Thoughtbriar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/101_Metanoia, Embracer of Ends.jpg" id="101_Metanoia, Embracer of Ends" data-flag="@X" onclick="openSidebar('101_Metanoia, Embracer of Ends',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/151_Wake to Ruin.jpg" id="151_Wake to Ruin" data-flag="@X" onclick="openSidebar('151_Wake to Ruin',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/187_Wickercrown.jpg" id="187_Wickercrown" data-flag="@X" onclick="openSidebar('187_Wickercrown',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/35_A Violet by a Mossy Stone.jpg" id="35_A Violet by a Mossy Stone" data-flag="@X" onclick="openSidebar('35_A Violet by a Mossy Stone',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/74_Twinning Mage.jpg" id="74_Twinning Mage" data-flag="@X" onclick="openSidebar('74_Twinning Mage',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/109_Summerstill Spirit.jpg" id="109_Summerstill Spirit" data-flag="@X" onclick="openSidebar('109_Summerstill Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/118_Bold Venturer.jpg" id="118_Bold Venturer" data-flag="@X" onclick="openSidebar('118_Bold Venturer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/153_Bark Lurker.jpg" id="153_Bark Lurker" data-flag="@X" onclick="openSidebar('153_Bark Lurker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/1_Ashfield Guide.jpg" id="1_Ashfield Guide" data-flag="@X" onclick="openSidebar('1_Ashfield Guide',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/40_Apparate.jpg" id="40_Apparate" data-flag="@X" onclick="openSidebar('40_Apparate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/78_Blade Burier.jpg" id="78_Blade Burier" data-flag="@X" onclick="openSidebar('78_Blade Burier',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/119_Brutal Apparition.jpg" id="119_Brutal Apparition" data-flag="@X" onclick="openSidebar('119_Brutal Apparition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/154_Beseech the Spirits.jpg" id="154_Beseech the Spirits" data-flag="@X" onclick="openSidebar('154_Beseech the Spirits',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/3_Cautious Farmhand.jpg" id="3_Cautious Farmhand" data-flag="@X" onclick="openSidebar('3_Cautious Farmhand',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/42_Bauble Keeper.jpg" id="42_Bauble Keeper" data-flag="@X" onclick="openSidebar('42_Bauble Keeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/79_Blighted Insight.jpg" id="79_Blighted Insight" data-flag="@X" onclick="openSidebar('79_Blighted Insight',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/120_Bygone Behemoth.jpg" id="120_Bygone Behemoth" data-flag="@X" onclick="openSidebar('120_Bygone Behemoth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/155_Blightroot's Honored.jpg" id="155_Blightroots Honored" data-flag="@X" onclick="openSidebar('155_Blightroots Honored',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/6_Deliverance.jpg" id="6_Deliverance" data-flag="@X" onclick="openSidebar('6_Deliverance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/45_Churning Tendrils.jpg" id="45_Churning Tendrils" data-flag="@X" onclick="openSidebar('45_Churning Tendrils',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/81_Child of Death's Whisper.jpg" id="81_Child of Deaths Whisper" data-flag="@X" onclick="openSidebar('81_Child of Deaths Whisper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/122_Callous Incineration.jpg" id="122_Callous Incineration" data-flag="@X" onclick="openSidebar('122_Callous Incineration',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/158_Bygone Might.jpg" id="158_Bygone Might" data-flag="@X" onclick="openSidebar('158_Bygone Might',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/9_Face Fear.jpg" id="9_Face Fear" data-flag="@X" onclick="openSidebar('9_Face Fear',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/46_Contemplate Calamity.jpg" id="46_Contemplate Calamity" data-flag="@X" onclick="openSidebar('46_Contemplate Calamity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/86_Crypt Tree.jpg" id="86_Crypt Tree" data-flag="@X" onclick="openSidebar('86_Crypt Tree',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/124_Crag-Claimer Wurm.jpg" id="124_Crag-Claimer Wurm" data-flag="@X" onclick="openSidebar('124_Crag-Claimer Wurm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/165_Keeper of Tradition.jpg" id="165_Keeper of Tradition" data-flag="@X" onclick="openSidebar('165_Keeper of Tradition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/10_Forlorn Vestige.jpg" id="10_Forlorn Vestige" data-flag="@X" onclick="openSidebar('10_Forlorn Vestige',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/47_Deny Knowledge.jpg" id="47_Deny Knowledge" data-flag="@X" onclick="openSidebar('47_Deny Knowledge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/87_Doomside Flock.jpg" id="87_Doomside Flock" data-flag="@X" onclick="openSidebar('87_Doomside Flock',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/125_Desperate Deserter.jpg" id="125_Desperate Deserter" data-flag="@X" onclick="openSidebar('125_Desperate Deserter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/167_Knower of Ways.jpg" id="167_Knower of Ways" data-flag="@X" onclick="openSidebar('167_Knower of Ways',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/12_Haven Keeper.jpg" id="12_Haven Keeper" data-flag="@X" onclick="openSidebar('12_Haven Keeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/48_Drowner Depth-Seer.jpg" id="48_Drowner Depth-Seer" data-flag="@X" onclick="openSidebar('48_Drowner Depth-Seer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/95_Fenland Consumer.jpg" id="95_Fenland Consumer" data-flag="@X" onclick="openSidebar('95_Fenland Consumer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/127_Exorcise Flesh.jpg" id="127_Exorcise Flesh" data-flag="@X" onclick="openSidebar('127_Exorcise Flesh',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/168_Loam Stalkers.jpg" id="168_Loam Stalkers" data-flag="@X" onclick="openSidebar('168_Loam Stalkers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/14_Heretical Coven.jpg" id="14_Heretical Coven" data-flag="@X" onclick="openSidebar('14_Heretical Coven',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/49_Drowner Emissary.jpg" id="49_Drowner Emissary" data-flag="@X" onclick="openSidebar('49_Drowner Emissary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/96_Figment of Loss.jpg" id="96_Figment of Loss" data-flag="@X" onclick="openSidebar('96_Figment of Loss',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/129_Forsaken Archer.jpg" id="129_Forsaken Archer" data-flag="@X" onclick="openSidebar('129_Forsaken Archer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/169_Masked Vestige.jpg" id="169_Masked Vestige" data-flag="@X" onclick="openSidebar('169_Masked Vestige',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/16_Instiller of Spirits.jpg" id="16_Instiller of Spirits" data-flag="@X" onclick="openSidebar('16_Instiller of Spirits',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/56_Hide Your Face.jpg" id="56_Hide Your Face" data-flag="@X" onclick="openSidebar('56_Hide Your Face',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/100_Matriarch Vagabond.jpg" id="100_Matriarch Vagabond" data-flag="@X" onclick="openSidebar('100_Matriarch Vagabond',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/131_Heirloom Thief.jpg" id="131_Heirloom Thief" data-flag="@X" onclick="openSidebar('131_Heirloom Thief',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/174_Old-Growth Spirit.jpg" id="174_Old-Growth Spirit" data-flag="@X" onclick="openSidebar('174_Old-Growth Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/23_Overtaken Exorcist.jpg" id="23_Overtaken Exorcist" data-flag="@X" onclick="openSidebar('23_Overtaken Exorcist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/57_Icedeep Host.jpg" id="57_Icedeep Host" data-flag="@X" onclick="openSidebar('57_Icedeep Host',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/103_Reclaim Soul.jpg" id="103_Reclaim Soul" data-flag="@X" onclick="openSidebar('103_Reclaim Soul',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/133_Honored Kindler.jpg" id="133_Honored Kindler" data-flag="@X" onclick="openSidebar('133_Honored Kindler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/177_Propagating Altar.jpg" id="177_Propagating Altar" data-flag="@X" onclick="openSidebar('177_Propagating Altar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/25_Ritegiver.jpg" id="25_Ritegiver" data-flag="@X" onclick="openSidebar('25_Ritegiver',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/61_Maddening Moonfly.jpg" id="61_Maddening Moonfly" data-flag="@X" onclick="openSidebar('61_Maddening Moonfly',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/104_Recoverer Witch.jpg" id="104_Recoverer Witch" data-flag="@X" onclick="openSidebar('104_Recoverer Witch',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/137_Minor Starfall.jpg" id="137_Minor Starfall" data-flag="@X" onclick="openSidebar('137_Minor Starfall',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/178_Quiescent Knight.jpg" id="178_Quiescent Knight" data-flag="@X" onclick="openSidebar('178_Quiescent Knight',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/26_Safekeeper Guard.jpg" id="26_Safekeeper Guard" data-flag="@X" onclick="openSidebar('26_Safekeeper Guard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/66_Slip Into Abstraction.jpg" id="66_Slip Into Abstraction" data-flag="@X" onclick="openSidebar('66_Slip Into Abstraction',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/107_Spirit's Remission.jpg" id="107_Spirits Remission" data-flag="@X" onclick="openSidebar('107_Spirits Remission',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/138_Mourned Glory.jpg" id="138_Mourned Glory" data-flag="@X" onclick="openSidebar('138_Mourned Glory',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/179_Replete.jpg" id="179_Replete" data-flag="@X" onclick="openSidebar('179_Replete',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/28_Snowfield Traveler.jpg" id="28_Snowfield Traveler" data-flag="@X" onclick="openSidebar('28_Snowfield Traveler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/67_Smokemind.jpg" id="67_Smokemind" data-flag="@X" onclick="openSidebar('67_Smokemind',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/108_Strange Mercy.jpg" id="108_Strange Mercy" data-flag="@X" onclick="openSidebar('108_Strange Mercy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/140_Recalcitrant Spirit.jpg" id="140_Recalcitrant Spirit" data-flag="@X" onclick="openSidebar('140_Recalcitrant Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/183_Strength's Sustainer.jpg" id="183_Strengths Sustainer" data-flag="@X" onclick="openSidebar('183_Strengths Sustainer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/33_Twilit Encounter.jpg" id="33_Twilit Encounter" data-flag="@X" onclick="openSidebar('33_Twilit Encounter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/72_Strix of the Henge.jpg" id="72_Strix of the Henge" data-flag="@X" onclick="openSidebar('72_Strix of the Henge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/110_Tainted Visions.jpg" id="110_Tainted Visions" data-flag="@X" onclick="openSidebar('110_Tainted Visions',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/146_Spirit Shepherding.jpg" id="146_Spirit Shepherding" data-flag="@X" onclick="openSidebar('146_Spirit Shepherding',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/184_Tillerfolk.jpg" id="184_Tillerfolk" data-flag="@X" onclick="openSidebar('184_Tillerfolk',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/34_Uplifting Leader.jpg" id="34_Uplifting Leader" data-flag="@X" onclick="openSidebar('34_Uplifting Leader',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/75_Unnaming Possession.jpg" id="75_Unnaming Possession" data-flag="@X" onclick="openSidebar('75_Unnaming Possession',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/111_Thorn Speaker.jpg" id="111_Thorn Speaker" data-flag="@X" onclick="openSidebar('111_Thorn Speaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/150_Unexpected Discovery.jpg" id="150_Unexpected Discovery" data-flag="@X" onclick="openSidebar('150_Unexpected Discovery',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/186_Wander the Wilderness.jpg" id="186_Wander the Wilderness" data-flag="@X" onclick="openSidebar('186_Wander the Wilderness',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/36_Watchful Lingering.jpg" id="36_Watchful Lingering" data-flag="@X" onclick="openSidebar('36_Watchful Lingering',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/76_Wisdom's Embrace.jpg" id="76_Wisdoms Embrace" data-flag="@X" onclick="openSidebar('76_Wisdoms Embrace',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/112_Unflinching Fatalist.jpg" id="112_Unflinching Fatalist" data-flag="@X" onclick="openSidebar('112_Unflinching Fatalist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/225_Shask, Fading Soul.jpg" id="225_Shask, Fading Soul" data-flag="@X" onclick="openSidebar('225_Shask, Fading Soul',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/200_Exorcist's Recall.jpg" id="200_Exorcists Recall" data-flag="@X" onclick="openSidebar('200_Exorcists Recall',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/201_False Dreamscapes.jpg" id="201_False Dreamscapes" data-flag="@X" onclick="openSidebar('201_False Dreamscapes',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/197_Eksta, Slayer of Finality.jpg" id="197_Eksta, Slayer of Finality" data-flag="@X" onclick="openSidebar('197_Eksta, Slayer of Finality',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/213_Lure of the Light.jpg" id="213_Lure of the Light" data-flag="@X" onclick="openSidebar('213_Lure of the Light',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/236_Vaquer's Last Day.jpg" id="236_Vaquers Last Day" data-flag="@X" onclick="openSidebar('236_Vaquers Last Day',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/222_Pneuma, Fatal Superposition.jpg" id="222_Pneuma, Fatal Superposition" data-flag="@X" onclick="openSidebar('222_Pneuma, Fatal Superposition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/217_Olnuv, Calamity Sworn.jpg" id="217_Olnuv, Calamity Sworn" data-flag="@X" onclick="openSidebar('217_Olnuv, Calamity Sworn',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/228_Tiren Katabas.jpg" id="228_Tiren Katabas" data-flag="@X" onclick="openSidebar('228_Tiren Katabas',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/229_Turan, Renowned Exorcist.jpg" id="229_Turan, Renowned Exorcist" data-flag="@X" onclick="openSidebar('229_Turan, Renowned Exorcist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/204_Float Upon Your Wat'ry Bier.jpg" id="204_Float Upon Your Watry Bier" data-flag="@X" onclick="openSidebar('204_Float Upon Your Watry Bier',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/194_The Death of the Poet.jpg" id="194_The Death of the Poet" data-flag="@X" onclick="openSidebar('194_The Death of the Poet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/193_Deadness Others Had to Burn.jpg" id="193_Deadness Others Had to Burn" data-flag="@X" onclick="openSidebar('193_Deadness Others Had to Burn',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/205_Fraywing Thief.jpg" id="205_Fraywing Thief" data-flag="@X" onclick="openSidebar('205_Fraywing Thief',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/190_Better to Have Loved and Lost.jpg" id="190_Better to Have Loved and Lost" data-flag="@X" onclick="openSidebar('190_Better to Have Loved and Lost',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/223_Relai, Burdened Queen.jpg" id="223_Relai, Burdened Queen" data-flag="@X" onclick="openSidebar('223_Relai, Burdened Queen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/214_Maddening Eventuality.jpg" id="214_Maddening Eventuality" data-flag="@X" onclick="openSidebar('214_Maddening Eventuality',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/211_Lien, Heir of Amel.jpg" id="211_Lien, Heir of Amel" data-flag="@X" onclick="openSidebar('211_Lien, Heir of Amel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/210_Kollept, the Culmination.jpg" id="210_Kollept, the Culmination" data-flag="@X" onclick="openSidebar('210_Kollept, the Culmination',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/208_Grenni, Soulcrafter.jpg" id="208_Grenni, Soulcrafter" data-flag="@X" onclick="openSidebar('208_Grenni, Soulcrafter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/235_Vaporous Monument.jpg" id="235_Vaporous Monument" data-flag="@X" onclick="openSidebar('235_Vaporous Monument',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/216_Miroa, the Lost Self.jpg" id="216_Miroa, the Lost Self" data-flag="@X" onclick="openSidebar('216_Miroa, the Lost Self',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/226_Soulcaptor Filigrist.jpg" id="226_Soulcaptor Filigrist" data-flag="@X" onclick="openSidebar('226_Soulcaptor Filigrist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/232_Under That Blind Red Wall.jpg" id="232_Under That Blind Red Wall" data-flag="@X" onclick="openSidebar('232_Under That Blind Red Wall',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/233_Unnerving Hush.jpg" id="233_Unnerving Hush" data-flag="@X" onclick="openSidebar('233_Unnerving Hush',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/209_Guardian Soother.jpg" id="209_Guardian Soother" data-flag="@X" onclick="openSidebar('209_Guardian Soother',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/206_Fugue of Spirits.jpg" id="206_Fugue of Spirits" data-flag="@X" onclick="openSidebar('206_Fugue of Spirits',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/198_Ember Taker.jpg" id="198_Ember Taker" data-flag="@X" onclick="openSidebar('198_Ember Taker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/207_Gilding Witch.jpg" id="207_Gilding Witch" data-flag="@X" onclick="openSidebar('207_Gilding Witch',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/192_Claimed by the Flock.jpg" id="192_Claimed by the Flock" data-flag="@X" onclick="openSidebar('192_Claimed by the Flock',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/212_Lonesome One.jpg" id="212_Lonesome One" data-flag="@X" onclick="openSidebar('212_Lonesome One',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/218_Ominous Crypt.jpg" id="218_Ominous Crypt" data-flag="@X" onclick="openSidebar('218_Ominous Crypt',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/202_False Friend.jpg" id="202_False Friend" data-flag="@X" onclick="openSidebar('202_False Friend',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/219_Outland Warmother.jpg" id="219_Outland Warmother" data-flag="@X" onclick="openSidebar('219_Outland Warmother',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/195_Druidic Host.jpg" id="195_Druidic Host" data-flag="@X" onclick="openSidebar('195_Druidic Host',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/237_Vestige of Reprieve.jpg" id="237_Vestige of Reprieve" data-flag="@X" onclick="openSidebar('237_Vestige of Reprieve',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/220_Pact Keeper.jpg" id="220_Pact Keeper" data-flag="@X" onclick="openSidebar('220_Pact Keeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/221_Painful Discovery.jpg" id="221_Painful Discovery" data-flag="@X" onclick="openSidebar('221_Painful Discovery',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/238_Wickercrown Stasher.jpg" id="238_Wickercrown Stasher" data-flag="@X" onclick="openSidebar('238_Wickercrown Stasher',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/234_Unswayed Pilgrim.jpg" id="234_Unswayed Pilgrim" data-flag="@X" onclick="openSidebar('234_Unswayed Pilgrim',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/227_Spirit of Recrudescence.jpg" id="227_Spirit of Recrudescence" data-flag="@X" onclick="openSidebar('227_Spirit of Recrudescence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/191_Calamity Mourner.jpg" id="191_Calamity Mourner" data-flag="@X" onclick="openSidebar('191_Calamity Mourner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/196_Dusk Offerer.jpg" id="196_Dusk Offerer" data-flag="@X" onclick="openSidebar('196_Dusk Offerer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/203_Far-Flung Citizens.jpg" id="203_Far-Flung Citizens" data-flag="@X" onclick="openSidebar('203_Far-Flung Citizens',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/199_Ensnaring Selkie.jpg" id="199_Ensnaring Selkie" data-flag="@X" onclick="openSidebar('199_Ensnaring Selkie',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/239_Wrest From Repose.jpg" id="239_Wrest From Repose" data-flag="@X" onclick="openSidebar('239_Wrest From Repose',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/230_Twilight Oracle.jpg" id="230_Twilight Oracle" data-flag="@X" onclick="openSidebar('230_Twilight Oracle',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/215_Marshbound Witch.jpg" id="215_Marshbound Witch" data-flag="@X" onclick="openSidebar('215_Marshbound Witch',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/231_Twilit Kindler.jpg" id="231_Twilit Kindler" data-flag="@X" onclick="openSidebar('231_Twilit Kindler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/224_Sacred Pool.jpg" id="224_Sacred Pool" data-flag="@X" onclick="openSidebar('224_Sacred Pool',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/189_Aminatou, the Elegaic.jpg" id="189_Aminatou, the Elegaic" data-flag="@X" onclick="openSidebar('189_Aminatou, the Elegaic',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/247_Root of Souls.jpg" id="247_Root of Souls" data-flag="@X" onclick="openSidebar('247_Root of Souls',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/241_Dismantler Effigy.jpg" id="241_Dismantler Effigy" data-flag="@X" onclick="openSidebar('241_Dismantler Effigy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/242_Exorcist's Folly.jpg" id="242_Exorcists Folly" data-flag="@X" onclick="openSidebar('242_Exorcists Folly',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/246_Old Rites Mural.jpg" id="246_Old Rites Mural" data-flag="@X" onclick="openSidebar('246_Old Rites Mural',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/240_Altar of Old Rites.jpg" id="240_Altar of Old Rites" data-flag="@X" onclick="openSidebar('240_Altar of Old Rites',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/243_Gateway Gisant.jpg" id="243_Gateway Gisant" data-flag="@X" onclick="openSidebar('243_Gateway Gisant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/244_Inhabited Armor.jpg" id="244_Inhabited Armor" data-flag="@X" onclick="openSidebar('244_Inhabited Armor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/245_Lectern of Reclaiming.jpg" id="245_Lectern of Reclaiming" data-flag="@X" onclick="openSidebar('245_Lectern of Reclaiming',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/248_Siphoning Lantern.jpg" id="248_Siphoning Lantern" data-flag="@X" onclick="openSidebar('248_Siphoning Lantern',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/249_Solitary Effigy.jpg" id="249_Solitary Effigy" data-flag="@X" onclick="openSidebar('249_Solitary Effigy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/259_Novu, Forgotten Domain.jpg" id="259_Novu, Forgotten Domain" data-flag="@X" onclick="openSidebar('259_Novu, Forgotten Domain',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/254_Ekher, Spiritclaimed Waste.jpg" id="254_Ekher, Spiritclaimed Waste" data-flag="@X" onclick="openSidebar('254_Ekher, Spiritclaimed Waste',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/251_Amel, Outcarved Heart.jpg" id="251_Amel, Outcarved Heart" data-flag="@X" onclick="openSidebar('251_Amel, Outcarved Heart',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/260_Pashq, Overtaken Citadel.jpg" id="260_Pashq, Overtaken Citadel" data-flag="@X" onclick="openSidebar('260_Pashq, Overtaken Citadel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/263_Vrai, Wildgrown Hill.jpg" id="263_Vrai, Wildgrown Hill" data-flag="@X" onclick="openSidebar('263_Vrai, Wildgrown Hill',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/262_Tidecloak Bound.jpg" id="262_Tidecloak Bound" data-flag="@X" onclick="openSidebar('262_Tidecloak Bound',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/261_Shroudmire Bound.jpg" id="261_Shroudmire Bound" data-flag="@X" onclick="openSidebar('261_Shroudmire Bound',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/255_Graspmurk Bound.jpg" id="255_Graspmurk Bound" data-flag="@X" onclick="openSidebar('255_Graspmurk Bound',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/258_Mosslight Bound.jpg" id="258_Mosslight Bound" data-flag="@X" onclick="openSidebar('258_Mosslight Bound',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/252_Carvepyre Bound.jpg" id="252_Carvepyre Bound" data-flag="@X" onclick="openSidebar('252_Carvepyre Bound',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/250_Abandoned Realm.jpg" id="250_Abandoned Realm" data-flag="@X" onclick="openSidebar('250_Abandoned Realm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/253_Eerie Tomb.jpg" id="253_Eerie Tomb" data-flag="@X" onclick="openSidebar('253_Eerie Tomb',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/257_Haunted Outlook.jpg" id="257_Haunted Outlook" data-flag="@X" onclick="openSidebar('257_Haunted Outlook',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/256_Grieving Stones.jpg" id="256_Grieving Stones" data-flag="@X" onclick="openSidebar('256_Grieving Stones',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/269_Swamp.jpg" id="269_Swamp" data-flag="@X" onclick="openSidebar('269_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/268_Swamp.jpg" id="268_Swamp" data-flag="@X" onclick="openSidebar('268_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/266_Island.jpg" id="266_Island" data-flag="@X" onclick="openSidebar('266_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/267_Island.jpg" id="267_Island" data-flag="@X" onclick="openSidebar('267_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/264_Plains.jpg" id="264_Plains" data-flag="@X" onclick="openSidebar('264_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/265_Plains.jpg" id="265_Plains" data-flag="@X" onclick="openSidebar('265_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/270_Mountain.jpg" id="270_Mountain" data-flag="@X" onclick="openSidebar('270_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/271_Mountain.jpg" id="271_Mountain" data-flag="@X" onclick="openSidebar('271_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/272_Forest.jpg" id="272_Forest" data-flag="@X" onclick="openSidebar('272_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/273_Forest.jpg" id="273_Forest" data-flag="@X" onclick="openSidebar('273_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/1t_Copy.jpg" id="1t_Copy" data-flag="@X" onclick="openSidebar('1t_Copy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/2t_Spirit.jpg" id="2t_Spirit" data-flag="@X" onclick="openSidebar('2t_Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ELV-files/img/3t_Treasure.jpg" id="3t_Treasure" data-flag="@X" onclick="openSidebar('3t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL('search', window.location.origin);
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL('card', window.location.origin);
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url;
+			}
+	</script>
+</body>
+</html>
