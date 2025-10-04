@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="/sets/ORC-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>ORC visual preview</title>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('/resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('/img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('/img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('/img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('/img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/ORC-files/logo.png" />
+	<img class="preload-hidden" src="/sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/GOD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/IVP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/IWH-files/icon.png" />
+		<img class="preload-hidden" src="/sets/LIP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ORC-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PRK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/UND-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VYI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WCD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WOO-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="ORC"><img src="/sets/ORC-files/icon.png">An Oddness in the River Cities</a>
+	
+		<a class="set-bar inactive" href="F2HU"><img src="/sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="GOD"><img src="/sets/GOD-files/icon.png">Godspine</a>
+	
+		<a class="set-bar inactive" href="IVP"><img src="/sets/IVP-files/icon.png">Invalid Precedent</a>
+	
+		<a class="set-bar inactive" href="IWH"><img src="/sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		<a class="set-bar inactive" href="LIP"><img src="/sets/LIP-files/icon.png">Lost in Place</a>
+	
+		<a class="set-bar inactive" href="OPZ"><img src="/sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="ORD"><img src="/sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="POP2"><img src="/sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="PRK"><img src="/sets/PRK-files/icon.png">Prakhma</a>
+	
+		<a class="set-bar inactive" href="RNF"><img src="/sets/RNF-files/icon.png">Ravnica Fractured</a>
+	
+		<a class="set-bar inactive" href="RPGM"><img src="/sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="SGP"><img src="/sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="SOL"><img src="/sets/SOL-files/icon.png">Solastere</a>
+	
+		<a class="set-bar inactive" href="TGS"><img src="/sets/TGS-files/icon.png">Tales from the Grave in Space</a>
+	
+		<a class="set-bar inactive" href="UND"><img src="/sets/UND-files/icon.png">The Underhalls</a>
+	
+		<a class="set-bar inactive" href="VLR"><img src="/sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="VYI"><img src="/sets/VYI-files/icon.png">Valdrasil: Voyage to Infinity</a>
+	
+		<a class="set-bar inactive" href="WCD"><img src="/sets/WCD-files/icon.png">Wroszy’s Circus of Darkness</a>
+	
+		<a class="set-bar inactive" href="WDW"><img src="/sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="WOO"><img src="/sets/WOO-files/icon.png">Waking of Orlige </a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="/sets/ORC-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/2_Abbatar, the Whole of Unity.png" id="2_Abbatar, the Whole of Unity" data-flag="@X" onclick="openSidebar('2_Abbatar, the Whole of Unity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/46_Blinking Horizon.png" id="46_Blinking Horizon" data-flag="@X" onclick="openSidebar('46_Blinking Horizon',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/93_Collapse in Silence.png" id="93_Collapse in Silence" data-flag="@X" onclick="openSidebar('93_Collapse in Silence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/144_Grafted Sins.png" id="144_Grafted Sins" data-flag="@X" onclick="openSidebar('144_Grafted Sins',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/179_Claim of the Aberrant.png" id="179_Claim of the Aberrant" data-flag="@X" onclick="openSidebar('179_Claim of the Aberrant',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/34_Rescue the Damned.png" id="34_Rescue the Damned" data-flag="@X" onclick="openSidebar('34_Rescue the Damned',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/48_Compounded Realities.png" id="48_Compounded Realities" data-flag="@X" onclick="openSidebar('48_Compounded Realities',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/99_Kindly Guide of Souls.png" id="99_Kindly Guide of Souls" data-flag="@X" onclick="openSidebar('99_Kindly Guide of Souls',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/163_Tangled in Crimson.png" id="163_Tangled in Crimson" data-flag="@X" onclick="openSidebar('163_Tangled in Crimson',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/200_Nursery of Skin.png" id="200_Nursery of Skin" data-flag="@X" onclick="openSidebar('200_Nursery of Skin',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/40_Unifier of Flesh and Purpose.png" id="40_Unifier of Flesh and Purpose" data-flag="@X" onclick="openSidebar('40_Unifier of Flesh and Purpose',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/55_Endless Investigation.png" id="55_Endless Investigation" data-flag="@X" onclick="openSidebar('55_Endless Investigation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/104_Messa di Requiem per Ctonia.png" id="104_Messa di Requiem per Ctonia" data-flag="@X" onclick="openSidebar('104_Messa di Requiem per Ctonia',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/173_Zim-Shirrem, Threads of Life.png" id="173_Zim-Shirrem, Threads of Life" data-flag="@X" onclick="openSidebar('173_Zim-Shirrem, Threads of Life',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/205_Rise of the Primordials.png" id="205_Rise of the Primordials" data-flag="@X" onclick="openSidebar('205_Rise of the Primordials',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/6_Cawyer Station Recruit.png" id="6_Cawyer Station Recruit" data-flag="@X" onclick="openSidebar('6_Cawyer Station Recruit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/49_Conjuror Extraordinaire.png" id="49_Conjuror Extraordinaire" data-flag="@X" onclick="openSidebar('49_Conjuror Extraordinaire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/92_Cleaner's Hammer.png" id="92_Cleaners Hammer" data-flag="@X" onclick="openSidebar('92_Cleaners Hammer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/147_L'appel du vide.png" id="147_Lappel du vide" data-flag="@X" onclick="openSidebar('147_Lappel du vide',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/174_Beyond the Lamplight.png" id="174_Beyond the Lamplight" data-flag="@X" onclick="openSidebar('174_Beyond the Lamplight',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/9_Divinity Repossessed.png" id="9_Divinity Repossessed" data-flag="@X" onclick="openSidebar('9_Divinity Repossessed',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/52_Delay the Inevitable.png" id="52_Delay the Inevitable" data-flag="@X" onclick="openSidebar('52_Delay the Inevitable',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/94_Crowded Murmurs.png" id="94_Crowded Murmurs" data-flag="@X" onclick="openSidebar('94_Crowded Murmurs',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/148_Mabuse Enforcer.png" id="148_Mabuse Enforcer" data-flag="@X" onclick="openSidebar('148_Mabuse Enforcer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/175_Blessing of the Aberrant.png" id="175_Blessing of the Aberrant" data-flag="@X" onclick="openSidebar('175_Blessing of the Aberrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/11_Echoes of Encouragement.png" id="11_Echoes of Encouragement" data-flag="@X" onclick="openSidebar('11_Echoes of Encouragement',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/53_Divergence of Minds.png" id="53_Divergence of Minds" data-flag="@X" onclick="openSidebar('53_Divergence of Minds',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/96_Death's Favorite Pet.png" id="96_Deaths Favorite Pet" data-flag="@X" onclick="openSidebar('96_Deaths Favorite Pet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/152_Open the Vault.png" id="152_Open the Vault" data-flag="@X" onclick="openSidebar('152_Open the Vault',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/185_Curio of Crawling Secrets.png" id="185_Curio of Crawling Secrets" data-flag="@X" onclick="openSidebar('185_Curio of Crawling Secrets',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/14_Favor from the Family.png" id="14_Favor from the Family" data-flag="@X" onclick="openSidebar('14_Favor from the Family',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/57_Favored Traded in Uneven Hands.png" id="57_Favored Traded in Uneven Hands" data-flag="@X" onclick="openSidebar('57_Favored Traded in Uneven Hands',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/97_Debt in the Outlands.png" id="97_Debt in the Outlands" data-flag="@X" onclick="openSidebar('97_Debt in the Outlands',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/153_Overwhelming Vitality.png" id="153_Overwhelming Vitality" data-flag="@X" onclick="openSidebar('153_Overwhelming Vitality',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/186_Detrossian Hydra.png" id="186_Detrossian Hydra" data-flag="@X" onclick="openSidebar('186_Detrossian Hydra',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/16_Futures Unwritten.png" id="16_Futures Unwritten" data-flag="@X" onclick="openSidebar('16_Futures Unwritten',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/70_Oneiric Whisperer.png" id="70_Oneiric Whisperer" data-flag="@X" onclick="openSidebar('70_Oneiric Whisperer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/105_Midshift Mourner.png" id="105_Midshift Mourner" data-flag="@X" onclick="openSidebar('105_Midshift Mourner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/158_Scarlet Moon.png" id="158_Scarlet Moon" data-flag="@X" onclick="openSidebar('158_Scarlet Moon',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/187_District Broker.png" id="187_District Broker" data-flag="@X" onclick="openSidebar('187_District Broker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/17_Gentle Collector.png" id="17_Gentle Collector" data-flag="@X" onclick="openSidebar('17_Gentle Collector',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/71_Owl-Knowing Sleuth.png" id="71_Owl-Knowing Sleuth" data-flag="@X" onclick="openSidebar('71_Owl-Knowing Sleuth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/109_Painter of the Unseen.png" id="109_Painter of the Unseen" data-flag="@X" onclick="openSidebar('109_Painter of the Unseen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/165_Turncoat Officer.png" id="165_Turncoat Officer" data-flag="@X" onclick="openSidebar('165_Turncoat Officer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/193_Guttertooth.png" id="193_Guttertooth" data-flag="@X" onclick="openSidebar('193_Guttertooth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/42_Watcher of Fractured Halos.png" id="42_Watcher of Fractured Halos" data-flag="@X" onclick="openSidebar('42_Watcher of Fractured Halos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/84_Unclocked Apparition.png" id="84_Unclocked Apparition" data-flag="@X" onclick="openSidebar('84_Unclocked Apparition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/112_Sap Effervescence.png" id="112_Sap Effervescence" data-flag="@X" onclick="openSidebar('112_Sap Effervescence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/168_Veda's Broker of Secrets.png" id="168_Vedas Broker of Secrets" data-flag="@X" onclick="openSidebar('168_Vedas Broker of Secrets',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/199_Maw of Borrowed Flesh.png" id="199_Maw of Borrowed Flesh" data-flag="@X" onclick="openSidebar('199_Maw of Borrowed Flesh',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/43_Wide-Eyed Inquirer.png" id="43_Wide-Eyed Inquirer" data-flag="@X" onclick="openSidebar('43_Wide-Eyed Inquirer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/86_Whorling Eviction.png" id="86_Whorling Eviction" data-flag="@X" onclick="openSidebar('86_Whorling Eviction',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/115_Scourge of Unity.png" id="115_Scourge of Unity" data-flag="@X" onclick="openSidebar('115_Scourge of Unity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/171_Wandering Ember.png" id="171_Wandering Ember" data-flag="@X" onclick="openSidebar('171_Wandering Ember',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/206_Scourge of Sapience.png" id="206_Scourge of Sapience" data-flag="@X" onclick="openSidebar('206_Scourge of Sapience',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/4_Candle for Those Gone.png" id="4_Candle for Those Gone" data-flag="@X" onclick="openSidebar('4_Candle for Those Gone',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/45_Arcane Kenning.png" id="45_Arcane Kenning" data-flag="@X" onclick="openSidebar('45_Arcane Kenning',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/90_Behind Every Corner.png" id="90_Behind Every Corner" data-flag="@X" onclick="openSidebar('90_Behind Every Corner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/132_Antiquated Shot.png" id="132_Antiquated Shot" data-flag="@X" onclick="openSidebar('132_Antiquated Shot',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/177_Chewer of Deals.png" id="177_Chewer of Deals" data-flag="@X" onclick="openSidebar('177_Chewer of Deals',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/5_Case in Motion.png" id="5_Case in Motion" data-flag="@X" onclick="openSidebar('5_Case in Motion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/58_Formally Missing.png" id="58_Formally Missing" data-flag="@X" onclick="openSidebar('58_Formally Missing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/91_Buried in Deadlines.png" id="91_Buried in Deadlines" data-flag="@X" onclick="openSidebar('91_Buried in Deadlines',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/135_The Break at Museum Row.png" id="135_The Break at Museum Row" data-flag="@X" onclick="openSidebar('135_The Break at Museum Row',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/178_Chrysalis Unbound.png" id="178_Chrysalis Unbound" data-flag="@X" onclick="openSidebar('178_Chrysalis Unbound',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/7_Containment Sigil.png" id="7_Containment Sigil" data-flag="@X" onclick="openSidebar('7_Containment Sigil',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/59_Hardline Enforcer.png" id="59_Hardline Enforcer" data-flag="@X" onclick="openSidebar('59_Hardline Enforcer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/95_Deadly Interrogation.png" id="95_Deadly Interrogation" data-flag="@X" onclick="openSidebar('95_Deadly Interrogation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/137_Clawed Coquette.png" id="137_Clawed Coquette" data-flag="@X" onclick="openSidebar('137_Clawed Coquette',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/180_Cobblestone Crew.png" id="180_Cobblestone Crew" data-flag="@X" onclick="openSidebar('180_Cobblestone Crew',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/8_District Nine Runner.png" id="8_District Nine Runner" data-flag="@X" onclick="openSidebar('8_District Nine Runner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/60_Hull-Cracker Kraken.png" id="60_Hull-Cracker Kraken" data-flag="@X" onclick="openSidebar('60_Hull-Cracker Kraken',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/98_Harbinger of Grey.png" id="98_Harbinger of Grey" data-flag="@X" onclick="openSidebar('98_Harbinger of Grey',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/140_Fangpoint Bargainer.png" id="140_Fangpoint Bargainer" data-flag="@X" onclick="openSidebar('140_Fangpoint Bargainer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/181_Coded Passage.png" id="181_Coded Passage" data-flag="@X" onclick="openSidebar('181_Coded Passage',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/10_Drift of Griffins.png" id="10_Drift of Griffins" data-flag="@X" onclick="openSidebar('10_Drift of Griffins',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/61_Impressions of Oil and Flesh.png" id="61_Impressions of Oil and Flesh" data-flag="@X" onclick="openSidebar('61_Impressions of Oil and Flesh',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/102_Lurking Abominations.png" id="102_Lurking Abominations" data-flag="@X" onclick="openSidebar('102_Lurking Abominations',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/142_Framed in Flames.png" id="142_Framed in Flames" data-flag="@X" onclick="openSidebar('142_Framed in Flames',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/183_Cradlebreaker Primordial.png" id="183_Cradlebreaker Primordial" data-flag="@X" onclick="openSidebar('183_Cradlebreaker Primordial',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/12_Everyone's Acquaintance.png" id="12_Everyones Acquaintance" data-flag="@X" onclick="openSidebar('12_Everyones Acquaintance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/62_Inheritance of Thought.png" id="62_Inheritance of Thought" data-flag="@X" onclick="openSidebar('62_Inheritance of Thought',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/103_Medium of Madness.png" id="103_Medium of Madness" data-flag="@X" onclick="openSidebar('103_Medium of Madness',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/143_Furensics Expert.png" id="143_Furensics Expert" data-flag="@X" onclick="openSidebar('143_Furensics Expert',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/184_Crashing Diversion.png" id="184_Crashing Diversion" data-flag="@X" onclick="openSidebar('184_Crashing Diversion',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/13_Faith-Eaten Penitent.png" id="13_Faith-Eaten Penitent" data-flag="@X" onclick="openSidebar('13_Faith-Eaten Penitent',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/63_Invasion of the Thought-Snatchers.png" id="63_Invasion of the Thought-Snatchers" data-flag="@X" onclick="openSidebar('63_Invasion of the Thought-Snatchers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/107_No Clean Way Out.png" id="107_No Clean Way Out" data-flag="@X" onclick="openSidebar('107_No Clean Way Out',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/146_Infernal Middleman.png" id="146_Infernal Middleman" data-flag="@X" onclick="openSidebar('146_Infernal Middleman',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/189_Dust-Hardened Tracker.png" id="189_Dust-Hardened Tracker" data-flag="@X" onclick="openSidebar('189_Dust-Hardened Tracker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/15_A Forged Familicide.png" id="15_A Forged Familicide" data-flag="@X" onclick="openSidebar('15_A Forged Familicide',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/64_Low Tide, High Stakes.png" id="64_Low Tide, High Stakes" data-flag="@X" onclick="openSidebar('64_Low Tide, High Stakes',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/108_Nothing Left to Lose.png" id="108_Nothing Left to Lose" data-flag="@X" onclick="openSidebar('108_Nothing Left to Lose',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/149_Mabuse Muscle.png" id="149_Mabuse Muscle" data-flag="@X" onclick="openSidebar('149_Mabuse Muscle',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/191_Faceless Hound.png" id="191_Faceless Hound" data-flag="@X" onclick="openSidebar('191_Faceless Hound',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/18_Glimmer of the Chase.png" id="18_Glimmer of the Chase" data-flag="@X" onclick="openSidebar('18_Glimmer of the Chase',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/65_Mabuse Mastermind.png" id="65_Mabuse Mastermind" data-flag="@X" onclick="openSidebar('65_Mabuse Mastermind',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/113_Scene Reader.png" id="113_Scene Reader" data-flag="@X" onclick="openSidebar('113_Scene Reader',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/150_Masquerade of Means.png" id="150_Masquerade of Means" data-flag="@X" onclick="openSidebar('150_Masquerade of Means',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/194_Hat in the Husks.png" id="194_Hat in the Husks" data-flag="@X" onclick="openSidebar('194_Hat in the Husks',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/19_Gold-Tongued Broker.png" id="19_Gold-Tongued Broker" data-flag="@X" onclick="openSidebar('19_Gold-Tongued Broker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/66_Master of Quiet Crimes.png" id="66_Master of Quiet Crimes" data-flag="@X" onclick="openSidebar('66_Master of Quiet Crimes',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/114_Schedule Maker.png" id="114_Schedule Maker" data-flag="@X" onclick="openSidebar('114_Schedule Maker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/156_Ravener of the Docks.png" id="156_Ravener of the Docks" data-flag="@X" onclick="openSidebar('156_Ravener of the Docks',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/195_Indifferent Brawl.png" id="195_Indifferent Brawl" data-flag="@X" onclick="openSidebar('195_Indifferent Brawl',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/20_Guardian of the Badge.png" id="20_Guardian of the Badge" data-flag="@X" onclick="openSidebar('20_Guardian of the Badge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/67_Melodic Mole.png" id="67_Melodic Mole" data-flag="@X" onclick="openSidebar('67_Melodic Mole',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/117_Smooth-Tongued Extractor.png" id="117_Smooth-Tongued Extractor" data-flag="@X" onclick="openSidebar('117_Smooth-Tongued Extractor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/157_Red Herring.png" id="157_Red Herring" data-flag="@X" onclick="openSidebar('157_Red Herring',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/201_Oblivious Officer.png" id="201_Oblivious Officer" data-flag="@X" onclick="openSidebar('201_Oblivious Officer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/23_Herald of Unity.png" id="23_Herald of Unity" data-flag="@X" onclick="openSidebar('23_Herald of Unity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/69_Muckraker Seeker.png" id="69_Muckraker Seeker" data-flag="@X" onclick="openSidebar('69_Muckraker Seeker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/118_The Spider's Bite.png" id="118_The Spiders Bite" data-flag="@X" onclick="openSidebar('118_The Spiders Bite',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/159_Self Check-Out.png" id="159_Self Check-Out" data-flag="@X" onclick="openSidebar('159_Self Check-Out',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/202_Outlands Gatekeeper.png" id="202_Outlands Gatekeeper" data-flag="@X" onclick="openSidebar('202_Outlands Gatekeeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/31_Quiet Audit.png" id="31_Quiet Audit" data-flag="@X" onclick="openSidebar('31_Quiet Audit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/73_Pipeway Inspector.png" id="73_Pipeway Inspector" data-flag="@X" onclick="openSidebar('73_Pipeway Inspector',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/121_Tethered Killer.png" id="121_Tethered Killer" data-flag="@X" onclick="openSidebar('121_Tethered Killer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/160_Silkclad Socialite.png" id="160_Silkclad Socialite" data-flag="@X" onclick="openSidebar('160_Silkclad Socialite',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/207_Shadebound Vessel.png" id="207_Shadebound Vessel" data-flag="@X" onclick="openSidebar('207_Shadebound Vessel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/33_Rekindled Purpose.png" id="33_Rekindled Purpose" data-flag="@X" onclick="openSidebar('33_Rekindled Purpose',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/75_Reconstruct The Scene.png" id="75_Reconstruct The Scene" data-flag="@X" onclick="openSidebar('75_Reconstruct The Scene',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/123_Threadbound Remnant.png" id="123_Threadbound Remnant" data-flag="@X" onclick="openSidebar('123_Threadbound Remnant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/162_Surge of the Moment.png" id="162_Surge of the Moment" data-flag="@X" onclick="openSidebar('162_Surge of the Moment',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/208_The Silence at Verdant Valley.png" id="208_The Silence at Verdant Valley" data-flag="@X" onclick="openSidebar('208_The Silence at Verdant Valley',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/38_Terms of Salvation.png" id="38_Terms of Salvation" data-flag="@X" onclick="openSidebar('38_Terms of Salvation',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/81_Still the Pandemonium.png" id="81_Still the Pandemonium" data-flag="@X" onclick="openSidebar('81_Still the Pandemonium',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/124_Threadcloaked Operative.png" id="124_Threadcloaked Operative" data-flag="@X" onclick="openSidebar('124_Threadcloaked Operative',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/164_A Toast and a Vow of Union.png" id="164_A Toast and a Vow of Union" data-flag="@X" onclick="openSidebar('164_A Toast and a Vow of Union',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/209_Silent Ambush.png" id="209_Silent Ambush" data-flag="@X" onclick="openSidebar('209_Silent Ambush',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/39_Thief of the Masked Benefactor.png" id="39_Thief of the Masked Benefactor" data-flag="@X" onclick="openSidebar('39_Thief of the Masked Benefactor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/83_Strange Disappearance.png" id="83_Strange Disappearance" data-flag="@X" onclick="openSidebar('83_Strange Disappearance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/127_Unworthy Vessel.png" id="127_Unworthy Vessel" data-flag="@X" onclick="openSidebar('127_Unworthy Vessel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/166_Uniter of Holy Flames.png" id="166_Uniter of Holy Flames" data-flag="@X" onclick="openSidebar('166_Uniter of Holy Flames',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/215_Wriggling Wound.png" id="215_Wriggling Wound" data-flag="@X" onclick="openSidebar('215_Wriggling Wound',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/41_Vanishing Act.png" id="41_Vanishing Act" data-flag="@X" onclick="openSidebar('41_Vanishing Act',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/85_Voicewoven Heretic.png" id="85_Voicewoven Heretic" data-flag="@X" onclick="openSidebar('85_Voicewoven Heretic',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/128_A Wake in Shadows.png" id="128_A Wake in Shadows" data-flag="@X" onclick="openSidebar('128_A Wake in Shadows',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/167_Unleashed Constable.png" id="167_Unleashed Constable" data-flag="@X" onclick="openSidebar('167_Unleashed Constable',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/216_Writhing Obedience.png" id="216_Writhing Obedience" data-flag="@X" onclick="openSidebar('216_Writhing Obedience',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/3_Asset Protection Manager.png" id="3_Asset Protection Manager" data-flag="@X" onclick="openSidebar('3_Asset Protection Manager',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/47_Brute of the Velvet Rope.png" id="47_Brute of the Velvet Rope" data-flag="@X" onclick="openSidebar('47_Brute of the Velvet Rope',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/88_Arrogant Moroii.png" id="88_Arrogant Moroii" data-flag="@X" onclick="openSidebar('88_Arrogant Moroii',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/131_Affair by Candlelight.png" id="131_Affair by Candlelight" data-flag="@X" onclick="openSidebar('131_Affair by Candlelight',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/176_Catscratch Bouncer.png" id="176_Catscratch Bouncer" data-flag="@X" onclick="openSidebar('176_Catscratch Bouncer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/21_Gutbucket Gang.png" id="21_Gutbucket Gang" data-flag="@X" onclick="openSidebar('21_Gutbucket Gang',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/50_Deepsea Detective.png" id="50_Deepsea Detective" data-flag="@X" onclick="openSidebar('50_Deepsea Detective',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/89_Become Ashes.png" id="89_Become Ashes" data-flag="@X" onclick="openSidebar('89_Become Ashes',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/133_Blood Fugue.png" id="133_Blood Fugue" data-flag="@X" onclick="openSidebar('133_Blood Fugue',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/182_Coopmaster.png" id="182_Coopmaster" data-flag="@X" onclick="openSidebar('182_Coopmaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/22_Haunted Widower.png" id="22_Haunted Widower" data-flag="@X" onclick="openSidebar('22_Haunted Widower',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/51_Defensive Stratagem.png" id="51_Defensive Stratagem" data-flag="@X" onclick="openSidebar('51_Defensive Stratagem',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/100_Lorre Bagman.png" id="100_Lorre Bagman" data-flag="@X" onclick="openSidebar('100_Lorre Bagman',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/134_Boiler Ambush.png" id="134_Boiler Ambush" data-flag="@X" onclick="openSidebar('134_Boiler Ambush',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/188_Dust Overload.png" id="188_Dust Overload" data-flag="@X" onclick="openSidebar('188_Dust Overload',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/24_Hero of the Force.png" id="24_Hero of the Force" data-flag="@X" onclick="openSidebar('24_Hero of the Force',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/54_Drift of the Departed.png" id="54_Drift of the Departed" data-flag="@X" onclick="openSidebar('54_Drift of the Departed',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/101_Lorre Blackmailer.png" id="101_Lorre Blackmailer" data-flag="@X" onclick="openSidebar('101_Lorre Blackmailer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/136_Chum Collector.png" id="136_Chum Collector" data-flag="@X" onclick="openSidebar('136_Chum Collector',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/190_Dustridden Smuggler.png" id="190_Dustridden Smuggler" data-flag="@X" onclick="openSidebar('190_Dustridden Smuggler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/25_Hound of the Bureau.png" id="25_Hound of the Bureau" data-flag="@X" onclick="openSidebar('25_Hound of the Bureau',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/56_Expose.png" id="56_Expose" data-flag="@X" onclick="openSidebar('56_Expose',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/106_Mockery of Flesh.png" id="106_Mockery of Flesh" data-flag="@X" onclick="openSidebar('106_Mockery of Flesh',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/138_Confession by Gunfire.png" id="138_Confession by Gunfire" data-flag="@X" onclick="openSidebar('138_Confession by Gunfire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/192_Furline Smuggler.png" id="192_Furline Smuggler" data-flag="@X" onclick="openSidebar('192_Furline Smuggler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/26_Lift Archiac Wards.png" id="26_Lift Archiac Wards" data-flag="@X" onclick="openSidebar('26_Lift Archiac Wards',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/68_Missing Piece of Reality.png" id="68_Missing Piece of Reality" data-flag="@X" onclick="openSidebar('68_Missing Piece of Reality',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/110_Perimeter Lookout.png" id="110_Perimeter Lookout" data-flag="@X" onclick="openSidebar('110_Perimeter Lookout',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/139_Famished Moroii.png" id="139_Famished Moroii" data-flag="@X" onclick="openSidebar('139_Famished Moroii',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/196_Innocent Stray.png" id="196_Innocent Stray" data-flag="@X" onclick="openSidebar('196_Innocent Stray',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/27_Lorre Patsy.png" id="27_Lorre Patsy" data-flag="@X" onclick="openSidebar('27_Lorre Patsy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/72_Papertrail Trickster.png" id="72_Papertrail Trickster" data-flag="@X" onclick="openSidebar('72_Papertrail Trickster',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/111_Perseverance.png" id="111_Perseverance" data-flag="@X" onclick="openSidebar('111_Perseverance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/141_Fox Agency Infiltrator.png" id="141_Fox Agency Infiltrator" data-flag="@X" onclick="openSidebar('141_Fox Agency Infiltrator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/197_Inspector of the Wilds.png" id="197_Inspector of the Wilds" data-flag="@X" onclick="openSidebar('197_Inspector of the Wilds',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/28_Mabuse Recruiter.png" id="28_Mabuse Recruiter" data-flag="@X" onclick="openSidebar('28_Mabuse Recruiter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/74_Proboscidian Transmutation.png" id="74_Proboscidian Transmutation" data-flag="@X" onclick="openSidebar('74_Proboscidian Transmutation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/116_Searing Redemption.png" id="116_Searing Redemption" data-flag="@X" onclick="openSidebar('116_Searing Redemption',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/145_Ill-Mannered Aberration.png" id="145_Ill-Mannered Aberration" data-flag="@X" onclick="openSidebar('145_Ill-Mannered Aberration',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/198_Lawbound Tracker.png" id="198_Lawbound Tracker" data-flag="@X" onclick="openSidebar('198_Lawbound Tracker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/29_Marked for Grace.png" id="29_Marked for Grace" data-flag="@X" onclick="openSidebar('29_Marked for Grace',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/76_Refuse the Ruse.png" id="76_Refuse the Ruse" data-flag="@X" onclick="openSidebar('76_Refuse the Ruse',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/119_Stage the Grift.png" id="119_Stage the Grift" data-flag="@X" onclick="openSidebar('119_Stage the Grift',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/151_Moroii Initiate.png" id="151_Moroii Initiate" data-flag="@X" onclick="openSidebar('151_Moroii Initiate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/203_Prizefight.png" id="203_Prizefight" data-flag="@X" onclick="openSidebar('203_Prizefight',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/30_Purifier of Division.png" id="30_Purifier of Division" data-flag="@X" onclick="openSidebar('30_Purifier of Division',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/77_Sinister Thought-Snatcher.png" id="77_Sinister Thought-Snatcher" data-flag="@X" onclick="openSidebar('77_Sinister Thought-Snatcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/120_A Step Too Late.png" id="120_A Step Too Late" data-flag="@X" onclick="openSidebar('120_A Step Too Late',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/154_Pawn of Plenty.png" id="154_Pawn of Plenty" data-flag="@X" onclick="openSidebar('154_Pawn of Plenty',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/204_Red-Lipped Dame.png" id="204_Red-Lipped Dame" data-flag="@X" onclick="openSidebar('204_Red-Lipped Dame',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/32_Raise the Alarm.png" id="32_Raise the Alarm" data-flag="@X" onclick="openSidebar('32_Raise the Alarm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/78_Skyline Snooper.png" id="78_Skyline Snooper" data-flag="@X" onclick="openSidebar('78_Skyline Snooper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/122_Thread of Obsession.png" id="122_Thread of Obsession" data-flag="@X" onclick="openSidebar('122_Thread of Obsession',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/155_Precinct Director.png" id="155_Precinct Director" data-flag="@X" onclick="openSidebar('155_Precinct Director',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/210_Sunset on the Cawyer.png" id="210_Sunset on the Cawyer" data-flag="@X" onclick="openSidebar('210_Sunset on the Cawyer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/35_Skybound Constable.png" id="35_Skybound Constable" data-flag="@X" onclick="openSidebar('35_Skybound Constable',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/79_Sleuth of the Deep Hours.png" id="79_Sleuth of the Deep Hours" data-flag="@X" onclick="openSidebar('79_Sleuth of the Deep Hours',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/125_Truthsniffer.png" id="125_Truthsniffer" data-flag="@X" onclick="openSidebar('125_Truthsniffer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/161_Star of the Gala.png" id="161_Star of the Gala" data-flag="@X" onclick="openSidebar('161_Star of the Gala',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/211_Tampered Instincts.png" id="211_Tampered Instincts" data-flag="@X" onclick="openSidebar('211_Tampered Instincts',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/36_Sleep in Company.png" id="36_Sleep in Company" data-flag="@X" onclick="openSidebar('36_Sleep in Company',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/80_Squeak-ret Operative.png" id="80_Squeak-ret Operative" data-flag="@X" onclick="openSidebar('80_Squeak-ret Operative',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/126_Unweaving Raven.png" id="126_Unweaving Raven" data-flag="@X" onclick="openSidebar('126_Unweaving Raven',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/169_Veda's Ears.png" id="169_Vedas Ears" data-flag="@X" onclick="openSidebar('169_Vedas Ears',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/212_Unknowing Devotee.png" id="212_Unknowing Devotee" data-flag="@X" onclick="openSidebar('212_Unknowing Devotee',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/37_Stunning Irruption.png" id="37_Stunning Irruption" data-flag="@X" onclick="openSidebar('37_Stunning Irruption',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/82_Stool Pidgeon.png" id="82_Stool Pidgeon" data-flag="@X" onclick="openSidebar('82_Stool Pidgeon',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/129_Whisperer to the Chthonic.png" id="129_Whisperer to the Chthonic" data-flag="@X" onclick="openSidebar('129_Whisperer to the Chthonic',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/170_Veiled Scapegoat.png" id="170_Veiled Scapegoat" data-flag="@X" onclick="openSidebar('170_Veiled Scapegoat',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/213_Unwitting Devotee.png" id="213_Unwitting Devotee" data-flag="@X" onclick="openSidebar('213_Unwitting Devotee',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/44_Wrapped in Quiet Lies.png" id="44_Wrapped in Quiet Lies" data-flag="@X" onclick="openSidebar('44_Wrapped in Quiet Lies',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/87_Woke Up Wrong.png" id="87_Woke Up Wrong" data-flag="@X" onclick="openSidebar('87_Woke Up Wrong',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/130_Woman with a Past.png" id="130_Woman with a Past" data-flag="@X" onclick="openSidebar('130_Woman with a Past',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/172_Wrap Up.png" id="172_Wrap Up" data-flag="@X" onclick="openSidebar('172_Wrap Up',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/214_Weighted Farewell.png" id="214_Weighted Farewell" data-flag="@X" onclick="openSidebar('214_Weighted Farewell',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/217_Joined in Song.png" id="217_Joined in Song" data-flag="@X" onclick="openSidebar('217_Joined in Song',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/219_Ciar, Cloaked in Clarity.png" id="219_Ciar, Cloaked in Clarity" data-flag="@X" onclick="openSidebar('219_Ciar, Cloaked in Clarity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/222_Damnation's Return.png" id="222_Damnations Return" data-flag="@X" onclick="openSidebar('222_Damnations Return',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/224_Lenny Corr, Door Left Ajar.png" id="224_Lenny Corr, Door Left Ajar" data-flag="@X" onclick="openSidebar('224_Lenny Corr, Door Left Ajar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/226_Aryeh, Heart of the Wild.png" id="226_Aryeh, Heart of the Wild" data-flag="@X" onclick="openSidebar('226_Aryeh, Heart of the Wild',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/218_Painter of the Fleeting Dawn.png" id="218_Painter of the Fleeting Dawn" data-flag="@X" onclick="openSidebar('218_Painter of the Fleeting Dawn',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/220_Ciar's Sleuthing.png" id="220_Ciars Sleuthing" data-flag="@X" onclick="openSidebar('220_Ciars Sleuthing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/223_Dealer of Ruin.png" id="223_Dealer of Ruin" data-flag="@X" onclick="openSidebar('223_Dealer of Ruin',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/225_Reaping Rite.png" id="225_Reaping Rite" data-flag="@X" onclick="openSidebar('225_Reaping Rite',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/227_Haniel, Retired Shepherd.png" id="227_Haniel, Retired Shepherd" data-flag="@X" onclick="openSidebar('227_Haniel, Retired Shepherd',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/221_Slumberleech.png" id="221_Slumberleech" data-flag="@X" onclick="openSidebar('221_Slumberleech',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/228_Refracted Realities.png" id="228_Refracted Realities" data-flag="@X" onclick="openSidebar('228_Refracted Realities',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/230_Frankie Lorre, Underboss.png" id="230_Frankie Lorre, Underboss" data-flag="@X" onclick="openSidebar('230_Frankie Lorre, Underboss',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/234_Tobias, the Charming Verse.png" id="234_Tobias, the Charming Verse" data-flag="@X" onclick="openSidebar('234_Tobias, the Charming Verse',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/237_The Glittering Cloud.png" id="237_The Glittering Cloud" data-flag="@X" onclick="openSidebar('237_The Glittering Cloud',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/238_Imani, Answer in a Blade.png" id="238_Imani, Answer in a Blade" data-flag="@X" onclick="openSidebar('238_Imani, Answer in a Blade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/242_Tamsin and Riggs of the Fox Agency.png" id="242_Tamsin and Riggs of the Fox Agency" data-flag="@X" onclick="openSidebar('242_Tamsin and Riggs of the Fox Agency',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/229_Frank the Viper Lorre.png" id="229_Frank the Viper Lorre" data-flag="@X" onclick="openSidebar('229_Frank the Viper Lorre',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/232_Feaster of Crimson.png" id="232_Feaster of Crimson" data-flag="@X" onclick="openSidebar('232_Feaster of Crimson',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/235_Chthonic Gorger.png" id="235_Chthonic Gorger" data-flag="@X" onclick="openSidebar('235_Chthonic Gorger',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/239_Paula and Josephine.png" id="239_Paula and Josephine" data-flag="@X" onclick="openSidebar('239_Paula and Josephine',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/241_Prodigy of the Opulent.png" id="241_Prodigy of the Opulent" data-flag="@X" onclick="openSidebar('241_Prodigy of the Opulent',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/231_Settle Debts.png" id="231_Settle Debts" data-flag="@X" onclick="openSidebar('231_Settle Debts',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/233_Monroe's Hatchery.png" id="233_Monroes Hatchery" data-flag="@X" onclick="openSidebar('233_Monroes Hatchery',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/236_Fraying Echoes.png" id="236_Fraying Echoes" data-flag="@X" onclick="openSidebar('236_Fraying Echoes',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/240_Threads of Consumption.png" id="240_Threads of Consumption" data-flag="@X" onclick="openSidebar('240_Threads of Consumption',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/243_Unwelcome Welcome.png" id="243_Unwelcome Welcome" data-flag="@X" onclick="openSidebar('243_Unwelcome Welcome',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/244_The Mabuse Trio.png" id="244_The Mabuse Trio" data-flag="@X" onclick="openSidebar('244_The Mabuse Trio',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/245_Mr. Monroe, Exquisite Collector.png" id="245_Mr. Monroe, Exquisite Collector" data-flag="@X" onclick="openSidebar('245_Mr. Monroe, Exquisite Collector',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/246_Spectrum of the Multiverse.png" id="246_Spectrum of the Multiverse" data-flag="@X" onclick="openSidebar('246_Spectrum of the Multiverse',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/247_Composite Colossus.png" id="247_Composite Colossus" data-flag="@X" onclick="openSidebar('247_Composite Colossus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/256_Tome of Retained Flesh.png" id="256_Tome of Retained Flesh" data-flag="@X" onclick="openSidebar('256_Tome of Retained Flesh',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/257_Tongue of Tethaleeg.png" id="257_Tongue of Tethaleeg" data-flag="@X" onclick="openSidebar('257_Tongue of Tethaleeg',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/258_Unbidden Rabota.png" id="258_Unbidden Rabota" data-flag="@X" onclick="openSidebar('258_Unbidden Rabota',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/248_Empty Vaults.png" id="248_Empty Vaults" data-flag="@X" onclick="openSidebar('248_Empty Vaults',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/250_Hullmaw Leviathan.png" id="250_Hullmaw Leviathan" data-flag="@X" onclick="openSidebar('250_Hullmaw Leviathan',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/252_Outlands Interceptor.png" id="252_Outlands Interceptor" data-flag="@X" onclick="openSidebar('252_Outlands Interceptor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/255_Simulacrum of Grace.png" id="255_Simulacrum of Grace" data-flag="@X" onclick="openSidebar('255_Simulacrum of Grace',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/259_Unburdened Shell.png" id="259_Unburdened Shell" data-flag="@X" onclick="openSidebar('259_Unburdened Shell',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/1_Framed Collection.png" id="1_Framed Collection" data-flag="@X" onclick="openSidebar('1_Framed Collection',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/249_Fusebreaker.png" id="249_Fusebreaker" data-flag="@X" onclick="openSidebar('249_Fusebreaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/251_Learned Rabota.png" id="251_Learned Rabota" data-flag="@X" onclick="openSidebar('251_Learned Rabota',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/253_Outlands Sifter.png" id="253_Outlands Sifter" data-flag="@X" onclick="openSidebar('253_Outlands Sifter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/254_Pilfered Jewels.png" id="254_Pilfered Jewels" data-flag="@X" onclick="openSidebar('254_Pilfered Jewels',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/260_Cawyer Station.png" id="260_Cawyer Station" data-flag="@X" onclick="openSidebar('260_Cawyer Station',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/271_Fox Agency Outpost.png" id="271_Fox Agency Outpost" data-flag="@X" onclick="openSidebar('271_Fox Agency Outpost',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/273_Lorre's Lowlight.png" id="273_Lorres Lowlight" data-flag="@X" onclick="openSidebar('273_Lorres Lowlight',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/276_Veda's Club.png" id="276_Vedas Club" data-flag="@X" onclick="openSidebar('276_Vedas Club',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/272_Foyer of Silence.png" id="272_Foyer of Silence" data-flag="@X" onclick="openSidebar('272_Foyer of Silence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/261_Entry to Ambition.png" id="261_Entry to Ambition" data-flag="@X" onclick="openSidebar('261_Entry to Ambition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/267_Entry to Obscurity.png" id="267_Entry to Obscurity" data-flag="@X" onclick="openSidebar('267_Entry to Obscurity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/265_Entry to Entertainment.png" id="265_Entry to Entertainment" data-flag="@X" onclick="openSidebar('265_Entry to Entertainment',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/270_Entry to Ruin.png" id="270_Entry to Ruin" data-flag="@X" onclick="openSidebar('270_Entry to Ruin',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/269_Entry to Preservation.png" id="269_Entry to Preservation" data-flag="@X" onclick="openSidebar('269_Entry to Preservation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/266_Entry to Indulgence.png" id="266_Entry to Indulgence" data-flag="@X" onclick="openSidebar('266_Entry to Indulgence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/263_Entry to Divergence.png" id="263_Entry to Divergence" data-flag="@X" onclick="openSidebar('263_Entry to Divergence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/262_Entry to Decay.png" id="262_Entry to Decay" data-flag="@X" onclick="openSidebar('262_Entry to Decay',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/264_Entry to Elegance.png" id="264_Entry to Elegance" data-flag="@X" onclick="openSidebar('264_Entry to Elegance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/268_Entry to Omen.png" id="268_Entry to Omen" data-flag="@X" onclick="openSidebar('268_Entry to Omen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/275_Unattended Mausoleum.png" id="275_Unattended Mausoleum" data-flag="@X" onclick="openSidebar('275_Unattended Mausoleum',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/274_Sinking Lot.png" id="274_Sinking Lot" data-flag="@X" onclick="openSidebar('274_Sinking Lot',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/277_Whispered Refuge.png" id="277_Whispered Refuge" data-flag="@X" onclick="openSidebar('277_Whispered Refuge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/278_Plains.png" id="278_Plains" data-flag="@X" onclick="openSidebar('278_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/279_Island.png" id="279_Island" data-flag="@X" onclick="openSidebar('279_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/280_Swamp.png" id="280_Swamp" data-flag="@X" onclick="openSidebar('280_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/281_Mountain.png" id="281_Mountain" data-flag="@X" onclick="openSidebar('281_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/282_Forest.png" id="282_Forest" data-flag="@X" onclick="openSidebar('282_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/1t_Copy.png" id="1t_Copy" data-flag="@X" onclick="openSidebar('1t_Copy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/18t_Bounty.png" id="18t_Bounty" data-flag="@X" onclick="openSidebar('18t_Bounty',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/19t_Clue.png" id="19t_Clue" data-flag="@X" onclick="openSidebar('19t_Clue',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/20t_Collections Box.png" id="20t_Collections Box" data-flag="@X" onclick="openSidebar('20t_Collections Box',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/21t_Construct.png" id="21t_Construct" data-flag="@X" onclick="openSidebar('21t_Construct',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/22t_Construct.png" id="22t_Construct" data-flag="@X" onclick="openSidebar('22t_Construct',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/23t_Construct.png" id="23t_Construct" data-flag="@X" onclick="openSidebar('23t_Construct',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/24t_Treasure.png" id="24t_Treasure" data-flag="@X" onclick="openSidebar('24t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/25t_Wastes.png" id="25t_Wastes" data-flag="@X" onclick="openSidebar('25t_Wastes',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/2t_Cat.png" id="2t_Cat" data-flag="@X" onclick="openSidebar('2t_Cat',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/3t_Soldier.png" id="3t_Soldier" data-flag="@X" onclick="openSidebar('3t_Soldier',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/4t_Soldier.png" id="4t_Soldier" data-flag="@X" onclick="openSidebar('4t_Soldier',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/5t_Detective.png" id="5t_Detective" data-flag="@X" onclick="openSidebar('5t_Detective',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/6t_Insect Horror.png" id="6t_Insect Horror" data-flag="@X" onclick="openSidebar('6t_Insect Horror',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/7t_Spirit.png" id="7t_Spirit" data-flag="@X" onclick="openSidebar('7t_Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/8t_Demon.png" id="8t_Demon" data-flag="@X" onclick="openSidebar('8t_Demon',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/9t_Frankie's Pet.png" id="9t_Frankies Pet" data-flag="@X" onclick="openSidebar('9t_Frankies Pet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/10t_Shade.png" id="10t_Shade" data-flag="@X" onclick="openSidebar('10t_Shade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/11t_Warrior.png" id="11t_Warrior" data-flag="@X" onclick="openSidebar('11t_Warrior',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/12t_Dragon.png" id="12t_Dragon" data-flag="@X" onclick="openSidebar('12t_Dragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/13t_Dragon Egg.png" id="13t_Dragon Egg" data-flag="@X" onclick="openSidebar('13t_Dragon Egg',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/14t_Rogue.png" id="14t_Rogue" data-flag="@X" onclick="openSidebar('14t_Rogue',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/15t_Horror.png" id="15t_Horror" data-flag="@X" onclick="openSidebar('15t_Horror',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/16t_Horror.png" id="16t_Horror" data-flag="@X" onclick="openSidebar('16t_Horror',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/ORC-files/img/17t_Insect.png" id="17t_Insect" data-flag="@X" onclick="openSidebar('17t_Insect',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL('search', window.location.origin);
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL('card', window.location.origin);
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url;
+			}
+	</script>
+</body>
+</html>

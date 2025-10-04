@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="/sets/IWH-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>IWH visual preview</title>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('/resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('/img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('/img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('/img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('/img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/IWH-files/logo.png" />
+	<img class="preload-hidden" src="/sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/GOD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/IVP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/IWH-files/icon.png" />
+		<img class="preload-hidden" src="/sets/LIP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ORC-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PRK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/UND-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VYI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WCD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WOO-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="IWH"><img src="/sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		<a class="set-bar inactive" href="F2HU"><img src="/sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="GOD"><img src="/sets/GOD-files/icon.png">Godspine</a>
+	
+		<a class="set-bar inactive" href="IVP"><img src="/sets/IVP-files/icon.png">Invalid Precedent</a>
+	
+		<a class="set-bar inactive" href="LIP"><img src="/sets/LIP-files/icon.png">Lost in Place</a>
+	
+		<a class="set-bar inactive" href="OPZ"><img src="/sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="ORC"><img src="/sets/ORC-files/icon.png">An Oddness in the River Cities</a>
+	
+		<a class="set-bar inactive" href="ORD"><img src="/sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="POP2"><img src="/sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="PRK"><img src="/sets/PRK-files/icon.png">Prakhma</a>
+	
+		<a class="set-bar inactive" href="RNF"><img src="/sets/RNF-files/icon.png">Ravnica Fractured</a>
+	
+		<a class="set-bar inactive" href="RPGM"><img src="/sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="SGP"><img src="/sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="SOL"><img src="/sets/SOL-files/icon.png">Solastere</a>
+	
+		<a class="set-bar inactive" href="TGS"><img src="/sets/TGS-files/icon.png">Tales from the Grave in Space</a>
+	
+		<a class="set-bar inactive" href="UND"><img src="/sets/UND-files/icon.png">The Underhalls</a>
+	
+		<a class="set-bar inactive" href="VLR"><img src="/sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="VYI"><img src="/sets/VYI-files/icon.png">Valdrasil: Voyage to Infinity</a>
+	
+		<a class="set-bar inactive" href="WCD"><img src="/sets/WCD-files/icon.png">Wroszy’s Circus of Darkness</a>
+	
+		<a class="set-bar inactive" href="WDW"><img src="/sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="WOO"><img src="/sets/WOO-files/icon.png">Waking of Orlige </a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="/sets/IWH-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/16_Eerie Nightdrifter.png" id="16_Eerie Nightdrifter" data-flag="@X" onclick="openSidebar('16_Eerie Nightdrifter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/47_Ashiok, Your Worst Fear.png" id="47_Ashiok, Your Worst Fear" data-flag="@X" onclick="openSidebar('47_Ashiok, Your Worst Fear',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/109_Gloaming Demon.png" id="109_Gloaming Demon" data-flag="@X" onclick="openSidebar('109_Gloaming Demon',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/143_Cordelia's Ripper.png" id="143_Cordelias Ripper" data-flag="@X" onclick="openSidebar('143_Cordelias Ripper',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/188_Devotion to Ghrin-Danu_back.png" alt="/sets/IWH-files/img/188_Devotion to Ghrin-Danu_front.png" id="188_Devotion to Ghrin-Danu" data-flag="@XD" onclick="openSidebar('188_Devotion to Ghrin-Danu',false)"><button class="flip-btn" onclick="imgFlip('188_Devotion to Ghrin-Danu')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/26_Moonsilver Archangel.png" id="26_Moonsilver Archangel" data-flag="@X" onclick="openSidebar('26_Moonsilver Archangel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/70_Master Skaabstitcher.png" id="70_Master Skaabstitcher" data-flag="@X" onclick="openSidebar('70_Master Skaabstitcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/127_Sorin, Forsaken Bloodlord.png" id="127_Sorin, Forsaken Bloodlord" data-flag="@X" onclick="openSidebar('127_Sorin, Forsaken Bloodlord',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/151_Feudrach of Ashmouth.png" id="151_Feudrach of Ashmouth" data-flag="@X" onclick="openSidebar('151_Feudrach of Ashmouth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/199_Hope's Trail Ranger.png" id="199_Hopes Trail Ranger" data-flag="@X" onclick="openSidebar('199_Hopes Trail Ranger',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/29_Night of the Long Silence.png" id="29_Night of the Long Silence" data-flag="@X" onclick="openSidebar('29_Night of the Long Silence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/71_Misthollow Primarch.png" id="71_Misthollow Primarch" data-flag="@X" onclick="openSidebar('71_Misthollow Primarch',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/133_Witching Hour.png" id="133_Witching Hour" data-flag="@X" onclick="openSidebar('133_Witching Hour',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/158_The Goremoon's Call.png" id="158_The Goremoons Call" data-flag="@X" onclick="openSidebar('158_The Goremoons Call',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/204_Prying Eyedra.png" id="204_Prying Eyedra" data-flag="@X" onclick="openSidebar('204_Prying Eyedra',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/4_Beyond Comprehension.png" id="4_Beyond Comprehension" data-flag="@X" onclick="openSidebar('4_Beyond Comprehension',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/48_Breathstealer Spirit.png" id="48_Breathstealer Spirit" data-flag="@X" onclick="openSidebar('48_Breathstealer Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/91_Angel of Fading Dusk.png" id="91_Angel of Fading Dusk" data-flag="@X" onclick="openSidebar('91_Angel of Fading Dusk',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/134_Ash-Addled Pyromaniac.png" id="134_Ash-Addled Pyromaniac" data-flag="@X" onclick="openSidebar('134_Ash-Addled Pyromaniac',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/181_Call of the Ulvenvater.png" id="181_Call of the Ulvenvater" data-flag="@X" onclick="openSidebar('181_Call of the Ulvenvater',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/9_Cloistered Haunt.png" id="9_Cloistered Haunt" data-flag="@X" onclick="openSidebar('9_Cloistered Haunt',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/49_Collected Thoughts.png" id="49_Collected Thoughts" data-flag="@X" onclick="openSidebar('49_Collected Thoughts',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/93_Beckon the Beyond.png" id="93_Beckon the Beyond" data-flag="@X" onclick="openSidebar('93_Beckon the Beyond',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/142_Cordelia Falkenrath.png" id="142_Cordelia Falkenrath" data-flag="@X" onclick="openSidebar('142_Cordelia Falkenrath',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/184_Curse of the Deep Woods.png" id="184_Curse of the Deep Woods" data-flag="@X" onclick="openSidebar('184_Curse of the Deep Woods',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/12_Curse of the Disturbed Tomb.png" id="12_Curse of the Disturbed Tomb" data-flag="@X" onclick="openSidebar('12_Curse of the Disturbed Tomb',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/52_Curse of the Eerie Portrait.png" id="52_Curse of the Eerie Portrait" data-flag="@X" onclick="openSidebar('52_Curse of the Eerie Portrait',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/96_Bloodstarved Slumber_back.png" alt="/sets/IWH-files/img/96_Bloodstarved Slumber_front.png" id="96_Bloodstarved Slumber" data-flag="@XD" onclick="openSidebar('96_Bloodstarved Slumber',false)"><button class="flip-btn" onclick="imgFlip('96_Bloodstarved Slumber')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/146_Curse of the Goremoon.png" id="146_Curse of the Goremoon" data-flag="@X" onclick="openSidebar('146_Curse of the Goremoon',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/190_Estwald Brigands_back.png" alt="/sets/IWH-files/img/190_Estwald Brigands_front.png" id="190_Estwald Brigands" data-flag="@XD" onclick="openSidebar('190_Estwald Brigands',false)"><button class="flip-btn" onclick="imgFlip('190_Estwald Brigands')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/18_Geist Marshal.png" id="18_Geist Marshal" data-flag="@X" onclick="openSidebar('18_Geist Marshal',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/55_Drogskol Retainer_back.png" alt="/sets/IWH-files/img/55_Drogskol Retainer_front.png" id="55_Drogskol Retainer" data-flag="@XD" onclick="openSidebar('55_Drogskol Retainer',false)"><button class="flip-btn" onclick="imgFlip('55_Drogskol Retainer')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/99_Captain Faulmorr.png" id="99_Captain Faulmorr" data-flag="@X" onclick="openSidebar('99_Captain Faulmorr',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/155_Geistblaster's Breakthrough.png" id="155_Geistblasters Breakthrough" data-flag="@X" onclick="openSidebar('155_Geistblasters Breakthrough',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/192_Gavony Watchman.png" id="192_Gavony Watchman" data-flag="@X" onclick="openSidebar('192_Gavony Watchman',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/21_Heron's Grace Rescuer.png" id="21_Herons Grace Rescuer" data-flag="@X" onclick="openSidebar('21_Herons Grace Rescuer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/63_Havengul Prodigy.png" id="63_Havengul Prodigy" data-flag="@X" onclick="openSidebar('63_Havengul Prodigy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/102_Curse of the Unlucky Thirteenth.png" id="102_Curse of the Unlucky Thirteenth" data-flag="@X" onclick="openSidebar('102_Curse of the Unlucky Thirteenth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/156_Gorehowl Abomination.png" id="156_Gorehowl Abomination" data-flag="@X" onclick="openSidebar('156_Gorehowl Abomination',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/194_Griffin's Blessing.png" id="194_Griffins Blessing" data-flag="@X" onclick="openSidebar('194_Griffins Blessing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/23_Inciting Gossip.png" id="23_Inciting Gossip" data-flag="@X" onclick="openSidebar('23_Inciting Gossip',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/65_Herghast, Niblis Magister.png" id="65_Herghast, Niblis Magister" data-flag="@X" onclick="openSidebar('65_Herghast, Niblis Magister',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/106_Drawn to Blasphemy_back.png" alt="/sets/IWH-files/img/106_Drawn to Blasphemy_front.png" id="106_Drawn to Blasphemy" data-flag="@XD" onclick="openSidebar('106_Drawn to Blasphemy',false)"><button class="flip-btn" onclick="imgFlip('106_Drawn to Blasphemy')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/161_The Haunting of Silbern.png" id="161_The Haunting of Silbern" data-flag="@X" onclick="openSidebar('161_The Haunting of Silbern',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/196_Harvesttide Procession.png" id="196_Harvesttide Procession" data-flag="@X" onclick="openSidebar('196_Harvesttide Procession',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/35_Restoring Presence.png" id="35_Restoring Presence" data-flag="@X" onclick="openSidebar('35_Restoring Presence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/78_Secrets of the Forbidden.png" id="78_Secrets of the Forbidden" data-flag="@X" onclick="openSidebar('78_Secrets of the Forbidden',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/110_Gravebutcher.png" id="110_Gravebutcher" data-flag="@X" onclick="openSidebar('110_Gravebutcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/167_Olivia's Debauchery.png" id="167_Olivias Debauchery" data-flag="@X" onclick="openSidebar('167_Olivias Debauchery',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/201_Kessig Wildtracker.png" id="201_Kessig Wildtracker" data-flag="@X" onclick="openSidebar('201_Kessig Wildtracker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/42_Thalia, the Guiding Blade.png" id="42_Thalia, the Guiding Blade" data-flag="@X" onclick="openSidebar('42_Thalia, the Guiding Blade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/81_Subsuming Sludge.png" id="81_Subsuming Sludge" data-flag="@X" onclick="openSidebar('81_Subsuming Sludge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/111_Horrific Stitching.png" id="111_Horrific Stitching" data-flag="@X" onclick="openSidebar('111_Horrific Stitching',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/168_Profane Invoker_back.png" alt="/sets/IWH-files/img/168_Profane Invoker_front.png" id="168_Profane Invoker" data-flag="@XD" onclick="openSidebar('168_Profane Invoker',false)"><button class="flip-btn" onclick="imgFlip('168_Profane Invoker')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/203_Malignant Entangler.png" id="203_Malignant Entangler" data-flag="@X" onclick="openSidebar('203_Malignant Entangler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/43_Thalia's Charm.png" id="43_Thalias Charm" data-flag="@X" onclick="openSidebar('43_Thalias Charm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/82_Thing from the Deep.png" id="82_Thing from the Deep" data-flag="@X" onclick="openSidebar('82_Thing from the Deep',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/114_Indulgent Patrician.png" id="114_Indulgent Patrician" data-flag="@X" onclick="openSidebar('114_Indulgent Patrician',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/176_Tempting Puzzlebox_back.png" alt="/sets/IWH-files/img/176_Tempting Puzzlebox_front.png" id="176_Tempting Puzzlebox" data-flag="@XD" onclick="openSidebar('176_Tempting Puzzlebox',false)"><button class="flip-btn" onclick="imgFlip('176_Tempting Puzzlebox')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/213_The Ulvenvater.png" id="213_The Ulvenvater" data-flag="@X" onclick="openSidebar('213_The Ulvenvater',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/46_Westvale Cult Induction_back.png" alt="/sets/IWH-files/img/46_Westvale Cult Induction_front.png" id="46_Westvale Cult Induction" data-flag="@XD" onclick="openSidebar('46_Westvale Cult Induction',false)"><button class="flip-btn" onclick="imgFlip('46_Westvale Cult Induction')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/86_Unstable Masterpiece.png" id="86_Unstable Masterpiece" data-flag="@X" onclick="openSidebar('86_Unstable Masterpiece',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/116_Markov Imperator.png" id="116_Markov Imperator" data-flag="@X" onclick="openSidebar('116_Markov Imperator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/177_Thirsting Duelist.png" id="177_Thirsting Duelist" data-flag="@X" onclick="openSidebar('177_Thirsting Duelist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/214_Vile Resurgence.png" id="214_Vile Resurgence" data-flag="@X" onclick="openSidebar('214_Vile Resurgence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/6_Blessings of a New Spring.png" id="6_Blessings of a New Spring" data-flag="@X" onclick="openSidebar('6_Blessings of a New Spring',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/50_Cultist of the Drowntide.png" id="50_Cultist of the Drowntide" data-flag="@X" onclick="openSidebar('50_Cultist of the Drowntide',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/90_Ambitious Necrologist.png" id="90_Ambitious Necrologist" data-flag="@X" onclick="openSidebar('90_Ambitious Necrologist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/135_Ashmouth Intruders.png" id="135_Ashmouth Intruders" data-flag="@X" onclick="openSidebar('135_Ashmouth Intruders',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/178_Arlinn's Kindred.png" id="178_Arlinns Kindred" data-flag="@X" onclick="openSidebar('178_Arlinns Kindred',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/10_Crofter's Charm.png" id="10_Crofters Charm" data-flag="@X" onclick="openSidebar('10_Crofters Charm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/51_Curse of Insidious Thoughts.png" id="51_Curse of Insidious Thoughts" data-flag="@X" onclick="openSidebar('51_Curse of Insidious Thoughts',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/92_Anje's Thirst.png" id="92_Anjes Thirst" data-flag="@X" onclick="openSidebar('92_Anjes Thirst',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/137_Bleeding Tithe.png" id="137_Bleeding Tithe" data-flag="@X" onclick="openSidebar('137_Bleeding Tithe',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/182_Chainbreaker Alpha.png" id="182_Chainbreaker Alpha" data-flag="@X" onclick="openSidebar('182_Chainbreaker Alpha',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/11_Curse of Eerie Streets.png" id="11_Curse of Eerie Streets" data-flag="@X" onclick="openSidebar('11_Curse of Eerie Streets',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/54_Drogskol Duelist.png" id="54_Drogskol Duelist" data-flag="@X" onclick="openSidebar('54_Drogskol Duelist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/95_Bloodsire's Herald.png" id="95_Bloodsires Herald" data-flag="@X" onclick="openSidebar('95_Bloodsires Herald',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/138_Bloodspill Ruffian_back.png" alt="/sets/IWH-files/img/138_Bloodspill Ruffian_front.png" id="138_Bloodspill Ruffian" data-flag="@XD" onclick="openSidebar('138_Bloodspill Ruffian',false)"><button class="flip-btn" onclick="imgFlip('138_Bloodspill Ruffian')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/183_Consuming Grounds_back.png" alt="/sets/IWH-files/img/183_Consuming Grounds_front.png" id="183_Consuming Grounds" data-flag="@XD" onclick="openSidebar('183_Consuming Grounds',false)"><button class="flip-btn" onclick="imgFlip('183_Consuming Grounds')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/13_Dawnsmite Cavalier.png" id="13_Dawnsmite Cavalier" data-flag="@X" onclick="openSidebar('13_Dawnsmite Cavalier',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/60_Grand Necrotect.png" id="60_Grand Necrotect" data-flag="@X" onclick="openSidebar('60_Grand Necrotect',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/101_Curse of Profane Offerings.png" id="101_Curse of Profane Offerings" data-flag="@X" onclick="openSidebar('101_Curse of Profane Offerings',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/141_Claret Ascendance.png" id="141_Claret Ascendance" data-flag="@X" onclick="openSidebar('141_Claret Ascendance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/186_Dawnhart Shepherd.png" id="186_Dawnhart Shepherd" data-flag="@X" onclick="openSidebar('186_Dawnhart Shepherd',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/14_Departed Duelist.png" id="14_Departed Duelist" data-flag="@X" onclick="openSidebar('14_Departed Duelist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/62_Grizzled Pyro-Alchemist.png" id="62_Grizzled Pyro-Alchemist" data-flag="@X" onclick="openSidebar('62_Grizzled Pyro-Alchemist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/103_Darkthicket Hermit.png" id="103_Darkthicket Hermit" data-flag="@X" onclick="openSidebar('103_Darkthicket Hermit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/145_Curse of Devilish Ire.png" id="145_Curse of Devilish Ire" data-flag="@X" onclick="openSidebar('145_Curse of Devilish Ire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/187_Descent of the Fog.png" id="187_Descent of the Fog" data-flag="@X" onclick="openSidebar('187_Descent of the Fog',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/15_Devilthorn Hunter.png" id="15_Devilthorn Hunter" data-flag="@X" onclick="openSidebar('15_Devilthorn Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/67_Learn the Steps.png" id="67_Learn the Steps" data-flag="@X" onclick="openSidebar('67_Learn the Steps',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/105_Dirge of the Drowned.png" id="105_Dirge of the Drowned" data-flag="@X" onclick="openSidebar('105_Dirge of the Drowned',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/147_Devil's Breach Prowler.png" id="147_Devils Breach Prowler" data-flag="@X" onclick="openSidebar('147_Devils Breach Prowler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/195_Hamlet Guardians.png" id="195_Hamlet Guardians" data-flag="@X" onclick="openSidebar('195_Hamlet Guardians',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/20_Heronblade Vanguard.png" id="20_Heronblade Vanguard" data-flag="@X" onclick="openSidebar('20_Heronblade Vanguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/73_Phantasmal Assailance.png" id="73_Phantasmal Assailance" data-flag="@X" onclick="openSidebar('73_Phantasmal Assailance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/107_Farbog Invocation.png" id="107_Farbog Invocation" data-flag="@X" onclick="openSidebar('107_Farbog Invocation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/150_Feasting Ceremony.png" id="150_Feasting Ceremony" data-flag="@X" onclick="openSidebar('150_Feasting Ceremony',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/200_Kessig Pathkeeper_back.png" alt="/sets/IWH-files/img/200_Kessig Pathkeeper_front.png" id="200_Kessig Pathkeeper" data-flag="@XD" onclick="openSidebar('200_Kessig Pathkeeper',false)"><button class="flip-btn" onclick="imgFlip('200_Kessig Pathkeeper')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/22_Hollowhenge Martyr.png" id="22_Hollowhenge Martyr" data-flag="@X" onclick="openSidebar('22_Hollowhenge Martyr',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/74_Plunder the Grafs.png" id="74_Plunder the Grafs" data-flag="@X" onclick="openSidebar('74_Plunder the Grafs',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/113_Illicit Mortician.png" id="113_Illicit Mortician" data-flag="@X" onclick="openSidebar('113_Illicit Mortician',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/154_Gatstaf Butcher_back.png" alt="/sets/IWH-files/img/154_Gatstaf Butcher_front.png" id="154_Gatstaf Butcher" data-flag="@XD" onclick="openSidebar('154_Gatstaf Butcher',false)"><button class="flip-btn" onclick="imgFlip('154_Gatstaf Butcher')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/206_Secluded Recluse_back.png" alt="/sets/IWH-files/img/206_Secluded Recluse_front.png" id="206_Secluded Recluse" data-flag="@XD" onclick="openSidebar('206_Secluded Recluse',false)"><button class="flip-btn" onclick="imgFlip('206_Secluded Recluse')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/30_Ominous Marionette.png" id="30_Ominous Marionette" data-flag="@X" onclick="openSidebar('30_Ominous Marionette',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/75_Rancid Practitioner.png" id="75_Rancid Practitioner" data-flag="@X" onclick="openSidebar('75_Rancid Practitioner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/115_It's Alive!.png" id="115_Its Alive!" data-flag="@X" onclick="openSidebar('115_Its Alive!',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/160_Haughty Connoisseur.png" id="160_Haughty Connoisseur" data-flag="@X" onclick="openSidebar('160_Haughty Connoisseur',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/209_Sporecyst Toad.png" id="209_Sporecyst Toad" data-flag="@X" onclick="openSidebar('209_Sporecyst Toad',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/31_Parish Slayer.png" id="31_Parish Slayer" data-flag="@X" onclick="openSidebar('31_Parish Slayer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/77_Scourge of Drunau Port.png" id="77_Scourge of Drunau Port" data-flag="@X" onclick="openSidebar('77_Scourge of Drunau Port',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/122_Ravenous Attendant.png" id="122_Ravenous Attendant" data-flag="@X" onclick="openSidebar('122_Ravenous Attendant',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/164_Hinterland Bandits_back.png" alt="/sets/IWH-files/img/164_Hinterland Bandits_front.png" id="164_Hinterland Bandits" data-flag="@XD" onclick="openSidebar('164_Hinterland Bandits',false)"><button class="flip-btn" onclick="imgFlip('164_Hinterland Bandits')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/211_Tovolar's Ambush.png" id="211_Tovolars Ambush" data-flag="@X" onclick="openSidebar('211_Tovolars Ambush',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/33_Practiced Occultist.png" id="33_Practiced Occultist" data-flag="@X" onclick="openSidebar('33_Practiced Occultist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/79_Spectral Insurgent.png" id="79_Spectral Insurgent" data-flag="@X" onclick="openSidebar('79_Spectral Insurgent',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/126_Shambling Rotcap.png" id="126_Shambling Rotcap" data-flag="@X" onclick="openSidebar('126_Shambling Rotcap',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/166_Nightpack Alpha.png" id="166_Nightpack Alpha" data-flag="@X" onclick="openSidebar('166_Nightpack Alpha',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/216_Wald-Cottage Crone_back.png" alt="/sets/IWH-files/img/216_Wald-Cottage Crone_front.png" id="216_Wald-Cottage Crone" data-flag="@XD" onclick="openSidebar('216_Wald-Cottage Crone',false)"><button class="flip-btn" onclick="imgFlip('216_Wald-Cottage Crone')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/34_Prayer of Banishing.png" id="34_Prayer of Banishing" data-flag="@X" onclick="openSidebar('34_Prayer of Banishing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/87_Unwelcome Host.png" id="87_Unwelcome Host" data-flag="@X" onclick="openSidebar('87_Unwelcome Host',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/130_Suspicious Carriage_back.png" alt="/sets/IWH-files/img/130_Suspicious Carriage_front.png" id="130_Suspicious Carriage" data-flag="@XD" onclick="openSidebar('130_Suspicious Carriage',false)"><button class="flip-btn" onclick="imgFlip('130_Suspicious Carriage')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/171_Sanguinary Hexcaster.png" id="171_Sanguinary Hexcaster" data-flag="@X" onclick="openSidebar('171_Sanguinary Hexcaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/179_Backroads Intrusion.png" id="179_Backroads Intrusion" data-flag="@X" onclick="openSidebar('179_Backroads Intrusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/36_Ritual Preparations.png" id="36_Ritual Preparations" data-flag="@X" onclick="openSidebar('36_Ritual Preparations',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/53_Distill Essence.png" id="53_Distill Essence" data-flag="@X" onclick="openSidebar('53_Distill Essence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/132_Voldaren Magister.png" id="132_Voldaren Magister" data-flag="@X" onclick="openSidebar('132_Voldaren Magister',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/172_Silverflame Cathar.png" id="172_Silverflame Cathar" data-flag="@X" onclick="openSidebar('172_Silverflame Cathar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/180_Bloodtrail Reclaimer.png" id="180_Bloodtrail Reclaimer" data-flag="@X" onclick="openSidebar('180_Bloodtrail Reclaimer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/39_Saintly Embrace.png" id="39_Saintly Embrace" data-flag="@X" onclick="openSidebar('39_Saintly Embrace',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/56_Enthralled Alchemist_back.png" alt="/sets/IWH-files/img/56_Enthralled Alchemist_front.png" id="56_Enthralled Alchemist" data-flag="@XD" onclick="openSidebar('56_Enthralled Alchemist',false)"><button class="flip-btn" onclick="imgFlip('56_Enthralled Alchemist')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/94_Bittersweet Parting.png" id="94_Bittersweet Parting" data-flag="@X" onclick="openSidebar('94_Bittersweet Parting',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/136_Ashmouth Wolf.png" id="136_Ashmouth Wolf" data-flag="@X" onclick="openSidebar('136_Ashmouth Wolf',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/185_Dawnhart Familiar.png" id="185_Dawnhart Familiar" data-flag="@X" onclick="openSidebar('185_Dawnhart Familiar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/2_Angelic Purge.png" id="2_Angelic Purge" data-flag="@X" onclick="openSidebar('2_Angelic Purge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/57_Geist of the Erdwal Road.png" id="57_Geist of the Erdwal Road" data-flag="@X" onclick="openSidebar('57_Geist of the Erdwal Road',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/97_Bounty of the Dead.png" id="97_Bounty of the Dead" data-flag="@X" onclick="openSidebar('97_Bounty of the Dead',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/139_Bloody Indulgence.png" id="139_Bloody Indulgence" data-flag="@X" onclick="openSidebar('139_Bloody Indulgence',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/189_Dire-Strain Imbuer_back.png" alt="/sets/IWH-files/img/189_Dire-Strain Imbuer_front.png" id="189_Dire-Strain Imbuer" data-flag="@XD" onclick="openSidebar('189_Dire-Strain Imbuer',false)"><button class="flip-btn" onclick="imgFlip('189_Dire-Strain Imbuer')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/3_Bewitching Hagmother.png" id="3_Bewitching Hagmother" data-flag="@X" onclick="openSidebar('3_Bewitching Hagmother',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/58_Geist Researcher_back.png" alt="/sets/IWH-files/img/58_Geist Researcher_front.png" id="58_Geist Researcher" data-flag="@XD" onclick="openSidebar('58_Geist Researcher',false)"><button class="flip-btn" onclick="imgFlip('58_Geist Researcher')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/98_Callous Killer_back.png" alt="/sets/IWH-files/img/98_Callous Killer_front.png" id="98_Callous Killer" data-flag="@XD" onclick="openSidebar('98_Callous Killer',false)"><button class="flip-btn" onclick="imgFlip('98_Callous Killer')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/140_Cackling Pyromaniac_back.png" alt="/sets/IWH-files/img/140_Cackling Pyromaniac_front.png" id="140_Cackling Pyromaniac" data-flag="@XD" onclick="openSidebar('140_Cackling Pyromaniac',false)"><button class="flip-btn" onclick="imgFlip('140_Cackling Pyromaniac')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/191_Foray into Stensia.png" id="191_Foray into Stensia" data-flag="@X" onclick="openSidebar('191_Foray into Stensia',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/5_Bleachbark Dryad.png" id="5_Bleachbark Dryad" data-flag="@X" onclick="openSidebar('5_Bleachbark Dryad',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/59_Geralf's Breakthrough.png" id="59_Geralfs Breakthrough" data-flag="@X" onclick="openSidebar('59_Geralfs Breakthrough',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/100_Cornered by the Dead.png" id="100_Cornered by the Dead" data-flag="@X" onclick="openSidebar('100_Cornered by the Dead',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/144_Covetous Initiate.png" id="144_Covetous Initiate" data-flag="@X" onclick="openSidebar('144_Covetous Initiate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/193_Gitrog's Spawn.png" id="193_Gitrogs Spawn" data-flag="@X" onclick="openSidebar('193_Gitrogs Spawn',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/7_Cathar's Charm.png" id="7_Cathars Charm" data-flag="@X" onclick="openSidebar('7_Cathars Charm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/61_Gravestitched Fledgling.png" id="61_Gravestitched Fledgling" data-flag="@X" onclick="openSidebar('61_Gravestitched Fledgling',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/104_Deranged Ravager.png" id="104_Deranged Ravager" data-flag="@X" onclick="openSidebar('104_Deranged Ravager',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/148_Erdwal Fangseeker.png" id="148_Erdwal Fangseeker" data-flag="@X" onclick="openSidebar('148_Erdwal Fangseeker',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/197_Harvestwood Effigy_back.png" alt="/sets/IWH-files/img/197_Harvestwood Effigy_front.png" id="197_Harvestwood Effigy" data-flag="@XD" onclick="openSidebar('197_Harvestwood Effigy',false)"><button class="flip-btn" onclick="imgFlip('197_Harvestwood Effigy')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/8_Chapel Soulguide.png" id="8_Chapel Soulguide" data-flag="@X" onclick="openSidebar('8_Chapel Soulguide',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/64_Herald of Krothus.png" id="64_Herald of Krothus" data-flag="@X" onclick="openSidebar('64_Herald of Krothus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/108_Festering Rats.png" id="108_Festering Rats" data-flag="@X" onclick="openSidebar('108_Festering Rats',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/149_Falkenrath Executor.png" id="149_Falkenrath Executor" data-flag="@X" onclick="openSidebar('149_Falkenrath Executor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/198_Hope's Trail Pilgrim.png" id="198_Hopes Trail Pilgrim" data-flag="@X" onclick="openSidebar('198_Hopes Trail Pilgrim',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/17_Gavony Trapper.png" id="17_Gavony Trapper" data-flag="@X" onclick="openSidebar('17_Gavony Trapper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/66_Hulking Horror.png" id="66_Hulking Horror" data-flag="@X" onclick="openSidebar('66_Hulking Horror',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/112_Hungering Assembly.png" id="112_Hungering Assembly" data-flag="@X" onclick="openSidebar('112_Hungering Assembly',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/152_Feudrach's Hunger.png" id="152_Feudrachs Hunger" data-flag="@X" onclick="openSidebar('152_Feudrachs Hunger',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/202_Looming Grafspider.png" id="202_Looming Grafspider" data-flag="@X" onclick="openSidebar('202_Looming Grafspider',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/19_Haunted Doll.png" id="19_Haunted Doll" data-flag="@X" onclick="openSidebar('19_Haunted Doll',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/68_Looming Presence.png" id="68_Looming Presence" data-flag="@X" onclick="openSidebar('68_Looming Presence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/117_Mortis Infusion.png" id="117_Mortis Infusion" data-flag="@X" onclick="openSidebar('117_Mortis Infusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/153_Full-Moon Assault.png" id="153_Full-Moon Assault" data-flag="@X" onclick="openSidebar('153_Full-Moon Assault',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/205_Rabid Mauling.png" id="205_Rabid Mauling" data-flag="@X" onclick="openSidebar('205_Rabid Mauling',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/24_Lumberjack's Axe.png" id="24_Lumberjacks Axe" data-flag="@X" onclick="openSidebar('24_Lumberjacks Axe',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/69_March of the Drowntide.png" id="69_March of the Drowntide" data-flag="@X" onclick="openSidebar('69_March of the Drowntide',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/118_Ossuary Guardian_back.png" alt="/sets/IWH-files/img/118_Ossuary Guardian_front.png" id="118_Ossuary Guardian" data-flag="@XD" onclick="openSidebar('118_Ossuary Guardian',false)"><button class="flip-btn" onclick="imgFlip('118_Ossuary Guardian')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/157_Goremare.png" id="157_Goremare" data-flag="@X" onclick="openSidebar('157_Goremare',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/207_Somberwald Boar_back.png" alt="/sets/IWH-files/img/207_Somberwald Boar_front.png" id="207_Somberwald Boar" data-flag="@XD" onclick="openSidebar('207_Somberwald Boar',false)"><button class="flip-btn" onclick="imgFlip('207_Somberwald Boar')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/25_Moonrapture.png" id="25_Moonrapture" data-flag="@X" onclick="openSidebar('25_Moonrapture',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/72_Nightfright.png" id="72_Nightfright" data-flag="@X" onclick="openSidebar('72_Nightfright',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/119_Overfueled Abomination.png" id="119_Overfueled Abomination" data-flag="@X" onclick="openSidebar('119_Overfueled Abomination',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/159_Guardpost Sentries_back.png" alt="/sets/IWH-files/img/159_Guardpost Sentries_front.png" id="159_Guardpost Sentries" data-flag="@XD" onclick="openSidebar('159_Guardpost Sentries',false)"><button class="flip-btn" onclick="imgFlip('159_Guardpost Sentries')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/208_Speaker of Ghrin-Danu.png" id="208_Speaker of Ghrin-Danu" data-flag="@X" onclick="openSidebar('208_Speaker of Ghrin-Danu',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/27_Moorhaunt Disciples.png" id="27_Moorhaunt Disciples" data-flag="@X" onclick="openSidebar('27_Moorhaunt Disciples',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/76_Scions of Flesh and Spirit.png" id="76_Scions of Flesh and Spirit" data-flag="@X" onclick="openSidebar('76_Scions of Flesh and Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/120_Overlord of Ashmouth.png" id="120_Overlord of Ashmouth" data-flag="@X" onclick="openSidebar('120_Overlord of Ashmouth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/162_Hedonistic Revelry.png" id="162_Hedonistic Revelry" data-flag="@X" onclick="openSidebar('162_Hedonistic Revelry',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/210_Stewards of Ulvenwald_back.png" alt="/sets/IWH-files/img/210_Stewards of Ulvenwald_front.png" id="210_Stewards of Ulvenwald" data-flag="@XD" onclick="openSidebar('210_Stewards of Ulvenwald',false)"><button class="flip-btn" onclick="imgFlip('210_Stewards of Ulvenwald')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/28_Mournwraith.png" id="28_Mournwraith" data-flag="@X" onclick="openSidebar('28_Mournwraith',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/80_Storms over Nephalia.png" id="80_Storms over Nephalia" data-flag="@X" onclick="openSidebar('80_Storms over Nephalia',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/121_Profane Sustenance.png" id="121_Profane Sustenance" data-flag="@X" onclick="openSidebar('121_Profane Sustenance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/163_Herald of Ashmouth.png" id="163_Herald of Ashmouth" data-flag="@X" onclick="openSidebar('163_Herald of Ashmouth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/212_Tovolar's Proclamation.png" id="212_Tovolars Proclamation" data-flag="@X" onclick="openSidebar('212_Tovolars Proclamation',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/32_Pious Friar_back.png" alt="/sets/IWH-files/img/32_Pious Friar_front.png" id="32_Pious Friar" data-flag="@XD" onclick="openSidebar('32_Pious Friar',false)"><button class="flip-btn" onclick="imgFlip('32_Pious Friar')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/83_Thought Scour.png" id="83_Thought Scour" data-flag="@X" onclick="openSidebar('83_Thought Scour',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/123_Rotjaw Predator.png" id="123_Rotjaw Predator" data-flag="@X" onclick="openSidebar('123_Rotjaw Predator',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/165_Moonlight Firemaker_back.png" alt="/sets/IWH-files/img/165_Moonlight Firemaker_front.png" id="165_Moonlight Firemaker" data-flag="@XD" onclick="openSidebar('165_Moonlight Firemaker',false)"><button class="flip-btn" onclick="imgFlip('165_Moonlight Firemaker')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/215_Village Bruiser_back.png" alt="/sets/IWH-files/img/215_Village Bruiser_front.png" id="215_Village Bruiser" data-flag="@XD" onclick="openSidebar('215_Village Bruiser',false)"><button class="flip-btn" onclick="imgFlip('215_Village Bruiser')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/37_Sacred Stag_back.png" alt="/sets/IWH-files/img/37_Sacred Stag_front.png" id="37_Sacred Stag" data-flag="@XD" onclick="openSidebar('37_Sacred Stag',false)"><button class="flip-btn" onclick="imgFlip('37_Sacred Stag')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/84_Tormented Bride.png" id="84_Tormented Bride" data-flag="@X" onclick="openSidebar('84_Tormented Bride',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/124_Sacrificial Lamb.png" id="124_Sacrificial Lamb" data-flag="@X" onclick="openSidebar('124_Sacrificial Lamb',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/169_Ravenous Companions.png" id="169_Ravenous Companions" data-flag="@X" onclick="openSidebar('169_Ravenous Companions',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/217_Waldshadow Ambusher.png" id="217_Waldshadow Ambusher" data-flag="@X" onclick="openSidebar('217_Waldshadow Ambusher',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/38_Saint-Blessed Priest.png" id="38_Saint-Blessed Priest" data-flag="@X" onclick="openSidebar('38_Saint-Blessed Priest',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/85_Trapped in the Mirror.png" id="85_Trapped in the Mirror" data-flag="@X" onclick="openSidebar('85_Trapped in the Mirror',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/125_Scorned Zombie.png" id="125_Scorned Zombie" data-flag="@X" onclick="openSidebar('125_Scorned Zombie',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/170_Russetpack Predator.png" id="170_Russetpack Predator" data-flag="@X" onclick="openSidebar('170_Russetpack Predator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/218_Watching the Trails.png" id="218_Watching the Trails" data-flag="@X" onclick="openSidebar('218_Watching the Trails',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/40_Sigardian Gryffknight.png" id="40_Sigardian Gryffknight" data-flag="@X" onclick="openSidebar('40_Sigardian Gryffknight',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/88_Wailing Apparition.png" id="88_Wailing Apparition" data-flag="@X" onclick="openSidebar('88_Wailing Apparition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/128_Sorin's Yearning.png" id="128_Sorins Yearning" data-flag="@X" onclick="openSidebar('128_Sorins Yearning',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/173_Stain with Crimson.png" id="173_Stain with Crimson" data-flag="@X" onclick="openSidebar('173_Stain with Crimson',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/219_Wilderhunt Companions.png" id="219_Wilderhunt Companions" data-flag="@X" onclick="openSidebar('219_Wilderhunt Companions',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/41_Spectral Salvation.png" id="41_Spectral Salvation" data-flag="@X" onclick="openSidebar('41_Spectral Salvation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/89_Wretched Experiment.png" id="89_Wretched Experiment" data-flag="@X" onclick="openSidebar('89_Wretched Experiment',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/129_Stromkirk Vanguard.png" id="129_Stromkirk Vanguard" data-flag="@X" onclick="openSidebar('129_Stromkirk Vanguard',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/174_Stormbrewer Alchemist_back.png" alt="/sets/IWH-files/img/174_Stormbrewer Alchemist_front.png" id="174_Stormbrewer Alchemist" data-flag="@XD" onclick="openSidebar('174_Stormbrewer Alchemist',false)"><button class="flip-btn" onclick="imgFlip('174_Stormbrewer Alchemist')"></button></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/44_Thalia's Skill.png" id="44_Thalias Skill" data-flag="@X" onclick="openSidebar('44_Thalias Skill',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/131_Thirsty Work.png" id="131_Thirsty Work" data-flag="@X" onclick="openSidebar('131_Thirsty Work',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/175_Stromkirk Warlord.png" id="175_Stromkirk Warlord" data-flag="@X" onclick="openSidebar('175_Stromkirk Warlord',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/45_Thraben Stalwart.png" id="45_Thraben Stalwart" data-flag="@X" onclick="openSidebar('45_Thraben Stalwart',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/255_Traft, Aiding the Worthy.png" id="255_Traft, Aiding the Worthy" data-flag="@X" onclick="openSidebar('255_Traft, Aiding the Worthy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/224_The Collabomination.png" id="224_The Collabomination" data-flag="@X" onclick="openSidebar('224_The Collabomination',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/242_Olivia, Sanguine Reveler.png" id="242_Olivia, Sanguine Reveler" data-flag="@X" onclick="openSidebar('242_Olivia, Sanguine Reveler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/253_Tovolar Wolfbound.png" id="253_Tovolar Wolfbound" data-flag="@X" onclick="openSidebar('253_Tovolar Wolfbound',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/249_Sigarda, Hope's Accord.png" id="249_Sigarda, Hopes Accord" data-flag="@X" onclick="openSidebar('249_Sigarda, Hopes Accord',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/227_Desperate Exorcism.png" id="227_Desperate Exorcism" data-flag="@X" onclick="openSidebar('227_Desperate Exorcism',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/222_Beckon the Drowntide.png" id="222_Beckon the Drowntide" data-flag="@X" onclick="openSidebar('222_Beckon the Drowntide',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/223_Blood Bank.png" id="223_Blood Bank" data-flag="@X" onclick="openSidebar('223_Blood Bank',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/237_Hour of the Wolf.png" id="237_Hour of the Wolf" data-flag="@X" onclick="openSidebar('237_Hour of the Wolf',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/226_Dawnheart Augur.png" id="226_Dawnheart Augur" data-flag="@X" onclick="openSidebar('226_Dawnheart Augur',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/252_Tethered Fettergeists.png" id="252_Tethered Fettergeists" data-flag="@X" onclick="openSidebar('252_Tethered Fettergeists',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/241_Nephalia Heartsewer.png" id="241_Nephalia Heartsewer" data-flag="@X" onclick="openSidebar('241_Nephalia Heartsewer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/239_Insaitiable Elder.png" id="239_Insaitiable Elder" data-flag="@X" onclick="openSidebar('239_Insaitiable Elder',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/238_Huntmaster of the Fells_back.png" alt="/sets/IWH-files/img/238_Huntmaster of the Fells_front.png" id="238_Huntmaster of the Fells" data-flag="@XD" onclick="openSidebar('238_Huntmaster of the Fells',false)"><button class="flip-btn" onclick="imgFlip('238_Huntmaster of the Fells')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/236_Hope-Blessed Bow.png" id="236_Hope-Blessed Bow" data-flag="@X" onclick="openSidebar('236_Hope-Blessed Bow',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/235_Guide of Faith.png" id="235_Guide of Faith" data-flag="@X" onclick="openSidebar('235_Guide of Faith',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/220_Addled Psyche.png" id="220_Addled Psyche" data-flag="@X" onclick="openSidebar('220_Addled Psyche',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/229_Envoy of the Red Court.png" id="229_Envoy of the Red Court" data-flag="@X" onclick="openSidebar('229_Envoy of the Red Court',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/230_Fangrite Mistress_back.png" alt="/sets/IWH-files/img/230_Fangrite Mistress_front.png" id="230_Fangrite Mistress" data-flag="@XD" onclick="openSidebar('230_Fangrite Mistress',false)"><button class="flip-btn" onclick="imgFlip('230_Fangrite Mistress')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/221_Avacyn's Legacy.png" id="221_Avacyns Legacy" data-flag="@X" onclick="openSidebar('221_Avacyns Legacy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/246_Riding the Geistroads.png" id="246_Riding the Geistroads" data-flag="@X" onclick="openSidebar('246_Riding the Geistroads',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/250_Stonegraf Awakener.png" id="250_Stonegraf Awakener" data-flag="@X" onclick="openSidebar('250_Stonegraf Awakener',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/247_Sanguine Sacrament.png" id="247_Sanguine Sacrament" data-flag="@X" onclick="openSidebar('247_Sanguine Sacrament',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/240_Moonlit Revelry.png" id="240_Moonlit Revelry" data-flag="@X" onclick="openSidebar('240_Moonlit Revelry',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/234_Grizzled Ironwright.png" id="234_Grizzled Ironwright" data-flag="@X" onclick="openSidebar('234_Grizzled Ironwright',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/244_Preacher of Whispered Pains.png" id="244_Preacher of Whispered Pains" data-flag="@X" onclick="openSidebar('244_Preacher of Whispered Pains',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/IWH-files/img/243_Ominous Frogs_back.png" alt="/sets/IWH-files/img/243_Ominous Frogs_front.png" id="243_Ominous Frogs" data-flag="@XD" onclick="openSidebar('243_Ominous Frogs',false)"><button class="flip-btn" onclick="imgFlip('243_Ominous Frogs')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/231_Gnarlwood's Claim.png" id="231_Gnarlwoods Claim" data-flag="@X" onclick="openSidebar('231_Gnarlwoods Claim',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/232_Goldnight Purgeblade.png" id="232_Goldnight Purgeblade" data-flag="@X" onclick="openSidebar('232_Goldnight Purgeblade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/259_Winterthorn Creeper.png" id="259_Winterthorn Creeper" data-flag="@X" onclick="openSidebar('259_Winterthorn Creeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/248_Sermons of Ormendahl.png" id="248_Sermons of Ormendahl" data-flag="@X" onclick="openSidebar('248_Sermons of Ormendahl',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/258_Wildcaster Devils.png" id="258_Wildcaster Devils" data-flag="@X" onclick="openSidebar('258_Wildcaster Devils',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/233_Gravespore Guardian.png" id="233_Gravespore Guardian" data-flag="@X" onclick="openSidebar('233_Gravespore Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/228_Elgaud Dawnrider.png" id="228_Elgaud Dawnrider" data-flag="@X" onclick="openSidebar('228_Elgaud Dawnrider',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/225_Curse of Entomophobia.png" id="225_Curse of Entomophobia" data-flag="@X" onclick="openSidebar('225_Curse of Entomophobia',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/257_Westvale Adherant.png" id="257_Westvale Adherant" data-flag="@X" onclick="openSidebar('257_Westvale Adherant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/256_Unstable Experimentation.png" id="256_Unstable Experimentation" data-flag="@X" onclick="openSidebar('256_Unstable Experimentation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/254_Townblight Ooze.png" id="254_Townblight Ooze" data-flag="@X" onclick="openSidebar('254_Townblight Ooze',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/245_Rally to Thraben.png" id="245_Rally to Thraben" data-flag="@X" onclick="openSidebar('245_Rally to Thraben',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/251_Teeming Secrets.png" id="251_Teeming Secrets" data-flag="@X" onclick="openSidebar('251_Teeming Secrets',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/272_Odric, Accursed Slayer.png" id="272_Odric, Accursed Slayer" data-flag="@X" onclick="openSidebar('272_Odric, Accursed Slayer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/1_Emrakul, Visage of Gore.png" id="1_Emrakul, Visage of Gore" data-flag="@X" onclick="openSidebar('1_Emrakul, Visage of Gore',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/260_Fleshwrithe Apparatus.png" id="260_Fleshwrithe Apparatus" data-flag="@X" onclick="openSidebar('260_Fleshwrithe Apparatus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/261_Harvesttide Effigies.png" id="261_Harvesttide Effigies" data-flag="@X" onclick="openSidebar('261_Harvesttide Effigies',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/262_Tarnished Swordsuit.png" id="262_Tarnished Swordsuit" data-flag="@X" onclick="openSidebar('262_Tarnished Swordsuit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/263_Thirsting Dagger.png" id="263_Thirsting Dagger" data-flag="@X" onclick="openSidebar('263_Thirsting Dagger',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/264_Wolf-Fang Talisman.png" id="264_Wolf-Fang Talisman" data-flag="@X" onclick="openSidebar('264_Wolf-Fang Talisman',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/267_Desolate Garrison.png" id="267_Desolate Garrison" data-flag="@X" onclick="openSidebar('267_Desolate Garrison',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/268_Desolate Harbor.png" id="268_Desolate Harbor" data-flag="@X" onclick="openSidebar('268_Desolate Harbor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/266_Desolate Cemetery.png" id="266_Desolate Cemetery" data-flag="@X" onclick="openSidebar('266_Desolate Cemetery',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/269_Desolate Pinnacle.png" id="269_Desolate Pinnacle" data-flag="@X" onclick="openSidebar('269_Desolate Pinnacle',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/270_Desolate Thicket.png" id="270_Desolate Thicket" data-flag="@X" onclick="openSidebar('270_Desolate Thicket',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/265_Abandoned Memorial.png" id="265_Abandoned Memorial" data-flag="@X" onclick="openSidebar('265_Abandoned Memorial',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/IWH-files/img/271_Secluded Courtyard.png" id="271_Secluded Courtyard" data-flag="@X" onclick="openSidebar('271_Secluded Courtyard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL('search', window.location.origin);
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL('card', window.location.origin);
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url;
+			}
+	</script>
+</body>
+</html>

@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="/sets/OPZ-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>OPZ visual preview</title>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('/resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('/img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('/img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('/img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('/img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/OPZ-files/logo.png" />
+	<img class="preload-hidden" src="/sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="/sets/GOD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/IVP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/IWH-files/icon.png" />
+		<img class="preload-hidden" src="/sets/LIP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ORC-files/icon.png" />
+		<img class="preload-hidden" src="/sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PRK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/UND-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VYI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WCD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WOO-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="OPZ"><img src="/sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="F2HU"><img src="/sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="GOD"><img src="/sets/GOD-files/icon.png">Godspine</a>
+	
+		<a class="set-bar inactive" href="IVP"><img src="/sets/IVP-files/icon.png">Invalid Precedent</a>
+	
+		<a class="set-bar inactive" href="IWH"><img src="/sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		<a class="set-bar inactive" href="LIP"><img src="/sets/LIP-files/icon.png">Lost in Place</a>
+	
+		<a class="set-bar inactive" href="ORC"><img src="/sets/ORC-files/icon.png">An Oddness in the River Cities</a>
+	
+		<a class="set-bar inactive" href="ORD"><img src="/sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="POP2"><img src="/sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="PRK"><img src="/sets/PRK-files/icon.png">Prakhma</a>
+	
+		<a class="set-bar inactive" href="RNF"><img src="/sets/RNF-files/icon.png">Ravnica Fractured</a>
+	
+		<a class="set-bar inactive" href="RPGM"><img src="/sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="SGP"><img src="/sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="SOL"><img src="/sets/SOL-files/icon.png">Solastere</a>
+	
+		<a class="set-bar inactive" href="TGS"><img src="/sets/TGS-files/icon.png">Tales from the Grave in Space</a>
+	
+		<a class="set-bar inactive" href="UND"><img src="/sets/UND-files/icon.png">The Underhalls</a>
+	
+		<a class="set-bar inactive" href="VLR"><img src="/sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="VYI"><img src="/sets/VYI-files/icon.png">Valdrasil: Voyage to Infinity</a>
+	
+		<a class="set-bar inactive" href="WCD"><img src="/sets/WCD-files/icon.png">Wroszy’s Circus of Darkness</a>
+	
+		<a class="set-bar inactive" href="WDW"><img src="/sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="WOO"><img src="/sets/WOO-files/icon.png">Waking of Orlige </a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="/sets/OPZ-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/18_Moira, Rapid Adapter.png" id="18_Moira, Rapid Adapter" data-flag="@X" onclick="openSidebar('18_Moira, Rapid Adapter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/52_Hextech Pilferer.png" id="52_Hextech Pilferer" data-flag="@X" onclick="openSidebar('52_Hextech Pilferer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/95_Lithura, Maiden of Fates.png" id="95_Lithura, Maiden of Fates" data-flag="@X" onclick="openSidebar('95_Lithura, Maiden of Fates',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/143_Stellar Phoenix.png" id="143_Stellar Phoenix" data-flag="@X" onclick="openSidebar('143_Stellar Phoenix',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/169_Garruk, Augmented Tracker.png" id="169_Garruk, Augmented Tracker" data-flag="@X" onclick="openSidebar('169_Garruk, Augmented Tracker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/3_Assault Landing.png" id="3_Assault Landing" data-flag="@X" onclick="openSidebar('3_Assault Landing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/42_Consider the Cosmos.png" id="42_Consider the Cosmos" data-flag="@X" onclick="openSidebar('42_Consider the Cosmos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/80_Bravo-2, Ruthless Commando.png" id="80_Bravo-2, Ruthless Commando" data-flag="@X" onclick="openSidebar('80_Bravo-2, Ruthless Commando',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/113_Agent of Retribution.png" id="113_Agent of Retribution" data-flag="@X" onclick="openSidebar('113_Agent of Retribution',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/157_Burgeoning Ascomycota.png" id="157_Burgeoning Ascomycota" data-flag="@X" onclick="openSidebar('157_Burgeoning Ascomycota',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/10_Desperate Wayfarer.png" id="10_Desperate Wayfarer" data-flag="@X" onclick="openSidebar('10_Desperate Wayfarer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/43_Contain for Study.png" id="43_Contain for Study" data-flag="@X" onclick="openSidebar('43_Contain for Study',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/81_City Outbreak.png" id="81_City Outbreak" data-flag="@X" onclick="openSidebar('81_City Outbreak',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/116_Augmented Starfighter.png" id="116_Augmented Starfighter" data-flag="@X" onclick="openSidebar('116_Augmented Starfighter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/158_Colony Map.png" id="158_Colony Map" data-flag="@X" onclick="openSidebar('158_Colony Map',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/19_Mutagen Spreader.png" id="19_Mutagen Spreader" data-flag="@X" onclick="openSidebar('19_Mutagen Spreader',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/59_Orchestrator of Wills.png" id="59_Orchestrator of Wills" data-flag="@X" onclick="openSidebar('59_Orchestrator of Wills',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/84_Devastating Dilemma.png" id="84_Devastating Dilemma" data-flag="@X" onclick="openSidebar('84_Devastating Dilemma',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/119_Devastating Blast.png" id="119_Devastating Blast" data-flag="@X" onclick="openSidebar('119_Devastating Blast',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/165_Exhurga, Origin of Mania.png" id="165_Exhurga, Origin of Mania" data-flag="@X" onclick="openSidebar('165_Exhurga, Origin of Mania',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/22_Orbital Drop Troopers.png" id="22_Orbital Drop Troopers" data-flag="@X" onclick="openSidebar('22_Orbital Drop Troopers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/63_Precognitive Tactics.png" id="63_Precognitive Tactics" data-flag="@X" onclick="openSidebar('63_Precognitive Tactics',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/93_Insatiable Petrifier.png" id="93_Insatiable Petrifier" data-flag="@X" onclick="openSidebar('93_Insatiable Petrifier',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/121_Emberwing Emissary.png" id="121_Emberwing Emissary" data-flag="@X" onclick="openSidebar('121_Emberwing Emissary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/166_Feasting Skittermaw.png" id="166_Feasting Skittermaw" data-flag="@X" onclick="openSidebar('166_Feasting Skittermaw',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/23_Orbital Lift.png" id="23_Orbital Lift" data-flag="@X" onclick="openSidebar('23_Orbital Lift',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/68_Shorecrasher Titan.png" id="68_Shorecrasher Titan" data-flag="@X" onclick="openSidebar('68_Shorecrasher Titan',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/94_Into the Pit.png" id="94_Into the Pit" data-flag="@X" onclick="openSidebar('94_Into the Pit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/122_Enforcer's Assault Rifle.png" id="122_Enforcers Assault Rifle" data-flag="@X" onclick="openSidebar('122_Enforcers Assault Rifle',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/172_Heart of Astorethe.png" id="172_Heart of Astorethe" data-flag="@X" onclick="openSidebar('172_Heart of Astorethe',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/24_Parsec Tactician.png" id="24_Parsec Tactician" data-flag="@X" onclick="openSidebar('24_Parsec Tactician',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/69_Slipstream Infiltrator.png" id="69_Slipstream Infiltrator" data-flag="@X" onclick="openSidebar('69_Slipstream Infiltrator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/96_Lunar Archfiend.png" id="96_Lunar Archfiend" data-flag="@X" onclick="openSidebar('96_Lunar Archfiend',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/137_Reactor Ignition.png" id="137_Reactor Ignition" data-flag="@X" onclick="openSidebar('137_Reactor Ignition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/176_Predatious Bristleback.png" id="176_Predatious Bristleback" data-flag="@X" onclick="openSidebar('176_Predatious Bristleback',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/26_Plithium-Plated Mech.png" id="26_Plithium-Plated Mech" data-flag="@X" onclick="openSidebar('26_Plithium-Plated Mech',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/71_Station Monitor.png" id="71_Station Monitor" data-flag="@X" onclick="openSidebar('71_Station Monitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/109_Undead Bioroid.png" id="109_Undead Bioroid" data-flag="@X" onclick="openSidebar('109_Undead Bioroid',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/147_Twincannon Warbot.png" id="147_Twincannon Warbot" data-flag="@X" onclick="openSidebar('147_Twincannon Warbot',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/185_Unearthly Encounter.png" id="185_Unearthly Encounter" data-flag="@X" onclick="openSidebar('185_Unearthly Encounter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/2_Artificial Warfront.png" id="2_Artificial Warfront" data-flag="@X" onclick="openSidebar('2_Artificial Warfront',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/38_Adaptive Scoundrel.png" id="38_Adaptive Scoundrel" data-flag="@X" onclick="openSidebar('38_Adaptive Scoundrel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/78_Anomalous Animation.png" id="78_Anomalous Animation" data-flag="@X" onclick="openSidebar('78_Anomalous Animation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/118_Construction Bot.png" id="118_Construction Bot" data-flag="@X" onclick="openSidebar('118_Construction Bot',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/149_Agricultural Analysis.png" id="149_Agricultural Analysis" data-flag="@X" onclick="openSidebar('149_Agricultural Analysis',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/4_Augmented-Reality Visor.png" id="4_Augmented-Reality Visor" data-flag="@X" onclick="openSidebar('4_Augmented-Reality Visor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/41_Climactic Rebuke.png" id="41_Climactic Rebuke" data-flag="@X" onclick="openSidebar('41_Climactic Rebuke',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/79_Blackmarket Orchestrator.png" id="79_Blackmarket Orchestrator" data-flag="@X" onclick="openSidebar('79_Blackmarket Orchestrator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/120_Drone Operator.png" id="120_Drone Operator" data-flag="@X" onclick="openSidebar('120_Drone Operator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/150_Ancient Awakening.png" id="150_Ancient Awakening" data-flag="@X" onclick="openSidebar('150_Ancient Awakening',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/5_Awoken Warframe.png" id="5_Awoken Warframe" data-flag="@X" onclick="openSidebar('5_Awoken Warframe',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/45_Crisis Assayer.png" id="45_Crisis Assayer" data-flag="@X" onclick="openSidebar('45_Crisis Assayer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/82_Commune With Evil.png" id="82_Commune With Evil" data-flag="@X" onclick="openSidebar('82_Commune With Evil',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/124_Frontline Dropship.png" id="124_Frontline Dropship" data-flag="@X" onclick="openSidebar('124_Frontline Dropship',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/152_Arboreal Sinewvine.png" id="152_Arboreal Sinewvine" data-flag="@X" onclick="openSidebar('152_Arboreal Sinewvine',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/12_Ecological Survey.png" id="12_Ecological Survey" data-flag="@X" onclick="openSidebar('12_Ecological Survey',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/49_EMP Blast.png" id="49_EMP Blast" data-flag="@X" onclick="openSidebar('49_EMP Blast',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/83_Creeping Scavenger.png" id="83_Creeping Scavenger" data-flag="@X" onclick="openSidebar('83_Creeping Scavenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/125_Hive Queen.png" id="125_Hive Queen" data-flag="@X" onclick="openSidebar('125_Hive Queen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/153_Biogenic Upgrade.png" id="153_Biogenic Upgrade" data-flag="@X" onclick="openSidebar('153_Biogenic Upgrade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/13_Expanse Runners.png" id="13_Expanse Runners" data-flag="@X" onclick="openSidebar('13_Expanse Runners',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/51_Hapless Innovators.png" id="51_Hapless Innovators" data-flag="@X" onclick="openSidebar('51_Hapless Innovators',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/87_Eldritch Summoning.png" id="87_Eldritch Summoning" data-flag="@X" onclick="openSidebar('87_Eldritch Summoning',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/127_Infernal Ravager.png" id="127_Infernal Ravager" data-flag="@X" onclick="openSidebar('127_Infernal Ravager',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/159_Consuming Polyp.png" id="159_Consuming Polyp" data-flag="@X" onclick="openSidebar('159_Consuming Polyp',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/15_Keen-Eyed Engineer.png" id="15_Keen-Eyed Engineer" data-flag="@X" onclick="openSidebar('15_Keen-Eyed Engineer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/53_Intensive Study.png" id="53_Intensive Study" data-flag="@X" onclick="openSidebar('53_Intensive Study',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/88_Extraction Team.png" id="88_Extraction Team" data-flag="@X" onclick="openSidebar('88_Extraction Team',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/128_Intel Breach.png" id="128_Intel Breach" data-flag="@X" onclick="openSidebar('128_Intel Breach',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/160_Corpse Subsumer.png" id="160_Corpse Subsumer" data-flag="@X" onclick="openSidebar('160_Corpse Subsumer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/16_Kinetic Vanguard.png" id="16_Kinetic Vanguard" data-flag="@X" onclick="openSidebar('16_Kinetic Vanguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/54_Kinetic Shieldbearer.png" id="54_Kinetic Shieldbearer" data-flag="@X" onclick="openSidebar('54_Kinetic Shieldbearer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/89_Fallback Plan.png" id="89_Fallback Plan" data-flag="@X" onclick="openSidebar('89_Fallback Plan',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/129_Lab Infiltration.png" id="129_Lab Infiltration" data-flag="@X" onclick="openSidebar('129_Lab Infiltration',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/161_Cunning Tactics.png" id="161_Cunning Tactics" data-flag="@X" onclick="openSidebar('161_Cunning Tactics',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/20_Omen of Contagion.png" id="20_Omen of Contagion" data-flag="@X" onclick="openSidebar('20_Omen of Contagion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/55_Manifested Chimera.png" id="55_Manifested Chimera" data-flag="@X" onclick="openSidebar('55_Manifested Chimera',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/91_Hardened Commando.png" id="91_Hardened Commando" data-flag="@X" onclick="openSidebar('91_Hardened Commando',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/130_Militech Analysis.png" id="130_Militech Analysis" data-flag="@X" onclick="openSidebar('130_Militech Analysis',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/162_Cuphro Invasion.png" id="162_Cuphro Invasion" data-flag="@X" onclick="openSidebar('162_Cuphro Invasion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/21_Orbital Crash.png" id="21_Orbital Crash" data-flag="@X" onclick="openSidebar('21_Orbital Crash',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/56_Mistweaver.png" id="56_Mistweaver" data-flag="@X" onclick="openSidebar('56_Mistweaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/92_Ignominious Executive.png" id="92_Ignominious Executive" data-flag="@X" onclick="openSidebar('92_Ignominious Executive',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/133_Mobile Containment Unit.png" id="133_Mobile Containment Unit" data-flag="@X" onclick="openSidebar('133_Mobile Containment Unit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/163_Despondent Colonists.png" id="163_Despondent Colonists" data-flag="@X" onclick="openSidebar('163_Despondent Colonists',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/25_Pitiless Peacekeeper.png" id="25_Pitiless Peacekeeper" data-flag="@X" onclick="openSidebar('25_Pitiless Peacekeeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/58_Observation Crew.png" id="58_Observation Crew" data-flag="@X" onclick="openSidebar('58_Observation Crew',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/98_Mori-Bloom.png" id="98_Mori-Bloom" data-flag="@X" onclick="openSidebar('98_Mori-Bloom',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/134_Ops Pointman.png" id="134_Ops Pointman" data-flag="@X" onclick="openSidebar('134_Ops Pointman',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/167_Forged Recluse.png" id="167_Forged Recluse" data-flag="@X" onclick="openSidebar('167_Forged Recluse',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/27_Rothmas Scouts.png" id="27_Rothmas Scouts" data-flag="@X" onclick="openSidebar('27_Rothmas Scouts',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/60_Origin Stone Shard.png" id="60_Origin Stone Shard" data-flag="@X" onclick="openSidebar('60_Origin Stone Shard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/99_Nimble Crewmate.png" id="99_Nimble Crewmate" data-flag="@X" onclick="openSidebar('99_Nimble Crewmate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/135_Portable Incinerator.png" id="135_Portable Incinerator" data-flag="@X" onclick="openSidebar('135_Portable Incinerator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/173_Houkkipi Scavengers.png" id="173_Houkkipi Scavengers" data-flag="@X" onclick="openSidebar('173_Houkkipi Scavengers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/33_Telemagnetic Reclaimation.png" id="33_Telemagnetic Reclaimation" data-flag="@X" onclick="openSidebar('33_Telemagnetic Reclaimation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/61_Overwatch Sentinel.png" id="61_Overwatch Sentinel" data-flag="@X" onclick="openSidebar('61_Overwatch Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/100_Operative Reactivation.png" id="100_Operative Reactivation" data-flag="@X" onclick="openSidebar('100_Operative Reactivation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/138_Sanguine Stalker.png" id="138_Sanguine Stalker" data-flag="@X" onclick="openSidebar('138_Sanguine Stalker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/177_Rapid Incubation.png" id="177_Rapid Incubation" data-flag="@X" onclick="openSidebar('177_Rapid Incubation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/34_Terminal Infection.png" id="34_Terminal Infection" data-flag="@X" onclick="openSidebar('34_Terminal Infection',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/67_Scour the Ruins.png" id="67_Scour the Ruins" data-flag="@X" onclick="openSidebar('67_Scour the Ruins',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/106_Splinter Brute.png" id="106_Splinter Brute" data-flag="@X" onclick="openSidebar('106_Splinter Brute',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/139_Scorched Desolation.png" id="139_Scorched Desolation" data-flag="@X" onclick="openSidebar('139_Scorched Desolation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/178_Relentless Miscreant.png" id="178_Relentless Miscreant" data-flag="@X" onclick="openSidebar('178_Relentless Miscreant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/37_Tundra Lurker.png" id="37_Tundra Lurker" data-flag="@X" onclick="openSidebar('37_Tundra Lurker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/73_Stun Baton.png" id="73_Stun Baton" data-flag="@X" onclick="openSidebar('73_Stun Baton',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/110_Unwitting Host.png" id="110_Unwitting Host" data-flag="@X" onclick="openSidebar('110_Unwitting Host',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/141_Skyline Enforcer.png" id="141_Skyline Enforcer" data-flag="@X" onclick="openSidebar('141_Skyline Enforcer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/182_Stalking Wispbeast.png" id="182_Stalking Wispbeast" data-flag="@X" onclick="openSidebar('182_Stalking Wispbeast',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/1_Agile Furrowite.png" id="1_Agile Furrowite" data-flag="@X" onclick="openSidebar('1_Agile Furrowite',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/39_Ambitious Lab Techs.png" id="39_Ambitious Lab Techs" data-flag="@X" onclick="openSidebar('39_Ambitious Lab Techs',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/75_Acrid Chiropteran.png" id="75_Acrid Chiropteran" data-flag="@X" onclick="openSidebar('75_Acrid Chiropteran',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/112_Abrade.png" id="112_Abrade" data-flag="@X" onclick="openSidebar('112_Abrade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/151_Arachnae Behemoth.png" id="151_Arachnae Behemoth" data-flag="@X" onclick="openSidebar('151_Arachnae Behemoth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/6_Charging Octomare.png" id="6_Charging Octomare" data-flag="@X" onclick="openSidebar('6_Charging Octomare',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/40_Android Maintenance.png" id="40_Android Maintenance" data-flag="@X" onclick="openSidebar('40_Android Maintenance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/76_Aerial Heistman.png" id="76_Aerial Heistman" data-flag="@X" onclick="openSidebar('76_Aerial Heistman',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/114_Ambush Drone.png" id="114_Ambush Drone" data-flag="@X" onclick="openSidebar('114_Ambush Drone',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/154_Broken Wings.png" id="154_Broken Wings" data-flag="@X" onclick="openSidebar('154_Broken Wings',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/7_City Sweep.png" id="7_City Sweep" data-flag="@X" onclick="openSidebar('7_City Sweep',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/44_Containment Breach.png" id="44_Containment Breach" data-flag="@X" onclick="openSidebar('44_Containment Breach',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/77_Afflicted Researcher.png" id="77_Afflicted Researcher" data-flag="@X" onclick="openSidebar('77_Afflicted Researcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/115_Anti-Aerial Crawler.png" id="115_Anti-Aerial Crawler" data-flag="@X" onclick="openSidebar('115_Anti-Aerial Crawler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/155_Brush Surveyor.png" id="155_Brush Surveyor" data-flag="@X" onclick="openSidebar('155_Brush Surveyor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/8_Convening Nomad.png" id="8_Convening Nomad" data-flag="@X" onclick="openSidebar('8_Convening Nomad',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/46_Digitized Duo.png" id="46_Digitized Duo" data-flag="@X" onclick="openSidebar('46_Digitized Duo',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/85_Disfigure.png" id="85_Disfigure" data-flag="@X" onclick="openSidebar('85_Disfigure',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/117_Brood Warden.png" id="117_Brood Warden" data-flag="@X" onclick="openSidebar('117_Brood Warden',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/156_Brutal Acquisition.png" id="156_Brutal Acquisition" data-flag="@X" onclick="openSidebar('156_Brutal Acquisition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/9_Cryo Chamber.png" id="9_Cryo Chamber" data-flag="@X" onclick="openSidebar('9_Cryo Chamber',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/47_Disposal Personnel.png" id="47_Disposal Personnel" data-flag="@X" onclick="openSidebar('47_Disposal Personnel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/86_Duress.png" id="86_Duress" data-flag="@X" onclick="openSidebar('86_Duress',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/123_Field Expeditioners.png" id="123_Field Expeditioners" data-flag="@X" onclick="openSidebar('123_Field Expeditioners',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/164_Enticing Discovery.png" id="164_Enticing Discovery" data-flag="@X" onclick="openSidebar('164_Enticing Discovery',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/11_Digital Reconstruction.png" id="11_Digital Reconstruction" data-flag="@X" onclick="openSidebar('11_Digital Reconstruction',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/48_Don't Make a Sound.png" id="48_Dont Make a Sound" data-flag="@X" onclick="openSidebar('48_Dont Make a Sound',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/90_Frightened Trainee.png" id="90_Frightened Trainee" data-flag="@X" onclick="openSidebar('90_Frightened Trainee',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/126_Incinerating Blast.png" id="126_Incinerating Blast" data-flag="@X" onclick="openSidebar('126_Incinerating Blast',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/168_Forsaken Expedition.png" id="168_Forsaken Expedition" data-flag="@X" onclick="openSidebar('168_Forsaken Expedition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/14_Gleaming Kite.png" id="14_Gleaming Kite" data-flag="@X" onclick="openSidebar('14_Gleaming Kite',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/50_Frigid Pass Officers.png" id="50_Frigid Pass Officers" data-flag="@X" onclick="openSidebar('50_Frigid Pass Officers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/97_Methodical Infantry.png" id="97_Methodical Infantry" data-flag="@X" onclick="openSidebar('97_Methodical Infantry',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/131_Mining Rig.png" id="131_Mining Rig" data-flag="@X" onclick="openSidebar('131_Mining Rig',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/170_Haunting Amalgamate.png" id="170_Haunting Amalgamate" data-flag="@X" onclick="openSidebar('170_Haunting Amalgamate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/17_Levicycle Courier.png" id="17_Levicycle Courier" data-flag="@X" onclick="openSidebar('17_Levicycle Courier',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/57_Navigator Core.png" id="57_Navigator Core" data-flag="@X" onclick="openSidebar('57_Navigator Core',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/101_Outskirts Prowler.png" id="101_Outskirts Prowler" data-flag="@X" onclick="openSidebar('101_Outskirts Prowler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/132_Mission Coordinator.png" id="132_Mission Coordinator" data-flag="@X" onclick="openSidebar('132_Mission Coordinator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/171_Hazard Enviro-Mech.png" id="171_Hazard Enviro-Mech" data-flag="@X" onclick="openSidebar('171_Hazard Enviro-Mech',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/28_Salvage Hunter.png" id="28_Salvage Hunter" data-flag="@X" onclick="openSidebar('28_Salvage Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/62_Portent Resonance.png" id="62_Portent Resonance" data-flag="@X" onclick="openSidebar('62_Portent Resonance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/102_Painful Excision.png" id="102_Painful Excision" data-flag="@X" onclick="openSidebar('102_Painful Excision',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/136_Pyroclastic Crewmate.png" id="136_Pyroclastic Crewmate" data-flag="@X" onclick="openSidebar('136_Pyroclastic Crewmate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/174_Nurturing Mantisworm.png" id="174_Nurturing Mantisworm" data-flag="@X" onclick="openSidebar('174_Nurturing Mantisworm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/29_Servitor Drone.png" id="29_Servitor Drone" data-flag="@X" onclick="openSidebar('29_Servitor Drone',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/64_Profound Discovery.png" id="64_Profound Discovery" data-flag="@X" onclick="openSidebar('64_Profound Discovery',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/103_Recovery Mission.png" id="103_Recovery Mission" data-flag="@X" onclick="openSidebar('103_Recovery Mission',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/140_Skittering Swarm.png" id="140_Skittering Swarm" data-flag="@X" onclick="openSidebar('140_Skittering Swarm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/175_Poison Whip-Tail.png" id="175_Poison Whip-Tail" data-flag="@X" onclick="openSidebar('175_Poison Whip-Tail',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/30_Shielding Dome.png" id="30_Shielding Dome" data-flag="@X" onclick="openSidebar('30_Shielding Dome',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/65_Proto-Genesis Jellyfish.png" id="65_Proto-Genesis Jellyfish" data-flag="@X" onclick="openSidebar('65_Proto-Genesis Jellyfish',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/104_Remote Disintegration.png" id="104_Remote Disintegration" data-flag="@X" onclick="openSidebar('104_Remote Disintegration',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/142_Smoldering Defiance.png" id="142_Smoldering Defiance" data-flag="@X" onclick="openSidebar('142_Smoldering Defiance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/179_Sampling Laser.png" id="179_Sampling Laser" data-flag="@X" onclick="openSidebar('179_Sampling Laser',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/31_Sudden Evacuation.png" id="31_Sudden Evacuation" data-flag="@X" onclick="openSidebar('31_Sudden Evacuation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/66_Quell Rebellion.png" id="66_Quell Rebellion" data-flag="@X" onclick="openSidebar('66_Quell Rebellion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/105_Scarab Behemoth.png" id="105_Scarab Behemoth" data-flag="@X" onclick="openSidebar('105_Scarab Behemoth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/144_Tactical Breach.png" id="144_Tactical Breach" data-flag="@X" onclick="openSidebar('144_Tactical Breach',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/180_Spec-Ops Forerunner.png" id="180_Spec-Ops Forerunner" data-flag="@X" onclick="openSidebar('180_Spec-Ops Forerunner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/32_Swift Response.png" id="32_Swift Response" data-flag="@X" onclick="openSidebar('32_Swift Response',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/70_Stasis Field.png" id="70_Stasis Field" data-flag="@X" onclick="openSidebar('70_Stasis Field',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/107_Subjugation.png" id="107_Subjugation" data-flag="@X" onclick="openSidebar('107_Subjugation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/145_Targeted Strike.png" id="145_Targeted Strike" data-flag="@X" onclick="openSidebar('145_Targeted Strike',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/181_Spontaneous Outburst.png" id="181_Spontaneous Outburst" data-flag="@X" onclick="openSidebar('181_Spontaneous Outburst',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/35_Transferred Soul.png" id="35_Transferred Soul" data-flag="@X" onclick="openSidebar('35_Transferred Soul',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/72_Steamcaller.png" id="72_Steamcaller" data-flag="@X" onclick="openSidebar('72_Steamcaller',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/108_Taloncrawler.png" id="108_Taloncrawler" data-flag="@X" onclick="openSidebar('108_Taloncrawler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/146_Thrill of Possibility.png" id="146_Thrill of Possibility" data-flag="@X" onclick="openSidebar('146_Thrill of Possibility',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/183_Synthesis Volunteer.png" id="183_Synthesis Volunteer" data-flag="@X" onclick="openSidebar('183_Synthesis Volunteer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/36_Tremor Spikeworm.png" id="36_Tremor Spikeworm" data-flag="@X" onclick="openSidebar('36_Tremor Spikeworm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/74_Watcher in the Void.png" id="74_Watcher in the Void" data-flag="@X" onclick="openSidebar('74_Watcher in the Void',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/111_Void Specter.png" id="111_Void Specter" data-flag="@X" onclick="openSidebar('111_Void Specter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/148_Wreckage Raiders.png" id="148_Wreckage Raiders" data-flag="@X" onclick="openSidebar('148_Wreckage Raiders',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/184_Unbound Subject.png" id="184_Unbound Subject" data-flag="@X" onclick="openSidebar('184_Unbound Subject',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/209_Maxine, Cynical Renegade.png" id="209_Maxine, Cynical Renegade" data-flag="@X" onclick="openSidebar('209_Maxine, Cynical Renegade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/186_Abandon Ship.png" id="186_Abandon Ship" data-flag="@X" onclick="openSidebar('186_Abandon Ship',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/191_Charim Kosta, Hullraider.png" id="191_Charim Kosta, Hullraider" data-flag="@X" onclick="openSidebar('191_Charim Kosta, Hullraider',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/206_Keilan, Rabble-Rouser.png" id="206_Keilan, Rabble-Rouser" data-flag="@X" onclick="openSidebar('206_Keilan, Rabble-Rouser',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/220_Sterile Synthesis.png" id="220_Sterile Synthesis" data-flag="@X" onclick="openSidebar('220_Sterile Synthesis',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/212_Orbital Distorter.png" id="212_Orbital Distorter" data-flag="@X" onclick="openSidebar('212_Orbital Distorter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/193_Clattering Chitin.png" id="193_Clattering Chitin" data-flag="@X" onclick="openSidebar('193_Clattering Chitin',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/218_Scallia, Primal Morphling.png" id="218_Scallia, Primal Morphling" data-flag="@X" onclick="openSidebar('218_Scallia, Primal Morphling',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/190_Call to Action.png" id="190_Call to Action" data-flag="@X" onclick="openSidebar('190_Call to Action',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/203_Genome Sequencing.png" id="203_Genome Sequencing" data-flag="@X" onclick="openSidebar('203_Genome Sequencing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/195_Deflector Operative.png" id="195_Deflector Operative" data-flag="@X" onclick="openSidebar('195_Deflector Operative',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/194_Consuming Tide.png" id="194_Consuming Tide" data-flag="@X" onclick="openSidebar('194_Consuming Tide',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/189_Bravo-2 Contractee.png" id="189_Bravo-2 Contractee" data-flag="@X" onclick="openSidebar('189_Bravo-2 Contractee',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/200_Exfiltration Coordinator.png" id="200_Exfiltration Coordinator" data-flag="@X" onclick="openSidebar('200_Exfiltration Coordinator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/207_Luminescent Aberration.png" id="207_Luminescent Aberration" data-flag="@X" onclick="openSidebar('207_Luminescent Aberration',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/211_Neon Enforcement.png" id="211_Neon Enforcement" data-flag="@X" onclick="openSidebar('211_Neon Enforcement',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/221_Suppression Fire.png" id="221_Suppression Fire" data-flag="@X" onclick="openSidebar('221_Suppression Fire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/219_Seed of Infection.png" id="219_Seed of Infection" data-flag="@X" onclick="openSidebar('219_Seed of Infection',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/199_Evelyn, Battle Calculatrix.png" id="199_Evelyn, Battle Calculatrix" data-flag="@X" onclick="openSidebar('199_Evelyn, Battle Calculatrix',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/224_Xathyz, Eternal Matriarch.png" id="224_Xathyz, Eternal Matriarch" data-flag="@X" onclick="openSidebar('224_Xathyz, Eternal Matriarch',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/188_Blitzwing Striker.png" id="188_Blitzwing Striker" data-flag="@X" onclick="openSidebar('188_Blitzwing Striker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/198_Eldritch Haruspex.png" id="198_Eldritch Haruspex" data-flag="@X" onclick="openSidebar('198_Eldritch Haruspex',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/187_Bioweapon Engineers.png" id="187_Bioweapon Engineers" data-flag="@X" onclick="openSidebar('187_Bioweapon Engineers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/192_Circuit Liberator.png" id="192_Circuit Liberator" data-flag="@X" onclick="openSidebar('192_Circuit Liberator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/197_Dread Reaper.png" id="197_Dread Reaper" data-flag="@X" onclick="openSidebar('197_Dread Reaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/213_Pathcutter Drone.png" id="213_Pathcutter Drone" data-flag="@X" onclick="openSidebar('213_Pathcutter Drone',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/222_Twilight Observer.png" id="222_Twilight Observer" data-flag="@X" onclick="openSidebar('222_Twilight Observer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/210_Morphose Plague.png" id="210_Morphose Plague" data-flag="@X" onclick="openSidebar('210_Morphose Plague',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/202_Galactic Rending.png" id="202_Galactic Rending" data-flag="@X" onclick="openSidebar('202_Galactic Rending',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/204_Ghoulish Stillthroat.png" id="204_Ghoulish Stillthroat" data-flag="@X" onclick="openSidebar('204_Ghoulish Stillthroat',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/216_Razefire Raid.png" id="216_Razefire Raid" data-flag="@X" onclick="openSidebar('216_Razefire Raid',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/223_Vegetative Biopsy.png" id="223_Vegetative Biopsy" data-flag="@X" onclick="openSidebar('223_Vegetative Biopsy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/205_Homogeneous Vessel.png" id="205_Homogeneous Vessel" data-flag="@X" onclick="openSidebar('205_Homogeneous Vessel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/196_D'Emil, Apex Hunter.png" id="196_DEmil, Apex Hunter" data-flag="@X" onclick="openSidebar('196_DEmil, Apex Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/201_Fluxreactor Manticore.png" id="201_Fluxreactor Manticore" data-flag="@X" onclick="openSidebar('201_Fluxreactor Manticore',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/208_Malignant Venomwing.png" id="208_Malignant Venomwing" data-flag="@X" onclick="openSidebar('208_Malignant Venomwing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/214_Piercing Duplicant.png" id="214_Piercing Duplicant" data-flag="@X" onclick="openSidebar('214_Piercing Duplicant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/217_Relentless Raid.png" id="217_Relentless Raid" data-flag="@X" onclick="openSidebar('217_Relentless Raid',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/215_Primordial Shaper.png" id="215_Primordial Shaper" data-flag="@X" onclick="openSidebar('215_Primordial Shaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/226_Celestial Generator.png" id="226_Celestial Generator" data-flag="@X" onclick="openSidebar('226_Celestial Generator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/233_Path Treading Tank.png" id="233_Path Treading Tank" data-flag="@X" onclick="openSidebar('233_Path Treading Tank',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/234_Temporal Harness.png" id="234_Temporal Harness" data-flag="@X" onclick="openSidebar('234_Temporal Harness',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/225_Astral Strategist.png" id="225_Astral Strategist" data-flag="@X" onclick="openSidebar('225_Astral Strategist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/228_Ensnaring Matrix.png" id="228_Ensnaring Matrix" data-flag="@X" onclick="openSidebar('228_Ensnaring Matrix',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/230_Invader Construct.png" id="230_Invader Construct" data-flag="@X" onclick="openSidebar('230_Invader Construct',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/231_Multi-Point Waygate.png" id="231_Multi-Point Waygate" data-flag="@X" onclick="openSidebar('231_Multi-Point Waygate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/232_Organic Printer.png" id="232_Organic Printer" data-flag="@X" onclick="openSidebar('232_Organic Printer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/227_Corrupted Monitor.png" id="227_Corrupted Monitor" data-flag="@X" onclick="openSidebar('227_Corrupted Monitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/229_Hull Mechanic.png" id="229_Hull Mechanic" data-flag="@X" onclick="openSidebar('229_Hull Mechanic',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/235_Tri-Lateral Grenade.png" id="235_Tri-Lateral Grenade" data-flag="@X" onclick="openSidebar('235_Tri-Lateral Grenade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/236_Whirring Surveyor.png" id="236_Whirring Surveyor" data-flag="@X" onclick="openSidebar('236_Whirring Surveyor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/249_Renegade Academy_back.png" alt="/sets/OPZ-files/img/249_Renegade Academy_front.png" id="249_Renegade Academy" data-flag="@XD" onclick="openSidebar('249_Renegade Academy',false)"><button class="flip-btn" onclick="imgFlip('249_Renegade Academy')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/254_Voyager Station_back.png" alt="/sets/OPZ-files/img/254_Voyager Station_front.png" id="254_Voyager Station" data-flag="@XD" onclick="openSidebar('254_Voyager Station',false)"><button class="flip-btn" onclick="imgFlip('254_Voyager Station')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/247_Plithium Quarry_back.png" alt="/sets/OPZ-files/img/247_Plithium Quarry_front.png" id="247_Plithium Quarry" data-flag="@XD" onclick="openSidebar('247_Plithium Quarry',false)"><button class="flip-btn" onclick="imgFlip('247_Plithium Quarry')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/242_Innovative Hangar_back.png" alt="/sets/OPZ-files/img/242_Innovative Hangar_front.png" id="242_Innovative Hangar" data-flag="@XD" onclick="openSidebar('242_Innovative Hangar',false)"><button class="flip-btn" onclick="imgFlip('242_Innovative Hangar')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/241_Expedition Range_back.png" alt="/sets/OPZ-files/img/241_Expedition Range_front.png" id="241_Expedition Range" data-flag="@XD" onclick="openSidebar('241_Expedition Range',false)"><button class="flip-btn" onclick="imgFlip('241_Expedition Range')"></button></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/245_Null-Tide Seabed.png" id="245_Null-Tide Seabed" data-flag="@X" onclick="openSidebar('245_Null-Tide Seabed',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/252_Tendril Quagmire.png" id="252_Tendril Quagmire" data-flag="@X" onclick="openSidebar('252_Tendril Quagmire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/240_Crimson Moor.png" id="240_Crimson Moor" data-flag="@X" onclick="openSidebar('240_Crimson Moor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/238_Brewing Crag.png" id="238_Brewing Crag" data-flag="@X" onclick="openSidebar('238_Brewing Crag',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/251_Stillgrove Narrows.png" id="251_Stillgrove Narrows" data-flag="@X" onclick="openSidebar('251_Stillgrove Narrows',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/257_Buoyant Bay Port.png" id="257_Buoyant Bay Port" data-flag="@X" onclick="openSidebar('257_Buoyant Bay Port',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/256_Bismuth Flats.png" id="256_Bismuth Flats" data-flag="@X" onclick="openSidebar('256_Bismuth Flats',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/255_Auroral Cliffs.png" id="255_Auroral Cliffs" data-flag="@X" onclick="openSidebar('255_Auroral Cliffs',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/263_Radar Glade.png" id="263_Radar Glade" data-flag="@X" onclick="openSidebar('263_Radar Glade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/262_Plithium Processing Plant.png" id="262_Plithium Processing Plant" data-flag="@X" onclick="openSidebar('262_Plithium Processing Plant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/244_Lunar Bog.png" id="244_Lunar Bog" data-flag="@X" onclick="openSidebar('244_Lunar Bog',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/237_Basaltic Reef.png" id="237_Basaltic Reef" data-flag="@X" onclick="openSidebar('237_Basaltic Reef',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/243_Luminous Fen.png" id="243_Luminous Fen" data-flag="@X" onclick="openSidebar('243_Luminous Fen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/250_Saltspire Expanse.png" id="250_Saltspire Expanse" data-flag="@X" onclick="openSidebar('250_Saltspire Expanse',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/239_Cascading Grotto.png" id="239_Cascading Grotto" data-flag="@X" onclick="openSidebar('239_Cascading Grotto',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/258_Cavern of Piety.png" id="258_Cavern of Piety" data-flag="@X" onclick="openSidebar('258_Cavern of Piety',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/260_Glacial Mill.png" id="260_Glacial Mill" data-flag="@X" onclick="openSidebar('260_Glacial Mill',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/264_Wetland Botany Lab.png" id="264_Wetland Botany Lab" data-flag="@X" onclick="openSidebar('264_Wetland Botany Lab',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/259_Cultivation Platforms.png" id="259_Cultivation Platforms" data-flag="@X" onclick="openSidebar('259_Cultivation Platforms',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/261_Isle of Prophecy.png" id="261_Isle of Prophecy" data-flag="@X" onclick="openSidebar('261_Isle of Prophecy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/246_Outpost Zero_back.png" alt="/sets/OPZ-files/img/246_Outpost Zero_front.png" id="246_Outpost Zero" data-flag="@XD" onclick="openSidebar('246_Outpost Zero',false)"><button class="flip-btn" onclick="imgFlip('246_Outpost Zero')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/248_Precursor Colony_back.png" alt="/sets/OPZ-files/img/248_Precursor Colony_front.png" id="248_Precursor Colony" data-flag="@XD" onclick="openSidebar('248_Precursor Colony',false)"><button class="flip-btn" onclick="imgFlip('248_Precursor Colony')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/253_Veylid Reliquary.png" id="253_Veylid Reliquary" data-flag="@X" onclick="openSidebar('253_Veylid Reliquary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/268_Mountain.png" id="268_Mountain" data-flag="@X" onclick="openSidebar('268_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/269_Forest.png" id="269_Forest" data-flag="@X" onclick="openSidebar('269_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/266_Island.png" id="266_Island" data-flag="@X" onclick="openSidebar('266_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/267_Swamp.png" id="267_Swamp" data-flag="@X" onclick="openSidebar('267_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/265_Plains.png" id="265_Plains" data-flag="@X" onclick="openSidebar('265_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/6t_Construct.png" id="6t_Construct" data-flag="@X" onclick="openSidebar('6t_Construct',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/7t_Drone.png" id="7t_Drone" data-flag="@X" onclick="openSidebar('7t_Drone',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/8t_Specimen.png" id="8t_Specimen" data-flag="@X" onclick="openSidebar('8t_Specimen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/9t_Charim Kosta, Hullraider.png" id="9t_Charim Kosta, Hullraider" data-flag="@X" onclick="openSidebar('9t_Charim Kosta, Hullraider',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/10t_Maxine, Cynical Renegade.png" id="10t_Maxine, Cynical Renegade" data-flag="@X" onclick="openSidebar('10t_Maxine, Cynical Renegade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/1t_Horror.png" id="1t_Horror" data-flag="@X" onclick="openSidebar('1t_Horror',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/2t_Horror.png" id="2t_Horror" data-flag="@X" onclick="openSidebar('2t_Horror',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/3t_Parasite.png" id="3t_Parasite" data-flag="@X" onclick="openSidebar('3t_Parasite',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/4t_Mercenary.png" id="4t_Mercenary" data-flag="@X" onclick="openSidebar('4t_Mercenary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/5t_Beast.png" id="5t_Beast" data-flag="@X" onclick="openSidebar('5t_Beast',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL('search', window.location.origin);
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL('card', window.location.origin);
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url;
+			}
+	</script>
+</body>
+</html>
