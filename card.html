@@ -4,6 +4,7 @@
 	<link rel="icon" type="image/x-icon" href="/img/favicon.png">
 	<link rel="stylesheet" href="/resources/mana.css">
 	<link rel="stylesheet" href="/resources/header.css">
+	<link rel="stylesheet" href="/resources/card-text.css">
 </head>
 <style>
 	@font-face {
@@ -77,33 +78,9 @@
 		display: flex;
 		flex-direction: column;
 	}
-	.card-text div {
-		white-space: normal;
-		font-size: 15px;
-		padding-bottom: 10px;
-		padding-left: 12px;
-		padding-right: 12px;
-		line-height: 155%;
-	}
-	.card-text .name-cost {
-		font-weight: bold;
-		font-size: 20px;
-		white-space: pre-wrap;
-	}
-	.card-text .type {
-		font-size: 16px;
-	}
-	.card-text .pt {
-		font-weight: bold;
-	}
 	.designer-notes {
 		padding-top: 10px;
 		border-top: 1px solid #171717;
-	}
-	.card-text br {
-		content: "";
-		display: block;
-		margin-bottom: 5px;
 	}
 	.card-text .printings {
 		margin-top: auto;
@@ -149,7 +126,7 @@
 		background-position: center;
 	}
 	.img-container .h-img {
-		transform: rotate(90deg);
+		transform: rotateY(0deg) rotate(90deg);
 		width: 80%;
 	}
 	.img-container a {
@@ -253,11 +230,10 @@
 
 			document.getElementById("grid").appendChild(gridifyCard(card, false, true));
 
-
 			other_printings = [];
 			for (const c of card_list_arrayified)
 			{
-				if (c.card_name == card.card_name && c.type == card.type && !c.shape.includes("Token") && (c.set != card.set || c.number != card.number))
+				if (c.rules_text == card.rules_text && c.card_name == card.card_name && c.type == card.type && !c.shape.includes("Token") && (c.set != card.set || c.number != card.number))
 				{
 					other_printings.push(c);
 				}
@@ -387,11 +363,13 @@
 			let card_effects = "";
 			if (card_stats.rules_text != "")
 			{
-				card_effects = card_stats.rules_text.split("\n");
+				card_effects = card_stats.rules_text + (card_stats.flavor_text != "[i][/i]" ? "\n" + "<hr class=\"ft-divider text-bg\">" + "\n" + card_stats.flavor_text.replace('\n','<br>') : ""); // this expression looks cursed but what it does is check if the ft is empty, and if it isn't, insert a divider + the ft
+			} else {
+				card_effects = "";
 			}
-			else
+			if ("v_mana" in card_stats)
 			{
-				card_effects = card_stats.special_text.split("\n");
+				card_effects = card_effects.replaceAll('{V}', '<img style="vertical-align: middle; padding: 0px 2px; display: inline; width: 15px;" src="/img/' + card_stats.v_mana + '">');
 			}
 			effect.innerHTML += prettifyEffects(card_effects);
 			text.appendChild(effect);
@@ -438,11 +416,13 @@
 				let card_effects_2 = "";
 				if (card_stats.rules_text2 != "")
 				{
-					card_effects_2 = card_stats.rules_text2.split("\n");
+					card_effects_2 = card_stats.rules_text2 + (card_stats.flavor_text2 != "[i][/i]" ? "\n" + "<hr class=\"ft-divider text-bg\">" + "\n" + card_stats.flavor_text2.replace('\n','<br>') : "");
+				} else {
+					card_effects_2 = "";
 				}
-				else
+				if ("v_mana" in card_stats)
 				{
-					card_effects_2 = card_stats.special_text2.split("\n");
+					card_effects_2 = card_effects_2.replaceAll('{V}', '<img width="15px;" style="vertical-align: middle; padding: 0px 2px;" src="/img/' + card_stats.v_mana + '">');
 				}
 				effect_2.innerHTML += prettifyEffects(card_effects_2);
 				text.appendChild(effect_2);
@@ -476,8 +456,14 @@
 			const img = document.createElement("img");
 			img.className = "card-image";
 			img.id = id;
-			// (card_stats[13].includes("_") ? card_stats[13] : card_stats[0]) for posterity
-			img.src = "/sets/" + card_stats.set + "-files/img/" + card_stats.number + (card_stats.shape.includes("token") ? "t_" : "_") + card_stats.card_name + ((card_stats.shape.includes("double")) ? "_front" : "") + "." + card_stats.image_type;
+			img.loading = "lazy";
+
+			if ("position" in card_stats) {
+				img.src = "/sets/" + card_stats.set + "-files/img/" + card_stats.position + ((card_stats.shape.includes("double")) ? "_front" : "") + "." + card_stats.image_type;
+			}
+			else {
+				img.src = "/sets/" + card_stats.set + "-files/img/" + card_stats.number + (card_stats.shape.includes("token") ? "t_" : "_") + card_stats.card_name + ((card_stats.shape.includes("double")) ? "_front" : "") + "." + card_stats.image_type;
+			}
 			
 			const link = document.createElement("a");
 			
@@ -494,7 +480,8 @@
 
 			link.appendChild(img);
 
-			if ((card_stats.shape.includes("spli") || card_stats.type.includes("Battle")) && rotate_card)
+			rotate_card = (card_stats.shape.includes("spli") || card_stats.type.includes("Battle")) && rotate_card;
+			if (rotate_card)
 			{
 				const rotated_img = document.createElement("img");
 				rotated_img.className = "h-img";
@@ -529,10 +516,23 @@
 
 		function imgFlip(id, rotate_card = false) { // comments in here by aanginer
             const img = document.getElementById(id);
-            const seconds = 0.2; // adjust this as needed, this is half of the animation time
+            const seconds = 0.2;
 
             img.style.transition = seconds.toString() + "s";
             img.style.transform = "rotateY(90deg)"; // rotate 90 degrees
+
+            const rotated_img = document.getElementById("h-img");
+            if (rotated_img)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotate_card && rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
 
             setTimeout(function() { // wait for the rotation, then set the image's src correctly
                 const rotated_img = document.getElementById("h-img");
@@ -545,43 +545,46 @@
 
                     if (rotate_card)
                     {
-                        rotated_img.style.display = "none";
+                        rotated_img.style.opacity = "0";
                         img.style.filter = "";
                     }
                 }
-                else
+                else if (cardName.includes("_back"))
                 {
                     img.src = cardName.replace("_back", "_front");
 
                     if (rotate_card)
                     {
-                        rotated_img.style.display = "block";
+                        rotated_img.style.opacity = "1";
                         img.style.filter = "blur(2px) brightness(0.7)";
                     }
                 }
 
-                img.style.transition = (seconds * 2).toString() + "s"; // idk why we have to double the time but it works
+                img.style.transition = seconds.toString() + "s";
                 img.style.transform = "rotateY(0deg)";
+
+                if (rotated_img)
+	            {
+	            	rotated_img.style.transition = seconds.toString() + "s";
+	           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+	            }
             }, seconds * 1000);
         }
 
-		function prettifyEffects(card_effects) {
+		function prettifyEffects(card_effect) {
 			let HTML = "";
+
+			let styled_effect = card_effect.replace(/(\[i\])+(.+?)(\[\/i\])+/gs, function(matched, _1, _2) {
+				return '<i>' + _2 + '</i>'
+			}).replaceAll(/(\[b\])+(.+?)(\[\/b\])+/gs, function(matched, _1, _2) {
+				return '<b>' + _2 + '</b>'
+			});
+
+			let card_effects = styled_effect.split("\n");
 
 			for (let i = 0; i < card_effects.length; i++)
 			{
-				let styled_effect = card_effects[i].replace(/\[i\]([^\]]+)\[\/i\]/gs, function(matched, _1) {
-					return '<i>' + _1 + '</i>'
-				}).replace(/\[b\]([^\]]+)\[\/b\]/g, function(matched, _1) {
-					return '<b>' + _1 + '</b>'
-				})
-				
-				HTML += styled_effect;
-
-				if (i != card_effects.length - 1)
-				{
-					HTML += "<br>"
-				}
+				HTML += "<p>" + card_effects[i] + "</p>";
 			}
 			
 			let regexHTML = symbolize(HTML);
