@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="/sets/VLR-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>VLR visual preview</title>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('/resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('/img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('/img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('/img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('/img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/VLR-files/logo.png" />
+	<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/UND-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VYI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WCD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WOO-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="VLR"><img src="/sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="TGS"><img src="/sets/TGS-files/icon.png">Tales from the Grave in Space</a>
+	
+		<a class="set-bar inactive" href="UND"><img src="/sets/UND-files/icon.png">The Underhalls</a>
+	
+		<a class="set-bar inactive" href="VYI"><img src="/sets/VYI-files/icon.png">Valdrasil: Voyage to Infinity</a>
+	
+		<a class="set-bar inactive" href="WCD"><img src="/sets/WCD-files/icon.png">Wroszy’s Circus of Darkness</a>
+	
+		<a class="set-bar inactive" href="WDW"><img src="/sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="WOO"><img src="/sets/WOO-files/icon.png">Waking of Orlige </a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="/sets/VLR-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/4_Balance the Pattern.jpg" id="4_Balance the Pattern" data-flag="@X" onclick="openSidebar('4_Balance the Pattern',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/47_Het, False God.jpg" id="47_Het, False God" data-flag="@X" onclick="openSidebar('47_Het, False God',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/83_Make a Break For It.jpg" id="83_Make a Break For It" data-flag="@X" onclick="openSidebar('83_Make a Break For It',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/101_Aspiring Elite.jpg" id="101_Aspiring Elite" data-flag="@X" onclick="openSidebar('101_Aspiring Elite',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/VLR-files/img/152_The Setral Shaper_back.jpg" alt="/sets/VLR-files/img/152_The Setral Shaper_front.jpg" id="152_The Setral Shaper" data-flag="@XD" onclick="openSidebar('152_The Setral Shaper',false)"><button class="flip-btn" onclick="imgFlip('152_The Setral Shaper')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/VLR-files/img/26_Siurne, Eternal Sentinel_back.jpg" alt="/sets/VLR-files/img/26_Siurne, Eternal Sentinel_front.jpg" id="26_Siurne, Eternal Sentinel" data-flag="@XD" onclick="openSidebar('26_Siurne, Eternal Sentinel',false)"><button class="flip-btn" onclick="imgFlip('26_Siurne, Eternal Sentinel')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/VLR-files/img/50_Leiowen, Escape Artist_back.jpg" alt="/sets/VLR-files/img/50_Leiowen, Escape Artist_front.jpg" id="50_Leiowen, Escape Artist" data-flag="@XD" onclick="openSidebar('50_Leiowen, Escape Artist',false)"><button class="flip-btn" onclick="imgFlip('50_Leiowen, Escape Artist')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/VLR-files/img/97_Soya, Nal Executioner_back.jpg" alt="/sets/VLR-files/img/97_Soya, Nal Executioner_front.jpg" id="97_Soya, Nal Executioner" data-flag="@XD" onclick="openSidebar('97_Soya, Nal Executioner',false)"><button class="flip-btn" onclick="imgFlip('97_Soya, Nal Executioner')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/VLR-files/img/131_Vie, Sunset Hero_back.jpg" alt="/sets/VLR-files/img/131_Vie, Sunset Hero_front.jpg" id="131_Vie, Sunset Hero" data-flag="@XD" onclick="openSidebar('131_Vie, Sunset Hero',false)"><button class="flip-btn" onclick="imgFlip('131_Vie, Sunset Hero')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/166_Volwood Reclaimer.jpg" id="166_Volwood Reclaimer" data-flag="@X" onclick="openSidebar('166_Volwood Reclaimer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/8_Depart.jpg" id="8_Depart" data-flag="@X" onclick="openSidebar('8_Depart',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/35_Adept Grovewarden.jpg" id="35_Adept Grovewarden" data-flag="@X" onclick="openSidebar('35_Adept Grovewarden',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/71_Coffers Altar.jpg" id="71_Coffers Altar" data-flag="@X" onclick="openSidebar('71_Coffers Altar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/107_Explosive Exit.jpg" id="107_Explosive Exit" data-flag="@X" onclick="openSidebar('107_Explosive Exit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/134_Barkscale Strategist.jpg" id="134_Barkscale Strategist" data-flag="@X" onclick="openSidebar('134_Barkscale Strategist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/18_Renegade Champion.jpg" id="18_Renegade Champion" data-flag="@X" onclick="openSidebar('18_Renegade Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/42_Duplicity.jpg" id="42_Duplicity" data-flag="@X" onclick="openSidebar('42_Duplicity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/76_Glimpse the Bigger Picture.jpg" id="76_Glimpse the Bigger Picture" data-flag="@X" onclick="openSidebar('76_Glimpse the Bigger Picture',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/113_Liberated Rallier.jpg" id="113_Liberated Rallier" data-flag="@X" onclick="openSidebar('113_Liberated Rallier',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/145_Leybound Ritualist.jpg" id="145_Leybound Ritualist" data-flag="@X" onclick="openSidebar('145_Leybound Ritualist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/22_Sanctum Judge.jpg" id="22_Sanctum Judge" data-flag="@X" onclick="openSidebar('22_Sanctum Judge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/44_Empowered Initiate.jpg" id="44_Empowered Initiate" data-flag="@X" onclick="openSidebar('44_Empowered Initiate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/84_Malicious Pactmaker.jpg" id="84_Malicious Pactmaker" data-flag="@X" onclick="openSidebar('84_Malicious Pactmaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/114_Nal Bloodweaver.jpg" id="114_Nal Bloodweaver" data-flag="@X" onclick="openSidebar('114_Nal Bloodweaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/156_Sunset Siegebreakers.jpg" id="156_Sunset Siegebreakers" data-flag="@X" onclick="openSidebar('156_Sunset Siegebreakers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/27_Spite of the Founder.jpg" id="27_Spite of the Founder" data-flag="@X" onclick="openSidebar('27_Spite of the Founder',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/46_Getaway Expert.jpg" id="46_Getaway Expert" data-flag="@X" onclick="openSidebar('46_Getaway Expert',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/86_Observant Acquisitor.jpg" id="86_Observant Acquisitor" data-flag="@X" onclick="openSidebar('86_Observant Acquisitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/119_Revenge Killing.jpg" id="119_Revenge Killing" data-flag="@X" onclick="openSidebar('119_Revenge Killing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/157_Sunset Summons.jpg" id="157_Sunset Summons" data-flag="@X" onclick="openSidebar('157_Sunset Summons',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/32_Umber Uniter.jpg" id="32_Umber Uniter" data-flag="@X" onclick="openSidebar('32_Umber Uniter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/49_Into Eternity.jpg" id="49_Into Eternity" data-flag="@X" onclick="openSidebar('49_Into Eternity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/94_Seasoned Hunter.jpg" id="94_Seasoned Hunter" data-flag="@X" onclick="openSidebar('94_Seasoned Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/120_Scaled Spellthief.jpg" id="120_Scaled Spellthief" data-flag="@X" onclick="openSidebar('120_Scaled Spellthief',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/160_Taken Alive.jpg" id="160_Taken Alive" data-flag="@X" onclick="openSidebar('160_Taken Alive',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/2_Ascended Prophet.jpg" id="2_Ascended Prophet" data-flag="@X" onclick="openSidebar('2_Ascended Prophet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/38_Beneath the Tide.jpg" id="38_Beneath the Tide" data-flag="@X" onclick="openSidebar('38_Beneath the Tide',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/68_Avarice.jpg" id="68_Avarice" data-flag="@X" onclick="openSidebar('68_Avarice',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/102_Become the Hunted.jpg" id="102_Become the Hunted" data-flag="@X" onclick="openSidebar('102_Become the Hunted',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/135_Blooming Champion.jpg" id="135_Blooming Champion" data-flag="@X" onclick="openSidebar('135_Blooming Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/3_Aspiring Shaper.jpg" id="3_Aspiring Shaper" data-flag="@X" onclick="openSidebar('3_Aspiring Shaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/41_Curious Chemist.jpg" id="41_Curious Chemist" data-flag="@X" onclick="openSidebar('41_Curious Chemist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/70_Bloodletting.jpg" id="70_Bloodletting" data-flag="@X" onclick="openSidebar('70_Bloodletting',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/105_Daring Escapees.jpg" id="105_Daring Escapees" data-flag="@X" onclick="openSidebar('105_Daring Escapees',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/137_Creeping Overgrowth.jpg" id="137_Creeping Overgrowth" data-flag="@X" onclick="openSidebar('137_Creeping Overgrowth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/5_Call for Backup.jpg" id="5_Call for Backup" data-flag="@X" onclick="openSidebar('5_Call for Backup',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/51_Madness of Age.jpg" id="51_Madness of Age" data-flag="@X" onclick="openSidebar('51_Madness of Age',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/74_Evasive Flourish.jpg" id="74_Evasive Flourish" data-flag="@X" onclick="openSidebar('74_Evasive Flourish',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/108_Flee.jpg" id="108_Flee" data-flag="@X" onclick="openSidebar('108_Flee',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/138_Culvert Inspector.jpg" id="138_Culvert Inspector" data-flag="@X" onclick="openSidebar('138_Culvert Inspector',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/6_Chapel Patrol.jpg" id="6_Chapel Patrol" data-flag="@X" onclick="openSidebar('6_Chapel Patrol',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/52_Observe the Pattern.jpg" id="52_Observe the Pattern" data-flag="@X" onclick="openSidebar('52_Observe the Pattern',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/75_Forsaken Shroudguard.jpg" id="75_Forsaken Shroudguard" data-flag="@X" onclick="openSidebar('75_Forsaken Shroudguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/109_Frontline Victor.jpg" id="109_Frontline Victor" data-flag="@X" onclick="openSidebar('109_Frontline Victor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/139_Defend the Groves.jpg" id="139_Defend the Groves" data-flag="@X" onclick="openSidebar('139_Defend the Groves',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/7_City's Memory.jpg" id="7_Citys Memory" data-flag="@X" onclick="openSidebar('7_Citys Memory',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/53_Overseer's Entrancer.jpg" id="53_Overseers Entrancer" data-flag="@X" onclick="openSidebar('53_Overseers Entrancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/79_Jump the Gap.jpg" id="79_Jump the Gap" data-flag="@X" onclick="openSidebar('79_Jump the Gap',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/110_Guild Hireling.jpg" id="110_Guild Hireling" data-flag="@X" onclick="openSidebar('110_Guild Hireling',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/143_Incursion Hero.jpg" id="143_Incursion Hero" data-flag="@X" onclick="openSidebar('143_Incursion Hero',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/11_Invigorating Concoction.jpg" id="11_Invigorating Concoction" data-flag="@X" onclick="openSidebar('11_Invigorating Concoction',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/55_Perfect Plan.jpg" id="55_Perfect Plan" data-flag="@X" onclick="openSidebar('55_Perfect Plan',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/80_Leonin Striker.jpg" id="80_Leonin Striker" data-flag="@X" onclick="openSidebar('80_Leonin Striker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/111_Killer-for-Hire.jpg" id="111_Killer-for-Hire" data-flag="@X" onclick="openSidebar('111_Killer-for-Hire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/146_Life from Death.jpg" id="146_Life from Death" data-flag="@X" onclick="openSidebar('146_Life from Death',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/13_One Quiet Moment.jpg" id="13_One Quiet Moment" data-flag="@X" onclick="openSidebar('13_One Quiet Moment',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/56_Rooftop Runner.jpg" id="56_Rooftop Runner" data-flag="@X" onclick="openSidebar('56_Rooftop Runner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/81_Lumbering Corruptor.jpg" id="81_Lumbering Corruptor" data-flag="@X" onclick="openSidebar('81_Lumbering Corruptor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/118_Renegade's Volley.jpg" id="118_Renegades Volley" data-flag="@X" onclick="openSidebar('118_Renegades Volley',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/147_Outskirts Sureshot.jpg" id="147_Outskirts Sureshot" data-flag="@X" onclick="openSidebar('147_Outskirts Sureshot',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/14_Overseer's Chosen.jpg" id="14_Overseers Chosen" data-flag="@X" onclick="openSidebar('14_Overseers Chosen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/57_Sanctuary Cultivator.jpg" id="57_Sanctuary Cultivator" data-flag="@X" onclick="openSidebar('57_Sanctuary Cultivator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/87_Offer Yourself.jpg" id="87_Offer Yourself" data-flag="@X" onclick="openSidebar('87_Offer Yourself',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/122_Siurne's Deceit.jpg" id="122_Siurnes Deceit" data-flag="@X" onclick="openSidebar('122_Siurnes Deceit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/149_Renegade Survivalist.jpg" id="149_Renegade Survivalist" data-flag="@X" onclick="openSidebar('149_Renegade Survivalist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/20_Renegade Trueheart.jpg" id="20_Renegade Trueheart" data-flag="@X" onclick="openSidebar('20_Renegade Trueheart',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/58_Sanctum Sacrament.jpg" id="58_Sanctum Sacrament" data-flag="@X" onclick="openSidebar('58_Sanctum Sacrament',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/88_Pickpocket.jpg" id="88_Pickpocket" data-flag="@X" onclick="openSidebar('88_Pickpocket',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/123_Slippery Tomethief.jpg" id="123_Slippery Tomethief" data-flag="@X" onclick="openSidebar('123_Slippery Tomethief',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/150_Renegade's Intercession.jpg" id="150_Renegades Intercession" data-flag="@X" onclick="openSidebar('150_Renegades Intercession',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/28_Stalwart Grovespeaker.jpg" id="28_Stalwart Grovespeaker" data-flag="@X" onclick="openSidebar('28_Stalwart Grovespeaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/61_South-District Chaplain.jpg" id="61_South-District Chaplain" data-flag="@X" onclick="openSidebar('61_South-District Chaplain',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/90_Rooftop Prowler.jpg" id="90_Rooftop Prowler" data-flag="@X" onclick="openSidebar('90_Rooftop Prowler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/125_Split the Loot.jpg" id="125_Split the Loot" data-flag="@X" onclick="openSidebar('125_Split the Loot',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/153_Shroudpiercer.jpg" id="153_Shroudpiercer" data-flag="@X" onclick="openSidebar('153_Shroudpiercer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/30_Sunset Elite.jpg" id="30_Sunset Elite" data-flag="@X" onclick="openSidebar('30_Sunset Elite',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/64_Tireless Refutation.jpg" id="64_Tireless Refutation" data-flag="@X" onclick="openSidebar('64_Tireless Refutation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/91_Runaway Corvid.jpg" id="91_Runaway Corvid" data-flag="@X" onclick="openSidebar('91_Runaway Corvid',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/127_Sunder the Cage.jpg" id="127_Sunder the Cage" data-flag="@X" onclick="openSidebar('127_Sunder the Cage',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/158_Tainted Stalker.jpg" id="158_Tainted Stalker" data-flag="@X" onclick="openSidebar('158_Tainted Stalker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/31_Surround.jpg" id="31_Surround" data-flag="@X" onclick="openSidebar('31_Surround',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/65_Vicuro Informant.jpg" id="65_Vicuro Informant" data-flag="@X" onclick="openSidebar('65_Vicuro Informant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/99_Tunnel Prowler.jpg" id="99_Tunnel Prowler" data-flag="@X" onclick="openSidebar('99_Tunnel Prowler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/132_Wistful Runaway.jpg" id="132_Wistful Runaway" data-flag="@X" onclick="openSidebar('132_Wistful Runaway',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/162_Trespass the Volwood.jpg" id="162_Trespass the Volwood" data-flag="@X" onclick="openSidebar('162_Trespass the Volwood',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/9_Fledgling Sycophant.jpg" id="9_Fledgling Sycophant" data-flag="@X" onclick="openSidebar('9_Fledgling Sycophant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/36_Attuned Rebuttal.jpg" id="36_Attuned Rebuttal" data-flag="@X" onclick="openSidebar('36_Attuned Rebuttal',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/69_Beyond the Shroud.jpg" id="69_Beyond the Shroud" data-flag="@X" onclick="openSidebar('69_Beyond the Shroud',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/103_Contract Killer.jpg" id="103_Contract Killer" data-flag="@X" onclick="openSidebar('103_Contract Killer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/136_Courageous Clash.jpg" id="136_Courageous Clash" data-flag="@X" onclick="openSidebar('136_Courageous Clash',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/10_Grove Sentry.jpg" id="10_Grove Sentry" data-flag="@X" onclick="openSidebar('10_Grove Sentry',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/37_Backalley Insight.jpg" id="37_Backalley Insight" data-flag="@X" onclick="openSidebar('37_Backalley Insight',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/72_Covet.jpg" id="72_Covet" data-flag="@X" onclick="openSidebar('72_Covet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/104_Dagger Toss.jpg" id="104_Dagger Toss" data-flag="@X" onclick="openSidebar('104_Dagger Toss',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/140_Flourishing Seedling.jpg" id="140_Flourishing Seedling" data-flag="@X" onclick="openSidebar('140_Flourishing Seedling',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/12_Makeshift Justice.jpg" id="12_Makeshift Justice" data-flag="@X" onclick="openSidebar('12_Makeshift Justice',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/39_Blessed Convert.jpg" id="39_Blessed Convert" data-flag="@X" onclick="openSidebar('39_Blessed Convert',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/73_Crypt Caretaker.jpg" id="73_Crypt Caretaker" data-flag="@X" onclick="openSidebar('73_Crypt Caretaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/106_Due Reward.jpg" id="106_Due Reward" data-flag="@X" onclick="openSidebar('106_Due Reward',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/141_Gutter Rat.jpg" id="141_Gutter Rat" data-flag="@X" onclick="openSidebar('141_Gutter Rat',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/15_Overseer's Shackles.jpg" id="15_Overseers Shackles" data-flag="@X" onclick="openSidebar('15_Overseers Shackles',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/40_Congregation Minister.jpg" id="40_Congregation Minister" data-flag="@X" onclick="openSidebar('40_Congregation Minister',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/77_Hymn of the Overseer.jpg" id="77_Hymn of the Overseer" data-flag="@X" onclick="openSidebar('77_Hymn of the Overseer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/112_Liberated Convert.jpg" id="112_Liberated Convert" data-flag="@X" onclick="openSidebar('112_Liberated Convert',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/142_Hired Hand.jpg" id="142_Hired Hand" data-flag="@X" onclick="openSidebar('142_Hired Hand',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/16_Planar Scholar.jpg" id="16_Planar Scholar" data-flag="@X" onclick="openSidebar('16_Planar Scholar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/43_Eavesdrop.jpg" id="43_Eavesdrop" data-flag="@X" onclick="openSidebar('43_Eavesdrop',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/78_In Cold Blood.jpg" id="78_In Cold Blood" data-flag="@X" onclick="openSidebar('78_In Cold Blood',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/115_Nal Newcomer.jpg" id="115_Nal Newcomer" data-flag="@X" onclick="openSidebar('115_Nal Newcomer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/144_Leonin Revivalist.jpg" id="144_Leonin Revivalist" data-flag="@X" onclick="openSidebar('144_Leonin Revivalist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/17_Reclaimed Convert.jpg" id="17_Reclaimed Convert" data-flag="@X" onclick="openSidebar('17_Reclaimed Convert',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/45_Enigmatic Apothecary.jpg" id="45_Enigmatic Apothecary" data-flag="@X" onclick="openSidebar('45_Enigmatic Apothecary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/82_Lurking Voidborn.jpg" id="82_Lurking Voidborn" data-flag="@X" onclick="openSidebar('82_Lurking Voidborn',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/116_Nimble Thief.jpg" id="116_Nimble Thief" data-flag="@X" onclick="openSidebar('116_Nimble Thief',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/148_Poison the Blade.jpg" id="148_Poison the Blade" data-flag="@X" onclick="openSidebar('148_Poison the Blade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/19_Renegade Rescuers.jpg" id="19_Renegade Rescuers" data-flag="@X" onclick="openSidebar('19_Renegade Rescuers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/48_Intangibility.jpg" id="48_Intangibility" data-flag="@X" onclick="openSidebar('48_Intangibility',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/85_Moonlit Runaway.jpg" id="85_Moonlit Runaway" data-flag="@X" onclick="openSidebar('85_Moonlit Runaway',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/117_Picking Prey.jpg" id="117_Picking Prey" data-flag="@X" onclick="openSidebar('117_Picking Prey',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/151_Scaled Mentor.jpg" id="151_Scaled Mentor" data-flag="@X" onclick="openSidebar('151_Scaled Mentor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/21_Sanctum Enforcer.jpg" id="21_Sanctum Enforcer" data-flag="@X" onclick="openSidebar('21_Sanctum Enforcer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/54_Overseer's Thrall.jpg" id="54_Overseers Thrall" data-flag="@X" onclick="openSidebar('54_Overseers Thrall',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/89_Rial's Assault.jpg" id="89_Rials Assault" data-flag="@X" onclick="openSidebar('89_Rials Assault',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/121_Serial Traitor.jpg" id="121_Serial Traitor" data-flag="@X" onclick="openSidebar('121_Serial Traitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/154_Spit Venom.jpg" id="154_Spit Venom" data-flag="@X" onclick="openSidebar('154_Spit Venom',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/23_Setral Grovetender.jpg" id="23_Setral Grovetender" data-flag="@X" onclick="openSidebar('23_Setral Grovetender',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/59_Skybound Sentry.jpg" id="59_Skybound Sentry" data-flag="@X" onclick="openSidebar('59_Skybound Sentry',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/92_Sanctum Sneak.jpg" id="92_Sanctum Sneak" data-flag="@X" onclick="openSidebar('92_Sanctum Sneak',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/124_Spice of Life.jpg" id="124_Spice of Life" data-flag="@X" onclick="openSidebar('124_Spice of Life',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/155_Sunset Scout.jpg" id="155_Sunset Scout" data-flag="@X" onclick="openSidebar('155_Sunset Scout',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/24_Shaper's Rites.jpg" id="24_Shapers Rites" data-flag="@X" onclick="openSidebar('24_Shapers Rites',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/60_Snatch Away.jpg" id="60_Snatch Away" data-flag="@X" onclick="openSidebar('60_Snatch Away',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/93_Scheming Corvid.jpg" id="93_Scheming Corvid" data-flag="@X" onclick="openSidebar('93_Scheming Corvid',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/126_Streetwise Surveyor.jpg" id="126_Streetwise Surveyor" data-flag="@X" onclick="openSidebar('126_Streetwise Surveyor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/159_Take in the Haul.jpg" id="159_Take in the Haul" data-flag="@X" onclick="openSidebar('159_Take in the Haul',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/25_Shroud Warden.jpg" id="25_Shroud Warden" data-flag="@X" onclick="openSidebar('25_Shroud Warden',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/62_South-District Pilferer.jpg" id="62_South-District Pilferer" data-flag="@X" onclick="openSidebar('62_South-District Pilferer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/95_Skittering Swiftblade.jpg" id="95_Skittering Swiftblade" data-flag="@X" onclick="openSidebar('95_Skittering Swiftblade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/128_Sunset Recruit.jpg" id="128_Sunset Recruit" data-flag="@X" onclick="openSidebar('128_Sunset Recruit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/161_Titanic Mycoid.jpg" id="161_Titanic Mycoid" data-flag="@X" onclick="openSidebar('161_Titanic Mycoid',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/29_Stand as One.jpg" id="29_Stand as One" data-flag="@X" onclick="openSidebar('29_Stand as One',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/63_Tempting Recruiter.jpg" id="63_Tempting Recruiter" data-flag="@X" onclick="openSidebar('63_Tempting Recruiter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/96_South-Street Scoundrel.jpg" id="96_South-Street Scoundrel" data-flag="@X" onclick="openSidebar('96_South-Street Scoundrel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/129_Tear Down.jpg" id="129_Tear Down" data-flag="@X" onclick="openSidebar('129_Tear Down',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/163_Unbridled Flourishing.jpg" id="163_Unbridled Flourishing" data-flag="@X" onclick="openSidebar('163_Unbridled Flourishing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/33_Verdure Curator.jpg" id="33_Verdure Curator" data-flag="@X" onclick="openSidebar('33_Verdure Curator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/66_Vicuro Pathmaker.jpg" id="66_Vicuro Pathmaker" data-flag="@X" onclick="openSidebar('66_Vicuro Pathmaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/98_Tragic Accident.jpg" id="98_Tragic Accident" data-flag="@X" onclick="openSidebar('98_Tragic Accident',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/130_Thoroughfare Busker.jpg" id="130_Thoroughfare Busker" data-flag="@X" onclick="openSidebar('130_Thoroughfare Busker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/164_Verdant Sentry.jpg" id="164_Verdant Sentry" data-flag="@X" onclick="openSidebar('164_Verdant Sentry',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/34_Weapon Hawker.jpg" id="34_Weapon Hawker" data-flag="@X" onclick="openSidebar('34_Weapon Hawker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/67_Wretched Propaganda.jpg" id="67_Wretched Propaganda" data-flag="@X" onclick="openSidebar('67_Wretched Propaganda',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/100_Volwood Proselytizer.jpg" id="100_Volwood Proselytizer" data-flag="@X" onclick="openSidebar('100_Volwood Proselytizer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/133_Yoink!.jpg" id="133_Yoink!" data-flag="@X" onclick="openSidebar('133_Yoink!',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/165_Volwood Forerunner.jpg" id="165_Volwood Forerunner" data-flag="@X" onclick="openSidebar('165_Volwood Forerunner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/169_Chapel Attendant.jpg" id="169_Chapel Attendant" data-flag="@X" onclick="openSidebar('169_Chapel Attendant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/183_Mischievous Thief.jpg" id="183_Mischievous Thief" data-flag="@X" onclick="openSidebar('183_Mischievous Thief',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/203_Shady Schemer.jpg" id="203_Shady Schemer" data-flag="@X" onclick="openSidebar('203_Shady Schemer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/189_Patrol Veteran.jpg" id="189_Patrol Veteran" data-flag="@X" onclick="openSidebar('189_Patrol Veteran',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/201_Sanctum Intruder.jpg" id="201_Sanctum Intruder" data-flag="@X" onclick="openSidebar('201_Sanctum Intruder',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/185_Old-Growth Protector.jpg" id="185_Old-Growth Protector" data-flag="@X" onclick="openSidebar('185_Old-Growth Protector',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/204_Shrouded Ritualist.jpg" id="204_Shrouded Ritualist" data-flag="@X" onclick="openSidebar('204_Shrouded Ritualist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/206_Skittering Striker.jpg" id="206_Skittering Striker" data-flag="@X" onclick="openSidebar('206_Skittering Striker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/198_Rooftop Hunter.jpg" id="198_Rooftop Hunter" data-flag="@X" onclick="openSidebar('198_Rooftop Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/202_Setral Guardian.jpg" id="202_Setral Guardian" data-flag="@X" onclick="openSidebar('202_Setral Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/167_Arital, Grand Adjudicator.jpg" id="167_Arital, Grand Adjudicator" data-flag="@X" onclick="openSidebar('167_Arital, Grand Adjudicator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/187_Orlen, Untouchable.jpg" id="187_Orlen, Untouchable" data-flag="@X" onclick="openSidebar('187_Orlen, Untouchable',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/182_Memoriam.jpg" id="182_Memoriam" data-flag="@X" onclick="openSidebar('182_Memoriam',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/195_Rise Up.jpg" id="195_Rise Up" data-flag="@X" onclick="openSidebar('195_Rise Up',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/172_Ery, Concord Archdruid.jpg" id="172_Ery, Concord Archdruid" data-flag="@X" onclick="openSidebar('172_Ery, Concord Archdruid',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/196_Rites of Equilibrium.jpg" id="196_Rites of Equilibrium" data-flag="@X" onclick="openSidebar('196_Rites of Equilibrium',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/215_What's Yours Is Mine.jpg" id="215_Whats Yours Is Mine" data-flag="@X" onclick="openSidebar('215_Whats Yours Is Mine',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/188_Orliss of the Elite.jpg" id="188_Orliss of the Elite" data-flag="@X" onclick="openSidebar('188_Orliss of the Elite',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/199_Sahra, Siege Captain.jpg" id="199_Sahra, Siege Captain" data-flag="@X" onclick="openSidebar('199_Sahra, Siege Captain',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/194_Restoration Efforts.jpg" id="194_Restoration Efforts" data-flag="@X" onclick="openSidebar('194_Restoration Efforts',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/170_Eerie Congregation.jpg" id="170_Eerie Congregation" data-flag="@X" onclick="openSidebar('170_Eerie Congregation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/168_Backalley Dealer.jpg" id="168_Backalley Dealer" data-flag="@X" onclick="openSidebar('168_Backalley Dealer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/174_Find Your Prey.jpg" id="174_Find Your Prey" data-flag="@X" onclick="openSidebar('174_Find Your Prey',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/179_Kane, Volwood Valiant.jpg" id="179_Kane, Volwood Valiant" data-flag="@X" onclick="openSidebar('179_Kane, Volwood Valiant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/173_Evrax, the Last.jpg" id="173_Evrax, the Last" data-flag="@X" onclick="openSidebar('173_Evrax, the Last',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/192_Profane Scripture.jpg" id="192_Profane Scripture" data-flag="@X" onclick="openSidebar('192_Profane Scripture',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/181_Marle, Vicuro Head.jpg" id="181_Marle, Vicuro Head" data-flag="@X" onclick="openSidebar('181_Marle, Vicuro Head',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/176_Guild Exterminator.jpg" id="176_Guild Exterminator" data-flag="@X" onclick="openSidebar('176_Guild Exterminator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/193_Rally the Rabble.jpg" id="193_Rally the Rabble" data-flag="@X" onclick="openSidebar('193_Rally the Rabble',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/177_Herbal Remedy.jpg" id="177_Herbal Remedy" data-flag="@X" onclick="openSidebar('177_Herbal Remedy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/207_Surola, Loyal Preacher.jpg" id="207_Surola, Loyal Preacher" data-flag="@X" onclick="openSidebar('207_Surola, Loyal Preacher',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/186_On Top of the World.jpg" id="186_On Top of the World" data-flag="@X" onclick="openSidebar('186_On Top of the World',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/208_Torel, Scion of Rot.jpg" id="208_Torel, Scion of Rot" data-flag="@X" onclick="openSidebar('208_Torel, Scion of Rot',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/205_Siurne's Blessing.jpg" id="205_Siurnes Blessing" data-flag="@X" onclick="openSidebar('205_Siurnes Blessing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/178_In Tune.jpg" id="178_In Tune" data-flag="@X" onclick="openSidebar('178_In Tune',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/216_Windborn Chaplain.jpg" id="216_Windborn Chaplain" data-flag="@X" onclick="openSidebar('216_Windborn Chaplain',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/190_Prized Possession.jpg" id="190_Prized Possession" data-flag="@X" onclick="openSidebar('190_Prized Possession',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/214_Wanton Destruction.jpg" id="214_Wanton Destruction" data-flag="@X" onclick="openSidebar('214_Wanton Destruction',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/210_Valiant Inciter.jpg" id="210_Valiant Inciter" data-flag="@X" onclick="openSidebar('210_Valiant Inciter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/212_Volwood Renewer.jpg" id="212_Volwood Renewer" data-flag="@X" onclick="openSidebar('212_Volwood Renewer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/217_Beseech the Dead.jpg" id="217_Beseech the Dead" data-flag="@X" onclick="openSidebar('217_Beseech the Dead',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/221_Expert Infiltration.jpg" id="221_Expert Infiltration" data-flag="@X" onclick="openSidebar('221_Expert Infiltration',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/232_Race for the Kill.jpg" id="232_Race for the Kill" data-flag="@X" onclick="openSidebar('232_Race for the Kill',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/233_Rebellious Recruiter.jpg" id="233_Rebellious Recruiter" data-flag="@X" onclick="openSidebar('233_Rebellious Recruiter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/236_Semmaroot Balm.jpg" id="236_Semmaroot Balm" data-flag="@X" onclick="openSidebar('236_Semmaroot Balm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/230_Malicious Throng.jpg" id="230_Malicious Throng" data-flag="@X" onclick="openSidebar('230_Malicious Throng',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/235_Scurrying Pickpocket.jpg" id="235_Scurrying Pickpocket" data-flag="@X" onclick="openSidebar('235_Scurrying Pickpocket',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/241_Winding Assailant.jpg" id="241_Winding Assailant" data-flag="@X" onclick="openSidebar('241_Winding Assailant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/239_Unending Uprising.jpg" id="239_Unending Uprising" data-flag="@X" onclick="openSidebar('239_Unending Uprising',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/237_Setral Arborist.jpg" id="237_Setral Arborist" data-flag="@X" onclick="openSidebar('237_Setral Arborist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/191_Profane Gathering.jpg" id="191_Profane Gathering" data-flag="@X" onclick="openSidebar('191_Profane Gathering',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/184_Nimble Getaway.jpg" id="184_Nimble Getaway" data-flag="@X" onclick="openSidebar('184_Nimble Getaway',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/171_Elite Executioner.jpg" id="171_Elite Executioner" data-flag="@X" onclick="openSidebar('171_Elite Executioner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/180_Liberation.jpg" id="180_Liberation" data-flag="@X" onclick="openSidebar('180_Liberation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/209_Umber Grovetender.jpg" id="209_Umber Grovetender" data-flag="@X" onclick="openSidebar('209_Umber Grovetender',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/200_Sanctum Deathspeaker.jpg" id="200_Sanctum Deathspeaker" data-flag="@X" onclick="openSidebar('200_Sanctum Deathspeaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/197_Robber Reinforcements.jpg" id="197_Robber Reinforcements" data-flag="@X" onclick="openSidebar('197_Robber Reinforcements',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/175_Go for the Gut.jpg" id="175_Go for the Gut" data-flag="@X" onclick="openSidebar('175_Go for the Gut',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/211_Volwood Liberator.jpg" id="211_Volwood Liberator" data-flag="@X" onclick="openSidebar('211_Volwood Liberator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/213_Wander Into the Grove.jpg" id="213_Wander Into the Grove" data-flag="@X" onclick="openSidebar('213_Wander Into the Grove',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/219_Consult the Offerings.jpg" id="219_Consult the Offerings" data-flag="@X" onclick="openSidebar('219_Consult the Offerings',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/220_Delias, Savvy Smuggler.jpg" id="220_Delias, Savvy Smuggler" data-flag="@X" onclick="openSidebar('220_Delias, Savvy Smuggler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/226_It's Just Business.jpg" id="226_Its Just Business" data-flag="@X" onclick="openSidebar('226_Its Just Business',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/222_Fight For What's Right.jpg" id="222_Fight For Whats Right" data-flag="@X" onclick="openSidebar('222_Fight For Whats Right',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/229_Loresk, Ever-Curious.jpg" id="229_Loresk, Ever-Curious" data-flag="@X" onclick="openSidebar('229_Loresk, Ever-Curious',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/224_High Priestess Symi.jpg" id="224_High Priestess Symi" data-flag="@X" onclick="openSidebar('224_High Priestess Symi',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/228_Listen In.jpg" id="228_Listen In" data-flag="@X" onclick="openSidebar('228_Listen In',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/240_Waylen, Bloodhunter.jpg" id="240_Waylen, Bloodhunter" data-flag="@X" onclick="openSidebar('240_Waylen, Bloodhunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/227_Ivari, Liberated Mentor.jpg" id="227_Ivari, Liberated Mentor" data-flag="@X" onclick="openSidebar('227_Ivari, Liberated Mentor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/231_Protect the Pattern.jpg" id="231_Protect the Pattern" data-flag="@X" onclick="openSidebar('231_Protect the Pattern',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/234_Sanctum Purifier.jpg" id="234_Sanctum Purifier" data-flag="@X" onclick="openSidebar('234_Sanctum Purifier',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/223_Heist Lookout.jpg" id="223_Heist Lookout" data-flag="@X" onclick="openSidebar('223_Heist Lookout',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/238_Stalking Ashblood.jpg" id="238_Stalking Ashblood" data-flag="@X" onclick="openSidebar('238_Stalking Ashblood',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/225_Incursion Vanguard.jpg" id="225_Incursion Vanguard" data-flag="@X" onclick="openSidebar('225_Incursion Vanguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/218_Concord Alchemist.jpg" id="218_Concord Alchemist" data-flag="@X" onclick="openSidebar('218_Concord Alchemist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/1_Tesh, Fragmented Founder.jpg" id="1_Tesh, Fragmented Founder" data-flag="@X" onclick="openSidebar('1_Tesh, Fragmented Founder',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/247_The Founder's Cage.jpg" id="247_The Founders Cage" data-flag="@X" onclick="openSidebar('247_The Founders Cage',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/248_Heart of Bedlam.jpg" id="248_Heart of Bedlam" data-flag="@X" onclick="openSidebar('248_Heart of Bedlam',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/242_Ancient Sentry.jpg" id="242_Ancient Sentry" data-flag="@X" onclick="openSidebar('242_Ancient Sentry',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/246_Dormant Godkiller.jpg" id="246_Dormant Godkiller" data-flag="@X" onclick="openSidebar('246_Dormant Godkiller',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/249_Herbalist's Satchel.jpg" id="249_Herbalists Satchel" data-flag="@X" onclick="openSidebar('249_Herbalists Satchel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/250_Mistbomb.jpg" id="250_Mistbomb" data-flag="@X" onclick="openSidebar('250_Mistbomb',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/251_Rogue's Gloves.jpg" id="251_Rogues Gloves" data-flag="@X" onclick="openSidebar('251_Rogues Gloves',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/253_Skulker's Cowl.jpg" id="253_Skulkers Cowl" data-flag="@X" onclick="openSidebar('253_Skulkers Cowl',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/254_Wharf Patrol.jpg" id="254_Wharf Patrol" data-flag="@X" onclick="openSidebar('254_Wharf Patrol',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/243_Autonomous Accomplice.jpg" id="243_Autonomous Accomplice" data-flag="@X" onclick="openSidebar('243_Autonomous Accomplice',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/244_Chromatic Relic.jpg" id="244_Chromatic Relic" data-flag="@X" onclick="openSidebar('244_Chromatic Relic',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/245_Disposable Dagger.jpg" id="245_Disposable Dagger" data-flag="@X" onclick="openSidebar('245_Disposable Dagger',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/252_Scrounging Sensor.jpg" id="252_Scrounging Sensor" data-flag="@X" onclick="openSidebar('252_Scrounging Sensor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/257_Apothecary's Quarters.jpg" id="257_Apothecarys Quarters" data-flag="@X" onclick="openSidebar('257_Apothecarys Quarters',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/270_Schemer's Study.jpg" id="270_Schemers Study" data-flag="@X" onclick="openSidebar('270_Schemers Study',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/273_Sketchy Slum.jpg" id="273_Sketchy Slum" data-flag="@X" onclick="openSidebar('273_Sketchy Slum',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/258_Backalley Market.jpg" id="258_Backalley Market" data-flag="@X" onclick="openSidebar('258_Backalley Market',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/263_Flourishing Garden.jpg" id="263_Flourishing Garden" data-flag="@X" onclick="openSidebar('263_Flourishing Garden',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/261_Corrupted Sanctum.jpg" id="261_Corrupted Sanctum" data-flag="@X" onclick="openSidebar('261_Corrupted Sanctum',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/256_Alchemist's Office.jpg" id="256_Alchemists Office" data-flag="@X" onclick="openSidebar('256_Alchemists Office',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/265_Haunting Alley.jpg" id="265_Haunting Alley" data-flag="@X" onclick="openSidebar('265_Haunting Alley',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/267_Humming Furnace.jpg" id="267_Humming Furnace" data-flag="@X" onclick="openSidebar('267_Humming Furnace',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/268_Moonlit Marsh.jpg" id="268_Moonlit Marsh" data-flag="@X" onclick="openSidebar('268_Moonlit Marsh',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/255_Abandoned Quarter.jpg" id="255_Abandoned Quarter" data-flag="@X" onclick="openSidebar('255_Abandoned Quarter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/260_Bustling Docks.jpg" id="260_Bustling Docks" data-flag="@X" onclick="openSidebar('260_Bustling Docks',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/262_Cultist Cathedral.jpg" id="262_Cultist Cathedral" data-flag="@X" onclick="openSidebar('262_Cultist Cathedral',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/266_Heretic Hideout.jpg" id="266_Heretic Hideout" data-flag="@X" onclick="openSidebar('266_Heretic Hideout',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/272_The Shrouded Seas.jpg" id="272_The Shrouded Seas" data-flag="@X" onclick="openSidebar('272_The Shrouded Seas',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/274_Verdant Grotto.jpg" id="274_Verdant Grotto" data-flag="@X" onclick="openSidebar('274_Verdant Grotto',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/259_Boundless Coffers.jpg" id="259_Boundless Coffers" data-flag="@X" onclick="openSidebar('259_Boundless Coffers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/271_Secluded Courtyard.jpg" id="271_Secluded Courtyard" data-flag="@X" onclick="openSidebar('271_Secluded Courtyard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/275_The Volwood.jpg" id="275_The Volwood" data-flag="@X" onclick="openSidebar('275_The Volwood',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/264_Forgotten Foundation.jpg" id="264_Forgotten Foundation" data-flag="@X" onclick="openSidebar('264_Forgotten Foundation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/269_Planar Archives.jpg" id="269_Planar Archives" data-flag="@X" onclick="openSidebar('269_Planar Archives',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/279_Mountain_VLR.jpg" id="279_Mountain_VLR" data-flag="@X" onclick="openSidebar('279_Mountain_VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/278_Swamp_VLR.jpg" id="278_Swamp_VLR" data-flag="@X" onclick="openSidebar('278_Swamp_VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/276_Plains_VLR.jpg" id="276_Plains_VLR" data-flag="@X" onclick="openSidebar('276_Plains_VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/277_Island_VLR.jpg" id="277_Island_VLR" data-flag="@X" onclick="openSidebar('277_Island_VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/280_Forest_VLR.jpg" id="280_Forest_VLR" data-flag="@X" onclick="openSidebar('280_Forest_VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/1t_Copy VLR.jpg" id="1t_Copy VLR" data-flag="@X" onclick="openSidebar('1t_Copy VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/2t_colorless Spirit 11VLR.jpg" id="2t_colorless Spirit 11VLR" data-flag="@X" onclick="openSidebar('2t_colorless Spirit 11VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/5t_Bounty Board VLR.jpg" id="5t_Bounty Board VLR" data-flag="@X" onclick="openSidebar('5t_Bounty Board VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/9t_Treasure VLR.jpg" id="9t_Treasure VLR" data-flag="@X" onclick="openSidebar('9t_Treasure VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/3t_red Skeleton Dragon 55VLR.jpg" id="3t_red Skeleton Dragon 55VLR" data-flag="@X" onclick="openSidebar('3t_red Skeleton Dragon 55VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/4t_Acolyte VLR.jpg" id="4t_Acolyte VLR" data-flag="@X" onclick="openSidebar('4t_Acolyte VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/6t_green and blue Druid 22VLR.jpg" id="6t_green and blue Druid 22VLR" data-flag="@X" onclick="openSidebar('6t_green and blue Druid 22VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/7t_black and green Mercenary 11VLR.jpg" id="7t_black and green Mercenary 11VLR" data-flag="@X" onclick="openSidebar('7t_black and green Mercenary 11VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/VLR-files/img/8t_red and white Rebel 11VLR.jpg" id="8t_red and white Rebel 11VLR" data-flag="@X" onclick="openSidebar('8t_red and white Rebel 11VLR',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL('search', window.location.origin);
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL('card', window.location.origin);
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url;
+			}
+	</script>
+</body>
+</html>
