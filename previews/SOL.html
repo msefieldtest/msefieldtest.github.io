@@ -5,6 +5,10 @@
 	<link rel="stylesheet" href="/resources/header.css">
 	<title>SOL visual preview</title>
 	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('/resources/beleren.ttf');
+		}
 		body {
 			font-family: Arial, sans-serif;
 			margin: 0;
@@ -35,8 +39,8 @@
 			position: relative;
 		}
 		.sidebar-h-img {
-			display: none;
-			transform: rotate(90deg);
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
 			position: absolute;
 			left: 10%;
 			top: 10%;
@@ -82,7 +86,7 @@
 		.banner {
 			width: 100%;
 			height: auto;
-			padding-top: 20px;
+			padding-top: 80px;
 			padding-bottom: 50px;
 		}
 		.logo {
@@ -118,33 +122,41 @@
 			background-size: contain;
 			background-position: center;
 		}
-		.icon-bar {
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
 			display: grid;
-			grid-template-columns: repeat(10, 3fr 2fr) 3fr;
-			gap: 1px;
-			padding-left: 5%;
-			padding-right: 5%;
-			padding-top: 2%;
-			padding-bottom: 1%;
-			justify-items: center;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
 			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
 		}
-		.icon-bar .icon img {
-			width: 90%;
-			max-width: 80px;
-			height: auto;
-			display: block;
-			padding: 5%;
-			margin: auto;
-			text-align: center;
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
 		}
-		.icon-bar .dot img {
-			width: 50%;
-			max-width: 65px;
-			height: auto;
-			display: block;
-			margin: auto;
-			text-align: center;
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
 		}
 		.preload-hidden {
 			display: none;
@@ -164,26 +176,20 @@
 <body>
 	<img class="preload-hidden" src="/img/dot.png" />
 	<img class="preload-hidden" src="/sets/SOL-files/logo.png" />
-	<img class="preload-hidden" src="/sets/AEK-files/icon.png" />
-		<img class="preload-hidden" src="/sets/HQZ-files/icon.png" />
-		<img class="preload-hidden" src="/sets/WTS-files/icon.png" />
-		<img class="preload-hidden" src="/sets/F2HU-files/icon.png" />
-		<img class="preload-hidden" src="/sets/ONI-files/icon.png" />
-		<img class="preload-hidden" src="/sets/IID-files/icon.png" />
-		<img class="preload-hidden" src="/sets/HWEL-files/icon.png" />
-		<img class="preload-hidden" src="/sets/KEC-files/icon.png" />
-		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
-		<img class="preload-hidden" src="/sets/VRN-files/icon.png" />
-		<img class="preload-hidden" src="/sets/DCO-files/icon.png" />
-		<img class="preload-hidden" src="/sets/DES-files/icon.png" />
-		<img class="preload-hidden" src="/sets/TRO-files/icon.png" />
-		<img class="preload-hidden" src="/sets/UCB-files/icon.png" />
-		<img class="preload-hidden" src="/sets/EOR-files/icon.png" />
-		<img class="preload-hidden" src="/sets/PBA-files/icon.png" />
+	<img class="preload-hidden" src="/sets/ORD-files/icon.png" />
 		<img class="preload-hidden" src="/sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PRK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
 		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
-		<img class="preload-hidden" src="/sets/AVA-files/icon.png" />
-		<img class="preload-hidden" src="/sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="/sets/UND-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VYI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WCD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WOO-files/icon.png" />
 		<div class="header">
 		<div class="search-grid">
 			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
@@ -195,422 +201,457 @@
 		</div>
 	</div>
 
-	<div class="icon-bar">
-			<div class="icon"><a href="AEK"><img src="/sets/AEK-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="HQZ"><img src="/sets/HQZ-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="WTS"><img src="/sets/WTS-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="F2HU"><img src="/sets/F2HU-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="ONI"><img src="/sets/ONI-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="IID"><img src="/sets/IID-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="HWEL"><img src="/sets/HWEL-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="KEC"><img src="/sets/KEC-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="SOL"><img src="/sets/SOL-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="VRN"><img src="/sets/VRN-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="DCO"><img src="/sets/DCO-files/icon.png"></img></a></div>
-		<div class="icon"><a href="DES"><img src="/sets/DES-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="TRO"><img src="/sets/TRO-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="UCB"><img src="/sets/UCB-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="EOR"><img src="/sets/EOR-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="PBA"><img src="/sets/PBA-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="POP2"><img src="/sets/POP2-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="TGS"><img src="/sets/TGS-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="AVA"><img src="/sets/AVA-files/icon.png"></img></a></div>
-		 <div class="dot"><img src="/img/dot.png"></img></div>
-		<div class="icon"><a href="HEX"><img src="/sets/HEX-files/icon.png"></img></a></div>
-
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="SOL"><img src="/sets/SOL-files/icon.png">Solastere</a>
+	
+		<a class="set-bar inactive" href="ORD"><img src="/sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="POP2"><img src="/sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="PRK"><img src="/sets/PRK-files/icon.png">Prakhma</a>
+	
+		<a class="set-bar inactive" href="RNF"><img src="/sets/RNF-files/icon.png">Ravnica Fractured</a>
+	
+		<a class="set-bar inactive" href="RPGM"><img src="/sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="SGP"><img src="/sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="TGS"><img src="/sets/TGS-files/icon.png">Tales from the Grave in Space</a>
+	
+		<a class="set-bar inactive" href="UND"><img src="/sets/UND-files/icon.png">The Underhalls</a>
+	
+		<a class="set-bar inactive" href="VLR"><img src="/sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="VYI"><img src="/sets/VYI-files/icon.png">Valdrasil: Voyage to Infinity</a>
+	
+		<a class="set-bar inactive" href="WCD"><img src="/sets/WCD-files/icon.png">Wroszy’s Circus of Darkness</a>
+	
+		<a class="set-bar inactive" href="WDW"><img src="/sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="WOO"><img src="/sets/WOO-files/icon.png">Waking of Orlige </a>
+	
 		</div>
 		<div class="banner">
 		<img class="logo" src="/sets/SOL-files/logo.png">
 		</div>
 		<div class="main-content" id="main-content">
 			<div class="grid-container">
-					<div class="container"><img alt="/sets/SOL-files/img/7_Eltanaan, the Silent Star.jpg" id="7_Eltanaan, the Silent Star" data-flag="@X" onclick="openSidebar('7_Eltanaan, the Silent Star',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/41_Asulio, the Watchful Star.jpg" id="41_Asulio, the Watchful Star" data-flag="@X" onclick="openSidebar('41_Asulio, the Watchful Star',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/107_Rastabahl, the Enduring Star.jpg" id="107_Rastabahl, the Enduring Star" data-flag="@X" onclick="openSidebar('107_Rastabahl, the Enduring Star',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/120_Caphella, Endlight Catalyst.jpg" id="120_Caphella, Endlight Catalyst" data-flag="@X" onclick="openSidebar('120_Caphella, Endlight Catalyst',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/153_Alwanor, the Humbled Star.jpg" id="153_Alwanor, the Humbled Star" data-flag="@X" onclick="openSidebar('153_Alwanor, the Humbled Star',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/21_Oberys, Ley-Pilgrim.jpg" id="21_Oberys, Ley-Pilgrim" data-flag="@X" onclick="openSidebar('21_Oberys, Ley-Pilgrim',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/72_Tamiyo, Sun-Seeking.jpg" id="72_Tamiyo, Sun-Seeking" data-flag="@X" onclick="openSidebar('72_Tamiyo, Sun-Seeking',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/114_Zukar, Null Champion.jpg" id="114_Zukar, Null Champion" data-flag="@X" onclick="openSidebar('114_Zukar, Null Champion',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/150_Thubaran, the Fervent Star.jpg" id="150_Thubaran, the Fervent Star" data-flag="@X" onclick="openSidebar('150_Thubaran, the Fervent Star',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/157_Anhamei, Star Sower.jpg" id="157_Anhamei, Star Sower" data-flag="@X" onclick="openSidebar('157_Anhamei, Star Sower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/3_Aureola Crusaris.jpg" id="3_Aureola Crusaris" data-flag="@X" onclick="openSidebar('3_Aureola Crusaris',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/40_Astral Cascade.jpg" id="40_Astral Cascade" data-flag="@X" onclick="openSidebar('40_Astral Cascade',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/82_Darkstar Envoy.jpg" id="82_Darkstar Envoy" data-flag="@X" onclick="openSidebar('82_Darkstar Envoy',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/126_Divine Repurposing.jpg" id="126_Divine Repurposing" data-flag="@X" onclick="openSidebar('126_Divine Repurposing',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/156_Andir Wildsoul.jpg" id="156_Andir Wildsoul" data-flag="@X" onclick="openSidebar('156_Andir Wildsoul',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/6_Creation Mythos.jpg" id="6_Creation Mythos" data-flag="@X" onclick="openSidebar('6_Creation Mythos',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/48_Comazoa.jpg" id="48_Comazoa" data-flag="@X" onclick="openSidebar('48_Comazoa',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/86_Fleshless Flayer.jpg" id="86_Fleshless Flayer" data-flag="@X" onclick="openSidebar('86_Fleshless Flayer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/128_Emblazoned Prophet.jpg" id="128_Emblazoned Prophet" data-flag="@X" onclick="openSidebar('128_Emblazoned Prophet',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/158_Beseeching Greatness.jpg" id="158_Beseeching Greatness" data-flag="@X" onclick="openSidebar('158_Beseeching Greatness',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/8_Evangel of the Void.jpg" id="8_Evangel of the Void" data-flag="@X" onclick="openSidebar('8_Evangel of the Void',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/50_Draconos Magistus.jpg" id="50_Draconos Magistus" data-flag="@X" onclick="openSidebar('50_Draconos Magistus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/87_Hollow Prophet.jpg" id="87_Hollow Prophet" data-flag="@X" onclick="openSidebar('87_Hollow Prophet',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/129_Endlight Crusade.jpg" id="129_Endlight Crusade" data-flag="@X" onclick="openSidebar('129_Endlight Crusade',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/160_Blightstalker.jpg" id="160_Blightstalker" data-flag="@X" onclick="openSidebar('160_Blightstalker',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/10_Foreign Frontiers.jpg" id="10_Foreign Frontiers" data-flag="@X" onclick="openSidebar('10_Foreign Frontiers',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/54_Forbidden Treasure.jpg" id="54_Forbidden Treasure" data-flag="@X" onclick="openSidebar('54_Forbidden Treasure',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/90_Lightless Conquest.jpg" id="90_Lightless Conquest" data-flag="@X" onclick="openSidebar('90_Lightless Conquest',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/131_Fission Feaster.jpg" id="131_Fission Feaster" data-flag="@X" onclick="openSidebar('131_Fission Feaster',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/166_Elorys the Pathfinder.jpg" id="166_Elorys the Pathfinder" data-flag="@X" onclick="openSidebar('166_Elorys the Pathfinder',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/13_Helia Ley-Tower.jpg" id="13_Helia Ley-Tower" data-flag="@X" onclick="openSidebar('13_Helia Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/57_Master of Null.jpg" id="57_Master of Null" data-flag="@X" onclick="openSidebar('57_Master of Null',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/98_Nightfall.jpg" id="98_Nightfall" data-flag="@X" onclick="openSidebar('98_Nightfall',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/137_Manticos Expurgis.jpg" id="137_Manticos Expurgis" data-flag="@X" onclick="openSidebar('137_Manticos Expurgis',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/171_Gorion Ley-Tower.jpg" id="171_Gorion Ley-Tower" data-flag="@X" onclick="openSidebar('171_Gorion Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/15_Lacufae Kin-Caller.jpg" id="15_Lacufae Kin-Caller" data-flag="@X" onclick="openSidebar('15_Lacufae Kin-Caller',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/58_Medari Ley-Tower.jpg" id="58_Medari Ley-Tower" data-flag="@X" onclick="openSidebar('58_Medari Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/100_Nuillae Exidus.jpg" id="100_Nuillae Exidus" data-flag="@X" onclick="openSidebar('100_Nuillae Exidus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/139_Niliscant Ley-Tower.jpg" id="139_Niliscant Ley-Tower" data-flag="@X" onclick="openSidebar('139_Niliscant Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/174_Loam-Treader Titan.jpg" id="174_Loam-Treader Titan" data-flag="@X" onclick="openSidebar('174_Loam-Treader Titan',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/23_Orbital Vacuum.jpg" id="23_Orbital Vacuum" data-flag="@X" onclick="openSidebar('23_Orbital Vacuum',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/60_Noveire, Omen of the Rift.jpg" id="60_Noveire, Omen of the Rift" data-flag="@X" onclick="openSidebar('60_Noveire, Omen of the Rift',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/101_Oblivion Maw.jpg" id="101_Oblivion Maw" data-flag="@X" onclick="openSidebar('101_Oblivion Maw',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/141_Perilous Sojourn.jpg" id="141_Perilous Sojourn" data-flag="@X" onclick="openSidebar('141_Perilous Sojourn',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/182_Reclaimed Cultivator.jpg" id="182_Reclaimed Cultivator" data-flag="@X" onclick="openSidebar('182_Reclaimed Cultivator',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/25_Radiant Pilgrim.jpg" id="25_Radiant Pilgrim" data-flag="@X" onclick="openSidebar('25_Radiant Pilgrim',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/61_Olfven Broodlord.jpg" id="61_Olfven Broodlord" data-flag="@X" onclick="openSidebar('61_Olfven Broodlord',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/104_Phemeros Redeemer.jpg" id="104_Phemeros Redeemer" data-flag="@X" onclick="openSidebar('104_Phemeros Redeemer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/143_Roseaun Firebrand.jpg" id="143_Roseaun Firebrand" data-flag="@X" onclick="openSidebar('143_Roseaun Firebrand',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/183_Rex Tyrannos.jpg" id="183_Rex Tyrannos" data-flag="@X" onclick="openSidebar('183_Rex Tyrannos',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/30_Star-Scorned Silencer.jpg" id="30_Star-Scorned Silencer" data-flag="@X" onclick="openSidebar('30_Star-Scorned Silencer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/67_Rift Partisan.jpg" id="67_Rift Partisan" data-flag="@X" onclick="openSidebar('67_Rift Partisan',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/105_Qaraz Ley-Tower.jpg" id="105_Qaraz Ley-Tower" data-flag="@X" onclick="openSidebar('105_Qaraz Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/149_Stellar Migration.jpg" id="149_Stellar Migration" data-flag="@X" onclick="openSidebar('149_Stellar Migration',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/185_Sire of Greatness.jpg" id="185_Sire of Greatness" data-flag="@X" onclick="openSidebar('185_Sire of Greatness',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/2_Astral Prison.jpg" id="2_Astral Prison" data-flag="@X" onclick="openSidebar('2_Astral Prison',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/42_Balaenos Cresetis.jpg" id="42_Balaenos Cresetis" data-flag="@X" onclick="openSidebar('42_Balaenos Cresetis',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/78_Basilus Venefir.jpg" id="78_Basilus Venefir" data-flag="@X" onclick="openSidebar('78_Basilus Venefir',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/116_Black Sun Sellsword.jpg" id="116_Black Sun Sellsword" data-flag="@X" onclick="openSidebar('116_Black Sun Sellsword',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/155_Andir Ley-Tower.jpg" id="155_Andir Ley-Tower" data-flag="@X" onclick="openSidebar('155_Andir Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/4_Aurora Glider.jpg" id="4_Aurora Glider" data-flag="@X" onclick="openSidebar('4_Aurora Glider',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/43_Beaconstorm.jpg" id="43_Beaconstorm" data-flag="@X" onclick="openSidebar('43_Beaconstorm',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/80_Daemos Letheus.jpg" id="80_Daemos Letheus" data-flag="@X" onclick="openSidebar('80_Daemos Letheus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/117_Caersol Ley-Tower.jpg" id="117_Caersol Ley-Tower" data-flag="@X" onclick="openSidebar('117_Caersol Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/159_Blightseer.jpg" id="159_Blightseer" data-flag="@X" onclick="openSidebar('159_Blightseer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/11_Harbinger of Dusk.jpg" id="11_Harbinger of Dusk" data-flag="@X" onclick="openSidebar('11_Harbinger of Dusk',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/44_Become Naught.jpg" id="44_Become Naught" data-flag="@X" onclick="openSidebar('44_Become Naught',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/84_Dwindling Light.jpg" id="84_Dwindling Light" data-flag="@X" onclick="openSidebar('84_Dwindling Light',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/119_Cancri Asellos.jpg" id="119_Cancri Asellos" data-flag="@X" onclick="openSidebar('119_Cancri Asellos',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/162_Breach Herald.jpg" id="162_Breach Herald" data-flag="@X" onclick="openSidebar('162_Breach Herald',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/14_Invoker's Guidebeast.jpg" id="14_Invokers Guidebeast" data-flag="@X" onclick="openSidebar('14_Invokers Guidebeast',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/46_Channeler of the Concord.jpg" id="46_Channeler of the Concord" data-flag="@X" onclick="openSidebar('46_Channeler of the Concord',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/85_Eyes Gone Dark.jpg" id="85_Eyes Gone Dark" data-flag="@X" onclick="openSidebar('85_Eyes Gone Dark',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/121_Chronicle Calamity.jpg" id="121_Chronicle Calamity" data-flag="@X" onclick="openSidebar('121_Chronicle Calamity',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/163_Chasing Stars.jpg" id="163_Chasing Stars" data-flag="@X" onclick="openSidebar('163_Chasing Stars',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/16_Lacufae Ley-Tower.jpg" id="16_Lacufae Ley-Tower" data-flag="@X" onclick="openSidebar('16_Lacufae Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/51_Dream Physician.jpg" id="51_Dream Physician" data-flag="@X" onclick="openSidebar('51_Dream Physician',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/89_Lament of the Long Night.jpg" id="89_Lament of the Long Night" data-flag="@X" onclick="openSidebar('89_Lament of the Long Night',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/125_Dire Visionary.jpg" id="125_Dire Visionary" data-flag="@X" onclick="openSidebar('125_Dire Visionary',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/164_Colossal Pathrazer.jpg" id="164_Colossal Pathrazer" data-flag="@X" onclick="openSidebar('164_Colossal Pathrazer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/18_Leonis Excirtus.jpg" id="18_Leonis Excirtus" data-flag="@X" onclick="openSidebar('18_Leonis Excirtus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/53_Essence Exchange.jpg" id="53_Essence Exchange" data-flag="@X" onclick="openSidebar('53_Essence Exchange',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/92_Manifest Naught.jpg" id="92_Manifest Naught" data-flag="@X" onclick="openSidebar('92_Manifest Naught',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/127_Draconos Tyrannos.jpg" id="127_Draconos Tyrannos" data-flag="@X" onclick="openSidebar('127_Draconos Tyrannos',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/167_Endless Horizons.jpg" id="167_Endless Horizons" data-flag="@X" onclick="openSidebar('167_Endless Horizons',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/19_Lightless Vigil.jpg" id="19_Lightless Vigil" data-flag="@X" onclick="openSidebar('19_Lightless Vigil',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/62_Olfven Ley-Tower.jpg" id="62_Olfven Ley-Tower" data-flag="@X" onclick="openSidebar('62_Olfven Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/95_Mercenary of Dusk.jpg" id="95_Mercenary of Dusk" data-flag="@X" onclick="openSidebar('95_Mercenary of Dusk',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/133_Helia Extinguisher.jpg" id="133_Helia Extinguisher" data-flag="@X" onclick="openSidebar('133_Helia Extinguisher',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/168_Eternal Struggle.jpg" id="168_Eternal Struggle" data-flag="@X" onclick="openSidebar('168_Eternal Struggle',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/22_Oblivion's Escort.jpg" id="22_Oblivions Escort" data-flag="@X" onclick="openSidebar('22_Oblivions Escort',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/63_Phase Seer.jpg" id="63_Phase Seer" data-flag="@X" onclick="openSidebar('63_Phase Seer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/97_Nethercrest.jpg" id="97_Nethercrest" data-flag="@X" onclick="openSidebar('97_Nethercrest',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/135_Inner Inferno.jpg" id="135_Inner Inferno" data-flag="@X" onclick="openSidebar('135_Inner Inferno',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/173_Kinox Naturalist.jpg" id="173_Kinox Naturalist" data-flag="@X" onclick="openSidebar('173_Kinox Naturalist',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/24_Qaraz Monument.jpg" id="24_Qaraz Monument" data-flag="@X" onclick="openSidebar('24_Qaraz Monument',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/64_Piscus Duosia.jpg" id="64_Piscus Duosia" data-flag="@X" onclick="openSidebar('64_Piscus Duosia',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/99_Nightshade Extricator.jpg" id="99_Nightshade Extricator" data-flag="@X" onclick="openSidebar('99_Nightshade Extricator',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/136_Instill Absolution.jpg" id="136_Instill Absolution" data-flag="@X" onclick="openSidebar('136_Instill Absolution',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/175_Lost Pilgrim.jpg" id="175_Lost Pilgrim" data-flag="@X" onclick="openSidebar('175_Lost Pilgrim',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/26_Renounce the Worldly.jpg" id="26_Renounce the Worldly" data-flag="@X" onclick="openSidebar('26_Renounce the Worldly',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/68_Rift Tracing.jpg" id="68_Rift Tracing" data-flag="@X" onclick="openSidebar('68_Rift Tracing',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/106_Qaraz Martyr.jpg" id="106_Qaraz Martyr" data-flag="@X" onclick="openSidebar('106_Qaraz Martyr',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/140_Nova Ravager.jpg" id="140_Nova Ravager" data-flag="@X" onclick="openSidebar('140_Nova Ravager',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/176_Lupensi Purseus.jpg" id="176_Lupensi Purseus" data-flag="@X" onclick="openSidebar('176_Lupensi Purseus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/28_Serpens Orbis.jpg" id="28_Serpens Orbis" data-flag="@X" onclick="openSidebar('28_Serpens Orbis',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/69_Scintillation Scion.jpg" id="69_Scintillation Scion" data-flag="@X" onclick="openSidebar('69_Scintillation Scion',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/110_Sarsupei Ley-Tower.jpg" id="110_Sarsupei Ley-Tower" data-flag="@X" onclick="openSidebar('110_Sarsupei Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/142_Realm Reap.jpg" id="142_Realm Reap" data-flag="@X" onclick="openSidebar('142_Realm Reap',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/180_One Night of Serenity.jpg" id="180_One Night of Serenity" data-flag="@X" onclick="openSidebar('180_One Night of Serenity',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/29_Skyray Tender.jpg" id="29_Skyray Tender" data-flag="@X" onclick="openSidebar('29_Skyray Tender',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/71_Spatial Collapse.jpg" id="71_Spatial Collapse" data-flag="@X" onclick="openSidebar('71_Spatial Collapse',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/111_Shadow Caster.jpg" id="111_Shadow Caster" data-flag="@X" onclick="openSidebar('111_Shadow Caster',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/147_Starsquall.jpg" id="147_Starsquall" data-flag="@X" onclick="openSidebar('147_Starsquall',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/188_Ursus Majora.jpg" id="188_Ursus Majora" data-flag="@X" onclick="openSidebar('188_Ursus Majora',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/36_Turelion Visionary.jpg" id="36_Turelion Visionary" data-flag="@X" onclick="openSidebar('36_Turelion Visionary',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/73_Tune of the Multiverse.jpg" id="73_Tune of the Multiverse" data-flag="@X" onclick="openSidebar('73_Tune of the Multiverse',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/112_Stalking Delver.jpg" id="112_Stalking Delver" data-flag="@X" onclick="openSidebar('112_Stalking Delver',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/148_Stellar Flare.jpg" id="148_Stellar Flare" data-flag="@X" onclick="openSidebar('148_Stellar Flare',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/189_Ursus Minora.jpg" id="189_Ursus Minora" data-flag="@X" onclick="openSidebar('189_Ursus Minora',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/38_Void Prelate.jpg" id="38_Void Prelate" data-flag="@X" onclick="openSidebar('38_Void Prelate',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/76_Zymith Windreader.jpg" id="76_Zymith Windreader" data-flag="@X" onclick="openSidebar('76_Zymith Windreader',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/113_Tug of the Void.jpg" id="113_Tug of the Void" data-flag="@X" onclick="openSidebar('113_Tug of the Void',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/151_Towering Moonrazer.jpg" id="151_Towering Moonrazer" data-flag="@X" onclick="openSidebar('151_Towering Moonrazer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/190_Vista Chronicler.jpg" id="190_Vista Chronicler" data-flag="@X" onclick="openSidebar('190_Vista Chronicler',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/1_Acolyte of the Beyond.jpg" id="1_Acolyte of the Beyond" data-flag="@X" onclick="openSidebar('1_Acolyte of the Beyond',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/39_Architect of Ascension.jpg" id="39_Architect of Ascension" data-flag="@X" onclick="openSidebar('39_Architect of Ascension',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/77_Abyssal Retriever.jpg" id="77_Abyssal Retriever" data-flag="@X" onclick="openSidebar('77_Abyssal Retriever',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/115_Aberrant Whispers.jpg" id="115_Aberrant Whispers" data-flag="@X" onclick="openSidebar('115_Aberrant Whispers',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/154_Alwanor's Mark.jpg" id="154_Alwanors Mark" data-flag="@X" onclick="openSidebar('154_Alwanors Mark',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/5_Corporeal Benediction.jpg" id="5_Corporeal Benediction" data-flag="@X" onclick="openSidebar('5_Corporeal Benediction',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/45_Celestial Insight.jpg" id="45_Celestial Insight" data-flag="@X" onclick="openSidebar('45_Celestial Insight',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/79_Caress of the Stars.jpg" id="79_Caress of the Stars" data-flag="@X" onclick="openSidebar('79_Caress of the Stars',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/118_Caersol Valiant.jpg" id="118_Caersol Valiant" data-flag="@X" onclick="openSidebar('118_Caersol Valiant',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/161_Blinding Ambush.jpg" id="161_Blinding Ambush" data-flag="@X" onclick="openSidebar('161_Blinding Ambush',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/9_Existential Eclipse.jpg" id="9_Existential Eclipse" data-flag="@X" onclick="openSidebar('9_Existential Eclipse',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/47_Chart the Cosmos.jpg" id="47_Chart the Cosmos" data-flag="@X" onclick="openSidebar('47_Chart the Cosmos',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/81_Darkstar Devouring.jpg" id="81_Darkstar Devouring" data-flag="@X" onclick="openSidebar('81_Darkstar Devouring',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/122_Comet Conduit.jpg" id="122_Comet Conduit" data-flag="@X" onclick="openSidebar('122_Comet Conduit',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/165_Crestfallen Colossus.jpg" id="165_Crestfallen Colossus" data-flag="@X" onclick="openSidebar('165_Crestfallen Colossus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/12_Helia Eulogist.jpg" id="12_Helia Eulogist" data-flag="@X" onclick="openSidebar('12_Helia Eulogist',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/49_Cursory Glance.jpg" id="49_Cursory Glance" data-flag="@X" onclick="openSidebar('49_Cursory Glance',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/83_Discordant Voidling.jpg" id="83_Discordant Voidling" data-flag="@X" onclick="openSidebar('83_Discordant Voidling',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/123_Concentrated Moonbeam.jpg" id="123_Concentrated Moonbeam" data-flag="@X" onclick="openSidebar('123_Concentrated Moonbeam',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/169_Glimmermare.jpg" id="169_Glimmermare" data-flag="@X" onclick="openSidebar('169_Glimmermare',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/17_Lacufae Lighthunter.jpg" id="17_Lacufae Lighthunter" data-flag="@X" onclick="openSidebar('17_Lacufae Lighthunter',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/52_Dream Snare.jpg" id="52_Dream Snare" data-flag="@X" onclick="openSidebar('52_Dream Snare',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/88_Inexorable Shepherd.jpg" id="88_Inexorable Shepherd" data-flag="@X" onclick="openSidebar('88_Inexorable Shepherd',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/124_Cosmic Bounty.jpg" id="124_Cosmic Bounty" data-flag="@X" onclick="openSidebar('124_Cosmic Bounty',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/170_Gorion Gladehart.jpg" id="170_Gorion Gladehart" data-flag="@X" onclick="openSidebar('170_Gorion Gladehart',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/20_Moon-Scarred Pilgrim.jpg" id="20_Moon-Scarred Pilgrim" data-flag="@X" onclick="openSidebar('20_Moon-Scarred Pilgrim',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/55_Grasp of Oblivion.jpg" id="55_Grasp of Oblivion" data-flag="@X" onclick="openSidebar('55_Grasp of Oblivion',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/91_Lightless Diviner.jpg" id="91_Lightless Diviner" data-flag="@X" onclick="openSidebar('91_Lightless Diviner',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/130_Essence Ignition.jpg" id="130_Essence Ignition" data-flag="@X" onclick="openSidebar('130_Essence Ignition',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/172_Kinox Ley-Tower.jpg" id="172_Kinox Ley-Tower" data-flag="@X" onclick="openSidebar('172_Kinox Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/27_Sarsupei Houndmaster.jpg" id="27_Sarsupei Houndmaster" data-flag="@X" onclick="openSidebar('27_Sarsupei Houndmaster',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/56_Humbled Invoker.jpg" id="56_Humbled Invoker" data-flag="@X" onclick="openSidebar('56_Humbled Invoker',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/93_Mantle of Dusk.jpg" id="93_Mantle of Dusk" data-flag="@X" onclick="openSidebar('93_Mantle of Dusk',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/132_Frenetic Astronomer.jpg" id="132_Frenetic Astronomer" data-flag="@X" onclick="openSidebar('132_Frenetic Astronomer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/177_Meteor Gorger.jpg" id="177_Meteor Gorger" data-flag="@X" onclick="openSidebar('177_Meteor Gorger',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/31_Star-Touched Stalwart.jpg" id="31_Star-Touched Stalwart" data-flag="@X" onclick="openSidebar('31_Star-Touched Stalwart',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/59_Moon-Scarred Mystic.jpg" id="59_Moon-Scarred Mystic" data-flag="@X" onclick="openSidebar('59_Moon-Scarred Mystic',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/94_March of the Long Night.jpg" id="94_March of the Long Night" data-flag="@X" onclick="openSidebar('94_March of the Long Night',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/134_Horizon Blotter.jpg" id="134_Horizon Blotter" data-flag="@X" onclick="openSidebar('134_Horizon Blotter',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/178_Moonsworn Vassal.jpg" id="178_Moonsworn Vassal" data-flag="@X" onclick="openSidebar('178_Moonsworn Vassal',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/32_Stardust Behemoth.jpg" id="32_Stardust Behemoth" data-flag="@X" onclick="openSidebar('32_Stardust Behemoth',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/65_Qaraz Doomsayer.jpg" id="65_Qaraz Doomsayer" data-flag="@X" onclick="openSidebar('65_Qaraz Doomsayer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/96_Nether Ponderings.jpg" id="96_Nether Ponderings" data-flag="@X" onclick="openSidebar('96_Nether Ponderings',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/138_Nascent Vessel.jpg" id="138_Nascent Vessel" data-flag="@X" onclick="openSidebar('138_Nascent Vessel',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/179_Nebulous Rebirth.jpg" id="179_Nebulous Rebirth" data-flag="@X" onclick="openSidebar('179_Nebulous Rebirth',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/33_Starlit Sanctuary.jpg" id="33_Starlit Sanctuary" data-flag="@X" onclick="openSidebar('33_Starlit Sanctuary',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/66_Qaraz Nullblade.jpg" id="66_Qaraz Nullblade" data-flag="@X" onclick="openSidebar('66_Qaraz Nullblade',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/102_Oblivion Surveyor.jpg" id="102_Oblivion Surveyor" data-flag="@X" onclick="openSidebar('102_Oblivion Surveyor',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/144_Roseaun Ley-Tower.jpg" id="144_Roseaun Ley-Tower" data-flag="@X" onclick="openSidebar('144_Roseaun Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/181_Prism Catcher.jpg" id="181_Prism Catcher" data-flag="@X" onclick="openSidebar('181_Prism Catcher',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/34_Tireless Pilgrimage.jpg" id="34_Tireless Pilgrimage" data-flag="@X" onclick="openSidebar('34_Tireless Pilgrimage',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/70_Slumberzoa.jpg" id="70_Slumberzoa" data-flag="@X" onclick="openSidebar('70_Slumberzoa',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/103_Phemeros Ley-Tower.jpg" id="103_Phemeros Ley-Tower" data-flag="@X" onclick="openSidebar('103_Phemeros Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/145_Star-Touched Oracle.jpg" id="145_Star-Touched Oracle" data-flag="@X" onclick="openSidebar('145_Star-Touched Oracle',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/184_Scintillating Vista.jpg" id="184_Scintillating Vista" data-flag="@X" onclick="openSidebar('184_Scintillating Vista',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/35_Turelion Ley-Tower.jpg" id="35_Turelion Ley-Tower" data-flag="@X" onclick="openSidebar('35_Turelion Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/74_Unveil.jpg" id="74_Unveil" data-flag="@X" onclick="openSidebar('74_Unveil',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/108_Relentless Huntmaster.jpg" id="108_Relentless Huntmaster" data-flag="@X" onclick="openSidebar('108_Relentless Huntmaster',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/146_Starcleave.jpg" id="146_Starcleave" data-flag="@X" onclick="openSidebar('146_Starcleave',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/186_Star-Touched Devout.jpg" id="186_Star-Touched Devout" data-flag="@X" onclick="openSidebar('186_Star-Touched Devout',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/37_Twilight Legion.jpg" id="37_Twilight Legion" data-flag="@X" onclick="openSidebar('37_Twilight Legion',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/75_Zymith Ley-Tower.jpg" id="75_Zymith Ley-Tower" data-flag="@X" onclick="openSidebar('75_Zymith Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/109_Sarsupei All-Seer.jpg" id="109_Sarsupei All-Seer" data-flag="@X" onclick="openSidebar('109_Sarsupei All-Seer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/152_Zenith Strider.jpg" id="152_Zenith Strider" data-flag="@X" onclick="openSidebar('152_Zenith Strider',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/187_Step Beyond.jpg" id="187_Step Beyond" data-flag="@X" onclick="openSidebar('187_Step Beyond',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+					<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/7_Eltanaan, the Silent Star.jpg" id="7_Eltanaan, the Silent Star" data-flag="@X" onclick="openSidebar('7_Eltanaan, the Silent Star',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/41_Asulio, the Watchful Star.jpg" id="41_Asulio, the Watchful Star" data-flag="@X" onclick="openSidebar('41_Asulio, the Watchful Star',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/108_Rastabahl, the Enduring Star.jpg" id="108_Rastabahl, the Enduring Star" data-flag="@X" onclick="openSidebar('108_Rastabahl, the Enduring Star',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/121_Caphella, Endlight Catalyst.jpg" id="121_Caphella, Endlight Catalyst" data-flag="@X" onclick="openSidebar('121_Caphella, Endlight Catalyst',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/154_Alwanor, the Humbled Star.jpg" id="154_Alwanor, the Humbled Star" data-flag="@X" onclick="openSidebar('154_Alwanor, the Humbled Star',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/22_Oberys, Ley-Pilgrim.jpg" id="22_Oberys, Ley-Pilgrim" data-flag="@X" onclick="openSidebar('22_Oberys, Ley-Pilgrim',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/73_Tamiyo, Sun-Seeking.jpg" id="73_Tamiyo, Sun-Seeking" data-flag="@X" onclick="openSidebar('73_Tamiyo, Sun-Seeking',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/115_Zukar, Null Champion.jpg" id="115_Zukar, Null Champion" data-flag="@X" onclick="openSidebar('115_Zukar, Null Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/152_Thubaran, the Fervent Star.jpg" id="152_Thubaran, the Fervent Star" data-flag="@X" onclick="openSidebar('152_Thubaran, the Fervent Star',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/158_Anhamei, Star Sower.jpg" id="158_Anhamei, Star Sower" data-flag="@X" onclick="openSidebar('158_Anhamei, Star Sower',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/3_Aureola Crusaris.jpg" id="3_Aureola Crusaris" data-flag="@X" onclick="openSidebar('3_Aureola Crusaris',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/40_Astral Cascade.jpg" id="40_Astral Cascade" data-flag="@X" onclick="openSidebar('40_Astral Cascade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/82_Darkstar Envoy.jpg" id="82_Darkstar Envoy" data-flag="@X" onclick="openSidebar('82_Darkstar Envoy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/126_Divine Repurposing.jpg" id="126_Divine Repurposing" data-flag="@X" onclick="openSidebar('126_Divine Repurposing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/157_Andir Wildsoul.jpg" id="157_Andir Wildsoul" data-flag="@X" onclick="openSidebar('157_Andir Wildsoul',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/6_Creation Mythos.jpg" id="6_Creation Mythos" data-flag="@X" onclick="openSidebar('6_Creation Mythos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/48_Comazoa.jpg" id="48_Comazoa" data-flag="@X" onclick="openSidebar('48_Comazoa',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/86_Fateful Ascent.jpg" id="86_Fateful Ascent" data-flag="@X" onclick="openSidebar('86_Fateful Ascent',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/128_Emblazoned Prophet.jpg" id="128_Emblazoned Prophet" data-flag="@X" onclick="openSidebar('128_Emblazoned Prophet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/159_Beseech Divinity.jpg" id="159_Beseech Divinity" data-flag="@X" onclick="openSidebar('159_Beseech Divinity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/8_Evangel of the Long Night.jpg" id="8_Evangel of the Long Night" data-flag="@X" onclick="openSidebar('8_Evangel of the Long Night',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/51_Draconos Magistus.jpg" id="51_Draconos Magistus" data-flag="@X" onclick="openSidebar('51_Draconos Magistus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/87_Fleshless Flayer.jpg" id="87_Fleshless Flayer" data-flag="@X" onclick="openSidebar('87_Fleshless Flayer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/129_Endlight Crusade.jpg" id="129_Endlight Crusade" data-flag="@X" onclick="openSidebar('129_Endlight Crusade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/161_Blightstalker.jpg" id="161_Blightstalker" data-flag="@X" onclick="openSidebar('161_Blightstalker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/10_Foreign Frontiers.jpg" id="10_Foreign Frontiers" data-flag="@X" onclick="openSidebar('10_Foreign Frontiers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/55_Forbidden Treasure.jpg" id="55_Forbidden Treasure" data-flag="@X" onclick="openSidebar('55_Forbidden Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/89_Hollow Prophet.jpg" id="89_Hollow Prophet" data-flag="@X" onclick="openSidebar('89_Hollow Prophet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/131_Fission Feaster.jpg" id="131_Fission Feaster" data-flag="@X" onclick="openSidebar('131_Fission Feaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/168_Elorys the Pathfinder.jpg" id="168_Elorys the Pathfinder" data-flag="@X" onclick="openSidebar('168_Elorys the Pathfinder',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/12_Helia Ley-Spire.jpg" id="12_Helia Ley-Spire" data-flag="@X" onclick="openSidebar('12_Helia Ley-Spire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/58_Master of Null.jpg" id="58_Master of Null" data-flag="@X" onclick="openSidebar('58_Master of Null',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/92_Lightless Conquest.jpg" id="92_Lightless Conquest" data-flag="@X" onclick="openSidebar('92_Lightless Conquest',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/138_Manticos Expurgis.jpg" id="138_Manticos Expurgis" data-flag="@X" onclick="openSidebar('138_Manticos Expurgis',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/173_Gorion Ley-Spire.jpg" id="173_Gorion Ley-Spire" data-flag="@X" onclick="openSidebar('173_Gorion Ley-Spire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/14_Lacufae Kin-Caller.jpg" id="14_Lacufae Kin-Caller" data-flag="@X" onclick="openSidebar('14_Lacufae Kin-Caller',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/59_Medari Ley-Spire.jpg" id="59_Medari Ley-Spire" data-flag="@X" onclick="openSidebar('59_Medari Ley-Spire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/99_Nightfall.jpg" id="99_Nightfall" data-flag="@X" onclick="openSidebar('99_Nightfall',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/140_Niliscant Ley-Spire.jpg" id="140_Niliscant Ley-Spire" data-flag="@X" onclick="openSidebar('140_Niliscant Ley-Spire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/181_Plaguebane Hulk.jpg" id="181_Plaguebane Hulk" data-flag="@X" onclick="openSidebar('181_Plaguebane Hulk',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/21_Nullblade Artisan.jpg" id="21_Nullblade Artisan" data-flag="@X" onclick="openSidebar('21_Nullblade Artisan',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/61_Noveire, Omen of the Rift.jpg" id="61_Noveire, Omen of the Rift" data-flag="@X" onclick="openSidebar('61_Noveire, Omen of the Rift',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/101_Nihilmonger.jpg" id="101_Nihilmonger" data-flag="@X" onclick="openSidebar('101_Nihilmonger',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/143_Perilous Sojourn.jpg" id="143_Perilous Sojourn" data-flag="@X" onclick="openSidebar('143_Perilous Sojourn',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/183_Reclaimed Cultivator.jpg" id="183_Reclaimed Cultivator" data-flag="@X" onclick="openSidebar('183_Reclaimed Cultivator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/24_Orbital Vacuum.jpg" id="24_Orbital Vacuum" data-flag="@X" onclick="openSidebar('24_Orbital Vacuum',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/63_Olfven Skylord.jpg" id="63_Olfven Skylord" data-flag="@X" onclick="openSidebar('63_Olfven Skylord',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/102_Nuillae Exidus.jpg" id="102_Nuillae Exidus" data-flag="@X" onclick="openSidebar('102_Nuillae Exidus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/145_Roseaun Firebrand.jpg" id="145_Roseaun Firebrand" data-flag="@X" onclick="openSidebar('145_Roseaun Firebrand',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/184_Rex Tyrannos.jpg" id="184_Rex Tyrannos" data-flag="@X" onclick="openSidebar('184_Rex Tyrannos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/26_Radiant Pilgrim.jpg" id="26_Radiant Pilgrim" data-flag="@X" onclick="openSidebar('26_Radiant Pilgrim',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/68_Rift Partisan.jpg" id="68_Rift Partisan" data-flag="@X" onclick="openSidebar('68_Rift Partisan',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/105_Phemeros Redeemer.jpg" id="105_Phemeros Redeemer" data-flag="@X" onclick="openSidebar('105_Phemeros Redeemer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/151_Stellar Migration.jpg" id="151_Stellar Migration" data-flag="@X" onclick="openSidebar('151_Stellar Migration',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/186_Sire of Greatness.jpg" id="186_Sire of Greatness" data-flag="@X" onclick="openSidebar('186_Sire of Greatness',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/2_Astral Prison.jpg" id="2_Astral Prison" data-flag="@X" onclick="openSidebar('2_Astral Prison',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/42_Attuned Consciousness.jpg" id="42_Attuned Consciousness" data-flag="@X" onclick="openSidebar('42_Attuned Consciousness',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/106_Qaraz Ley-Spire.jpg" id="106_Qaraz Ley-Spire" data-flag="@X" onclick="openSidebar('106_Qaraz Ley-Spire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/117_Black Dawn Sellsword.jpg" id="117_Black Dawn Sellsword" data-flag="@X" onclick="openSidebar('117_Black Dawn Sellsword',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/156_Andir Ley-Tower.jpg" id="156_Andir Ley-Tower" data-flag="@X" onclick="openSidebar('156_Andir Ley-Tower',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/4_Aurora Glider.jpg" id="4_Aurora Glider" data-flag="@X" onclick="openSidebar('4_Aurora Glider',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/43_Balaenos Cresetis.jpg" id="43_Balaenos Cresetis" data-flag="@X" onclick="openSidebar('43_Balaenos Cresetis',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/78_Aspus Venefir.jpg" id="78_Aspus Venefir" data-flag="@X" onclick="openSidebar('78_Aspus Venefir',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/118_Caersol Ley-Tower.jpg" id="118_Caersol Ley-Tower" data-flag="@X" onclick="openSidebar('118_Caersol Ley-Tower',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/160_Blightseer.jpg" id="160_Blightseer" data-flag="@X" onclick="openSidebar('160_Blightseer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/13_Invoker's Guidebeast.jpg" id="13_Invokers Guidebeast" data-flag="@X" onclick="openSidebar('13_Invokers Guidebeast',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/44_Beaconstorm.jpg" id="44_Beaconstorm" data-flag="@X" onclick="openSidebar('44_Beaconstorm',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/80_Daemos Letheus.jpg" id="80_Daemos Letheus" data-flag="@X" onclick="openSidebar('80_Daemos Letheus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/120_Cancri Asellos.jpg" id="120_Cancri Asellos" data-flag="@X" onclick="openSidebar('120_Cancri Asellos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/163_Breach Herald.jpg" id="163_Breach Herald" data-flag="@X" onclick="openSidebar('163_Breach Herald',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/15_Lacufae Ley-Tower.jpg" id="15_Lacufae Ley-Tower" data-flag="@X" onclick="openSidebar('15_Lacufae Ley-Tower',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/45_Become Naught.jpg" id="45_Become Naught" data-flag="@X" onclick="openSidebar('45_Become Naught',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/84_Dwindling Light.jpg" id="84_Dwindling Light" data-flag="@X" onclick="openSidebar('84_Dwindling Light',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/122_Chronicle Calamity.jpg" id="122_Chronicle Calamity" data-flag="@X" onclick="openSidebar('122_Chronicle Calamity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/164_Chasing Stars.jpg" id="164_Chasing Stars" data-flag="@X" onclick="openSidebar('164_Chasing Stars',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/17_Leonis Excirtus.jpg" id="17_Leonis Excirtus" data-flag="@X" onclick="openSidebar('17_Leonis Excirtus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/49_Convergence Harmonist.jpg" id="49_Convergence Harmonist" data-flag="@X" onclick="openSidebar('49_Convergence Harmonist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/85_Eyes Gone Dark.jpg" id="85_Eyes Gone Dark" data-flag="@X" onclick="openSidebar('85_Eyes Gone Dark',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/125_Dire Visionary.jpg" id="125_Dire Visionary" data-flag="@X" onclick="openSidebar('125_Dire Visionary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/165_Colossal Pathrazer.jpg" id="165_Colossal Pathrazer" data-flag="@X" onclick="openSidebar('165_Colossal Pathrazer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/18_Lightless Vigil.jpg" id="18_Lightless Vigil" data-flag="@X" onclick="openSidebar('18_Lightless Vigil',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/52_Dream Physician.jpg" id="52_Dream Physician" data-flag="@X" onclick="openSidebar('52_Dream Physician',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/88_Guidelight Gravehart.jpg" id="88_Guidelight Gravehart" data-flag="@X" onclick="openSidebar('88_Guidelight Gravehart',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/127_Draconos Tyrannos.jpg" id="127_Draconos Tyrannos" data-flag="@X" onclick="openSidebar('127_Draconos Tyrannos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/169_Endless Horizons.jpg" id="169_Endless Horizons" data-flag="@X" onclick="openSidebar('169_Endless Horizons',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/20_Myriad Crusader.jpg" id="20_Myriad Crusader" data-flag="@X" onclick="openSidebar('20_Myriad Crusader',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/54_Euolgy of the Beyond.jpg" id="54_Euolgy of the Beyond" data-flag="@X" onclick="openSidebar('54_Euolgy of the Beyond',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/91_Lament of the Long Night.jpg" id="91_Lament of the Long Night" data-flag="@X" onclick="openSidebar('91_Lament of the Long Night',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/133_Helia Extinguisher.jpg" id="133_Helia Extinguisher" data-flag="@X" onclick="openSidebar('133_Helia Extinguisher',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/170_Eternal Struggle.jpg" id="170_Eternal Struggle" data-flag="@X" onclick="openSidebar('170_Eternal Struggle',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/23_Oblivion's Escort.jpg" id="23_Oblivions Escort" data-flag="@X" onclick="openSidebar('23_Oblivions Escort',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/62_Olfven Ley-Tower.jpg" id="62_Olfven Ley-Tower" data-flag="@X" onclick="openSidebar('62_Olfven Ley-Tower',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/94_Manifest Naught.jpg" id="94_Manifest Naught" data-flag="@X" onclick="openSidebar('94_Manifest Naught',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/135_Inner Inferno.jpg" id="135_Inner Inferno" data-flag="@X" onclick="openSidebar('135_Inner Inferno',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/176_Kinox Naturalist.jpg" id="176_Kinox Naturalist" data-flag="@X" onclick="openSidebar('176_Kinox Naturalist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/25_Qaraz Monument.jpg" id="25_Qaraz Monument" data-flag="@X" onclick="openSidebar('25_Qaraz Monument',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/64_Phase Seer.jpg" id="64_Phase Seer" data-flag="@X" onclick="openSidebar('64_Phase Seer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/97_Mercenary of Dusk.jpg" id="97_Mercenary of Dusk" data-flag="@X" onclick="openSidebar('97_Mercenary of Dusk',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/136_Instill Absolution.jpg" id="136_Instill Absolution" data-flag="@X" onclick="openSidebar('136_Instill Absolution',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/177_Lost Pilgrim.jpg" id="177_Lost Pilgrim" data-flag="@X" onclick="openSidebar('177_Lost Pilgrim',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/27_Renounce the Worldly.jpg" id="27_Renounce the Worldly" data-flag="@X" onclick="openSidebar('27_Renounce the Worldly',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/65_Piscus Duosia.jpg" id="65_Piscus Duosia" data-flag="@X" onclick="openSidebar('65_Piscus Duosia',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/100_Nightshade Extricator.jpg" id="100_Nightshade Extricator" data-flag="@X" onclick="openSidebar('100_Nightshade Extricator',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/142_Nova Ravager.jpg" id="142_Nova Ravager" data-flag="@X" onclick="openSidebar('142_Nova Ravager',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/178_Lupensi Purseus.jpg" id="178_Lupensi Purseus" data-flag="@X" onclick="openSidebar('178_Lupensi Purseus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/29_Serpens Oblis.jpg" id="29_Serpens Oblis" data-flag="@X" onclick="openSidebar('29_Serpens Oblis',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/69_Rift Tracing.jpg" id="69_Rift Tracing" data-flag="@X" onclick="openSidebar('69_Rift Tracing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/107_Qaraz Martyr.jpg" id="107_Qaraz Martyr" data-flag="@X" onclick="openSidebar('107_Qaraz Martyr',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/144_Realm Reap.jpg" id="144_Realm Reap" data-flag="@X" onclick="openSidebar('144_Realm Reap',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/180_One Night of Serenity.jpg" id="180_One Night of Serenity" data-flag="@X" onclick="openSidebar('180_One Night of Serenity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/30_Skyray Tender.jpg" id="30_Skyray Tender" data-flag="@X" onclick="openSidebar('30_Skyray Tender',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/70_Scintillation Scion.jpg" id="70_Scintillation Scion" data-flag="@X" onclick="openSidebar('70_Scintillation Scion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/111_Sarsupei Ley-Tower.jpg" id="111_Sarsupei Ley-Tower" data-flag="@X" onclick="openSidebar('111_Sarsupei Ley-Tower',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/149_Starsquall.jpg" id="149_Starsquall" data-flag="@X" onclick="openSidebar('149_Starsquall',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/189_Ursus Majora.jpg" id="189_Ursus Majora" data-flag="@X" onclick="openSidebar('189_Ursus Majora',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/36_Turelion Visionary.jpg" id="36_Turelion Visionary" data-flag="@X" onclick="openSidebar('36_Turelion Visionary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/72_Spatial Collapse.jpg" id="72_Spatial Collapse" data-flag="@X" onclick="openSidebar('72_Spatial Collapse',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/112_Shadow Caster.jpg" id="112_Shadow Caster" data-flag="@X" onclick="openSidebar('112_Shadow Caster',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/150_Stellar Flare.jpg" id="150_Stellar Flare" data-flag="@X" onclick="openSidebar('150_Stellar Flare',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/190_Ursus Minora.jpg" id="190_Ursus Minora" data-flag="@X" onclick="openSidebar('190_Ursus Minora',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/38_Void Prelate.jpg" id="38_Void Prelate" data-flag="@X" onclick="openSidebar('38_Void Prelate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/76_Zymith Windreader.jpg" id="76_Zymith Windreader" data-flag="@X" onclick="openSidebar('76_Zymith Windreader',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/113_Stalking Delver.jpg" id="113_Stalking Delver" data-flag="@X" onclick="openSidebar('113_Stalking Delver',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/153_Towering Moonrazer.jpg" id="153_Towering Moonrazer" data-flag="@X" onclick="openSidebar('153_Towering Moonrazer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/191_Vista Painter.jpg" id="191_Vista Painter" data-flag="@X" onclick="openSidebar('191_Vista Painter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/1_Acolyte of the Beyond.jpg" id="1_Acolyte of the Beyond" data-flag="@X" onclick="openSidebar('1_Acolyte of the Beyond',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/39_Architect of Ascension.jpg" id="39_Architect of Ascension" data-flag="@X" onclick="openSidebar('39_Architect of Ascension',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/114_Tug of the Void.jpg" id="114_Tug of the Void" data-flag="@X" onclick="openSidebar('114_Tug of the Void',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/116_Aberrant Whispers.jpg" id="116_Aberrant Whispers" data-flag="@X" onclick="openSidebar('116_Aberrant Whispers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/155_Alwanor's Mark.jpg" id="155_Alwanors Mark" data-flag="@X" onclick="openSidebar('155_Alwanors Mark',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/5_Corporeal Benediction.jpg" id="5_Corporeal Benediction" data-flag="@X" onclick="openSidebar('5_Corporeal Benediction',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/46_Celestial Insight.jpg" id="46_Celestial Insight" data-flag="@X" onclick="openSidebar('46_Celestial Insight',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/77_Abyssal Retriever.jpg" id="77_Abyssal Retriever" data-flag="@X" onclick="openSidebar('77_Abyssal Retriever',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/119_Caersol Valiant.jpg" id="119_Caersol Valiant" data-flag="@X" onclick="openSidebar('119_Caersol Valiant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/162_Blinding Ambush.jpg" id="162_Blinding Ambush" data-flag="@X" onclick="openSidebar('162_Blinding Ambush',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/9_Existential Eclipse.jpg" id="9_Existential Eclipse" data-flag="@X" onclick="openSidebar('9_Existential Eclipse',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/47_Chart the Cosmos.jpg" id="47_Chart the Cosmos" data-flag="@X" onclick="openSidebar('47_Chart the Cosmos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/79_Caress of the Stars.jpg" id="79_Caress of the Stars" data-flag="@X" onclick="openSidebar('79_Caress of the Stars',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/123_Comet Conduit.jpg" id="123_Comet Conduit" data-flag="@X" onclick="openSidebar('123_Comet Conduit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/166_Crestfallen Colossus.jpg" id="166_Crestfallen Colossus" data-flag="@X" onclick="openSidebar('166_Crestfallen Colossus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/11_Helia Eulogist.jpg" id="11_Helia Eulogist" data-flag="@X" onclick="openSidebar('11_Helia Eulogist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/50_Cursory Glance.jpg" id="50_Cursory Glance" data-flag="@X" onclick="openSidebar('50_Cursory Glance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/81_Darkstar Devouring.jpg" id="81_Darkstar Devouring" data-flag="@X" onclick="openSidebar('81_Darkstar Devouring',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/124_Cosmic Bounty.jpg" id="124_Cosmic Bounty" data-flag="@X" onclick="openSidebar('124_Cosmic Bounty',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/167_Crust Gorger.jpg" id="167_Crust Gorger" data-flag="@X" onclick="openSidebar('167_Crust Gorger',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/16_Lacufae Lightwarden.jpg" id="16_Lacufae Lightwarden" data-flag="@X" onclick="openSidebar('16_Lacufae Lightwarden',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/53_Dream Snare.jpg" id="53_Dream Snare" data-flag="@X" onclick="openSidebar('53_Dream Snare',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/83_Discordant Voidling.jpg" id="83_Discordant Voidling" data-flag="@X" onclick="openSidebar('83_Discordant Voidling',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/130_Essence Ignition.jpg" id="130_Essence Ignition" data-flag="@X" onclick="openSidebar('130_Essence Ignition',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/171_Glimmermare.jpg" id="171_Glimmermare" data-flag="@X" onclick="openSidebar('171_Glimmermare',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/19_Moon-Scarred Pilgrim.jpg" id="19_Moon-Scarred Pilgrim" data-flag="@X" onclick="openSidebar('19_Moon-Scarred Pilgrim',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/56_Grasp of Oblivion.jpg" id="56_Grasp of Oblivion" data-flag="@X" onclick="openSidebar('56_Grasp of Oblivion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/90_Inexorable Shepherd.jpg" id="90_Inexorable Shepherd" data-flag="@X" onclick="openSidebar('90_Inexorable Shepherd',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/132_Frenetic Astronomer.jpg" id="132_Frenetic Astronomer" data-flag="@X" onclick="openSidebar('132_Frenetic Astronomer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/172_Gorion Gladehart.jpg" id="172_Gorion Gladehart" data-flag="@X" onclick="openSidebar('172_Gorion Gladehart',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/28_Sarsupei Houndmaster.jpg" id="28_Sarsupei Houndmaster" data-flag="@X" onclick="openSidebar('28_Sarsupei Houndmaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/57_Humbled Invoker.jpg" id="57_Humbled Invoker" data-flag="@X" onclick="openSidebar('57_Humbled Invoker',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/93_Lightless Diviner.jpg" id="93_Lightless Diviner" data-flag="@X" onclick="openSidebar('93_Lightless Diviner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/134_Horizon Blotter.jpg" id="134_Horizon Blotter" data-flag="@X" onclick="openSidebar('134_Horizon Blotter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/174_Horizon Vassal.jpg" id="174_Horizon Vassal" data-flag="@X" onclick="openSidebar('174_Horizon Vassal',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/31_Star-Touched Stalwart.jpg" id="31_Star-Touched Stalwart" data-flag="@X" onclick="openSidebar('31_Star-Touched Stalwart',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/60_Moon-Scarred Mystic.jpg" id="60_Moon-Scarred Mystic" data-flag="@X" onclick="openSidebar('60_Moon-Scarred Mystic',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/95_Mantle of Dusk.jpg" id="95_Mantle of Dusk" data-flag="@X" onclick="openSidebar('95_Mantle of Dusk',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/137_Malignant Moonbeam.jpg" id="137_Malignant Moonbeam" data-flag="@X" onclick="openSidebar('137_Malignant Moonbeam',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/175_Kinox Ley-Pillar.jpg" id="175_Kinox Ley-Pillar" data-flag="@X" onclick="openSidebar('175_Kinox Ley-Pillar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/32_Stardust Behemoth.jpg" id="32_Stardust Behemoth" data-flag="@X" onclick="openSidebar('32_Stardust Behemoth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/66_Qaraz Doomsayer.jpg" id="66_Qaraz Doomsayer" data-flag="@X" onclick="openSidebar('66_Qaraz Doomsayer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/96_March of the Long Night.jpg" id="96_March of the Long Night" data-flag="@X" onclick="openSidebar('96_March of the Long Night',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/139_Nascent Vessel.jpg" id="139_Nascent Vessel" data-flag="@X" onclick="openSidebar('139_Nascent Vessel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/179_Nebulous Rebirth.jpg" id="179_Nebulous Rebirth" data-flag="@X" onclick="openSidebar('179_Nebulous Rebirth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/33_Starlit Sanctuary.jpg" id="33_Starlit Sanctuary" data-flag="@X" onclick="openSidebar('33_Starlit Sanctuary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/67_Qaraz Nullblade.jpg" id="67_Qaraz Nullblade" data-flag="@X" onclick="openSidebar('67_Qaraz Nullblade',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/98_Nether Ponderings.jpg" id="98_Nether Ponderings" data-flag="@X" onclick="openSidebar('98_Nether Ponderings',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/141_Niliscant Strider.jpg" id="141_Niliscant Strider" data-flag="@X" onclick="openSidebar('141_Niliscant Strider',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/182_Prism Catcher.jpg" id="182_Prism Catcher" data-flag="@X" onclick="openSidebar('182_Prism Catcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/34_Tireless Pilgrimage.jpg" id="34_Tireless Pilgrimage" data-flag="@X" onclick="openSidebar('34_Tireless Pilgrimage',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/71_Slumberzoa.jpg" id="71_Slumberzoa" data-flag="@X" onclick="openSidebar('71_Slumberzoa',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/103_Oblivion Surveyor.jpg" id="103_Oblivion Surveyor" data-flag="@X" onclick="openSidebar('103_Oblivion Surveyor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/146_Roseaun Ley-Pillar.jpg" id="146_Roseaun Ley-Pillar" data-flag="@X" onclick="openSidebar('146_Roseaun Ley-Pillar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/185_Scintillating Vista.jpg" id="185_Scintillating Vista" data-flag="@X" onclick="openSidebar('185_Scintillating Vista',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/35_Turelion Ley-Pillar.jpg" id="35_Turelion Ley-Pillar" data-flag="@X" onclick="openSidebar('35_Turelion Ley-Pillar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/74_Unveil.jpg" id="74_Unveil" data-flag="@X" onclick="openSidebar('74_Unveil',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/104_Phemeros Ley-Pillar.jpg" id="104_Phemeros Ley-Pillar" data-flag="@X" onclick="openSidebar('104_Phemeros Ley-Pillar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/147_Skycleave.jpg" id="147_Skycleave" data-flag="@X" onclick="openSidebar('147_Skycleave',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/187_Star-Touched Devout.jpg" id="187_Star-Touched Devout" data-flag="@X" onclick="openSidebar('187_Star-Touched Devout',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/37_Twilight Legion.jpg" id="37_Twilight Legion" data-flag="@X" onclick="openSidebar('37_Twilight Legion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/75_Zymith Ley-Pillar.jpg" id="75_Zymith Ley-Pillar" data-flag="@X" onclick="openSidebar('75_Zymith Ley-Pillar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/109_Relentless Huntmaster.jpg" id="109_Relentless Huntmaster" data-flag="@X" onclick="openSidebar('109_Relentless Huntmaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/148_Star-Touched Oracle.jpg" id="148_Star-Touched Oracle" data-flag="@X" onclick="openSidebar('148_Star-Touched Oracle',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/188_Step Beyond.jpg" id="188_Step Beyond" data-flag="@X" onclick="openSidebar('188_Step Beyond',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/110_Sarsupei All-Seer.jpg" id="110_Sarsupei All-Seer" data-flag="@X" onclick="openSidebar('110_Sarsupei All-Seer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
 				<div id="gold" class="anchor"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/218_Levicta Visio.jpg" id="218_Levicta Visio" data-flag="@X" onclick="openSidebar('218_Levicta Visio',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/207_Gloom Whisperer.jpg" id="207_Gloom Whisperer" data-flag="@X" onclick="openSidebar('207_Gloom Whisperer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/206_Form of the Sun.jpg" id="206_Form of the Sun" data-flag="@X" onclick="openSidebar('206_Form of the Sun',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/216_Last Wish.jpg" id="216_Last Wish" data-flag="@X" onclick="openSidebar('216_Last Wish',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/192_Aureleth the Sun Shard.jpg" id="192_Aureleth the Sun Shard" data-flag="@X" onclick="openSidebar('192_Aureleth the Sun Shard',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/242_Waygate Bulwark.jpg" id="242_Waygate Bulwark" data-flag="@X" onclick="openSidebar('242_Waygate Bulwark',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/221_Lutra Inquisos.jpg" id="221_Lutra Inquisos" data-flag="@X" onclick="openSidebar('221_Lutra Inquisos',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/202_Earthly Trifles.jpg" id="202_Earthly Trifles" data-flag="@X" onclick="openSidebar('202_Earthly Trifles',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/203_Ecosa, Blood of Old.jpg" id="203_Ecosa, Blood of Old" data-flag="@X" onclick="openSidebar('203_Ecosa, Blood of Old',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/195_Cereus Aegosa.jpg" id="195_Cereus Aegosa" data-flag="@X" onclick="openSidebar('195_Cereus Aegosa',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/246_Auroric Savior.jpg" id="246_Auroric Savior" data-flag="@X" onclick="openSidebar('246_Auroric Savior',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/267_Torpor Harvester.jpg" id="267_Torpor Harvester" data-flag="@X" onclick="openSidebar('267_Torpor Harvester',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/213_Ignavis Immatus.jpg" id="213_Ignavis Immatus" data-flag="@X" onclick="openSidebar('213_Ignavis Immatus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/222_Matauros Tyrannos.jpg" id="222_Matauros Tyrannos" data-flag="@X" onclick="openSidebar('222_Matauros Tyrannos',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/256_Guiding Gladehart.jpg" id="256_Guiding Gladehart" data-flag="@X" onclick="openSidebar('256_Guiding Gladehart',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/191_Advent Herald.jpg" id="191_Advent Herald" data-flag="@X" onclick="openSidebar('191_Advent Herald',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/223_Medari Darkseer.jpg" id="223_Medari Darkseer" data-flag="@X" onclick="openSidebar('223_Medari Darkseer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/262_Precursor to Calamity.jpg" id="262_Precursor to Calamity" data-flag="@X" onclick="openSidebar('262_Precursor to Calamity',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/257_Invasive Progenitor.jpg" id="257_Invasive Progenitor" data-flag="@X" onclick="openSidebar('257_Invasive Progenitor',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/199_Cosmic Rebirth.jpg" id="199_Cosmic Rebirth" data-flag="@X" onclick="openSidebar('199_Cosmic Rebirth',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/227_Oblivion Dispatcher.jpg" id="227_Oblivion Dispatcher" data-flag="@X" onclick="openSidebar('227_Oblivion Dispatcher',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/240_Twilight Covenant.jpg" id="240_Twilight Covenant" data-flag="@X" onclick="openSidebar('240_Twilight Covenant',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/229_Psionic Backlash.jpg" id="229_Psionic Backlash" data-flag="@X" onclick="openSidebar('229_Psionic Backlash',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/212_Heaven's Reach.jpg" id="212_Heavens Reach" data-flag="@X" onclick="openSidebar('212_Heavens Reach',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/210_Halo Tracer.jpg" id="210_Halo Tracer" data-flag="@X" onclick="openSidebar('210_Halo Tracer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/269_Turelion Justiciar.jpg" id="269_Turelion Justiciar" data-flag="@X" onclick="openSidebar('269_Turelion Justiciar',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/254_Eclipsed Stargazer.jpg" id="254_Eclipsed Stargazer" data-flag="@X" onclick="openSidebar('254_Eclipsed Stargazer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/230_Reconstructed Flayer.jpg" id="230_Reconstructed Flayer" data-flag="@X" onclick="openSidebar('230_Reconstructed Flayer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/234_Star-Touched Host.jpg" id="234_Star-Touched Host" data-flag="@X" onclick="openSidebar('234_Star-Touched Host',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/251_Calming Oryx.jpg" id="251_Calming Oryx" data-flag="@X" onclick="openSidebar('251_Calming Oryx',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/194_Cepheos Delugo.jpg" id="194_Cepheos Delugo" data-flag="@X" onclick="openSidebar('194_Cepheos Delugo',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/197_Corpius Portena.jpg" id="197_Corpius Portena" data-flag="@X" onclick="openSidebar('197_Corpius Portena',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/244_Ascended Zealot.jpg" id="244_Ascended Zealot" data-flag="@X" onclick="openSidebar('244_Ascended Zealot',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/266_Starcrossed Vessel.jpg" id="266_Starcrossed Vessel" data-flag="@X" onclick="openSidebar('266_Starcrossed Vessel',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/217_Leonis Concitare.jpg" id="217_Leonis Concitare" data-flag="@X" onclick="openSidebar('217_Leonis Concitare',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/272_Zymith Skyguide.jpg" id="272_Zymith Skyguide" data-flag="@X" onclick="openSidebar('272_Zymith Skyguide',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/271_Zukar's Informant.jpg" id="271_Zukars Informant" data-flag="@X" onclick="openSidebar('271_Zukars Informant',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/200_Daemos Tormandus.jpg" id="200_Daemos Tormandus" data-flag="@X" onclick="openSidebar('200_Daemos Tormandus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/231_Rex Cerveste.jpg" id="231_Rex Cerveste" data-flag="@X" onclick="openSidebar('231_Rex Cerveste',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/258_Lacufae Pastor.jpg" id="258_Lacufae Pastor" data-flag="@X" onclick="openSidebar('258_Lacufae Pastor',false)"></div>
-				<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/270_Voidborn Flayer.jpg" id="270_Voidborn Flayer" data-flag="@X" onclick="openSidebar('270_Voidborn Flayer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/247_Awakened Aberration.jpg" id="247_Awakened Aberration" data-flag="@X" onclick="openSidebar('247_Awakened Aberration',false)"></div>
-				<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/237_Tigros Surectus.jpg" id="237_Tigros Surectus" data-flag="@X" onclick="openSidebar('237_Tigros Surectus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/201_Draconos Iracus.jpg" id="201_Draconos Iracus" data-flag="@X" onclick="openSidebar('201_Draconos Iracus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/220_Lupensi Tyrannos.jpg" id="220_Lupensi Tyrannos" data-flag="@X" onclick="openSidebar('220_Lupensi Tyrannos',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/211_Heavenly Descent.jpg" id="211_Heavenly Descent" data-flag="@X" onclick="openSidebar('211_Heavenly Descent',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/214_Interstellar Sage.jpg" id="214_Interstellar Sage" data-flag="@X" onclick="openSidebar('214_Interstellar Sage',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/238_Turelion Anchorite.jpg" id="238_Turelion Anchorite" data-flag="@X" onclick="openSidebar('238_Turelion Anchorite',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/219_Lunar Awe.jpg" id="219_Lunar Awe" data-flag="@X" onclick="openSidebar('219_Lunar Awe',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/224_Meteor Hellion.jpg" id="224_Meteor Hellion" data-flag="@X" onclick="openSidebar('224_Meteor Hellion',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/241_Uquus Crusaris.jpg" id="241_Uquus Crusaris" data-flag="@X" onclick="openSidebar('241_Uquus Crusaris',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/232_Saureus Duplixi.jpg" id="232_Saureus Duplixi" data-flag="@X" onclick="openSidebar('232_Saureus Duplixi',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/268_Transcendent Council.jpg" id="268_Transcendent Council" data-flag="@X" onclick="openSidebar('268_Transcendent Council',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/263_Psionic Sage.jpg" id="263_Psionic Sage" data-flag="@X" onclick="openSidebar('263_Psionic Sage',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/261_Pitch Fiend.jpg" id="261_Pitch Fiend" data-flag="@X" onclick="openSidebar('261_Pitch Fiend',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/259_Moon-Scarred Dominus.jpg" id="259_Moon-Scarred Dominus" data-flag="@X" onclick="openSidebar('259_Moon-Scarred Dominus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/252_Cosmoling.jpg" id="252_Cosmoling" data-flag="@X" onclick="openSidebar('252_Cosmoling',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/198_Cosmic Pilgrimage.jpg" id="198_Cosmic Pilgrimage" data-flag="@X" onclick="openSidebar('198_Cosmic Pilgrimage',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/193_Black Sun Historian.jpg" id="193_Black Sun Historian" data-flag="@X" onclick="openSidebar('193_Black Sun Historian',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/209_Grave Prophet.jpg" id="209_Grave Prophet" data-flag="@X" onclick="openSidebar('209_Grave Prophet',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/196_Cleansing Starfire.jpg" id="196_Cleansing Starfire" data-flag="@X" onclick="openSidebar('196_Cleansing Starfire',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/205_Florazoa.jpg" id="205_Florazoa" data-flag="@X" onclick="openSidebar('205_Florazoa',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/215_Invasion Campaign.jpg" id="215_Invasion Campaign" data-flag="@X" onclick="openSidebar('215_Invasion Campaign',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/204_Ethereal Exodus.jpg" id="204_Ethereal Exodus" data-flag="@X" onclick="openSidebar('204_Ethereal Exodus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/235_Stellar Subjugation.jpg" id="235_Stellar Subjugation" data-flag="@X" onclick="openSidebar('235_Stellar Subjugation',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/225_Moon-Scarred Champion.jpg" id="225_Moon-Scarred Champion" data-flag="@X" onclick="openSidebar('225_Moon-Scarred Champion',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/228_Omenmare.jpg" id="228_Omenmare" data-flag="@X" onclick="openSidebar('228_Omenmare',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/260_Moonbeam Artisan.jpg" id="260_Moonbeam Artisan" data-flag="@X" onclick="openSidebar('260_Moonbeam Artisan',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/253_Crackling Moonkite.jpg" id="253_Crackling Moonkite" data-flag="@X" onclick="openSidebar('253_Crackling Moonkite',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/243_Abyssal Burrower.jpg" id="243_Abyssal Burrower" data-flag="@X" onclick="openSidebar('243_Abyssal Burrower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/265_Star-Touched Crusader.jpg" id="265_Star-Touched Crusader" data-flag="@X" onclick="openSidebar('265_Star-Touched Crusader',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/249_Blinded Visionary.jpg" id="249_Blinded Visionary" data-flag="@X" onclick="openSidebar('249_Blinded Visionary',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/226_Noctere Ascentus.jpg" id="226_Noctere Ascentus" data-flag="@X" onclick="openSidebar('226_Noctere Ascentus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/208_Gomada Lumenos.jpg" id="208_Gomada Lumenos" data-flag="@X" onclick="openSidebar('208_Gomada Lumenos',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/233_Serpens Surectus.jpg" id="233_Serpens Surectus" data-flag="@X" onclick="openSidebar('233_Serpens Surectus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/236_Tigros Purseus.jpg" id="236_Tigros Purseus" data-flag="@X" onclick="openSidebar('236_Tigros Purseus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/239_Turintos Fulgeos.jpg" id="239_Turintos Fulgeos" data-flag="@X" onclick="openSidebar('239_Turintos Fulgeos',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/248_Blinded Herald.jpg" id="248_Blinded Herald" data-flag="@X" onclick="openSidebar('248_Blinded Herald',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/264_Split the Sky.jpg" id="264_Split the Sky" data-flag="@X" onclick="openSidebar('264_Split the Sky',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/255_Ephemeral Leech.jpg" id="255_Ephemeral Leech" data-flag="@X" onclick="openSidebar('255_Ephemeral Leech',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/250_Blinding Inquisitor.jpg" id="250_Blinding Inquisitor" data-flag="@X" onclick="openSidebar('250_Blinding Inquisitor',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/245_Attuned Lightbinder.jpg" id="245_Attuned Lightbinder" data-flag="@X" onclick="openSidebar('245_Attuned Lightbinder',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/219_Levicta Visio.jpg" id="219_Levicta Visio" data-flag="@X" onclick="openSidebar('219_Levicta Visio',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/198_Cloud of Consciousness.jpg" id="198_Cloud of Consciousness" data-flag="@X" onclick="openSidebar('198_Cloud of Consciousness',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/209_Form of the Sun.jpg" id="209_Form of the Sun" data-flag="@X" onclick="openSidebar('209_Form of the Sun',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/217_Last Wish.jpg" id="217_Last Wish" data-flag="@X" onclick="openSidebar('217_Last Wish',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/193_Aureleth the Sun Shard.jpg" id="193_Aureleth the Sun Shard" data-flag="@X" onclick="openSidebar('193_Aureleth the Sun Shard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/242_Waygate Bulwark.jpg" id="242_Waygate Bulwark" data-flag="@X" onclick="openSidebar('242_Waygate Bulwark',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/222_Lutra Inquisos.jpg" id="222_Lutra Inquisos" data-flag="@X" onclick="openSidebar('222_Lutra Inquisos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/205_Earthly Trifles.jpg" id="205_Earthly Trifles" data-flag="@X" onclick="openSidebar('205_Earthly Trifles',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/206_Ecosa of the Old Blood.jpg" id="206_Ecosa of the Old Blood" data-flag="@X" onclick="openSidebar('206_Ecosa of the Old Blood',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/196_Cereus Aegosa.jpg" id="196_Cereus Aegosa" data-flag="@X" onclick="openSidebar('196_Cereus Aegosa',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/248_Auroric Savior.jpg" id="248_Auroric Savior" data-flag="@X" onclick="openSidebar('248_Auroric Savior',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/268_Torpor Harvester.jpg" id="268_Torpor Harvester" data-flag="@X" onclick="openSidebar('268_Torpor Harvester',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/214_Ignavis Immatus.jpg" id="214_Ignavis Immatus" data-flag="@X" onclick="openSidebar('214_Ignavis Immatus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/223_Matauros Tyrannos.jpg" id="223_Matauros Tyrannos" data-flag="@X" onclick="openSidebar('223_Matauros Tyrannos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/257_Guiding Gladehart.jpg" id="257_Guiding Gladehart" data-flag="@X" onclick="openSidebar('257_Guiding Gladehart',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/192_Advent Herald.jpg" id="192_Advent Herald" data-flag="@X" onclick="openSidebar('192_Advent Herald',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/224_Medari Darkseer.jpg" id="224_Medari Darkseer" data-flag="@X" onclick="openSidebar('224_Medari Darkseer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/262_Precursor to Calamity.jpg" id="262_Precursor to Calamity" data-flag="@X" onclick="openSidebar('262_Precursor to Calamity',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/258_Invasive Progenitor.jpg" id="258_Invasive Progenitor" data-flag="@X" onclick="openSidebar('258_Invasive Progenitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/202_Cosmic Rebirth.jpg" id="202_Cosmic Rebirth" data-flag="@X" onclick="openSidebar('202_Cosmic Rebirth',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/229_Oblivion Dispatcher.jpg" id="229_Oblivion Dispatcher" data-flag="@X" onclick="openSidebar('229_Oblivion Dispatcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/227_Nether Invocation.jpg" id="227_Nether Invocation" data-flag="@X" onclick="openSidebar('227_Nether Invocation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/231_Psionic Backlash.jpg" id="231_Psionic Backlash" data-flag="@X" onclick="openSidebar('231_Psionic Backlash',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/235_Star-Touched Host.jpg" id="235_Star-Touched Host" data-flag="@X" onclick="openSidebar('235_Star-Touched Host',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/212_Halo Tracer.jpg" id="212_Halo Tracer" data-flag="@X" onclick="openSidebar('212_Halo Tracer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/270_Turelion Justiciar.jpg" id="270_Turelion Justiciar" data-flag="@X" onclick="openSidebar('270_Turelion Justiciar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/255_Eclipsed Stargazer.jpg" id="255_Eclipsed Stargazer" data-flag="@X" onclick="openSidebar('255_Eclipsed Stargazer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/232_Reconstructed Flayer.jpg" id="232_Reconstructed Flayer" data-flag="@X" onclick="openSidebar('232_Reconstructed Flayer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/243_Wildermoon Compulsion.jpg" id="243_Wildermoon Compulsion" data-flag="@X" onclick="openSidebar('243_Wildermoon Compulsion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/253_Calming Oryx.jpg" id="253_Calming Oryx" data-flag="@X" onclick="openSidebar('253_Calming Oryx',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/195_Cepheos Delugo.jpg" id="195_Cepheos Delugo" data-flag="@X" onclick="openSidebar('195_Cepheos Delugo',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/199_Coria Portenus.jpg" id="199_Coria Portenus" data-flag="@X" onclick="openSidebar('199_Coria Portenus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/245_Ascended Zealot.jpg" id="245_Ascended Zealot" data-flag="@X" onclick="openSidebar('245_Ascended Zealot',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/267_Starcrossed Vessel.jpg" id="267_Starcrossed Vessel" data-flag="@X" onclick="openSidebar('267_Starcrossed Vessel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/218_Leonis Concitare.jpg" id="218_Leonis Concitare" data-flag="@X" onclick="openSidebar('218_Leonis Concitare',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/273_Zymith Skyguide.jpg" id="273_Zymith Skyguide" data-flag="@X" onclick="openSidebar('273_Zymith Skyguide',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/272_Zukar's Informant.jpg" id="272_Zukars Informant" data-flag="@X" onclick="openSidebar('272_Zukars Informant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/203_Daemos Tormandus.jpg" id="203_Daemos Tormandus" data-flag="@X" onclick="openSidebar('203_Daemos Tormandus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/200_Cornus Asarei.jpg" id="200_Cornus Asarei" data-flag="@X" onclick="openSidebar('200_Cornus Asarei',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/259_Lacufae Pastor.jpg" id="259_Lacufae Pastor" data-flag="@X" onclick="openSidebar('259_Lacufae Pastor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/271_Voidborn Flayer.jpg" id="271_Voidborn Flayer" data-flag="@X" onclick="openSidebar('271_Voidborn Flayer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/249_Awakened Aberration.jpg" id="249_Awakened Aberration" data-flag="@X" onclick="openSidebar('249_Awakened Aberration',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/238_Turelion Gospel.jpg" id="238_Turelion Gospel" data-flag="@X" onclick="openSidebar('238_Turelion Gospel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/204_Draconos Iracus.jpg" id="204_Draconos Iracus" data-flag="@X" onclick="openSidebar('204_Draconos Iracus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/221_Lupensi Tyrannos.jpg" id="221_Lupensi Tyrannos" data-flag="@X" onclick="openSidebar('221_Lupensi Tyrannos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/213_Heavenly Descent.jpg" id="213_Heavenly Descent" data-flag="@X" onclick="openSidebar('213_Heavenly Descent',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/215_Interstellar Sage.jpg" id="215_Interstellar Sage" data-flag="@X" onclick="openSidebar('215_Interstellar Sage',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/240_Umbrus Surectus.jpg" id="240_Umbrus Surectus" data-flag="@X" onclick="openSidebar('240_Umbrus Surectus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/220_Lunar Awe.jpg" id="220_Lunar Awe" data-flag="@X" onclick="openSidebar('220_Lunar Awe',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/225_Meteor Hellion.jpg" id="225_Meteor Hellion" data-flag="@X" onclick="openSidebar('225_Meteor Hellion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/241_Uquus Crusaris.jpg" id="241_Uquus Crusaris" data-flag="@X" onclick="openSidebar('241_Uquus Crusaris',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/233_Saureus Duplixi.jpg" id="233_Saureus Duplixi" data-flag="@X" onclick="openSidebar('233_Saureus Duplixi',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/269_Transcendent Council.jpg" id="269_Transcendent Council" data-flag="@X" onclick="openSidebar('269_Transcendent Council',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/263_Psionic Sage.jpg" id="263_Psionic Sage" data-flag="@X" onclick="openSidebar('263_Psionic Sage',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/264_Putrevore.jpg" id="264_Putrevore" data-flag="@X" onclick="openSidebar('264_Putrevore',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/260_Moon-Scarred Dominus.jpg" id="260_Moon-Scarred Dominus" data-flag="@X" onclick="openSidebar('260_Moon-Scarred Dominus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/246_Astraling.jpg" id="246_Astraling" data-flag="@X" onclick="openSidebar('246_Astraling',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/201_Cosmic Pilgrimage.jpg" id="201_Cosmic Pilgrimage" data-flag="@X" onclick="openSidebar('201_Cosmic Pilgrimage',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/194_Black Dawn Historian.jpg" id="194_Black Dawn Historian" data-flag="@X" onclick="openSidebar('194_Black Dawn Historian',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/211_Grave Prophet.jpg" id="211_Grave Prophet" data-flag="@X" onclick="openSidebar('211_Grave Prophet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/197_Cleansing Starfire.jpg" id="197_Cleansing Starfire" data-flag="@X" onclick="openSidebar('197_Cleansing Starfire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/208_Florazoa.jpg" id="208_Florazoa" data-flag="@X" onclick="openSidebar('208_Florazoa',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/216_Invasion Campaign.jpg" id="216_Invasion Campaign" data-flag="@X" onclick="openSidebar('216_Invasion Campaign',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/207_Ethereal Exodus.jpg" id="207_Ethereal Exodus" data-flag="@X" onclick="openSidebar('207_Ethereal Exodus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/236_Stellar Subjugation.jpg" id="236_Stellar Subjugation" data-flag="@X" onclick="openSidebar('236_Stellar Subjugation',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/226_Moon-Scarred Champion.jpg" id="226_Moon-Scarred Champion" data-flag="@X" onclick="openSidebar('226_Moon-Scarred Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/230_Omenmare.jpg" id="230_Omenmare" data-flag="@X" onclick="openSidebar('230_Omenmare',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/261_Moonbeam Artisan.jpg" id="261_Moonbeam Artisan" data-flag="@X" onclick="openSidebar('261_Moonbeam Artisan',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/254_Crackling Moonkite.jpg" id="254_Crackling Moonkite" data-flag="@X" onclick="openSidebar('254_Crackling Moonkite',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/244_Abyssal Burrower.jpg" id="244_Abyssal Burrower" data-flag="@X" onclick="openSidebar('244_Abyssal Burrower',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/266_Star-Touched Crusader.jpg" id="266_Star-Touched Crusader" data-flag="@X" onclick="openSidebar('266_Star-Touched Crusader',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/251_Blinded Visionary.jpg" id="251_Blinded Visionary" data-flag="@X" onclick="openSidebar('251_Blinded Visionary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/228_Noctere Ascentus.jpg" id="228_Noctere Ascentus" data-flag="@X" onclick="openSidebar('228_Noctere Ascentus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/210_Gomada Lumenos.jpg" id="210_Gomada Lumenos" data-flag="@X" onclick="openSidebar('210_Gomada Lumenos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/234_Serpens Surectus.jpg" id="234_Serpens Surectus" data-flag="@X" onclick="openSidebar('234_Serpens Surectus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/237_Tigros Purseus.jpg" id="237_Tigros Purseus" data-flag="@X" onclick="openSidebar('237_Tigros Purseus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/239_Turintos Fulgeos.jpg" id="239_Turintos Fulgeos" data-flag="@X" onclick="openSidebar('239_Turintos Fulgeos',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/250_Blinded Herald.jpg" id="250_Blinded Herald" data-flag="@X" onclick="openSidebar('250_Blinded Herald',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/265_Split the Sky.jpg" id="265_Split the Sky" data-flag="@X" onclick="openSidebar('265_Split the Sky',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/256_Ephemeral Leech.jpg" id="256_Ephemeral Leech" data-flag="@X" onclick="openSidebar('256_Ephemeral Leech',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/252_Blinding Inquisitor.jpg" id="252_Blinding Inquisitor" data-flag="@X" onclick="openSidebar('252_Blinding Inquisitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/247_Attuned Lightbinder.jpg" id="247_Attuned Lightbinder" data-flag="@X" onclick="openSidebar('247_Attuned Lightbinder',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
 				<div id="colorless" class="anchor"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/274_Atomic Core.jpg" id="274_Atomic Core" data-flag="@X" onclick="openSidebar('274_Atomic Core',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/276_Cosmic Lotus.jpg" id="276_Cosmic Lotus" data-flag="@X" onclick="openSidebar('276_Cosmic Lotus',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/286_Planetary Orrery.jpg" id="286_Planetary Orrery" data-flag="@X" onclick="openSidebar('286_Planetary Orrery',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/273_Astral Displacer.jpg" id="273_Astral Displacer" data-flag="@X" onclick="openSidebar('273_Astral Displacer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/287_Skyfall Sunderer.jpg" id="287_Skyfall Sunderer" data-flag="@X" onclick="openSidebar('287_Skyfall Sunderer',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/288_Solemn Simulacrum.jpg" id="288_Solemn Simulacrum" data-flag="@X" onclick="openSidebar('288_Solemn Simulacrum',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/277_Cosmolith.jpg" id="277_Cosmolith" data-flag="@X" onclick="openSidebar('277_Cosmolith',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/278_Edge of Null.jpg" id="278_Edge of Null" data-flag="@X" onclick="openSidebar('278_Edge of Null',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/279_Elysian Turbine.jpg" id="279_Elysian Turbine" data-flag="@X" onclick="openSidebar('279_Elysian Turbine',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/281_Ley-Tower Convergence.jpg" id="281_Ley-Tower Convergence" data-flag="@X" onclick="openSidebar('281_Ley-Tower Convergence',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/283_Meteor Golem.jpg" id="283_Meteor Golem" data-flag="@X" onclick="openSidebar('283_Meteor Golem',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/275_Caersol Morningstar.jpg" id="275_Caersol Morningstar" data-flag="@X" onclick="openSidebar('275_Caersol Morningstar',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/280_Heraldic Ley-Tower.jpg" id="280_Heraldic Ley-Tower" data-flag="@X" onclick="openSidebar('280_Heraldic Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/282_Light-Pierced Envoy.jpg" id="282_Light-Pierced Envoy" data-flag="@X" onclick="openSidebar('282_Light-Pierced Envoy',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/284_Meteoric Harvester.jpg" id="284_Meteoric Harvester" data-flag="@X" onclick="openSidebar('284_Meteoric Harvester',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/285_Nascent Star.jpg" id="285_Nascent Star" data-flag="@X" onclick="openSidebar('285_Nascent Star',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/289_Waypoint Armillary.jpg" id="289_Waypoint Armillary" data-flag="@X" onclick="openSidebar('289_Waypoint Armillary',false)"></div>
-				<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/275_Atomic Core.jpg" id="275_Atomic Core" data-flag="@X" onclick="openSidebar('275_Atomic Core',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/277_Cosmic Lotus.jpg" id="277_Cosmic Lotus" data-flag="@X" onclick="openSidebar('277_Cosmic Lotus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/287_Planetary Orrery.jpg" id="287_Planetary Orrery" data-flag="@X" onclick="openSidebar('287_Planetary Orrery',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/274_Astral Displacer.jpg" id="274_Astral Displacer" data-flag="@X" onclick="openSidebar('274_Astral Displacer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/288_Skyfall Sunderer.jpg" id="288_Skyfall Sunderer" data-flag="@X" onclick="openSidebar('288_Skyfall Sunderer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/289_Solemn Simulacrum.jpg" id="289_Solemn Simulacrum" data-flag="@X" onclick="openSidebar('289_Solemn Simulacrum',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/278_Cosmolith.jpg" id="278_Cosmolith" data-flag="@X" onclick="openSidebar('278_Cosmolith',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/279_Edge of Null.jpg" id="279_Edge of Null" data-flag="@X" onclick="openSidebar('279_Edge of Null',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/280_Elysian Turbine.jpg" id="280_Elysian Turbine" data-flag="@X" onclick="openSidebar('280_Elysian Turbine',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/282_Ley-Tower Convergence.jpg" id="282_Ley-Tower Convergence" data-flag="@X" onclick="openSidebar('282_Ley-Tower Convergence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/284_Meteor Golem.jpg" id="284_Meteor Golem" data-flag="@X" onclick="openSidebar('284_Meteor Golem',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/276_Caersol Morningstar.jpg" id="276_Caersol Morningstar" data-flag="@X" onclick="openSidebar('276_Caersol Morningstar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/281_Heraldic Ley-Pillar.jpg" id="281_Heraldic Ley-Pillar" data-flag="@X" onclick="openSidebar('281_Heraldic Ley-Pillar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/283_Light-Pierced Envoy.jpg" id="283_Light-Pierced Envoy" data-flag="@X" onclick="openSidebar('283_Light-Pierced Envoy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/285_Meteoric Harvester.jpg" id="285_Meteoric Harvester" data-flag="@X" onclick="openSidebar('285_Meteoric Harvester',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/286_Nascent Star.jpg" id="286_Nascent Star" data-flag="@X" onclick="openSidebar('286_Nascent Star',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/290_Waypoint Armillary.jpg" id="290_Waypoint Armillary" data-flag="@X" onclick="openSidebar('290_Waypoint Armillary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
 				<div id="land" class="anchor"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/302_Lacufae Refuge.jpg" id="302_Lacufae Refuge" data-flag="@X" onclick="openSidebar('302_Lacufae Refuge',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/318_Zymith Refuge.jpg" id="318_Zymith Refuge" data-flag="@X" onclick="openSidebar('318_Zymith Refuge',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/306_Qaraz Refuge.jpg" id="306_Qaraz Refuge" data-flag="@X" onclick="openSidebar('306_Qaraz Refuge',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/294_Caersol Refuge.jpg" id="294_Caersol Refuge" data-flag="@X" onclick="openSidebar('294_Caersol Refuge',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/299_Gorion Refuge.jpg" id="299_Gorion Refuge" data-flag="@X" onclick="openSidebar('299_Gorion Refuge',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/307_Resplendent Nebula.jpg" id="307_Resplendent Nebula" data-flag="@X" onclick="openSidebar('307_Resplendent Nebula',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/295_Cascading Nebula.jpg" id="295_Cascading Nebula" data-flag="@X" onclick="openSidebar('295_Cascading Nebula',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/310_Starless Nebula.jpg" id="310_Starless Nebula" data-flag="@X" onclick="openSidebar('310_Starless Nebula',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/311_Sulphurous Nebula.jpg" id="311_Sulphurous Nebula" data-flag="@X" onclick="openSidebar('311_Sulphurous Nebula',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/293_Burgeoning Nebula.jpg" id="293_Burgeoning Nebula" data-flag="@X" onclick="openSidebar('293_Burgeoning Nebula',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/315_Tranquil Cove.jpg" id="315_Tranquil Cove" data-flag="@X" onclick="openSidebar('315_Tranquil Cove',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/296_Dismal Backwater.jpg" id="296_Dismal Backwater" data-flag="@X" onclick="openSidebar('296_Dismal Backwater',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/290_Bloodfell Caves.jpg" id="290_Bloodfell Caves" data-flag="@X" onclick="openSidebar('290_Bloodfell Caves',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/308_Rugged Highlands.jpg" id="308_Rugged Highlands" data-flag="@X" onclick="openSidebar('308_Rugged Highlands',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/291_Blossoming Sands.jpg" id="291_Blossoming Sands" data-flag="@X" onclick="openSidebar('291_Blossoming Sands',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/309_Scoured Barrens.jpg" id="309_Scoured Barrens" data-flag="@X" onclick="openSidebar('309_Scoured Barrens',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/313_Swiftwater Cliffs.jpg" id="313_Swiftwater Cliffs" data-flag="@X" onclick="openSidebar('313_Swiftwater Cliffs',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/301_Jungle Hollow.jpg" id="301_Jungle Hollow" data-flag="@X" onclick="openSidebar('301_Jungle Hollow',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/316_Wind-Scarred Crag.jpg" id="316_Wind-Scarred Crag" data-flag="@X" onclick="openSidebar('316_Wind-Scarred Crag',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/314_Thornwood Falls.jpg" id="314_Thornwood Falls" data-flag="@X" onclick="openSidebar('314_Thornwood Falls',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/305_Prismatic Ley-Tower.jpg" id="305_Prismatic Ley-Tower" data-flag="@X" onclick="openSidebar('305_Prismatic Ley-Tower',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/292_Budding Mire.jpg" id="292_Budding Mire" data-flag="@X" onclick="openSidebar('292_Budding Mire',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/297_Evolving Wilds.jpg" id="297_Evolving Wilds" data-flag="@X" onclick="openSidebar('297_Evolving Wilds',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/317_Withered Waygate.jpg" id="317_Withered Waygate" data-flag="@X" onclick="openSidebar('317_Withered Waygate',false)"></div>
-				<div class="container"><img alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/304_Plains.jpg" id="304_Plains" data-flag="@X" onclick="openSidebar('304_Plains',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/300_Island.jpg" id="300_Island" data-flag="@X" onclick="openSidebar('300_Island',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/312_Swamp.jpg" id="312_Swamp" data-flag="@X" onclick="openSidebar('312_Swamp',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/303_Mountain.jpg" id="303_Mountain" data-flag="@X" onclick="openSidebar('303_Mountain',false)"></div>
-				<div class="container"><img alt="/sets/SOL-files/img/298_Forest.jpg" id="298_Forest" data-flag="@X" onclick="openSidebar('298_Forest',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/303_Lacufae Refuge.jpg" id="303_Lacufae Refuge" data-flag="@X" onclick="openSidebar('303_Lacufae Refuge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/319_Zymith Refuge.jpg" id="319_Zymith Refuge" data-flag="@X" onclick="openSidebar('319_Zymith Refuge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/307_Qaraz Refuge.jpg" id="307_Qaraz Refuge" data-flag="@X" onclick="openSidebar('307_Qaraz Refuge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/295_Caersol Refuge.jpg" id="295_Caersol Refuge" data-flag="@X" onclick="openSidebar('295_Caersol Refuge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/300_Gorion Refuge.jpg" id="300_Gorion Refuge" data-flag="@X" onclick="openSidebar('300_Gorion Refuge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/308_Resplendent Nebula.jpg" id="308_Resplendent Nebula" data-flag="@X" onclick="openSidebar('308_Resplendent Nebula',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/296_Cascading Nebula.jpg" id="296_Cascading Nebula" data-flag="@X" onclick="openSidebar('296_Cascading Nebula',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/311_Starless Nebula.jpg" id="311_Starless Nebula" data-flag="@X" onclick="openSidebar('311_Starless Nebula',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/312_Sulphurous Nebula.jpg" id="312_Sulphurous Nebula" data-flag="@X" onclick="openSidebar('312_Sulphurous Nebula',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/294_Burgeoning Nebula.jpg" id="294_Burgeoning Nebula" data-flag="@X" onclick="openSidebar('294_Burgeoning Nebula',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/316_Tranquil Cove.jpg" id="316_Tranquil Cove" data-flag="@X" onclick="openSidebar('316_Tranquil Cove',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/297_Dismal Backwater.jpg" id="297_Dismal Backwater" data-flag="@X" onclick="openSidebar('297_Dismal Backwater',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/291_Bloodfell Caves.jpg" id="291_Bloodfell Caves" data-flag="@X" onclick="openSidebar('291_Bloodfell Caves',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/309_Rugged Highlands.jpg" id="309_Rugged Highlands" data-flag="@X" onclick="openSidebar('309_Rugged Highlands',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/292_Blossoming Sands.jpg" id="292_Blossoming Sands" data-flag="@X" onclick="openSidebar('292_Blossoming Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/310_Scoured Barrens.jpg" id="310_Scoured Barrens" data-flag="@X" onclick="openSidebar('310_Scoured Barrens',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/314_Swiftwater Cliffs.jpg" id="314_Swiftwater Cliffs" data-flag="@X" onclick="openSidebar('314_Swiftwater Cliffs',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/302_Jungle Hollow.jpg" id="302_Jungle Hollow" data-flag="@X" onclick="openSidebar('302_Jungle Hollow',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/317_Wind-Scarred Crag.jpg" id="317_Wind-Scarred Crag" data-flag="@X" onclick="openSidebar('317_Wind-Scarred Crag',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/315_Thornwood Falls.jpg" id="315_Thornwood Falls" data-flag="@X" onclick="openSidebar('315_Thornwood Falls',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/306_Prismatic Ley-Spire.jpg" id="306_Prismatic Ley-Spire" data-flag="@X" onclick="openSidebar('306_Prismatic Ley-Spire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/293_Budding Mire.jpg" id="293_Budding Mire" data-flag="@X" onclick="openSidebar('293_Budding Mire',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/298_Evolving Wilds.jpg" id="298_Evolving Wilds" data-flag="@X" onclick="openSidebar('298_Evolving Wilds',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/318_Withered Waygate.jpg" id="318_Withered Waygate" data-flag="@X" onclick="openSidebar('318_Withered Waygate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/305_Plains.jpg" id="305_Plains" data-flag="@X" onclick="openSidebar('305_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/301_Island.jpg" id="301_Island" data-flag="@X" onclick="openSidebar('301_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/313_Swamp.jpg" id="313_Swamp" data-flag="@X" onclick="openSidebar('313_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/304_Mountain.jpg" id="304_Mountain" data-flag="@X" onclick="openSidebar('304_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/299_Forest.jpg" id="299_Forest" data-flag="@X" onclick="openSidebar('299_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/1t_On An Adventure.jpg" id="1t_On An Adventure" data-flag="@X" onclick="openSidebar('1t_On An Adventure',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/30t_Chart.jpg" id="30t_Chart" data-flag="@X" onclick="openSidebar('30t_Chart',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/31t_Treasure.jpg" id="31t_Treasure" data-flag="@X" onclick="openSidebar('31t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/32t_Wall.jpg" id="32t_Wall" data-flag="@X" onclick="openSidebar('32t_Wall',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/33t_Weapon.jpg" id="33t_Weapon" data-flag="@X" onclick="openSidebar('33t_Weapon',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/34t_Lotus Spring.jpg" id="34t_Lotus Spring" data-flag="@X" onclick="openSidebar('34t_Lotus Spring',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/2t_Bird.jpg" id="2t_Bird" data-flag="@X" onclick="openSidebar('2t_Bird',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/3t_Elemental.jpg" id="3t_Elemental" data-flag="@X" onclick="openSidebar('3t_Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/4t_Elf.jpg" id="4t_Elf" data-flag="@X" onclick="openSidebar('4t_Elf',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/5t_Spirit.jpg" id="5t_Spirit" data-flag="@X" onclick="openSidebar('5t_Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/6t_Beast.jpg" id="6t_Beast" data-flag="@X" onclick="openSidebar('6t_Beast',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/7t_Fish.jpg" id="7t_Fish" data-flag="@X" onclick="openSidebar('7t_Fish',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/8t_Fish Spirit.jpg" id="8t_Fish Spirit" data-flag="@X" onclick="openSidebar('8t_Fish Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/9t_Jellyfish.jpg" id="9t_Jellyfish" data-flag="@X" onclick="openSidebar('9t_Jellyfish',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/10t_Dragon.jpg" id="10t_Dragon" data-flag="@X" onclick="openSidebar('10t_Dragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/11t_Elemental.jpg" id="11t_Elemental" data-flag="@X" onclick="openSidebar('11t_Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/12t_Elemental.jpg" id="12t_Elemental" data-flag="@X" onclick="openSidebar('12t_Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/13t_Entropy.jpg" id="13t_Entropy" data-flag="@X" onclick="openSidebar('13t_Entropy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/14t_Hound.jpg" id="14t_Hound" data-flag="@X" onclick="openSidebar('14t_Hound',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/15t_Oblivion.jpg" id="15t_Oblivion" data-flag="@X" onclick="openSidebar('15t_Oblivion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/16t_Orb.jpg" id="16t_Orb" data-flag="@X" onclick="openSidebar('16t_Orb',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/17t_Spirit.jpg" id="17t_Spirit" data-flag="@X" onclick="openSidebar('17t_Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/18t_Beast.jpg" id="18t_Beast" data-flag="@X" onclick="openSidebar('18t_Beast',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/19t_Elemental.jpg" id="19t_Elemental" data-flag="@X" onclick="openSidebar('19t_Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/20t_Elemental.jpg" id="20t_Elemental" data-flag="@X" onclick="openSidebar('20t_Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/21t_Spirit.jpg" id="21t_Spirit" data-flag="@X" onclick="openSidebar('21t_Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/22t_Spirit.jpg" id="22t_Spirit" data-flag="@X" onclick="openSidebar('22t_Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/23t_Bear.jpg" id="23t_Bear" data-flag="@X" onclick="openSidebar('23t_Bear',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/24t_Elf.jpg" id="24t_Elf" data-flag="@X" onclick="openSidebar('24t_Elf',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/25t_Elf Druid.jpg" id="25t_Elf Druid" data-flag="@X" onclick="openSidebar('25t_Elf Druid',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/26t_Elf Horror.jpg" id="26t_Elf Horror" data-flag="@X" onclick="openSidebar('26t_Elf Horror',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/27t_Spirit.jpg" id="27t_Spirit" data-flag="@X" onclick="openSidebar('27t_Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/28t_Wolf Spirit.jpg" id="28t_Wolf Spirit" data-flag="@X" onclick="openSidebar('28t_Wolf Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/SOL-files/img/29t_Turelion Gospel.jpg" id="29t_Turelion Gospel" data-flag="@X" onclick="openSidebar('29t_Turelion Gospel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
 	</div>
 	</div>
 	<div class="sidebar" id="sidebar">
@@ -707,27 +748,51 @@
 	let horizontal = false;
 
 	function imgFlip(num) {
-		tmp = document.getElementById(num).src;
-		console.log(num);
-		document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
-		document.getElementById(num).dataset.alt_src = tmp;
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
 
-		if (num == 'sidebar_img')
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
 		{
-			const rotated_img = document.getElementById('sidebar_h_img');
 			const sidebar_img = document.getElementById('sidebar_img');
 
-			if (horizontal && rotated_img.style.display == 'none')
-			{
-				rotated_img.style.display = "block";
-				sidebar_img.style.filter = "blur(2px) brightness(0.7)";
-			}
-			else
-			{
-				rotated_img.style.display = "none";
-				sidebar_img.style.filter = "";
-			}
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
 		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
 	}
 
 	function openSidebar(id, h = false) {
@@ -739,17 +804,19 @@
 		const rotated_img = document.getElementById('sidebar_h_img');
 		const sidebar_img = document.getElementById('sidebar_img');
 
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
 		sidebar_img.src = document.getElementById(id).src;
 		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
 
 		if (horizontal && !sidebar_img.src.includes("_back"))
 		{
-			rotated_img.style.display = "block";
+			rotated_img.style.opacity = "1";
 			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
 		}
 		else
 		{
-			rotated_img.style.display = "none";
+			rotated_img.style.opacity = "0";
 			sidebar_img.style.filter = "";
 		}
 
@@ -779,6 +846,26 @@
 
 		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
 		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
 	}
 
 	document.getElementById("search").addEventListener("keypress", function(event) {

@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="/sets/RPGM-files/icon.png"/>
+	<link rel="stylesheet" href="/resources/header.css">
+	<title>RPGM visual preview</title>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('/resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+		}
+		.close-btn {
+			background: url('/img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('/img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+		}
+		.flip-btn {
+			background: url('/img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('/img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="/img/dot.png" />
+	<img class="preload-hidden" src="/sets/RPGM-files/logo.png" />
+	<img class="preload-hidden" src="/sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="/sets/PRK-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="/sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
+		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
+		<img class="preload-hidden" src="/sets/UND-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="/sets/VYI-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WCD-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="/sets/WOO-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
+			<img class="sg-icon" src="/img/search.png">
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
+			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+		</div>
+	</div>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="RPGM"><img src="/sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="ORD"><img src="/sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="POP2"><img src="/sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="PRK"><img src="/sets/PRK-files/icon.png">Prakhma</a>
+	
+		<a class="set-bar inactive" href="RNF"><img src="/sets/RNF-files/icon.png">Ravnica Fractured</a>
+	
+		<a class="set-bar inactive" href="SGP"><img src="/sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="SOL"><img src="/sets/SOL-files/icon.png">Solastere</a>
+	
+		<a class="set-bar inactive" href="TGS"><img src="/sets/TGS-files/icon.png">Tales from the Grave in Space</a>
+	
+		<a class="set-bar inactive" href="UND"><img src="/sets/UND-files/icon.png">The Underhalls</a>
+	
+		<a class="set-bar inactive" href="VLR"><img src="/sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="VYI"><img src="/sets/VYI-files/icon.png">Valdrasil: Voyage to Infinity</a>
+	
+		<a class="set-bar inactive" href="WCD"><img src="/sets/WCD-files/icon.png">Wroszy’s Circus of Darkness</a>
+	
+		<a class="set-bar inactive" href="WDW"><img src="/sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="WOO"><img src="/sets/WOO-files/icon.png">Waking of Orlige </a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="/sets/RPGM-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/16_Lebkuchen, Sugary Devotee.png" id="16_Lebkuchen, Sugary Devotee" data-flag="@X" onclick="openSidebar('16_Lebkuchen, Sugary Devotee',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/50_Das Ende.png" id="50_Das Ende" data-flag="@X" onclick="openSidebar('50_Das Ende',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/89_Elise's Wish.png" id="89_Elises Wish" data-flag="@X" onclick="openSidebar('89_Elises Wish',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/145_Mother's Power.png" id="145_Mothers Power" data-flag="@X" onclick="openSidebar('145_Mothers Power',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/167_Andrew Graves.png" id="167_Andrew Graves" data-flag="@X" onclick="openSidebar('167_Andrew Graves',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/19_Mari, Sisterly Embrace.png" id="19_Mari, Sisterly Embrace" data-flag="@X" onclick="openSidebar('19_Mari, Sisterly Embrace',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/45_Acrophobia.png" id="45_Acrophobia" data-flag="@X" onclick="openSidebar('45_Acrophobia',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/100_HIM.png" id="100_HIM" data-flag="@X" onclick="openSidebar('100_HIM',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/155_Ruby Red Shoes.png" id="155_Ruby Red Shoes" data-flag="@X" onclick="openSidebar('155_Ruby Red Shoes',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/208_Yuri.png" id="208_Yuri" data-flag="@X" onclick="openSidebar('208_Yuri',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/RPGM-files/img/10_Hero, Talented Cook_back.png" alt="/sets/RPGM-files/img/10_Hero, Talented Cook_front.png" id="10_Hero, Talented Cook" data-flag="@XD" onclick="openSidebar('10_Hero, Talented Cook',false)"><button class="flip-btn" onclick="imgFlip('10_Hero, Talented Cook')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/52_Everblooming Coronation.png" id="52_Everblooming Coronation" data-flag="@X" onclick="openSidebar('52_Everblooming Coronation',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/RPGM-files/img/85_Aubrey, Hard-Headed_back.png" alt="/sets/RPGM-files/img/85_Aubrey, Hard-Headed_front.png" id="85_Aubrey, Hard-Headed" data-flag="@XD" onclick="openSidebar('85_Aubrey, Hard-Headed',false)"><button class="flip-btn" onclick="imgFlip('85_Aubrey, Hard-Headed')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/RPGM-files/img/140_Kel, Energetic Baller_back.png" alt="/sets/RPGM-files/img/140_Kel, Energetic Baller_front.png" id="140_Kel, Energetic Baller" data-flag="@XD" onclick="openSidebar('140_Kel, Energetic Baller',false)"><button class="flip-btn" onclick="imgFlip('140_Kel, Energetic Baller')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/168_Arachnophobia.png" id="168_Arachnophobia" data-flag="@X" onclick="openSidebar('168_Arachnophobia',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/27_Regret.png" id="27_Regret" data-flag="@X" onclick="openSidebar('27_Regret',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/68_Monika Drevis.png" id="68_Monika Drevis" data-flag="@X" onclick="openSidebar('68_Monika Drevis',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/86_Awakening.png" id="86_Awakening" data-flag="@X" onclick="openSidebar('86_Awakening',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/143_Letzte Prinzessin.png" id="143_Letzte Prinzessin" data-flag="@X" onclick="openSidebar('143_Letzte Prinzessin',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/171_Big Strong Tree.png" id="171_Big Strong Tree" data-flag="@X" onclick="openSidebar('171_Big Strong Tree',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/30_Saotome, the Betrayed.png" id="30_Saotome, the Betrayed" data-flag="@X" onclick="openSidebar('30_Saotome, the Betrayed',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/73_Rozenmarine, Selenic Wanderer.png" id="73_Rozenmarine, Selenic Wanderer" data-flag="@X" onclick="openSidebar('73_Rozenmarine, Selenic Wanderer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/88_Elise's Sacrifice.png" id="88_Elises Sacrifice" data-flag="@X" onclick="openSidebar('88_Elises Sacrifice',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/148_A Painting's Demise.png" id="148_A Paintings Demise" data-flag="@X" onclick="openSidebar('148_A Paintings Demise',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/176_Freya, Evergreen Sweetheart.png" id="176_Freya, Evergreen Sweetheart" data-flag="@X" onclick="openSidebar('176_Freya, Evergreen Sweetheart',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/32_Snow Angel.png" id="32_Snow Angel" data-flag="@X" onclick="openSidebar('32_Snow Angel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/74_Snow White.png" id="74_Snow White" data-flag="@X" onclick="openSidebar('74_Snow White',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/95_Frei, Weakened God.png" id="95_Frei, Weakened God" data-flag="@X" onclick="openSidebar('95_Frei, Weakened God',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/157_Sir Maximus.png" id="157_Sir Maximus" data-flag="@X" onclick="openSidebar('157_Sir Maximus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/180_Grape Jewel.png" id="180_Grape Jewel" data-flag="@X" onclick="openSidebar('180_Grape Jewel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/38_Träumende Mädchen.png" id="38_Träumende Mädchen" data-flag="@X" onclick="openSidebar('38_Träumende Mädchen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/76_Squizzard.png" id="76_Squizzard" data-flag="@X" onclick="openSidebar('76_Squizzard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/109_Porter Specter.png" id="109_Porter Specter" data-flag="@X" onclick="openSidebar('109_Porter Specter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/165_Liar's Room.png" id="165_Liars Room" data-flag="@X" onclick="openSidebar('165_Liars Room',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/183_Kürbis Märchen.png" id="183_Kürbis Märchen" data-flag="@X" onclick="openSidebar('183_Kürbis Märchen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/41_Welcome to White Society.png" id="41_Welcome to White Society" data-flag="@X" onclick="openSidebar('41_Welcome to White Society',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/80_Whale Whale Whale.png" id="80_Whale Whale Whale" data-flag="@X" onclick="openSidebar('80_Whale Whale Whale',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/114_Shark Plane.png" id="114_Shark Plane" data-flag="@X" onclick="openSidebar('114_Shark Plane',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/128_Catler.png" id="128_Catler" data-flag="@X" onclick="openSidebar('128_Catler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/195_Proud Father.png" id="195_Proud Father" data-flag="@X" onclick="openSidebar('195_Proud Father',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/7_Glass Casket.png" id="7_Glass Casket" data-flag="@X" onclick="openSidebar('7_Glass Casket',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/53_Faithless.png" id="53_Faithless" data-flag="@X" onclick="openSidebar('53_Faithless',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/115_SOMETHING.png" id="115_SOMETHING" data-flag="@X" onclick="openSidebar('115_SOMETHING',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/131_Embellishment.png" id="131_Embellishment" data-flag="@X" onclick="openSidebar('131_Embellishment',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/196_Rare Bear.png" id="196_Rare Bear" data-flag="@X" onclick="openSidebar('196_Rare Bear',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/9_Headless Maid.png" id="9_Headless Maid" data-flag="@X" onclick="openSidebar('9_Headless Maid',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/54_Fish Bunny.png" id="54_Fish Bunny" data-flag="@X" onclick="openSidebar('54_Fish Bunny',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/116_Sucre.png" id="116_Sucre" data-flag="@X" onclick="openSidebar('116_Sucre',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/133_Felix, Curios Prodigy.png" id="133_Felix, Curios Prodigy" data-flag="@X" onclick="openSidebar('133_Felix, Curios Prodigy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/197_Renee Graves.png" id="197_Renee Graves" data-flag="@X" onclick="openSidebar('197_Renee Graves',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/11_Ib All Alone.png" id="11_Ib All Alone" data-flag="@X" onclick="openSidebar('11_Ib All Alone',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/59_Garry, the Hanged Man.png" id="59_Garry, the Hanged Man" data-flag="@X" onclick="openSidebar('59_Garry, the Hanged Man',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/119_Thalassophobia.png" id="119_Thalassophobia" data-flag="@X" onclick="openSidebar('119_Thalassophobia',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/134_Fleta, Lilliputian Princess.png" id="134_Fleta, Lilliputian Princess" data-flag="@X" onclick="openSidebar('134_Fleta, Lilliputian Princess',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/204_Toriningen.png" id="204_Toriningen" data-flag="@X" onclick="openSidebar('204_Toriningen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/14_The Judge.png" id="14_The Judge" data-flag="@X" onclick="openSidebar('14_The Judge',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/60_HAPPY END_2.png" id="60_HAPPY END_2" data-flag="@X" onclick="openSidebar('60_HAPPY END_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/84_Apostasy.png" id="84_Apostasy" data-flag="@X" onclick="openSidebar('84_Apostasy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/135_Foreboding Doll.png" id="135_Foreboding Doll" data-flag="@X" onclick="openSidebar('135_Foreboding Doll',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/206_World of Guertena.png" id="206_World of Guertena" data-flag="@X" onclick="openSidebar('206_World of Guertena',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/17_Lucius.png" id="17_Lucius" data-flag="@X" onclick="openSidebar('17_Lucius',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/61_Haunting Guest.png" id="61_Haunting Guest" data-flag="@X" onclick="openSidebar('61_Haunting Guest',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/91_Execution Hour.png" id="91_Execution Hour" data-flag="@X" onclick="openSidebar('91_Execution Hour',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/136_Forgotten Portrait.png" id="136_Forgotten Portrait" data-flag="@X" onclick="openSidebar('136_Forgotten Portrait',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/172_Bready Steady Go!.png" id="172_Bready Steady Go!" data-flag="@X" onclick="openSidebar('172_Bready Steady Go!',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/20_Maria, Loyal Assistant.png" id="20_Maria, Loyal Assistant" data-flag="@X" onclick="openSidebar('20_Maria, Loyal Assistant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/64_Main Ending Divergence.png" id="64_Main Ending Divergence" data-flag="@X" onclick="openSidebar('64_Main Ending Divergence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/97_Gingerdead Man.png" id="97_Gingerdead Man" data-flag="@X" onclick="openSidebar('97_Gingerdead Man',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/141_Kel Nuke.png" id="141_Kel Nuke" data-flag="@X" onclick="openSidebar('141_Kel Nuke',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/174_Candy-Filled Pumpkins.png" id="174_Candy-Filled Pumpkins" data-flag="@X" onclick="openSidebar('174_Candy-Filled Pumpkins',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/34_Space Bunny.png" id="34_Space Bunny" data-flag="@X" onclick="openSidebar('34_Space Bunny',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/65_The Meaning Of His Tears.png" id="65_The Meaning Of His Tears" data-flag="@X" onclick="openSidebar('65_The Meaning Of His Tears',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/99_Happy End.png" id="99_Happy End" data-flag="@X" onclick="openSidebar('99_Happy End',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/144_Mischievous Bunch.png" id="144_Mischievous Bunch" data-flag="@X" onclick="openSidebar('144_Mischievous Bunch',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/175_The Fool.png" id="175_The Fool" data-flag="@X" onclick="openSidebar('175_The Fool',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/35_Speared Doll.png" id="35_Speared Doll" data-flag="@X" onclick="openSidebar('35_Speared Doll',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/66_Merci.png" id="66_Merci" data-flag="@X" onclick="openSidebar('66_Merci',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/104_Midnight Circus.png" id="104_Midnight Circus" data-flag="@X" onclick="openSidebar('104_Midnight Circus',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/159_Tohma, Fake Hero.png" id="159_Tohma, Fake Hero" data-flag="@X" onclick="openSidebar('159_Tohma, Fake Hero',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/177_Gentle Flower-Maiden.png" id="177_Gentle Flower-Maiden" data-flag="@X" onclick="openSidebar('177_Gentle Flower-Maiden',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/37_Tiburce.png" id="37_Tiburce" data-flag="@X" onclick="openSidebar('37_Tiburce',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/67_Miss Library.png" id="67_Miss Library" data-flag="@X" onclick="openSidebar('67_Miss Library',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/106_Music-Room Ghost.png" id="106_Music-Room Ghost" data-flag="@X" onclick="openSidebar('106_Music-Room Ghost',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/161_Valzong-Burnt.png" id="161_Valzong-Burnt" data-flag="@X" onclick="openSidebar('161_Valzong-Burnt',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/184_Kyuukyuu-Kun.png" id="184_Kyuukyuu-Kun" data-flag="@X" onclick="openSidebar('184_Kyuukyuu-Kun',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/40_Weeping Maiden.png" id="40_Weeping Maiden" data-flag="@X" onclick="openSidebar('40_Weeping Maiden',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/69_Murderous Guardian.png" id="69_Murderous Guardian" data-flag="@X" onclick="openSidebar('69_Murderous Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/108_Overcome Fear.png" id="108_Overcome Fear" data-flag="@X" onclick="openSidebar('108_Overcome Fear',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/163_World's End Valentine.png" id="163_Worlds End Valentine" data-flag="@X" onclick="openSidebar('163_Worlds End Valentine',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/185_The Last Pythia.png" id="185_The Last Pythia" data-flag="@X" onclick="openSidebar('185_The Last Pythia',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/42_Light World.png" id="42_Light World" data-flag="@X" onclick="openSidebar('42_Light World',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/77_Star-Crossed.png" id="77_Star-Crossed" data-flag="@X" onclick="openSidebar('77_Star-Crossed',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/111_Q84, Unwilling Protagonist.png" id="111_Q84, Unwilling Protagonist" data-flag="@X" onclick="openSidebar('111_Q84, Unwilling Protagonist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/126_Background Housecat.png" id="126_Background Housecat" data-flag="@X" onclick="openSidebar('126_Background Housecat',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/191_Muffy, Hungry Eavesdrop.png" id="191_Muffy, Hungry Eavesdrop" data-flag="@X" onclick="openSidebar('191_Muffy, Hungry Eavesdrop',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/4_Common Spectre.png" id="4_Common Spectre" data-flag="@X" onclick="openSidebar('4_Common Spectre',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/78_Tasei's Kid.png" id="78_Taseis Kid" data-flag="@X" onclick="openSidebar('78_Taseis Kid',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/112_Reverse Mermaid.png" id="112_Reverse Mermaid" data-flag="@X" onclick="openSidebar('112_Reverse Mermaid',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/127_Beautiful Kürbis.png" id="127_Beautiful Kürbis" data-flag="@X" onclick="openSidebar('127_Beautiful Kürbis',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/201_Student Amalgamate.png" id="201_Student Amalgamate" data-flag="@X" onclick="openSidebar('201_Student Amalgamate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/5_Farewell, Father.png" id="5_Farewell, Father" data-flag="@X" onclick="openSidebar('5_Farewell, Father',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/46_Alley Demon.png" id="46_Alley Demon" data-flag="@X" onclick="openSidebar('46_Alley Demon',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/121_The Unbread Twins.png" id="121_The Unbread Twins" data-flag="@X" onclick="openSidebar('121_The Unbread Twins',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/129_Chase Scene.png" id="129_Chase Scene" data-flag="@X" onclick="openSidebar('129_Chase Scene',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/203_Together Forever.png" id="203_Together Forever" data-flag="@X" onclick="openSidebar('203_Together Forever',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/6_Girl B.png" id="6_Girl B" data-flag="@X" onclick="openSidebar('6_Girl B',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/47_Ballroom Dancers.png" id="47_Ballroom Dancers" data-flag="@X" onclick="openSidebar('47_Ballroom Dancers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/122_Unlucky Lady.png" id="122_Unlucky Lady" data-flag="@X" onclick="openSidebar('122_Unlucky Lady',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/130_Crawling Half-Student.png" id="130_Crawling Half-Student" data-flag="@X" onclick="openSidebar('130_Crawling Half-Student',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/207_Ye Old Sprout.png" id="207_Ye Old Sprout" data-flag="@X" onclick="openSidebar('207_Ye Old Sprout',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/8_Gossiping Housewives.png" id="8_Gossiping Housewives" data-flag="@X" onclick="openSidebar('8_Gossiping Housewives',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/48_Blindness.png" id="48_Blindness" data-flag="@X" onclick="openSidebar('48_Blindness',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/123_Von Gacy.png" id="123_Von Gacy" data-flag="@X" onclick="openSidebar('123_Von Gacy',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/132_Falling Anvil.png" id="132_Falling Anvil" data-flag="@X" onclick="openSidebar('132_Falling Anvil',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/209_Forest World.png" id="209_Forest World" data-flag="@X" onclick="openSidebar('209_Forest World',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/12_Insidious Flowerheads.png" id="12_Insidious Flowerheads" data-flag="@X" onclick="openSidebar('12_Insidious Flowerheads',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/49_Cries of the Dead.png" id="49_Cries of the Dead" data-flag="@X" onclick="openSidebar('49_Cries of the Dead',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/87_Burnt.png" id="87_Burnt" data-flag="@X" onclick="openSidebar('87_Burnt',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/137_Godhunt Executioner.png" id="137_Godhunt Executioner" data-flag="@X" onclick="openSidebar('137_Godhunt Executioner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/169_Backbreaking Embrace.png" id="169_Backbreaking Embrace" data-flag="@X" onclick="openSidebar('169_Backbreaking Embrace',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/13_January.png" id="13_January" data-flag="@X" onclick="openSidebar('13_January',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/51_Dorothi.png" id="51_Dorothi" data-flag="@X" onclick="openSidebar('51_Dorothi',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/90_Eternal Rest for God.png" id="90_Eternal Rest for God" data-flag="@X" onclick="openSidebar('90_Eternal Rest for God',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/138_Haunting Candle.png" id="138_Haunting Candle" data-flag="@X" onclick="openSidebar('138_Haunting Candle',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/170_Beloved Teddie.png" id="170_Beloved Teddie" data-flag="@X" onclick="openSidebar('170_Beloved Teddie',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/15_Kagome Ghost.png" id="15_Kagome Ghost" data-flag="@X" onclick="openSidebar('15_Kagome Ghost',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/55_Fleebie.png" id="55_Fleebie" data-flag="@X" onclick="openSidebar('55_Fleebie',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/92_Famished Student.png" id="92_Famished Student" data-flag="@X" onclick="openSidebar('92_Famished Student',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/139_Into the Forest.png" id="139_Into the Forest" data-flag="@X" onclick="openSidebar('139_Into the Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/173_Busy Farmhands.png" id="173_Busy Farmhands" data-flag="@X" onclick="openSidebar('173_Busy Farmhands',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/18_Malevolent Guests.png" id="18_Malevolent Guests" data-flag="@X" onclick="openSidebar('18_Malevolent Guests',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/56_Follony.png" id="56_Follony" data-flag="@X" onclick="openSidebar('56_Follony',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/93_Fat Spectre.png" id="93_Fat Spectre" data-flag="@X" onclick="openSidebar('93_Fat Spectre',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/142_Lady In Red.png" id="142_Lady In Red" data-flag="@X" onclick="openSidebar('142_Lady In Red',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/178_Gilles de Rais.png" id="178_Gilles de Rais" data-flag="@X" onclick="openSidebar('178_Gilles de Rais',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/21_Memories of Guertena.png" id="21_Memories of Guertena" data-flag="@X" onclick="openSidebar('21_Memories of Guertena',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/57_For Goodness' Sake!.png" id="57_For Goodness Sake!" data-flag="@X" onclick="openSidebar('57_For Goodness Sake!',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/94_Feasting Shadows.png" id="94_Feasting Shadows" data-flag="@X" onclick="openSidebar('94_Feasting Shadows',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/146_Mr Umbrella's Tea Time.png" id="146_Mr Umbrellas Tea Time" data-flag="@X" onclick="openSidebar('146_Mr Umbrellas Tea Time',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/179_Goppa.png" id="179_Goppa" data-flag="@X" onclick="openSidebar('179_Goppa',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/23_Overexertion.png" id="23_Overexertion" data-flag="@X" onclick="openSidebar('23_Overexertion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/58_Frightful Interlude.png" id="58_Frightful Interlude" data-flag="@X" onclick="openSidebar('58_Frightful Interlude',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/96_Ghost Bunny.png" id="96_Ghost Bunny" data-flag="@X" onclick="openSidebar('96_Ghost Bunny',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/149_Puppet Attic-Guard.png" id="149_Puppet Attic-Guard" data-flag="@X" onclick="openSidebar('149_Puppet Attic-Guard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/181_Immediate Forfeiture.png" id="181_Immediate Forfeiture" data-flag="@X" onclick="openSidebar('181_Immediate Forfeiture',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/24_Pepper Steak.png" id="24_Pepper Steak" data-flag="@X" onclick="openSidebar('24_Pepper Steak',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/62_Headless Man.png" id="62_Headless Man" data-flag="@X" onclick="openSidebar('62_Headless Man',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/98_Goodnight, Aya.png" id="98_Goodnight, Aya" data-flag="@X" onclick="openSidebar('98_Goodnight, Aya',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/150_Purcu-Puss.png" id="150_Purcu-Puss" data-flag="@X" onclick="openSidebar('150_Purcu-Puss',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/182_Kleine Beere.png" id="182_Kleine Beere" data-flag="@X" onclick="openSidebar('182_Kleine Beere',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/25_Porcelain.png" id="25_Porcelain" data-flag="@X" onclick="openSidebar('25_Porcelain',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/63_The Lady In Blue.png" id="63_The Lady In Blue" data-flag="@X" onclick="openSidebar('63_The Lady In Blue',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/101_Lili.png" id="101_Lili" data-flag="@X" onclick="openSidebar('101_Lili',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/151_Relentless Teasing.png" id="151_Relentless Teasing" data-flag="@X" onclick="openSidebar('151_Relentless Teasing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/186_Little Teddy Wants To Play.png" id="186_Little Teddy Wants To Play" data-flag="@X" onclick="openSidebar('186_Little Teddy Wants To Play',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/26_Red-Eyed Bunny.png" id="26_Red-Eyed Bunny" data-flag="@X" onclick="openSidebar('26_Red-Eyed Bunny',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/70_Plush Queen's Guard.png" id="70_Plush Queens Guard" data-flag="@X" onclick="openSidebar('70_Plush Queens Guard',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/102_Locker Zombie.png" id="102_Locker Zombie" data-flag="@X" onclick="openSidebar('102_Locker Zombie',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/156_Scorch.png" id="156_Scorch" data-flag="@X" onclick="openSidebar('156_Scorch',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/187_Lying Flowers.png" id="187_Lying Flowers" data-flag="@X" onclick="openSidebar('187_Lying Flowers',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/31_Save Second Base.png" id="31_Save Second Base" data-flag="@X" onclick="openSidebar('31_Save Second Base',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/71_Promise of Reunion.png" id="71_Promise of Reunion" data-flag="@X" onclick="openSidebar('71_Promise of Reunion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/103_Magcat.png" id="103_Magcat" data-flag="@X" onclick="openSidebar('103_Magcat',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/158_Therese.png" id="158_Therese" data-flag="@X" onclick="openSidebar('158_Therese',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/188_Marsha.png" id="188_Marsha" data-flag="@X" onclick="openSidebar('188_Marsha',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/33_Snow Bunny.png" id="33_Snow Bunny" data-flag="@X" onclick="openSidebar('33_Snow Bunny',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/72_Rosey Bluebird.png" id="72_Rosey Bluebird" data-flag="@X" onclick="openSidebar('72_Rosey Bluebird',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/105_Murderous Coersion.png" id="105_Murderous Coersion" data-flag="@X" onclick="openSidebar('105_Murderous Coersion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/160_Troquantary.png" id="160_Troquantary" data-flag="@X" onclick="openSidebar('160_Troquantary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/189_Mausan Bros.png" id="189_Mausan Bros" data-flag="@X" onclick="openSidebar('189_Mausan Bros',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/36_Studying Student.png" id="36_Studying Student" data-flag="@X" onclick="openSidebar('36_Studying Student',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/75_Spoiler Evasion.png" id="75_Spoiler Evasion" data-flag="@X" onclick="openSidebar('75_Spoiler Evasion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/107_Neighbor Repurposing.png" id="107_Neighbor Repurposing" data-flag="@X" onclick="openSidebar('107_Neighbor Repurposing',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/162_Violent Intent.png" id="162_Violent Intent" data-flag="@X" onclick="openSidebar('162_Violent Intent',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/190_Meaty Pomegranate.png" id="190_Meaty Pomegranate" data-flag="@X" onclick="openSidebar('190_Meaty Pomegranate',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/39_Trip-Trap Doll.png" id="39_Trip-Trap Doll" data-flag="@X" onclick="openSidebar('39_Trip-Trap Doll',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/79_Unnerving Doll.png" id="79_Unnerving Doll" data-flag="@X" onclick="openSidebar('79_Unnerving Doll',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/110_Purification in Progress.png" id="110_Purification in Progress" data-flag="@X" onclick="openSidebar('110_Purification in Progress',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/164_Gallery Room.png" id="164_Gallery Room" data-flag="@X" onclick="openSidebar('164_Gallery Room',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/192_Mutilated Student.png" id="192_Mutilated Student" data-flag="@X" onclick="openSidebar('192_Mutilated Student',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/43_Silly Room.png" id="43_Silly Room" data-flag="@X" onclick="openSidebar('43_Silly Room',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/81_Wormhole.png" id="81_Wormhole" data-flag="@X" onclick="openSidebar('81_Wormhole',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/113_Rooftop Spirits.png" id="113_Rooftop Spirits" data-flag="@X" onclick="openSidebar('113_Rooftop Spirits',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/166_Storage Room.png" id="166_Storage Room" data-flag="@X" onclick="openSidebar('166_Storage Room',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/194_Obnoxious Shopkeeper.png" id="194_Obnoxious Shopkeeper" data-flag="@X" onclick="openSidebar('194_Obnoxious Shopkeeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/44_TV Room.png" id="44_TV Room" data-flag="@X" onclick="openSidebar('44_TV Room',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/82_You Were Wrong, Go Back.png" id="82_You Were Wrong, Go Back" data-flag="@X" onclick="openSidebar('82_You Were Wrong, Go Back',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/117_Talentless Cultist.png" id="117_Talentless Cultist" data-flag="@X" onclick="openSidebar('117_Talentless Cultist',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/198_Senseless Bickering.png" id="198_Senseless Bickering" data-flag="@X" onclick="openSidebar('198_Senseless Bickering',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/83_Riddle Room.png" id="83_Riddle Room" data-flag="@X" onclick="openSidebar('83_Riddle Room',true)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/118_Tee-Hee Time.png" id="118_Tee-Hee Time" data-flag="@X" onclick="openSidebar('118_Tee-Hee Time',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/199_Shitai-San.png" id="199_Shitai-San" data-flag="@X" onclick="openSidebar('199_Shitai-San',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/120_Tragic Slip.png" id="120_Tragic Slip" data-flag="@X" onclick="openSidebar('120_Tragic Slip',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/200_Sprout Mole.png" id="200_Sprout Mole" data-flag="@X" onclick="openSidebar('200_Sprout Mole',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/124_Welcome to Red Space.png" id="124_Welcome to Red Space" data-flag="@X" onclick="openSidebar('124_Welcome to Red Space',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/202_Tofu Conconnasisseur.png" id="202_Tofu Conconnasisseur" data-flag="@X" onclick="openSidebar('202_Tofu Conconnasisseur',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/125_Haunted Classroom.png" id="125_Haunted Classroom" data-flag="@X" onclick="openSidebar('125_Haunted Classroom',true)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/205_Willkommen.png" id="205_Willkommen" data-flag="@X" onclick="openSidebar('205_Willkommen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/294_Mandy, Hungry Eavesdrop.png" id="294_Mandy, Hungry Eavesdrop" data-flag="@X" onclick="openSidebar('294_Mandy, Hungry Eavesdrop',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/295_Merry, Hungry Eavesdrop.png" id="295_Merry, Hungry Eavesdrop" data-flag="@X" onclick="openSidebar('295_Merry, Hungry Eavesdrop',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/296_Miffy, Hungry Eavesdrop.png" id="296_Miffy, Hungry Eavesdrop" data-flag="@X" onclick="openSidebar('296_Miffy, Hungry Eavesdrop',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/297_Milly, Hungry Eavesdrop.png" id="297_Milly, Hungry Eavesdrop" data-flag="@X" onclick="openSidebar('297_Milly, Hungry Eavesdrop',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/298_Mubby, Hungry Eavesdrop.png" id="298_Mubby, Hungry Eavesdrop" data-flag="@X" onclick="openSidebar('298_Mubby, Hungry Eavesdrop',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/228_Harpae, Maiden of Pristine Eyes.png" id="228_Harpae, Maiden of Pristine Eyes" data-flag="@X" onclick="openSidebar('228_Harpae, Maiden of Pristine Eyes',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/248_Witching Hour.png" id="248_Witching Hour" data-flag="@X" onclick="openSidebar('248_Witching Hour',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/211_Alfred, Mad Father.png" id="211_Alfred, Mad Father" data-flag="@X" onclick="openSidebar('211_Alfred, Mad Father',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/239_Romantic Crepuscule.png" id="239_Romantic Crepuscule" data-flag="@X" onclick="openSidebar('239_Romantic Crepuscule',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/234_Mary, Lonesome Girl.png" id="234_Mary, Lonesome Girl" data-flag="@X" onclick="openSidebar('234_Mary, Lonesome Girl',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/227_Girl's Midnight Secret.png" id="227_Girls Midnight Secret" data-flag="@X" onclick="openSidebar('227_Girls Midnight Secret',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/218_Chimerical Presence.png" id="218_Chimerical Presence" data-flag="@X" onclick="openSidebar('218_Chimerical Presence',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/243_Sweetheart, Beloved Torturer.png" id="243_Sweetheart, Beloved Torturer" data-flag="@X" onclick="openSidebar('243_Sweetheart, Beloved Torturer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/221_Elise Liedl.png" id="221_Elise Liedl" data-flag="@X" onclick="openSidebar('221_Elise Liedl',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="/sets/RPGM-files/img/216_Charlotte, Infested_back.png" alt="/sets/RPGM-files/img/216_Charlotte, Infested_front.png" id="216_Charlotte, Infested" data-flag="@XD" onclick="openSidebar('216_Charlotte, Infested',false)"><button class="flip-btn" onclick="imgFlip('216_Charlotte, Infested')"></button></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/213_Aya Drevis.png" id="213_Aya Drevis" data-flag="@X" onclick="openSidebar('213_Aya Drevis',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/229_Henri die Heilige.png" id="229_Henri die Heilige" data-flag="@X" onclick="openSidebar('229_Henri die Heilige',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/210_Aki, Murderous Savior.png" id="210_Aki, Murderous Savior" data-flag="@X" onclick="openSidebar('210_Aki, Murderous Savior',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/217_Charlotte, the Puppet.png" id="217_Charlotte, the Puppet" data-flag="@X" onclick="openSidebar('217_Charlotte, the Puppet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/215_Bells of Dawn.png" id="215_Bells of Dawn" data-flag="@X" onclick="openSidebar('215_Bells of Dawn',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/231_It Means Everything.png" id="231_It Means Everything" data-flag="@X" onclick="openSidebar('231_It Means Everything',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/220_Don't Need No Man.png" id="220_Dont Need No Man" data-flag="@X" onclick="openSidebar('220_Dont Need No Man',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/232_Lisette, Maiden of Horrors.png" id="232_Lisette, Maiden of Horrors" data-flag="@X" onclick="openSidebar('232_Lisette, Maiden of Horrors',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/244_Teehee~.png" id="244_Teehee~" data-flag="@X" onclick="openSidebar('244_Teehee~',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/235_OMORI.png" id="235_OMORI" data-flag="@X" onclick="openSidebar('235_OMORI',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/236_Oyasumi.png" id="236_Oyasumi" data-flag="@X" onclick="openSidebar('236_Oyasumi',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/242_Sunny, Headspace Prisoner.png" id="242_Sunny, Headspace Prisoner" data-flag="@X" onclick="openSidebar('242_Sunny, Headspace Prisoner',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/224_Final Duet.png" id="224_Final Duet" data-flag="@X" onclick="openSidebar('224_Final Duet',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/223_Fevered Visions.png" id="223_Fevered Visions" data-flag="@X" onclick="openSidebar('223_Fevered Visions',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/212_Ashley Graves.png" id="212_Ashley Graves" data-flag="@X" onclick="openSidebar('212_Ashley Graves',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/230_Ib.png" id="230_Ib" data-flag="@X" onclick="openSidebar('230_Ib',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/233_Madotsuki, the Dreamer.png" id="233_Madotsuki, the Dreamer" data-flag="@X" onclick="openSidebar('233_Madotsuki, the Dreamer',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/222_Enjel, Cherubina of Shed Wings.png" id="222_Enjel, Cherubina of Shed Wings" data-flag="@X" onclick="openSidebar('222_Enjel, Cherubina of Shed Wings',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/247_Wild and Wandering Thistle.png" id="247_Wild and Wandering Thistle" data-flag="@X" onclick="openSidebar('247_Wild and Wandering Thistle',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/241_Spontaneous Combustion.png" id="241_Spontaneous Combustion" data-flag="@X" onclick="openSidebar('241_Spontaneous Combustion',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/214_The Batter.png" id="214_The Batter" data-flag="@X" onclick="openSidebar('214_The Batter',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/219_Dim Dream.png" id="219_Dim Dream" data-flag="@X" onclick="openSidebar('219_Dim Dream',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/249_The Royal Gallery.png" id="249_The Royal Gallery" data-flag="@X" onclick="openSidebar('249_The Royal Gallery',true)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/225_Forgetfulness.png" id="225_Forgetfulness" data-flag="@X" onclick="openSidebar('225_Forgetfulness',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/226_G, Maiden of Glimpses.png" id="226_G, Maiden of Glimpses" data-flag="@X" onclick="openSidebar('226_G, Maiden of Glimpses',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/250_Snow World.png" id="250_Snow World" data-flag="@X" onclick="openSidebar('250_Snow World',true)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/240_Scarlett Eyler.png" id="240_Scarlett Eyler" data-flag="@X" onclick="openSidebar('240_Scarlett Eyler',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/246_Vader Eloha.png" id="246_Vader Eloha" data-flag="@X" onclick="openSidebar('246_Vader Eloha',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/245_Underwater Prom Queens.png" id="245_Underwater Prom Queens" data-flag="@X" onclick="openSidebar('245_Underwater Prom Queens',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/238_Platinum.png" id="238_Platinum" data-flag="@X" onclick="openSidebar('238_Platinum',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/237_Perfectheart.png" id="237_Perfectheart" data-flag="@X" onclick="openSidebar('237_Perfectheart',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/1_Goldenertraum.png" id="1_Goldenertraum" data-flag="@X" onclick="openSidebar('1_Goldenertraum',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/2_Space Ex-Husband.png" id="2_Space Ex-Husband" data-flag="@X" onclick="openSidebar('2_Space Ex-Husband',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/3_Zacharie, Cheerful Merchant.png" id="3_Zacharie, Cheerful Merchant" data-flag="@X" onclick="openSidebar('3_Zacharie, Cheerful Merchant',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/258_Egliette, Puppe Regina.png" id="258_Egliette, Puppe Regina" data-flag="@X" onclick="openSidebar('258_Egliette, Puppe Regina',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/261_The Good Company.png" id="261_The Good Company" data-flag="@X" onclick="openSidebar('261_The Good Company',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/266_The Pocket Mirror.png" id="266_The Pocket Mirror" data-flag="@X" onclick="openSidebar('266_The Pocket Mirror',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/269_The Sweetest Nectar.png" id="269_The Sweetest Nectar" data-flag="@X" onclick="openSidebar('269_The Sweetest Nectar',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/270_Sweetheart's Mixtape.png" id="270_Sweethearts Mixtape" data-flag="@X" onclick="openSidebar('270_Sweethearts Mixtape',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/271_The Tender Flesh.png" id="271_The Tender Flesh" data-flag="@X" onclick="openSidebar('271_The Tender Flesh',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/257_Aya's Chainsaw.png" id="257_Ayas Chainsaw" data-flag="@X" onclick="openSidebar('257_Ayas Chainsaw',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/260_Fish Fountain.png" id="260_Fish Fountain" data-flag="@X" onclick="openSidebar('260_Fish Fountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/262_Haarbürste des Mondes.png" id="262_Haarbürste des Mondes" data-flag="@X" onclick="openSidebar('262_Haarbürste des Mondes',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/264_Messer und Gabel.png" id="264_Messer und Gabel" data-flag="@X" onclick="openSidebar('264_Messer und Gabel',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/267_Rosen Glöckchen.png" id="267_Rosen Glöckchen" data-flag="@X" onclick="openSidebar('267_Rosen Glöckchen',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/268_Schnee Schere.png" id="268_Schnee Schere" data-flag="@X" onclick="openSidebar('268_Schnee Schere',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/263_Mari's Picnic Box.png" id="263_Maris Picnic Box" data-flag="@X" onclick="openSidebar('263_Maris Picnic Box',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/272_Tofu.png" id="272_Tofu" data-flag="@X" onclick="openSidebar('272_Tofu',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/290_Sketchbook World.png" id="290_Sketchbook World" data-flag="@X" onclick="openSidebar('290_Sketchbook World',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/285_Madotsuki's Room.png" id="285_Madotsukis Room" data-flag="@X" onclick="openSidebar('285_Madotsukis Room',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/274_Bleak Infirmary.png" id="274_Bleak Infirmary" data-flag="@X" onclick="openSidebar('274_Bleak Infirmary',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/288_Rozen Garten.png" id="288_Rozen Garten" data-flag="@X" onclick="openSidebar('288_Rozen Garten',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/282_Kieferberg Village.png" id="282_Kieferberg Village" data-flag="@X" onclick="openSidebar('282_Kieferberg Village',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/273_Aya's Room.png" id="273_Ayas Room" data-flag="@X" onclick="openSidebar('273_Ayas Room',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/284_Lively Playground.png" id="284_Lively Playground" data-flag="@X" onclick="openSidebar('284_Lively Playground',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/277_Distorted Entrance.png" id="277_Distorted Entrance" data-flag="@X" onclick="openSidebar('277_Distorted Entrance',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/279_Elise's House.png" id="279_Elises House" data-flag="@X" onclick="openSidebar('279_Elises House',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/281_Huxley's Lab.png" id="281_Huxleys Lab" data-flag="@X" onclick="openSidebar('281_Huxleys Lab',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/291_Sunny Rooftop.png" id="291_Sunny Rooftop" data-flag="@X" onclick="openSidebar('291_Sunny Rooftop',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/275_Bloodied Laboratory.png" id="275_Bloodied Laboratory" data-flag="@X" onclick="openSidebar('275_Bloodied Laboratory',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/276_Creepy Bathroom.png" id="276_Creepy Bathroom" data-flag="@X" onclick="openSidebar('276_Creepy Bathroom',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/280_Fancy Street.png" id="280_Fancy Street" data-flag="@X" onclick="openSidebar('280_Fancy Street',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/292_Underwater Lab.png" id="292_Underwater Lab" data-flag="@X" onclick="openSidebar('292_Underwater Lab',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/293_Zone 0.png" id="293_Zone 0" data-flag="@X" onclick="openSidebar('293_Zone 0',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/289_Secret Manor.png" id="289_Secret Manor" data-flag="@X" onclick="openSidebar('289_Secret Manor',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/287_Rotting Apartment.png" id="287_Rotting Apartment" data-flag="@X" onclick="openSidebar('287_Rotting Apartment',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/286_Mary's Toybox.png" id="286_Marys Toybox" data-flag="@X" onclick="openSidebar('286_Marys Toybox',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/278_Dream Hub.png" id="278_Dream Hub" data-flag="@X" onclick="openSidebar('278_Dream Hub',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/283_Liminal Space.png" id="283_Liminal Space" data-flag="@X" onclick="openSidebar('283_Liminal Space',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/1t_Save.png" id="1t_Save" data-flag="@X" onclick="openSidebar('1t_Save',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/2t_Golden Maiden.png" id="2t_Golden Maiden" data-flag="@X" onclick="openSidebar('2t_Golden Maiden',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/3t_HAPPY.png" id="3t_HAPPY" data-flag="@X" onclick="openSidebar('3t_HAPPY',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/4t_SAD.png" id="4t_SAD" data-flag="@X" onclick="openSidebar('4t_SAD',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/5t_ANGRY.png" id="5t_ANGRY" data-flag="@X" onclick="openSidebar('5t_ANGRY',false)"></div>
+				<div class="container"><img loading="lazy" alt="/sets/RPGM-files/img/6t_Bird.png" id="6t_Bird" data-flag="@X" onclick="openSidebar('6t_Bird',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch('/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch('/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = img.alt;
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL('search', window.location.origin);
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL('card', window.location.origin);
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url;
+			}
+	</script>
+</body>
+</html>
