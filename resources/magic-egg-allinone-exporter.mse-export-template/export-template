@@ -17,13 +17,6 @@ file type: *.txt|*.txt|*.*|*.*
 
 option field:
 	type: choice
-	name: export images
-	choice: yes
-	choice: no
-	description: Export images
-
-option field:
-	type: choice
 	name: image type
 	choice: png
 	choice: jpg
@@ -242,13 +235,17 @@ script:
 		else base_ci
 	}
 
+	##Grab special_text if it's not empty, otherwise grab rule_text
+	full_text := { if card.special_text != "" then card.special_text else card.rule_text }
+	full_text2 := { if card.special_text_2 != "" then card.special_text_2 else card.rule_text_2 }
+
 	##Shape function to deal with all the non-standard shapes
 	get_shape := {
 		if card.shape == "emblem"
 		or card.shape == "counter"
 		or card.shape == "rulestip"
 		or card.shape == "checklist"
-		or contains (card.notes, match:"!token")
+		or contains (card.notes, match:"!token") and not contains (card.notes, match:"!tokens")
 			then "token"
 		else card.shape
 	}
@@ -264,26 +261,29 @@ script:
 			"{q}number{q}: {sanitize(card_number())}",
 			"{q}color_identity{q}: {q}{get_color_identity()}{q}",
 			"{q}cost{q}: {q}{mana_cost_replacement_css(card.casting_cost)}{q}",
-			"{q}rules_text{q}: {q}{format_textbox(card.rule_text)}{q}",
+			"{q}rules_text{q}: {q}{format_textbox(full_text())}{q}",
 			"{q}flavor_text{q}: {q}{format_textbox(card.flavor_text)}{q}",
 			"{q}pt{q}: {q}{sanitize(card.pt)}{q}",
 			"{q}special_text{q}: {q}{format_textbox(card.special_text)}{q}",
 			"{q}shape{q}: {q}{get_shape()}{q}",
 			"{q}set{q}: {q}{adj_setcode()}{q}",
 			"{q}loyalty{q}: {q}{sanitize(card.loyalty)}{q}",
-			"{q}artist{q}: {q}{sanitize(card.illustrator)}{q}"
+			"{q}artist{q}: {q}{sanitize(card.illustrator)}{q}",
+			"{q}alias{q}: {q}{sanitize(card.alias)}{q}",
+			"{q}position{q}: {q}{position(of:card, in:set)}{q}"
 		]
 		if is_double_card(card.shape) then strings := strings + [
 			"{q}card_name2{q}: {q}{card_name_2()}{q}",
 			"{q}color2{q}: {q}{card_color_2()}{q}",
 			"{q}type2{q}: {q}{sanitize(card.type_2)}{q}",
 			"{q}cost2{q}: {q}{mana_cost_replacement_css(card.casting_cost_2)}{q}",
-			"{q}rules_text2{q}: {q}{format_textbox(card.rule_text_2)}{q}",
+			"{q}rules_text2{q}: {q}{format_textbox(full_text2())}{q}",
 			"{q}flavor_text2{q}: {q}{format_textbox(card.flavor_text_2)}{q}",
 			"{q}pt2{q}: {q}{sanitize(sanitize(card.pt_2))}{q}",
 			"{q}special_text2{q}: {q}{format_textbox(card.special_text_2)}{q}",
 			"{q}loyalty2{q}: {q}{sanitize(card.loyalty_2)}{q}",
-			"{q}artist2{q}: {q}{sanitize(card.illustrator_2)}{q}"
+			"{q}artist2{q}: {q}{sanitize(card.illustrator_2)}{q}",
+			"{q}alias2{q}: {q}{sanitize(card.alias_2)}{q}"
 		]
 		strings := strings + [
 			"{q}notes{q}: {q}{sanitize(card.notes)}{q}"
@@ -299,9 +299,9 @@ script:
 	write_all_images := {
 		for each card in cards do
 			if contains(card.shape, match:"double") then
-			if contains(card.type, match:"Battle") then write_image_file(crop(input: to_card_image(card), width: 523, height: 375, offset_x: 0, offset_y: 0), file: "img/" + card_number() + "_" + card_name() + "_front" + ".{options.image_type}") + write_image_file(crop(input: to_card_image(card), width: 375, height: 523, offset_x: 525, offset_y: 0), file: "img/" + card_number() + "_" + card_name() + "_back" + ".{options.image_type}")
-			else write_image_file(crop(input: to_card_image(card), width: 375, height: 523, offset_x: 0, offset_y: 0), file: "img/" + card_number() + "_" + card_name() + "_front" + ".{options.image_type}") + write_image_file(crop(input: to_card_image(card), width: 375, height: 523, offset_x: 377, offset_y: 0), file: "img/" + card_number() + "_" + card_name() + "_back" + ".{options.image_type}")
-			else write_image_file(card, file: "img/" + card_number() + (if contains(get_shape(), match:"token") then "t_" else "_") + card_name() + ".{options.image_type}")
+			if contains(card.type, match:"Battle") then write_image_file(crop(input: to_card_image(card), width: 523, height: 375, offset_x: 0, offset_y: 0), file: "img/" + position(of:card, in:set) + "_front" + ".{options.image_type}") + write_image_file(crop(input: to_card_image(card), width: 375, height: 523, offset_x: 525, offset_y: 0), file: "img/" + position(of:card, in:set) + "_back" + ".{options.image_type}")
+			else write_image_file(crop(input: to_card_image(card), width: 375, height: 523, offset_x: 0, offset_y: 0), file: "img/" + position(of:card, in:set) + "_front" + ".{options.image_type}") + write_image_file(crop(input: to_card_image(card), width: 375, height: 523, offset_x: 377, offset_y: 0), file: "img/" + position(of:card, in:set) + "_back" + ".{options.image_type}")
+			else write_image_file(card, file: "img/" + position(of:card, in:set) + ".{options.image_type}")
 	}
 
 	main_keys := [
@@ -310,7 +310,9 @@ script:
 		"{q}trimmed{q}: {q}n{q}",
 		"{q}image_type{q}: {q}{options.image_type}{q}",
 		"{q}draft_structure{q}: {q}{options.draft_structure}{q}",
-		"{q}unpreviewed{q}: {q}{options.unpreviewed_card_image}{q}"
+		"{q}unpreviewed{q}: {q}{options.unpreviewed_card_image}{q}",
+		"{q}image_name{q}: {q}position{q}",
+		"{q}v_mana{q}: {q}{options.v_mana_replacement}{q}",
 		"{q}cards{q}: [{write_cards()}]"
 	]
 	write_text_file(file: adj_setcode() + ".json", "\{" + join(main_keys) + "}")
@@ -321,5 +323,5 @@ script:
 	if options.export_description == "yes"
 		then write_text_file(file: "splash.md", set.description)
 
-	write_images := if options.export_images == "yes" then write_all_images() else ""
+	write_all_images()
 	"This file doesn't contain anything. Exported files can be found in the name-files folder with the same name you saved as."

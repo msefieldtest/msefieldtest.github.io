@@ -11,6 +11,7 @@ def generateHTML(codes):
 	<link rel="icon" type="image/x-icon" href="/img/deck.png">
 	<link rel="stylesheet" href="resources/mana.css">
 	<link rel="stylesheet" href="/resources/header.css">
+	<link rel="stylesheet" href="/resources/card-text.css">
 </head>
 <style>
 	@font-face {
@@ -163,26 +164,16 @@ def generateHTML(codes):
 		overflow-y: scroll;
 		scrollbar-width: none;
 		height: 50%;
+		padding: 10px 0;
 	}
 	.card-text div {
-		white-space: normal;
 		font-size: 13px;
-		padding-bottom: 10px;
-		padding-left: 12px;
-		padding-right: 12px;
-		line-height: 155%;
 	}
 	.card-text .name-cost {
-		font-weight: bold;
 		font-size: 16px;
-		white-space: pre-wrap;
-		padding-top: 10px;
 	}
 	.card-text .type {
 		font-size: 14px;
-	}
-	.card-text .pt {
-		font-weight: bold;
 	}
 	.card-text br {
 		content: "";
@@ -369,7 +360,7 @@ def generateHTML(codes):
 		max-height: 63px;
 	}
 	.img-container .h-img {
-		transform: rotate(90deg);
+		transform: rotateY(0deg) rotate(90deg);
 		width: 85%;
 	}
 	.rc-menu {
@@ -537,7 +528,7 @@ def generateHTML(codes):
 		document.addEventListener("DOMContentLoaded", async function () {
 			'''
 
-	with open(os.path.join('resources', 'snippets', 'load-files.txt'), encoding='utf-8-sig') as f:
+	with open(os.path.join('scripts', 'snippets', 'load-files.txt'), encoding='utf-8-sig') as f:
 		snippet = f.read()
 		html_content += snippet
 
@@ -724,7 +715,7 @@ def generateHTML(codes):
 
 		'''
 
-	with open(os.path.join('resources', 'snippets', 'compare-function.txt'), encoding='utf-8-sig') as f:
+	with open(os.path.join('scripts', 'snippets', 'compare-function.txt'), encoding='utf-8-sig') as f:
 		snippet = f.read()
 		html_content += snippet
 
@@ -808,11 +799,11 @@ def generateHTML(codes):
 
 		'''
 
-	with open(os.path.join('resources', 'snippets', 'search-defs.txt'), encoding='utf-8-sig') as f:
+	with open(os.path.join('scripts', 'snippets', 'search-defs.txt'), encoding='utf-8-sig') as f:
 		snippet = f.read()
 		html_content += snippet
 
-	with open(os.path.join('resources', 'snippets', 'tokenize-symbolize.txt'), encoding='utf-8-sig') as f:
+	with open(os.path.join('scripts', 'snippets', 'tokenize-symbolize.txt'), encoding='utf-8-sig') as f:
 		snippet = f.read()
 		html_content += snippet
 
@@ -828,7 +819,7 @@ def generateHTML(codes):
 
 		'''
 
-	with open(os.path.join('resources', 'snippets', 'img-container-defs.txt'), encoding='utf-8-sig') as f:
+	with open(os.path.join('scripts', 'snippets', 'img-container-defs.txt'), encoding='utf-8-sig') as f:
 		snippet = f.read()
 		html_content += snippet
 
@@ -1236,7 +1227,7 @@ def generateHTML(codes):
 
 		'''
 
-	with open(os.path.join('resources', 'snippets', 'random-card.txt'), encoding='utf-8-sig') as f:
+	with open(os.path.join('scripts', 'snippets', 'random-card.txt'), encoding='utf-8-sig') as f:
 		snippet = f.read()
 		html_content += snippet
 

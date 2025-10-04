@@ -26,6 +26,12 @@ def genAllCards(codes):
 	set_input = {'sets':[]}
 	#F: ...goes over all the set codes,
 	for code in codes:
+		#CE: check to see if the set is currently previewing
+		previewed_path = os.path.join('sets', code + '-files', 'previewed.txt')
+		previewed_cards = None
+		if os.path.exists(previewed_path):
+			with open(previewed_path, encoding='utf-8-sig') as f:
+				previewed_cards = f.read().split('\n')
 		#CE: non-indented JSON is driving me insane
 		prettifyJSON(os.path.join('sets', code + '-files', code + '.json'))	
 		#F: grabs the corresponding file,
@@ -41,12 +47,15 @@ def genAllCards(codes):
 					card['rules_text2'] = card['rules_text2'].replace('—', '–')
 					card['special_text2'] = card['special_text2'].replace('—', '–')
 				card['image_type'] = 'png' if 'image_type' not in raw else raw['image_type']
+				if 'v_mana' in raw:
+					card['v_mana'] = raw['v_mana']
 				#CE: Designer notes (for Rachel)
 				d_notes_path = os.path.join('sets', code + '-files', 'card-notes', card['card_name'] + '.md')
 				if os.path.exists(d_notes_path):
 					with open(d_notes_path, encoding='utf-8-sig') as md:
 						card['designer_notes'] = markdown.markdown(md.read())
-				card_input['cards'].append(card)
+				if previewed_cards == None or card['card_name'] in previewed_cards:
+					card_input['cards'].append(card)
 			set_data = {}
 			set_data['set_code'] = code
 			set_data['set_name'] = raw['name']
@@ -56,9 +65,9 @@ def genAllCards(codes):
 	with open(os.path.join('lists', 'all-cards.json'), 'w', encoding='utf-8-sig') as f:
 		#F: turns the dictionary into a json object, and puts it into the all-cards.json file
 		#F: json.dump actually preserves the \n's and the \\'s and whatnot, so we won't have to escape them ourselves
-		json.dump(card_input, f)
+		json.dump(card_input, f, indent=4)
 	with open(os.path.join('lists', 'all-sets.json'), 'w', encoding='utf-8-sig') as f:
-		json.dump(set_input, f)
+		json.dump(set_input, f, indent=4)
 
 def prettifyJSON(filepath):
 	with open(filepath, encoding='utf-8-sig') as f:
@@ -81,15 +90,19 @@ def portCustomFiles(custom_dir, export_dir):
 			print(os.path.join(export_dir, entry.name) + ' added')
 
 def removeStaleFiles(set_dir):
-	filesToRemove = [ 'structure.json', 'preview-order.json' ]
+	filesToKeep = [ 'img', 'icon.png', 'logo.png' ]
 	for entry in os.scandir(set_dir):
 		#CE: ignore default or generated files
-		if entry.name in [ '.DS_Store', '__pycache__', 'README.md' ]:
+		if entry.name in [ '.DS_Store', '__pycache__', 'README.md', 'versions' ]:
 			continue
 		s_dir = os.path.join(set_dir, entry.name)
 		for set_entry in os.scandir(s_dir):
-			if set_entry.name in filesToRemove:
-				os.remove(set_entry)
+			filename, file_extension = os.path.splitext(set_entry.name)
+			if set_entry.name not in filesToKeep and file_extension != '.json':
+				if set_entry.is_dir():
+					shutil.rmtree(set_entry)
+				else:
+					os.remove(set_entry)
 
 #CE: legacy file removal
 for entry in os.scandir('.'):
@@ -131,7 +144,7 @@ for code in set_codes:
 	set_dir = code + '-files'
 	with open(os.path.join('sets', code + '-files', code + '.json'), encoding='utf-8-sig') as f:
 		raw = json.load(f)
-	if 'draft_structure' in raw and not raw['draft_structure'] == 'none' and not os.path.isfile(os.path.join('sets', code + '-files', code + '-draft.txt')):
+	if 'draft_structure' in raw and not raw['draft_structure'] == 'none' and not os.path.isfile(os.path.join('custom', 'sets', code + '-files', code + '-draft.txt')):
 		try:
 			print_draft_file.generateFile(code)
 			print('Generated draft file for {0}.'.format(code))
@@ -176,7 +189,14 @@ for code in set_codes:
 				else:
 					prev_card = previous_data['cards'][prev_card_names.index(card['card_name'])]
 					prev_card_names[prev_card_names.index(card['card_name'])] = ''
-					if card != prev_card:
+
+					# ignore card number, since that often changes for reasons unrelated to the card itself
+					card_copy = card.copy()
+					prev_card_copy = prev_card.copy()
+					card_copy.pop("number", None)
+					prev_card_copy.pop("number", None)
+
+					if card_copy != prev_card_copy:
 						changed = True
 						changed_string += card['card_name'] + '\n'
 						for key in [ 'type', 'cost', 'rules_text', 'pt', 'special_text', 'loyalty' ]:
@@ -224,15 +244,14 @@ if not os.path.exists(custom_order):
 		"": set_order
 	}
 	with open(custom_order, 'w', encoding='utf-8-sig') as f:
-		json.dump(set_order_data, f)
+		json.dump(set_order_data, f, indent=4)
 
 for code in set_codes:
 	#F: more important functions
 	#CE: moving this down after we create the 'set-order.json' file
 	if not os.path.exists(os.path.join('sets', code + '-files', 'ignore.txt')):
 		print_html_for_preview.generateHTML(code)
-	if not os.path.exists(os.path.join('sets', code + '-files', 'previewed.txt')):	
-		print_html_for_set.generateHTML(code)
+	print_html_for_set.generateHTML(code)
 
 print_html_for_sets_page.generateHTML()
 print_html_for_search.generateHTML(set_codes)

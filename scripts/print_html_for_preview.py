@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import markdown
+import re
 
 #F = Fungustober's notes
 
@@ -10,11 +11,14 @@ def generateHTML(setCode):
 		so_json = json.load(j)
 
 	with open(os.path.join('sets', setCode + '-files', setCode + '.json'), encoding='utf-8-sig') as j:
-		tmp = json.load(j)
-		set_image_type = 'png' if 'image_type' not in tmp else tmp['image_type']
+		set_js = json.load(j)
+		set_image_type = 'png' if 'image_type' not in set_js else set_js['image_type']
+		set_name = '' if 'name' not in set_js else set_js['name']
 
 	codes = []
 	for key in so_json:
+		if (so_json[key][0] == ""):
+			continue
 		for code in so_json[key]:
 			codes.append(code)
 	#F: this is SET-preview.html, the file that this outputs to
@@ -22,9 +26,11 @@ def generateHTML(setCode):
 	magic_card_back_image = '/img/card_back.png'
 	#F: /sets/SET-files/img/
 	set_img_dir = os.path.join('sets', setCode + '-files', 'img')
-	#F: get rid of the Byte Order Mark character that shouldn't be there
-	#F: and grab all of the files in the image directory
-	card_image_names = [file[:-4].replace(u'\ufeff', '')[file.index('_')+1:] for file in os.listdir(set_img_dir)]
+	card_image_names = [f
+	   if f.endswith(('_front', '_back')) and re.sub(r'^\d+_', '', f) in ['front', 'back']
+	   else re.sub(r'^\d+_', '', f) 
+	   for f in (file[:-4].replace(u'\ufeff', '') for file in os.listdir(set_img_dir))
+	]
 
 	previewed_path = os.path.join('sets', setCode + '-files', 'previewed.txt')
 	if os.path.isfile(previewed_path):
@@ -55,6 +61,10 @@ def generateHTML(setCode):
 	<link rel="stylesheet" href="/resources/header.css">
 	<title>''' + setCode + ''' visual preview</title>
 	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('/resources/beleren.ttf');
+		}
 		body {
 			font-family: Arial, sans-serif;
 			margin: 0;
@@ -85,8 +95,8 @@ def generateHTML(setCode):
 			position: relative;
 		}
 		.sidebar-h-img {
-			display: none;
-			transform: rotate(90deg);
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
 			position: absolute;
 			left: 10%;
 			top: 10%;
@@ -132,7 +142,7 @@ def generateHTML(setCode):
 		.banner {
 			width: 100%;
 			height: auto;
-			padding-top: 20px;
+			padding-top: 80px;
 			padding-bottom: 50px;
 		}
 		.logo {
@@ -168,33 +178,41 @@ def generateHTML(setCode):
 			background-size: contain;
 			background-position: center;
 		}
-		.icon-bar {
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
 			display: grid;
-			grid-template-columns: repeat(''' + str(header_length - 1) + ''', 3fr 2fr) 3fr;
-			gap: 1px;
-			padding-left: 5%;
-			padding-right: 5%;
-			padding-top: 2%;
-			padding-bottom: 1%;
-			justify-items: center;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
 			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
 		}
-		.icon-bar .icon img {
-			width: 90%;
-			max-width: 80px;
-			height: auto;
-			display: block;
-			padding: 5%;
-			margin: auto;
-			text-align: center;
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
 		}
-		.icon-bar .dot img {
-			width: 50%;
-			max-width: 65px;
-			height: auto;
-			display: block;
-			margin: auto;
-			text-align: center;
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
 		}
 		.preload-hidden {
 			display: none;
@@ -226,16 +244,28 @@ def generateHTML(setCode):
 		'''
 
 	#F: goes to resources/snippets/header.txt and gets a header, inserting it after everything so far
-	with open(os.path.join('resources', 'snippets', 'header.txt'), encoding='utf-8-sig') as f:
+	with open(os.path.join('scripts', 'snippets', 'header.txt'), encoding='utf-8-sig') as f:
 		snippet = f.read()
 		html_content += snippet
 
 	html_content += '''
 
-	<div class="icon-bar">
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
 	'''
 	
 	count = 0
+	html_content += f'''
+		<a class="set-bar" href="{setCode}"><img src="/sets/{setCode}-files/icon.png">{set_name}</a>
+	'''
+	for code in codes:
+		if code == setCode:
+			continue
+		with open(os.path.join('sets', code + '-files', code + '.json'), encoding='utf-8-sig') as j:
+			js = json.load(j)
+		html_content += f'''
+		<a class="set-bar inactive" href="{code}"><img src="/sets/{code}-files/icon.png">{js['name']}</a>
+	'''
+	'''
 	for code in codes:
 		prev_path = os.path.join('sets', setCode + '-files', 'prev_icon.png')
 		if count != 0:
@@ -244,6 +274,7 @@ def generateHTML(setCode):
 		count += 1
 		if count == header_length:
 			count = 0
+	'''
 
 	html_content += '''
 		</div>
@@ -294,6 +325,10 @@ def generateHTML(setCode):
 		elif card['card_name'] == 'er':
 			card_name = 'er'
 			image_type = 'png'
+		elif 'image_name' in set_js and set_js['image_name'] == 'position':
+			card_name = card['position']
+			card_num = str(card['number'])
+			image_type = set_image_type
 		elif 'token' in card['shape']:
 			card_name = str(card['number']) + 't_' + card['card_name']
 			card_num = str(card['number']) + 't'
@@ -319,7 +354,7 @@ def generateHTML(setCode):
 		flag = '@N'
 		if 'previewed' not in locals() or card['card_name'] in previewed:
 			flag = '@X'
-			if card['card_name'] + '_front' in card_image_names:
+			if card['card_name'] + '_front' in card_image_names or 'position' in card and card['position'] + '_front' in card_image_names:
 				flag = '@XD'
 
 		if card_name == 'e' or card_name == 'er':
@@ -335,9 +370,9 @@ def generateHTML(setCode):
 
 		#F: if the flag is @XD, add something to html_content to get the front and back images, otherwise add something else
 		if flag == '@XD':
-			html_content += f'				<div class="container"><img data-alt_src="/{dfc_back_img_path}" alt="/{dfc_front_img_path}" id="{card_name_cleaned}" data-flag="{flag}" onclick="openSidebar(\'{card_name_cleaned}\',{rotated})"><button class="flip-btn" onclick="imgFlip(\'{card_name_cleaned}\')"></button></div>\n'
+			html_content += f'				<div class="container"><img loading="lazy" data-alt_src="/{dfc_back_img_path}" alt="/{dfc_front_img_path}" id="{card_name_cleaned}" data-flag="{flag}" onclick="openSidebar(\'{card_name_cleaned}\',{rotated})"><button class="flip-btn" onclick="imgFlip(\'{card_name_cleaned}\')"></button></div>\n'
 		else:
-			html_content += f'				<div class="container"><img alt="/{image_path}" id="{card_name_cleaned}" data-flag="{flag}" onclick="openSidebar(\'{card_name_cleaned}\',{rotated})"></div>\n'
+			html_content += f'				<div class="container"><img loading="lazy" alt="/{image_path}" id="{card_name_cleaned}" data-flag="{flag}" onclick="openSidebar(\'{card_name_cleaned}\',{rotated})"></div>\n'
 
 	# Closing the div and the rest of the HTML
 	html_content += '''	</div>
@@ -362,7 +397,7 @@ def generateHTML(setCode):
 	#F: /resources/snippets/load-files.txt
 	#F: load-files.txt's snippet adds something that goes over all the lines of lists/all-cards.txt and puts them into an array
 	#F: it also grabs from resources/replacechars.txt, which just defines all the icky no-good chars that need to be replaced
-	with open(os.path.join('resources', 'snippets', 'load-files.txt'), encoding='utf-8-sig') as f:
+	with open(os.path.join('scripts', 'snippets', 'load-files.txt'), encoding='utf-8-sig') as f:
 		snippet = f.read()
 		html_content += snippet
 
@@ -440,27 +475,51 @@ def generateHTML(setCode):
 	let horizontal = false;
 
 	function imgFlip(num) {
-		tmp = document.getElementById(num).src;
-		console.log(num);
-		document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
-		document.getElementById(num).dataset.alt_src = tmp;
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
 
-		if (num == 'sidebar_img')
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
 		{
-			const rotated_img = document.getElementById('sidebar_h_img');
 			const sidebar_img = document.getElementById('sidebar_img');
 
-			if (horizontal && rotated_img.style.display == 'none')
-			{
-				rotated_img.style.display = "block";
-				sidebar_img.style.filter = "blur(2px) brightness(0.7)";
-			}
-			else
-			{
-				rotated_img.style.display = "none";
-				sidebar_img.style.filter = "";
-			}
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
 		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
 	}
 
 	function openSidebar(id, h = false) {
@@ -472,17 +531,19 @@ def generateHTML(setCode):
 		const rotated_img = document.getElementById('sidebar_h_img');
 		const sidebar_img = document.getElementById('sidebar_img');
 
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
 		sidebar_img.src = document.getElementById(id).src;
 		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
 
 		if (horizontal && !sidebar_img.src.includes("_back"))
 		{
-			rotated_img.style.display = "block";
+			rotated_img.style.opacity = "1";
 			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
 		}
 		else
 		{
-			rotated_img.style.display = "none";
+			rotated_img.style.opacity = "0";
 			sidebar_img.style.filter = "";
 		}
 
@@ -514,6 +575,26 @@ def generateHTML(setCode):
 		window.scrollTo(window.scrollX, scroll_pos);
 	}
 
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
 	document.getElementById("search").addEventListener("keypress", function(event) {
 		if (event.key === "Enter") {
 			event.preventDefault();
@@ -531,7 +612,7 @@ def generateHTML(setCode):
 	
 	#F: /resources/snippets/random-card.txt
 	#F: code that lets you go to a random card
-	with open(os.path.join('resources', 'snippets', 'random-card.txt'), encoding='utf-8-sig') as f:
+	with open(os.path.join('scripts', 'snippets', 'random-card.txt'), encoding='utf-8-sig') as f:
 		snippet = f.read()
 		html_content += snippet
 

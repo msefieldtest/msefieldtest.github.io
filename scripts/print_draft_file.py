@@ -42,7 +42,7 @@ def generateFile(code):
 
 		for slot in structure:
 			slot_name = slot['name']
-			if slot_name == 'wildcard' and not filtered(card, filters) and not 'Basic' in card['type'] and not 'token' in card['shape']:
+			if slot_name in [ 'wildcard', 'foil' ] and not filtered(card, filters) and not 'Basic' in card['type'] and not 'token' in card['shape']:
 				booster[slot_name].append(card)
 			elif not slot['custom']:
 				if ((card['rarity'] == 'mythic' and slot_name == 'rare') or card['rarity'] == slot_name) and not filtered(card, filters) and not 'Basic' in card['type'] and not 'token' in card['shape']:
@@ -59,22 +59,23 @@ def generateFile(code):
 			"collector_number": "''' + str(card['number']) + '''",
 	'''
 
+		card_file_name = (str(card['number']) + '_' + card['card_name']) if ('image_name' not in set_data or set_data['image_name'] != 'position') else card['position']
 		if 'double' in card['shape']:
 			draft_string += '''		"back": {
 				"name": "",
 				"type": "",
 				"image_uris": {
-					"en": "https://''' + github_path + '''/sets/''' + code + '''-files/img/''' + str(card['number']) + '''_''' + card['card_name'] + '''_back.''' + set_data['image_type'] + '''"
+					"en": "https://''' + github_path + '''/sets/''' + code + '''-files/img/''' + card_file_name + '''_back.''' + set_data['image_type'] + '''"
 				}
 			},
 			"image_uris": {
-				"en": "https://''' + github_path + '''/sets/''' + code + '''-files/img/''' + str(card['number']) + '''_''' + card['card_name'] + '''_front.''' + set_data['image_type'] + '''"
+				"en": "https://''' + github_path + '''/sets/''' + code + '''-files/img/''' + card_file_name + '''_front.''' + set_data['image_type'] + '''"
 			}
 		},
 	'''
 		else:
 			draft_string += '''		"image_uris": {
-				"en": "https://''' + github_path + '''/sets/''' + code + '''-files/img/''' + str(card['number']) + '''_''' + card['card_name'] + '''.''' + set_data['image_type'] + '''"
+				"en": "https://''' + github_path + '''/sets/''' + code + '''-files/img/''' + card_file_name + '''.''' + set_data['image_type'] + '''"
 			}
 		}''' + (''',''' if x != len(set_data['cards']) - 1 else '''''') + '''
 	'''
