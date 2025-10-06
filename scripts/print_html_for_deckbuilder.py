@@ -143,10 +143,11 @@ def generateHTML(codes):
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 		width: 98%;
-		height: fit-content;
+		height: 100%;
+		overflow-y: scroll;
 		gap: 3px;
 		justify-items: center;
-		padding: 8px 1%;
+		padding: 1%;
 	}
 	@media ( max-width: 750px ) {
 		.image-grid {
