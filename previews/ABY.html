@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/ABY-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>ABY visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/ABY-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
+	
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
+	
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
+	
+		<a class="set-bar inactive" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
+	
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
+	
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
+	
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
+	
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
+	
+		<a class="set-bar inactive" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
+	
+		<a class="set-bar inactive" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
+	
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/ABY-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/ABY-files/img/31_Prodigal Dimensiurge.jpg" id="ABY_31_Prodigal Dimensiurge" data-flag="@X" onclick="openSidebar('ABY_31_Prodigal Dimensiurge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/55_Gallas, Temporal Pioneer.jpg" id="ABY_55_Gallas, Temporal Pioneer" data-flag="@X" onclick="openSidebar('ABY_55_Gallas, Temporal Pioneer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/110_Scour the SynthScape.jpg" id="ABY_110_Scour the SynthScape" data-flag="@X" onclick="openSidebar('ABY_110_Scour the SynthScape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/125_Breaker of Equilibria.jpg" id="ABY_125_Breaker of Equilibria" data-flag="@X" onclick="openSidebar('ABY_125_Breaker of Equilibria',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/180_Interplanar Wayfinder.jpg" id="ABY_180_Interplanar Wayfinder" data-flag="@X" onclick="openSidebar('ABY_180_Interplanar Wayfinder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/32_Savior of Schisms.jpg" id="ABY_32_Savior of Schisms" data-flag="@X" onclick="openSidebar('ABY_32_Savior of Schisms',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/78_Timetangle.jpg" id="ABY_78_Timetangle" data-flag="@X" onclick="openSidebar('ABY_78_Timetangle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/113_Sentience Swapper.jpg" id="ABY_113_Sentience Swapper" data-flag="@X" onclick="openSidebar('ABY_113_Sentience Swapper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/136_Hannah, the First Anomaly.jpg" id="ABY_136_Hannah, the First Anomaly" data-flag="@X" onclick="openSidebar('ABY_136_Hannah, the First Anomaly',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/185_The Omenweb Engine.jpg" id="ABY_185_The Omenweb Engine" data-flag="@X" onclick="openSidebar('ABY_185_The Omenweb Engine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/8_Containment Priest.jpg" id="ABY_8_Containment Priest" data-flag="@X" onclick="openSidebar('ABY_8_Containment Priest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/42_A Better Yesterday.jpg" id="ABY_42_A Better Yesterday" data-flag="@X" onclick="openSidebar('ABY_42_A Better Yesterday',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/82_Blessed of the Coil.jpg" id="ABY_82_Blessed of the Coil" data-flag="@X" onclick="openSidebar('ABY_82_Blessed of the Coil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/130_Eldstone of Fervor.jpg" id="ABY_130_Eldstone of Fervor" data-flag="@X" onclick="openSidebar('ABY_130_Eldstone of Fervor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/164_Bootstrapped Zygote.jpg" id="ABY_164_Bootstrapped Zygote" data-flag="@X" onclick="openSidebar('ABY_164_Bootstrapped Zygote',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/9_Dawn, Blinding Hope.jpg" id="ABY_9_Dawn, Blinding Hope" data-flag="@X" onclick="openSidebar('ABY_9_Dawn, Blinding Hope',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/47_Ebb, the Amorphous.jpg" id="ABY_47_Ebb, the Amorphous" data-flag="@X" onclick="openSidebar('ABY_47_Ebb, the Amorphous',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/83_Brink Desecrator.jpg" id="ABY_83_Brink Desecrator" data-flag="@X" onclick="openSidebar('ABY_83_Brink Desecrator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/131_Eldworld Kindler.jpg" id="ABY_131_Eldworld Kindler" data-flag="@X" onclick="openSidebar('ABY_131_Eldworld Kindler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/172_Eldstone of Bloom.jpg" id="ABY_172_Eldstone of Bloom" data-flag="@X" onclick="openSidebar('ABY_172_Eldstone of Bloom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/10_Eldstone of Transience.jpg" id="ABY_10_Eldstone of Transience" data-flag="@X" onclick="openSidebar('ABY_10_Eldstone of Transience',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/48_Eldstone of Serenity.jpg" id="ABY_48_Eldstone of Serenity" data-flag="@X" onclick="openSidebar('ABY_48_Eldstone of Serenity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/95_Eldstone of Oblivion.jpg" id="ABY_95_Eldstone of Oblivion" data-flag="@X" onclick="openSidebar('ABY_95_Eldstone of Oblivion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/133_Foundry Aggravator.jpg" id="ABY_133_Foundry Aggravator" data-flag="@X" onclick="openSidebar('ABY_133_Foundry Aggravator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/174_Eldworld Propagator.jpg" id="ABY_174_Eldworld Propagator" data-flag="@X" onclick="openSidebar('ABY_174_Eldworld Propagator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/12_Fracture the Path.jpg" id="ABY_12_Fracture the Path" data-flag="@X" onclick="openSidebar('ABY_12_Fracture the Path',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/51_Entangled Infiltrator.jpg" id="ABY_51_Entangled Infiltrator" data-flag="@X" onclick="openSidebar('ABY_51_Entangled Infiltrator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/96_Elegy in Three Parts.jpg" id="ABY_96_Elegy in Three Parts" data-flag="@X" onclick="openSidebar('ABY_96_Elegy in Three Parts',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/134_Galvanic Regent.jpg" id="ABY_134_Galvanic Regent" data-flag="@X" onclick="openSidebar('ABY_134_Galvanic Regent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/177_I.E. Residual Error.jpg" id="ABY_177_I.E. Residual Error" data-flag="@X" onclick="openSidebar('ABY_177_I.E. Residual Error',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/15_I.E. Manufactor.jpg" id="ABY_15_I.E. Manufactor" data-flag="@X" onclick="openSidebar('ABY_15_I.E. Manufactor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/57_The Great Exodus.jpg" id="ABY_57_The Great Exodus" data-flag="@X" onclick="openSidebar('ABY_57_The Great Exodus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/104_Inciting Incident.jpg" id="ABY_104_Inciting Incident" data-flag="@X" onclick="openSidebar('ABY_104_Inciting Incident',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/144_Overclock.jpg" id="ABY_144_Overclock" data-flag="@X" onclick="openSidebar('ABY_144_Overclock',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/183_Millenniapede.jpg" id="ABY_183_Millenniapede" data-flag="@X" onclick="openSidebar('ABY_183_Millenniapede',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/21_Insurgent Protocol.jpg" id="ABY_21_Insurgent Protocol" data-flag="@X" onclick="openSidebar('ABY_21_Insurgent Protocol',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/59_I.E. Resonator.jpg" id="ABY_59_I.E. Resonator" data-flag="@X" onclick="openSidebar('ABY_59_I.E. Resonator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/107_Moonfall, Coilcursed.jpg" id="ABY_107_Moonfall, Coilcursed" data-flag="@X" onclick="openSidebar('ABY_107_Moonfall, Coilcursed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/148_Recursive Fabricator.jpg" id="ABY_148_Recursive Fabricator" data-flag="@X" onclick="openSidebar('ABY_148_Recursive Fabricator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/189_Portalhopping.jpg" id="ABY_189_Portalhopping" data-flag="@X" onclick="openSidebar('ABY_189_Portalhopping',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/26_Luminia, Herocaller.jpg" id="ABY_26_Luminia, Herocaller" data-flag="@X" onclick="openSidebar('ABY_26_Luminia, Herocaller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/73_SynthScape Manaform.jpg" id="ABY_73_SynthScape Manaform" data-flag="@X" onclick="openSidebar('ABY_73_SynthScape Manaform',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/114_Soulshredder Mecha.jpg" id="ABY_114_Soulshredder Mecha" data-flag="@X" onclick="openSidebar('ABY_114_Soulshredder Mecha',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/152_Sky, Brink Freebooter.jpg" id="ABY_152_Sky, Brink Freebooter" data-flag="@X" onclick="openSidebar('ABY_152_Sky, Brink Freebooter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/192_Spark, the Catalyst.jpg" id="ABY_192_Spark, the Catalyst" data-flag="@X" onclick="openSidebar('ABY_192_Spark, the Catalyst',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/35_SynthScape Familiar.jpg" id="ABY_35_SynthScape Familiar" data-flag="@X" onclick="openSidebar('ABY_35_SynthScape Familiar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/76_Those from Beyond.jpg" id="ABY_76_Those from Beyond" data-flag="@X" onclick="openSidebar('ABY_76_Those from Beyond',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/115_Sting.jpg" id="ABY_115_Sting" data-flag="@X" onclick="openSidebar('ABY_115_Sting',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/153_Splintered Memories.jpg" id="ABY_153_Splintered Memories" data-flag="@X" onclick="openSidebar('ABY_153_Splintered Memories',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/194_Stutterhide Stomper.jpg" id="ABY_194_Stutterhide Stomper" data-flag="@X" onclick="openSidebar('ABY_194_Stutterhide Stomper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/38_Turn Back.jpg" id="ABY_38_Turn Back" data-flag="@X" onclick="openSidebar('ABY_38_Turn Back',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/77_Timecoil Tracings.jpg" id="ABY_77_Timecoil Tracings" data-flag="@X" onclick="openSidebar('ABY_77_Timecoil Tracings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/116_Tortured Mind.jpg" id="ABY_116_Tortured Mind" data-flag="@X" onclick="openSidebar('ABY_116_Tortured Mind',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/159_Untethered Splinter.jpg" id="ABY_159_Untethered Splinter" data-flag="@X" onclick="openSidebar('ABY_159_Untethered Splinter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/195_SynthScape Connections.jpg" id="ABY_195_SynthScape Connections" data-flag="@X" onclick="openSidebar('ABY_195_SynthScape Connections',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/279_Ravi, Back-Alley Harrier.jpg" id="ABY_279_Ravi, Back-Alley Harrier" data-flag="@X" onclick="openSidebar('ABY_279_Ravi, Back-Alley Harrier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/280_Keshi, the Known Unknown.jpg" id="ABY_280_Keshi, the Known Unknown" data-flag="@X" onclick="openSidebar('ABY_280_Keshi, the Known Unknown',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/281_Nevali, Duskbringer.jpg" id="ABY_281_Nevali, Duskbringer" data-flag="@X" onclick="openSidebar('ABY_281_Nevali, Duskbringer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/282_Arianna, the Scrapper.jpg" id="ABY_282_Arianna, the Scrapper" data-flag="@X" onclick="openSidebar('ABY_282_Arianna, the Scrapper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/283_Tel, Supressed Spark.jpg" id="ABY_283_Tel, Supressed Spark" data-flag="@X" onclick="openSidebar('ABY_283_Tel, Supressed Spark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/1_Appealer to the Masses.jpg" id="ABY_1_Appealer to the Masses" data-flag="@X" onclick="openSidebar('ABY_1_Appealer to the Masses',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/41_All at Once.jpg" id="ABY_41_All at Once" data-flag="@X" onclick="openSidebar('ABY_41_All at Once',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/81_Augur of the In-Between.jpg" id="ABY_81_Augur of the In-Between" data-flag="@X" onclick="openSidebar('ABY_81_Augur of the In-Between',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/121_Abandon the Timecoil.jpg" id="ABY_121_Abandon the Timecoil" data-flag="@X" onclick="openSidebar('ABY_121_Abandon the Timecoil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/161_Artisan Guild Uncoiler.jpg" id="ABY_161_Artisan Guild Uncoiler" data-flag="@X" onclick="openSidebar('ABY_161_Artisan Guild Uncoiler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/2_Arbiters of Progress.jpg" id="ABY_2_Arbiters of Progress" data-flag="@X" onclick="openSidebar('ABY_2_Arbiters of Progress',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/43_Chronicle of the Entranced.jpg" id="ABY_43_Chronicle of the Entranced" data-flag="@X" onclick="openSidebar('ABY_43_Chronicle of the Entranced',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/85_Chronicle of the Deceived.jpg" id="ABY_85_Chronicle of the Deceived" data-flag="@X" onclick="openSidebar('ABY_85_Chronicle of the Deceived',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/122_All-Purpose Reforger.jpg" id="ABY_122_All-Purpose Reforger" data-flag="@X" onclick="openSidebar('ABY_122_All-Purpose Reforger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/167_Chronicle of the Free.jpg" id="ABY_167_Chronicle of the Free" data-flag="@X" onclick="openSidebar('ABY_167_Chronicle of the Free',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/3_Artisan-Craft Gargoyle.jpg" id="ABY_3_Artisan-Craft Gargoyle" data-flag="@X" onclick="openSidebar('ABY_3_Artisan-Craft Gargoyle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/44_Chronicle of the Inspired.jpg" id="ABY_44_Chronicle of the Inspired" data-flag="@X" onclick="openSidebar('ABY_44_Chronicle of the Inspired',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/86_Chronicler of the Passed.jpg" id="ABY_86_Chronicler of the Passed" data-flag="@X" onclick="openSidebar('ABY_86_Chronicler of the Passed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/128_Chronicle of the Faithless.jpg" id="ABY_128_Chronicle of the Faithless" data-flag="@X" onclick="openSidebar('ABY_128_Chronicle of the Faithless',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/168_Chronometric Driller.jpg" id="ABY_168_Chronometric Driller" data-flag="@X" onclick="openSidebar('ABY_168_Chronometric Driller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/4_Charged Photon Blast.jpg" id="ABY_4_Charged Photon Blast" data-flag="@X" onclick="openSidebar('ABY_4_Charged Photon Blast',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/45_Cogwork Inverter.jpg" id="ABY_45_Cogwork Inverter" data-flag="@X" onclick="openSidebar('ABY_45_Cogwork Inverter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/87_Chronological Constant.jpg" id="ABY_87_Chronological Constant" data-flag="@X" onclick="openSidebar('ABY_87_Chronological Constant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/129_Collapse of the Web.jpg" id="ABY_129_Collapse of the Web" data-flag="@X" onclick="openSidebar('ABY_129_Collapse of the Web',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/170_Echoes of the Eldworld.jpg" id="ABY_170_Echoes of the Eldworld" data-flag="@X" onclick="openSidebar('ABY_170_Echoes of the Eldworld',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/5_Chronicle of the Devout.jpg" id="ABY_5_Chronicle of the Devout" data-flag="@X" onclick="openSidebar('ABY_5_Chronicle of the Devout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/49_Eldworld Sprite.jpg" id="ABY_49_Eldworld Sprite" data-flag="@X" onclick="openSidebar('ABY_49_Eldworld Sprite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/88_Circuit Skimmer.jpg" id="ABY_88_Circuit Skimmer" data-flag="@X" onclick="openSidebar('ABY_88_Circuit Skimmer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/132_Flowstone Engineer.jpg" id="ABY_132_Flowstone Engineer" data-flag="@X" onclick="openSidebar('ABY_132_Flowstone Engineer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/173_Eldworld Invasion.jpg" id="ABY_173_Eldworld Invasion" data-flag="@X" onclick="openSidebar('ABY_173_Eldworld Invasion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/6_Chronicle of the Zealous.jpg" id="ABY_6_Chronicle of the Zealous" data-flag="@X" onclick="openSidebar('ABY_6_Chronicle of the Zealous',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/52_Examiner of Oddities.jpg" id="ABY_52_Examiner of Oddities" data-flag="@X" onclick="openSidebar('ABY_52_Examiner of Oddities',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/89_Congregation at Last Light.jpg" id="ABY_89_Congregation at Last Light" data-flag="@X" onclick="openSidebar('ABY_89_Congregation at Last Light',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/135_Glimpse the Possibilities.jpg" id="ABY_135_Glimpse the Possibilities" data-flag="@X" onclick="openSidebar('ABY_135_Glimpse the Possibilities',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/178_Innovative Ecologist.jpg" id="ABY_178_Innovative Ecologist" data-flag="@X" onclick="openSidebar('ABY_178_Innovative Ecologist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/22_Leonin Wanderer.jpg" id="ABY_22_Leonin Wanderer" data-flag="@X" onclick="openSidebar('ABY_22_Leonin Wanderer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/54_Future-Proofer.jpg" id="ABY_54_Future-Proofer" data-flag="@X" onclick="openSidebar('ABY_54_Future-Proofer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/91_Darksteel Ace.jpg" id="ABY_91_Darksteel Ace" data-flag="@X" onclick="openSidebar('ABY_91_Darksteel Ace',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/137_Heel of the Outlands.jpg" id="ABY_137_Heel of the Outlands" data-flag="@X" onclick="openSidebar('ABY_137_Heel of the Outlands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/179_Interplanar Tunneler.jpg" id="ABY_179_Interplanar Tunneler" data-flag="@X" onclick="openSidebar('ABY_179_Interplanar Tunneler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/23_Lightsail Skyship.jpg" id="ABY_23_Lightsail Skyship" data-flag="@X" onclick="openSidebar('ABY_23_Lightsail Skyship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/56_Gallas's Understudy.jpg" id="ABY_56_Gallass Understudy" data-flag="@X" onclick="openSidebar('ABY_56_Gallass Understudy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/92_Dimension Cleaver.jpg" id="ABY_92_Dimension Cleaver" data-flag="@X" onclick="openSidebar('ABY_92_Dimension Cleaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/139_Madcap Prodigies.jpg" id="ABY_139_Madcap Prodigies" data-flag="@X" onclick="openSidebar('ABY_139_Madcap Prodigies',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/182_March Ever-Forward.jpg" id="ABY_182_March Ever-Forward" data-flag="@X" onclick="openSidebar('ABY_182_March Ever-Forward',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/25_Loxodon Tinkerer.jpg" id="ABY_25_Loxodon Tinkerer" data-flag="@X" onclick="openSidebar('ABY_25_Loxodon Tinkerer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/60_Industrial Reclamation.jpg" id="ABY_60_Industrial Reclamation" data-flag="@X" onclick="openSidebar('ABY_60_Industrial Reclamation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/97_Eliminate the Predecessor.jpg" id="ABY_97_Eliminate the Predecessor" data-flag="@X" onclick="openSidebar('ABY_97_Eliminate the Predecessor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/140_Magmatic Auger.jpg" id="ABY_140_Magmatic Auger" data-flag="@X" onclick="openSidebar('ABY_140_Magmatic Auger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/186_Outlands Pioneer.jpg" id="ABY_186_Outlands Pioneer" data-flag="@X" onclick="openSidebar('ABY_186_Outlands Pioneer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/28_Omenweb Taskmaster.jpg" id="ABY_28_Omenweb Taskmaster" data-flag="@X" onclick="openSidebar('ABY_28_Omenweb Taskmaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/63_Modify the Canon.jpg" id="ABY_63_Modify the Canon" data-flag="@X" onclick="openSidebar('ABY_63_Modify the Canon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/99_Final Word.jpg" id="ABY_99_Final Word" data-flag="@X" onclick="openSidebar('ABY_99_Final Word',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/145_Overeager Courier.jpg" id="ABY_145_Overeager Courier" data-flag="@X" onclick="openSidebar('ABY_145_Overeager Courier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/190_Retrofit Goliath.jpg" id="ABY_190_Retrofit Goliath" data-flag="@X" onclick="openSidebar('ABY_190_Retrofit Goliath',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/29_Orrery Overseer.jpg" id="ABY_29_Orrery Overseer" data-flag="@X" onclick="openSidebar('ABY_29_Orrery Overseer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/64_Paradox Haze.jpg" id="ABY_64_Paradox Haze" data-flag="@X" onclick="openSidebar('ABY_64_Paradox Haze',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/100_Flickering Finisher.jpg" id="ABY_100_Flickering Finisher" data-flag="@X" onclick="openSidebar('ABY_100_Flickering Finisher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/149_Retroactive Rending.jpg" id="ABY_149_Retroactive Rending" data-flag="@X" onclick="openSidebar('ABY_149_Retroactive Rending',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/191_Séance With Those To Be.jpg" id="ABY_191_Séance With Those To Be" data-flag="@X" onclick="openSidebar('ABY_191_Séance With Those To Be',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/33_Serve Time.jpg" id="ABY_33_Serve Time" data-flag="@X" onclick="openSidebar('ABY_33_Serve Time',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/72_Spinner of the Omenweb.jpg" id="ABY_72_Spinner of the Omenweb" data-flag="@X" onclick="openSidebar('ABY_72_Spinner of the Omenweb',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/101_From the Abyss.jpg" id="ABY_101_From the Abyss" data-flag="@X" onclick="openSidebar('ABY_101_From the Abyss',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/150_Scrapwork Scourge.jpg" id="ABY_150_Scrapwork Scourge" data-flag="@X" onclick="openSidebar('ABY_150_Scrapwork Scourge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/193_Standard-Issue Shields.jpg" id="ABY_193_Standard-Issue Shields" data-flag="@X" onclick="openSidebar('ABY_193_Standard-Issue Shields',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/34_Stabilizer Suit.jpg" id="ABY_34_Stabilizer Suit" data-flag="@X" onclick="openSidebar('ABY_34_Stabilizer Suit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/75_Thirst for Answers.jpg" id="ABY_75_Thirst for Answers" data-flag="@X" onclick="openSidebar('ABY_75_Thirst for Answers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/108_Nimble Redeye.jpg" id="ABY_108_Nimble Redeye" data-flag="@X" onclick="openSidebar('ABY_108_Nimble Redeye',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/157_Timecoil Dismantler.jpg" id="ABY_157_Timecoil Dismantler" data-flag="@X" onclick="openSidebar('ABY_157_Timecoil Dismantler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/197_SynthScape Painter.jpg" id="ABY_197_SynthScape Painter" data-flag="@X" onclick="openSidebar('ABY_197_SynthScape Painter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/37_Timecoil Restorer.jpg" id="ABY_37_Timecoil Restorer" data-flag="@X" onclick="openSidebar('ABY_37_Timecoil Restorer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/80_Watcher at the Edge.jpg" id="ABY_80_Watcher at the Edge" data-flag="@X" onclick="openSidebar('ABY_80_Watcher at the Edge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/119_Wasteland Inquisitor.jpg" id="ABY_119_Wasteland Inquisitor" data-flag="@X" onclick="openSidebar('ABY_119_Wasteland Inquisitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/158_Twinarm Outfitter.jpg" id="ABY_158_Twinarm Outfitter" data-flag="@X" onclick="openSidebar('ABY_158_Twinarm Outfitter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/200_Vitality Reweavers.jpg" id="ABY_200_Vitality Reweavers" data-flag="@X" onclick="openSidebar('ABY_200_Vitality Reweavers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/7_Coil's Trilogy.jpg" id="ABY_7_Coils Trilogy" data-flag="@X" onclick="openSidebar('ABY_7_Coils Trilogy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/46_Dormant Empiricist.jpg" id="ABY_46_Dormant Empiricist" data-flag="@X" onclick="openSidebar('ABY_46_Dormant Empiricist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/84_Brink Extortionists.jpg" id="ABY_84_Brink Extortionists" data-flag="@X" onclick="openSidebar('ABY_84_Brink Extortionists',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/123_Alloy Transmuter.jpg" id="ABY_123_Alloy Transmuter" data-flag="@X" onclick="openSidebar('ABY_123_Alloy Transmuter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/162_Augmented Tusker.jpg" id="ABY_162_Augmented Tusker" data-flag="@X" onclick="openSidebar('ABY_162_Augmented Tusker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/11_Fleetfoot Re-Runner.jpg" id="ABY_11_Fleetfoot Re-Runner" data-flag="@X" onclick="openSidebar('ABY_11_Fleetfoot Re-Runner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/50_Enforce Equilibrium.jpg" id="ABY_50_Enforce Equilibrium" data-flag="@X" onclick="openSidebar('ABY_50_Enforce Equilibrium',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/90_Crackling Constrictor.jpg" id="ABY_90_Crackling Constrictor" data-flag="@X" onclick="openSidebar('ABY_90_Crackling Constrictor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/124_Borderlands Daredevil.jpg" id="ABY_124_Borderlands Daredevil" data-flag="@X" onclick="openSidebar('ABY_124_Borderlands Daredevil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/163_Beseech the Eldmother.jpg" id="ABY_163_Beseech the Eldmother" data-flag="@X" onclick="openSidebar('ABY_163_Beseech the Eldmother',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/13_Fractured Feline.jpg" id="ABY_13_Fractured Feline" data-flag="@X" onclick="openSidebar('ABY_13_Fractured Feline',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/53_Fortuitous Cnidarians.jpg" id="ABY_53_Fortuitous Cnidarians" data-flag="@X" onclick="openSidebar('ABY_53_Fortuitous Cnidarians',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/93_Disciples' Onboarder.jpg" id="ABY_93_Disciples Onboarder" data-flag="@X" onclick="openSidebar('ABY_93_Disciples Onboarder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/126_Bullet Train.jpg" id="ABY_126_Bullet Train" data-flag="@X" onclick="openSidebar('ABY_126_Bullet Train',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/165_Borderland Bullies.jpg" id="ABY_165_Borderland Bullies" data-flag="@X" onclick="openSidebar('ABY_165_Borderland Bullies',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/14_Freelance Gearsmith.jpg" id="ABY_14_Freelance Gearsmith" data-flag="@X" onclick="openSidebar('ABY_14_Freelance Gearsmith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/58_I.E. Prognosticator.jpg" id="ABY_58_I.E. Prognosticator" data-flag="@X" onclick="openSidebar('ABY_58_I.E. Prognosticator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/94_Disciples' Strongarm.jpg" id="ABY_94_Disciples Strongarm" data-flag="@X" onclick="openSidebar('ABY_94_Disciples Strongarm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/127_Buy Time.jpg" id="ABY_127_Buy Time" data-flag="@X" onclick="openSidebar('ABY_127_Buy Time',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/166_Chitinous Artisan.jpg" id="ABY_166_Chitinous Artisan" data-flag="@X" onclick="openSidebar('ABY_166_Chitinous Artisan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/16_I.E. Monitor.jpg" id="ABY_16_I.E. Monitor" data-flag="@X" onclick="openSidebar('ABY_16_I.E. Monitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/61_Iterate.jpg" id="ABY_61_Iterate" data-flag="@X" onclick="openSidebar('ABY_61_Iterate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/98_False Mourning's Zealot.jpg" id="ABY_98_False Mournings Zealot" data-flag="@X" onclick="openSidebar('ABY_98_False Mournings Zealot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/138_Luminite Liberator.jpg" id="ABY_138_Luminite Liberator" data-flag="@X" onclick="openSidebar('ABY_138_Luminite Liberator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/169_Clockwork Consciousness.jpg" id="ABY_169_Clockwork Consciousness" data-flag="@X" onclick="openSidebar('ABY_169_Clockwork Consciousness',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/17_I.E. Regulator.jpg" id="ABY_17_I.E. Regulator" data-flag="@X" onclick="openSidebar('ABY_17_I.E. Regulator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/62_Lost in Tomorrow.jpg" id="ABY_62_Lost in Tomorrow" data-flag="@X" onclick="openSidebar('ABY_62_Lost in Tomorrow',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/102_I.E. Scrutinizer.jpg" id="ABY_102_I.E. Scrutinizer" data-flag="@X" onclick="openSidebar('ABY_102_I.E. Scrutinizer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/141_Molten Eldbeast.jpg" id="ABY_141_Molten Eldbeast" data-flag="@X" onclick="openSidebar('ABY_141_Molten Eldbeast',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/171_Eldmagic Invocation.jpg" id="ABY_171_Eldmagic Invocation" data-flag="@X" onclick="openSidebar('ABY_171_Eldmagic Invocation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/18_I.E. Subsister.jpg" id="ABY_18_I.E. Subsister" data-flag="@X" onclick="openSidebar('ABY_18_I.E. Subsister',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/65_Parallel Fates.jpg" id="ABY_65_Parallel Fates" data-flag="@X" onclick="openSidebar('ABY_65_Parallel Fates',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/103_Identical Backup.jpg" id="ABY_103_Identical Backup" data-flag="@X" onclick="openSidebar('ABY_103_Identical Backup',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/142_One Against All.jpg" id="ABY_142_One Against All" data-flag="@X" onclick="openSidebar('ABY_142_One Against All',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/175_Eldworld Tandem.jpg" id="ABY_175_Eldworld Tandem" data-flag="@X" onclick="openSidebar('ABY_175_Eldworld Tandem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/19_In the Nick of Time.jpg" id="ABY_19_In the Nick of Time" data-flag="@X" onclick="openSidebar('ABY_19_In the Nick of Time',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/66_Pixelate.jpg" id="ABY_66_Pixelate" data-flag="@X" onclick="openSidebar('ABY_66_Pixelate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/105_Live on in Memory.jpg" id="ABY_105_Live on in Memory" data-flag="@X" onclick="openSidebar('ABY_105_Live on in Memory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/143_Oppressive Fire.jpg" id="ABY_143_Oppressive Fire" data-flag="@X" onclick="openSidebar('ABY_143_Oppressive Fire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/176_Gibbous Moon's Devout.jpg" id="ABY_176_Gibbous Moons Devout" data-flag="@X" onclick="openSidebar('ABY_176_Gibbous Moons Devout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/20_Ingenious Joyrider.jpg" id="ABY_20_Ingenious Joyrider" data-flag="@X" onclick="openSidebar('ABY_20_Ingenious Joyrider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/67_Portal Dasher.jpg" id="ABY_67_Portal Dasher" data-flag="@X" onclick="openSidebar('ABY_67_Portal Dasher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/106_Minister of Penance.jpg" id="ABY_106_Minister of Penance" data-flag="@X" onclick="openSidebar('ABY_106_Minister of Penance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/146_Peoples' Champion.jpg" id="ABY_146_Peoples Champion" data-flag="@X" onclick="openSidebar('ABY_146_Peoples Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/181_Leap Forward.jpg" id="ABY_181_Leap Forward" data-flag="@X" onclick="openSidebar('ABY_181_Leap Forward',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/24_Locked On.jpg" id="ABY_24_Locked On" data-flag="@X" onclick="openSidebar('ABY_24_Locked On',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/68_Return to Sender.jpg" id="ABY_68_Return to Sender" data-flag="@X" onclick="openSidebar('ABY_68_Return to Sender',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/109_Sanctify the Coil.jpg" id="ABY_109_Sanctify the Coil" data-flag="@X" onclick="openSidebar('ABY_109_Sanctify the Coil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/147_Pious Motorists.jpg" id="ABY_147_Pious Motorists" data-flag="@X" onclick="openSidebar('ABY_147_Pious Motorists',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/184_No Room for Us Both.jpg" id="ABY_184_No Room for Us Both" data-flag="@X" onclick="openSidebar('ABY_184_No Room for Us Both',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/27_Luminite Equalizer.jpg" id="ABY_27_Luminite Equalizer" data-flag="@X" onclick="openSidebar('ABY_27_Luminite Equalizer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/69_Sifter of Futures Forgotten.jpg" id="ABY_69_Sifter of Futures Forgotten" data-flag="@X" onclick="openSidebar('ABY_69_Sifter of Futures Forgotten',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/111_Scrapyard Tyrant.jpg" id="ABY_111_Scrapyard Tyrant" data-flag="@X" onclick="openSidebar('ABY_111_Scrapyard Tyrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/151_Scrounging Vastor.jpg" id="ABY_151_Scrounging Vastor" data-flag="@X" onclick="openSidebar('ABY_151_Scrounging Vastor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/187_Outlands Specimen.jpg" id="ABY_187_Outlands Specimen" data-flag="@X" onclick="openSidebar('ABY_187_Outlands Specimen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/30_Passage Sanctifier.jpg" id="ABY_30_Passage Sanctifier" data-flag="@X" onclick="openSidebar('ABY_30_Passage Sanctifier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/70_Sink Between Space.jpg" id="ABY_70_Sink Between Space" data-flag="@X" onclick="openSidebar('ABY_70_Sink Between Space',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/112_Scriptoral Operation.jpg" id="ABY_112_Scriptoral Operation" data-flag="@X" onclick="openSidebar('ABY_112_Scriptoral Operation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/154_Spot Weld.jpg" id="ABY_154_Spot Weld" data-flag="@X" onclick="openSidebar('ABY_154_Spot Weld',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/188_People of the Sun.jpg" id="ABY_188_People of the Sun" data-flag="@X" onclick="openSidebar('ABY_188_People of the Sun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/36_Thunderous Trailblaster.jpg" id="ABY_36_Thunderous Trailblaster" data-flag="@X" onclick="openSidebar('ABY_36_Thunderous Trailblaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/71_Skyline Operator.jpg" id="ABY_71_Skyline Operator" data-flag="@X" onclick="openSidebar('ABY_71_Skyline Operator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/117_Vanquish the Weak.jpg" id="ABY_117_Vanquish the Weak" data-flag="@X" onclick="openSidebar('ABY_117_Vanquish the Weak',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/155_Steamroll.jpg" id="ABY_155_Steamroll" data-flag="@X" onclick="openSidebar('ABY_155_Steamroll',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/196_SynthScape Mining.jpg" id="ABY_196_SynthScape Mining" data-flag="@X" onclick="openSidebar('ABY_196_SynthScape Mining',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/39_Verdict of the True Sun.jpg" id="ABY_39_Verdict of the True Sun" data-flag="@X" onclick="openSidebar('ABY_39_Verdict of the True Sun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/74_SynthScape Slink.jpg" id="ABY_74_SynthScape Slink" data-flag="@X" onclick="openSidebar('ABY_74_SynthScape Slink',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/118_Vulture-for-Hire.jpg" id="ABY_118_Vulture-for-Hire" data-flag="@X" onclick="openSidebar('ABY_118_Vulture-for-Hire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/156_Temporal Discharge.jpg" id="ABY_156_Temporal Discharge" data-flag="@X" onclick="openSidebar('ABY_156_Temporal Discharge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/198_Unlikely Symbiotes.jpg" id="ABY_198_Unlikely Symbiotes" data-flag="@X" onclick="openSidebar('ABY_198_Unlikely Symbiotes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/40_Zeth's Herald.jpg" id="ABY_40_Zeths Herald" data-flag="@X" onclick="openSidebar('ABY_40_Zeths Herald',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/79_Voltaic Virtuoso.jpg" id="ABY_79_Voltaic Virtuoso" data-flag="@X" onclick="openSidebar('ABY_79_Voltaic Virtuoso',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/120_Workshop Naughty.jpg" id="ABY_120_Workshop Naughty" data-flag="@X" onclick="openSidebar('ABY_120_Workshop Naughty',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/160_Voices of the Displaced.jpg" id="ABY_160_Voices of the Displaced" data-flag="@X" onclick="openSidebar('ABY_160_Voices of the Displaced',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/199_Urban Flytrap.jpg" id="ABY_199_Urban Flytrap" data-flag="@X" onclick="openSidebar('ABY_199_Urban Flytrap',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/240_Zeth, Planar Architect.jpg" id="ABY_240_Zeth, Planar Architect" data-flag="@X" onclick="openSidebar('ABY_240_Zeth, Planar Architect',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/225_Planar Incursion.jpg" id="ABY_225_Planar Incursion" data-flag="@X" onclick="openSidebar('ABY_225_Planar Incursion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/206_Brink Wageling.jpg" id="ABY_206_Brink Wageling" data-flag="@X" onclick="openSidebar('ABY_206_Brink Wageling',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/220_Loche, Returned Pilgrim.jpg" id="ABY_220_Loche, Returned Pilgrim" data-flag="@X" onclick="openSidebar('ABY_220_Loche, Returned Pilgrim',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/235_Synthesized Blossom.jpg" id="ABY_235_Synthesized Blossom" data-flag="@X" onclick="openSidebar('ABY_235_Synthesized Blossom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/231_She Who Always Was.jpg" id="ABY_231_She Who Always Was" data-flag="@X" onclick="openSidebar('ABY_231_She Who Always Was',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/224_Ouarra, All-Devourer.jpg" id="ABY_224_Ouarra, All-Devourer" data-flag="@X" onclick="openSidebar('ABY_224_Ouarra, All-Devourer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/232_Sheiya, the Timescythe.jpg" id="ABY_232_Sheiya, the Timescythe" data-flag="@X" onclick="openSidebar('ABY_232_Sheiya, the Timescythe',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/204_Artisan Spelunker.jpg" id="ABY_204_Artisan Spelunker" data-flag="@X" onclick="openSidebar('ABY_204_Artisan Spelunker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/215_Eris, Ardent Thaumaturge.jpg" id="ABY_215_Eris, Ardent Thaumaturge" data-flag="@X" onclick="openSidebar('ABY_215_Eris, Ardent Thaumaturge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/291_She Who Never Was.jpg" id="ABY_291_She Who Never Was" data-flag="@X" onclick="openSidebar('ABY_291_She Who Never Was',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/218_Glitch in the Fabric.jpg" id="ABY_218_Glitch in the Fabric" data-flag="@X" onclick="openSidebar('ABY_218_Glitch in the Fabric',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/292_Sheiya, Victim of the Ages.jpg" id="ABY_292_Sheiya, Victim of the Ages" data-flag="@X" onclick="openSidebar('ABY_292_Sheiya, Victim of the Ages',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/207_Chart Past and Future.jpg" id="ABY_207_Chart Past and Future" data-flag="@X" onclick="openSidebar('ABY_207_Chart Past and Future',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/237_Taras, Omenweb Chief.jpg" id="ABY_237_Taras, Omenweb Chief" data-flag="@X" onclick="openSidebar('ABY_237_Taras, Omenweb Chief',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/205_Brain of the Equilibrium.jpg" id="ABY_205_Brain of the Equilibrium" data-flag="@X" onclick="openSidebar('ABY_205_Brain of the Equilibrium',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/221_Mathis, I.E. Operative.jpg" id="ABY_221_Mathis, I.E. Operative" data-flag="@X" onclick="openSidebar('ABY_221_Mathis, I.E. Operative',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/223_Onslaught Engine.jpg" id="ABY_223_Onslaught Engine" data-flag="@X" onclick="openSidebar('ABY_223_Onslaught Engine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/233_Solo, Last of the Armanti.jpg" id="ABY_233_Solo, Last of the Armanti" data-flag="@X" onclick="openSidebar('ABY_233_Solo, Last of the Armanti',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/239_Unending Procession.jpg" id="ABY_239_Unending Procession" data-flag="@X" onclick="openSidebar('ABY_239_Unending Procession',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/208_Chronicle of the Oppressed.jpg" id="ABY_208_Chronicle of the Oppressed" data-flag="@X" onclick="openSidebar('ABY_208_Chronicle of the Oppressed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/289_Mathis, the Kingpin.jpg" id="ABY_289_Mathis, the Kingpin" data-flag="@X" onclick="openSidebar('ABY_289_Mathis, the Kingpin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/234_Srina of the Brink.jpg" id="ABY_234_Srina of the Brink" data-flag="@X" onclick="openSidebar('ABY_234_Srina of the Brink',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/290_Ragna, Hordecaller.jpg" id="ABY_290_Ragna, Hordecaller" data-flag="@X" onclick="openSidebar('ABY_290_Ragna, Hordecaller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/293_Taras, True Believer.jpg" id="ABY_293_Taras, True Believer" data-flag="@X" onclick="openSidebar('ABY_293_Taras, True Believer',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/219_Harbingers of the Old World.jpg" id="ABY_219_Harbingers of the Old World" data-flag="@X" onclick="openSidebar('ABY_219_Harbingers of the Old World',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/211_Distort the Continuum.jpg" id="ABY_211_Distort the Continuum" data-flag="@X" onclick="openSidebar('ABY_211_Distort the Continuum',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/202_Argon, Cyberlich.jpg" id="ABY_202_Argon, Cyberlich" data-flag="@X" onclick="openSidebar('ABY_202_Argon, Cyberlich',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/210_Cyclical Martyrdom.jpg" id="ABY_210_Cyclical Martyrdom" data-flag="@X" onclick="openSidebar('ABY_210_Cyclical Martyrdom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/230_Seer of all Cycles.jpg" id="ABY_230_Seer of all Cycles" data-flag="@X" onclick="openSidebar('ABY_230_Seer of all Cycles',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/209_The Coil's Burdens.jpg" id="ABY_209_The Coils Burdens" data-flag="@X" onclick="openSidebar('ABY_209_The Coils Burdens',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/222_Muse, Metallurgic Prodigy.jpg" id="ABY_222_Muse, Metallurgic Prodigy" data-flag="@X" onclick="openSidebar('ABY_222_Muse, Metallurgic Prodigy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/213_Eldworld Recultivator.jpg" id="ABY_213_Eldworld Recultivator" data-flag="@X" onclick="openSidebar('ABY_213_Eldworld Recultivator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/216_Eva, Luminite Skipper.jpg" id="ABY_216_Eva, Luminite Skipper" data-flag="@X" onclick="openSidebar('ABY_216_Eva, Luminite Skipper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/214_Eonspeed Metamorphosis.jpg" id="ABY_214_Eonspeed Metamorphosis" data-flag="@X" onclick="openSidebar('ABY_214_Eonspeed Metamorphosis',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/212_Ebo, Fulcrum of the Coil.jpg" id="ABY_212_Ebo, Fulcrum of the Coil" data-flag="@X" onclick="openSidebar('ABY_212_Ebo, Fulcrum of the Coil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/288_Ishanna, Phenomaniac.jpg" id="ABY_288_Ishanna, Phenomaniac" data-flag="@X" onclick="openSidebar('ABY_288_Ishanna, Phenomaniac',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/229_Scrounge, Eldworld Burrower.jpg" id="ABY_229_Scrounge, Eldworld Burrower" data-flag="@X" onclick="openSidebar('ABY_229_Scrounge, Eldworld Burrower',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/227_Ray, the Second Light.jpg" id="ABY_227_Ray, the Second Light" data-flag="@X" onclick="openSidebar('ABY_227_Ray, the Second Light',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/201_A200, Spawned Sentience.jpg" id="ABY_201_A200, Spawned Sentience" data-flag="@X" onclick="openSidebar('ABY_201_A200, Spawned Sentience',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/228_Scriptoral Summons.jpg" id="ABY_228_Scriptoral Summons" data-flag="@X" onclick="openSidebar('ABY_228_Scriptoral Summons',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/217_Farrah, Frenetic Archivist.jpg" id="ABY_217_Farrah, Frenetic Archivist" data-flag="@X" onclick="openSidebar('ABY_217_Farrah, Frenetic Archivist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/238_Turning of the Coil.jpg" id="ABY_238_Turning of the Coil" data-flag="@X" onclick="openSidebar('ABY_238_Turning of the Coil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/236_SynthScape Valiant.jpg" id="ABY_236_SynthScape Valiant" data-flag="@X" onclick="openSidebar('ABY_236_SynthScape Valiant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/203_Artisan Guild Tenets.jpg" id="ABY_203_Artisan Guild Tenets" data-flag="@X" onclick="openSidebar('ABY_203_Artisan Guild Tenets',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/285_Ebo, Eternal Martyr.jpg" id="ABY_285_Ebo, Eternal Martyr" data-flag="@X" onclick="openSidebar('ABY_285_Ebo, Eternal Martyr',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/226_Polarized Dyad.jpg" id="ABY_226_Polarized Dyad" data-flag="@X" onclick="openSidebar('ABY_226_Polarized Dyad',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/287_Flaw, Deadlands Hoarder.jpg" id="ABY_287_Flaw, Deadlands Hoarder" data-flag="@X" onclick="openSidebar('ABY_287_Flaw, Deadlands Hoarder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/286_Edrick, Solblessed.jpg" id="ABY_286_Edrick, Solblessed" data-flag="@X" onclick="openSidebar('ABY_286_Edrick, Solblessed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/284_A200, of Flesh and Filigree.jpg" id="ABY_284_A200, of Flesh and Filigree" data-flag="@X" onclick="openSidebar('ABY_284_A200, of Flesh and Filigree',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/248_The Immortal Moon.jpg" id="ABY_248_The Immortal Moon" data-flag="@X" onclick="openSidebar('ABY_248_The Immortal Moon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/249_The Judgment Clock.jpg" id="ABY_249_The Judgment Clock" data-flag="@X" onclick="openSidebar('ABY_249_The Judgment Clock',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/242_Counter of Hours.jpg" id="ABY_242_Counter of Hours" data-flag="@X" onclick="openSidebar('ABY_242_Counter of Hours',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/245_The Everglass.jpg" id="ABY_245_The Everglass" data-flag="@X" onclick="openSidebar('ABY_245_The Everglass',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/247_I.E. Infantry.jpg" id="ABY_247_I.E. Infantry" data-flag="@X" onclick="openSidebar('ABY_247_I.E. Infantry',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/256_Trailblazer Aurora.jpg" id="ABY_256_Trailblazer Aurora" data-flag="@X" onclick="openSidebar('ABY_256_Trailblazer Aurora',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/241_Chronomaton.jpg" id="ABY_241_Chronomaton" data-flag="@X" onclick="openSidebar('ABY_241_Chronomaton',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/243_Counter of Minutes.jpg" id="ABY_243_Counter of Minutes" data-flag="@X" onclick="openSidebar('ABY_243_Counter of Minutes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/250_Multiuse Gizmo.jpg" id="ABY_250_Multiuse Gizmo" data-flag="@X" onclick="openSidebar('ABY_250_Multiuse Gizmo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/251_Omenweb Atlas.jpg" id="ABY_251_Omenweb Atlas" data-flag="@X" onclick="openSidebar('ABY_251_Omenweb Atlas',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/255_Sundial of the Infinite.jpg" id="ABY_255_Sundial of the Infinite" data-flag="@X" onclick="openSidebar('ABY_255_Sundial of the Infinite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/0_Revival ABY.jpg" id="ABY_0_Revival ABY" data-flag="@X" onclick="openSidebar('ABY_0_Revival ABY',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/244_Counter of Seconds.jpg" id="ABY_244_Counter of Seconds" data-flag="@X" onclick="openSidebar('ABY_244_Counter of Seconds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/246_Heavy Artillery System.jpg" id="ABY_246_Heavy Artillery System" data-flag="@X" onclick="openSidebar('ABY_246_Heavy Artillery System',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/252_Precog in the Machine.jpg" id="ABY_252_Precog in the Machine" data-flag="@X" onclick="openSidebar('ABY_252_Precog in the Machine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/253_Prismatic Lens.jpg" id="ABY_253_Prismatic Lens" data-flag="@X" onclick="openSidebar('ABY_253_Prismatic Lens',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/254_Scrapwork Rig.jpg" id="ABY_254_Scrapwork Rig" data-flag="@X" onclick="openSidebar('ABY_254_Scrapwork Rig',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ABY_e" data-flag="@E" onclick="openSidebar('ABY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ABY_e" data-flag="@E" onclick="openSidebar('ABY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ABY_e" data-flag="@E" onclick="openSidebar('ABY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/263_Path from Naveia.jpg" id="ABY_263_Path from Naveia" data-flag="@X" onclick="openSidebar('ABY_263_Path from Naveia',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/271_Path from Yenire.jpg" id="ABY_271_Path from Yenire" data-flag="@X" onclick="openSidebar('ABY_271_Path from Yenire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/267_Path from the Abyss.jpg" id="ABY_267_Path from the Abyss" data-flag="@X" onclick="openSidebar('ABY_267_Path from the Abyss',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/269_Path from the Weft.jpg" id="ABY_269_Path from the Weft" data-flag="@X" onclick="openSidebar('ABY_269_Path from the Weft',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/266_Path from Srai-Val-Nul.jpg" id="ABY_266_Path from Srai-Val-Nul" data-flag="@X" onclick="openSidebar('ABY_266_Path from Srai-Val-Nul',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/257_Path from Arcavios.jpg" id="ABY_257_Path from Arcavios" data-flag="@X" onclick="openSidebar('ABY_257_Path from Arcavios',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/259_Path from Calloran.jpg" id="ABY_259_Path from Calloran" data-flag="@X" onclick="openSidebar('ABY_259_Path from Calloran',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/258_Path from Azerron.jpg" id="ABY_258_Path from Azerron" data-flag="@X" onclick="openSidebar('ABY_258_Path from Azerron',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/260_Path from Colviscer.jpg" id="ABY_260_Path from Colviscer" data-flag="@X" onclick="openSidebar('ABY_260_Path from Colviscer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/268_Path from the Sanctuary.jpg" id="ABY_268_Path from the Sanctuary" data-flag="@X" onclick="openSidebar('ABY_268_Path from the Sanctuary',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/265_Path from Roddemar.jpg" id="ABY_265_Path from Roddemar" data-flag="@X" onclick="openSidebar('ABY_265_Path from Roddemar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/264_Path from Nimnura.jpg" id="ABY_264_Path from Nimnura" data-flag="@X" onclick="openSidebar('ABY_264_Path from Nimnura',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/261_Path from Duncaster.jpg" id="ABY_261_Path from Duncaster" data-flag="@X" onclick="openSidebar('ABY_261_Path from Duncaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/270_Path from Thunder Junction.jpg" id="ABY_270_Path from Thunder Junction" data-flag="@X" onclick="openSidebar('ABY_270_Path from Thunder Junction',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/262_Path from Kamigawa.jpg" id="ABY_262_Path from Kamigawa" data-flag="@X" onclick="openSidebar('ABY_262_Path from Kamigawa',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/272_The SynthScape.jpg" id="ABY_272_The SynthScape" data-flag="@X" onclick="openSidebar('ABY_272_The SynthScape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/273_Unexplored Omenpath.jpg" id="ABY_273_Unexplored Omenpath" data-flag="@X" onclick="openSidebar('ABY_273_Unexplored Omenpath',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ABY_e" data-flag="@E" onclick="openSidebar('ABY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ABY_e" data-flag="@E" onclick="openSidebar('ABY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ABY_e" data-flag="@E" onclick="openSidebar('ABY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/274_Plains.jpg" id="ABY_274_Plains" data-flag="@X" onclick="openSidebar('ABY_274_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/275_Island.jpg" id="ABY_275_Island" data-flag="@X" onclick="openSidebar('ABY_275_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/276_Swamp.jpg" id="ABY_276_Swamp" data-flag="@X" onclick="openSidebar('ABY_276_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/277_Mountain.jpg" id="ABY_277_Mountain" data-flag="@X" onclick="openSidebar('ABY_277_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/278_Forest.jpg" id="ABY_278_Forest" data-flag="@X" onclick="openSidebar('ABY_278_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/20t_Clue.jpg" id="ABY_20t_Clue" data-flag="@X" onclick="openSidebar('ABY_20t_Clue',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/21t_Gear.jpg" id="ABY_21t_Gear" data-flag="@X" onclick="openSidebar('ABY_21t_Gear',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/22t_The Planar Portal.jpg" id="ABY_22t_The Planar Portal" data-flag="@X" onclick="openSidebar('ABY_22t_The Planar Portal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/23t_Splintered Lotus.jpg" id="ABY_23t_Splintered Lotus" data-flag="@X" onclick="openSidebar('ABY_23t_Splintered Lotus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/24t_Treasure.jpg" id="ABY_24t_Treasure" data-flag="@X" onclick="openSidebar('ABY_24t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/25t_Vehicle.jpg" id="ABY_25t_Vehicle" data-flag="@X" onclick="openSidebar('ABY_25t_Vehicle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/26t_Everywhere.jpg" id="ABY_26t_Everywhere" data-flag="@X" onclick="openSidebar('ABY_26t_Everywhere',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/27t_Chrono Counters.jpg" id="ABY_27t_Chrono Counters" data-flag="@X" onclick="openSidebar('ABY_27t_Chrono Counters',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/1t_Appealer to the Masses Token.jpg" id="ABY_1t_Appealer to the Masses Token" data-flag="@X" onclick="openSidebar('ABY_1t_Appealer to the Masses Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/2t_Dawn, Blinding Hope Token.jpg" id="ABY_2t_Dawn, Blinding Hope Token" data-flag="@X" onclick="openSidebar('ABY_2t_Dawn, Blinding Hope Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/3t_Ebo, Eternal Martyr Token.jpg" id="ABY_3t_Ebo, Eternal Martyr Token" data-flag="@X" onclick="openSidebar('ABY_3t_Ebo, Eternal Martyr Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/4t_Freelance Gearsmith Token.jpg" id="ABY_4t_Freelance Gearsmith Token" data-flag="@X" onclick="openSidebar('ABY_4t_Freelance Gearsmith Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/5t_Loxodon Tinkerer Token.jpg" id="ABY_5t_Loxodon Tinkerer Token" data-flag="@X" onclick="openSidebar('ABY_5t_Loxodon Tinkerer Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/6t_Passage Sanctifier Token.jpg" id="ABY_6t_Passage Sanctifier Token" data-flag="@X" onclick="openSidebar('ABY_6t_Passage Sanctifier Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/7t_Chronicler of the Passed Token.jpg" id="ABY_7t_Chronicler of the Passed Token" data-flag="@X" onclick="openSidebar('ABY_7t_Chronicler of the Passed Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/8t_Cleric.jpg" id="ABY_8t_Cleric" data-flag="@X" onclick="openSidebar('ABY_8t_Cleric',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/9t_Disciples' Strongarm Token.jpg" id="ABY_9t_Disciples Strongarm Token" data-flag="@X" onclick="openSidebar('ABY_9t_Disciples Strongarm Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/10t_Minister of Penance Token.jpg" id="ABY_10t_Minister of Penance Token" data-flag="@X" onclick="openSidebar('ABY_10t_Minister of Penance Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/11t_Rebirth.jpg" id="ABY_11t_Rebirth" data-flag="@X" onclick="openSidebar('ABY_11t_Rebirth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/12t_Wasteland Inquisitor Token.jpg" id="ABY_12t_Wasteland Inquisitor Token" data-flag="@X" onclick="openSidebar('ABY_12t_Wasteland Inquisitor Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/13t_Workshop Naughty Token.jpg" id="ABY_13t_Workshop Naughty Token" data-flag="@X" onclick="openSidebar('ABY_13t_Workshop Naughty Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/14t_Alloy Transmuter Token.jpg" id="ABY_14t_Alloy Transmuter Token" data-flag="@X" onclick="openSidebar('ABY_14t_Alloy Transmuter Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/15t_Borderlands Daredevil Token.jpg" id="ABY_15t_Borderlands Daredevil Token" data-flag="@X" onclick="openSidebar('ABY_15t_Borderlands Daredevil Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/16t_Foundry Aggravator Token.jpg" id="ABY_16t_Foundry Aggravator Token" data-flag="@X" onclick="openSidebar('ABY_16t_Foundry Aggravator Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/17t_Overeager Courier Token.jpg" id="ABY_17t_Overeager Courier Token" data-flag="@X" onclick="openSidebar('ABY_17t_Overeager Courier Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/18t_Twinarm Outfitter Token.jpg" id="ABY_18t_Twinarm Outfitter Token" data-flag="@X" onclick="openSidebar('ABY_18t_Twinarm Outfitter Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ABY-files/img/19t_Ebo, Fulcrum of the Coil Token.jpg" id="ABY_19t_Ebo, Fulcrum of the Coil Token" data-flag="@X" onclick="openSidebar('ABY_19t_Ebo, Fulcrum of the Coil Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ABY_e" data-flag="@E" onclick="openSidebar('ABY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ABY_e" data-flag="@E" onclick="openSidebar('ABY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ABY_e" data-flag="@E" onclick="openSidebar('ABY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ABY_er" data-flag="@E" onclick="openSidebar('ABY_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

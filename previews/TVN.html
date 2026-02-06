@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/TVN-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>TVN visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/TVN-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
+	
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
+	
+		<a class="set-bar inactive" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
+	
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
+	
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
+	
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
+	
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
+	
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
+	
+		<a class="set-bar inactive" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
+	
+		<a class="set-bar inactive" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
+	
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/TVN-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/TVN-files/img/12_Elbow-Grease Innovator.jpg" id="TVN_12_Elbow-Grease Innovator" data-flag="@X" onclick="openSidebar('TVN_12_Elbow-Grease Innovator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/61_Mooneye Octopus.jpg" id="TVN_61_Mooneye Octopus" data-flag="@X" onclick="openSidebar('TVN_61_Mooneye Octopus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/81_Cursed Compass.jpg" id="TVN_81_Cursed Compass" data-flag="@X" onclick="openSidebar('TVN_81_Cursed Compass',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/135_Inevitable, Doom's Flagship.jpg" id="TVN_135_Inevitable, Dooms Flagship" data-flag="@X" onclick="openSidebar('TVN_135_Inevitable, Dooms Flagship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/166_Hydra Hullbreaker.jpg" id="TVN_166_Hydra Hullbreaker" data-flag="@X" onclick="openSidebar('TVN_166_Hydra Hullbreaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/17_Glorycarved Masthead.jpg" id="TVN_17_Glorycarved Masthead" data-flag="@X" onclick="openSidebar('TVN_17_Glorycarved Masthead',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/68_Spellcatcher Conch.jpg" id="TVN_68_Spellcatcher Conch" data-flag="@X" onclick="openSidebar('TVN_68_Spellcatcher Conch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/96_Midnight Queen, Damned Vessel.jpg" id="TVN_96_Midnight Queen, Damned Vessel" data-flag="@X" onclick="openSidebar('TVN_96_Midnight Queen, Damned Vessel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/149_Stormward Shanties.jpg" id="TVN_149_Stormward Shanties" data-flag="@X" onclick="openSidebar('TVN_149_Stormward Shanties',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/172_Otoro, Wild Explorer.jpg" id="TVN_172_Otoro, Wild Explorer" data-flag="@X" onclick="openSidebar('TVN_172_Otoro, Wild Explorer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/1_Cloudscape Kraken.jpg" id="TVN_1_Cloudscape Kraken" data-flag="@X" onclick="openSidebar('TVN_1_Cloudscape Kraken',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/44_Cloud Sea Bell.jpg" id="TVN_44_Cloud Sea Bell" data-flag="@X" onclick="openSidebar('TVN_44_Cloud Sea Bell',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/80_Crossbone Cove Cutter.jpg" id="TVN_80_Crossbone Cove Cutter" data-flag="@X" onclick="openSidebar('TVN_80_Crossbone Cove Cutter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/118_Blacksail Looter.jpg" id="TVN_118_Blacksail Looter" data-flag="@X" onclick="openSidebar('TVN_118_Blacksail Looter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/183_Tin Isle Bear.jpg" id="TVN_183_Tin Isle Bear" data-flag="@X" onclick="openSidebar('TVN_183_Tin Isle Bear',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/7_Deckside Gunner.jpg" id="TVN_7_Deckside Gunner" data-flag="@X" onclick="openSidebar('TVN_7_Deckside Gunner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/46_Cynette, Cnidariamancer.jpg" id="TVN_46_Cynette, Cnidariamancer" data-flag="@X" onclick="openSidebar('TVN_46_Cynette, Cnidariamancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/82_Deadlights Leviathan.jpg" id="TVN_82_Deadlights Leviathan" data-flag="@X" onclick="openSidebar('TVN_82_Deadlights Leviathan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/120_Charred Isles Excavator.jpg" id="TVN_120_Charred Isles Excavator" data-flag="@X" onclick="openSidebar('TVN_120_Charred Isles Excavator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/154_Ava, Thorny Diva.jpg" id="TVN_154_Ava, Thorny Diva" data-flag="@X" onclick="openSidebar('TVN_154_Ava, Thorny Diva',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/14_Eradicating Wave.jpg" id="TVN_14_Eradicating Wave" data-flag="@X" onclick="openSidebar('TVN_14_Eradicating Wave',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/53_Gelid Tyrant's Challenge.jpg" id="TVN_53_Gelid Tyrants Challenge" data-flag="@X" onclick="openSidebar('TVN_53_Gelid Tyrants Challenge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/84_Deep Tyrant's Challenge.jpg" id="TVN_84_Deep Tyrants Challenge" data-flag="@X" onclick="openSidebar('TVN_84_Deep Tyrants Challenge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/123_Crackling Eel.jpg" id="TVN_123_Crackling Eel" data-flag="@X" onclick="openSidebar('TVN_123_Crackling Eel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/155_Coral Tyrant's Challenge.jpg" id="TVN_155_Coral Tyrants Challenge" data-flag="@X" onclick="openSidebar('TVN_155_Coral Tyrants Challenge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/15_Exuberant Podcaller.jpg" id="TVN_15_Exuberant Podcaller" data-flag="@X" onclick="openSidebar('TVN_15_Exuberant Podcaller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/56_Hunting Whale.jpg" id="TVN_56_Hunting Whale" data-flag="@X" onclick="openSidebar('TVN_56_Hunting Whale',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/88_Fleetsinker.jpg" id="TVN_88_Fleetsinker" data-flag="@X" onclick="openSidebar('TVN_88_Fleetsinker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/134_Hookfin, Basalt Commander.jpg" id="TVN_134_Hookfin, Basalt Commander" data-flag="@X" onclick="openSidebar('TVN_134_Hookfin, Basalt Commander',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/163_Gothil's Clutchling.jpg" id="TVN_163_Gothils Clutchling" data-flag="@X" onclick="openSidebar('TVN_163_Gothils Clutchling',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/19_GR-4E, Personal Guard.jpg" id="TVN_19_GR-4E, Personal Guard" data-flag="@X" onclick="openSidebar('TVN_19_GR-4E, Personal Guard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/57_Inkmane Hippocamp.jpg" id="TVN_57_Inkmane Hippocamp" data-flag="@X" onclick="openSidebar('TVN_57_Inkmane Hippocamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/92_Jahan, High Seas Lich.jpg" id="TVN_92_Jahan, High Seas Lich" data-flag="@X" onclick="openSidebar('TVN_92_Jahan, High Seas Lich',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/136_Ironfang Amphisbaena.jpg" id="TVN_136_Ironfang Amphisbaena" data-flag="@X" onclick="openSidebar('TVN_136_Ironfang Amphisbaena',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/167_Isle-Mimic Leviathan.jpg" id="TVN_167_Isle-Mimic Leviathan" data-flag="@X" onclick="openSidebar('TVN_167_Isle-Mimic Leviathan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/30_Shore Tyrant's Challenge.jpg" id="TVN_30_Shore Tyrants Challenge" data-flag="@X" onclick="openSidebar('TVN_30_Shore Tyrants Challenge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/59_Meticulous Planning.jpg" id="TVN_59_Meticulous Planning" data-flag="@X" onclick="openSidebar('TVN_59_Meticulous Planning',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/95_Lich's Insight.jpg" id="TVN_95_Lichs Insight" data-flag="@X" onclick="openSidebar('TVN_95_Lichs Insight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/137_Lavaheart Dragon.jpg" id="TVN_137_Lavaheart Dragon" data-flag="@X" onclick="openSidebar('TVN_137_Lavaheart Dragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/174_Perennial Regrowth.jpg" id="TVN_174_Perennial Regrowth" data-flag="@X" onclick="openSidebar('TVN_174_Perennial Regrowth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/31_Skilled Shipwright.jpg" id="TVN_31_Skilled Shipwright" data-flag="@X" onclick="openSidebar('TVN_31_Skilled Shipwright',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/60_Mindribbon Serpent.jpg" id="TVN_60_Mindribbon Serpent" data-flag="@X" onclick="openSidebar('TVN_60_Mindribbon Serpent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/107_Rot Sea Worm.jpg" id="TVN_107_Rot Sea Worm" data-flag="@X" onclick="openSidebar('TVN_107_Rot Sea Worm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/142_Magmawake Whale.jpg" id="TVN_142_Magmawake Whale" data-flag="@X" onclick="openSidebar('TVN_142_Magmawake Whale',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/186_Tin Isle Wurmrig.jpg" id="TVN_186_Tin Isle Wurmrig" data-flag="@X" onclick="openSidebar('TVN_186_Tin Isle Wurmrig',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/33_Splendor Port Guardship.jpg" id="TVN_33_Splendor Port Guardship" data-flag="@X" onclick="openSidebar('TVN_33_Splendor Port Guardship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/76_Wunderpus Mimic.jpg" id="TVN_76_Wunderpus Mimic" data-flag="@X" onclick="openSidebar('TVN_76_Wunderpus Mimic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/109_Silent Drifter.jpg" id="TVN_109_Silent Drifter" data-flag="@X" onclick="openSidebar('TVN_109_Silent Drifter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/152_Vein Tyrant's Challenge.jpg" id="TVN_152_Vein Tyrants Challenge" data-flag="@X" onclick="openSidebar('TVN_152_Vein Tyrants Challenge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/188_Vedre Strait Caller.jpg" id="TVN_188_Vedre Strait Caller" data-flag="@X" onclick="openSidebar('TVN_188_Vedre Strait Caller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/4_Cogwork Deckhands.jpg" id="TVN_4_Cogwork Deckhands" data-flag="@X" onclick="openSidebar('TVN_4_Cogwork Deckhands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/39_Abyssal Trilobite.jpg" id="TVN_39_Abyssal Trilobite" data-flag="@X" onclick="openSidebar('TVN_39_Abyssal Trilobite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/86_Dredging Arm.jpg" id="TVN_86_Dredging Arm" data-flag="@X" onclick="openSidebar('TVN_86_Dredging Arm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/122_Clamp Down.jpg" id="TVN_122_Clamp Down" data-flag="@X" onclick="openSidebar('TVN_122_Clamp Down',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/189_Vibrant Siphonophore.jpg" id="TVN_189_Vibrant Siphonophore" data-flag="@X" onclick="openSidebar('TVN_189_Vibrant Siphonophore',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/5_Combat Rigging.jpg" id="TVN_5_Combat Rigging" data-flag="@X" onclick="openSidebar('TVN_5_Combat Rigging',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/40_Adel, the Gelid Tyrant.jpg" id="TVN_40_Adel, the Gelid Tyrant" data-flag="@X" onclick="openSidebar('TVN_40_Adel, the Gelid Tyrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/89_Grimechurner Rotboat.jpg" id="TVN_89_Grimechurner Rotboat" data-flag="@X" onclick="openSidebar('TVN_89_Grimechurner Rotboat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/127_Dunemaker Wurm.jpg" id="TVN_127_Dunemaker Wurm" data-flag="@X" onclick="openSidebar('TVN_127_Dunemaker Wurm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/153_Apex Anomalocaris.jpg" id="TVN_153_Apex Anomalocaris" data-flag="@X" onclick="openSidebar('TVN_153_Apex Anomalocaris',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/9_Distracting Dolphin.jpg" id="TVN_9_Distracting Dolphin" data-flag="@X" onclick="openSidebar('TVN_9_Distracting Dolphin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/43_Chart a Course.jpg" id="TVN_43_Chart a Course" data-flag="@X" onclick="openSidebar('TVN_43_Chart a Course',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/91_Inktrench's Trail.jpg" id="TVN_91_Inktrenchs Trail" data-flag="@X" onclick="openSidebar('TVN_91_Inktrenchs Trail',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/129_Eruptive Emergence.jpg" id="TVN_129_Eruptive Emergence" data-flag="@X" onclick="openSidebar('TVN_129_Eruptive Emergence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/156_Destructive Wake.jpg" id="TVN_156_Destructive Wake" data-flag="@X" onclick="openSidebar('TVN_156_Destructive Wake',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/13_Engine Repairs.jpg" id="TVN_13_Engine Repairs" data-flag="@X" onclick="openSidebar('TVN_13_Engine Repairs',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/45_Cloud Sea Snatcher.jpg" id="TVN_45_Cloud Sea Snatcher" data-flag="@X" onclick="openSidebar('TVN_45_Cloud Sea Snatcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/93_Jahan's Pets.jpg" id="TVN_93_Jahans Pets" data-flag="@X" onclick="openSidebar('TVN_93_Jahans Pets',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/132_Full Tilt.jpg" id="TVN_132_Full Tilt" data-flag="@X" onclick="openSidebar('TVN_132_Full Tilt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/160_Foraging Badger.jpg" id="TVN_160_Foraging Badger" data-flag="@X" onclick="openSidebar('TVN_160_Foraging Badger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/16_First Fleet Airship.jpg" id="TVN_16_First Fleet Airship" data-flag="@X" onclick="openSidebar('TVN_16_First Fleet Airship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/47_Dash on the Rocks.jpg" id="TVN_47_Dash on the Rocks" data-flag="@X" onclick="openSidebar('TVN_47_Dash on the Rocks',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/98_Nullvice, the Deep Tyrant.jpg" id="TVN_98_Nullvice, the Deep Tyrant" data-flag="@X" onclick="openSidebar('TVN_98_Nullvice, the Deep Tyrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/133_Gella, the Vein Tyrant.jpg" id="TVN_133_Gella, the Vein Tyrant" data-flag="@X" onclick="openSidebar('TVN_133_Gella, the Vein Tyrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/161_Gilded Plating.jpg" id="TVN_161_Gilded Plating" data-flag="@X" onclick="openSidebar('TVN_161_Gilded Plating',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/21_Mistcutter Attendant.jpg" id="TVN_21_Mistcutter Attendant" data-flag="@X" onclick="openSidebar('TVN_21_Mistcutter Attendant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/48_Disrupt Existence.jpg" id="TVN_48_Disrupt Existence" data-flag="@X" onclick="openSidebar('TVN_48_Disrupt Existence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/100_Pirate's Blessing.jpg" id="TVN_100_Pirates Blessing" data-flag="@X" onclick="openSidebar('TVN_100_Pirates Blessing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/139_Loose Cannon.jpg" id="TVN_139_Loose Cannon" data-flag="@X" onclick="openSidebar('TVN_139_Loose Cannon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/164_Goz, the Coral Tyrant.jpg" id="TVN_164_Goz, the Coral Tyrant" data-flag="@X" onclick="openSidebar('TVN_164_Goz, the Coral Tyrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/23_Port Patrolship.jpg" id="TVN_23_Port Patrolship" data-flag="@X" onclick="openSidebar('TVN_23_Port Patrolship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/52_Gelid Sea Whale.jpg" id="TVN_52_Gelid Sea Whale" data-flag="@X" onclick="openSidebar('TVN_52_Gelid Sea Whale',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/101_Raise from the Depths.jpg" id="TVN_101_Raise from the Depths" data-flag="@X" onclick="openSidebar('TVN_101_Raise from the Depths',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/140_Lovebyrd's Galleon.jpg" id="TVN_140_Lovebyrds Galleon" data-flag="@X" onclick="openSidebar('TVN_140_Lovebyrds Galleon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/169_Lineaz Eulogist.jpg" id="TVN_169_Lineaz Eulogist" data-flag="@X" onclick="openSidebar('TVN_169_Lineaz Eulogist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/24_Repel Titans.jpg" id="TVN_24_Repel Titans" data-flag="@X" onclick="openSidebar('TVN_24_Repel Titans',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/55_Hippocamp Wrangler.jpg" id="TVN_55_Hippocamp Wrangler" data-flag="@X" onclick="openSidebar('TVN_55_Hippocamp Wrangler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/102_Rakish Buccaneer.jpg" id="TVN_102_Rakish Buccaneer" data-flag="@X" onclick="openSidebar('TVN_102_Rakish Buccaneer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/141_Magmatic Gastrolith.jpg" id="TVN_141_Magmatic Gastrolith" data-flag="@X" onclick="openSidebar('TVN_141_Magmatic Gastrolith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/170_Lurking Alligator.jpg" id="TVN_170_Lurking Alligator" data-flag="@X" onclick="openSidebar('TVN_170_Lurking Alligator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/25_Rescue Carrier.jpg" id="TVN_25_Rescue Carrier" data-flag="@X" onclick="openSidebar('TVN_25_Rescue Carrier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/63_Overwhelming Riptide.jpg" id="TVN_63_Overwhelming Riptide" data-flag="@X" onclick="openSidebar('TVN_63_Overwhelming Riptide',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/103_Requisitioned Raider.jpg" id="TVN_103_Requisitioned Raider" data-flag="@X" onclick="openSidebar('TVN_103_Requisitioned Raider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/145_Ready, Aim, Fire!.jpg" id="TVN_145_Ready, Aim, Fire!" data-flag="@X" onclick="openSidebar('TVN_145_Ready, Aim, Fire!',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/173_Pathstomper Javelina.jpg" id="TVN_173_Pathstomper Javelina" data-flag="@X" onclick="openSidebar('TVN_173_Pathstomper Javelina',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/26_Sabek, the Shore Tyrant.jpg" id="TVN_26_Sabek, the Shore Tyrant" data-flag="@X" onclick="openSidebar('TVN_26_Sabek, the Shore Tyrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/64_Pearl Trader's Manta.jpg" id="TVN_64_Pearl Traders Manta" data-flag="@X" onclick="openSidebar('TVN_64_Pearl Traders Manta',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/108_Shipyard Scavenger.jpg" id="TVN_108_Shipyard Scavenger" data-flag="@X" onclick="openSidebar('TVN_108_Shipyard Scavenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/146_Roaming Dunkleosteus.jpg" id="TVN_146_Roaming Dunkleosteus" data-flag="@X" onclick="openSidebar('TVN_146_Roaming Dunkleosteus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/175_Plow Through.jpg" id="TVN_175_Plow Through" data-flag="@X" onclick="openSidebar('TVN_175_Plow Through',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/27_Seafolk Pilgrimguard.jpg" id="TVN_27_Seafolk Pilgrimguard" data-flag="@X" onclick="openSidebar('TVN_27_Seafolk Pilgrimguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/69_Starry Night Skiff.jpg" id="TVN_69_Starry Night Skiff" data-flag="@X" onclick="openSidebar('TVN_69_Starry Night Skiff',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/111_Tendrils of the Deep.jpg" id="TVN_111_Tendrils of the Deep" data-flag="@X" onclick="openSidebar('TVN_111_Tendrils of the Deep',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/148_Seasoned Cannoneer.jpg" id="TVN_148_Seasoned Cannoneer" data-flag="@X" onclick="openSidebar('TVN_148_Seasoned Cannoneer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/176_Primordial Coelacanth.jpg" id="TVN_176_Primordial Coelacanth" data-flag="@X" onclick="openSidebar('TVN_176_Primordial Coelacanth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/29_Shining Wingfin.jpg" id="TVN_29_Shining Wingfin" data-flag="@X" onclick="openSidebar('TVN_29_Shining Wingfin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/72_Submersible Pod.jpg" id="TVN_72_Submersible Pod" data-flag="@X" onclick="openSidebar('TVN_72_Submersible Pod',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/113_Vile Gastrolith.jpg" id="TVN_113_Vile Gastrolith" data-flag="@X" onclick="openSidebar('TVN_113_Vile Gastrolith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/150_Thrashing Fiddler.jpg" id="TVN_150_Thrashing Fiddler" data-flag="@X" onclick="openSidebar('TVN_150_Thrashing Fiddler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/179_Ramming Prow.jpg" id="TVN_179_Ramming Prow" data-flag="@X" onclick="openSidebar('TVN_179_Ramming Prow',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/38_Tanglegrasp Jelly.jpg" id="TVN_38_Tanglegrasp Jelly" data-flag="@X" onclick="openSidebar('TVN_38_Tanglegrasp Jelly',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/73_Thirst for Power.jpg" id="TVN_73_Thirst for Power" data-flag="@X" onclick="openSidebar('TVN_73_Thirst for Power',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/114_Whirlpool Annihilator.jpg" id="TVN_114_Whirlpool Annihilator" data-flag="@X" onclick="openSidebar('TVN_114_Whirlpool Annihilator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/151_Tyrant's Demand.jpg" id="TVN_151_Tyrants Demand" data-flag="@X" onclick="openSidebar('TVN_151_Tyrants Demand',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/184_Tin Isle Channeler.jpg" id="TVN_184_Tin Isle Channeler" data-flag="@X" onclick="openSidebar('TVN_184_Tin Isle Channeler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/2_Cog Maintainer.jpg" id="TVN_2_Cog Maintainer" data-flag="@X" onclick="openSidebar('TVN_2_Cog Maintainer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/41_Beachcombing Tiktaalik.jpg" id="TVN_41_Beachcombing Tiktaalik" data-flag="@X" onclick="openSidebar('TVN_41_Beachcombing Tiktaalik',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/77_Abyssal Tempter.jpg" id="TVN_77_Abyssal Tempter" data-flag="@X" onclick="openSidebar('TVN_77_Abyssal Tempter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/115_Angered Slaghorn.jpg" id="TVN_115_Angered Slaghorn" data-flag="@X" onclick="openSidebar('TVN_115_Angered Slaghorn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/191_Zoophonic Call.jpg" id="TVN_191_Zoophonic Call" data-flag="@X" onclick="openSidebar('TVN_191_Zoophonic Call',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/3_Cogwork Crew.jpg" id="TVN_3_Cogwork Crew" data-flag="@X" onclick="openSidebar('TVN_3_Cogwork Crew',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/42_Breaching Greatshark.jpg" id="TVN_42_Breaching Greatshark" data-flag="@X" onclick="openSidebar('TVN_42_Breaching Greatshark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/78_Ambitious Prototype.jpg" id="TVN_78_Ambitious Prototype" data-flag="@X" onclick="openSidebar('TVN_78_Ambitious Prototype',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/116_Basking Iguanin.jpg" id="TVN_116_Basking Iguanin" data-flag="@X" onclick="openSidebar('TVN_116_Basking Iguanin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/157_Drag from the Shallows.jpg" id="TVN_157_Drag from the Shallows" data-flag="@X" onclick="openSidebar('TVN_157_Drag from the Shallows',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/6_Deckhand's Blade.jpg" id="TVN_6_Deckhands Blade" data-flag="@X" onclick="openSidebar('TVN_6_Deckhands Blade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/49_Fishy Rumormonger.jpg" id="TVN_49_Fishy Rumormonger" data-flag="@X" onclick="openSidebar('TVN_49_Fishy Rumormonger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/79_Clattering Boneship.jpg" id="TVN_79_Clattering Boneship" data-flag="@X" onclick="openSidebar('TVN_79_Clattering Boneship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/117_Big Score.jpg" id="TVN_117_Big Score" data-flag="@X" onclick="openSidebar('TVN_117_Big Score',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/158_Dryad Navigator.jpg" id="TVN_158_Dryad Navigator" data-flag="@X" onclick="openSidebar('TVN_158_Dryad Navigator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/8_Determined Push.jpg" id="TVN_8_Determined Push" data-flag="@X" onclick="openSidebar('TVN_8_Determined Push',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/50_Freezing Winds.jpg" id="TVN_50_Freezing Winds" data-flag="@X" onclick="openSidebar('TVN_50_Freezing Winds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/83_Deadman's Tales.jpg" id="TVN_83_Deadmans Tales" data-flag="@X" onclick="openSidebar('TVN_83_Deadmans Tales',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/119_Bursting Vein Serpent.jpg" id="TVN_119_Bursting Vein Serpent" data-flag="@X" onclick="openSidebar('TVN_119_Bursting Vein Serpent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/159_Elemental's Flourish.jpg" id="TVN_159_Elementals Flourish" data-flag="@X" onclick="openSidebar('TVN_159_Elementals Flourish',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/10_Drop-Off Specialist.jpg" id="TVN_10_Drop-Off Specialist" data-flag="@X" onclick="openSidebar('TVN_10_Drop-Off Specialist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/51_Gelid Sea Courier.jpg" id="TVN_51_Gelid Sea Courier" data-flag="@X" onclick="openSidebar('TVN_51_Gelid Sea Courier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/85_Devour.jpg" id="TVN_85_Devour" data-flag="@X" onclick="openSidebar('TVN_85_Devour',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/121_Charred Isles Shovelbearer.jpg" id="TVN_121_Charred Isles Shovelbearer" data-flag="@X" onclick="openSidebar('TVN_121_Charred Isles Shovelbearer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/162_Give In to Instinct.jpg" id="TVN_162_Give In to Instinct" data-flag="@X" onclick="openSidebar('TVN_162_Give In to Instinct',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/11_Early-Stage Aviator.jpg" id="TVN_11_Early-Stage Aviator" data-flag="@X" onclick="openSidebar('TVN_11_Early-Stage Aviator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/54_Giant Remora.jpg" id="TVN_54_Giant Remora" data-flag="@X" onclick="openSidebar('TVN_54_Giant Remora',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/87_Fangcrest Finisher.jpg" id="TVN_87_Fangcrest Finisher" data-flag="@X" onclick="openSidebar('TVN_87_Fangcrest Finisher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/124_Crushing Charge.jpg" id="TVN_124_Crushing Charge" data-flag="@X" onclick="openSidebar('TVN_124_Crushing Charge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/165_Hoofbeats in the Woods.jpg" id="TVN_165_Hoofbeats in the Woods" data-flag="@X" onclick="openSidebar('TVN_165_Hoofbeats in the Woods',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/18_Goldseeker Cruiser.jpg" id="TVN_18_Goldseeker Cruiser" data-flag="@X" onclick="openSidebar('TVN_18_Goldseeker Cruiser',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/58_Mercurial Skyrod.jpg" id="TVN_58_Mercurial Skyrod" data-flag="@X" onclick="openSidebar('TVN_58_Mercurial Skyrod',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/90_Inktrench Stinger.jpg" id="TVN_90_Inktrench Stinger" data-flag="@X" onclick="openSidebar('TVN_90_Inktrench Stinger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/125_Daunting Figurehead.jpg" id="TVN_125_Daunting Figurehead" data-flag="@X" onclick="openSidebar('TVN_125_Daunting Figurehead',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/168_Leafwhisper Beetle.jpg" id="TVN_168_Leafwhisper Beetle" data-flag="@X" onclick="openSidebar('TVN_168_Leafwhisper Beetle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/20_Heartfelt Shipwright.jpg" id="TVN_20_Heartfelt Shipwright" data-flag="@X" onclick="openSidebar('TVN_20_Heartfelt Shipwright',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/62_Observant Osprey.jpg" id="TVN_62_Observant Osprey" data-flag="@X" onclick="openSidebar('TVN_62_Observant Osprey',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/94_Lamprey Swarm.jpg" id="TVN_94_Lamprey Swarm" data-flag="@X" onclick="openSidebar('TVN_94_Lamprey Swarm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/126_Dockside Rebuffer.jpg" id="TVN_126_Dockside Rebuffer" data-flag="@X" onclick="openSidebar('TVN_126_Dockside Rebuffer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/171_Mosstusk Guardian.jpg" id="TVN_171_Mosstusk Guardian" data-flag="@X" onclick="openSidebar('TVN_171_Mosstusk Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/22_Pearlthrone Guard.jpg" id="TVN_22_Pearlthrone Guard" data-flag="@X" onclick="openSidebar('TVN_22_Pearlthrone Guard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/65_Read the Starfish.jpg" id="TVN_65_Read the Starfish" data-flag="@X" onclick="openSidebar('TVN_65_Read the Starfish',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/97_Noxious Venting.jpg" id="TVN_97_Noxious Venting" data-flag="@X" onclick="openSidebar('TVN_97_Noxious Venting',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/128_Encrusted Crustacean.jpg" id="TVN_128_Encrusted Crustacean" data-flag="@X" onclick="openSidebar('TVN_128_Encrusted Crustacean',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/177_Propagated Bioship.jpg" id="TVN_177_Propagated Bioship" data-flag="@X" onclick="openSidebar('TVN_177_Propagated Bioship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/28_Seafolk Sentinel.jpg" id="TVN_28_Seafolk Sentinel" data-flag="@X" onclick="openSidebar('TVN_28_Seafolk Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/66_Sea Witch's Wards.jpg" id="TVN_66_Sea Witchs Wards" data-flag="@X" onclick="openSidebar('TVN_66_Sea Witchs Wards',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/99_Perilous Pickpocket.jpg" id="TVN_99_Perilous Pickpocket" data-flag="@X" onclick="openSidebar('TVN_99_Perilous Pickpocket',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/130_Expedition Funding.jpg" id="TVN_130_Expedition Funding" data-flag="@X" onclick="openSidebar('TVN_130_Expedition Funding',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/178_Quaking Tunneler.jpg" id="TVN_178_Quaking Tunneler" data-flag="@X" onclick="openSidebar('TVN_178_Quaking Tunneler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/32_Skyskimmer Glaucus.jpg" id="TVN_32_Skyskimmer Glaucus" data-flag="@X" onclick="openSidebar('TVN_32_Skyskimmer Glaucus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/67_Seafoam Shackles.jpg" id="TVN_67_Seafoam Shackles" data-flag="@X" onclick="openSidebar('TVN_67_Seafoam Shackles',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/104_Retrofitted Rampager.jpg" id="TVN_104_Retrofitted Rampager" data-flag="@X" onclick="openSidebar('TVN_104_Retrofitted Rampager',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/131_Explosive Rage.jpg" id="TVN_131_Explosive Rage" data-flag="@X" onclick="openSidebar('TVN_131_Explosive Rage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/180_Rootpath Mamba.jpg" id="TVN_180_Rootpath Mamba" data-flag="@X" onclick="openSidebar('TVN_180_Rootpath Mamba',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/34_Stand as One.jpg" id="TVN_34_Stand as One" data-flag="@X" onclick="openSidebar('TVN_34_Stand as One',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/70_Stormbelt Serpent.jpg" id="TVN_70_Stormbelt Serpent" data-flag="@X" onclick="openSidebar('TVN_70_Stormbelt Serpent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/105_Ripmaw Assassin.jpg" id="TVN_105_Ripmaw Assassin" data-flag="@X" onclick="openSidebar('TVN_105_Ripmaw Assassin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/138_Lightning Rod Installer.jpg" id="TVN_138_Lightning Rod Installer" data-flag="@X" onclick="openSidebar('TVN_138_Lightning Rod Installer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/181_Rustbladder Kelp.jpg" id="TVN_181_Rustbladder Kelp" data-flag="@X" onclick="openSidebar('TVN_181_Rustbladder Kelp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/35_Steelfin Dolphin.jpg" id="TVN_35_Steelfin Dolphin" data-flag="@X" onclick="openSidebar('TVN_35_Steelfin Dolphin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/71_Stormbringer Ship.jpg" id="TVN_71_Stormbringer Ship" data-flag="@X" onclick="openSidebar('TVN_71_Stormbringer Ship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/106_Rot Sea Surge.jpg" id="TVN_106_Rot Sea Surge" data-flag="@X" onclick="openSidebar('TVN_106_Rot Sea Surge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/143_Overloaded Cannonship.jpg" id="TVN_143_Overloaded Cannonship" data-flag="@X" onclick="openSidebar('TVN_143_Overloaded Cannonship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/182_Shallows Altisaur.jpg" id="TVN_182_Shallows Altisaur" data-flag="@X" onclick="openSidebar('TVN_182_Shallows Altisaur',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/36_Sunken Casket.jpg" id="TVN_36_Sunken Casket" data-flag="@X" onclick="openSidebar('TVN_36_Sunken Casket',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/74_Titanic Haruspicy.jpg" id="TVN_74_Titanic Haruspicy" data-flag="@X" onclick="openSidebar('TVN_74_Titanic Haruspicy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/110_Standard Issue Guardbot.jpg" id="TVN_110_Standard Issue Guardbot" data-flag="@X" onclick="openSidebar('TVN_110_Standard Issue Guardbot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/144_Powderkeg Explosion.jpg" id="TVN_144_Powderkeg Explosion" data-flag="@X" onclick="openSidebar('TVN_144_Powderkeg Explosion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/185_Tin Isle Lifetender.jpg" id="TVN_185_Tin Isle Lifetender" data-flag="@X" onclick="openSidebar('TVN_185_Tin Isle Lifetender',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/37_Sunvine Nurturer.jpg" id="TVN_37_Sunvine Nurturer" data-flag="@X" onclick="openSidebar('TVN_37_Sunvine Nurturer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/75_Wash Overboard.jpg" id="TVN_75_Wash Overboard" data-flag="@X" onclick="openSidebar('TVN_75_Wash Overboard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/112_Titan Bone Assault.jpg" id="TVN_112_Titan Bone Assault" data-flag="@X" onclick="openSidebar('TVN_112_Titan Bone Assault',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/147_Scorching Fox.jpg" id="TVN_147_Scorching Fox" data-flag="@X" onclick="openSidebar('TVN_147_Scorching Fox',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/187_To the Horizon.jpg" id="TVN_187_To the Horizon" data-flag="@X" onclick="openSidebar('TVN_187_To the Horizon',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/190_Wingbeast Hunter.jpg" id="TVN_190_Wingbeast Hunter" data-flag="@X" onclick="openSidebar('TVN_190_Wingbeast Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/218_Malzan the Shipwright.jpg" id="TVN_218_Malzan the Shipwright" data-flag="@X" onclick="openSidebar('TVN_218_Malzan the Shipwright',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/200_Cyfra, Inktrench Tyrant.jpg" id="TVN_200_Cyfra, Inktrench Tyrant" data-flag="@X" onclick="openSidebar('TVN_200_Cyfra, Inktrench Tyrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/204_Eskin, Furnace Master.jpg" id="TVN_204_Eskin, Furnace Master" data-flag="@X" onclick="openSidebar('TVN_204_Eskin, Furnace Master',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/215_Ka'bi, the Bloomhoof.jpg" id="TVN_215_Kabi, the Bloomhoof" data-flag="@X" onclick="openSidebar('TVN_215_Kabi, the Bloomhoof',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/208_Firenz, Sunvine Custodian.jpg" id="TVN_208_Firenz, Sunvine Custodian" data-flag="@X" onclick="openSidebar('TVN_208_Firenz, Sunvine Custodian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/201_Ehn, Cloud Sea Ancient.jpg" id="TVN_201_Ehn, Cloud Sea Ancient" data-flag="@X" onclick="openSidebar('TVN_201_Ehn, Cloud Sea Ancient',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/192_Abyssal Sea-Witch.jpg" id="TVN_192_Abyssal Sea-Witch" data-flag="@X" onclick="openSidebar('TVN_192_Abyssal Sea-Witch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/203_Engines Critical.jpg" id="TVN_203_Engines Critical" data-flag="@X" onclick="openSidebar('TVN_203_Engines Critical',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/231_Tiz'ek's Meltdown.jpg" id="TVN_231_Tizeks Meltdown" data-flag="@X" onclick="openSidebar('TVN_231_Tizeks Meltdown',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/221_Pantry Filler.jpg" id="TVN_221_Pantry Filler" data-flag="@X" onclick="openSidebar('TVN_221_Pantry Filler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/197_Cephalid Strategist.jpg" id="TVN_197_Cephalid Strategist" data-flag="@X" onclick="openSidebar('TVN_197_Cephalid Strategist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/219_Memory Eater.jpg" id="TVN_219_Memory Eater" data-flag="@X" onclick="openSidebar('TVN_219_Memory Eater',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/206_Fangworm Fleetship.jpg" id="TVN_206_Fangworm Fleetship" data-flag="@X" onclick="openSidebar('TVN_206_Fangworm Fleetship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/194_Apex Landshifter.jpg" id="TVN_194_Apex Landshifter" data-flag="@X" onclick="openSidebar('TVN_194_Apex Landshifter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/226_Riding Turtle.jpg" id="TVN_226_Riding Turtle" data-flag="@X" onclick="openSidebar('TVN_226_Riding Turtle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/214_Intrepid Courier.jpg" id="TVN_214_Intrepid Courier" data-flag="@X" onclick="openSidebar('TVN_214_Intrepid Courier',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/224_Reckless Innovator.jpg" id="TVN_224_Reckless Innovator" data-flag="@X" onclick="openSidebar('TVN_224_Reckless Innovator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/216_Lava Flow Hellbender.jpg" id="TVN_216_Lava Flow Hellbender" data-flag="@X" onclick="openSidebar('TVN_216_Lava Flow Hellbender',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/205_Evram, Blind Metallomancer.jpg" id="TVN_205_Evram, Blind Metallomancer" data-flag="@X" onclick="openSidebar('TVN_205_Evram, Blind Metallomancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/210_Grandir, the Storm-Bodied.jpg" id="TVN_210_Grandir, the Storm-Bodied" data-flag="@X" onclick="openSidebar('TVN_210_Grandir, the Storm-Bodied',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/202_Elagid, the Endless Glutton.jpg" id="TVN_202_Elagid, the Endless Glutton" data-flag="@X" onclick="openSidebar('TVN_202_Elagid, the Endless Glutton',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/196_Beliaz, Hot Shot.jpg" id="TVN_196_Beliaz, Hot Shot" data-flag="@X" onclick="openSidebar('TVN_196_Beliaz, Hot Shot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/227_Runes of Recall.jpg" id="TVN_227_Runes of Recall" data-flag="@X" onclick="openSidebar('TVN_227_Runes of Recall',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/229_Superb Salvage.jpg" id="TVN_229_Superb Salvage" data-flag="@X" onclick="openSidebar('TVN_229_Superb Salvage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/211_Grandir's Trove.jpg" id="TVN_211_Grandirs Trove" data-flag="@X" onclick="openSidebar('TVN_211_Grandirs Trove',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/195_Back For More.jpg" id="TVN_195_Back For More" data-flag="@X" onclick="openSidebar('TVN_195_Back For More',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/223_Raucous Week, Party Ship.jpg" id="TVN_223_Raucous Week, Party Ship" data-flag="@X" onclick="openSidebar('TVN_223_Raucous Week, Party Ship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/193_Aesi, Capricious Serpent.jpg" id="TVN_193_Aesi, Capricious Serpent" data-flag="@X" onclick="openSidebar('TVN_193_Aesi, Capricious Serpent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/228_Soulbound Sloop.jpg" id="TVN_228_Soulbound Sloop" data-flag="@X" onclick="openSidebar('TVN_228_Soulbound Sloop',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/198_Chordatan Bloodseeker.jpg" id="TVN_198_Chordatan Bloodseeker" data-flag="@X" onclick="openSidebar('TVN_198_Chordatan Bloodseeker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/213_Hungering Greatleech.jpg" id="TVN_213_Hungering Greatleech" data-flag="@X" onclick="openSidebar('TVN_213_Hungering Greatleech',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/222_Provisions Ship.jpg" id="TVN_222_Provisions Ship" data-flag="@X" onclick="openSidebar('TVN_222_Provisions Ship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/220_Nurturing Algaeback.jpg" id="TVN_220_Nurturing Algaeback" data-flag="@X" onclick="openSidebar('TVN_220_Nurturing Algaeback',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/230_Surly Maintainer.jpg" id="TVN_230_Surly Maintainer" data-flag="@X" onclick="openSidebar('TVN_230_Surly Maintainer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/207_Firejelly Anomaly.jpg" id="TVN_207_Firejelly Anomaly" data-flag="@X" onclick="openSidebar('TVN_207_Firejelly Anomaly',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/225_Relentless Reconstructionist.jpg" id="TVN_225_Relentless Reconstructionist" data-flag="@X" onclick="openSidebar('TVN_225_Relentless Reconstructionist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/232_Tyrant Territory.jpg" id="TVN_232_Tyrant Territory" data-flag="@X" onclick="openSidebar('TVN_232_Tyrant Territory',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/209_Grahn, Seafolk Huntmaster.jpg" id="TVN_209_Grahn, Seafolk Huntmaster" data-flag="@X" onclick="openSidebar('TVN_209_Grahn, Seafolk Huntmaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/212_Holtz, Devilish Benefactor.jpg" id="TVN_212_Holtz, Devilish Benefactor" data-flag="@X" onclick="openSidebar('TVN_212_Holtz, Devilish Benefactor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/217_Len, Endless Tentacles.jpg" id="TVN_217_Len, Endless Tentacles" data-flag="@X" onclick="openSidebar('TVN_217_Len, Endless Tentacles',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/199_Cloudbelt Synthesis.jpg" id="TVN_199_Cloudbelt Synthesis" data-flag="@X" onclick="openSidebar('TVN_199_Cloudbelt Synthesis',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/236_Goldvein Monstrosity.jpg" id="TVN_236_Goldvein Monstrosity" data-flag="@X" onclick="openSidebar('TVN_236_Goldvein Monstrosity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/240_Power Siphon.jpg" id="TVN_240_Power Siphon" data-flag="@X" onclick="openSidebar('TVN_240_Power Siphon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/243_Tideborne Generator.jpg" id="TVN_243_Tideborne Generator" data-flag="@X" onclick="openSidebar('TVN_243_Tideborne Generator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/233_Cogwork Companion.jpg" id="TVN_233_Cogwork Companion" data-flag="@X" onclick="openSidebar('TVN_233_Cogwork Companion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/238_Merchant Vessel.jpg" id="TVN_238_Merchant Vessel" data-flag="@X" onclick="openSidebar('TVN_238_Merchant Vessel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/239_Pirate Salvo.jpg" id="TVN_239_Pirate Salvo" data-flag="@X" onclick="openSidebar('TVN_239_Pirate Salvo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/242_Sturdy Anchoring.jpg" id="TVN_242_Sturdy Anchoring" data-flag="@X" onclick="openSidebar('TVN_242_Sturdy Anchoring',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/244_Trench Drone.jpg" id="TVN_244_Trench Drone" data-flag="@X" onclick="openSidebar('TVN_244_Trench Drone',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/246_Untapped Gastrolith.jpg" id="TVN_246_Untapped Gastrolith" data-flag="@X" onclick="openSidebar('TVN_246_Untapped Gastrolith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/234_Cogwork Ichthyoid.jpg" id="TVN_234_Cogwork Ichthyoid" data-flag="@X" onclick="openSidebar('TVN_234_Cogwork Ichthyoid',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/235_Deepweb Spider.jpg" id="TVN_235_Deepweb Spider" data-flag="@X" onclick="openSidebar('TVN_235_Deepweb Spider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/237_High Seas Harrier.jpg" id="TVN_237_High Seas Harrier" data-flag="@X" onclick="openSidebar('TVN_237_High Seas Harrier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/241_Research Vessel.jpg" id="TVN_241_Research Vessel" data-flag="@X" onclick="openSidebar('TVN_241_Research Vessel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/245_Uncovered Pitfall.jpg" id="TVN_245_Uncovered Pitfall" data-flag="@X" onclick="openSidebar('TVN_245_Uncovered Pitfall',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/253_Glamorous Port.jpg" id="TVN_253_Glamorous Port" data-flag="@X" onclick="openSidebar('TVN_253_Glamorous Port',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/257_Seafolk Court.jpg" id="TVN_257_Seafolk Court" data-flag="@X" onclick="openSidebar('TVN_257_Seafolk Court',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/256_Pirates' Bay.jpg" id="TVN_256_Pirates Bay" data-flag="@X" onclick="openSidebar('TVN_256_Pirates Bay',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/259_Unstable Vein.jpg" id="TVN_259_Unstable Vein" data-flag="@X" onclick="openSidebar('TVN_259_Unstable Vein',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/249_Churning Landscape.jpg" id="TVN_249_Churning Landscape" data-flag="@X" onclick="openSidebar('TVN_249_Churning Landscape',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/260_Cloud Sea.jpg" id="TVN_260_Cloud Sea" data-flag="@X" onclick="openSidebar('TVN_260_Cloud Sea',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/264_Inktrench Crag.jpg" id="TVN_264_Inktrench Crag" data-flag="@X" onclick="openSidebar('TVN_264_Inktrench Crag',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/262_Grand Rim Caldera.jpg" id="TVN_262_Grand Rim Caldera" data-flag="@X" onclick="openSidebar('TVN_262_Grand Rim Caldera',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/268_Tin Isle Canyon.jpg" id="TVN_268_Tin Isle Canyon" data-flag="@X" onclick="openSidebar('TVN_268_Tin Isle Canyon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/269_Turtle Beach.jpg" id="TVN_269_Turtle Beach" data-flag="@X" onclick="openSidebar('TVN_269_Turtle Beach',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/255_Labor District.jpg" id="TVN_255_Labor District" data-flag="@X" onclick="openSidebar('TVN_255_Labor District',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/250_Crackling Cataract.jpg" id="TVN_250_Crackling Cataract" data-flag="@X" onclick="openSidebar('TVN_250_Crackling Cataract',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/252_Fertile Delta.jpg" id="TVN_252_Fertile Delta" data-flag="@X" onclick="openSidebar('TVN_252_Fertile Delta',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/254_Gold Mine.jpg" id="TVN_254_Gold Mine" data-flag="@X" onclick="openSidebar('TVN_254_Gold Mine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/247_Algal Orchard.jpg" id="TVN_247_Algal Orchard" data-flag="@X" onclick="openSidebar('TVN_247_Algal Orchard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/266_Silent Shores.jpg" id="TVN_266_Silent Shores" data-flag="@X" onclick="openSidebar('TVN_266_Silent Shores',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/267_Storm Belt.jpg" id="TVN_267_Storm Belt" data-flag="@X" onclick="openSidebar('TVN_267_Storm Belt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/265_Rot Sea.jpg" id="TVN_265_Rot Sea" data-flag="@X" onclick="openSidebar('TVN_265_Rot Sea',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/261_Congregation Reef.jpg" id="TVN_261_Congregation Reef" data-flag="@X" onclick="openSidebar('TVN_261_Congregation Reef',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/263_Gyre Strait.jpg" id="TVN_263_Gyre Strait" data-flag="@X" onclick="openSidebar('TVN_263_Gyre Strait',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/251_Deepsea Maw.jpg" id="TVN_251_Deepsea Maw" data-flag="@X" onclick="openSidebar('TVN_251_Deepsea Maw',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/258_Uncharted Strait.jpg" id="TVN_258_Uncharted Strait" data-flag="@X" onclick="openSidebar('TVN_258_Uncharted Strait',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/248_Busy Workshop.jpg" id="TVN_248_Busy Workshop" data-flag="@X" onclick="openSidebar('TVN_248_Busy Workshop',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/272_Plains.jpg" id="TVN_272_Plains" data-flag="@X" onclick="openSidebar('TVN_272_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/271_Plains.jpg" id="TVN_271_Plains" data-flag="@X" onclick="openSidebar('TVN_271_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/275_Island.jpg" id="TVN_275_Island" data-flag="@X" onclick="openSidebar('TVN_275_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/273_Island.jpg" id="TVN_273_Island" data-flag="@X" onclick="openSidebar('TVN_273_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/277_Swamp.jpg" id="TVN_277_Swamp" data-flag="@X" onclick="openSidebar('TVN_277_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/276_Swamp.jpg" id="TVN_276_Swamp" data-flag="@X" onclick="openSidebar('TVN_276_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/279_Mountain.jpg" id="TVN_279_Mountain" data-flag="@X" onclick="openSidebar('TVN_279_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/280_Mountain.jpg" id="TVN_280_Mountain" data-flag="@X" onclick="openSidebar('TVN_280_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/282_Forest.jpg" id="TVN_282_Forest" data-flag="@X" onclick="openSidebar('TVN_282_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/284_Forest.jpg" id="TVN_284_Forest" data-flag="@X" onclick="openSidebar('TVN_284_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/270_Plains.jpg" id="TVN_270_Plains" data-flag="@X" onclick="openSidebar('TVN_270_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/274_Island.jpg" id="TVN_274_Island" data-flag="@X" onclick="openSidebar('TVN_274_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/278_Swamp.jpg" id="TVN_278_Swamp" data-flag="@X" onclick="openSidebar('TVN_278_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/281_Mountain.jpg" id="TVN_281_Mountain" data-flag="@X" onclick="openSidebar('TVN_281_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/283_Forest.jpg" id="TVN_283_Forest" data-flag="@X" onclick="openSidebar('TVN_283_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/1t_Copy.jpg" id="TVN_1t_Copy" data-flag="@X" onclick="openSidebar('TVN_1t_Copy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/15t_Blood.jpg" id="TVN_15t_Blood" data-flag="@X" onclick="openSidebar('TVN_15t_Blood',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/16t_Clue.jpg" id="TVN_16t_Clue" data-flag="@X" onclick="openSidebar('TVN_16t_Clue',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/17t_Map.jpg" id="TVN_17t_Map" data-flag="@X" onclick="openSidebar('TVN_17t_Map',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/18t_Treasure.jpg" id="TVN_18t_Treasure" data-flag="@X" onclick="openSidebar('TVN_18t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/2t_Sailor.jpg" id="TVN_2t_Sailor" data-flag="@X" onclick="openSidebar('TVN_2t_Sailor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/3t_Whale.jpg" id="TVN_3t_Whale" data-flag="@X" onclick="openSidebar('TVN_3t_Whale',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/4t_Bird Pirate.jpg" id="TVN_4t_Bird Pirate" data-flag="@X" onclick="openSidebar('TVN_4t_Bird Pirate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/5t_Construct.jpg" id="TVN_5t_Construct" data-flag="@X" onclick="openSidebar('TVN_5t_Construct',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/6t_Hippocamp.jpg" id="TVN_6t_Hippocamp" data-flag="@X" onclick="openSidebar('TVN_6t_Hippocamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/7t_Jellyfish.jpg" id="TVN_7t_Jellyfish" data-flag="@X" onclick="openSidebar('TVN_7t_Jellyfish',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/8t_Shrimp.jpg" id="TVN_8t_Shrimp" data-flag="@X" onclick="openSidebar('TVN_8t_Shrimp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/9t_Pirate.jpg" id="TVN_9t_Pirate" data-flag="@X" onclick="openSidebar('TVN_9t_Pirate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/10t_Serpent.jpg" id="TVN_10t_Serpent" data-flag="@X" onclick="openSidebar('TVN_10t_Serpent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/11t_Dragon Fish.jpg" id="TVN_11t_Dragon Fish" data-flag="@X" onclick="openSidebar('TVN_11t_Dragon Fish',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/12t_Elemental Elk.jpg" id="TVN_12t_Elemental Elk" data-flag="@X" onclick="openSidebar('TVN_12t_Elemental Elk',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/13t_Scout.jpg" id="TVN_13t_Scout" data-flag="@X" onclick="openSidebar('TVN_13t_Scout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/14t_Turtle.jpg" id="TVN_14t_Turtle" data-flag="@X" onclick="openSidebar('TVN_14t_Turtle',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TVN_e" data-flag="@E" onclick="openSidebar('TVN_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div id="masterpiece" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/10_Waveslicer, Liko's Cruiser.jpg" id="TVN_10_Waveslicer, Likos Cruiser" data-flag="@X" onclick="openSidebar('TVN_10_Waveslicer, Likos Cruiser',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/1_Reprieve.jpg" id="TVN_1_Reprieve" data-flag="@X" onclick="openSidebar('TVN_1_Reprieve',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/2_Ankertrold, the Harrower.jpg" id="TVN_2_Ankertrold, the Harrower" data-flag="@X" onclick="openSidebar('TVN_2_Ankertrold, the Harrower',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/3_Muzzio, Exiled Cogworker.jpg" id="TVN_3_Muzzio, Exiled Cogworker" data-flag="@X" onclick="openSidebar('TVN_3_Muzzio, Exiled Cogworker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/4_Out of the Tombs.jpg" id="TVN_4_Out of the Tombs" data-flag="@X" onclick="openSidebar('TVN_4_Out of the Tombs',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/5_Bloodgap, Reaver Warship.jpg" id="TVN_5_Bloodgap, Reaver Warship" data-flag="@X" onclick="openSidebar('TVN_5_Bloodgap, Reaver Warship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/6_Lazing Megatherium.jpg" id="TVN_6_Lazing Megatherium" data-flag="@X" onclick="openSidebar('TVN_6_Lazing Megatherium',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/7_Coloeus, Blacksail Flagship.jpg" id="TVN_7_Coloeus, Blacksail Flagship" data-flag="@X" onclick="openSidebar('TVN_7_Coloeus, Blacksail Flagship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/9_Ruz and Elda, Lethal Lovebirds.jpg" id="TVN_9_Ruz and Elda, Lethal Lovebirds" data-flag="@X" onclick="openSidebar('TVN_9_Ruz and Elda, Lethal Lovebirds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TVN-files/img/8_Drang, Blacksail Captain.jpg" id="TVN_8_Drang, Blacksail Captain" data-flag="@X" onclick="openSidebar('TVN_8_Drang, Blacksail Captain',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TVN_er" data-flag="@E" onclick="openSidebar('TVN_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

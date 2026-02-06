@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="icon" type="image/png" href="/sets/WOO-files/icon.png"/>
-	<link rel="stylesheet" href="/resources/header.css">
+	<link rel="icon" type="image/png" href="../sets/WOO-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
 	<title>WOO visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
 	<style>
 		@font-face {
 			font-family: Beleren;
-			src: url('/resources/beleren.ttf');
+			src: url('../resources/beleren.ttf');
 		}
 		body {
 			font-family: Arial, sans-serif;
@@ -45,13 +48,15 @@
 			left: 10%;
 			top: 10%;
 			width: 85%;
+			border-radius: 3.733% / 2.677%;
 		}
 		.sidebar-img {
 			vertical-align: middle;
 			width: 100%;
+			border-radius: 3.733% / 2.677%;
 		}
 		.close-btn {
-			background: url('/img/close.png') no-repeat;
+			background: url('../img/close.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 			width: 10%;
@@ -62,7 +67,7 @@
 			right: 4%;
 		}
 		.close-btn:hover {
-			background: url('/img/close-hover.png') no-repeat;
+			background: url('../img/close-hover.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 		}
@@ -82,6 +87,7 @@
 			display: block;
 			visibility: hidden;
 			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
 		}
 		.banner {
 			width: 100%;
@@ -102,9 +108,10 @@
 		.container img {
 			width: 100%;
 			height: auto;
+			border-radius: 3.733% / 2.677%;
 		}
 		.flip-btn {
-			background: url('/img/flip.png') no-repeat;
+			background: url('../img/flip.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 			width: 15%;
@@ -118,7 +125,7 @@
 			opacity: 0.5;
 		}
 		.flip-btn:hover {
-			background: url('/img/flip-hover.png') no-repeat;
+			background: url('../img/flip-hover.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 		}
@@ -174,456 +181,477 @@
 	</style>
 </head>
 <body>
-	<img class="preload-hidden" src="/img/dot.png" />
-	<img class="preload-hidden" src="/sets/WOO-files/logo.png" />
-	<img class="preload-hidden" src="/sets/DRP-files/icon.png" />
-		<img class="preload-hidden" src="/sets/WCD-files/icon.png" />
-		<img class="preload-hidden" src="/sets/AEK-files/icon.png" />
-		<img class="preload-hidden" src="/sets/DCO-files/icon.png" />
-		<img class="preload-hidden" src="/sets/WDW-files/icon.png" />
-		<img class="preload-hidden" src="/sets/ELV-files/icon.png" />
-		<img class="preload-hidden" src="/sets/APH-files/icon.png" />
-		<img class="preload-hidden" src="/sets/2HU-files/icon.png" />
-		<img class="preload-hidden" src="/sets/F2HU-files/icon.png" />
-		<img class="preload-hidden" src="/sets/RPGM-files/icon.png" />
-		<img class="preload-hidden" src="/sets/RNF-files/icon.png" />
-		<img class="preload-hidden" src="/sets/IWH-files/icon.png" />
-		<img class="preload-hidden" src="/sets/OPZ-files/icon.png" />
-		<img class="preload-hidden" src="/sets/WOO-files/icon.png" />
-		<img class="preload-hidden" src="/sets/ORC-files/icon.png" />
-		<img class="preload-hidden" src="/sets/IVP-files/icon.png" />
-		<img class="preload-hidden" src="/sets/VLR-files/icon.png" />
-		<img class="preload-hidden" src="/sets/GOD-files/icon.png" />
-		<img class="preload-hidden" src="/sets/UND-files/icon.png" />
-		<img class="preload-hidden" src="/sets/EOR-files/icon.png" />
-		<img class="preload-hidden" src="/sets/VYI-files/icon.png" />
-		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
-		<img class="preload-hidden" src="/sets/POP2-files/icon.png" />
-		<img class="preload-hidden" src="/sets/ORD-files/icon.png" />
-		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
-		<img class="preload-hidden" src="/sets/PRK-files/icon.png" />
-		<img class="preload-hidden" src="/sets/LIP-files/icon.png" />
-		<img class="preload-hidden" src="/sets/SGP-files/icon.png" />
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/WOO-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
 		<div class="header">
 		<div class="search-grid">
-			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
-			<img class="sg-icon" src="/img/search.png">
-			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
-			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
-			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
-			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
 		</div>
 	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
 
 	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
 	
-		<a class="set-bar" href="WOO"><img src="/sets/WOO-files/icon.png">Waking of Orlige</a>
+		<a class="set-bar" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
 	
-		<a class="set-bar inactive" href="DRP"><img src="/sets/DRP-files/icon.png">Derek’s Piggies</a>
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
 	
-		<a class="set-bar inactive" href="WCD"><img src="/sets/WCD-files/icon.png">Wroszy’s Circus of Darkness</a>
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
 	
-		<a class="set-bar inactive" href="AEK"><img src="/sets/AEK-files/icon.png">Aekyu: Idyllic Days</a>
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
 	
-		<a class="set-bar inactive" href="DCO"><img src="/sets/DCO-files/icon.png">Dazon: Cosmic Outcasts</a>
+		<a class="set-bar inactive" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
 	
-		<a class="set-bar inactive" href="WDW"><img src="/sets/WDW-files/icon.png">Waters of a Drowned World</a>
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
 	
-		<a class="set-bar inactive" href="ELV"><img src="/sets/ELV-files/icon.png">Elegies of Vaquer</a>
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
 	
-		<a class="set-bar inactive" href="APH"><img src="/sets/APH-files/icon.png">Aphantasia</a>
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
 	
-		<a class="set-bar inactive" href="2HU"><img src="/sets/2HU-files/icon.png">Universes Beyond: The Touhou Project</a>
+		<a class="set-bar inactive" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
 	
-		<a class="set-bar inactive" href="F2HU"><img src="/sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
 	
-		<a class="set-bar inactive" href="RPGM"><img src="/sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
 	
-		<a class="set-bar inactive" href="RNF"><img src="/sets/RNF-files/icon.png">Ravnica Fractured</a>
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
 	
-		<a class="set-bar inactive" href="IWH"><img src="/sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
 	
-		<a class="set-bar inactive" href="OPZ"><img src="/sets/OPZ-files/icon.png">Outpost Zero</a>
+		<a class="set-bar inactive" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
 	
-		<a class="set-bar inactive" href="ORC"><img src="/sets/ORC-files/icon.png">An Oddness in the River Cities</a>
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
 	
-		<a class="set-bar inactive" href="IVP"><img src="/sets/IVP-files/icon.png">Invalid Precedent</a>
+		<a class="set-bar inactive" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
 	
-		<a class="set-bar inactive" href="VLR"><img src="/sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
 	
-		<a class="set-bar inactive" href="GOD"><img src="/sets/GOD-files/icon.png">Godspine</a>
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
 	
-		<a class="set-bar inactive" href="UND"><img src="/sets/UND-files/icon.png">The Underhalls</a>
+		<a class="set-bar inactive" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
 	
-		<a class="set-bar inactive" href="EOR"><img src="/sets/EOR-files/icon.png">Defenders of Eorzea</a>
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
 	
-		<a class="set-bar inactive" href="VYI"><img src="/sets/VYI-files/icon.png">Valdrasil: Voyage to Infinity</a>
+		<a class="set-bar inactive" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
 	
-		<a class="set-bar inactive" href="SOL"><img src="/sets/SOL-files/icon.png">Solastere</a>
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
 	
-		<a class="set-bar inactive" href="POP2"><img src="/sets/POP2-files/icon.png">Prismavision</a>
+		<a class="set-bar inactive" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
 	
-		<a class="set-bar inactive" href="ORD"><img src="/sets/ORD-files/icon.png">Crucible of Ordeval</a>
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
 	
-		<a class="set-bar inactive" href="TGS"><img src="/sets/TGS-files/icon.png">Tales from the Grave in Space</a>
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
 	
-		<a class="set-bar inactive" href="PRK"><img src="/sets/PRK-files/icon.png">Prakhma</a>
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
 	
-		<a class="set-bar inactive" href="LIP"><img src="/sets/LIP-files/icon.png">Lost in Place</a>
+		<a class="set-bar inactive" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
 	
-		<a class="set-bar inactive" href="SGP"><img src="/sets/SGP-files/icon.png">Stirrings in Goldport</a>
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
 	
 		</div>
 		<div class="banner">
-		<img class="logo" src="/sets/WOO-files/logo.png">
+		<img class="logo" src="../sets/WOO-files/logo.png">
 		</div>
 		<div class="main-content" id="main-content">
 			<div class="grid-container">
-					<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/10_Chief Recruiter.jpg" id="10_Chief Recruiter" data-flag="@X" onclick="openSidebar('10_Chief Recruiter',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/72_Vhewter Spymaster.jpg" id="72_Vhewter Spymaster" data-flag="@X" onclick="openSidebar('72_Vhewter Spymaster',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/86_Forsaken Prophet_back.jpg" alt="/sets/WOO-files/img/86_Forsaken Prophet_front.jpg" id="86_Forsaken Prophet" data-flag="@XD" onclick="openSidebar('86_Forsaken Prophet',false)"><button class="flip-btn" onclick="imgFlip('86_Forsaken Prophet')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/134_Nedrulean Tinkerer.jpg" id="134_Nedrulean Tinkerer" data-flag="@X" onclick="openSidebar('134_Nedrulean Tinkerer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/173_Noxis, Accurrsed Steed.jpg" id="173_Noxis, Accurrsed Steed" data-flag="@X" onclick="openSidebar('173_Noxis, Accurrsed Steed',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/8_Call of the Order.jpg" id="8_Call of the Order" data-flag="@X" onclick="openSidebar('8_Call of the Order',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/42_Drown in Knowledge.jpg" id="42_Drown in Knowledge" data-flag="@X" onclick="openSidebar('42_Drown in Knowledge',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/82_Draxoth, Accursed Reaper.jpg" id="82_Draxoth, Accursed Reaper" data-flag="@X" onclick="openSidebar('82_Draxoth, Accursed Reaper',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/112_Abandoned Sentinel.jpg" id="112_Abandoned Sentinel" data-flag="@X" onclick="openSidebar('112_Abandoned Sentinel',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/149_Ageless Golem.jpg" id="149_Ageless Golem" data-flag="@X" onclick="openSidebar('149_Ageless Golem',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/12_Dawn of Courage.jpg" id="12_Dawn of Courage" data-flag="@X" onclick="openSidebar('12_Dawn of Courage',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/49_Illusory Seal_back.jpg" alt="/sets/WOO-files/img/49_Illusory Seal_front.jpg" id="49_Illusory Seal" data-flag="@XD" onclick="openSidebar('49_Illusory Seal',false)"><button class="flip-btn" onclick="imgFlip('49_Illusory Seal')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/84_Fanatical Forerunner.jpg" id="84_Fanatical Forerunner" data-flag="@X" onclick="openSidebar('84_Fanatical Forerunner',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/115_Breath of Ochiro.jpg" id="115_Breath of Ochiro" data-flag="@X" onclick="openSidebar('115_Breath of Ochiro',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/150_Ancestral Stag.jpg" id="150_Ancestral Stag" data-flag="@X" onclick="openSidebar('150_Ancestral Stag',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/19_Farmland Raider.jpg" id="19_Farmland Raider" data-flag="@X" onclick="openSidebar('19_Farmland Raider',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/54_Melodious Astronomer.jpg" id="54_Melodious Astronomer" data-flag="@X" onclick="openSidebar('54_Melodious Astronomer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/92_Moon-Blessed Cultist.jpg" id="92_Moon-Blessed Cultist" data-flag="@X" onclick="openSidebar('92_Moon-Blessed Cultist',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/120_Fanatic Gladiator.jpg" id="120_Fanatic Gladiator" data-flag="@X" onclick="openSidebar('120_Fanatic Gladiator',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/155_Defense of Nedrule.jpg" id="155_Defense of Nedrule" data-flag="@X" onclick="openSidebar('155_Defense of Nedrule',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/21_Nature's Fury.jpg" id="21_Natures Fury" data-flag="@X" onclick="openSidebar('21_Natures Fury',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/59_Paradox Abduction.jpg" id="59_Paradox Abduction" data-flag="@X" onclick="openSidebar('59_Paradox Abduction',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/95_Omen of Ochiro.jpg" id="95_Omen of Ochiro" data-flag="@X" onclick="openSidebar('95_Omen of Ochiro',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/136_Order's Firebird.jpg" id="136_Orders Firebird" data-flag="@X" onclick="openSidebar('136_Orders Firebird',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/157_Earthen Vessel_back.jpg" alt="/sets/WOO-files/img/157_Earthen Vessel_front.jpg" id="157_Earthen Vessel" data-flag="@XD" onclick="openSidebar('157_Earthen Vessel',false)"><button class="flip-btn" onclick="imgFlip('157_Earthen Vessel')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/27_Ochiro's Soulcaller.jpg" id="27_Ochiros Soulcaller" data-flag="@X" onclick="openSidebar('27_Ochiros Soulcaller',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/61_Rise of the Second Dawn.jpg" id="61_Rise of the Second Dawn" data-flag="@X" onclick="openSidebar('61_Rise of the Second Dawn',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/102_Scheming of the Vhewter.jpg" id="102_Scheming of the Vhewter" data-flag="@X" onclick="openSidebar('102_Scheming of the Vhewter',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/141_Shattering Souls.jpg" id="141_Shattering Souls" data-flag="@X" onclick="openSidebar('141_Shattering Souls',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/160_Flora Eviscerator.jpg" id="160_Flora Eviscerator" data-flag="@X" onclick="openSidebar('160_Flora Eviscerator',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/36_Spellbind.jpg" id="36_Spellbind" data-flag="@X" onclick="openSidebar('36_Spellbind',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/62_Rise to Perfection.jpg" id="62_Rise to Perfection" data-flag="@X" onclick="openSidebar('62_Rise to Perfection',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/108_Specimen Collection_back.jpg" alt="/sets/WOO-files/img/108_Specimen Collection_front.jpg" id="108_Specimen Collection" data-flag="@XD" onclick="openSidebar('108_Specimen Collection',false)"><button class="flip-btn" onclick="imgFlip('108_Specimen Collection')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/145_Unrelenting Recruit.jpg" id="145_Unrelenting Recruit" data-flag="@X" onclick="openSidebar('145_Unrelenting Recruit',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/170_Natural Wish.jpg" id="170_Natural Wish" data-flag="@X" onclick="openSidebar('170_Natural Wish',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/37_Triumph of Justice.jpg" id="37_Triumph of Justice" data-flag="@X" onclick="openSidebar('37_Triumph of Justice',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/66_Smuggler's Sloop.jpg" id="66_Smugglers Sloop" data-flag="@X" onclick="openSidebar('66_Smugglers Sloop',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/110_Thought Extinction.jpg" id="110_Thought Extinction" data-flag="@X" onclick="openSidebar('110_Thought Extinction',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/147_Victory of the Order.jpg" id="147_Victory of the Order" data-flag="@X" onclick="openSidebar('147_Victory of the Order',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/181_Weaver of Corruption.jpg" id="181_Weaver of Corruption" data-flag="@X" onclick="openSidebar('181_Weaver of Corruption',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/1_Aegis of the Order.jpg" id="1_Aegis of the Order" data-flag="@X" onclick="openSidebar('1_Aegis of the Order',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/41_Constructed Countdown.jpg" id="41_Constructed Countdown" data-flag="@X" onclick="openSidebar('41_Constructed Countdown',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/75_Accursed Noble.jpg" id="75_Accursed Noble" data-flag="@X" onclick="openSidebar('75_Accursed Noble',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/113_Artificial Citizen.jpg" id="113_Artificial Citizen" data-flag="@X" onclick="openSidebar('113_Artificial Citizen',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/152_Bonds of the Wild.jpg" id="152_Bonds of the Wild" data-flag="@X" onclick="openSidebar('152_Bonds of the Wild',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/3_Angel of Binding.jpg" id="3_Angel of Binding" data-flag="@X" onclick="openSidebar('3_Angel of Binding',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/43_Drown the Core.jpg" id="43_Drown the Core" data-flag="@X" onclick="openSidebar('43_Drown the Core',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/87_Ghonil's Madness.jpg" id="87_Ghonils Madness" data-flag="@X" onclick="openSidebar('87_Ghonils Madness',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/119_Dragon's Grasp.jpg" id="119_Dragons Grasp" data-flag="@X" onclick="openSidebar('119_Dragons Grasp',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/156_Deliah Jui, Famed Crafter.jpg" id="156_Deliah Jui, Famed Crafter" data-flag="@X" onclick="openSidebar('156_Deliah Jui, Famed Crafter',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/13_Dawnrider of Hope.jpg" id="13_Dawnrider of Hope" data-flag="@X" onclick="openSidebar('13_Dawnrider of Hope',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/48_Ghastly Skyswimmer_back.jpg" alt="/sets/WOO-files/img/48_Ghastly Skyswimmer_front.jpg" id="48_Ghastly Skyswimmer" data-flag="@XD" onclick="openSidebar('48_Ghastly Skyswimmer',false)"><button class="flip-btn" onclick="imgFlip('48_Ghastly Skyswimmer')"></button></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/89_Keeper of the Sealed_back.jpg" alt="/sets/WOO-files/img/89_Keeper of the Sealed_front.jpg" id="89_Keeper of the Sealed" data-flag="@XD" onclick="openSidebar('89_Keeper of the Sealed',false)"><button class="flip-btn" onclick="imgFlip('89_Keeper of the Sealed')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/121_Fires of Progress.jpg" id="121_Fires of Progress" data-flag="@X" onclick="openSidebar('121_Fires of Progress',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/165_Junglecaller Elemental.jpg" id="165_Junglecaller Elemental" data-flag="@X" onclick="openSidebar('165_Junglecaller Elemental',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/18_Fanatic Summoner.jpg" id="18_Fanatic Summoner" data-flag="@X" onclick="openSidebar('18_Fanatic Summoner',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/52_Lunarlight Lantern_back.jpg" alt="/sets/WOO-files/img/52_Lunarlight Lantern_front.jpg" id="52_Lunarlight Lantern" data-flag="@XD" onclick="openSidebar('52_Lunarlight Lantern',false)"><button class="flip-btn" onclick="imgFlip('52_Lunarlight Lantern')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/98_Pull from the Cycle.jpg" id="98_Pull from the Cycle" data-flag="@X" onclick="openSidebar('98_Pull from the Cycle',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/125_Imprecise Strike.jpg" id="125_Imprecise Strike" data-flag="@X" onclick="openSidebar('125_Imprecise Strike',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/169_Mossclaim Mech.jpg" id="169_Mossclaim Mech" data-flag="@X" onclick="openSidebar('169_Mossclaim Mech',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/20_Hallowed Hunt.jpg" id="20_Hallowed Hunt" data-flag="@X" onclick="openSidebar('20_Hallowed Hunt',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/53_Manamimic Swarmer.jpg" id="53_Manamimic Swarmer" data-flag="@X" onclick="openSidebar('53_Manamimic Swarmer',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/99_Raid the Tomb_back.jpg" alt="/sets/WOO-files/img/99_Raid the Tomb_front.jpg" id="99_Raid the Tomb" data-flag="@XD" onclick="openSidebar('99_Raid the Tomb',false)"><button class="flip-btn" onclick="imgFlip('99_Raid the Tomb')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/126_Incinerate the Accursed.jpg" id="126_Incinerate the Accursed" data-flag="@X" onclick="openSidebar('126_Incinerate the Accursed',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/172_Night Market Gardener.jpg" id="172_Night Market Gardener" data-flag="@X" onclick="openSidebar('172_Night Market Gardener',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/22_Nedrulean Captain.jpg" id="22_Nedrulean Captain" data-flag="@X" onclick="openSidebar('22_Nedrulean Captain',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/56_Moment of Inspiration.jpg" id="56_Moment of Inspiration" data-flag="@X" onclick="openSidebar('56_Moment of Inspiration',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/101_Revenant of Famine.jpg" id="101_Revenant of Famine" data-flag="@X" onclick="openSidebar('101_Revenant of Famine',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/128_Ledgetop Turretworker.jpg" id="128_Ledgetop Turretworker" data-flag="@X" onclick="openSidebar('128_Ledgetop Turretworker',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/174_Recover History.jpg" id="174_Recover History" data-flag="@X" onclick="openSidebar('174_Recover History',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/25_Ochiro's Blademaster.jpg" id="25_Ochiros Blademaster" data-flag="@X" onclick="openSidebar('25_Ochiros Blademaster',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/63_Scholarly Geist.jpg" id="63_Scholarly Geist" data-flag="@X" onclick="openSidebar('63_Scholarly Geist',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/103_Shadowbone Reaper.jpg" id="103_Shadowbone Reaper" data-flag="@X" onclick="openSidebar('103_Shadowbone Reaper',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/130_Mechiro, Opus Engine.jpg" id="130_Mechiro, Opus Engine" data-flag="@X" onclick="openSidebar('130_Mechiro, Opus Engine',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/175_Rootwire Bioengineer.jpg" id="175_Rootwire Bioengineer" data-flag="@X" onclick="openSidebar('175_Rootwire Bioengineer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/29_Rayliyu, First-Called.jpg" id="29_Rayliyu, First-Called" data-flag="@X" onclick="openSidebar('29_Rayliyu, First-Called',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/64_Sentinel Armor.jpg" id="64_Sentinel Armor" data-flag="@X" onclick="openSidebar('64_Sentinel Armor',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/104_Shadowshriek.jpg" id="104_Shadowshriek" data-flag="@X" onclick="openSidebar('104_Shadowshriek',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/135_Nedrulean Toolglove.jpg" id="135_Nedrulean Toolglove" data-flag="@X" onclick="openSidebar('135_Nedrulean Toolglove',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/176_Seed of Corruption.jpg" id="176_Seed of Corruption" data-flag="@X" onclick="openSidebar('176_Seed of Corruption',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/31_Reduce to Scrap.jpg" id="31_Reduce to Scrap" data-flag="@X" onclick="openSidebar('31_Reduce to Scrap',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/65_The Skylight Observatory.jpg" id="65_The Skylight Observatory" data-flag="@X" onclick="openSidebar('65_The Skylight Observatory',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/106_Skeletal Siphoner.jpg" id="106_Skeletal Siphoner" data-flag="@X" onclick="openSidebar('106_Skeletal Siphoner',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/138_Overclock the Core.jpg" id="138_Overclock the Core" data-flag="@X" onclick="openSidebar('138_Overclock the Core',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/177_Synthesize Flora.jpg" id="177_Synthesize Flora" data-flag="@X" onclick="openSidebar('177_Synthesize Flora',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/32_Second Dawn Illuminator.jpg" id="32_Second Dawn Illuminator" data-flag="@X" onclick="openSidebar('32_Second Dawn Illuminator',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/67_Spectral Severance_back.jpg" alt="/sets/WOO-files/img/67_Spectral Severance_front.jpg" id="67_Spectral Severance" data-flag="@XD" onclick="openSidebar('67_Spectral Severance',false)"><button class="flip-btn" onclick="imgFlip('67_Spectral Severance')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/107_Slay the Sorrowful.jpg" id="107_Slay the Sorrowful" data-flag="@X" onclick="openSidebar('107_Slay the Sorrowful',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/142_Splinterblade Shaman.jpg" id="142_Splinterblade Shaman" data-flag="@X" onclick="openSidebar('142_Splinterblade Shaman',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/178_Synthetic Nest_back.jpg" alt="/sets/WOO-files/img/178_Synthetic Nest_front.jpg" id="178_Synthetic Nest" data-flag="@XD" onclick="openSidebar('178_Synthetic Nest',false)"><button class="flip-btn" onclick="imgFlip('178_Synthetic Nest')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/35_Silver Incantation.jpg" id="35_Silver Incantation" data-flag="@X" onclick="openSidebar('35_Silver Incantation',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/70_Vhewter Hover Agent.jpg" id="70_Vhewter Hover Agent" data-flag="@X" onclick="openSidebar('70_Vhewter Hover Agent',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/109_Syndicate Shadowblade.jpg" id="109_Syndicate Shadowblade" data-flag="@X" onclick="openSidebar('109_Syndicate Shadowblade',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/143_Sunset Survivor.jpg" id="143_Sunset Survivor" data-flag="@X" onclick="openSidebar('143_Sunset Survivor',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/180_Titanic Blooming_back.jpg" alt="/sets/WOO-files/img/180_Titanic Blooming_front.jpg" id="180_Titanic Blooming" data-flag="@XD" onclick="openSidebar('180_Titanic Blooming',false)"><button class="flip-btn" onclick="imgFlip('180_Titanic Blooming')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/2_Ancestral Broadsword.jpg" id="2_Ancestral Broadsword" data-flag="@X" onclick="openSidebar('2_Ancestral Broadsword',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/38_Avian Gene Stitcher.jpg" id="38_Avian Gene Stitcher" data-flag="@X" onclick="openSidebar('38_Avian Gene Stitcher',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/76_Ambush Prowler.jpg" id="76_Ambush Prowler" data-flag="@X" onclick="openSidebar('76_Ambush Prowler',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/114_Breaker Golem.jpg" id="114_Breaker Golem" data-flag="@X" onclick="openSidebar('114_Breaker Golem',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/151_Blossom Shaman.jpg" id="151_Blossom Shaman" data-flag="@X" onclick="openSidebar('151_Blossom Shaman',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/4_Angelic Judge.jpg" id="4_Angelic Judge" data-flag="@X" onclick="openSidebar('4_Angelic Judge',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/39_Change to Crow.jpg" id="39_Change to Crow" data-flag="@X" onclick="openSidebar('39_Change to Crow',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/77_Ancient Communion.jpg" id="77_Ancient Communion" data-flag="@X" onclick="openSidebar('77_Ancient Communion',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/116_Burn the City.jpg" id="116_Burn the City" data-flag="@X" onclick="openSidebar('116_Burn the City',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/153_Burst from the Woods_back.jpg" alt="/sets/WOO-files/img/153_Burst from the Woods_front.jpg" id="153_Burst from the Woods" data-flag="@XD" onclick="openSidebar('153_Burst from the Woods',false)"><button class="flip-btn" onclick="imgFlip('153_Burst from the Woods')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/5_Awakened Horde.jpg" id="5_Awakened Horde" data-flag="@X" onclick="openSidebar('5_Awakened Horde',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/40_Clockwork Familliar.jpg" id="40_Clockwork Familliar" data-flag="@X" onclick="openSidebar('40_Clockwork Familliar',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/78_Crypt Overseer.jpg" id="78_Crypt Overseer" data-flag="@X" onclick="openSidebar('78_Crypt Overseer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/117_Dragonfire Rain.jpg" id="117_Dragonfire Rain" data-flag="@X" onclick="openSidebar('117_Dragonfire Rain',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/154_Carnivorous Gardening.jpg" id="154_Carnivorous Gardening" data-flag="@X" onclick="openSidebar('154_Carnivorous Gardening',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/6_Banish to Solitude.jpg" id="6_Banish to Solitude" data-flag="@X" onclick="openSidebar('6_Banish to Solitude',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/44_Elevated Insight.jpg" id="44_Elevated Insight" data-flag="@X" onclick="openSidebar('44_Elevated Insight',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/79_Deserted Duo_back.jpg" alt="/sets/WOO-files/img/79_Deserted Duo_front.jpg" id="79_Deserted Duo" data-flag="@XD" onclick="openSidebar('79_Deserted Duo',false)"><button class="flip-btn" onclick="imgFlip('79_Deserted Duo')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/118_Dragonforged Battlegear.jpg" id="118_Dragonforged Battlegear" data-flag="@X" onclick="openSidebar('118_Dragonforged Battlegear',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/158_Encounter the Accursed.jpg" id="158_Encounter the Accursed" data-flag="@X" onclick="openSidebar('158_Encounter the Accursed',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/7_Blossoming Soul.jpg" id="7_Blossoming Soul" data-flag="@X" onclick="openSidebar('7_Blossoming Soul',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/45_Endothermic Bauble_back.jpg" alt="/sets/WOO-files/img/45_Endothermic Bauble_front.jpg" id="45_Endothermic Bauble" data-flag="@XD" onclick="openSidebar('45_Endothermic Bauble',false)"><button class="flip-btn" onclick="imgFlip('45_Endothermic Bauble')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/80_Disassemble.jpg" id="80_Disassemble" data-flag="@X" onclick="openSidebar('80_Disassemble',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/122_Frantic Mender.jpg" id="122_Frantic Mender" data-flag="@X" onclick="openSidebar('122_Frantic Mender',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/159_Experimental Refiner_back.jpg" alt="/sets/WOO-files/img/159_Experimental Refiner_front.jpg" id="159_Experimental Refiner" data-flag="@XD" onclick="openSidebar('159_Experimental Refiner',false)"><button class="flip-btn" onclick="imgFlip('159_Experimental Refiner')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/9_Caretaker of the Frightful.jpg" id="9_Caretaker of the Frightful" data-flag="@X" onclick="openSidebar('9_Caretaker of the Frightful',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/46_Expel the Outsider_back.jpg" alt="/sets/WOO-files/img/46_Expel the Outsider_front.jpg" id="46_Expel the Outsider" data-flag="@XD" onclick="openSidebar('46_Expel the Outsider',false)"><button class="flip-btn" onclick="imgFlip('46_Expel the Outsider')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/81_Disrupted Duppy.jpg" id="81_Disrupted Duppy" data-flag="@X" onclick="openSidebar('81_Disrupted Duppy',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/123_Goblin Ritualist.jpg" id="123_Goblin Ritualist" data-flag="@X" onclick="openSidebar('123_Goblin Ritualist',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/161_Floralshell Yearling_back.jpg" alt="/sets/WOO-files/img/161_Floralshell Yearling_front.jpg" id="161_Floralshell Yearling" data-flag="@XD" onclick="openSidebar('161_Floralshell Yearling',false)"><button class="flip-btn" onclick="imgFlip('161_Floralshell Yearling')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/11_Dawn Charge.jpg" id="11_Dawn Charge" data-flag="@X" onclick="openSidebar('11_Dawn Charge',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/47_Geistfuel Copter_back.jpg" alt="/sets/WOO-files/img/47_Geistfuel Copter_front.jpg" id="47_Geistfuel Copter" data-flag="@XD" onclick="openSidebar('47_Geistfuel Copter',false)"><button class="flip-btn" onclick="imgFlip('47_Geistfuel Copter')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/83_Fanatic Piper.jpg" id="83_Fanatic Piper" data-flag="@X" onclick="openSidebar('83_Fanatic Piper',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/124_Ignition Fireplace.jpg" id="124_Ignition Fireplace" data-flag="@X" onclick="openSidebar('124_Ignition Fireplace',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/162_Goblin Bloombuilder.jpg" id="162_Goblin Bloombuilder" data-flag="@X" onclick="openSidebar('162_Goblin Bloombuilder',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/14_Dawnrider Phantom.jpg" id="14_Dawnrider Phantom" data-flag="@X" onclick="openSidebar('14_Dawnrider Phantom',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/50_Innovate.jpg" id="50_Innovate" data-flag="@X" onclick="openSidebar('50_Innovate',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/85_Fell the Accursed_back.jpg" alt="/sets/WOO-files/img/85_Fell the Accursed_front.jpg" id="85_Fell the Accursed" data-flag="@XD" onclick="openSidebar('85_Fell the Accursed',false)"><button class="flip-btn" onclick="imgFlip('85_Fell the Accursed')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/127_Inspiration Seekers.jpg" id="127_Inspiration Seekers" data-flag="@X" onclick="openSidebar('127_Inspiration Seekers',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/163_Grasp of Nature.jpg" id="163_Grasp of Nature" data-flag="@X" onclick="openSidebar('163_Grasp of Nature',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/15_Dawn's Avenger.jpg" id="15_Dawns Avenger" data-flag="@X" onclick="openSidebar('15_Dawns Avenger',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/51_Kindle Corruption.jpg" id="51_Kindle Corruption" data-flag="@X" onclick="openSidebar('51_Kindle Corruption',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/88_Hunter of the Accursed.jpg" id="88_Hunter of the Accursed" data-flag="@X" onclick="openSidebar('88_Hunter of the Accursed',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/129_Mechanical Brawler.jpg" id="129_Mechanical Brawler" data-flag="@X" onclick="openSidebar('129_Mechanical Brawler',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/164_Guiding Bauble.jpg" id="164_Guiding Bauble" data-flag="@X" onclick="openSidebar('164_Guiding Bauble',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/16_Defiled Adventurer.jpg" id="16_Defiled Adventurer" data-flag="@X" onclick="openSidebar('16_Defiled Adventurer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/55_Midnight Dawncaller.jpg" id="55_Midnight Dawncaller" data-flag="@X" onclick="openSidebar('55_Midnight Dawncaller',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/90_Leave to Rot.jpg" id="90_Leave to Rot" data-flag="@X" onclick="openSidebar('90_Leave to Rot',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/131_Molten Refuse.jpg" id="131_Molten Refuse" data-flag="@X" onclick="openSidebar('131_Molten Refuse',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/166_Landcaller Geist.jpg" id="166_Landcaller Geist" data-flag="@X" onclick="openSidebar('166_Landcaller Geist',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/17_Eclipse Strike.jpg" id="17_Eclipse Strike" data-flag="@X" onclick="openSidebar('17_Eclipse Strike',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/57_Order Soulsmith.jpg" id="57_Order Soulsmith" data-flag="@X" onclick="openSidebar('57_Order Soulsmith',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/91_Malevolent Lemure.jpg" id="91_Malevolent Lemure" data-flag="@X" onclick="openSidebar('91_Malevolent Lemure',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/132_Nedrulean Aristocrats.jpg" id="132_Nedrulean Aristocrats" data-flag="@X" onclick="openSidebar('132_Nedrulean Aristocrats',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/167_Mantrap Hulk.jpg" id="167_Mantrap Hulk" data-flag="@X" onclick="openSidebar('167_Mantrap Hulk',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/23_Nedrulean Farmhand.jpg" id="23_Nedrulean Farmhand" data-flag="@X" onclick="openSidebar('23_Nedrulean Farmhand',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/58_Order's Barrier.jpg" id="58_Orders Barrier" data-flag="@X" onclick="openSidebar('58_Orders Barrier',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/93_Night Market Caretaker.jpg" id="93_Night Market Caretaker" data-flag="@X" onclick="openSidebar('93_Night Market Caretaker',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/133_Nedrulean Artillerist.jpg" id="133_Nedrulean Artillerist" data-flag="@X" onclick="openSidebar('133_Nedrulean Artillerist',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/168_Mechanized Gardener.jpg" id="168_Mechanized Gardener" data-flag="@X" onclick="openSidebar('168_Mechanized Gardener',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/24_Nedrulean Stoutblade.jpg" id="24_Nedrulean Stoutblade" data-flag="@X" onclick="openSidebar('24_Nedrulean Stoutblade',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/60_Reflect on Progress.jpg" id="60_Reflect on Progress" data-flag="@X" onclick="openSidebar('60_Reflect on Progress',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/94_Nightclad Tormentor.jpg" id="94_Nightclad Tormentor" data-flag="@X" onclick="openSidebar('94_Nightclad Tormentor',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/137_Order's Trailblazer.jpg" id="137_Orders Trailblazer" data-flag="@X" onclick="openSidebar('137_Orders Trailblazer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/171_Nedrulean Architect.jpg" id="171_Nedrulean Architect" data-flag="@X" onclick="openSidebar('171_Nedrulean Architect',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/26_Ochiro's Consecrator.jpg" id="26_Ochiros Consecrator" data-flag="@X" onclick="openSidebar('26_Ochiros Consecrator',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/68_Steamwork Elemental_back.jpg" alt="/sets/WOO-files/img/68_Steamwork Elemental_front.jpg" id="68_Steamwork Elemental" data-flag="@XD" onclick="openSidebar('68_Steamwork Elemental',false)"><button class="flip-btn" onclick="imgFlip('68_Steamwork Elemental')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/96_Path to Perfection.jpg" id="96_Path to Perfection" data-flag="@X" onclick="openSidebar('96_Path to Perfection',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/139_Reckless Fervor.jpg" id="139_Reckless Fervor" data-flag="@X" onclick="openSidebar('139_Reckless Fervor',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/179_Synthvine Colossus.jpg" id="179_Synthvine Colossus" data-flag="@X" onclick="openSidebar('179_Synthvine Colossus',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/28_Order's Aid.jpg" id="28_Orders Aid" data-flag="@X" onclick="openSidebar('28_Orders Aid',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/69_Veteran Tinkerer.jpg" id="69_Veteran Tinkerer" data-flag="@X" onclick="openSidebar('69_Veteran Tinkerer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/97_Peaceless Return.jpg" id="97_Peaceless Return" data-flag="@X" onclick="openSidebar('97_Peaceless Return',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/140_Rummaging Handyman.jpg" id="140_Rummaging Handyman" data-flag="@X" onclick="openSidebar('140_Rummaging Handyman',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/182_Wild Ambush_back.jpg" alt="/sets/WOO-files/img/182_Wild Ambush_front.jpg" id="182_Wild Ambush" data-flag="@XD" onclick="openSidebar('182_Wild Ambush',false)"><button class="flip-btn" onclick="imgFlip('182_Wild Ambush')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/30_Reassembling Legion.jpg" id="30_Reassembling Legion" data-flag="@X" onclick="openSidebar('30_Reassembling Legion',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/71_Vhewter Reasearcher.jpg" id="71_Vhewter Reasearcher" data-flag="@X" onclick="openSidebar('71_Vhewter Reasearcher',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/100_Recover the Lost_back.jpg" alt="/sets/WOO-files/img/100_Recover the Lost_front.jpg" id="100_Recover the Lost" data-flag="@XD" onclick="openSidebar('100_Recover the Lost',false)"><button class="flip-btn" onclick="imgFlip('100_Recover the Lost')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/144_Thrown into the Forge.jpg" id="144_Thrown into the Forge" data-flag="@X" onclick="openSidebar('144_Thrown into the Forge',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/183_Wild Connection.jpg" id="183_Wild Connection" data-flag="@X" onclick="openSidebar('183_Wild Connection',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/33_Second Dawn Ritual.jpg" id="33_Second Dawn Ritual" data-flag="@X" onclick="openSidebar('33_Second Dawn Ritual',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/73_Vortex of Denial.jpg" id="73_Vortex of Denial" data-flag="@X" onclick="openSidebar('73_Vortex of Denial',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/105_Shambling Skeleton.jpg" id="105_Shambling Skeleton" data-flag="@X" onclick="openSidebar('105_Shambling Skeleton',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/146_Viashino Crusader.jpg" id="146_Viashino Crusader" data-flag="@X" onclick="openSidebar('146_Viashino Crusader',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/184_Wildgrowth Crawler.jpg" id="184_Wildgrowth Crawler" data-flag="@X" onclick="openSidebar('184_Wildgrowth Crawler',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/34_Shimmering Lance.jpg" id="34_Shimmering Lance" data-flag="@X" onclick="openSidebar('34_Shimmering Lance',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/74_Warp Away.jpg" id="74_Warp Away" data-flag="@X" onclick="openSidebar('74_Warp Away',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/111_Wary Bargainer_back.jpg" alt="/sets/WOO-files/img/111_Wary Bargainer_front.jpg" id="111_Wary Bargainer" data-flag="@XD" onclick="openSidebar('111_Wary Bargainer',false)"><button class="flip-btn" onclick="imgFlip('111_Wary Bargainer')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/148_Wrecking Rage.jpg" id="148_Wrecking Rage" data-flag="@X" onclick="openSidebar('148_Wrecking Rage',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/185_Wildsea Station_back.jpg" alt="/sets/WOO-files/img/185_Wildsea Station_front.jpg" id="185_Wildsea Station" data-flag="@XD" onclick="openSidebar('185_Wildsea Station',false)"><button class="flip-btn" onclick="imgFlip('185_Wildsea Station')"></button></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+					<div class="container"><img loading="lazy" alt="sets/WOO-files/img/10_Chief Recruiter.jpg" id="WOO_10_Chief Recruiter" data-flag="@X" onclick="openSidebar('WOO_10_Chief Recruiter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/72_Vhewter Spymaster.jpg" id="WOO_72_Vhewter Spymaster" data-flag="@X" onclick="openSidebar('WOO_72_Vhewter Spymaster',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/85_Forsaken Prophet_back.jpg" alt="sets/WOO-files/img/85_Forsaken Prophet_front.jpg" id="WOO_85_Forsaken Prophet" data-flag="@XD" onclick="openSidebar('WOO_85_Forsaken Prophet',false)"><button class="flip-btn" onclick="imgFlip('WOO_85_Forsaken Prophet')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/134_Nedrulean Tinkerer.jpg" id="WOO_134_Nedrulean Tinkerer" data-flag="@X" onclick="openSidebar('WOO_134_Nedrulean Tinkerer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/172_Noxis, Accurrsed Rider.jpg" id="WOO_172_Noxis, Accurrsed Rider" data-flag="@X" onclick="openSidebar('WOO_172_Noxis, Accurrsed Rider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/8_Call of the Order.jpg" id="WOO_8_Call of the Order" data-flag="@X" onclick="openSidebar('WOO_8_Call of the Order',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/41_Dawnweaver Illusionist.jpg" id="WOO_41_Dawnweaver Illusionist" data-flag="@X" onclick="openSidebar('WOO_41_Dawnweaver Illusionist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/82_Draxoth, Accursed Reaper.jpg" id="WOO_82_Draxoth, Accursed Reaper" data-flag="@X" onclick="openSidebar('WOO_82_Draxoth, Accursed Reaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/112_Abandoned Sentinel.jpg" id="WOO_112_Abandoned Sentinel" data-flag="@X" onclick="openSidebar('WOO_112_Abandoned Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/149_Adventurous Artificer.jpg" id="WOO_149_Adventurous Artificer" data-flag="@X" onclick="openSidebar('WOO_149_Adventurous Artificer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/12_Dawn of Courage.jpg" id="WOO_12_Dawn of Courage" data-flag="@X" onclick="openSidebar('WOO_12_Dawn of Courage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/42_Drown in Knowledge.jpg" id="WOO_42_Drown in Knowledge" data-flag="@X" onclick="openSidebar('WOO_42_Drown in Knowledge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/83_Fanatical Forerunner.jpg" id="WOO_83_Fanatical Forerunner" data-flag="@X" onclick="openSidebar('WOO_83_Fanatical Forerunner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/115_Breath of Ochiro.jpg" id="WOO_115_Breath of Ochiro" data-flag="@X" onclick="openSidebar('WOO_115_Breath of Ochiro',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/150_Ageless Golem.jpg" id="WOO_150_Ageless Golem" data-flag="@X" onclick="openSidebar('WOO_150_Ageless Golem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/19_Farmland Raider.jpg" id="WOO_19_Farmland Raider" data-flag="@X" onclick="openSidebar('WOO_19_Farmland Raider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/54_Melodious Astronomer.jpg" id="WOO_54_Melodious Astronomer" data-flag="@X" onclick="openSidebar('WOO_54_Melodious Astronomer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/91_Moon-Blessed Cultist.jpg" id="WOO_91_Moon-Blessed Cultist" data-flag="@X" onclick="openSidebar('WOO_91_Moon-Blessed Cultist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/120_Fanatic Gladiator.jpg" id="WOO_120_Fanatic Gladiator" data-flag="@X" onclick="openSidebar('WOO_120_Fanatic Gladiator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/151_Ancestral Stag.jpg" id="WOO_151_Ancestral Stag" data-flag="@X" onclick="openSidebar('WOO_151_Ancestral Stag',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/21_Nature's Fury.jpg" id="WOO_21_Natures Fury" data-flag="@X" onclick="openSidebar('WOO_21_Natures Fury',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/59_Paradox Abduction.jpg" id="WOO_59_Paradox Abduction" data-flag="@X" onclick="openSidebar('WOO_59_Paradox Abduction',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/94_Omen of Ochiro.jpg" id="WOO_94_Omen of Ochiro" data-flag="@X" onclick="openSidebar('WOO_94_Omen of Ochiro',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/136_Order's Firebird.jpg" id="WOO_136_Orders Firebird" data-flag="@X" onclick="openSidebar('WOO_136_Orders Firebird',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/156_Defense of Nedrule.jpg" id="WOO_156_Defense of Nedrule" data-flag="@X" onclick="openSidebar('WOO_156_Defense of Nedrule',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/27_Ochiro's Soultwister.jpg" id="WOO_27_Ochiros Soultwister" data-flag="@X" onclick="openSidebar('WOO_27_Ochiros Soultwister',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/61_Rise of the Second Dawn.jpg" id="WOO_61_Rise of the Second Dawn" data-flag="@X" onclick="openSidebar('WOO_61_Rise of the Second Dawn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/102_Scheming of the Vhewter.jpg" id="WOO_102_Scheming of the Vhewter" data-flag="@X" onclick="openSidebar('WOO_102_Scheming of the Vhewter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/141_Shattering Souls.jpg" id="WOO_141_Shattering Souls" data-flag="@X" onclick="openSidebar('WOO_141_Shattering Souls',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/160_Flora Eviscerator.jpg" id="WOO_160_Flora Eviscerator" data-flag="@X" onclick="openSidebar('WOO_160_Flora Eviscerator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/36_Spellbind.jpg" id="WOO_36_Spellbind" data-flag="@X" onclick="openSidebar('WOO_36_Spellbind',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/62_Rise to Perfection.jpg" id="WOO_62_Rise to Perfection" data-flag="@X" onclick="openSidebar('WOO_62_Rise to Perfection',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/108_Specimen Collection_back.jpg" alt="sets/WOO-files/img/108_Specimen Collection_front.jpg" id="WOO_108_Specimen Collection" data-flag="@XD" onclick="openSidebar('WOO_108_Specimen Collection',false)"><button class="flip-btn" onclick="imgFlip('WOO_108_Specimen Collection')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/145_Unrelenting Recruit.jpg" id="WOO_145_Unrelenting Recruit" data-flag="@X" onclick="openSidebar('WOO_145_Unrelenting Recruit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/169_Natural Wish.jpg" id="WOO_169_Natural Wish" data-flag="@X" onclick="openSidebar('WOO_169_Natural Wish',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/37_Triumph of Justice.jpg" id="WOO_37_Triumph of Justice" data-flag="@X" onclick="openSidebar('WOO_37_Triumph of Justice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/66_Smuggler's Sloop.jpg" id="WOO_66_Smugglers Sloop" data-flag="@X" onclick="openSidebar('WOO_66_Smugglers Sloop',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/110_Thought Fracture.jpg" id="WOO_110_Thought Fracture" data-flag="@X" onclick="openSidebar('WOO_110_Thought Fracture',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/147_Victory of the Order.jpg" id="WOO_147_Victory of the Order" data-flag="@X" onclick="openSidebar('WOO_147_Victory of the Order',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/181_Weaver of Corruption.jpg" id="WOO_181_Weaver of Corruption" data-flag="@X" onclick="openSidebar('WOO_181_Weaver of Corruption',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/2_Angel of Binding.jpg" id="WOO_2_Angel of Binding" data-flag="@X" onclick="openSidebar('WOO_2_Angel of Binding',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/43_Drown the Core.jpg" id="WOO_43_Drown the Core" data-flag="@X" onclick="openSidebar('WOO_43_Drown the Core',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/75_Accursed Noble.jpg" id="WOO_75_Accursed Noble" data-flag="@X" onclick="openSidebar('WOO_75_Accursed Noble',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/113_Artificial Citizen.jpg" id="WOO_113_Artificial Citizen" data-flag="@X" onclick="openSidebar('WOO_113_Artificial Citizen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/153_Bonds of the Wild.jpg" id="WOO_153_Bonds of the Wild" data-flag="@X" onclick="openSidebar('WOO_153_Bonds of the Wild',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/11_Dawn Charge.jpg" id="WOO_11_Dawn Charge" data-flag="@X" onclick="openSidebar('WOO_11_Dawn Charge',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/48_Ghastly Skyswimmer_back.jpg" alt="sets/WOO-files/img/48_Ghastly Skyswimmer_front.jpg" id="WOO_48_Ghastly Skyswimmer" data-flag="@XD" onclick="openSidebar('WOO_48_Ghastly Skyswimmer',false)"><button class="flip-btn" onclick="imgFlip('WOO_48_Ghastly Skyswimmer')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/86_Ghonil's Madness.jpg" id="WOO_86_Ghonils Madness" data-flag="@X" onclick="openSidebar('WOO_86_Ghonils Madness',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/119_Dragon's Grasp.jpg" id="WOO_119_Dragons Grasp" data-flag="@X" onclick="openSidebar('WOO_119_Dragons Grasp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/157_Deliah Jui, Famed Crafter.jpg" id="WOO_157_Deliah Jui, Famed Crafter" data-flag="@X" onclick="openSidebar('WOO_157_Deliah Jui, Famed Crafter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/13_Dawnrider of Hope.jpg" id="WOO_13_Dawnrider of Hope" data-flag="@X" onclick="openSidebar('WOO_13_Dawnrider of Hope',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/49_Gradual Assembly.jpg" id="WOO_49_Gradual Assembly" data-flag="@X" onclick="openSidebar('WOO_49_Gradual Assembly',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/88_Keeper of the Sealed_back.jpg" alt="sets/WOO-files/img/88_Keeper of the Sealed_front.jpg" id="WOO_88_Keeper of the Sealed" data-flag="@XD" onclick="openSidebar('WOO_88_Keeper of the Sealed',false)"><button class="flip-btn" onclick="imgFlip('WOO_88_Keeper of the Sealed')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/121_Fires of Progress.jpg" id="WOO_121_Fires of Progress" data-flag="@X" onclick="openSidebar('WOO_121_Fires of Progress',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/168_Mossclaimed Golem.jpg" id="WOO_168_Mossclaimed Golem" data-flag="@X" onclick="openSidebar('WOO_168_Mossclaimed Golem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/18_Fanatic Summoner.jpg" id="WOO_18_Fanatic Summoner" data-flag="@X" onclick="openSidebar('WOO_18_Fanatic Summoner',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/52_Lunarlight Lantern_back.jpg" alt="sets/WOO-files/img/52_Lunarlight Lantern_front.jpg" id="WOO_52_Lunarlight Lantern" data-flag="@XD" onclick="openSidebar('WOO_52_Lunarlight Lantern',false)"><button class="flip-btn" onclick="imgFlip('WOO_52_Lunarlight Lantern')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/97_Pull from the Cycle.jpg" id="WOO_97_Pull from the Cycle" data-flag="@X" onclick="openSidebar('WOO_97_Pull from the Cycle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/125_Imprecise Strike.jpg" id="WOO_125_Imprecise Strike" data-flag="@X" onclick="openSidebar('WOO_125_Imprecise Strike',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/171_Night Market Gardener.jpg" id="WOO_171_Night Market Gardener" data-flag="@X" onclick="openSidebar('WOO_171_Night Market Gardener',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/20_Hallowed Hunt.jpg" id="WOO_20_Hallowed Hunt" data-flag="@X" onclick="openSidebar('WOO_20_Hallowed Hunt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/53_Manamimic Swarmer.jpg" id="WOO_53_Manamimic Swarmer" data-flag="@X" onclick="openSidebar('WOO_53_Manamimic Swarmer',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/98_Raid the Tomb_back.jpg" alt="sets/WOO-files/img/98_Raid the Tomb_front.jpg" id="WOO_98_Raid the Tomb" data-flag="@XD" onclick="openSidebar('WOO_98_Raid the Tomb',false)"><button class="flip-btn" onclick="imgFlip('WOO_98_Raid the Tomb')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/126_Incinerate the Accursed.jpg" id="WOO_126_Incinerate the Accursed" data-flag="@X" onclick="openSidebar('WOO_126_Incinerate the Accursed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/173_Recover History.jpg" id="WOO_173_Recover History" data-flag="@X" onclick="openSidebar('WOO_173_Recover History',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/22_Nedrulean Captain.jpg" id="WOO_22_Nedrulean Captain" data-flag="@X" onclick="openSidebar('WOO_22_Nedrulean Captain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/56_Moment of Inspiration.jpg" id="WOO_56_Moment of Inspiration" data-flag="@X" onclick="openSidebar('WOO_56_Moment of Inspiration',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/101_Revenant of Famine.jpg" id="WOO_101_Revenant of Famine" data-flag="@X" onclick="openSidebar('WOO_101_Revenant of Famine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/128_Ledgetop Turretworker.jpg" id="WOO_128_Ledgetop Turretworker" data-flag="@X" onclick="openSidebar('WOO_128_Ledgetop Turretworker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/174_Rootwire Bioengineer.jpg" id="WOO_174_Rootwire Bioengineer" data-flag="@X" onclick="openSidebar('WOO_174_Rootwire Bioengineer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/25_Ochiro's Blademaster.jpg" id="WOO_25_Ochiros Blademaster" data-flag="@X" onclick="openSidebar('WOO_25_Ochiros Blademaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/63_Scholarly Geist.jpg" id="WOO_63_Scholarly Geist" data-flag="@X" onclick="openSidebar('WOO_63_Scholarly Geist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/103_Shadowbone Reaper.jpg" id="WOO_103_Shadowbone Reaper" data-flag="@X" onclick="openSidebar('WOO_103_Shadowbone Reaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/130_Mechiro, Opus Engine.jpg" id="WOO_130_Mechiro, Opus Engine" data-flag="@X" onclick="openSidebar('WOO_130_Mechiro, Opus Engine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/175_Rotgrowth Goliath.jpg" id="WOO_175_Rotgrowth Goliath" data-flag="@X" onclick="openSidebar('WOO_175_Rotgrowth Goliath',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/29_Rayliyu, First-Called.jpg" id="WOO_29_Rayliyu, First-Called" data-flag="@X" onclick="openSidebar('WOO_29_Rayliyu, First-Called',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/64_Sentinel Armor.jpg" id="WOO_64_Sentinel Armor" data-flag="@X" onclick="openSidebar('WOO_64_Sentinel Armor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/104_Shadowshriek.jpg" id="WOO_104_Shadowshriek" data-flag="@X" onclick="openSidebar('WOO_104_Shadowshriek',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/135_Nedrulean Toolglove.jpg" id="WOO_135_Nedrulean Toolglove" data-flag="@X" onclick="openSidebar('WOO_135_Nedrulean Toolglove',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/176_Seed of Corruption.jpg" id="WOO_176_Seed of Corruption" data-flag="@X" onclick="openSidebar('WOO_176_Seed of Corruption',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/31_Reduce to Scrap.jpg" id="WOO_31_Reduce to Scrap" data-flag="@X" onclick="openSidebar('WOO_31_Reduce to Scrap',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/65_The Skylight Observatory.jpg" id="WOO_65_The Skylight Observatory" data-flag="@X" onclick="openSidebar('WOO_65_The Skylight Observatory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/106_Skeletal Siphoner.jpg" id="WOO_106_Skeletal Siphoner" data-flag="@X" onclick="openSidebar('WOO_106_Skeletal Siphoner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/138_Overclock the Core.jpg" id="WOO_138_Overclock the Core" data-flag="@X" onclick="openSidebar('WOO_138_Overclock the Core',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/177_Synthesize Flora.jpg" id="WOO_177_Synthesize Flora" data-flag="@X" onclick="openSidebar('WOO_177_Synthesize Flora',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/32_Second Dawn Illuminator.jpg" id="WOO_32_Second Dawn Illuminator" data-flag="@X" onclick="openSidebar('WOO_32_Second Dawn Illuminator',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/67_Spectral Severance_back.jpg" alt="sets/WOO-files/img/67_Spectral Severance_front.jpg" id="WOO_67_Spectral Severance" data-flag="@XD" onclick="openSidebar('WOO_67_Spectral Severance',false)"><button class="flip-btn" onclick="imgFlip('WOO_67_Spectral Severance')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/107_Slay the Sorrowful.jpg" id="WOO_107_Slay the Sorrowful" data-flag="@X" onclick="openSidebar('WOO_107_Slay the Sorrowful',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/142_Splinterblade Shaman.jpg" id="WOO_142_Splinterblade Shaman" data-flag="@X" onclick="openSidebar('WOO_142_Splinterblade Shaman',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/178_Synthetic Nest_back.jpg" alt="sets/WOO-files/img/178_Synthetic Nest_front.jpg" id="WOO_178_Synthetic Nest" data-flag="@XD" onclick="openSidebar('WOO_178_Synthetic Nest',false)"><button class="flip-btn" onclick="imgFlip('WOO_178_Synthetic Nest')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/35_Silver Incantation.jpg" id="WOO_35_Silver Incantation" data-flag="@X" onclick="openSidebar('WOO_35_Silver Incantation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/70_Vhewter Hover Agent.jpg" id="WOO_70_Vhewter Hover Agent" data-flag="@X" onclick="openSidebar('WOO_70_Vhewter Hover Agent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/109_Syndicate Shadowblade.jpg" id="WOO_109_Syndicate Shadowblade" data-flag="@X" onclick="openSidebar('WOO_109_Syndicate Shadowblade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/143_Sunset Survivor.jpg" id="WOO_143_Sunset Survivor" data-flag="@X" onclick="openSidebar('WOO_143_Sunset Survivor',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/180_Titanic Blooming_back.jpg" alt="sets/WOO-files/img/180_Titanic Blooming_front.jpg" id="WOO_180_Titanic Blooming" data-flag="@XD" onclick="openSidebar('WOO_180_Titanic Blooming',false)"><button class="flip-btn" onclick="imgFlip('WOO_180_Titanic Blooming')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/1_Ancestral Broadsword.jpg" id="WOO_1_Ancestral Broadsword" data-flag="@X" onclick="openSidebar('WOO_1_Ancestral Broadsword',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/38_Avian Gene Stitcher.jpg" id="WOO_38_Avian Gene Stitcher" data-flag="@X" onclick="openSidebar('WOO_38_Avian Gene Stitcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/76_Ambush Prowler.jpg" id="WOO_76_Ambush Prowler" data-flag="@X" onclick="openSidebar('WOO_76_Ambush Prowler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/114_Breaker Golem.jpg" id="WOO_114_Breaker Golem" data-flag="@X" onclick="openSidebar('WOO_114_Breaker Golem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/152_Arboreal Shambler.jpg" id="WOO_152_Arboreal Shambler" data-flag="@X" onclick="openSidebar('WOO_152_Arboreal Shambler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/3_Angelic Judge.jpg" id="WOO_3_Angelic Judge" data-flag="@X" onclick="openSidebar('WOO_3_Angelic Judge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/39_Clockwork Familliar.jpg" id="WOO_39_Clockwork Familliar" data-flag="@X" onclick="openSidebar('WOO_39_Clockwork Familliar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/77_Ancient Communion.jpg" id="WOO_77_Ancient Communion" data-flag="@X" onclick="openSidebar('WOO_77_Ancient Communion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/116_Burn the City.jpg" id="WOO_116_Burn the City" data-flag="@X" onclick="openSidebar('WOO_116_Burn the City',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/154_Burst from the Woods_back.jpg" alt="sets/WOO-files/img/154_Burst from the Woods_front.jpg" id="WOO_154_Burst from the Woods" data-flag="@XD" onclick="openSidebar('WOO_154_Burst from the Woods',false)"><button class="flip-btn" onclick="imgFlip('WOO_154_Burst from the Woods')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/4_Attuned with the Order.jpg" id="WOO_4_Attuned with the Order" data-flag="@X" onclick="openSidebar('WOO_4_Attuned with the Order',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/40_Corvid Curse.jpg" id="WOO_40_Corvid Curse" data-flag="@X" onclick="openSidebar('WOO_40_Corvid Curse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/78_Crypt Overseer.jpg" id="WOO_78_Crypt Overseer" data-flag="@X" onclick="openSidebar('WOO_78_Crypt Overseer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/117_Dragonfire Rain.jpg" id="WOO_117_Dragonfire Rain" data-flag="@X" onclick="openSidebar('WOO_117_Dragonfire Rain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/155_Carnivorous Gardening.jpg" id="WOO_155_Carnivorous Gardening" data-flag="@X" onclick="openSidebar('WOO_155_Carnivorous Gardening',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/5_Awakened Horde.jpg" id="WOO_5_Awakened Horde" data-flag="@X" onclick="openSidebar('WOO_5_Awakened Horde',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/44_Elevated Insight.jpg" id="WOO_44_Elevated Insight" data-flag="@X" onclick="openSidebar('WOO_44_Elevated Insight',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/79_Deserted Duo_back.jpg" alt="sets/WOO-files/img/79_Deserted Duo_front.jpg" id="WOO_79_Deserted Duo" data-flag="@XD" onclick="openSidebar('WOO_79_Deserted Duo',false)"><button class="flip-btn" onclick="imgFlip('WOO_79_Deserted Duo')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/118_Dragonforged Battlegear.jpg" id="WOO_118_Dragonforged Battlegear" data-flag="@X" onclick="openSidebar('WOO_118_Dragonforged Battlegear',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/158_Encounter the Accursed.jpg" id="WOO_158_Encounter the Accursed" data-flag="@X" onclick="openSidebar('WOO_158_Encounter the Accursed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/6_Banish to Solitude.jpg" id="WOO_6_Banish to Solitude" data-flag="@X" onclick="openSidebar('WOO_6_Banish to Solitude',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/45_Endothermic Bauble_back.jpg" alt="sets/WOO-files/img/45_Endothermic Bauble_front.jpg" id="WOO_45_Endothermic Bauble" data-flag="@XD" onclick="openSidebar('WOO_45_Endothermic Bauble',false)"><button class="flip-btn" onclick="imgFlip('WOO_45_Endothermic Bauble')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/80_Disassemble.jpg" id="WOO_80_Disassemble" data-flag="@X" onclick="openSidebar('WOO_80_Disassemble',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/122_Frantic Mender.jpg" id="WOO_122_Frantic Mender" data-flag="@X" onclick="openSidebar('WOO_122_Frantic Mender',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/159_Experimental Refinery_back.jpg" alt="sets/WOO-files/img/159_Experimental Refinery_front.jpg" id="WOO_159_Experimental Refinery" data-flag="@XD" onclick="openSidebar('WOO_159_Experimental Refinery',false)"><button class="flip-btn" onclick="imgFlip('WOO_159_Experimental Refinery')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/7_Blossoming Soul.jpg" id="WOO_7_Blossoming Soul" data-flag="@X" onclick="openSidebar('WOO_7_Blossoming Soul',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/46_Expel the Outsider_back.jpg" alt="sets/WOO-files/img/46_Expel the Outsider_front.jpg" id="WOO_46_Expel the Outsider" data-flag="@XD" onclick="openSidebar('WOO_46_Expel the Outsider',false)"><button class="flip-btn" onclick="imgFlip('WOO_46_Expel the Outsider')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/81_Disrupted Duppy.jpg" id="WOO_81_Disrupted Duppy" data-flag="@X" onclick="openSidebar('WOO_81_Disrupted Duppy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/123_Goblin Ritualist.jpg" id="WOO_123_Goblin Ritualist" data-flag="@X" onclick="openSidebar('WOO_123_Goblin Ritualist',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/161_Floralshell Yearling_back.jpg" alt="sets/WOO-files/img/161_Floralshell Yearling_front.jpg" id="WOO_161_Floralshell Yearling" data-flag="@XD" onclick="openSidebar('WOO_161_Floralshell Yearling',false)"><button class="flip-btn" onclick="imgFlip('WOO_161_Floralshell Yearling')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/9_Caretaker of the Frightful.jpg" id="WOO_9_Caretaker of the Frightful" data-flag="@X" onclick="openSidebar('WOO_9_Caretaker of the Frightful',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/47_Geistfuel Copter_back.jpg" alt="sets/WOO-files/img/47_Geistfuel Copter_front.jpg" id="WOO_47_Geistfuel Copter" data-flag="@XD" onclick="openSidebar('WOO_47_Geistfuel Copter',false)"><button class="flip-btn" onclick="imgFlip('WOO_47_Geistfuel Copter')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/84_Fell the Accursed_back.jpg" alt="sets/WOO-files/img/84_Fell the Accursed_front.jpg" id="WOO_84_Fell the Accursed" data-flag="@XD" onclick="openSidebar('WOO_84_Fell the Accursed',false)"><button class="flip-btn" onclick="imgFlip('WOO_84_Fell the Accursed')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/124_Ignition Fireplace.jpg" id="WOO_124_Ignition Fireplace" data-flag="@X" onclick="openSidebar('WOO_124_Ignition Fireplace',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/162_Goblin Bloombuilder.jpg" id="WOO_162_Goblin Bloombuilder" data-flag="@X" onclick="openSidebar('WOO_162_Goblin Bloombuilder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/14_Dawnrider Phantom.jpg" id="WOO_14_Dawnrider Phantom" data-flag="@X" onclick="openSidebar('WOO_14_Dawnrider Phantom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/50_Innovate.jpg" id="WOO_50_Innovate" data-flag="@X" onclick="openSidebar('WOO_50_Innovate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/87_Hunter of the Accursed.jpg" id="WOO_87_Hunter of the Accursed" data-flag="@X" onclick="openSidebar('WOO_87_Hunter of the Accursed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/127_Inspiration Seekers.jpg" id="WOO_127_Inspiration Seekers" data-flag="@X" onclick="openSidebar('WOO_127_Inspiration Seekers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/163_Grasp of Nature.jpg" id="WOO_163_Grasp of Nature" data-flag="@X" onclick="openSidebar('WOO_163_Grasp of Nature',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/15_Dawn's Avenger.jpg" id="WOO_15_Dawns Avenger" data-flag="@X" onclick="openSidebar('WOO_15_Dawns Avenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/51_Kindle Corruption.jpg" id="WOO_51_Kindle Corruption" data-flag="@X" onclick="openSidebar('WOO_51_Kindle Corruption',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/89_Leave to Rot.jpg" id="WOO_89_Leave to Rot" data-flag="@X" onclick="openSidebar('WOO_89_Leave to Rot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/129_Mechanical Brawler.jpg" id="WOO_129_Mechanical Brawler" data-flag="@X" onclick="openSidebar('WOO_129_Mechanical Brawler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/164_Guiding Bauble.jpg" id="WOO_164_Guiding Bauble" data-flag="@X" onclick="openSidebar('WOO_164_Guiding Bauble',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/16_Defiled Adventurer.jpg" id="WOO_16_Defiled Adventurer" data-flag="@X" onclick="openSidebar('WOO_16_Defiled Adventurer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/55_Midnight Dawncaller.jpg" id="WOO_55_Midnight Dawncaller" data-flag="@X" onclick="openSidebar('WOO_55_Midnight Dawncaller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/90_Malevolent Lemure.jpg" id="WOO_90_Malevolent Lemure" data-flag="@X" onclick="openSidebar('WOO_90_Malevolent Lemure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/131_Molten Refuse.jpg" id="WOO_131_Molten Refuse" data-flag="@X" onclick="openSidebar('WOO_131_Molten Refuse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/165_Landcaller Geist.jpg" id="WOO_165_Landcaller Geist" data-flag="@X" onclick="openSidebar('WOO_165_Landcaller Geist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/17_Eclipse Strike.jpg" id="WOO_17_Eclipse Strike" data-flag="@X" onclick="openSidebar('WOO_17_Eclipse Strike',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/57_Order Soulsmith.jpg" id="WOO_57_Order Soulsmith" data-flag="@X" onclick="openSidebar('WOO_57_Order Soulsmith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/92_Night Market Caretaker.jpg" id="WOO_92_Night Market Caretaker" data-flag="@X" onclick="openSidebar('WOO_92_Night Market Caretaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/132_Nedrulean Aristocrats.jpg" id="WOO_132_Nedrulean Aristocrats" data-flag="@X" onclick="openSidebar('WOO_132_Nedrulean Aristocrats',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/166_Mantrap Hulk.jpg" id="WOO_166_Mantrap Hulk" data-flag="@X" onclick="openSidebar('WOO_166_Mantrap Hulk',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/23_Nedrulean Farmhand.jpg" id="WOO_23_Nedrulean Farmhand" data-flag="@X" onclick="openSidebar('WOO_23_Nedrulean Farmhand',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/58_Order's Barrier.jpg" id="WOO_58_Orders Barrier" data-flag="@X" onclick="openSidebar('WOO_58_Orders Barrier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/93_Nightclad Tormentor.jpg" id="WOO_93_Nightclad Tormentor" data-flag="@X" onclick="openSidebar('WOO_93_Nightclad Tormentor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/133_Nedrulean Artillerist.jpg" id="WOO_133_Nedrulean Artillerist" data-flag="@X" onclick="openSidebar('WOO_133_Nedrulean Artillerist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/167_Mechanized Gardener.jpg" id="WOO_167_Mechanized Gardener" data-flag="@X" onclick="openSidebar('WOO_167_Mechanized Gardener',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/24_Nedrulean Stoutblade.jpg" id="WOO_24_Nedrulean Stoutblade" data-flag="@X" onclick="openSidebar('WOO_24_Nedrulean Stoutblade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/60_Reflect on Progress.jpg" id="WOO_60_Reflect on Progress" data-flag="@X" onclick="openSidebar('WOO_60_Reflect on Progress',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/95_Path to Perfection.jpg" id="WOO_95_Path to Perfection" data-flag="@X" onclick="openSidebar('WOO_95_Path to Perfection',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/137_Order's Trailblazer.jpg" id="WOO_137_Orders Trailblazer" data-flag="@X" onclick="openSidebar('WOO_137_Orders Trailblazer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/170_Nedrulean Architect.jpg" id="WOO_170_Nedrulean Architect" data-flag="@X" onclick="openSidebar('WOO_170_Nedrulean Architect',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/26_Ochiro's Consecrator.jpg" id="WOO_26_Ochiros Consecrator" data-flag="@X" onclick="openSidebar('WOO_26_Ochiros Consecrator',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/68_Steamwork Elemental_back.jpg" alt="sets/WOO-files/img/68_Steamwork Elemental_front.jpg" id="WOO_68_Steamwork Elemental" data-flag="@XD" onclick="openSidebar('WOO_68_Steamwork Elemental',false)"><button class="flip-btn" onclick="imgFlip('WOO_68_Steamwork Elemental')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/96_Peaceless Return.jpg" id="WOO_96_Peaceless Return" data-flag="@X" onclick="openSidebar('WOO_96_Peaceless Return',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/139_Reckless Fervor.jpg" id="WOO_139_Reckless Fervor" data-flag="@X" onclick="openSidebar('WOO_139_Reckless Fervor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/179_Synthvine Colossus.jpg" id="WOO_179_Synthvine Colossus" data-flag="@X" onclick="openSidebar('WOO_179_Synthvine Colossus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/28_Order's Aid.jpg" id="WOO_28_Orders Aid" data-flag="@X" onclick="openSidebar('WOO_28_Orders Aid',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/69_Veteran Tinkerer.jpg" id="WOO_69_Veteran Tinkerer" data-flag="@X" onclick="openSidebar('WOO_69_Veteran Tinkerer',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/99_Recover the Lost_back.jpg" alt="sets/WOO-files/img/99_Recover the Lost_front.jpg" id="WOO_99_Recover the Lost" data-flag="@XD" onclick="openSidebar('WOO_99_Recover the Lost',false)"><button class="flip-btn" onclick="imgFlip('WOO_99_Recover the Lost')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/140_Rummaging Handyman.jpg" id="WOO_140_Rummaging Handyman" data-flag="@X" onclick="openSidebar('WOO_140_Rummaging Handyman',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/182_Wild Ambush_back.jpg" alt="sets/WOO-files/img/182_Wild Ambush_front.jpg" id="WOO_182_Wild Ambush" data-flag="@XD" onclick="openSidebar('WOO_182_Wild Ambush',false)"><button class="flip-btn" onclick="imgFlip('WOO_182_Wild Ambush')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/30_Reassembling Legion.jpg" id="WOO_30_Reassembling Legion" data-flag="@X" onclick="openSidebar('WOO_30_Reassembling Legion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/71_Vhewter Reasearcher.jpg" id="WOO_71_Vhewter Reasearcher" data-flag="@X" onclick="openSidebar('WOO_71_Vhewter Reasearcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/100_Returned Criminal.jpg" id="WOO_100_Returned Criminal" data-flag="@X" onclick="openSidebar('WOO_100_Returned Criminal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/144_Thrown into the Forge.jpg" id="WOO_144_Thrown into the Forge" data-flag="@X" onclick="openSidebar('WOO_144_Thrown into the Forge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/183_Wild Connection.jpg" id="WOO_183_Wild Connection" data-flag="@X" onclick="openSidebar('WOO_183_Wild Connection',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/33_Second Dawn Ritual.jpg" id="WOO_33_Second Dawn Ritual" data-flag="@X" onclick="openSidebar('WOO_33_Second Dawn Ritual',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/73_Vortex of Denial.jpg" id="WOO_73_Vortex of Denial" data-flag="@X" onclick="openSidebar('WOO_73_Vortex of Denial',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/105_Shambling Skeleton.jpg" id="WOO_105_Shambling Skeleton" data-flag="@X" onclick="openSidebar('WOO_105_Shambling Skeleton',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/146_Viashino Crusader.jpg" id="WOO_146_Viashino Crusader" data-flag="@X" onclick="openSidebar('WOO_146_Viashino Crusader',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/184_Wildgrowth Crawler.jpg" id="WOO_184_Wildgrowth Crawler" data-flag="@X" onclick="openSidebar('WOO_184_Wildgrowth Crawler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/34_Shimmering Lance.jpg" id="WOO_34_Shimmering Lance" data-flag="@X" onclick="openSidebar('WOO_34_Shimmering Lance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/74_Warp Away.jpg" id="WOO_74_Warp Away" data-flag="@X" onclick="openSidebar('WOO_74_Warp Away',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/111_Wary Bargainer_back.jpg" alt="sets/WOO-files/img/111_Wary Bargainer_front.jpg" id="WOO_111_Wary Bargainer" data-flag="@XD" onclick="openSidebar('WOO_111_Wary Bargainer',false)"><button class="flip-btn" onclick="imgFlip('WOO_111_Wary Bargainer')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/148_Wrecking Rage.jpg" id="WOO_148_Wrecking Rage" data-flag="@X" onclick="openSidebar('WOO_148_Wrecking Rage',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/185_Wildsea Station_back.jpg" alt="sets/WOO-files/img/185_Wildsea Station_front.jpg" id="WOO_185_Wildsea Station" data-flag="@XD" onclick="openSidebar('WOO_185_Wildsea Station',false)"><button class="flip-btn" onclick="imgFlip('WOO_185_Wildsea Station')"></button></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
 				<div id="gold" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/222_Veles, Order Initiate.jpg" id="222_Veles, Order Initiate" data-flag="@X" onclick="openSidebar('222_Veles, Order Initiate',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/195_Excise Imperfection.jpg" id="195_Excise Imperfection" data-flag="@X" onclick="openSidebar('195_Excise Imperfection',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/211_Ochiro's Frontliner.jpg" id="211_Ochiros Frontliner" data-flag="@X" onclick="openSidebar('211_Ochiros Frontliner',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/205_Monis, Genesis Sculptor.jpg" id="205_Monis, Genesis Sculptor" data-flag="@X" onclick="openSidebar('205_Monis, Genesis Sculptor',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/226_Wildbloom Helix.jpg" id="226_Wildbloom Helix" data-flag="@X" onclick="openSidebar('226_Wildbloom Helix',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/204_Midnight Soulthief.jpg" id="204_Midnight Soulthief" data-flag="@X" onclick="openSidebar('204_Midnight Soulthief',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/219_Spoils of Battle.jpg" id="219_Spoils of Battle" data-flag="@X" onclick="openSidebar('219_Spoils of Battle',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/220_Unleashed Rotmaw.jpg" id="220_Unleashed Rotmaw" data-flag="@X" onclick="openSidebar('220_Unleashed Rotmaw',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/212_Ochiro's Suncaller.jpg" id="212_Ochiros Suncaller" data-flag="@X" onclick="openSidebar('212_Ochiros Suncaller',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/224_Vhewter Grovetender.jpg" id="224_Vhewter Grovetender" data-flag="@X" onclick="openSidebar('224_Vhewter Grovetender',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/192_Deathweaver.jpg" id="192_Deathweaver" data-flag="@X" onclick="openSidebar('192_Deathweaver',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/201_Goblin Reiterator.jpg" id="201_Goblin Reiterator" data-flag="@X" onclick="openSidebar('201_Goblin Reiterator',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/189_Bloom Anew.jpg" id="189_Bloom Anew" data-flag="@X" onclick="openSidebar('189_Bloom Anew',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/197_Flamewing Angel.jpg" id="197_Flamewing Angel" data-flag="@X" onclick="openSidebar('197_Flamewing Angel',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/202_Horizon Hatchery_back.jpg" alt="/sets/WOO-files/img/202_Horizon Hatchery_front.jpg" id="202_Horizon Hatchery" data-flag="@XD" onclick="openSidebar('202_Horizon Hatchery',false)"><button class="flip-btn" onclick="imgFlip('202_Horizon Hatchery')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/221_Unrelenting Corpse.jpg" id="221_Unrelenting Corpse" data-flag="@X" onclick="openSidebar('221_Unrelenting Corpse',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/207_Nedrulean Wall Core.jpg" id="207_Nedrulean Wall Core" data-flag="@X" onclick="openSidebar('207_Nedrulean Wall Core',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/186_Accursed Reconciler.jpg" id="186_Accursed Reconciler" data-flag="@X" onclick="openSidebar('186_Accursed Reconciler',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/193_Dynamo Discharge.jpg" id="193_Dynamo Discharge" data-flag="@X" onclick="openSidebar('193_Dynamo Discharge',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/199_Genetic Bloom.jpg" id="199_Genetic Bloom" data-flag="@X" onclick="openSidebar('199_Genetic Bloom',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/232_Spectral Pontiff.jpg" id="232_Spectral Pontiff" data-flag="@X" onclick="openSidebar('232_Spectral Pontiff',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/234_Tinker the Design.jpg" id="234_Tinker the Design" data-flag="@X" onclick="openSidebar('234_Tinker the Design',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/230_Dredged Rotbone_back.jpg" alt="/sets/WOO-files/img/230_Dredged Rotbone_front.jpg" id="230_Dredged Rotbone" data-flag="@XD" onclick="openSidebar('230_Dredged Rotbone',false)"><button class="flip-btn" onclick="imgFlip('230_Dredged Rotbone')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/231_Nedrulean Recruiter.jpg" id="231_Nedrulean Recruiter" data-flag="@X" onclick="openSidebar('231_Nedrulean Recruiter',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/233_Splicing Station_back.jpg" alt="/sets/WOO-files/img/233_Splicing Station_front.jpg" id="233_Splicing Station" data-flag="@XD" onclick="openSidebar('233_Splicing Station',false)"><button class="flip-btn" onclick="imgFlip('233_Splicing Station')"></button></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/209_Ochiro, Final Flame.jpg" id="209_Ochiro, Final Flame" data-flag="@X" onclick="openSidebar('209_Ochiro, Final Flame',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/198_The Genesis Engine.jpg" id="198_The Genesis Engine" data-flag="@X" onclick="openSidebar('198_The Genesis Engine',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/217_The Shattered Cycle.jpg" id="217_The Shattered Cycle" data-flag="@X" onclick="openSidebar('217_The Shattered Cycle',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/194_Eileen, Herald of the Dawn.jpg" id="194_Eileen, Herald of the Dawn" data-flag="@X" onclick="openSidebar('194_Eileen, Herald of the Dawn',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/200_Ghonil, Essence Thief_back.jpg" alt="/sets/WOO-files/img/200_Ghonil, Essence Thief_front.jpg" id="200_Ghonil, Essence Thief" data-flag="@XD" onclick="openSidebar('200_Ghonil, Essence Thief',false)"><button class="flip-btn" onclick="imgFlip('200_Ghonil, Essence Thief')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/208_Neshai, Ochiro's Hand.jpg" id="208_Neshai, Ochiros Hand" data-flag="@X" onclick="openSidebar('208_Neshai, Ochiros Hand',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/214_Professor Sona.jpg" id="214_Professor Sona" data-flag="@X" onclick="openSidebar('214_Professor Sona',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/227_The Wildlight Elemental.jpg" id="227_The Wildlight Elemental" data-flag="@X" onclick="openSidebar('227_The Wildlight Elemental',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/229_Yuing, Order's Preacher.jpg" id="229_Yuing, Orders Preacher" data-flag="@X" onclick="openSidebar('229_Yuing, Orders Preacher',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/218_Sinoas, Syndicate Blade.jpg" id="218_Sinoas, Syndicate Blade" data-flag="@X" onclick="openSidebar('218_Sinoas, Syndicate Blade',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/210_Ochiro's Charm.jpg" id="210_Ochiros Charm" data-flag="@X" onclick="openSidebar('210_Ochiros Charm',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/191_Construction Bay.jpg" id="191_Construction Bay" data-flag="@X" onclick="openSidebar('191_Construction Bay',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/188_Awakener of the Accursed.jpg" id="188_Awakener of the Accursed" data-flag="@X" onclick="openSidebar('188_Awakener of the Accursed',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/187_Ascendant Soulcaller.jpg" id="187_Ascendant Soulcaller" data-flag="@X" onclick="openSidebar('187_Ascendant Soulcaller',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/223_Vhewter Charm.jpg" id="223_Vhewter Charm" data-flag="@X" onclick="openSidebar('223_Vhewter Charm',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/216_Shadowflame Shaman.jpg" id="216_Shadowflame Shaman" data-flag="@X" onclick="openSidebar('216_Shadowflame Shaman',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/206_Nedrulean Charm.jpg" id="206_Nedrulean Charm" data-flag="@X" onclick="openSidebar('206_Nedrulean Charm',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/190_Charm of the Wild.jpg" id="190_Charm of the Wild" data-flag="@X" onclick="openSidebar('190_Charm of the Wild',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/215_Second Dawn Charm.jpg" id="215_Second Dawn Charm" data-flag="@X" onclick="openSidebar('215_Second Dawn Charm',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/225_Vhewter Sky Scout.jpg" id="225_Vhewter Sky Scout" data-flag="@X" onclick="openSidebar('225_Vhewter Sky Scout',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/196_Fanatic Goblin.jpg" id="196_Fanatic Goblin" data-flag="@X" onclick="openSidebar('196_Fanatic Goblin',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/235_Forgewalker.jpg" id="235_Forgewalker" data-flag="@X" onclick="openSidebar('235_Forgewalker',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/203_Jungle Geist.jpg" id="203_Jungle Geist" data-flag="@X" onclick="openSidebar('203_Jungle Geist',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/213_Pledge to the Order.jpg" id="213_Pledge to the Order" data-flag="@X" onclick="openSidebar('213_Pledge to the Order',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/228_Wildsea Tender.jpg" id="228_Wildsea Tender" data-flag="@X" onclick="openSidebar('228_Wildsea Tender',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/222_Veles, Order Initiate.jpg" id="WOO_222_Veles, Order Initiate" data-flag="@X" onclick="openSidebar('WOO_222_Veles, Order Initiate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/198_Excise Imperfection.jpg" id="WOO_198_Excise Imperfection" data-flag="@X" onclick="openSidebar('WOO_198_Excise Imperfection',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/213_Ochiro's Frontliner.jpg" id="WOO_213_Ochiros Frontliner" data-flag="@X" onclick="openSidebar('WOO_213_Ochiros Frontliner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/208_Monis, Genesis Sculptor.jpg" id="WOO_208_Monis, Genesis Sculptor" data-flag="@X" onclick="openSidebar('WOO_208_Monis, Genesis Sculptor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/226_Wildbloom Helix.jpg" id="WOO_226_Wildbloom Helix" data-flag="@X" onclick="openSidebar('WOO_226_Wildbloom Helix',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/207_Midnight Soulthief.jpg" id="WOO_207_Midnight Soulthief" data-flag="@X" onclick="openSidebar('WOO_207_Midnight Soulthief',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/216_Scholar's Spoils.jpg" id="WOO_216_Scholars Spoils" data-flag="@X" onclick="openSidebar('WOO_216_Scholars Spoils',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/189_Bloom Anew.jpg" id="WOO_189_Bloom Anew" data-flag="@X" onclick="openSidebar('WOO_189_Bloom Anew',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/200_Fanatic Suncaller.jpg" id="WOO_200_Fanatic Suncaller" data-flag="@X" onclick="openSidebar('WOO_200_Fanatic Suncaller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/224_Vhewter Grovetender.jpg" id="WOO_224_Vhewter Grovetender" data-flag="@X" onclick="openSidebar('WOO_224_Vhewter Grovetender',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/193_Deathweaver.jpg" id="WOO_193_Deathweaver" data-flag="@X" onclick="openSidebar('WOO_193_Deathweaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/204_Goblin Reiterator.jpg" id="WOO_204_Goblin Reiterator" data-flag="@X" onclick="openSidebar('WOO_204_Goblin Reiterator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/195_Dreadwood Experiment.jpg" id="WOO_195_Dreadwood Experiment" data-flag="@X" onclick="openSidebar('WOO_195_Dreadwood Experiment',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/194_Dragonflame Blade.jpg" id="WOO_194_Dragonflame Blade" data-flag="@X" onclick="openSidebar('WOO_194_Dragonflame Blade',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/205_Horizon Hatchery_back.jpg" alt="sets/WOO-files/img/205_Horizon Hatchery_front.jpg" id="WOO_205_Horizon Hatchery" data-flag="@XD" onclick="openSidebar('WOO_205_Horizon Hatchery',false)"><button class="flip-btn" onclick="imgFlip('WOO_205_Horizon Hatchery')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/221_Unrelenting Corpse.jpg" id="WOO_221_Unrelenting Corpse" data-flag="@X" onclick="openSidebar('WOO_221_Unrelenting Corpse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/192_Constructive Wall Core.jpg" id="WOO_192_Constructive Wall Core" data-flag="@X" onclick="openSidebar('WOO_192_Constructive Wall Core',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/186_Accursed Reconciler.jpg" id="WOO_186_Accursed Reconciler" data-flag="@X" onclick="openSidebar('WOO_186_Accursed Reconciler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/196_Dynamo Discharge.jpg" id="WOO_196_Dynamo Discharge" data-flag="@X" onclick="openSidebar('WOO_196_Dynamo Discharge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/202_Genetic Bloom.jpg" id="WOO_202_Genetic Bloom" data-flag="@X" onclick="openSidebar('WOO_202_Genetic Bloom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/232_Spectral Pontiff.jpg" id="WOO_232_Spectral Pontiff" data-flag="@X" onclick="openSidebar('WOO_232_Spectral Pontiff',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/234_Tinker the Design.jpg" id="WOO_234_Tinker the Design" data-flag="@X" onclick="openSidebar('WOO_234_Tinker the Design',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/230_Dredged Rotbone_back.jpg" alt="sets/WOO-files/img/230_Dredged Rotbone_front.jpg" id="WOO_230_Dredged Rotbone" data-flag="@XD" onclick="openSidebar('WOO_230_Dredged Rotbone',false)"><button class="flip-btn" onclick="imgFlip('WOO_230_Dredged Rotbone')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/231_Nedrulean Recruiter.jpg" id="WOO_231_Nedrulean Recruiter" data-flag="@X" onclick="openSidebar('WOO_231_Nedrulean Recruiter',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/233_Splicing Station_back.jpg" alt="sets/WOO-files/img/233_Splicing Station_front.jpg" id="WOO_233_Splicing Station" data-flag="@XD" onclick="openSidebar('WOO_233_Splicing Station',false)"><button class="flip-btn" onclick="imgFlip('WOO_233_Splicing Station')"></button></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/211_Ochiro, Final Flame.jpg" id="WOO_211_Ochiro, Final Flame" data-flag="@X" onclick="openSidebar('WOO_211_Ochiro, Final Flame',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/201_The Genesis Engine.jpg" id="WOO_201_The Genesis Engine" data-flag="@X" onclick="openSidebar('WOO_201_The Genesis Engine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/219_The Shattered Cycle.jpg" id="WOO_219_The Shattered Cycle" data-flag="@X" onclick="openSidebar('WOO_219_The Shattered Cycle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/197_Eileen, Herald of the Dawn.jpg" id="WOO_197_Eileen, Herald of the Dawn" data-flag="@X" onclick="openSidebar('WOO_197_Eileen, Herald of the Dawn',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/203_Ghonil, Essence Thief_back.jpg" alt="sets/WOO-files/img/203_Ghonil, Essence Thief_front.jpg" id="WOO_203_Ghonil, Essence Thief" data-flag="@XD" onclick="openSidebar('WOO_203_Ghonil, Essence Thief',false)"><button class="flip-btn" onclick="imgFlip('WOO_203_Ghonil, Essence Thief')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/210_Neshai, Ochiro's Hand.jpg" id="WOO_210_Neshai, Ochiros Hand" data-flag="@X" onclick="openSidebar('WOO_210_Neshai, Ochiros Hand',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/215_Professor Sona.jpg" id="WOO_215_Professor Sona" data-flag="@X" onclick="openSidebar('WOO_215_Professor Sona',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/227_The Wildlight Elemental.jpg" id="WOO_227_The Wildlight Elemental" data-flag="@X" onclick="openSidebar('WOO_227_The Wildlight Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/229_Yuing, Order's Preacher.jpg" id="WOO_229_Yuing, Orders Preacher" data-flag="@X" onclick="openSidebar('WOO_229_Yuing, Orders Preacher',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/220_Sinoas, Syndicate Blade_back.jpg" alt="sets/WOO-files/img/220_Sinoas, Syndicate Blade_front.jpg" id="WOO_220_Sinoas, Syndicate Blade" data-flag="@XD" onclick="openSidebar('WOO_220_Sinoas, Syndicate Blade',false)"><button class="flip-btn" onclick="imgFlip('WOO_220_Sinoas, Syndicate Blade')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/212_Ochiro's Charm.jpg" id="WOO_212_Ochiros Charm" data-flag="@X" onclick="openSidebar('WOO_212_Ochiros Charm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/191_Construction Bay.jpg" id="WOO_191_Construction Bay" data-flag="@X" onclick="openSidebar('WOO_191_Construction Bay',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/188_Awakener of the Accursed.jpg" id="WOO_188_Awakener of the Accursed" data-flag="@X" onclick="openSidebar('WOO_188_Awakener of the Accursed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/187_Ascendant Soulcaller.jpg" id="WOO_187_Ascendant Soulcaller" data-flag="@X" onclick="openSidebar('WOO_187_Ascendant Soulcaller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/223_Vhewter Charm.jpg" id="WOO_223_Vhewter Charm" data-flag="@X" onclick="openSidebar('WOO_223_Vhewter Charm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/218_Shadowflame Shaman.jpg" id="WOO_218_Shadowflame Shaman" data-flag="@X" onclick="openSidebar('WOO_218_Shadowflame Shaman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/209_Nedrulean Charm.jpg" id="WOO_209_Nedrulean Charm" data-flag="@X" onclick="openSidebar('WOO_209_Nedrulean Charm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/190_Charm of the Wild.jpg" id="WOO_190_Charm of the Wild" data-flag="@X" onclick="openSidebar('WOO_190_Charm of the Wild',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/217_Second Dawn Charm.jpg" id="WOO_217_Second Dawn Charm" data-flag="@X" onclick="openSidebar('WOO_217_Second Dawn Charm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/225_Vhewter Sky Scout.jpg" id="WOO_225_Vhewter Sky Scout" data-flag="@X" onclick="openSidebar('WOO_225_Vhewter Sky Scout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/199_Fanatic Goblin.jpg" id="WOO_199_Fanatic Goblin" data-flag="@X" onclick="openSidebar('WOO_199_Fanatic Goblin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/235_Forgewalker.jpg" id="WOO_235_Forgewalker" data-flag="@X" onclick="openSidebar('WOO_235_Forgewalker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/206_Jungle Geist.jpg" id="WOO_206_Jungle Geist" data-flag="@X" onclick="openSidebar('WOO_206_Jungle Geist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/214_Pledge to the Order.jpg" id="WOO_214_Pledge to the Order" data-flag="@X" onclick="openSidebar('WOO_214_Pledge to the Order',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/228_Wildsea Tender.jpg" id="WOO_228_Wildsea Tender" data-flag="@X" onclick="openSidebar('WOO_228_Wildsea Tender',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
 				<div id="colorless" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/255_Twinning Blade.jpg" id="255_Twinning Blade" data-flag="@X" onclick="openSidebar('255_Twinning Blade',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/237_Artificial Vulture.jpg" id="237_Artificial Vulture" data-flag="@X" onclick="openSidebar('237_Artificial Vulture',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/244_Heart of Nedrule.jpg" id="244_Heart of Nedrule" data-flag="@X" onclick="openSidebar('244_Heart of Nedrule',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/239_Deserted Mortuary.jpg" id="239_Deserted Mortuary" data-flag="@X" onclick="openSidebar('239_Deserted Mortuary',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/240_District Relocator.jpg" id="240_District Relocator" data-flag="@X" onclick="openSidebar('240_District Relocator',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/241_Dragonfire Cannon_back.jpg" alt="/sets/WOO-files/img/241_Dragonfire Cannon_front.jpg" id="241_Dragonfire Cannon" data-flag="@XD" onclick="openSidebar('241_Dragonfire Cannon',false)"><button class="flip-btn" onclick="imgFlip('241_Dragonfire Cannon')"></button></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/242_Fanged Helm_back.jpg" alt="/sets/WOO-files/img/242_Fanged Helm_front.jpg" id="242_Fanged Helm" data-flag="@XD" onclick="openSidebar('242_Fanged Helm',false)"><button class="flip-btn" onclick="imgFlip('242_Fanged Helm')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/243_Granite Sentinel.jpg" id="243_Granite Sentinel" data-flag="@X" onclick="openSidebar('243_Granite Sentinel',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/247_Manasteel Greaves_back.jpg" alt="/sets/WOO-files/img/247_Manasteel Greaves_front.jpg" id="247_Manasteel Greaves" data-flag="@XD" onclick="openSidebar('247_Manasteel Greaves',false)"><button class="flip-btn" onclick="imgFlip('247_Manasteel Greaves')"></button></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/249_Ritual Staff_back.jpg" alt="/sets/WOO-files/img/249_Ritual Staff_front.jpg" id="249_Ritual Staff" data-flag="@XD" onclick="openSidebar('249_Ritual Staff',false)"><button class="flip-btn" onclick="imgFlip('249_Ritual Staff')"></button></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/251_Sheltering Cloak_back.jpg" alt="/sets/WOO-files/img/251_Sheltering Cloak_front.jpg" id="251_Sheltering Cloak" data-flag="@XD" onclick="openSidebar('251_Sheltering Cloak',false)"><button class="flip-btn" onclick="imgFlip('251_Sheltering Cloak')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/253_Treasure Delver.jpg" id="253_Treasure Delver" data-flag="@X" onclick="openSidebar('253_Treasure Delver',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/236_Ancient Blueprints.jpg" id="236_Ancient Blueprints" data-flag="@X" onclick="openSidebar('236_Ancient Blueprints',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/238_Cyclical Tombstone.jpg" id="238_Cyclical Tombstone" data-flag="@X" onclick="openSidebar('238_Cyclical Tombstone',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/WOO-files/img/245_Incubator_back.jpg" alt="/sets/WOO-files/img/245_Incubator_front.jpg" id="245_Incubator" data-flag="@XD" onclick="openSidebar('245_Incubator',false)"><button class="flip-btn" onclick="imgFlip('245_Incubator')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/248_Mechanical Sentinel.jpg" id="248_Mechanical Sentinel" data-flag="@X" onclick="openSidebar('248_Mechanical Sentinel',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/250_Scapwork Venturer.jpg" id="250_Scapwork Venturer" data-flag="@X" onclick="openSidebar('250_Scapwork Venturer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/252_Throwing Hammer.jpg" id="252_Throwing Hammer" data-flag="@X" onclick="openSidebar('252_Throwing Hammer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/254_Twin-Construction Workers.jpg" id="254_Twin-Construction Workers" data-flag="@X" onclick="openSidebar('254_Twin-Construction Workers',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/263_Propagating Rotland.jpg" id="263_Propagating Rotland" data-flag="@X" onclick="openSidebar('263_Propagating Rotland',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/262_Nedrule, Curious Capital.jpg" id="262_Nedrule, Curious Capital" data-flag="@X" onclick="openSidebar('262_Nedrule, Curious Capital',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/265_Sealed Gateway.jpg" id="265_Sealed Gateway" data-flag="@X" onclick="openSidebar('265_Sealed Gateway',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/267_Soulcaller's Sanctuary.jpg" id="267_Soulcallers Sanctuary" data-flag="@X" onclick="openSidebar('267_Soulcallers Sanctuary',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/260_Dragonflame Campsite.jpg" id="260_Dragonflame Campsite" data-flag="@X" onclick="openSidebar('260_Dragonflame Campsite',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/264_Rotfield Grove.jpg" id="264_Rotfield Grove" data-flag="@X" onclick="openSidebar('264_Rotfield Grove',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/266_Serene Spring.jpg" id="266_Serene Spring" data-flag="@X" onclick="openSidebar('266_Serene Spring',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/269_Temple of the Second Dawn.jpg" id="269_Temple of the Second Dawn" data-flag="@X" onclick="openSidebar('269_Temple of the Second Dawn',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/270_Vhewter Night Market.jpg" id="270_Vhewter Night Market" data-flag="@X" onclick="openSidebar('270_Vhewter Night Market',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/256_Banished Bog.jpg" id="256_Banished Bog" data-flag="@X" onclick="openSidebar('256_Banished Bog',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/257_Creeping Woodland.jpg" id="257_Creeping Woodland" data-flag="@X" onclick="openSidebar('257_Creeping Woodland',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/258_Desolate Grove.jpg" id="258_Desolate Grove" data-flag="@X" onclick="openSidebar('258_Desolate Grove',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/259_Dragonfire Shrine.jpg" id="259_Dragonfire Shrine" data-flag="@X" onclick="openSidebar('259_Dragonfire Shrine',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/261_Geist Geysers.jpg" id="261_Geist Geysers" data-flag="@X" onclick="openSidebar('261_Geist Geysers',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/268_Stargazer's Shoal.jpg" id="268_Stargazers Shoal" data-flag="@X" onclick="openSidebar('268_Stargazers Shoal',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/283_Forest.jpg" id="283_Forest" data-flag="@X" onclick="openSidebar('283_Forest',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/285_Forest.jpg" id="285_Forest" data-flag="@X" onclick="openSidebar('285_Forest',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/284_Forest.jpg" id="284_Forest" data-flag="@X" onclick="openSidebar('284_Forest',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/274_Island.jpg" id="274_Island" data-flag="@X" onclick="openSidebar('274_Island',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/275_Island.jpg" id="275_Island" data-flag="@X" onclick="openSidebar('275_Island',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/276_Island.jpg" id="276_Island" data-flag="@X" onclick="openSidebar('276_Island',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/280_Mountain.jpg" id="280_Mountain" data-flag="@X" onclick="openSidebar('280_Mountain',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/282_Mountain.jpg" id="282_Mountain" data-flag="@X" onclick="openSidebar('282_Mountain',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/281_Mountain.jpg" id="281_Mountain" data-flag="@X" onclick="openSidebar('281_Mountain',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/271_Plains.jpg" id="271_Plains" data-flag="@X" onclick="openSidebar('271_Plains',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/272_Plains.jpg" id="272_Plains" data-flag="@X" onclick="openSidebar('272_Plains',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/273_Plains.jpg" id="273_Plains" data-flag="@X" onclick="openSidebar('273_Plains',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/278_Swamp.jpg" id="278_Swamp" data-flag="@X" onclick="openSidebar('278_Swamp',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/277_Swamp.jpg" id="277_Swamp" data-flag="@X" onclick="openSidebar('277_Swamp',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/279_Swamp.jpg" id="279_Swamp" data-flag="@X" onclick="openSidebar('279_Swamp',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/253_Twinning Blade.jpg" id="WOO_253_Twinning Blade" data-flag="@X" onclick="openSidebar('WOO_253_Twinning Blade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/237_Artificial Vulture.jpg" id="WOO_237_Artificial Vulture" data-flag="@X" onclick="openSidebar('WOO_237_Artificial Vulture',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/244_Heart of Nedrule.jpg" id="WOO_244_Heart of Nedrule" data-flag="@X" onclick="openSidebar('WOO_244_Heart of Nedrule',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/239_Deserted Mortuary.jpg" id="WOO_239_Deserted Mortuary" data-flag="@X" onclick="openSidebar('WOO_239_Deserted Mortuary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/240_District Relocator.jpg" id="WOO_240_District Relocator" data-flag="@X" onclick="openSidebar('WOO_240_District Relocator',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/241_Dragonfire Cannon_back.jpg" alt="sets/WOO-files/img/241_Dragonfire Cannon_front.jpg" id="WOO_241_Dragonfire Cannon" data-flag="@XD" onclick="openSidebar('WOO_241_Dragonfire Cannon',false)"><button class="flip-btn" onclick="imgFlip('WOO_241_Dragonfire Cannon')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/242_Fanged Helm_back.jpg" alt="sets/WOO-files/img/242_Fanged Helm_front.jpg" id="WOO_242_Fanged Helm" data-flag="@XD" onclick="openSidebar('WOO_242_Fanged Helm',false)"><button class="flip-btn" onclick="imgFlip('WOO_242_Fanged Helm')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/243_Granite Sentinel.jpg" id="WOO_243_Granite Sentinel" data-flag="@X" onclick="openSidebar('WOO_243_Granite Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/245_Manasteel Greaves_back.jpg" alt="sets/WOO-files/img/245_Manasteel Greaves_front.jpg" id="WOO_245_Manasteel Greaves" data-flag="@XD" onclick="openSidebar('WOO_245_Manasteel Greaves',false)"><button class="flip-btn" onclick="imgFlip('WOO_245_Manasteel Greaves')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/247_Ritual Staff_back.jpg" alt="sets/WOO-files/img/247_Ritual Staff_front.jpg" id="WOO_247_Ritual Staff" data-flag="@XD" onclick="openSidebar('WOO_247_Ritual Staff',false)"><button class="flip-btn" onclick="imgFlip('WOO_247_Ritual Staff')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WOO-files/img/249_Sheltering Cloak_back.jpg" alt="sets/WOO-files/img/249_Sheltering Cloak_front.jpg" id="WOO_249_Sheltering Cloak" data-flag="@XD" onclick="openSidebar('WOO_249_Sheltering Cloak',false)"><button class="flip-btn" onclick="imgFlip('WOO_249_Sheltering Cloak')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/251_Treasure Delver.jpg" id="WOO_251_Treasure Delver" data-flag="@X" onclick="openSidebar('WOO_251_Treasure Delver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/236_Ancient Blueprints.jpg" id="WOO_236_Ancient Blueprints" data-flag="@X" onclick="openSidebar('WOO_236_Ancient Blueprints',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/238_Cyclical Tombstone.jpg" id="WOO_238_Cyclical Tombstone" data-flag="@X" onclick="openSidebar('WOO_238_Cyclical Tombstone',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/246_Mechanical Sentinel.jpg" id="WOO_246_Mechanical Sentinel" data-flag="@X" onclick="openSidebar('WOO_246_Mechanical Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/248_Scapwork Venturer.jpg" id="WOO_248_Scapwork Venturer" data-flag="@X" onclick="openSidebar('WOO_248_Scapwork Venturer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/250_Throwing Hammer.jpg" id="WOO_250_Throwing Hammer" data-flag="@X" onclick="openSidebar('WOO_250_Throwing Hammer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/252_Twin-Construction Workers.jpg" id="WOO_252_Twin-Construction Workers" data-flag="@X" onclick="openSidebar('WOO_252_Twin-Construction Workers',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WOO_e" data-flag="@E" onclick="openSidebar('WOO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WOO_e" data-flag="@E" onclick="openSidebar('WOO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/261_Propagating Rotland.jpg" id="WOO_261_Propagating Rotland" data-flag="@X" onclick="openSidebar('WOO_261_Propagating Rotland',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/260_Nedrule, Curious Capital.jpg" id="WOO_260_Nedrule, Curious Capital" data-flag="@X" onclick="openSidebar('WOO_260_Nedrule, Curious Capital',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/263_Sealed Gateway.jpg" id="WOO_263_Sealed Gateway" data-flag="@X" onclick="openSidebar('WOO_263_Sealed Gateway',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/265_Soulcaller's Sanctuary.jpg" id="WOO_265_Soulcallers Sanctuary" data-flag="@X" onclick="openSidebar('WOO_265_Soulcallers Sanctuary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/258_Dragonflame Campsite.jpg" id="WOO_258_Dragonflame Campsite" data-flag="@X" onclick="openSidebar('WOO_258_Dragonflame Campsite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/262_Rotfield Grove.jpg" id="WOO_262_Rotfield Grove" data-flag="@X" onclick="openSidebar('WOO_262_Rotfield Grove',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/264_Serene Spring.jpg" id="WOO_264_Serene Spring" data-flag="@X" onclick="openSidebar('WOO_264_Serene Spring',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/267_Temple of the Second Dawn.jpg" id="WOO_267_Temple of the Second Dawn" data-flag="@X" onclick="openSidebar('WOO_267_Temple of the Second Dawn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/268_Vhewter Night Market.jpg" id="WOO_268_Vhewter Night Market" data-flag="@X" onclick="openSidebar('WOO_268_Vhewter Night Market',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/254_Banished Bog.jpg" id="WOO_254_Banished Bog" data-flag="@X" onclick="openSidebar('WOO_254_Banished Bog',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/255_Creeping Woodland.jpg" id="WOO_255_Creeping Woodland" data-flag="@X" onclick="openSidebar('WOO_255_Creeping Woodland',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/256_Desolate Grove.jpg" id="WOO_256_Desolate Grove" data-flag="@X" onclick="openSidebar('WOO_256_Desolate Grove',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/257_Dragonfire Shrine.jpg" id="WOO_257_Dragonfire Shrine" data-flag="@X" onclick="openSidebar('WOO_257_Dragonfire Shrine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/259_Geist Geysers.jpg" id="WOO_259_Geist Geysers" data-flag="@X" onclick="openSidebar('WOO_259_Geist Geysers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/266_Stargazer's Shoal.jpg" id="WOO_266_Stargazers Shoal" data-flag="@X" onclick="openSidebar('WOO_266_Stargazers Shoal',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/283_Forest.jpg" id="WOO_283_Forest" data-flag="@X" onclick="openSidebar('WOO_283_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/282_Forest.jpg" id="WOO_282_Forest" data-flag="@X" onclick="openSidebar('WOO_282_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/281_Forest.jpg" id="WOO_281_Forest" data-flag="@X" onclick="openSidebar('WOO_281_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/274_Island.jpg" id="WOO_274_Island" data-flag="@X" onclick="openSidebar('WOO_274_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/272_Island.jpg" id="WOO_272_Island" data-flag="@X" onclick="openSidebar('WOO_272_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/273_Island.jpg" id="WOO_273_Island" data-flag="@X" onclick="openSidebar('WOO_273_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/280_Mountain.jpg" id="WOO_280_Mountain" data-flag="@X" onclick="openSidebar('WOO_280_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/278_Mountain.jpg" id="WOO_278_Mountain" data-flag="@X" onclick="openSidebar('WOO_278_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/279_Mountain.jpg" id="WOO_279_Mountain" data-flag="@X" onclick="openSidebar('WOO_279_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/270_Plains.jpg" id="WOO_270_Plains" data-flag="@X" onclick="openSidebar('WOO_270_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/269_Plains.jpg" id="WOO_269_Plains" data-flag="@X" onclick="openSidebar('WOO_269_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/271_Plains.jpg" id="WOO_271_Plains" data-flag="@X" onclick="openSidebar('WOO_271_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/277_Swamp.jpg" id="WOO_277_Swamp" data-flag="@X" onclick="openSidebar('WOO_277_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/275_Swamp.jpg" id="WOO_275_Swamp" data-flag="@X" onclick="openSidebar('WOO_275_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/276_Swamp.jpg" id="WOO_276_Swamp" data-flag="@X" onclick="openSidebar('WOO_276_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
 				<div id="token" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/1t_Copy.jpg" id="1t_Copy" data-flag="@X" onclick="openSidebar('1t_Copy',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/2t_Spirit.jpg" id="2t_Spirit" data-flag="@X" onclick="openSidebar('2t_Spirit',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/8t_Clue.jpg" id="8t_Clue" data-flag="@X" onclick="openSidebar('8t_Clue',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/9t_Junk.jpg" id="9t_Junk" data-flag="@X" onclick="openSidebar('9t_Junk',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/10t_Servo.jpg" id="10t_Servo" data-flag="@X" onclick="openSidebar('10t_Servo',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/11t_Thopter.jpg" id="11t_Thopter" data-flag="@X" onclick="openSidebar('11t_Thopter',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/12t_Treasure.jpg" id="12t_Treasure" data-flag="@X" onclick="openSidebar('12t_Treasure',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/3t_Spirit.jpg" id="3t_Spirit" data-flag="@X" onclick="openSidebar('3t_Spirit',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/4t_Spirit Angel.jpg" id="4t_Spirit Angel" data-flag="@X" onclick="openSidebar('4t_Spirit Angel',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/5t_Artificer.jpg" id="5t_Artificer" data-flag="@X" onclick="openSidebar('5t_Artificer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/6t_Knight.jpg" id="6t_Knight" data-flag="@X" onclick="openSidebar('6t_Knight',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/WOO-files/img/7t_Veles, Justice Restored.jpg" id="7t_Veles, Justice Restored" data-flag="@X" onclick="openSidebar('7t_Veles, Justice Restored',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/1t_Copy.jpg" id="WOO_1t_Copy" data-flag="@X" onclick="openSidebar('WOO_1t_Copy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/2t_Spirit.jpg" id="WOO_2t_Spirit" data-flag="@X" onclick="openSidebar('WOO_2t_Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/9t_WOO SUPPORTED TAGS.jpg" id="WOO_9t_WOO SUPPORTED TAGS" data-flag="@X" onclick="openSidebar('WOO_9t_WOO SUPPORTED TAGS',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/10t_Clue.jpg" id="WOO_10t_Clue" data-flag="@X" onclick="openSidebar('WOO_10t_Clue',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/11t_Food.jpg" id="WOO_11t_Food" data-flag="@X" onclick="openSidebar('WOO_11t_Food',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/12t_Incubator.jpg" id="WOO_12t_Incubator" data-flag="@X" onclick="openSidebar('WOO_12t_Incubator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/13t_Incubator.jpg" id="WOO_13t_Incubator" data-flag="@X" onclick="openSidebar('WOO_13t_Incubator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/14t_Junk.jpg" id="WOO_14t_Junk" data-flag="@X" onclick="openSidebar('WOO_14t_Junk',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/15t_Servo.jpg" id="WOO_15t_Servo" data-flag="@X" onclick="openSidebar('WOO_15t_Servo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/16t_Thopter.jpg" id="WOO_16t_Thopter" data-flag="@X" onclick="openSidebar('WOO_16t_Thopter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/17t_Treasure.jpg" id="WOO_17t_Treasure" data-flag="@X" onclick="openSidebar('WOO_17t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/18t_Ghonil, Vhewter Master Emblem.jpg" id="WOO_18t_Ghonil, Vhewter Master Emblem" data-flag="@X" onclick="openSidebar('WOO_18t_Ghonil, Vhewter Master Emblem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/3t_Spirit.jpg" id="WOO_3t_Spirit" data-flag="@X" onclick="openSidebar('WOO_3t_Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/4t_Spirit Angel.jpg" id="WOO_4t_Spirit Angel" data-flag="@X" onclick="openSidebar('WOO_4t_Spirit Angel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/5t_Spirit Illusion.jpg" id="WOO_5t_Spirit Illusion" data-flag="@X" onclick="openSidebar('WOO_5t_Spirit Illusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/6t_Artificer.jpg" id="WOO_6t_Artificer" data-flag="@X" onclick="openSidebar('WOO_6t_Artificer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/7t_Knight.jpg" id="WOO_7t_Knight" data-flag="@X" onclick="openSidebar('WOO_7t_Knight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WOO-files/img/8t_Veles, Justice Restored.jpg" id="WOO_8t_Veles, Justice Restored" data-flag="@X" onclick="openSidebar('WOO_8t_Veles, Justice Restored',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WOO_e" data-flag="@E" onclick="openSidebar('WOO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WOO_e" data-flag="@E" onclick="openSidebar('WOO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WOO_er" data-flag="@E" onclick="openSidebar('WOO_er',false)"></div>
 	</div>
 	</div>
 	<div class="sidebar" id="sidebar">
 		<div class="sidebar-container">
-			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_img" class="sidebar-img">
 			<img id="sidebar_h_img" class="sidebar-h-img">
 			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
 		</div>
@@ -636,19 +664,111 @@
 		let specialchars = "";
 
 	document.addEventListener('DOMContentLoaded', async function() {
-		await fetch('/lists/all-cards.json')
+		await fetch(rootPath + '/lists/all-cards.json')
 					.then(response => response.json())
 					.then(json => {
 						card_list = json;
 				}).catch(error => console.error('Error:', error));
 
-				await fetch('/resources/replacechars.txt')
+				await fetch(rootPath + '/resources/replacechars.txt')
 					.then(response => response.text())
 					.then(text => {
 						specialchars = text; 
 				}).catch(error => console.error('Error:', error));
 
 				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
 
 		preloadImgs = document.getElementsByClassName('preload-hidden');
 
@@ -683,13 +803,16 @@
 			const flag = img.getAttribute('data-flag');
 
 			if (flag === '@N') {
-				img.src = '/img/card_back.png';
+				img.src = rootPath + '/img/card_back.png';
 				img.removeAttribute("onclick");
 				img.style.cursor = 'default';
 			}
 			else
 			{
-				img.src = img.alt;
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
 
 				if (flag === '@E') {
 					img.removeAttribute("onclick");
@@ -843,16 +966,16 @@
 	});
 
 	function search() {
-		const url = new URL('search', window.location.origin);
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
 		url.searchParams.append('search', document.getElementById("search").value);
-		window.location.href = url;
+		window.location.href = url.pathname + url.search;
 	}
 
 		function randomCard() {
 				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
 				let random_card = card_list_arrayified[i];
 
-				const url = new URL('card', window.location.origin);
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
 				const params = {
 					set: random_card.set,
 					num: random_card.number,
@@ -862,7 +985,7 @@
 					url.searchParams.append(key, params[key]);
 				}
 
-				window.location.href = url;
+				window.location.href = url.pathname + url.search;
 			}
 	</script>
 </body>

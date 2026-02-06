@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/KRK-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>KRK visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/KRK-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
+	
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
+	
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
+	
+		<a class="set-bar inactive" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
+	
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
+	
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
+	
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
+	
+		<a class="set-bar inactive" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
+	
+		<a class="set-bar inactive" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
+	
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/KRK-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/KRK-files/img/9_Emperor Almicar.jpg" id="KRK_9_Emperor Almicar" data-flag="@X" onclick="openSidebar('KRK_9_Emperor Almicar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/44_Beyond the Horizon.jpg" id="KRK_44_Beyond the Horizon" data-flag="@X" onclick="openSidebar('KRK_44_Beyond the Horizon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/89_Avarice.jpg" id="KRK_89_Avarice" data-flag="@X" onclick="openSidebar('KRK_89_Avarice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/152_Malvo, Edgeseeker Admiral.jpg" id="KRK_152_Malvo, Edgeseeker Admiral" data-flag="@X" onclick="openSidebar('KRK_152_Malvo, Edgeseeker Admiral',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/171_Behemoth of World's End.jpg" id="KRK_171_Behemoth of Worlds End" data-flag="@X" onclick="openSidebar('KRK_171_Behemoth of Worlds End',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/13_Grand Admiral.jpg" id="KRK_13_Grand Admiral" data-flag="@X" onclick="openSidebar('KRK_13_Grand Admiral',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/50_Davijan, Trenchbound Titan.jpg" id="KRK_50_Davijan, Trenchbound Titan" data-flag="@X" onclick="openSidebar('KRK_50_Davijan, Trenchbound Titan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/94_Curse of Siren's Song.jpg" id="KRK_94_Curse of Sirens Song" data-flag="@X" onclick="openSidebar('KRK_94_Curse of Sirens Song',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/159_Rapacious Tyrant.jpg" id="KRK_159_Rapacious Tyrant" data-flag="@X" onclick="openSidebar('KRK_159_Rapacious Tyrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/200_Rising Tide.jpg" id="KRK_200_Rising Tide" data-flag="@X" onclick="openSidebar('KRK_200_Rising Tide',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/31_Restore Order.jpg" id="KRK_31_Restore Order" data-flag="@X" onclick="openSidebar('KRK_31_Restore Order',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/58_Lilith, Seafaring Scribe.jpg" id="KRK_58_Lilith, Seafaring Scribe" data-flag="@X" onclick="openSidebar('KRK_58_Lilith, Seafaring Scribe',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/108_Ghostblade Renegade.jpg" id="KRK_108_Ghostblade Renegade" data-flag="@X" onclick="openSidebar('KRK_108_Ghostblade Renegade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/128_Audra, Raucous Rallier.jpg" id="KRK_128_Audra, Raucous Rallier" data-flag="@X" onclick="openSidebar('KRK_128_Audra, Raucous Rallier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/175_Davijan's Awakening.jpg" id="KRK_175_Davijans Awakening" data-flag="@X" onclick="openSidebar('KRK_175_Davijans Awakening',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/5_Dockside Warden.jpg" id="KRK_5_Dockside Warden" data-flag="@X" onclick="openSidebar('KRK_5_Dockside Warden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/55_Glorybound Seablade.jpg" id="KRK_55_Glorybound Seablade" data-flag="@X" onclick="openSidebar('KRK_55_Glorybound Seablade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/85_Abyssal Breach.jpg" id="KRK_85_Abyssal Breach" data-flag="@X" onclick="openSidebar('KRK_85_Abyssal Breach',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/134_Charismatic Captain.jpg" id="KRK_134_Charismatic Captain" data-flag="@X" onclick="openSidebar('KRK_134_Charismatic Captain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/178_Dreadtide Hellraiser.jpg" id="KRK_178_Dreadtide Hellraiser" data-flag="@X" onclick="openSidebar('KRK_178_Dreadtide Hellraiser',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/6_Druno, Marquisian Collector.jpg" id="KRK_6_Druno, Marquisian Collector" data-flag="@X" onclick="openSidebar('KRK_6_Druno, Marquisian Collector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/59_Lilith's Duplimancy.jpg" id="KRK_59_Liliths Duplimancy" data-flag="@X" onclick="openSidebar('KRK_59_Liliths Duplimancy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/86_Alkar of the Floating Horde.jpg" id="KRK_86_Alkar of the Floating Horde" data-flag="@X" onclick="openSidebar('KRK_86_Alkar of the Floating Horde',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/137_Firebrand Flagship.jpg" id="KRK_137_Firebrand Flagship" data-flag="@X" onclick="openSidebar('KRK_137_Firebrand Flagship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/180_Edgeseeker Flagship.jpg" id="KRK_180_Edgeseeker Flagship" data-flag="@X" onclick="openSidebar('KRK_180_Edgeseeker Flagship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/20_The Living Forge.jpg" id="KRK_20_The Living Forge" data-flag="@X" onclick="openSidebar('KRK_20_The Living Forge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/62_Maelstrom Flagship.jpg" id="KRK_62_Maelstrom Flagship" data-flag="@X" onclick="openSidebar('KRK_62_Maelstrom Flagship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/93_Crimza Taal Infiltrator.jpg" id="KRK_93_Crimza Taal Infiltrator" data-flag="@X" onclick="openSidebar('KRK_93_Crimza Taal Infiltrator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/140_Free Harbor.jpg" id="KRK_140_Free Harbor" data-flag="@X" onclick="openSidebar('KRK_140_Free Harbor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/183_Gangplank Marauders.jpg" id="KRK_183_Gangplank Marauders" data-flag="@X" onclick="openSidebar('KRK_183_Gangplank Marauders',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/23_Marquisian Flagship.jpg" id="KRK_23_Marquisian Flagship" data-flag="@X" onclick="openSidebar('KRK_23_Marquisian Flagship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/68_Saddled Scuttleback.jpg" id="KRK_68_Saddled Scuttleback" data-flag="@X" onclick="openSidebar('KRK_68_Saddled Scuttleback',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/98_Dezan, Ironsoul Sell-Sword.jpg" id="KRK_98_Dezan, Ironsoul Sell-Sword" data-flag="@X" onclick="openSidebar('KRK_98_Dezan, Ironsoul Sell-Sword',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/148_Hired Hand.jpg" id="KRK_148_Hired Hand" data-flag="@X" onclick="openSidebar('KRK_148_Hired Hand',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/190_Kelpscale Serpent.jpg" id="KRK_190_Kelpscale Serpent" data-flag="@X" onclick="openSidebar('KRK_190_Kelpscale Serpent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/33_Spectral Sabers.jpg" id="KRK_33_Spectral Sabers" data-flag="@X" onclick="openSidebar('KRK_33_Spectral Sabers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/69_Shifting Sailor.jpg" id="KRK_69_Shifting Sailor" data-flag="@X" onclick="openSidebar('KRK_69_Shifting Sailor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/100_Dreadtide Flagship.jpg" id="KRK_100_Dreadtide Flagship" data-flag="@X" onclick="openSidebar('KRK_100_Dreadtide Flagship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/150_Jadon's Messenger.jpg" id="KRK_150_Jadons Messenger" data-flag="@X" onclick="openSidebar('KRK_150_Jadons Messenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/192_Kiora's Coiler.jpg" id="KRK_192_Kioras Coiler" data-flag="@X" onclick="openSidebar('KRK_192_Kioras Coiler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/35_Starlight Wayfinder.jpg" id="KRK_35_Starlight Wayfinder" data-flag="@X" onclick="openSidebar('KRK_35_Starlight Wayfinder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/74_Thalassophobia.jpg" id="KRK_74_Thalassophobia" data-flag="@X" onclick="openSidebar('KRK_74_Thalassophobia',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/102_Dreadtide Marauder.jpg" id="KRK_102_Dreadtide Marauder" data-flag="@X" onclick="openSidebar('KRK_102_Dreadtide Marauder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/153_Mapcaster Mage.jpg" id="KRK_153_Mapcaster Mage" data-flag="@X" onclick="openSidebar('KRK_153_Mapcaster Mage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/193_Maelstrom's Maw.jpg" id="KRK_193_Maelstroms Maw" data-flag="@X" onclick="openSidebar('KRK_193_Maelstroms Maw',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/36_Tell No Tales.jpg" id="KRK_36_Tell No Tales" data-flag="@X" onclick="openSidebar('KRK_36_Tell No Tales',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/80_Trenchlurker Titan.jpg" id="KRK_80_Trenchlurker Titan" data-flag="@X" onclick="openSidebar('KRK_80_Trenchlurker Titan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/110_Hunter's Ambition.jpg" id="KRK_110_Hunters Ambition" data-flag="@X" onclick="openSidebar('KRK_110_Hunters Ambition',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/164_Tavern Gambler.jpg" id="KRK_164_Tavern Gambler" data-flag="@X" onclick="openSidebar('KRK_164_Tavern Gambler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/198_Octotyrant.jpg" id="KRK_198_Octotyrant" data-flag="@X" onclick="openSidebar('KRK_198_Octotyrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/40_Veteran Cartographer.jpg" id="KRK_40_Veteran Cartographer" data-flag="@X" onclick="openSidebar('KRK_40_Veteran Cartographer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/83_Whelming Wave.jpg" id="KRK_83_Whelming Wave" data-flag="@X" onclick="openSidebar('KRK_83_Whelming Wave',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/118_Raider's Remains.jpg" id="KRK_118_Raiders Remains" data-flag="@X" onclick="openSidebar('KRK_118_Raiders Remains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/135_Deserter's Dinghy.jpg" id="KRK_135_Deserters Dinghy" data-flag="@X" onclick="openSidebar('KRK_135_Deserters Dinghy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/176_Davijan's Disciple.jpg" id="KRK_176_Davijans Disciple" data-flag="@X" onclick="openSidebar('KRK_176_Davijans Disciple',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/1_Almicar's Striker.jpg" id="KRK_1_Almicars Striker" data-flag="@X" onclick="openSidebar('KRK_1_Almicars Striker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/46_Brineborn Cutthroat.jpg" id="KRK_46_Brineborn Cutthroat" data-flag="@X" onclick="openSidebar('KRK_46_Brineborn Cutthroat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/90_Azla's Monstrosity.jpg" id="KRK_90_Azlas Monstrosity" data-flag="@X" onclick="openSidebar('KRK_90_Azlas Monstrosity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/138_Fleetfront Galleon.jpg" id="KRK_138_Fleetfront Galleon" data-flag="@X" onclick="openSidebar('KRK_138_Fleetfront Galleon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/179_Dry Land.jpg" id="KRK_179_Dry Land" data-flag="@X" onclick="openSidebar('KRK_179_Dry Land',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/3_Crimza Taal Envoy.jpg" id="KRK_3_Crimza Taal Envoy" data-flag="@X" onclick="openSidebar('KRK_3_Crimza Taal Envoy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/51_Deep Sea Devastator.jpg" id="KRK_51_Deep Sea Devastator" data-flag="@X" onclick="openSidebar('KRK_51_Deep Sea Devastator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/99_Down With the Ship.jpg" id="KRK_99_Down With the Ship" data-flag="@X" onclick="openSidebar('KRK_99_Down With the Ship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/141_Frenetic Freebooter.jpg" id="KRK_141_Frenetic Freebooter" data-flag="@X" onclick="openSidebar('KRK_141_Frenetic Freebooter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/182_Fortunate Flotsam.jpg" id="KRK_182_Fortunate Flotsam" data-flag="@X" onclick="openSidebar('KRK_182_Fortunate Flotsam',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/10_Encased in Glass.jpg" id="KRK_10_Encased in Glass" data-flag="@X" onclick="openSidebar('KRK_10_Encased in Glass',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/53_Ghostcrew Captain.jpg" id="KRK_53_Ghostcrew Captain" data-flag="@X" onclick="openSidebar('KRK_53_Ghostcrew Captain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/101_Dreadtide Grunt.jpg" id="KRK_101_Dreadtide Grunt" data-flag="@X" onclick="openSidebar('KRK_101_Dreadtide Grunt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/144_Glorybound Brute.jpg" id="KRK_144_Glorybound Brute" data-flag="@X" onclick="openSidebar('KRK_144_Glorybound Brute',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/184_Glutton of Fool's Strait.jpg" id="KRK_184_Glutton of Fools Strait" data-flag="@X" onclick="openSidebar('KRK_184_Glutton of Fools Strait',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/11_Familiar's Foil.jpg" id="KRK_11_Familiars Foil" data-flag="@X" onclick="openSidebar('KRK_11_Familiars Foil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/56_Hullhide Colossus.jpg" id="KRK_56_Hullhide Colossus" data-flag="@X" onclick="openSidebar('KRK_56_Hullhide Colossus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/104_Dreadtide Scrounger.jpg" id="KRK_104_Dreadtide Scrounger" data-flag="@X" onclick="openSidebar('KRK_104_Dreadtide Scrounger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/146_Grottle Shell-Singer.jpg" id="KRK_146_Grottle Shell-Singer" data-flag="@X" onclick="openSidebar('KRK_146_Grottle Shell-Singer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/185_Great Wight.jpg" id="KRK_185_Great Wight" data-flag="@X" onclick="openSidebar('KRK_185_Great Wight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/15_Imperial Armorer.jpg" id="KRK_15_Imperial Armorer" data-flag="@X" onclick="openSidebar('KRK_15_Imperial Armorer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/57_Ironworks Frigate.jpg" id="KRK_57_Ironworks Frigate" data-flag="@X" onclick="openSidebar('KRK_57_Ironworks Frigate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/105_Drown.jpg" id="KRK_105_Drown" data-flag="@X" onclick="openSidebar('KRK_105_Drown',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/147_Hellfire Volley.jpg" id="KRK_147_Hellfire Volley" data-flag="@X" onclick="openSidebar('KRK_147_Hellfire Volley',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/186_Horizon Communer.jpg" id="KRK_186_Horizon Communer" data-flag="@X" onclick="openSidebar('KRK_186_Horizon Communer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/18_Ironworks Twinblades.jpg" id="KRK_18_Ironworks Twinblades" data-flag="@X" onclick="openSidebar('KRK_18_Ironworks Twinblades',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/64_The One That Got Away.jpg" id="KRK_64_The One That Got Away" data-flag="@X" onclick="openSidebar('KRK_64_The One That Got Away',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/106_Emperor's Executioner.jpg" id="KRK_106_Emperors Executioner" data-flag="@X" onclick="openSidebar('KRK_106_Emperors Executioner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/149_Ironworks Shipwrights.jpg" id="KRK_149_Ironworks Shipwrights" data-flag="@X" onclick="openSidebar('KRK_149_Ironworks Shipwrights',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/187_Imperial Expeditioner.jpg" id="KRK_187_Imperial Expeditioner" data-flag="@X" onclick="openSidebar('KRK_187_Imperial Expeditioner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/21_Maroon.jpg" id="KRK_21_Maroon" data-flag="@X" onclick="openSidebar('KRK_21_Maroon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/66_Reefbed Hatchling.jpg" id="KRK_66_Reefbed Hatchling" data-flag="@X" onclick="openSidebar('KRK_66_Reefbed Hatchling',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/107_Forsaken Cutthroat.jpg" id="KRK_107_Forsaken Cutthroat" data-flag="@X" onclick="openSidebar('KRK_107_Forsaken Cutthroat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/151_Macrawcodiles.jpg" id="KRK_151_Macrawcodiles" data-flag="@X" onclick="openSidebar('KRK_151_Macrawcodiles',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/189_Intrepid Expedition.jpg" id="KRK_189_Intrepid Expedition" data-flag="@X" onclick="openSidebar('KRK_189_Intrepid Expedition',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/22_Marquisian Commander.jpg" id="KRK_22_Marquisian Commander" data-flag="@X" onclick="openSidebar('KRK_22_Marquisian Commander',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/72_Skysail Galleon.jpg" id="KRK_72_Skysail Galleon" data-flag="@X" onclick="openSidebar('KRK_72_Skysail Galleon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/112_Loose Cargo.jpg" id="KRK_112_Loose Cargo" data-flag="@X" onclick="openSidebar('KRK_112_Loose Cargo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/154_Marooned Mutineer.jpg" id="KRK_154_Marooned Mutineer" data-flag="@X" onclick="openSidebar('KRK_154_Marooned Mutineer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/194_Malvo's Quartermaster.jpg" id="KRK_194_Malvos Quartermaster" data-flag="@X" onclick="openSidebar('KRK_194_Malvos Quartermaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/25_Marquisian Skyship.jpg" id="KRK_25_Marquisian Skyship" data-flag="@X" onclick="openSidebar('KRK_25_Marquisian Skyship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/75_Thieving Accomplice.jpg" id="KRK_75_Thieving Accomplice" data-flag="@X" onclick="openSidebar('KRK_75_Thieving Accomplice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/113_March of the Dreadtide.jpg" id="KRK_113_March of the Dreadtide" data-flag="@X" onclick="openSidebar('KRK_113_March of the Dreadtide',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/156_Partners in Crime.jpg" id="KRK_156_Partners in Crime" data-flag="@X" onclick="openSidebar('KRK_156_Partners in Crime',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/199_Rallying Captain.jpg" id="KRK_199_Rallying Captain" data-flag="@X" onclick="openSidebar('KRK_199_Rallying Captain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/26_Novice Navigator.jpg" id="KRK_26_Novice Navigator" data-flag="@X" onclick="openSidebar('KRK_26_Novice Navigator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/78_Tidehunter Drake.jpg" id="KRK_78_Tidehunter Drake" data-flag="@X" onclick="openSidebar('KRK_78_Tidehunter Drake',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/114_Marquisian Enforcer.jpg" id="KRK_114_Marquisian Enforcer" data-flag="@X" onclick="openSidebar('KRK_114_Marquisian Enforcer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/157_Powder Monkeys.jpg" id="KRK_157_Powder Monkeys" data-flag="@X" onclick="openSidebar('KRK_157_Powder Monkeys',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/202_Search Beyond the Empire.jpg" id="KRK_202_Search Beyond the Empire" data-flag="@X" onclick="openSidebar('KRK_202_Search Beyond the Empire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/30_Refurbish.jpg" id="KRK_30_Refurbish" data-flag="@X" onclick="openSidebar('KRK_30_Refurbish',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/79_Trenchcaller Oracle.jpg" id="KRK_79_Trenchcaller Oracle" data-flag="@X" onclick="openSidebar('KRK_79_Trenchcaller Oracle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/125_What Lurks Beneath.jpg" id="KRK_125_What Lurks Beneath" data-flag="@X" onclick="openSidebar('KRK_125_What Lurks Beneath',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/166_Twinshot Renegade.jpg" id="KRK_166_Twinshot Renegade" data-flag="@X" onclick="openSidebar('KRK_166_Twinshot Renegade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/203_Shipbreaker Kraken.jpg" id="KRK_203_Shipbreaker Kraken" data-flag="@X" onclick="openSidebar('KRK_203_Shipbreaker Kraken',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/42_Windrider Roc.jpg" id="KRK_42_Windrider Roc" data-flag="@X" onclick="openSidebar('KRK_42_Windrider Roc',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/81_Uncharted Wonders.jpg" id="KRK_81_Uncharted Wonders" data-flag="@X" onclick="openSidebar('KRK_81_Uncharted Wonders',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/126_Zephyr Swashbuckler.jpg" id="KRK_126_Zephyr Swashbuckler" data-flag="@X" onclick="openSidebar('KRK_126_Zephyr Swashbuckler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/127_Abandon Ship.jpg" id="KRK_127_Abandon Ship" data-flag="@X" onclick="openSidebar('KRK_127_Abandon Ship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/168_Aelython Vanguard.jpg" id="KRK_168_Aelython Vanguard" data-flag="@X" onclick="openSidebar('KRK_168_Aelython Vanguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/2_Conscripted Duelist.jpg" id="KRK_2_Conscripted Duelist" data-flag="@X" onclick="openSidebar('KRK_2_Conscripted Duelist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/43_Aelython Renegade.jpg" id="KRK_43_Aelython Renegade" data-flag="@X" onclick="openSidebar('KRK_43_Aelython Renegade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/87_Almicar's Bargain.jpg" id="KRK_87_Almicars Bargain" data-flag="@X" onclick="openSidebar('KRK_87_Almicars Bargain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/129_Audra's Vengeance.jpg" id="KRK_129_Audras Vengeance" data-flag="@X" onclick="openSidebar('KRK_129_Audras Vengeance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/169_Ancient Megalodon.jpg" id="KRK_169_Ancient Megalodon" data-flag="@X" onclick="openSidebar('KRK_169_Ancient Megalodon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/4_Deft Commodore.jpg" id="KRK_4_Deft Commodore" data-flag="@X" onclick="openSidebar('KRK_4_Deft Commodore',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/45_Brackish Channeler.jpg" id="KRK_45_Brackish Channeler" data-flag="@X" onclick="openSidebar('KRK_45_Brackish Channeler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/88_Arrogant Crewmate.jpg" id="KRK_88_Arrogant Crewmate" data-flag="@X" onclick="openSidebar('KRK_88_Arrogant Crewmate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/130_Become the Storm.jpg" id="KRK_130_Become the Storm" data-flag="@X" onclick="openSidebar('KRK_130_Become the Storm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/170_Beachcomber's Bane.jpg" id="KRK_170_Beachcombers Bane" data-flag="@X" onclick="openSidebar('KRK_170_Beachcombers Bane',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/7_Edgeseeker Helmsman.jpg" id="KRK_7_Edgeseeker Helmsman" data-flag="@X" onclick="openSidebar('KRK_7_Edgeseeker Helmsman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/47_Corsair's Companion.jpg" id="KRK_47_Corsairs Companion" data-flag="@X" onclick="openSidebar('KRK_47_Corsairs Companion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/91_Azla's Rotcrew.jpg" id="KRK_91_Azlas Rotcrew" data-flag="@X" onclick="openSidebar('KRK_91_Azlas Rotcrew',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/131_Bombarding Brigantine.jpg" id="KRK_131_Bombarding Brigantine" data-flag="@X" onclick="openSidebar('KRK_131_Bombarding Brigantine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/172_Benthic Behemoth.jpg" id="KRK_172_Benthic Behemoth" data-flag="@X" onclick="openSidebar('KRK_172_Benthic Behemoth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/8_Edgeseeker's Valor.jpg" id="KRK_8_Edgeseekers Valor" data-flag="@X" onclick="openSidebar('KRK_8_Edgeseekers Valor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/48_Crimza Taal Smuggler.jpg" id="KRK_48_Crimza Taal Smuggler" data-flag="@X" onclick="openSidebar('KRK_48_Crimza Taal Smuggler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/92_Crimza Taal Headhunter.jpg" id="KRK_92_Crimza Taal Headhunter" data-flag="@X" onclick="openSidebar('KRK_92_Crimza Taal Headhunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/132_Cannonblast.jpg" id="KRK_132_Cannonblast" data-flag="@X" onclick="openSidebar('KRK_132_Cannonblast',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/173_Breach the Surface.jpg" id="KRK_173_Breach the Surface" data-flag="@X" onclick="openSidebar('KRK_173_Breach the Surface',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/12_Governor's Representative.jpg" id="KRK_12_Governors Representative" data-flag="@X" onclick="openSidebar('KRK_12_Governors Representative',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/49_Daring Rebuttal.jpg" id="KRK_49_Daring Rebuttal" data-flag="@X" onclick="openSidebar('KRK_49_Daring Rebuttal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/95_Davijan's Curse.jpg" id="KRK_95_Davijans Curse" data-flag="@X" onclick="openSidebar('KRK_95_Davijans Curse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/133_Cannonpack Crewmate.jpg" id="KRK_133_Cannonpack Crewmate" data-flag="@X" onclick="openSidebar('KRK_133_Cannonpack Crewmate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/174_Curio Collectors.jpg" id="KRK_174_Curio Collectors" data-flag="@X" onclick="openSidebar('KRK_174_Curio Collectors',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/14_High and Dry.jpg" id="KRK_14_High and Dry" data-flag="@X" onclick="openSidebar('KRK_14_High and Dry',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/52_Forgotten Chronicler.jpg" id="KRK_52_Forgotten Chronicler" data-flag="@X" onclick="openSidebar('KRK_52_Forgotten Chronicler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/96_Dawson's Ire.jpg" id="KRK_96_Dawsons Ire" data-flag="@X" onclick="openSidebar('KRK_96_Dawsons Ire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/136_Dishonorable Duel.jpg" id="KRK_136_Dishonorable Duel" data-flag="@X" onclick="openSidebar('KRK_136_Dishonorable Duel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/177_Dreadtide Deckhands.jpg" id="KRK_177_Dreadtide Deckhands" data-flag="@X" onclick="openSidebar('KRK_177_Dreadtide Deckhands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/16_Imperial Bombardiers.jpg" id="KRK_16_Imperial Bombardiers" data-flag="@X" onclick="openSidebar('KRK_16_Imperial Bombardiers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/54_Ghostly Galleon.jpg" id="KRK_54_Ghostly Galleon" data-flag="@X" onclick="openSidebar('KRK_54_Ghostly Galleon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/97_Deathless Conscription.jpg" id="KRK_97_Deathless Conscription" data-flag="@X" onclick="openSidebar('KRK_97_Deathless Conscription',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/139_Flintlock Sharpshot.jpg" id="KRK_139_Flintlock Sharpshot" data-flag="@X" onclick="openSidebar('KRK_139_Flintlock Sharpshot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/181_Flourishing Reef.jpg" id="KRK_181_Flourishing Reef" data-flag="@X" onclick="openSidebar('KRK_181_Flourishing Reef',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/17_Ironworks Seahawk.jpg" id="KRK_17_Ironworks Seahawk" data-flag="@X" onclick="openSidebar('KRK_17_Ironworks Seahawk',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/60_Lost at Sea.jpg" id="KRK_60_Lost at Sea" data-flag="@X" onclick="openSidebar('KRK_60_Lost at Sea',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/103_Dreadtide Ritual.jpg" id="KRK_103_Dreadtide Ritual" data-flag="@X" onclick="openSidebar('KRK_103_Dreadtide Ritual',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/142_Gemseeker Grottle.jpg" id="KRK_142_Gemseeker Grottle" data-flag="@X" onclick="openSidebar('KRK_142_Gemseeker Grottle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/188_Inkforged Arsenal.jpg" id="KRK_188_Inkforged Arsenal" data-flag="@X" onclick="openSidebar('KRK_188_Inkforged Arsenal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/19_Landing Party.jpg" id="KRK_19_Landing Party" data-flag="@X" onclick="openSidebar('KRK_19_Landing Party',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/61_Loyal Quartermaster.jpg" id="KRK_61_Loyal Quartermaster" data-flag="@X" onclick="openSidebar('KRK_61_Loyal Quartermaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/109_Glorybound Scallywags.jpg" id="KRK_109_Glorybound Scallywags" data-flag="@X" onclick="openSidebar('KRK_109_Glorybound Scallywags',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/143_Glittering Trove.jpg" id="KRK_143_Glittering Trove" data-flag="@X" onclick="openSidebar('KRK_143_Glittering Trove',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/191_Kiora's Beckoning.jpg" id="KRK_191_Kioras Beckoning" data-flag="@X" onclick="openSidebar('KRK_191_Kioras Beckoning',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/24_Marquisian Officer.jpg" id="KRK_24_Marquisian Officer" data-flag="@X" onclick="openSidebar('KRK_24_Marquisian Officer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/63_Man Overboard.jpg" id="KRK_63_Man Overboard" data-flag="@X" onclick="openSidebar('KRK_63_Man Overboard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/111_Last Gasp.jpg" id="KRK_111_Last Gasp" data-flag="@X" onclick="openSidebar('KRK_111_Last Gasp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/145_Glorybound Knaves.jpg" id="KRK_145_Glorybound Knaves" data-flag="@X" onclick="openSidebar('KRK_145_Glorybound Knaves',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/195_Marquisian Crackdown.jpg" id="KRK_195_Marquisian Crackdown" data-flag="@X" onclick="openSidebar('KRK_195_Marquisian Crackdown',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/27_Parry.jpg" id="KRK_27_Parry" data-flag="@X" onclick="openSidebar('KRK_27_Parry',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/65_Opt.jpg" id="KRK_65_Opt" data-flag="@X" onclick="openSidebar('KRK_65_Opt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/115_Mithril Grouper.jpg" id="KRK_115_Mithril Grouper" data-flag="@X" onclick="openSidebar('KRK_115_Mithril Grouper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/155_Munitions Mage.jpg" id="KRK_155_Munitions Mage" data-flag="@X" onclick="openSidebar('KRK_155_Munitions Mage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/196_Marquisian Seafarer.jpg" id="KRK_196_Marquisian Seafarer" data-flag="@X" onclick="openSidebar('KRK_196_Marquisian Seafarer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/28_Quickdraw.jpg" id="KRK_28_Quickdraw" data-flag="@X" onclick="openSidebar('KRK_28_Quickdraw',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/67_Riptide Titan.jpg" id="KRK_67_Riptide Titan" data-flag="@X" onclick="openSidebar('KRK_67_Riptide Titan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/116_No One Left Behind.jpg" id="KRK_116_No One Left Behind" data-flag="@X" onclick="openSidebar('KRK_116_No One Left Behind',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/158_Pyrebeard Buccaneer.jpg" id="KRK_158_Pyrebeard Buccaneer" data-flag="@X" onclick="openSidebar('KRK_158_Pyrebeard Buccaneer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/197_Octoplant.jpg" id="KRK_197_Octoplant" data-flag="@X" onclick="openSidebar('KRK_197_Octoplant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/29_Rally the Isles.jpg" id="KRK_29_Rally the Isles" data-flag="@X" onclick="openSidebar('KRK_29_Rally the Isles',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/70_Shipwreck Kraken.jpg" id="KRK_70_Shipwreck Kraken" data-flag="@X" onclick="openSidebar('KRK_70_Shipwreck Kraken',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/117_Poach.jpg" id="KRK_117_Poach" data-flag="@X" onclick="openSidebar('KRK_117_Poach',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/160_Razorfin.jpg" id="KRK_160_Razorfin" data-flag="@X" onclick="openSidebar('KRK_160_Razorfin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/201_Run Through.jpg" id="KRK_201_Run Through" data-flag="@X" onclick="openSidebar('KRK_201_Run Through',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/32_Shipwrecked.jpg" id="KRK_32_Shipwrecked" data-flag="@X" onclick="openSidebar('KRK_32_Shipwrecked',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/71_Shore Up.jpg" id="KRK_71_Shore Up" data-flag="@X" onclick="openSidebar('KRK_71_Shore Up',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/119_Seabound Spirit.jpg" id="KRK_119_Seabound Spirit" data-flag="@X" onclick="openSidebar('KRK_119_Seabound Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/161_Rowdy Cannoneer.jpg" id="KRK_161_Rowdy Cannoneer" data-flag="@X" onclick="openSidebar('KRK_161_Rowdy Cannoneer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/204_Sunken Spoils.jpg" id="KRK_204_Sunken Spoils" data-flag="@X" onclick="openSidebar('KRK_204_Sunken Spoils',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/34_Standard-Issue Flintlock.jpg" id="KRK_34_Standard-Issue Flintlock" data-flag="@X" onclick="openSidebar('KRK_34_Standard-Issue Flintlock',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/73_Storm Coast Drakemaster.jpg" id="KRK_73_Storm Coast Drakemaster" data-flag="@X" onclick="openSidebar('KRK_73_Storm Coast Drakemaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/120_Shipwreck Revenant.jpg" id="KRK_120_Shipwreck Revenant" data-flag="@X" onclick="openSidebar('KRK_120_Shipwreck Revenant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/162_Savvy Duelist.jpg" id="KRK_162_Savvy Duelist" data-flag="@X" onclick="openSidebar('KRK_162_Savvy Duelist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/205_Tavern Revelry.jpg" id="KRK_205_Tavern Revelry" data-flag="@X" onclick="openSidebar('KRK_205_Tavern Revelry',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/37_Tideweaver Gull.jpg" id="KRK_37_Tideweaver Gull" data-flag="@X" onclick="openSidebar('KRK_37_Tideweaver Gull',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/76_Thirst for Knowledge.jpg" id="KRK_76_Thirst for Knowledge" data-flag="@X" onclick="openSidebar('KRK_76_Thirst for Knowledge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/121_Shoreline Haggler.jpg" id="KRK_121_Shoreline Haggler" data-flag="@X" onclick="openSidebar('KRK_121_Shoreline Haggler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/163_Tavern Brawl.jpg" id="KRK_163_Tavern Brawl" data-flag="@X" onclick="openSidebar('KRK_163_Tavern Brawl',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/206_Tortun Cannoneers.jpg" id="KRK_206_Tortun Cannoneers" data-flag="@X" onclick="openSidebar('KRK_206_Tortun Cannoneers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/38_Trade Route Navigators.jpg" id="KRK_38_Trade Route Navigators" data-flag="@X" onclick="openSidebar('KRK_38_Trade Route Navigators',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/77_Tidal Visionary.jpg" id="KRK_77_Tidal Visionary" data-flag="@X" onclick="openSidebar('KRK_77_Tidal Visionary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/122_Skyship Ambusher.jpg" id="KRK_122_Skyship Ambusher" data-flag="@X" onclick="openSidebar('KRK_122_Skyship Ambusher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/165_Trinket Merchant.jpg" id="KRK_165_Trinket Merchant" data-flag="@X" onclick="openSidebar('KRK_165_Trinket Merchant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/207_Trenchcaller Champion.jpg" id="KRK_207_Trenchcaller Champion" data-flag="@X" onclick="openSidebar('KRK_207_Trenchcaller Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/39_Treasure Hunter.jpg" id="KRK_39_Treasure Hunter" data-flag="@X" onclick="openSidebar('KRK_39_Treasure Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/82_Welkin Tern.jpg" id="KRK_82_Welkin Tern" data-flag="@X" onclick="openSidebar('KRK_82_Welkin Tern',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/123_Tandem Hirelings.jpg" id="KRK_123_Tandem Hirelings" data-flag="@X" onclick="openSidebar('KRK_123_Tandem Hirelings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/167_Unfair Share.jpg" id="KRK_167_Unfair Share" data-flag="@X" onclick="openSidebar('KRK_167_Unfair Share',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/208_Trenchcaller Vassal.jpg" id="KRK_208_Trenchcaller Vassal" data-flag="@X" onclick="openSidebar('KRK_208_Trenchcaller Vassal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/41_Weathered Navigator.jpg" id="KRK_41_Weathered Navigator" data-flag="@X" onclick="openSidebar('KRK_41_Weathered Navigator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/84_Whirlpool.jpg" id="KRK_84_Whirlpool" data-flag="@X" onclick="openSidebar('KRK_84_Whirlpool',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/124_Tortun Turncoat.jpg" id="KRK_124_Tortun Turncoat" data-flag="@X" onclick="openSidebar('KRK_124_Tortun Turncoat',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/221_Journey's Preparation.jpg" id="KRK_221_Journeys Preparation" data-flag="@X" onclick="openSidebar('KRK_221_Journeys Preparation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/217_Hemophage Hunter.jpg" id="KRK_217_Hemophage Hunter" data-flag="@X" onclick="openSidebar('KRK_217_Hemophage Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/220_Jadon, Who Fells the Mighty.jpg" id="KRK_220_Jadon, Who Fells the Mighty" data-flag="@X" onclick="openSidebar('KRK_220_Jadon, Who Fells the Mighty',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/214_Dragon-Eye Lookout.jpg" id="KRK_214_Dragon-Eye Lookout" data-flag="@X" onclick="openSidebar('KRK_214_Dragon-Eye Lookout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/219_Ingrid Farjalla.jpg" id="KRK_219_Ingrid Farjalla" data-flag="@X" onclick="openSidebar('KRK_219_Ingrid Farjalla',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/210_Boundless Horizons.jpg" id="KRK_210_Boundless Horizons" data-flag="@X" onclick="openSidebar('KRK_210_Boundless Horizons',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/231_Sewer Skulk.jpg" id="KRK_231_Sewer Skulk" data-flag="@X" onclick="openSidebar('KRK_231_Sewer Skulk',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/227_Ravenous Wavekite.jpg" id="KRK_227_Ravenous Wavekite" data-flag="@X" onclick="openSidebar('KRK_227_Ravenous Wavekite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/234_Wavebreaker Brute.jpg" id="KRK_234_Wavebreaker Brute" data-flag="@X" onclick="openSidebar('KRK_234_Wavebreaker Brute',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/233_Tortun Vanguard.jpg" id="KRK_233_Tortun Vanguard" data-flag="@X" onclick="openSidebar('KRK_233_Tortun Vanguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/216_Glorybound Cutthroat.jpg" id="KRK_216_Glorybound Cutthroat" data-flag="@X" onclick="openSidebar('KRK_216_Glorybound Cutthroat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/226_Rallying Lookout.jpg" id="KRK_226_Rallying Lookout" data-flag="@X" onclick="openSidebar('KRK_226_Rallying Lookout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/218_Imperial Musketeer.jpg" id="KRK_218_Imperial Musketeer" data-flag="@X" onclick="openSidebar('KRK_218_Imperial Musketeer',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/213_Dawson, Out for Blood.jpg" id="KRK_213_Dawson, Out for Blood" data-flag="@X" onclick="openSidebar('KRK_213_Dawson, Out for Blood',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/229_Rum Guzzler.jpg" id="KRK_229_Rum Guzzler" data-flag="@X" onclick="openSidebar('KRK_229_Rum Guzzler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/215_Fleetcrusher Titan.jpg" id="KRK_215_Fleetcrusher Titan" data-flag="@X" onclick="openSidebar('KRK_215_Fleetcrusher Titan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/228_Ruin Delvers.jpg" id="KRK_228_Ruin Delvers" data-flag="@X" onclick="openSidebar('KRK_228_Ruin Delvers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/222_Kiora, Voice of the Deep.jpg" id="KRK_222_Kiora, Voice of the Deep" data-flag="@X" onclick="openSidebar('KRK_222_Kiora, Voice of the Deep',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/225_Port Inspector.jpg" id="KRK_225_Port Inspector" data-flag="@X" onclick="openSidebar('KRK_225_Port Inspector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/235_Wharf Rat.jpg" id="KRK_235_Wharf Rat" data-flag="@X" onclick="openSidebar('KRK_235_Wharf Rat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/209_Azla, Dreadtide Captain.jpg" id="KRK_209_Azla, Dreadtide Captain" data-flag="@X" onclick="openSidebar('KRK_209_Azla, Dreadtide Captain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/223_Loyal Deckhand.jpg" id="KRK_223_Loyal Deckhand" data-flag="@X" onclick="openSidebar('KRK_223_Loyal Deckhand',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/232_Ship-Scale Behemoth.jpg" id="KRK_232_Ship-Scale Behemoth" data-flag="@X" onclick="openSidebar('KRK_232_Ship-Scale Behemoth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/211_Captain's Orders.jpg" id="KRK_211_Captains Orders" data-flag="@X" onclick="openSidebar('KRK_211_Captains Orders',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/212_Cunning Quartermaster.jpg" id="KRK_212_Cunning Quartermaster" data-flag="@X" onclick="openSidebar('KRK_212_Cunning Quartermaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/224_Mara, Benthozoologist.jpg" id="KRK_224_Mara, Benthozoologist" data-flag="@X" onclick="openSidebar('KRK_224_Mara, Benthozoologist',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/230_Salazar, Glorybound Mate.jpg" id="KRK_230_Salazar, Glorybound Mate" data-flag="@X" onclick="openSidebar('KRK_230_Salazar, Glorybound Mate',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/244_The Glorybound.jpg" id="KRK_244_The Glorybound" data-flag="@X" onclick="openSidebar('KRK_244_The Glorybound',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/261_Sword of Greed and Glory.jpg" id="KRK_261_Sword of Greed and Glory" data-flag="@X" onclick="openSidebar('KRK_261_Sword of Greed and Glory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/236_Affectionate Mimic.jpg" id="KRK_236_Affectionate Mimic" data-flag="@X" onclick="openSidebar('KRK_236_Affectionate Mimic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/239_Beachside Barter.jpg" id="KRK_239_Beachside Barter" data-flag="@X" onclick="openSidebar('KRK_239_Beachside Barter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/241_Cursed Coins.jpg" id="KRK_241_Cursed Coins" data-flag="@X" onclick="openSidebar('KRK_241_Cursed Coins',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/245_Hellfire Dreadnought.jpg" id="KRK_245_Hellfire Dreadnought" data-flag="@X" onclick="openSidebar('KRK_245_Hellfire Dreadnought',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/247_Ironworks Skysail.jpg" id="KRK_247_Ironworks Skysail" data-flag="@X" onclick="openSidebar('KRK_247_Ironworks Skysail',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/249_M-80, Clockwork Crewmate.jpg" id="KRK_249_M-80, Clockwork Crewmate" data-flag="@X" onclick="openSidebar('KRK_249_M-80, Clockwork Crewmate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/254_Protean Schooner.jpg" id="KRK_254_Protean Schooner" data-flag="@X" onclick="openSidebar('KRK_254_Protean Schooner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/259_Stormforged Saber.jpg" id="KRK_259_Stormforged Saber" data-flag="@X" onclick="openSidebar('KRK_259_Stormforged Saber',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/264_Wayfinder's Telescope.jpg" id="KRK_264_Wayfinders Telescope" data-flag="@X" onclick="openSidebar('KRK_264_Wayfinders Telescope',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/237_Animated Hoard.jpg" id="KRK_237_Animated Hoard" data-flag="@X" onclick="openSidebar('KRK_237_Animated Hoard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/240_Corsair Firebomb.jpg" id="KRK_240_Corsair Firebomb" data-flag="@X" onclick="openSidebar('KRK_240_Corsair Firebomb',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/246_Ironworks Arsenal.jpg" id="KRK_246_Ironworks Arsenal" data-flag="@X" onclick="openSidebar('KRK_246_Ironworks Arsenal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/248_Lantern of the Lost.jpg" id="KRK_248_Lantern of the Lost" data-flag="@X" onclick="openSidebar('KRK_248_Lantern of the Lost',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/250_Marquisian Sentry.jpg" id="KRK_250_Marquisian Sentry" data-flag="@X" onclick="openSidebar('KRK_250_Marquisian Sentry',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/251_Pilferer's Pouch.jpg" id="KRK_251_Pilferers Pouch" data-flag="@X" onclick="openSidebar('KRK_251_Pilferers Pouch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/252_Pillager's Galleon.jpg" id="KRK_252_Pillagers Galleon" data-flag="@X" onclick="openSidebar('KRK_252_Pillagers Galleon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/256_Salvaged Stomper.jpg" id="KRK_256_Salvaged Stomper" data-flag="@X" onclick="openSidebar('KRK_256_Salvaged Stomper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/257_Shoreline Beacon.jpg" id="KRK_257_Shoreline Beacon" data-flag="@X" onclick="openSidebar('KRK_257_Shoreline Beacon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/258_Spectral Sloop.jpg" id="KRK_258_Spectral Sloop" data-flag="@X" onclick="openSidebar('KRK_258_Spectral Sloop',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/238_Aureate Elemental.jpg" id="KRK_238_Aureate Elemental" data-flag="@X" onclick="openSidebar('KRK_238_Aureate Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/242_Expedition Map.jpg" id="KRK_242_Expedition Map" data-flag="@X" onclick="openSidebar('KRK_242_Expedition Map',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/243_Glittering Spoils.jpg" id="KRK_243_Glittering Spoils" data-flag="@X" onclick="openSidebar('KRK_243_Glittering Spoils',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/253_Pirate's Cutlass.jpg" id="KRK_253_Pirates Cutlass" data-flag="@X" onclick="openSidebar('KRK_253_Pirates Cutlass',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/255_Rusted Mariner.jpg" id="KRK_255_Rusted Mariner" data-flag="@X" onclick="openSidebar('KRK_255_Rusted Mariner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/260_Sunken Casket.jpg" id="KRK_260_Sunken Casket" data-flag="@X" onclick="openSidebar('KRK_260_Sunken Casket',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/262_Towering Dreadnought.jpg" id="KRK_262_Towering Dreadnought" data-flag="@X" onclick="openSidebar('KRK_262_Towering Dreadnought',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/263_Voyager's Vessel.jpg" id="KRK_263_Voyagers Vessel" data-flag="@X" onclick="openSidebar('KRK_263_Voyagers Vessel',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/265_Eye of the Eight Winds.jpg" id="KRK_265_Eye of the Eight Winds" data-flag="@X" onclick="openSidebar('KRK_265_Eye of the Eight Winds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/266_Gilded Cove.jpg" id="KRK_266_Gilded Cove" data-flag="@X" onclick="openSidebar('KRK_266_Gilded Cove',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/267_Uncharted Haven.jpg" id="KRK_267_Uncharted Haven" data-flag="@X" onclick="openSidebar('KRK_267_Uncharted Haven',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/268_Plains.jpg" id="KRK_268_Plains" data-flag="@X" onclick="openSidebar('KRK_268_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/269_Island.jpg" id="KRK_269_Island" data-flag="@X" onclick="openSidebar('KRK_269_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/271_Mountain.jpg" id="KRK_271_Mountain" data-flag="@X" onclick="openSidebar('KRK_271_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/272_Forest.jpg" id="KRK_272_Forest" data-flag="@X" onclick="openSidebar('KRK_272_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/270_Swamp.jpg" id="KRK_270_Swamp" data-flag="@X" onclick="openSidebar('KRK_270_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/1t_Copy.jpg" id="KRK_1t_Copy" data-flag="@X" onclick="openSidebar('KRK_1t_Copy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/20t_On An Adventure.jpg" id="KRK_20t_On An Adventure" data-flag="@X" onclick="openSidebar('KRK_20t_On An Adventure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/21t_Construct.jpg" id="KRK_21t_Construct" data-flag="@X" onclick="openSidebar('KRK_21t_Construct',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/22t_Daring Adventures.jpg" id="KRK_22t_Daring Adventures" data-flag="@X" onclick="openSidebar('KRK_22t_Daring Adventures',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/23t_Treasure.jpg" id="KRK_23t_Treasure" data-flag="@X" onclick="openSidebar('KRK_23t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/24t_Vehicle.jpg" id="KRK_24t_Vehicle" data-flag="@X" onclick="openSidebar('KRK_24t_Vehicle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/25t_Weapon.jpg" id="KRK_25t_Weapon" data-flag="@X" onclick="openSidebar('KRK_25t_Weapon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/26t_Everywhere.jpg" id="KRK_26t_Everywhere" data-flag="@X" onclick="openSidebar('KRK_26t_Everywhere',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/27t_Kiora, Voice of the Deep Emblem.jpg" id="KRK_27t_Kiora, Voice of the Deep Emblem" data-flag="@X" onclick="openSidebar('KRK_27t_Kiora, Voice of the Deep Emblem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/28t_Lilith, Seafaring Scribe Emblem.jpg" id="KRK_28t_Lilith, Seafaring Scribe Emblem" data-flag="@X" onclick="openSidebar('KRK_28t_Lilith, Seafaring Scribe Emblem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/2t_Scout.jpg" id="KRK_2t_Scout" data-flag="@X" onclick="openSidebar('KRK_2t_Scout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/3t_Soldier.jpg" id="KRK_3t_Soldier" data-flag="@X" onclick="openSidebar('KRK_3t_Soldier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/4t_Soldier Army.jpg" id="KRK_4t_Soldier Army" data-flag="@X" onclick="openSidebar('KRK_4t_Soldier Army',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/5t_Spirit.jpg" id="KRK_5t_Spirit" data-flag="@X" onclick="openSidebar('KRK_5t_Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/6t_Drake.jpg" id="KRK_6t_Drake" data-flag="@X" onclick="openSidebar('KRK_6t_Drake',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/7t_Fish.jpg" id="KRK_7t_Fish" data-flag="@X" onclick="openSidebar('KRK_7t_Fish',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/8t_Kraken.jpg" id="KRK_8t_Kraken" data-flag="@X" onclick="openSidebar('KRK_8t_Kraken',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/9t_Octopus.jpg" id="KRK_9t_Octopus" data-flag="@X" onclick="openSidebar('KRK_9t_Octopus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/10t_Tentacle.jpg" id="KRK_10t_Tentacle" data-flag="@X" onclick="openSidebar('KRK_10t_Tentacle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/11t_Pirate Token (A).jpg" id="KRK_11t_Pirate Token (A)" data-flag="@X" onclick="openSidebar('KRK_11t_Pirate Token (A)',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/12t_Pirate Token (B).jpg" id="KRK_12t_Pirate Token (B)" data-flag="@X" onclick="openSidebar('KRK_12t_Pirate Token (B)',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/13t_Pirate Token (C).jpg" id="KRK_13t_Pirate Token (C)" data-flag="@X" onclick="openSidebar('KRK_13t_Pirate Token (C)',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/14t_Pirate Token (D).jpg" id="KRK_14t_Pirate Token (D)" data-flag="@X" onclick="openSidebar('KRK_14t_Pirate Token (D)',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/15t_Zombie.jpg" id="KRK_15t_Zombie" data-flag="@X" onclick="openSidebar('KRK_15t_Zombie',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/16t_Dragon.jpg" id="KRK_16t_Dragon" data-flag="@X" onclick="openSidebar('KRK_16t_Dragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/17t_Elemental.jpg" id="KRK_17t_Elemental" data-flag="@X" onclick="openSidebar('KRK_17t_Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/18t_Serpent.jpg" id="KRK_18t_Serpent" data-flag="@X" onclick="openSidebar('KRK_18t_Serpent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/KRK-files/img/19t_Shark.jpg" id="KRK_19t_Shark" data-flag="@X" onclick="openSidebar('KRK_19t_Shark',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="KRK_e" data-flag="@E" onclick="openSidebar('KRK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="KRK_er" data-flag="@E" onclick="openSidebar('KRK_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

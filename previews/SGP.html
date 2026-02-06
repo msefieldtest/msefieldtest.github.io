@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="icon" type="image/png" href="/sets/SGP-files/icon.png"/>
-	<link rel="stylesheet" href="/resources/header.css">
+	<link rel="icon" type="image/png" href="../sets/SGP-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
 	<title>SGP visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
 	<style>
 		@font-face {
 			font-family: Beleren;
-			src: url('/resources/beleren.ttf');
+			src: url('../resources/beleren.ttf');
 		}
 		body {
 			font-family: Arial, sans-serif;
@@ -45,13 +48,15 @@
 			left: 10%;
 			top: 10%;
 			width: 85%;
+			border-radius: 3.733% / 2.677%;
 		}
 		.sidebar-img {
 			vertical-align: middle;
 			width: 100%;
+			border-radius: 3.733% / 2.677%;
 		}
 		.close-btn {
-			background: url('/img/close.png') no-repeat;
+			background: url('../img/close.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 			width: 10%;
@@ -62,7 +67,7 @@
 			right: 4%;
 		}
 		.close-btn:hover {
-			background: url('/img/close-hover.png') no-repeat;
+			background: url('../img/close-hover.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 		}
@@ -82,6 +87,7 @@
 			display: block;
 			visibility: hidden;
 			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
 		}
 		.banner {
 			width: 100%;
@@ -102,9 +108,10 @@
 		.container img {
 			width: 100%;
 			height: auto;
+			border-radius: 3.733% / 2.677%;
 		}
 		.flip-btn {
-			background: url('/img/flip.png') no-repeat;
+			background: url('../img/flip.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 			width: 15%;
@@ -118,7 +125,7 @@
 			opacity: 0.5;
 		}
 		.flip-btn:hover {
-			background: url('/img/flip-hover.png') no-repeat;
+			background: url('../img/flip-hover.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 		}
@@ -174,486 +181,517 @@
 	</style>
 </head>
 <body>
-	<img class="preload-hidden" src="/img/dot.png" />
-	<img class="preload-hidden" src="/sets/SGP-files/logo.png" />
-	<img class="preload-hidden" src="/sets/DRP-files/icon.png" />
-		<img class="preload-hidden" src="/sets/WCD-files/icon.png" />
-		<img class="preload-hidden" src="/sets/AEK-files/icon.png" />
-		<img class="preload-hidden" src="/sets/DCO-files/icon.png" />
-		<img class="preload-hidden" src="/sets/WDW-files/icon.png" />
-		<img class="preload-hidden" src="/sets/ELV-files/icon.png" />
-		<img class="preload-hidden" src="/sets/APH-files/icon.png" />
-		<img class="preload-hidden" src="/sets/2HU-files/icon.png" />
-		<img class="preload-hidden" src="/sets/F2HU-files/icon.png" />
-		<img class="preload-hidden" src="/sets/RPGM-files/icon.png" />
-		<img class="preload-hidden" src="/sets/RNF-files/icon.png" />
-		<img class="preload-hidden" src="/sets/IWH-files/icon.png" />
-		<img class="preload-hidden" src="/sets/OPZ-files/icon.png" />
-		<img class="preload-hidden" src="/sets/WOO-files/icon.png" />
-		<img class="preload-hidden" src="/sets/ORC-files/icon.png" />
-		<img class="preload-hidden" src="/sets/IVP-files/icon.png" />
-		<img class="preload-hidden" src="/sets/VLR-files/icon.png" />
-		<img class="preload-hidden" src="/sets/GOD-files/icon.png" />
-		<img class="preload-hidden" src="/sets/UND-files/icon.png" />
-		<img class="preload-hidden" src="/sets/EOR-files/icon.png" />
-		<img class="preload-hidden" src="/sets/VYI-files/icon.png" />
-		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
-		<img class="preload-hidden" src="/sets/POP2-files/icon.png" />
-		<img class="preload-hidden" src="/sets/ORD-files/icon.png" />
-		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
-		<img class="preload-hidden" src="/sets/PRK-files/icon.png" />
-		<img class="preload-hidden" src="/sets/LIP-files/icon.png" />
-		<img class="preload-hidden" src="/sets/SGP-files/icon.png" />
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/SGP-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
 		<div class="header">
 		<div class="search-grid">
-			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
-			<img class="sg-icon" src="/img/search.png">
-			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
-			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
-			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
-			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
 		</div>
 	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
 
 	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
 	
-		<a class="set-bar" href="SGP"><img src="/sets/SGP-files/icon.png">Stirrings in Goldport</a>
+		<a class="set-bar" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
 	
-		<a class="set-bar inactive" href="DRP"><img src="/sets/DRP-files/icon.png">Derek’s Piggies</a>
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
 	
-		<a class="set-bar inactive" href="WCD"><img src="/sets/WCD-files/icon.png">Wroszy’s Circus of Darkness</a>
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
 	
-		<a class="set-bar inactive" href="AEK"><img src="/sets/AEK-files/icon.png">Aekyu: Idyllic Days</a>
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
 	
-		<a class="set-bar inactive" href="DCO"><img src="/sets/DCO-files/icon.png">Dazon: Cosmic Outcasts</a>
+		<a class="set-bar inactive" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
 	
-		<a class="set-bar inactive" href="WDW"><img src="/sets/WDW-files/icon.png">Waters of a Drowned World</a>
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
 	
-		<a class="set-bar inactive" href="ELV"><img src="/sets/ELV-files/icon.png">Elegies of Vaquer</a>
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
 	
-		<a class="set-bar inactive" href="APH"><img src="/sets/APH-files/icon.png">Aphantasia</a>
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
 	
-		<a class="set-bar inactive" href="2HU"><img src="/sets/2HU-files/icon.png">Universes Beyond: The Touhou Project</a>
+		<a class="set-bar inactive" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
 	
-		<a class="set-bar inactive" href="F2HU"><img src="/sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
 	
-		<a class="set-bar inactive" href="RPGM"><img src="/sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
 	
-		<a class="set-bar inactive" href="RNF"><img src="/sets/RNF-files/icon.png">Ravnica Fractured</a>
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
 	
-		<a class="set-bar inactive" href="IWH"><img src="/sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
 	
-		<a class="set-bar inactive" href="OPZ"><img src="/sets/OPZ-files/icon.png">Outpost Zero</a>
+		<a class="set-bar inactive" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
 	
-		<a class="set-bar inactive" href="WOO"><img src="/sets/WOO-files/icon.png">Waking of Orlige</a>
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
 	
-		<a class="set-bar inactive" href="ORC"><img src="/sets/ORC-files/icon.png">An Oddness in the River Cities</a>
+		<a class="set-bar inactive" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
 	
-		<a class="set-bar inactive" href="IVP"><img src="/sets/IVP-files/icon.png">Invalid Precedent</a>
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
 	
-		<a class="set-bar inactive" href="VLR"><img src="/sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+		<a class="set-bar inactive" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
 	
-		<a class="set-bar inactive" href="GOD"><img src="/sets/GOD-files/icon.png">Godspine</a>
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
 	
-		<a class="set-bar inactive" href="UND"><img src="/sets/UND-files/icon.png">The Underhalls</a>
+		<a class="set-bar inactive" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
 	
-		<a class="set-bar inactive" href="EOR"><img src="/sets/EOR-files/icon.png">Defenders of Eorzea</a>
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
 	
-		<a class="set-bar inactive" href="VYI"><img src="/sets/VYI-files/icon.png">Valdrasil: Voyage to Infinity</a>
+		<a class="set-bar inactive" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
 	
-		<a class="set-bar inactive" href="SOL"><img src="/sets/SOL-files/icon.png">Solastere</a>
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
 	
-		<a class="set-bar inactive" href="POP2"><img src="/sets/POP2-files/icon.png">Prismavision</a>
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
 	
-		<a class="set-bar inactive" href="ORD"><img src="/sets/ORD-files/icon.png">Crucible of Ordeval</a>
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
 	
-		<a class="set-bar inactive" href="TGS"><img src="/sets/TGS-files/icon.png">Tales from the Grave in Space</a>
+		<a class="set-bar inactive" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
 	
-		<a class="set-bar inactive" href="PRK"><img src="/sets/PRK-files/icon.png">Prakhma</a>
+		<a class="set-bar inactive" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
 	
-		<a class="set-bar inactive" href="LIP"><img src="/sets/LIP-files/icon.png">Lost in Place</a>
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
 	
 		</div>
 		<div class="banner">
-		<img class="logo" src="/sets/SGP-files/logo.png">
+		<img class="logo" src="../sets/SGP-files/logo.png">
 		</div>
 		<div class="main-content" id="main-content">
 			<div class="grid-container">
-					<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/49_Subjugation Herald.jpg" id="49_Subjugation Herald" data-flag="@X" onclick="openSidebar('49_Subjugation Herald',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/59_Acolyte of Knowledge.jpg" id="59_Acolyte of Knowledge" data-flag="@X" onclick="openSidebar('59_Acolyte of Knowledge',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/95_Bloodlust Visionary.jpg" id="95_Bloodlust Visionary" data-flag="@X" onclick="openSidebar('95_Bloodlust Visionary',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/149_Jerald, Steel Virtuoso.jpg" id="149_Jerald, Steel Virtuoso" data-flag="@X" onclick="openSidebar('149_Jerald, Steel Virtuoso',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/168_Baalakus, the Zenith.jpg" id="168_Baalakus, the Zenith" data-flag="@X" onclick="openSidebar('168_Baalakus, the Zenith',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/52_Torvinald, Iron Eminence.jpg" id="52_Torvinald, Iron Eminence" data-flag="@X" onclick="openSidebar('52_Torvinald, Iron Eminence',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/75_Lightwire Swarm.jpg" id="75_Lightwire Swarm" data-flag="@X" onclick="openSidebar('75_Lightwire Swarm',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/108_Graven Confidant.jpg" id="108_Graven Confidant" data-flag="@X" onclick="openSidebar('108_Graven Confidant',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/160_Scour for Inspiration.jpg" id="160_Scour for Inspiration" data-flag="@X" onclick="openSidebar('160_Scour for Inspiration',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/178_Eccentric Geneticist.jpg" id="178_Eccentric Geneticist" data-flag="@X" onclick="openSidebar('178_Eccentric Geneticist',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/26_Captivating Alto.jpg" id="26_Captivating Alto" data-flag="@X" onclick="openSidebar('26_Captivating Alto',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/62_Auspicious Coroners.jpg" id="62_Auspicious Coroners" data-flag="@X" onclick="openSidebar('62_Auspicious Coroners',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/105_Esme, Lost to Avarice.jpg" id="105_Esme, Lost to Avarice" data-flag="@X" onclick="openSidebar('105_Esme, Lost to Avarice',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/133_Bullet Locomotive.jpg" id="133_Bullet Locomotive" data-flag="@X" onclick="openSidebar('133_Bullet Locomotive',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/174_Chasm Behemoth.jpg" id="174_Chasm Behemoth" data-flag="@X" onclick="openSidebar('174_Chasm Behemoth',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/27_Destined End.jpg" id="27_Destined End" data-flag="@X" onclick="openSidebar('27_Destined End',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/64_Czaruun, Insight Herald.jpg" id="64_Czaruun, Insight Herald" data-flag="@X" onclick="openSidebar('64_Czaruun, Insight Herald',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/110_Haunted Starlet.jpg" id="110_Haunted Starlet" data-flag="@X" onclick="openSidebar('110_Haunted Starlet',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/137_Dasek, Wrath Herald.jpg" id="137_Dasek, Wrath Herald" data-flag="@X" onclick="openSidebar('137_Dasek, Wrath Herald',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/176_Curious Botanist.jpg" id="176_Curious Botanist" data-flag="@X" onclick="openSidebar('176_Curious Botanist',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/28_Eiara, Aegis Herald.jpg" id="28_Eiara, Aegis Herald" data-flag="@X" onclick="openSidebar('28_Eiara, Aegis Herald',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/72_Glyphbound Sharpshooter.jpg" id="72_Glyphbound Sharpshooter" data-flag="@X" onclick="openSidebar('72_Glyphbound Sharpshooter',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/112_Insatiable Slasher.jpg" id="112_Insatiable Slasher" data-flag="@X" onclick="openSidebar('112_Insatiable Slasher',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/138_Derail.jpg" id="138_Derail" data-flag="@X" onclick="openSidebar('138_Derail',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/183_Gene Recombinators.jpg" id="183_Gene Recombinators" data-flag="@X" onclick="openSidebar('183_Gene Recombinators',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/30_Fated Reunion.jpg" id="30_Fated Reunion" data-flag="@X" onclick="openSidebar('30_Fated Reunion',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/82_Roiling Undertow.jpg" id="82_Roiling Undertow" data-flag="@X" onclick="openSidebar('82_Roiling Undertow',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/117_Mortician's Carriage.jpg" id="117_Morticians Carriage" data-flag="@X" onclick="openSidebar('117_Morticians Carriage',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/151_Moonlit Mutilator.jpg" id="151_Moonlit Mutilator" data-flag="@X" onclick="openSidebar('151_Moonlit Mutilator',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/188_Ovaan, Starbreaker Ghost.jpg" id="188_Ovaan, Starbreaker Ghost" data-flag="@X" onclick="openSidebar('188_Ovaan, Starbreaker Ghost',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/32_High Sergeant Liano.jpg" id="32_High Sergeant Liano" data-flag="@X" onclick="openSidebar('32_High Sergeant Liano',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/84_Scion of Insanity.jpg" id="84_Scion of Insanity" data-flag="@X" onclick="openSidebar('84_Scion of Insanity',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/127_Teachings of Kavalesk.jpg" id="127_Teachings of Kavalesk" data-flag="@X" onclick="openSidebar('127_Teachings of Kavalesk',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/164_Visions of the Veil.jpg" id="164_Visions of the Veil" data-flag="@X" onclick="openSidebar('164_Visions of the Veil',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/190_Ruinate.jpg" id="190_Ruinate" data-flag="@X" onclick="openSidebar('190_Ruinate',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/42_Regulation Inspector.jpg" id="42_Regulation Inspector" data-flag="@X" onclick="openSidebar('42_Regulation Inspector',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/90_Unparalleled Efficiency.jpg" id="90_Unparalleled Efficiency" data-flag="@X" onclick="openSidebar('90_Unparalleled Efficiency',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/130_Zommok, Grief Herald.jpg" id="130_Zommok, Grief Herald" data-flag="@X" onclick="openSidebar('130_Zommok, Grief Herald',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/165_The West District Hangar.jpg" id="165_The West District Hangar" data-flag="@X" onclick="openSidebar('165_The West District Hangar',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/197_Vinrag, Expanse Herald.jpg" id="197_Vinrag, Expanse Herald" data-flag="@X" onclick="openSidebar('197_Vinrag, Expanse Herald',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/29_Faculty of Engineering.jpg" id="29_Faculty of Engineering" data-flag="@X" onclick="openSidebar('29_Faculty of Engineering',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/60_Adaptive Lieutenant.jpg" id="60_Adaptive Lieutenant" data-flag="@X" onclick="openSidebar('60_Adaptive Lieutenant',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/96_Bread and Circuses.jpg" id="96_Bread and Circuses" data-flag="@X" onclick="openSidebar('96_Bread and Circuses',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/131_Ashen Ravager.jpg" id="131_Ashen Ravager" data-flag="@X" onclick="openSidebar('131_Ashen Ravager',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/167_Ancient Stirrings.jpg" id="167_Ancient Stirrings" data-flag="@X" onclick="openSidebar('167_Ancient Stirrings',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/31_First-Class Skyship.jpg" id="31_First-Class Skyship" data-flag="@X" onclick="openSidebar('31_First-Class Skyship',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/61_Ancestral Voidstone.jpg" id="61_Ancestral Voidstone" data-flag="@X" onclick="openSidebar('61_Ancestral Voidstone',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/97_Brethren Priestess.jpg" id="97_Brethren Priestess" data-flag="@X" onclick="openSidebar('97_Brethren Priestess',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/132_Blinding Immolation.jpg" id="132_Blinding Immolation" data-flag="@X" onclick="openSidebar('132_Blinding Immolation',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/170_Bitten By the Void.jpg" id="170_Bitten By the Void" data-flag="@X" onclick="openSidebar('170_Bitten By the Void',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/33_Induced Catatonia.jpg" id="33_Induced Catatonia" data-flag="@X" onclick="openSidebar('33_Induced Catatonia',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/67_Ego Death.jpg" id="67_Ego Death" data-flag="@X" onclick="openSidebar('67_Ego Death',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/98_Channel the Dark.jpg" id="98_Channel the Dark" data-flag="@X" onclick="openSidebar('98_Channel the Dark',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/142_Flamerush.jpg" id="142_Flamerush" data-flag="@X" onclick="openSidebar('142_Flamerush',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/171_Botanical Conference.jpg" id="171_Botanical Conference" data-flag="@X" onclick="openSidebar('171_Botanical Conference',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/34_Industry Kingpins.jpg" id="34_Industry Kingpins" data-flag="@X" onclick="openSidebar('34_Industry Kingpins',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/68_Ego Devourer.jpg" id="68_Ego Devourer" data-flag="@X" onclick="openSidebar('68_Ego Devourer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/100_Corpse Inspectors.jpg" id="100_Corpse Inspectors" data-flag="@X" onclick="openSidebar('100_Corpse Inspectors',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/143_For the Cause.jpg" id="143_For the Cause" data-flag="@X" onclick="openSidebar('143_For the Cause',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/173_Cataclysm Constable.jpg" id="173_Cataclysm Constable" data-flag="@X" onclick="openSidebar('173_Cataclysm Constable',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/37_Never Seen Again.jpg" id="37_Never Seen Again" data-flag="@X" onclick="openSidebar('37_Never Seen Again',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/70_Fade.jpg" id="70_Fade" data-flag="@X" onclick="openSidebar('70_Fade',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/103_Devour the Broken.jpg" id="103_Devour the Broken" data-flag="@X" onclick="openSidebar('103_Devour the Broken',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/145_Forgotten Lane Busker.jpg" id="145_Forgotten Lane Busker" data-flag="@X" onclick="openSidebar('145_Forgotten Lane Busker',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/175_Confidential Science.jpg" id="175_Confidential Science" data-flag="@X" onclick="openSidebar('175_Confidential Science',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/38_North District Prior.jpg" id="38_North District Prior" data-flag="@X" onclick="openSidebar('38_North District Prior',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/73_In the Nick of Time.jpg" id="73_In the Nick of Time" data-flag="@X" onclick="openSidebar('73_In the Nick of Time',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/104_Epitaph Lurkers.jpg" id="104_Epitaph Lurkers" data-flag="@X" onclick="openSidebar('104_Epitaph Lurkers',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/147_In Eldritch Flame.jpg" id="147_In Eldritch Flame" data-flag="@X" onclick="openSidebar('147_In Eldritch Flame',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/181_For All of Calloran.jpg" id="181_For All of Calloran" data-flag="@X" onclick="openSidebar('181_For All of Calloran',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/44_Scape Surveyor.jpg" id="44_Scape Surveyor" data-flag="@X" onclick="openSidebar('44_Scape Surveyor',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/78_Port Inspector.jpg" id="78_Port Inspector" data-flag="@X" onclick="openSidebar('78_Port Inspector',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/106_Festering Eyemass.jpg" id="106_Festering Eyemass" data-flag="@X" onclick="openSidebar('106_Festering Eyemass',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/152_Mutation Investigator.jpg" id="152_Mutation Investigator" data-flag="@X" onclick="openSidebar('152_Mutation Investigator',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/185_Holism Seeker.jpg" id="185_Holism Seeker" data-flag="@X" onclick="openSidebar('185_Holism Seeker',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/45_Sky Force Retiree.jpg" id="45_Sky Force Retiree" data-flag="@X" onclick="openSidebar('45_Sky Force Retiree',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/81_Remember the Titans.jpg" id="81_Remember the Titans" data-flag="@X" onclick="openSidebar('81_Remember the Titans',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/107_Flesh Shredder.jpg" id="107_Flesh Shredder" data-flag="@X" onclick="openSidebar('107_Flesh Shredder',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/153_Occupation.jpg" id="153_Occupation" data-flag="@X" onclick="openSidebar('153_Occupation',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/186_Impact Surveyors.jpg" id="186_Impact Surveyors" data-flag="@X" onclick="openSidebar('186_Impact Surveyors',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/47_Steelwire Shaper.jpg" id="47_Steelwire Shaper" data-flag="@X" onclick="openSidebar('47_Steelwire Shaper',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/83_Rush of Clarity.jpg" id="83_Rush of Clarity" data-flag="@X" onclick="openSidebar('83_Rush of Clarity',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/113_Karsten's Enforcer.jpg" id="113_Karstens Enforcer" data-flag="@X" onclick="openSidebar('113_Karstens Enforcer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/154_Pinefell Terror.jpg" id="154_Pinefell Terror" data-flag="@X" onclick="openSidebar('154_Pinefell Terror',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/187_Manifold Chorus.jpg" id="187_Manifold Chorus" data-flag="@X" onclick="openSidebar('187_Manifold Chorus',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/48_Strength of the Departed.jpg" id="48_Strength of the Departed" data-flag="@X" onclick="openSidebar('48_Strength of the Departed',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/86_Steelsuit Retrofitter.jpg" id="86_Steelsuit Retrofitter" data-flag="@X" onclick="openSidebar('86_Steelsuit Retrofitter',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/119_North Salcman Vigil.jpg" id="119_North Salcman Vigil" data-flag="@X" onclick="openSidebar('119_North Salcman Vigil',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/155_Preemption Engineer.jpg" id="155_Preemption Engineer" data-flag="@X" onclick="openSidebar('155_Preemption Engineer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/191_Savage Broodmother.jpg" id="191_Savage Broodmother" data-flag="@X" onclick="openSidebar('191_Savage Broodmother',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/50_Thousand-Mind Cutthroat.jpg" id="50_Thousand-Mind Cutthroat" data-flag="@X" onclick="openSidebar('50_Thousand-Mind Cutthroat',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/89_Triumph, Taken by the Roil.jpg" id="89_Triumph, Taken by the Roil" data-flag="@X" onclick="openSidebar('89_Triumph, Taken by the Roil',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/121_Quick and Painful.jpg" id="121_Quick and Painful" data-flag="@X" onclick="openSidebar('121_Quick and Painful',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/156_Pyretic Dreadnought.jpg" id="156_Pyretic Dreadnought" data-flag="@X" onclick="openSidebar('156_Pyretic Dreadnought',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/192_Scour the Formless Scape.jpg" id="192_Scour the Formless Scape" data-flag="@X" onclick="openSidebar('192_Scour the Formless Scape',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/53_Triumphant Cavalier.jpg" id="53_Triumphant Cavalier" data-flag="@X" onclick="openSidebar('53_Triumphant Cavalier',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/91_Void Empyrean.jpg" id="91_Void Empyrean" data-flag="@X" onclick="openSidebar('91_Void Empyrean',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/122_Shingle Crawler.jpg" id="122_Shingle Crawler" data-flag="@X" onclick="openSidebar('122_Shingle Crawler',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/158_Sacrifice Archivist.jpg" id="158_Sacrifice Archivist" data-flag="@X" onclick="openSidebar('158_Sacrifice Archivist',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/198_Viscera Channeler.jpg" id="198_Viscera Channeler" data-flag="@X" onclick="openSidebar('198_Viscera Channeler',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/54_Upgrade the Force.jpg" id="54_Upgrade the Force" data-flag="@X" onclick="openSidebar('54_Upgrade the Force',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/92_Watchman of the Deep.jpg" id="92_Watchman of the Deep" data-flag="@X" onclick="openSidebar('92_Watchman of the Deep',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/126_Stonebridge Ambush.jpg" id="126_Stonebridge Ambush" data-flag="@X" onclick="openSidebar('126_Stonebridge Ambush',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/159_Scalding Roil.jpg" id="159_Scalding Roil" data-flag="@X" onclick="openSidebar('159_Scalding Roil',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/199_Willowvine Sentinel.jpg" id="199_Willowvine Sentinel" data-flag="@X" onclick="openSidebar('199_Willowvine Sentinel',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/55_Vintage Fanatic.jpg" id="55_Vintage Fanatic" data-flag="@X" onclick="openSidebar('55_Vintage Fanatic',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/93_Wiped Clean.jpg" id="93_Wiped Clean" data-flag="@X" onclick="openSidebar('93_Wiped Clean',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/128_Unnatural Torment.jpg" id="128_Unnatural Torment" data-flag="@X" onclick="openSidebar('128_Unnatural Torment',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/166_Wildfire Aven.jpg" id="166_Wildfire Aven" data-flag="@X" onclick="openSidebar('166_Wildfire Aven',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/202_Yestergrove Relic.jpg" id="202_Yestergrove Relic" data-flag="@X" onclick="openSidebar('202_Yestergrove Relic',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/23_Aerial Augmentation.jpg" id="23_Aerial Augmentation" data-flag="@X" onclick="openSidebar('23_Aerial Augmentation',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/63_Collaborate.jpg" id="63_Collaborate" data-flag="@X" onclick="openSidebar('63_Collaborate',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/99_Compelled to Die.jpg" id="99_Compelled to Die" data-flag="@X" onclick="openSidebar('99_Compelled to Die',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/134_Colossus Showman.jpg" id="134_Colossus Showman" data-flag="@X" onclick="openSidebar('134_Colossus Showman',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/169_Barksplitter Colossus.jpg" id="169_Barksplitter Colossus" data-flag="@X" onclick="openSidebar('169_Barksplitter Colossus',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/24_Aerial Regulator.jpg" id="24_Aerial Regulator" data-flag="@X" onclick="openSidebar('24_Aerial Regulator',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/65_Diviner of Relics.jpg" id="65_Diviner of Relics" data-flag="@X" onclick="openSidebar('65_Diviner of Relics',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/101_Croak.jpg" id="101_Croak" data-flag="@X" onclick="openSidebar('101_Croak',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/135_Commune with Silence.jpg" id="135_Commune with Silence" data-flag="@X" onclick="openSidebar('135_Commune with Silence',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/172_Branchbound Speaker.jpg" id="172_Branchbound Speaker" data-flag="@X" onclick="openSidebar('172_Branchbound Speaker',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/25_Cabaret Seductress.jpg" id="25_Cabaret Seductress" data-flag="@X" onclick="openSidebar('25_Cabaret Seductress',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/66_Duchy Flagship.jpg" id="66_Duchy Flagship" data-flag="@X" onclick="openSidebar('66_Duchy Flagship',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/102_Cruel Patrician.jpg" id="102_Cruel Patrician" data-flag="@X" onclick="openSidebar('102_Cruel Patrician',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/136_Crimson Gladeguard.jpg" id="136_Crimson Gladeguard" data-flag="@X" onclick="openSidebar('136_Crimson Gladeguard',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/177_Donnybrook.jpg" id="177_Donnybrook" data-flag="@X" onclick="openSidebar('177_Donnybrook',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/35_Mire Pathforger.jpg" id="35_Mire Pathforger" data-flag="@X" onclick="openSidebar('35_Mire Pathforger',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/69_Eldritch Rebuttal.jpg" id="69_Eldritch Rebuttal" data-flag="@X" onclick="openSidebar('69_Eldritch Rebuttal',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/109_Harrowing Transformation.jpg" id="109_Harrowing Transformation" data-flag="@X" onclick="openSidebar('109_Harrowing Transformation',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/139_Emergency Jettison.jpg" id="139_Emergency Jettison" data-flag="@X" onclick="openSidebar('139_Emergency Jettison',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/179_Eldritch Growth.jpg" id="179_Eldritch Growth" data-flag="@X" onclick="openSidebar('179_Eldritch Growth',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/36_Mournful Matriarch.jpg" id="36_Mournful Matriarch" data-flag="@X" onclick="openSidebar('36_Mournful Matriarch',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/71_Frossenhold Walker.jpg" id="71_Frossenhold Walker" data-flag="@X" onclick="openSidebar('71_Frossenhold Walker',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/111_Inkrealm Stalker.jpg" id="111_Inkrealm Stalker" data-flag="@X" onclick="openSidebar('111_Inkrealm Stalker',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/140_Evacuation Hotrod.jpg" id="140_Evacuation Hotrod" data-flag="@X" onclick="openSidebar('140_Evacuation Hotrod',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/180_First Responders.jpg" id="180_First Responders" data-flag="@X" onclick="openSidebar('180_First Responders',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/39_Oligarch's Supercar.jpg" id="39_Oligarchs Supercar" data-flag="@X" onclick="openSidebar('39_Oligarchs Supercar',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/74_Intrepid Aviator.jpg" id="74_Intrepid Aviator" data-flag="@X" onclick="openSidebar('74_Intrepid Aviator',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/114_Lamplighter of the End.jpg" id="114_Lamplighter of the End" data-flag="@X" onclick="openSidebar('114_Lamplighter of the End',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/141_Eyekissed Invoker.jpg" id="141_Eyekissed Invoker" data-flag="@X" onclick="openSidebar('141_Eyekissed Invoker',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/182_Game Hunters.jpg" id="182_Game Hunters" data-flag="@X" onclick="openSidebar('182_Game Hunters',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/40_Opalwing Cavalry.jpg" id="40_Opalwing Cavalry" data-flag="@X" onclick="openSidebar('40_Opalwing Cavalry',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/76_Mastbreaker.jpg" id="76_Mastbreaker" data-flag="@X" onclick="openSidebar('76_Mastbreaker',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/115_Learn From Loss.jpg" id="115_Learn From Loss" data-flag="@X" onclick="openSidebar('115_Learn From Loss',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/144_Forge in Anguish.jpg" id="144_Forge in Anguish" data-flag="@X" onclick="openSidebar('144_Forge in Anguish',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/184_A Hole in the Sky.jpg" id="184_A Hole in the Sky" data-flag="@X" onclick="openSidebar('184_A Hole in the Sky',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/41_Pedigree Collector.jpg" id="41_Pedigree Collector" data-flag="@X" onclick="openSidebar('41_Pedigree Collector',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/77_Pass Unscathed.jpg" id="77_Pass Unscathed" data-flag="@X" onclick="openSidebar('77_Pass Unscathed',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/116_Luxuries Merchant.jpg" id="116_Luxuries Merchant" data-flag="@X" onclick="openSidebar('116_Luxuries Merchant',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/146_Hotwire Prodigy.jpg" id="146_Hotwire Prodigy" data-flag="@X" onclick="openSidebar('146_Hotwire Prodigy',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/189_Precipice Recon.jpg" id="189_Precipice Recon" data-flag="@X" onclick="openSidebar('189_Precipice Recon',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/43_Rockpile Brutes.jpg" id="43_Rockpile Brutes" data-flag="@X" onclick="openSidebar('43_Rockpile Brutes',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/79_Public Exhibition.jpg" id="79_Public Exhibition" data-flag="@X" onclick="openSidebar('79_Public Exhibition',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/118_Nightgrasp.jpg" id="118_Nightgrasp" data-flag="@X" onclick="openSidebar('118_Nightgrasp',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/148_Incendiary Charger.jpg" id="148_Incendiary Charger" data-flag="@X" onclick="openSidebar('148_Incendiary Charger',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/193_Starbreaker Juvenile.jpg" id="193_Starbreaker Juvenile" data-flag="@X" onclick="openSidebar('193_Starbreaker Juvenile',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/46_Startouched Devout.jpg" id="46_Startouched Devout" data-flag="@X" onclick="openSidebar('46_Startouched Devout',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/80_Raven Whisperer.jpg" id="80_Raven Whisperer" data-flag="@X" onclick="openSidebar('80_Raven Whisperer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/120_Paradigm Enforcer.jpg" id="120_Paradigm Enforcer" data-flag="@X" onclick="openSidebar('120_Paradigm Enforcer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/150_Magma Scribe.jpg" id="150_Magma Scribe" data-flag="@X" onclick="openSidebar('150_Magma Scribe',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/194_Startouched Arborist.jpg" id="194_Startouched Arborist" data-flag="@X" onclick="openSidebar('194_Startouched Arborist',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/51_Timely Intervention.jpg" id="51_Timely Intervention" data-flag="@X" onclick="openSidebar('51_Timely Intervention',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/85_Startouched Analyst.jpg" id="85_Startouched Analyst" data-flag="@X" onclick="openSidebar('85_Startouched Analyst',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/123_Soultaker Idol.jpg" id="123_Soultaker Idol" data-flag="@X" onclick="openSidebar('123_Soultaker Idol',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/157_Ruin Prowler.jpg" id="157_Ruin Prowler" data-flag="@X" onclick="openSidebar('157_Ruin Prowler',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/195_Streetway Incursion.jpg" id="195_Streetway Incursion" data-flag="@X" onclick="openSidebar('195_Streetway Incursion',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/56_Volunteer Firewatch.jpg" id="56_Volunteer Firewatch" data-flag="@X" onclick="openSidebar('56_Volunteer Firewatch',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/87_Taken by the Storm.jpg" id="87_Taken by the Storm" data-flag="@X" onclick="openSidebar('87_Taken by the Storm',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/124_Speakeasy Brokers.jpg" id="124_Speakeasy Brokers" data-flag="@X" onclick="openSidebar('124_Speakeasy Brokers',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/161_Spire Defender.jpg" id="161_Spire Defender" data-flag="@X" onclick="openSidebar('161_Spire Defender',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/196_Unethical Enhancements.jpg" id="196_Unethical Enhancements" data-flag="@X" onclick="openSidebar('196_Unethical Enhancements',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/57_Zaila's Willbender.jpg" id="57_Zailas Willbender" data-flag="@X" onclick="openSidebar('57_Zailas Willbender',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/88_Task Force Operatives.jpg" id="88_Task Force Operatives" data-flag="@X" onclick="openSidebar('88_Task Force Operatives',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/125_Startouched Assassin.jpg" id="125_Startouched Assassin" data-flag="@X" onclick="openSidebar('125_Startouched Assassin',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/162_Startouched Blitzer.jpg" id="162_Startouched Blitzer" data-flag="@X" onclick="openSidebar('162_Startouched Blitzer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/200_World Whisperer.jpg" id="200_World Whisperer" data-flag="@X" onclick="openSidebar('200_World Whisperer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/58_Zeppelin Disaster.jpg" id="58_Zeppelin Disaster" data-flag="@X" onclick="openSidebar('58_Zeppelin Disaster',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/94_Zephyr Piercer.jpg" id="94_Zephyr Piercer" data-flag="@X" onclick="openSidebar('94_Zephyr Piercer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/129_Unwelcome Tenant.jpg" id="129_Unwelcome Tenant" data-flag="@X" onclick="openSidebar('129_Unwelcome Tenant',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/163_Steelsuit Consultant.jpg" id="163_Steelsuit Consultant" data-flag="@X" onclick="openSidebar('163_Steelsuit Consultant',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/201_Wreckage Inquisitors.jpg" id="201_Wreckage Inquisitors" data-flag="@X" onclick="openSidebar('201_Wreckage Inquisitors',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+					<div class="container"><img loading="lazy" alt="sets/SGP-files/img/41_Grand Triarch.jpg" id="SGP_41_Grand Triarch" data-flag="@X" onclick="openSidebar('SGP_41_Grand Triarch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/86_Lightwire Swarm.jpg" id="SGP_86_Lightwire Swarm" data-flag="@X" onclick="openSidebar('SGP_86_Lightwire Swarm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/101_Bloodlust Visionary.jpg" id="SGP_101_Bloodlust Visionary" data-flag="@X" onclick="openSidebar('SGP_101_Bloodlust Visionary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/150_Jerald, Steel Virtuoso.jpg" id="SGP_150_Jerald, Steel Virtuoso" data-flag="@X" onclick="openSidebar('SGP_150_Jerald, Steel Virtuoso',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/169_Baalakus, the Zenith.jpg" id="SGP_169_Baalakus, the Zenith" data-flag="@X" onclick="openSidebar('SGP_169_Baalakus, the Zenith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/59_Torvinald, Iron Eminence.jpg" id="SGP_59_Torvinald, Iron Eminence" data-flag="@X" onclick="openSidebar('SGP_59_Torvinald, Iron Eminence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/87_Lostlands Oracle.jpg" id="SGP_87_Lostlands Oracle" data-flag="@X" onclick="openSidebar('SGP_87_Lostlands Oracle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/114_Graven Confidant.jpg" id="SGP_114_Graven Confidant" data-flag="@X" onclick="openSidebar('SGP_114_Graven Confidant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/167_A World Worth Fighting For.jpg" id="SGP_167_A World Worth Fighting For" data-flag="@X" onclick="openSidebar('SGP_167_A World Worth Fighting For',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/179_Eccentric Geneticist.jpg" id="SGP_179_Eccentric Geneticist" data-flag="@X" onclick="openSidebar('SGP_179_Eccentric Geneticist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/34_Destined End.jpg" id="SGP_34_Destined End" data-flag="@X" onclick="openSidebar('SGP_34_Destined End',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/72_Devonia, Lost Ministrix.jpg" id="SGP_72_Devonia, Lost Ministrix" data-flag="@X" onclick="openSidebar('SGP_72_Devonia, Lost Ministrix',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/110_Fathomless Invocations.jpg" id="SGP_110_Fathomless Invocations" data-flag="@X" onclick="openSidebar('SGP_110_Fathomless Invocations',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/137_Bullet Locomotive.jpg" id="SGP_137_Bullet Locomotive" data-flag="@X" onclick="openSidebar('SGP_137_Bullet Locomotive',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/175_Chasm Behemoth.jpg" id="SGP_175_Chasm Behemoth" data-flag="@X" onclick="openSidebar('SGP_175_Chasm Behemoth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/36_Evelline, Ark of Salvation.jpg" id="SGP_36_Evelline, Ark of Salvation" data-flag="@X" onclick="openSidebar('SGP_36_Evelline, Ark of Salvation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/79_Friede, Weave Dancer.jpg" id="SGP_79_Friede, Weave Dancer" data-flag="@X" onclick="openSidebar('SGP_79_Friede, Weave Dancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/116_Haunted Starlet.jpg" id="SGP_116_Haunted Starlet" data-flag="@X" onclick="openSidebar('SGP_116_Haunted Starlet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/142_Deathscorn Aspect.jpg" id="SGP_142_Deathscorn Aspect" data-flag="@X" onclick="openSidebar('SGP_142_Deathscorn Aspect',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/177_Curious Botanist.jpg" id="SGP_177_Curious Botanist" data-flag="@X" onclick="openSidebar('SGP_177_Curious Botanist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/38_Fated Reunion.jpg" id="SGP_38_Fated Reunion" data-flag="@X" onclick="openSidebar('SGP_38_Fated Reunion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/85_Jaded Coroners.jpg" id="SGP_85_Jaded Coroners" data-flag="@X" onclick="openSidebar('SGP_85_Jaded Coroners',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/118_Insatiate Slasher.jpg" id="SGP_118_Insatiate Slasher" data-flag="@X" onclick="openSidebar('SGP_118_Insatiate Slasher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/147_Ichor Winnower.jpg" id="SGP_147_Ichor Winnower" data-flag="@X" onclick="openSidebar('SGP_147_Ichor Winnower',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/185_Gene Recombinators.jpg" id="SGP_185_Gene Recombinators" data-flag="@X" onclick="openSidebar('SGP_185_Gene Recombinators',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/42_High Sergeant Liano.jpg" id="SGP_42_High Sergeant Liano" data-flag="@X" onclick="openSidebar('SGP_42_High Sergeant Liano',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/92_Roiling Undertow.jpg" id="SGP_92_Roiling Undertow" data-flag="@X" onclick="openSidebar('SGP_92_Roiling Undertow',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/131_Strike Suppressor.jpg" id="SGP_131_Strike Suppressor" data-flag="@X" onclick="openSidebar('SGP_131_Strike Suppressor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/148_In Eldritch Flame.jpg" id="SGP_148_In Eldritch Flame" data-flag="@X" onclick="openSidebar('SGP_148_In Eldritch Flame',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/186_Herald of the Expanse.jpg" id="SGP_186_Herald of the Expanse" data-flag="@X" onclick="openSidebar('SGP_186_Herald of the Expanse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/63_Wharf Inspector.jpg" id="SGP_63_Wharf Inspector" data-flag="@X" onclick="openSidebar('SGP_63_Wharf Inspector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/93_Scion of Insanity.jpg" id="SGP_93_Scion of Insanity" data-flag="@X" onclick="openSidebar('SGP_93_Scion of Insanity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/100_Blood Soliloquy.jpg" id="SGP_100_Blood Soliloquy" data-flag="@X" onclick="openSidebar('SGP_100_Blood Soliloquy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/164_West District Hangar.jpg" id="SGP_164_West District Hangar" data-flag="@X" onclick="openSidebar('SGP_164_West District Hangar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/192_Ruinate.jpg" id="SGP_192_Ruinate" data-flag="@X" onclick="openSidebar('SGP_192_Ruinate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/37_Faculty of Engineering.jpg" id="SGP_37_Faculty of Engineering" data-flag="@X" onclick="openSidebar('SGP_37_Faculty of Engineering',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/66_Adaptive Lieutenant.jpg" id="SGP_66_Adaptive Lieutenant" data-flag="@X" onclick="openSidebar('SGP_66_Adaptive Lieutenant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/102_Brethren Priestess.jpg" id="SGP_102_Brethren Priestess" data-flag="@X" onclick="openSidebar('SGP_102_Brethren Priestess',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/135_Ashen Ravager.jpg" id="SGP_135_Ashen Ravager" data-flag="@X" onclick="openSidebar('SGP_135_Ashen Ravager',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/168_Ancient Stirrings.jpg" id="SGP_168_Ancient Stirrings" data-flag="@X" onclick="openSidebar('SGP_168_Ancient Stirrings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/39_Flagship Auto-Enforcer.jpg" id="SGP_39_Flagship Auto-Enforcer" data-flag="@X" onclick="openSidebar('SGP_39_Flagship Auto-Enforcer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/67_Ancestral Voidstone.jpg" id="SGP_67_Ancestral Voidstone" data-flag="@X" onclick="openSidebar('SGP_67_Ancestral Voidstone',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/103_Channel the Dark.jpg" id="SGP_103_Channel the Dark" data-flag="@X" onclick="openSidebar('SGP_103_Channel the Dark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/138_Careening Steam Engine.jpg" id="SGP_138_Careening Steam Engine" data-flag="@X" onclick="openSidebar('SGP_138_Careening Steam Engine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/171_Bitten By the Void.jpg" id="SGP_171_Bitten By the Void" data-flag="@X" onclick="openSidebar('SGP_171_Bitten By the Void',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/40_Frontline Cavalier.jpg" id="SGP_40_Frontline Cavalier" data-flag="@X" onclick="openSidebar('SGP_40_Frontline Cavalier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/71_Deepwater Whispers.jpg" id="SGP_71_Deepwater Whispers" data-flag="@X" onclick="openSidebar('SGP_71_Deepwater Whispers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/105_Corpse Inspectors.jpg" id="SGP_105_Corpse Inspectors" data-flag="@X" onclick="openSidebar('SGP_105_Corpse Inspectors',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/144_Flamerush.jpg" id="SGP_144_Flamerush" data-flag="@X" onclick="openSidebar('SGP_144_Flamerush',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/172_Botanical Conference.jpg" id="SGP_172_Botanical Conference" data-flag="@X" onclick="openSidebar('SGP_172_Botanical Conference',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/43_Highforged Overseer.jpg" id="SGP_43_Highforged Overseer" data-flag="@X" onclick="openSidebar('SGP_43_Highforged Overseer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/75_Ego Death.jpg" id="SGP_75_Ego Death" data-flag="@X" onclick="openSidebar('SGP_75_Ego Death',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/108_Epitaph Lurkers.jpg" id="SGP_108_Epitaph Lurkers" data-flag="@X" onclick="openSidebar('SGP_108_Epitaph Lurkers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/145_For the Cause.jpg" id="SGP_145_For the Cause" data-flag="@X" onclick="openSidebar('SGP_145_For the Cause',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/174_Cataclysm Constable.jpg" id="SGP_174_Cataclysm Constable" data-flag="@X" onclick="openSidebar('SGP_174_Cataclysm Constable',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/44_Induced Catatonia.jpg" id="SGP_44_Induced Catatonia" data-flag="@X" onclick="openSidebar('SGP_44_Induced Catatonia',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/76_Ego Devourer.jpg" id="SGP_76_Ego Devourer" data-flag="@X" onclick="openSidebar('SGP_76_Ego Devourer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/111_Festering Eyemass.jpg" id="SGP_111_Festering Eyemass" data-flag="@X" onclick="openSidebar('SGP_111_Festering Eyemass',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/153_Mutation Investigator.jpg" id="SGP_153_Mutation Investigator" data-flag="@X" onclick="openSidebar('SGP_153_Mutation Investigator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/176_Confidential Science.jpg" id="SGP_176_Confidential Science" data-flag="@X" onclick="openSidebar('SGP_176_Confidential Science',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/45_Industry Kingpins.jpg" id="SGP_45_Industry Kingpins" data-flag="@X" onclick="openSidebar('SGP_45_Industry Kingpins',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/78_Fade.jpg" id="SGP_78_Fade" data-flag="@X" onclick="openSidebar('SGP_78_Fade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/112_Flesh Shredder.jpg" id="SGP_112_Flesh Shredder" data-flag="@X" onclick="openSidebar('SGP_112_Flesh Shredder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/154_Occupation.jpg" id="SGP_154_Occupation" data-flag="@X" onclick="openSidebar('SGP_154_Occupation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/180_Eldritch Growth.jpg" id="SGP_180_Eldritch Growth" data-flag="@X" onclick="openSidebar('SGP_180_Eldritch Growth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/48_Never Seen Again.jpg" id="SGP_48_Never Seen Again" data-flag="@X" onclick="openSidebar('SGP_48_Never Seen Again',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/82_In the Nick of Time.jpg" id="SGP_82_In the Nick of Time" data-flag="@X" onclick="openSidebar('SGP_82_In the Nick of Time',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/113_Glorious Elegy.jpg" id="SGP_113_Glorious Elegy" data-flag="@X" onclick="openSidebar('SGP_113_Glorious Elegy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/155_Pinefell Terror.jpg" id="SGP_155_Pinefell Terror" data-flag="@X" onclick="openSidebar('SGP_155_Pinefell Terror',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/182_For All of Calloran.jpg" id="SGP_182_For All of Calloran" data-flag="@X" onclick="openSidebar('SGP_182_For All of Calloran',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/49_North District Prior.jpg" id="SGP_49_North District Prior" data-flag="@X" onclick="openSidebar('SGP_49_North District Prior',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/84_Inspired Retrofitter.jpg" id="SGP_84_Inspired Retrofitter" data-flag="@X" onclick="openSidebar('SGP_84_Inspired Retrofitter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/124_North Salcman Vigil.jpg" id="SGP_124_North Salcman Vigil" data-flag="@X" onclick="openSidebar('SGP_124_North Salcman Vigil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/156_Preemption Engineer.jpg" id="SGP_156_Preemption Engineer" data-flag="@X" onclick="openSidebar('SGP_156_Preemption Engineer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/188_Holism Seeker.jpg" id="SGP_188_Holism Seeker" data-flag="@X" onclick="openSidebar('SGP_188_Holism Seeker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/53_Scape Surveyor.jpg" id="SGP_53_Scape Surveyor" data-flag="@X" onclick="openSidebar('SGP_53_Scape Surveyor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/89_Piece It Together.jpg" id="SGP_89_Piece It Together" data-flag="@X" onclick="openSidebar('SGP_89_Piece It Together',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/125_Quick and Painful.jpg" id="SGP_125_Quick and Painful" data-flag="@X" onclick="openSidebar('SGP_125_Quick and Painful',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/157_Sacrifice Archivist.jpg" id="SGP_157_Sacrifice Archivist" data-flag="@X" onclick="openSidebar('SGP_157_Sacrifice Archivist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/189_Impact Surveyors.jpg" id="SGP_189_Impact Surveyors" data-flag="@X" onclick="openSidebar('SGP_189_Impact Surveyors',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/55_Sky Force Retiree.jpg" id="SGP_55_Sky Force Retiree" data-flag="@X" onclick="openSidebar('SGP_55_Sky Force Retiree',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/90_Port Inspector.jpg" id="SGP_90_Port Inspector" data-flag="@X" onclick="openSidebar('SGP_90_Port Inspector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/126_Shingle Crawler.jpg" id="SGP_126_Shingle Crawler" data-flag="@X" onclick="openSidebar('SGP_126_Shingle Crawler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/159_Steelsoul Ignition.jpg" id="SGP_159_Steelsoul Ignition" data-flag="@X" onclick="openSidebar('SGP_159_Steelsoul Ignition',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/190_Manifold Chorus.jpg" id="SGP_190_Manifold Chorus" data-flag="@X" onclick="openSidebar('SGP_190_Manifold Chorus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/57_Thousand-Mind Cutthroat.jpg" id="SGP_57_Thousand-Mind Cutthroat" data-flag="@X" onclick="openSidebar('SGP_57_Thousand-Mind Cutthroat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/97_Watchman of the Deep.jpg" id="SGP_97_Watchman of the Deep" data-flag="@X" onclick="openSidebar('SGP_97_Watchman of the Deep',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/130_Stonebridge Ambush.jpg" id="SGP_130_Stonebridge Ambush" data-flag="@X" onclick="openSidebar('SGP_130_Stonebridge Ambush',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/161_Tormented Eulogist.jpg" id="SGP_161_Tormented Eulogist" data-flag="@X" onclick="openSidebar('SGP_161_Tormented Eulogist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/193_Savage Broodmother.jpg" id="SGP_193_Savage Broodmother" data-flag="@X" onclick="openSidebar('SGP_193_Savage Broodmother',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/60_Vintage Fanatic.jpg" id="SGP_60_Vintage Fanatic" data-flag="@X" onclick="openSidebar('SGP_60_Vintage Fanatic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/98_Wiped Clean.jpg" id="SGP_98_Wiped Clean" data-flag="@X" onclick="openSidebar('SGP_98_Wiped Clean',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/132_Undercity Prole.jpg" id="SGP_132_Undercity Prole" data-flag="@X" onclick="openSidebar('SGP_132_Undercity Prole',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/165_Wildfire Aven.jpg" id="SGP_165_Wildfire Aven" data-flag="@X" onclick="openSidebar('SGP_165_Wildfire Aven',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/198_Viscera Channeler.jpg" id="SGP_198_Viscera Channeler" data-flag="@X" onclick="openSidebar('SGP_198_Viscera Channeler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/62_West District Chassis.jpg" id="SGP_62_West District Chassis" data-flag="@X" onclick="openSidebar('SGP_62_West District Chassis',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/99_Writheform.jpg" id="SGP_99_Writheform" data-flag="@X" onclick="openSidebar('SGP_99_Writheform',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/133_Unnatural Torment.jpg" id="SGP_133_Unnatural Torment" data-flag="@X" onclick="openSidebar('SGP_133_Unnatural Torment',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/166_Willbreaker Lance.jpg" id="SGP_166_Willbreaker Lance" data-flag="@X" onclick="openSidebar('SGP_166_Willbreaker Lance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/199_Willowvine Sentinel.jpg" id="SGP_199_Willowvine Sentinel" data-flag="@X" onclick="openSidebar('SGP_199_Willowvine Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/32_Aerial Augmentation.jpg" id="SGP_32_Aerial Augmentation" data-flag="@X" onclick="openSidebar('SGP_32_Aerial Augmentation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/68_Aviary Whisperer.jpg" id="SGP_68_Aviary Whisperer" data-flag="@X" onclick="openSidebar('SGP_68_Aviary Whisperer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/104_Compelled to Die.jpg" id="SGP_104_Compelled to Die" data-flag="@X" onclick="openSidebar('SGP_104_Compelled to Die',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/136_Blinding Immolation.jpg" id="SGP_136_Blinding Immolation" data-flag="@X" onclick="openSidebar('SGP_136_Blinding Immolation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/202_Yestergrove Relic.jpg" id="SGP_202_Yestergrove Relic" data-flag="@X" onclick="openSidebar('SGP_202_Yestergrove Relic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/33_Cabaret Seductress.jpg" id="SGP_33_Cabaret Seductress" data-flag="@X" onclick="openSidebar('SGP_33_Cabaret Seductress',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/69_Black Site Asylum.jpg" id="SGP_69_Black Site Asylum" data-flag="@X" onclick="openSidebar('SGP_69_Black Site Asylum',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/106_Croak.jpg" id="SGP_106_Croak" data-flag="@X" onclick="openSidebar('SGP_106_Croak',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/139_Commune with Silence.jpg" id="SGP_139_Commune with Silence" data-flag="@X" onclick="openSidebar('SGP_139_Commune with Silence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/170_Barksplitter Colossus.jpg" id="SGP_170_Barksplitter Colossus" data-flag="@X" onclick="openSidebar('SGP_170_Barksplitter Colossus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/35_Elden Crucible.jpg" id="SGP_35_Elden Crucible" data-flag="@X" onclick="openSidebar('SGP_35_Elden Crucible',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/70_Collaborate.jpg" id="SGP_70_Collaborate" data-flag="@X" onclick="openSidebar('SGP_70_Collaborate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/107_Cruel Patrician.jpg" id="SGP_107_Cruel Patrician" data-flag="@X" onclick="openSidebar('SGP_107_Cruel Patrician',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/140_Crimson Gladeguard.jpg" id="SGP_140_Crimson Gladeguard" data-flag="@X" onclick="openSidebar('SGP_140_Crimson Gladeguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/173_Branchbound Speaker.jpg" id="SGP_173_Branchbound Speaker" data-flag="@X" onclick="openSidebar('SGP_173_Branchbound Speaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/46_Mire Pathforger.jpg" id="SGP_46_Mire Pathforger" data-flag="@X" onclick="openSidebar('SGP_46_Mire Pathforger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/73_Diviner of Relics.jpg" id="SGP_73_Diviner of Relics" data-flag="@X" onclick="openSidebar('SGP_73_Diviner of Relics',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/115_Harrowing Transformation.jpg" id="SGP_115_Harrowing Transformation" data-flag="@X" onclick="openSidebar('SGP_115_Harrowing Transformation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/141_Cutting-Edge Munitions.jpg" id="SGP_141_Cutting-Edge Munitions" data-flag="@X" onclick="openSidebar('SGP_141_Cutting-Edge Munitions',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/178_Donnybrook.jpg" id="SGP_178_Donnybrook" data-flag="@X" onclick="openSidebar('SGP_178_Donnybrook',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/47_Mournful Matriarch.jpg" id="SGP_47_Mournful Matriarch" data-flag="@X" onclick="openSidebar('SGP_47_Mournful Matriarch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/74_Eavesdrop.jpg" id="SGP_74_Eavesdrop" data-flag="@X" onclick="openSidebar('SGP_74_Eavesdrop',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/117_Inkrealm Stalker.jpg" id="SGP_117_Inkrealm Stalker" data-flag="@X" onclick="openSidebar('SGP_117_Inkrealm Stalker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/143_Eyekissed Invoker.jpg" id="SGP_143_Eyekissed Invoker" data-flag="@X" onclick="openSidebar('SGP_143_Eyekissed Invoker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/181_First Responders.jpg" id="SGP_181_First Responders" data-flag="@X" onclick="openSidebar('SGP_181_First Responders',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/50_Opalwing Cavalry.jpg" id="SGP_50_Opalwing Cavalry" data-flag="@X" onclick="openSidebar('SGP_50_Opalwing Cavalry',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/77_Eldritch Rebuttal.jpg" id="SGP_77_Eldritch Rebuttal" data-flag="@X" onclick="openSidebar('SGP_77_Eldritch Rebuttal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/119_Lamplighter of the End.jpg" id="SGP_119_Lamplighter of the End" data-flag="@X" onclick="openSidebar('SGP_119_Lamplighter of the End',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/146_Forge in Anguish.jpg" id="SGP_146_Forge in Anguish" data-flag="@X" onclick="openSidebar('SGP_146_Forge in Anguish',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/183_Formless Scape.jpg" id="SGP_183_Formless Scape" data-flag="@X" onclick="openSidebar('SGP_183_Formless Scape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/51_Pedigree Collector.jpg" id="SGP_51_Pedigree Collector" data-flag="@X" onclick="openSidebar('SGP_51_Pedigree Collector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/80_Frossenhold Walker.jpg" id="SGP_80_Frossenhold Walker" data-flag="@X" onclick="openSidebar('SGP_80_Frossenhold Walker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/120_Learn From Loss.jpg" id="SGP_120_Learn From Loss" data-flag="@X" onclick="openSidebar('SGP_120_Learn From Loss',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/149_Iron Triumphant.jpg" id="SGP_149_Iron Triumphant" data-flag="@X" onclick="openSidebar('SGP_149_Iron Triumphant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/184_Game Hunters.jpg" id="SGP_184_Game Hunters" data-flag="@X" onclick="openSidebar('SGP_184_Game Hunters',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/52_Rockpile Brutes.jpg" id="SGP_52_Rockpile Brutes" data-flag="@X" onclick="openSidebar('SGP_52_Rockpile Brutes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/81_Gloompool Heron.jpg" id="SGP_81_Gloompool Heron" data-flag="@X" onclick="openSidebar('SGP_81_Gloompool Heron',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/121_Luxuries Merchant.jpg" id="SGP_121_Luxuries Merchant" data-flag="@X" onclick="openSidebar('SGP_121_Luxuries Merchant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/151_Jettison.jpg" id="SGP_151_Jettison" data-flag="@X" onclick="openSidebar('SGP_151_Jettison',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/187_A Hole in the Sky.jpg" id="SGP_187_A Hole in the Sky" data-flag="@X" onclick="openSidebar('SGP_187_A Hole in the Sky',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/54_Sky Force Admiral.jpg" id="SGP_54_Sky Force Admiral" data-flag="@X" onclick="openSidebar('SGP_54_Sky Force Admiral',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/83_Innovation Thief.jpg" id="SGP_83_Innovation Thief" data-flag="@X" onclick="openSidebar('SGP_83_Innovation Thief',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/122_Marshwreck Gang.jpg" id="SGP_122_Marshwreck Gang" data-flag="@X" onclick="openSidebar('SGP_122_Marshwreck Gang',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/152_Magma Scribe.jpg" id="SGP_152_Magma Scribe" data-flag="@X" onclick="openSidebar('SGP_152_Magma Scribe',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/191_Overzealous Recon.jpg" id="SGP_191_Overzealous Recon" data-flag="@X" onclick="openSidebar('SGP_191_Overzealous Recon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/56_Startouched Reverend.jpg" id="SGP_56_Startouched Reverend" data-flag="@X" onclick="openSidebar('SGP_56_Startouched Reverend',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/88_Mastbreaker.jpg" id="SGP_88_Mastbreaker" data-flag="@X" onclick="openSidebar('SGP_88_Mastbreaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/123_Nightgrasp.jpg" id="SGP_123_Nightgrasp" data-flag="@X" onclick="openSidebar('SGP_123_Nightgrasp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/158_Startouched Epigone.jpg" id="SGP_158_Startouched Epigone" data-flag="@X" onclick="openSidebar('SGP_158_Startouched Epigone',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/194_Starbreaker Juvenile.jpg" id="SGP_194_Starbreaker Juvenile" data-flag="@X" onclick="openSidebar('SGP_194_Starbreaker Juvenile',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/58_Timely Intervention.jpg" id="SGP_58_Timely Intervention" data-flag="@X" onclick="openSidebar('SGP_58_Timely Intervention',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/91_Public Exhibition.jpg" id="SGP_91_Public Exhibition" data-flag="@X" onclick="openSidebar('SGP_91_Public Exhibition',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/127_Soultaker Idol.jpg" id="SGP_127_Soultaker Idol" data-flag="@X" onclick="openSidebar('SGP_127_Soultaker Idol',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/160_Steelsuit Consultant.jpg" id="SGP_160_Steelsuit Consultant" data-flag="@X" onclick="openSidebar('SGP_160_Steelsuit Consultant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/195_Startouched Arborist.jpg" id="SGP_195_Startouched Arborist" data-flag="@X" onclick="openSidebar('SGP_195_Startouched Arborist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/61_Volunteer Firewatch.jpg" id="SGP_61_Volunteer Firewatch" data-flag="@X" onclick="openSidebar('SGP_61_Volunteer Firewatch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/94_Startouched Analyst.jpg" id="SGP_94_Startouched Analyst" data-flag="@X" onclick="openSidebar('SGP_94_Startouched Analyst',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/128_Speakeasy Brokers.jpg" id="SGP_128_Speakeasy Brokers" data-flag="@X" onclick="openSidebar('SGP_128_Speakeasy Brokers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/162_Unsettling Showman.jpg" id="SGP_162_Unsettling Showman" data-flag="@X" onclick="openSidebar('SGP_162_Unsettling Showman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/196_Streetway Incursion.jpg" id="SGP_196_Streetway Incursion" data-flag="@X" onclick="openSidebar('SGP_196_Streetway Incursion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/64_Zaila's Willbender.jpg" id="SGP_64_Zailas Willbender" data-flag="@X" onclick="openSidebar('SGP_64_Zailas Willbender',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/95_Taken by the Storm.jpg" id="SGP_95_Taken by the Storm" data-flag="@X" onclick="openSidebar('SGP_95_Taken by the Storm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/129_Startouched Acolyte.jpg" id="SGP_129_Startouched Acolyte" data-flag="@X" onclick="openSidebar('SGP_129_Startouched Acolyte',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/163_Warcurse Ruminant.jpg" id="SGP_163_Warcurse Ruminant" data-flag="@X" onclick="openSidebar('SGP_163_Warcurse Ruminant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/197_Unethical Enhancements.jpg" id="SGP_197_Unethical Enhancements" data-flag="@X" onclick="openSidebar('SGP_197_Unethical Enhancements',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/65_Zeppelin Disaster.jpg" id="SGP_65_Zeppelin Disaster" data-flag="@X" onclick="openSidebar('SGP_65_Zeppelin Disaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/96_Task Force Operatives.jpg" id="SGP_96_Task Force Operatives" data-flag="@X" onclick="openSidebar('SGP_96_Task Force Operatives',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/134_Unwelcome Tenant.jpg" id="SGP_134_Unwelcome Tenant" data-flag="@X" onclick="openSidebar('SGP_134_Unwelcome Tenant',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/200_World Whisperer.jpg" id="SGP_200_World Whisperer" data-flag="@X" onclick="openSidebar('SGP_200_World Whisperer',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/294_Esme, Lost to Avarice.jpg" id="SGP_294_Esme, Lost to Avarice" data-flag="@X" onclick="openSidebar('SGP_294_Esme, Lost to Avarice',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/201_Wreckage Inquisitors.jpg" id="SGP_201_Wreckage Inquisitors" data-flag="@X" onclick="openSidebar('SGP_201_Wreckage Inquisitors',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/295_Gene Recombinators_Promo.jpg" id="SGP_295_Gene Recombinators_Promo" data-flag="@X" onclick="openSidebar('SGP_295_Gene Recombinators_Promo',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
 				<div id="gold" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/243_Zaila, Her Will Be Done.jpg" id="243_Zaila, Her Will Be Done" data-flag="@X" onclick="openSidebar('243_Zaila, Her Will Be Done',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/215_Greytide Spectre.jpg" id="215_Greytide Spectre" data-flag="@X" onclick="openSidebar('215_Greytide Spectre',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/218_Kavalesk, the Dark Exalted.jpg" id="218_Kavalesk, the Dark Exalted" data-flag="@X" onclick="openSidebar('218_Kavalesk, the Dark Exalted',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/214_Grand Awakening.jpg" id="214_Grand Awakening" data-flag="@X" onclick="openSidebar('214_Grand Awakening',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/226_Population Boom.jpg" id="226_Population Boom" data-flag="@X" onclick="openSidebar('226_Population Boom',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/224_Olmin, Royal Liaison.jpg" id="224_Olmin, Royal Liaison" data-flag="@X" onclick="openSidebar('224_Olmin, Royal Liaison',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/231_Revoke Will.jpg" id="231_Revoke Will" data-flag="@X" onclick="openSidebar('231_Revoke Will',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/223_Obsessive Ritualist.jpg" id="223_Obsessive Ritualist" data-flag="@X" onclick="openSidebar('223_Obsessive Ritualist',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/232_Salar, Calloran's Defiance.jpg" id="232_Salar, Callorans Defiance" data-flag="@X" onclick="openSidebar('232_Salar, Callorans Defiance',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/216_In Strength Entwined.jpg" id="216_In Strength Entwined" data-flag="@X" onclick="openSidebar('216_In Strength Entwined',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/208_Black Site Enhancer.jpg" id="208_Black Site Enhancer" data-flag="@X" onclick="openSidebar('208_Black Site Enhancer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/205_Afflict Thought.jpg" id="205_Afflict Thought" data-flag="@X" onclick="openSidebar('205_Afflict Thought',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/236_Soulsiphon Initiate.jpg" id="236_Soulsiphon Initiate" data-flag="@X" onclick="openSidebar('236_Soulsiphon Initiate',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/230_Restless Summoners.jpg" id="230_Restless Summoners" data-flag="@X" onclick="openSidebar('230_Restless Summoners',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/222_Oathbound Stalwart.jpg" id="222_Oathbound Stalwart" data-flag="@X" onclick="openSidebar('222_Oathbound Stalwart',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/237_Splintering Edict.jpg" id="237_Splintering Edict" data-flag="@X" onclick="openSidebar('237_Splintering Edict',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/242_Voidwing Kite.jpg" id="242_Voidwing Kite" data-flag="@X" onclick="openSidebar('242_Voidwing Kite',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/241_Voice of the Roaring Wind.jpg" id="241_Voice of the Roaring Wind" data-flag="@X" onclick="openSidebar('241_Voice of the Roaring Wind',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/212_Efraim, High Alderman.jpg" id="212_Efraim, High Alderman" data-flag="@X" onclick="openSidebar('212_Efraim, High Alderman',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/221_Lost to Endless Scripture.jpg" id="221_Lost to Endless Scripture" data-flag="@X" onclick="openSidebar('221_Lost to Endless Scripture',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/235_Something in the Soil.jpg" id="235_Something in the Soil" data-flag="@X" onclick="openSidebar('235_Something in the Soil',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/210_Cirrus Behemoth.jpg" id="210_Cirrus Behemoth" data-flag="@X" onclick="openSidebar('210_Cirrus Behemoth',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/220_Leonard, Experiment Zero.jpg" id="220_Leonard, Experiment Zero" data-flag="@X" onclick="openSidebar('220_Leonard, Experiment Zero',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/239_Stylla, Opulence Paragon.jpg" id="239_Stylla, Opulence Paragon" data-flag="@X" onclick="openSidebar('239_Stylla, Opulence Paragon',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/211_Clanston Innovator.jpg" id="211_Clanston Innovator" data-flag="@X" onclick="openSidebar('211_Clanston Innovator',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/227_Ravaged Eviscerator.jpg" id="227_Ravaged Eviscerator" data-flag="@X" onclick="openSidebar('227_Ravaged Eviscerator',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/206_Artillery Commander.jpg" id="206_Artillery Commander" data-flag="@X" onclick="openSidebar('206_Artillery Commander',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/207_Banquet Sleuth.jpg" id="207_Banquet Sleuth" data-flag="@X" onclick="openSidebar('207_Banquet Sleuth',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/217_Karsten, the Spinner.jpg" id="217_Karsten, the Spinner" data-flag="@X" onclick="openSidebar('217_Karsten, the Spinner',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/204_Admired Aeronaut.jpg" id="204_Admired Aeronaut" data-flag="@X" onclick="openSidebar('204_Admired Aeronaut',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/233_Sludge Trawlers.jpg" id="233_Sludge Trawlers" data-flag="@X" onclick="openSidebar('233_Sludge Trawlers',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/238_Stormquell Liner.jpg" id="238_Stormquell Liner" data-flag="@X" onclick="openSidebar('238_Stormquell Liner',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/203_Adaptive Agent.jpg" id="203_Adaptive Agent" data-flag="@X" onclick="openSidebar('203_Adaptive Agent',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/225_Paid Off.jpg" id="225_Paid Off" data-flag="@X" onclick="openSidebar('225_Paid Off',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/234_Smuggler's Hovercar.jpg" id="234_Smugglers Hovercar" data-flag="@X" onclick="openSidebar('234_Smugglers Hovercar',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/219_Lantha, Task Force Sergeant.jpg" id="219_Lantha, Task Force Sergeant" data-flag="@X" onclick="openSidebar('219_Lantha, Task Force Sergeant',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/228_Ravin, Heir of Goldport.jpg" id="228_Ravin, Heir of Goldport" data-flag="@X" onclick="openSidebar('228_Ravin, Heir of Goldport',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/209_Brunn, Blunt Tactician.jpg" id="209_Brunn, Blunt Tactician" data-flag="@X" onclick="openSidebar('209_Brunn, Blunt Tactician',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/213_Fate's Cruel Compulsion.jpg" id="213_Fates Cruel Compulsion" data-flag="@X" onclick="openSidebar('213_Fates Cruel Compulsion',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/229_Reality Schism.jpg" id="229_Reality Schism" data-flag="@X" onclick="openSidebar('229_Reality Schism',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/240_That Even Time Forgets.jpg" id="240_That Even Time Forgets" data-flag="@X" onclick="openSidebar('240_That Even Time Forgets',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/244_Dream of Aeons Past.jpg" id="244_Dream of Aeons Past" data-flag="@X" onclick="openSidebar('244_Dream of Aeons Past',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/246_Zaila, Her Will Be Done.jpg" id="SGP_246_Zaila, Her Will Be Done" data-flag="@X" onclick="openSidebar('SGP_246_Zaila, Her Will Be Done',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/216_Greytide Specter.jpg" id="SGP_216_Greytide Specter" data-flag="@X" onclick="openSidebar('SGP_216_Greytide Specter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/213_Exander, Half-Forgotten.jpg" id="SGP_213_Exander, Half-Forgotten" data-flag="@X" onclick="openSidebar('SGP_213_Exander, Half-Forgotten',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/215_Grand Awakening.jpg" id="SGP_215_Grand Awakening" data-flag="@X" onclick="openSidebar('SGP_215_Grand Awakening',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/229_Population Boom.jpg" id="SGP_229_Population Boom" data-flag="@X" onclick="openSidebar('SGP_229_Population Boom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/228_Olmin, Royal Liaison.jpg" id="SGP_228_Olmin, Royal Liaison" data-flag="@X" onclick="openSidebar('SGP_228_Olmin, Royal Liaison',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/212_Essence Ripper.jpg" id="SGP_212_Essence Ripper" data-flag="@X" onclick="openSidebar('SGP_212_Essence Ripper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/220_Kavalesk, the Dark Exalted.jpg" id="SGP_220_Kavalesk, the Dark Exalted" data-flag="@X" onclick="openSidebar('SGP_220_Kavalesk, the Dark Exalted',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/234_Salar, Calloran's Defiance.jpg" id="SGP_234_Salar, Callorans Defiance" data-flag="@X" onclick="openSidebar('SGP_234_Salar, Callorans Defiance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/217_In Strength Entwined.jpg" id="SGP_217_In Strength Entwined" data-flag="@X" onclick="openSidebar('SGP_217_In Strength Entwined',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/204_Black Site Enhancer.jpg" id="SGP_204_Black Site Enhancer" data-flag="@X" onclick="openSidebar('SGP_204_Black Site Enhancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/230_Psychic Rupture.jpg" id="SGP_230_Psychic Rupture" data-flag="@X" onclick="openSidebar('SGP_230_Psychic Rupture',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/225_Malformed Initiate.jpg" id="SGP_225_Malformed Initiate" data-flag="@X" onclick="openSidebar('SGP_225_Malformed Initiate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/233_Restless Summoners.jpg" id="SGP_233_Restless Summoners" data-flag="@X" onclick="openSidebar('SGP_233_Restless Summoners',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/226_Oathbound Stalwart.jpg" id="SGP_226_Oathbound Stalwart" data-flag="@X" onclick="openSidebar('SGP_226_Oathbound Stalwart',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/240_Splintering Edict.jpg" id="SGP_240_Splintering Edict" data-flag="@X" onclick="openSidebar('SGP_240_Splintering Edict',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/245_Voidwing Kite.jpg" id="SGP_245_Voidwing Kite" data-flag="@X" onclick="openSidebar('SGP_245_Voidwing Kite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/227_Obsessive Ritualist.jpg" id="SGP_227_Obsessive Ritualist" data-flag="@X" onclick="openSidebar('SGP_227_Obsessive Ritualist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/244_Voice of the Roaring Wind.jpg" id="SGP_244_Voice of the Roaring Wind" data-flag="@X" onclick="openSidebar('SGP_244_Voice of the Roaring Wind',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/297_In Strength Entwined_Promo.jpg" id="SGP_297_In Strength Entwined_Promo" data-flag="@X" onclick="openSidebar('SGP_297_In Strength Entwined_Promo',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/296_Grand Awakening_Promo.jpg" id="SGP_296_Grand Awakening_Promo" data-flag="@X" onclick="openSidebar('SGP_296_Grand Awakening_Promo',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/210_Efraim, High Alderman.jpg" id="SGP_210_Efraim, High Alderman" data-flag="@X" onclick="openSidebar('SGP_210_Efraim, High Alderman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/224_Lost to Endless Scripture.jpg" id="SGP_224_Lost to Endless Scripture" data-flag="@X" onclick="openSidebar('SGP_224_Lost to Endless Scripture',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/235_Skittering Swarmlord.jpg" id="SGP_235_Skittering Swarmlord" data-flag="@X" onclick="openSidebar('SGP_235_Skittering Swarmlord',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/208_Darkwood Guerillas.jpg" id="SGP_208_Darkwood Guerillas" data-flag="@X" onclick="openSidebar('SGP_208_Darkwood Guerillas',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/222_Leonard, Experiment Zero.jpg" id="SGP_222_Leonard, Experiment Zero" data-flag="@X" onclick="openSidebar('SGP_222_Leonard, Experiment Zero',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/243_Stylla, Opulence Paragon.jpg" id="SGP_243_Stylla, Opulence Paragon" data-flag="@X" onclick="openSidebar('SGP_243_Stylla, Opulence Paragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/206_Clanston Innovator.jpg" id="SGP_206_Clanston Innovator" data-flag="@X" onclick="openSidebar('SGP_206_Clanston Innovator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/238_Something in the Soil.jpg" id="SGP_238_Something in the Soil" data-flag="@X" onclick="openSidebar('SGP_238_Something in the Soil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/211_Elisa, Hand of Torvinald.jpg" id="SGP_211_Elisa, Hand of Torvinald" data-flag="@X" onclick="openSidebar('SGP_211_Elisa, Hand of Torvinald',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/242_Stelver, the Eyes and Ears.jpg" id="SGP_242_Stelver, the Eyes and Ears" data-flag="@X" onclick="openSidebar('SGP_242_Stelver, the Eyes and Ears',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/209_Discerning Patron.jpg" id="SGP_209_Discerning Patron" data-flag="@X" onclick="openSidebar('SGP_209_Discerning Patron',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/214_Forgotten Fableweaver.jpg" id="SGP_214_Forgotten Fableweaver" data-flag="@X" onclick="openSidebar('SGP_214_Forgotten Fableweaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/231_Ravaged Eviscerator.jpg" id="SGP_231_Ravaged Eviscerator" data-flag="@X" onclick="openSidebar('SGP_231_Ravaged Eviscerator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/203_Artillery Commander.jpg" id="SGP_203_Artillery Commander" data-flag="@X" onclick="openSidebar('SGP_203_Artillery Commander',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/207_Concerning Discoveries.jpg" id="SGP_207_Concerning Discoveries" data-flag="@X" onclick="openSidebar('SGP_207_Concerning Discoveries',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/219_Karsten, the Spinner.jpg" id="SGP_219_Karsten, the Spinner" data-flag="@X" onclick="openSidebar('SGP_219_Karsten, the Spinner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/239_Spirewisp Wanderer.jpg" id="SGP_239_Spirewisp Wanderer" data-flag="@X" onclick="openSidebar('SGP_239_Spirewisp Wanderer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/237_Sludge Trawlers.jpg" id="SGP_237_Sludge Trawlers" data-flag="@X" onclick="openSidebar('SGP_237_Sludge Trawlers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/218_Inspiring Orrery.jpg" id="SGP_218_Inspiring Orrery" data-flag="@X" onclick="openSidebar('SGP_218_Inspiring Orrery',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/221_Lantha, Task Force Sergeant.jpg" id="SGP_221_Lantha, Task Force Sergeant" data-flag="@X" onclick="openSidebar('SGP_221_Lantha, Task Force Sergeant',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/232_Ravin, Heir of Goldport.jpg" id="SGP_232_Ravin, Heir of Goldport" data-flag="@X" onclick="openSidebar('SGP_232_Ravin, Heir of Goldport',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/205_Brunn, Blunt Tactician.jpg" id="SGP_205_Brunn, Blunt Tactician" data-flag="@X" onclick="openSidebar('SGP_205_Brunn, Blunt Tactician',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/223_Lore Interwoven.jpg" id="SGP_223_Lore Interwoven" data-flag="@X" onclick="openSidebar('SGP_223_Lore Interwoven',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/236_Skyshaper.jpg" id="SGP_236_Skyshaper" data-flag="@X" onclick="openSidebar('SGP_236_Skyshaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/241_Starblood Tides.jpg" id="SGP_241_Starblood Tides" data-flag="@X" onclick="openSidebar('SGP_241_Starblood Tides',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
 				<div id="colorless" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/6_Emrakul, the Sky Sundered.jpg" id="6_Emrakul, the Sky Sundered" data-flag="@X" onclick="openSidebar('6_Emrakul, the Sky Sundered',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/12_Kozilek, the Bonds Unmade.jpg" id="12_Kozilek, the Bonds Unmade" data-flag="@X" onclick="openSidebar('12_Kozilek, the Bonds Unmade',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/21_Ulamog, the Earth Engulfed.jpg" id="21_Ulamog, the Earth Engulfed" data-flag="@X" onclick="openSidebar('21_Ulamog, the Earth Engulfed',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/2_Arbiter of the Scale.jpg" id="2_Arbiter of the Scale" data-flag="@X" onclick="openSidebar('2_Arbiter of the Scale',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/3_Aspirant of Ulamog.jpg" id="3_Aspirant of Ulamog" data-flag="@X" onclick="openSidebar('3_Aspirant of Ulamog',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/4_Bear Witness.jpg" id="4_Bear Witness" data-flag="@X" onclick="openSidebar('4_Bear Witness',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/5_Collector of Souls.jpg" id="5_Collector of Souls" data-flag="@X" onclick="openSidebar('5_Collector of Souls',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/7_Endless-Form Slayer.jpg" id="7_Endless-Form Slayer" data-flag="@X" onclick="openSidebar('7_Endless-Form Slayer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/16_Scourge of Aeons.jpg" id="16_Scourge of Aeons" data-flag="@X" onclick="openSidebar('16_Scourge of Aeons',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/17_Supreme Desecrator.jpg" id="17_Supreme Desecrator" data-flag="@X" onclick="openSidebar('17_Supreme Desecrator',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/18_Thoughtscraper.jpg" id="18_Thoughtscraper" data-flag="@X" onclick="openSidebar('18_Thoughtscraper',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/247_Eldrazi Monolith.jpg" id="247_Eldrazi Monolith" data-flag="@X" onclick="openSidebar('247_Eldrazi Monolith',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/250_Lantha's Journal.jpg" id="250_Lanthas Journal" data-flag="@X" onclick="openSidebar('250_Lanthas Journal',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/8_Endward Harbinger.jpg" id="8_Endward Harbinger" data-flag="@X" onclick="openSidebar('8_Endward Harbinger',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/9_Eternity Takes.jpg" id="9_Eternity Takes" data-flag="@X" onclick="openSidebar('9_Eternity Takes',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/11_Inkrealm Drowner.jpg" id="11_Inkrealm Drowner" data-flag="@X" onclick="openSidebar('11_Inkrealm Drowner',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/19_Three-Eye Scrier.jpg" id="19_Three-Eye Scrier" data-flag="@X" onclick="openSidebar('19_Three-Eye Scrier',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/20_Titan's Effigy.jpg" id="20_Titans Effigy" data-flag="@X" onclick="openSidebar('20_Titans Effigy',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/248_Fateblur Cloak.jpg" id="248_Fateblur Cloak" data-flag="@X" onclick="openSidebar('248_Fateblur Cloak',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/249_Frossenhold Locomotive.jpg" id="249_Frossenhold Locomotive" data-flag="@X" onclick="openSidebar('249_Frossenhold Locomotive',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/253_Prismatic Splinter.jpg" id="253_Prismatic Splinter" data-flag="@X" onclick="openSidebar('253_Prismatic Splinter',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/1_Ancient Carapace.jpg" id="1_Ancient Carapace" data-flag="@X" onclick="openSidebar('1_Ancient Carapace',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/10_Incursive Voidmaw.jpg" id="10_Incursive Voidmaw" data-flag="@X" onclick="openSidebar('10_Incursive Voidmaw',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/13_Old Ones Envoy.jpg" id="13_Old Ones Envoy" data-flag="@X" onclick="openSidebar('13_Old Ones Envoy',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/14_Reality Wanes.jpg" id="14_Reality Wanes" data-flag="@X" onclick="openSidebar('14_Reality Wanes',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/15_Rend.jpg" id="15_Rend" data-flag="@X" onclick="openSidebar('15_Rend',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/22_Voices of the Severed.jpg" id="22_Voices of the Severed" data-flag="@X" onclick="openSidebar('22_Voices of the Severed',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/245_Arcwhip Emitter.jpg" id="245_Arcwhip Emitter" data-flag="@X" onclick="openSidebar('245_Arcwhip Emitter',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/246_Corrupted Hedron.jpg" id="246_Corrupted Hedron" data-flag="@X" onclick="openSidebar('246_Corrupted Hedron',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/251_Obsidian Reliquary.jpg" id="251_Obsidian Reliquary" data-flag="@X" onclick="openSidebar('251_Obsidian Reliquary',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/252_Pine Blitzer.jpg" id="252_Pine Blitzer" data-flag="@X" onclick="openSidebar('252_Pine Blitzer',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/254_Steelform Willshaper.jpg" id="254_Steelform Willshaper" data-flag="@X" onclick="openSidebar('254_Steelform Willshaper',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/268_Mystic Gate.jpg" id="268_Mystic Gate" data-flag="@X" onclick="openSidebar('268_Mystic Gate',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/274_Sunken Ruins.jpg" id="274_Sunken Ruins" data-flag="@X" onclick="openSidebar('274_Sunken Ruins',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/263_Graven Cairns.jpg" id="263_Graven Cairns" data-flag="@X" onclick="openSidebar('263_Graven Cairns',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/261_Fire-Lit Thicket.jpg" id="261_Fire-Lit Thicket" data-flag="@X" onclick="openSidebar('261_Fire-Lit Thicket',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/278_Wooded Bastion.jpg" id="278_Wooded Bastion" data-flag="@X" onclick="openSidebar('278_Wooded Bastion',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/265_Keeper's Peninsula.jpg" id="265_Keepers Peninsula" data-flag="@X" onclick="openSidebar('265_Keepers Peninsula',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/259_Dusk Vantage.jpg" id="259_Dusk Vantage" data-flag="@X" onclick="openSidebar('259_Dusk Vantage',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/267_Lost Settlement.jpg" id="267_Lost Settlement" data-flag="@X" onclick="openSidebar('267_Lost Settlement',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/258_Cliffrest Tributary.jpg" id="258_Cliffrest Tributary" data-flag="@X" onclick="openSidebar('258_Cliffrest Tributary',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/276_Village Steeples.jpg" id="276_Village Steeples" data-flag="@X" onclick="openSidebar('276_Village Steeples',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/260_Fetid Heath.jpg" id="260_Fetid Heath" data-flag="@X" onclick="openSidebar('260_Fetid Heath',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/256_Cascade Bluffs.jpg" id="256_Cascade Bluffs" data-flag="@X" onclick="openSidebar('256_Cascade Bluffs',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/275_Twilight Mire.jpg" id="275_Twilight Mire" data-flag="@X" onclick="openSidebar('275_Twilight Mire',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/272_Rugged Prairie.jpg" id="272_Rugged Prairie" data-flag="@X" onclick="openSidebar('272_Rugged Prairie',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/262_Flooded Grove.jpg" id="262_Flooded Grove" data-flag="@X" onclick="openSidebar('262_Flooded Grove',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/273_Secluded Avenue.jpg" id="273_Secluded Avenue" data-flag="@X" onclick="openSidebar('273_Secluded Avenue',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/257_Cataract Valley.jpg" id="257_Cataract Valley" data-flag="@X" onclick="openSidebar('257_Cataract Valley',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/269_Outlands Hamlet.jpg" id="269_Outlands Hamlet" data-flag="@X" onclick="openSidebar('269_Outlands Hamlet',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/255_Bronzeglade Peaks.jpg" id="255_Bronzeglade Peaks" data-flag="@X" onclick="openSidebar('255_Bronzeglade Peaks',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/266_Lakewatch Ruins.jpg" id="266_Lakewatch Ruins" data-flag="@X" onclick="openSidebar('266_Lakewatch Ruins',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/271_Reality Cusp.jpg" id="271_Reality Cusp" data-flag="@X" onclick="openSidebar('271_Reality Cusp',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/277_What Remains of Frossenhold.jpg" id="277_What Remains of Frossenhold" data-flag="@X" onclick="openSidebar('277_What Remains of Frossenhold',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/264_Hall of Innovation.jpg" id="264_Hall of Innovation" data-flag="@X" onclick="openSidebar('264_Hall of Innovation',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/270_Promising Vista.jpg" id="270_Promising Vista" data-flag="@X" onclick="openSidebar('270_Promising Vista',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/287_Mountain_SGP.jpg" id="287_Mountain_SGP" data-flag="@X" onclick="openSidebar('287_Mountain_SGP',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/285_Swamp_SGP.jpg" id="285_Swamp_SGP" data-flag="@X" onclick="openSidebar('285_Swamp_SGP',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/289_Forest_SGP.jpg" id="289_Forest_SGP" data-flag="@X" onclick="openSidebar('289_Forest_SGP',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/279_Wastes.jpg" id="279_Wastes" data-flag="@X" onclick="openSidebar('279_Wastes',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/281_Plains_SGP.jpg" id="281_Plains_SGP" data-flag="@X" onclick="openSidebar('281_Plains_SGP',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/283_Island_SGP.jpg" id="283_Island_SGP" data-flag="@X" onclick="openSidebar('283_Island_SGP',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/282_Island Eldritch_SGP.jpg" id="282_Island Eldritch_SGP" data-flag="@X" onclick="openSidebar('282_Island Eldritch_SGP',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/280_Plains Eldritch_SGP.jpg" id="280_Plains Eldritch_SGP" data-flag="@X" onclick="openSidebar('280_Plains Eldritch_SGP',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/284_Swamp Eldritch_SGP.jpg" id="284_Swamp Eldritch_SGP" data-flag="@X" onclick="openSidebar('284_Swamp Eldritch_SGP',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/286_Mountain Eldritch_SGP.jpg" id="286_Mountain Eldritch_SGP" data-flag="@X" onclick="openSidebar('286_Mountain Eldritch_SGP',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/288_Forest Eldritch_SGP.jpg" id="288_Forest Eldritch_SGP" data-flag="@X" onclick="openSidebar('288_Forest Eldritch_SGP',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/7_Emrakul, the Sky Sundered.jpg" id="SGP_7_Emrakul, the Sky Sundered" data-flag="@X" onclick="openSidebar('SGP_7_Emrakul, the Sky Sundered',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/14_Kozilek, the Bonds Unmade.jpg" id="SGP_14_Kozilek, the Bonds Unmade" data-flag="@X" onclick="openSidebar('SGP_14_Kozilek, the Bonds Unmade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/28_Ulamog, the Earth Engulfed.jpg" id="SGP_28_Ulamog, the Earth Engulfed" data-flag="@X" onclick="openSidebar('SGP_28_Ulamog, the Earth Engulfed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/2_Aspirant of Ulamog.jpg" id="SGP_2_Aspirant of Ulamog" data-flag="@X" onclick="openSidebar('SGP_2_Aspirant of Ulamog',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/3_Bear Witness.jpg" id="SGP_3_Bear Witness" data-flag="@X" onclick="openSidebar('SGP_3_Bear Witness',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/4_Bender of Will.jpg" id="SGP_4_Bender of Will" data-flag="@X" onclick="openSidebar('SGP_4_Bender of Will',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/5_Children of the Heralds.jpg" id="SGP_5_Children of the Heralds" data-flag="@X" onclick="openSidebar('SGP_5_Children of the Heralds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/6_Collector of Souls.jpg" id="SGP_6_Collector of Souls" data-flag="@X" onclick="openSidebar('SGP_6_Collector of Souls',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/8_Emrakul's Nullscribe.jpg" id="SGP_8_Emrakuls Nullscribe" data-flag="@X" onclick="openSidebar('SGP_8_Emrakuls Nullscribe',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/13_Inkrealm Guardian.jpg" id="SGP_13_Inkrealm Guardian" data-flag="@X" onclick="openSidebar('SGP_13_Inkrealm Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/15_Living Apogee.jpg" id="SGP_15_Living Apogee" data-flag="@X" onclick="openSidebar('SGP_15_Living Apogee',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/22_Scourge of Aeons.jpg" id="SGP_22_Scourge of Aeons" data-flag="@X" onclick="openSidebar('SGP_22_Scourge of Aeons',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/23_Starbreaker Ghost.jpg" id="SGP_23_Starbreaker Ghost" data-flag="@X" onclick="openSidebar('SGP_23_Starbreaker Ghost',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/24_Supreme Desecrator.jpg" id="SGP_24_Supreme Desecrator" data-flag="@X" onclick="openSidebar('SGP_24_Supreme Desecrator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/25_Thoughtscraper.jpg" id="SGP_25_Thoughtscraper" data-flag="@X" onclick="openSidebar('SGP_25_Thoughtscraper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/31_Zaila's Arbiter.jpg" id="SGP_31_Zailas Arbiter" data-flag="@X" onclick="openSidebar('SGP_31_Zailas Arbiter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/248_Eldrazi Monolith.jpg" id="SGP_248_Eldrazi Monolith" data-flag="@X" onclick="openSidebar('SGP_248_Eldrazi Monolith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/252_Lantha's Journal.jpg" id="SGP_252_Lanthas Journal" data-flag="@X" onclick="openSidebar('SGP_252_Lanthas Journal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/9_Endward Harbinger.jpg" id="SGP_9_Endward Harbinger" data-flag="@X" onclick="openSidebar('SGP_9_Endward Harbinger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/10_Eternity Takes.jpg" id="SGP_10_Eternity Takes" data-flag="@X" onclick="openSidebar('SGP_10_Eternity Takes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/12_Inkrealm Drowner.jpg" id="SGP_12_Inkrealm Drowner" data-flag="@X" onclick="openSidebar('SGP_12_Inkrealm Drowner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/17_Null Emissary.jpg" id="SGP_17_Null Emissary" data-flag="@X" onclick="openSidebar('SGP_17_Null Emissary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/21_Scape Render.jpg" id="SGP_21_Scape Render" data-flag="@X" onclick="openSidebar('SGP_21_Scape Render',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/26_Three-Eye Observer.jpg" id="SGP_26_Three-Eye Observer" data-flag="@X" onclick="openSidebar('SGP_26_Three-Eye Observer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/27_Titan's Effigy.jpg" id="SGP_27_Titans Effigy" data-flag="@X" onclick="openSidebar('SGP_27_Titans Effigy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/30_Void Empyrean.jpg" id="SGP_30_Void Empyrean" data-flag="@X" onclick="openSidebar('SGP_30_Void Empyrean',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/249_Fateblur Cloak.jpg" id="SGP_249_Fateblur Cloak" data-flag="@X" onclick="openSidebar('SGP_249_Fateblur Cloak',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/251_Impure Creation.jpg" id="SGP_251_Impure Creation" data-flag="@X" onclick="openSidebar('SGP_251_Impure Creation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/253_Moonstone Splinter.jpg" id="SGP_253_Moonstone Splinter" data-flag="@X" onclick="openSidebar('SGP_253_Moonstone Splinter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/1_Ancient Carapace.jpg" id="SGP_1_Ancient Carapace" data-flag="@X" onclick="openSidebar('SGP_1_Ancient Carapace',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/11_Incursive Voidmaw.jpg" id="SGP_11_Incursive Voidmaw" data-flag="@X" onclick="openSidebar('SGP_11_Incursive Voidmaw',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/16_Mantle Breacher.jpg" id="SGP_16_Mantle Breacher" data-flag="@X" onclick="openSidebar('SGP_16_Mantle Breacher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/18_Old Ones Envoy.jpg" id="SGP_18_Old Ones Envoy" data-flag="@X" onclick="openSidebar('SGP_18_Old Ones Envoy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/19_Reality Wanes.jpg" id="SGP_19_Reality Wanes" data-flag="@X" onclick="openSidebar('SGP_19_Reality Wanes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/20_Rend.jpg" id="SGP_20_Rend" data-flag="@X" onclick="openSidebar('SGP_20_Rend',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/29_Voices of the Severed.jpg" id="SGP_29_Voices of the Severed" data-flag="@X" onclick="openSidebar('SGP_29_Voices of the Severed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/247_Corrupted Hedron.jpg" id="SGP_247_Corrupted Hedron" data-flag="@X" onclick="openSidebar('SGP_247_Corrupted Hedron',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/250_Harvest Tenders.jpg" id="SGP_250_Harvest Tenders" data-flag="@X" onclick="openSidebar('SGP_250_Harvest Tenders',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/254_Nook Dagger.jpg" id="SGP_254_Nook Dagger" data-flag="@X" onclick="openSidebar('SGP_254_Nook Dagger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/255_Obsidian Reliquary.jpg" id="SGP_255_Obsidian Reliquary" data-flag="@X" onclick="openSidebar('SGP_255_Obsidian Reliquary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/256_Personal Wingsuit.jpg" id="SGP_256_Personal Wingsuit" data-flag="@X" onclick="openSidebar('SGP_256_Personal Wingsuit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/292_Bear Witness_Promo.jpg" id="SGP_292_Bear Witness_Promo" data-flag="@X" onclick="openSidebar('SGP_292_Bear Witness_Promo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/293_Rend_Promo.jpg" id="SGP_293_Rend_Promo" data-flag="@X" onclick="openSidebar('SGP_293_Rend_Promo',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/270_Mystic Gate.jpg" id="SGP_270_Mystic Gate" data-flag="@X" onclick="openSidebar('SGP_270_Mystic Gate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/276_Sunken Ruins.jpg" id="SGP_276_Sunken Ruins" data-flag="@X" onclick="openSidebar('SGP_276_Sunken Ruins',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/265_Graven Cairns.jpg" id="SGP_265_Graven Cairns" data-flag="@X" onclick="openSidebar('SGP_265_Graven Cairns',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/263_Fire-Lit Thicket.jpg" id="SGP_263_Fire-Lit Thicket" data-flag="@X" onclick="openSidebar('SGP_263_Fire-Lit Thicket',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/280_Wooded Bastion.jpg" id="SGP_280_Wooded Bastion" data-flag="@X" onclick="openSidebar('SGP_280_Wooded Bastion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/267_Keeper's Peninsula.jpg" id="SGP_267_Keepers Peninsula" data-flag="@X" onclick="openSidebar('SGP_267_Keepers Peninsula',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/261_Dusk Vantage.jpg" id="SGP_261_Dusk Vantage" data-flag="@X" onclick="openSidebar('SGP_261_Dusk Vantage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/269_Lost Settlement.jpg" id="SGP_269_Lost Settlement" data-flag="@X" onclick="openSidebar('SGP_269_Lost Settlement',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/260_Cliffrest Tributary.jpg" id="SGP_260_Cliffrest Tributary" data-flag="@X" onclick="openSidebar('SGP_260_Cliffrest Tributary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/278_Village Steeples.jpg" id="SGP_278_Village Steeples" data-flag="@X" onclick="openSidebar('SGP_278_Village Steeples',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/262_Fetid Heath.jpg" id="SGP_262_Fetid Heath" data-flag="@X" onclick="openSidebar('SGP_262_Fetid Heath',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/258_Cascade Bluffs.jpg" id="SGP_258_Cascade Bluffs" data-flag="@X" onclick="openSidebar('SGP_258_Cascade Bluffs',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/277_Twilight Mire.jpg" id="SGP_277_Twilight Mire" data-flag="@X" onclick="openSidebar('SGP_277_Twilight Mire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/274_Rugged Prairie.jpg" id="SGP_274_Rugged Prairie" data-flag="@X" onclick="openSidebar('SGP_274_Rugged Prairie',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/264_Flooded Grove.jpg" id="SGP_264_Flooded Grove" data-flag="@X" onclick="openSidebar('SGP_264_Flooded Grove',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/275_Secluded Avenue.jpg" id="SGP_275_Secluded Avenue" data-flag="@X" onclick="openSidebar('SGP_275_Secluded Avenue',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/259_Cataract Valley.jpg" id="SGP_259_Cataract Valley" data-flag="@X" onclick="openSidebar('SGP_259_Cataract Valley',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/271_Outlands Hamlet.jpg" id="SGP_271_Outlands Hamlet" data-flag="@X" onclick="openSidebar('SGP_271_Outlands Hamlet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/257_Bronzeglade Peaks.jpg" id="SGP_257_Bronzeglade Peaks" data-flag="@X" onclick="openSidebar('SGP_257_Bronzeglade Peaks',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/268_Lakewatch Ruins.jpg" id="SGP_268_Lakewatch Ruins" data-flag="@X" onclick="openSidebar('SGP_268_Lakewatch Ruins',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/273_Reality Cusp.jpg" id="SGP_273_Reality Cusp" data-flag="@X" onclick="openSidebar('SGP_273_Reality Cusp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/279_What Remains of Frossenhold.jpg" id="SGP_279_What Remains of Frossenhold" data-flag="@X" onclick="openSidebar('SGP_279_What Remains of Frossenhold',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/266_Hall of Innovation.jpg" id="SGP_266_Hall of Innovation" data-flag="@X" onclick="openSidebar('SGP_266_Hall of Innovation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/272_Promising Vista.jpg" id="SGP_272_Promising Vista" data-flag="@X" onclick="openSidebar('SGP_272_Promising Vista',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/289_Mountain_SGP.jpg" id="SGP_289_Mountain_SGP" data-flag="@X" onclick="openSidebar('SGP_289_Mountain_SGP',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/287_Swamp_SGP.jpg" id="SGP_287_Swamp_SGP" data-flag="@X" onclick="openSidebar('SGP_287_Swamp_SGP',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/291_Forest_SGP.jpg" id="SGP_291_Forest_SGP" data-flag="@X" onclick="openSidebar('SGP_291_Forest_SGP',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/281_Wastes.jpg" id="SGP_281_Wastes" data-flag="@X" onclick="openSidebar('SGP_281_Wastes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/283_Plains_SGP.jpg" id="SGP_283_Plains_SGP" data-flag="@X" onclick="openSidebar('SGP_283_Plains_SGP',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/285_Island_SGP.jpg" id="SGP_285_Island_SGP" data-flag="@X" onclick="openSidebar('SGP_285_Island_SGP',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/284_Island Eldritch_SGP.jpg" id="SGP_284_Island Eldritch_SGP" data-flag="@X" onclick="openSidebar('SGP_284_Island Eldritch_SGP',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/282_Plains Eldritch_SGP.jpg" id="SGP_282_Plains Eldritch_SGP" data-flag="@X" onclick="openSidebar('SGP_282_Plains Eldritch_SGP',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/286_Swamp Eldritch_SGP.jpg" id="SGP_286_Swamp Eldritch_SGP" data-flag="@X" onclick="openSidebar('SGP_286_Swamp Eldritch_SGP',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/288_Mountain Eldritch_SGP.jpg" id="SGP_288_Mountain Eldritch_SGP" data-flag="@X" onclick="openSidebar('SGP_288_Mountain Eldritch_SGP',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/290_Forest Eldritch_SGP.jpg" id="SGP_290_Forest Eldritch_SGP" data-flag="@X" onclick="openSidebar('SGP_290_Forest Eldritch_SGP',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
 				<div id="token" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/1t_Eldrazi.jpg" id="1t_Eldrazi" data-flag="@X" onclick="openSidebar('1t_Eldrazi',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/2t_Eldrazi Angel.jpg" id="2t_Eldrazi Angel" data-flag="@X" onclick="openSidebar('2t_Eldrazi Angel',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/3t_Eldrazi Scion.jpg" id="3t_Eldrazi Scion" data-flag="@X" onclick="openSidebar('3t_Eldrazi Scion',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/8t_Clue.jpg" id="8t_Clue" data-flag="@X" onclick="openSidebar('8t_Clue',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/9t_Construct.jpg" id="9t_Construct" data-flag="@X" onclick="openSidebar('9t_Construct',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/10t_Thopter.jpg" id="10t_Thopter" data-flag="@X" onclick="openSidebar('10t_Thopter',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/11t_Treasure.jpg" id="11t_Treasure" data-flag="@X" onclick="openSidebar('11t_Treasure',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/4t_Dog.jpg" id="4t_Dog" data-flag="@X" onclick="openSidebar('4t_Dog',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/5t_Human.jpg" id="5t_Human" data-flag="@X" onclick="openSidebar('5t_Human',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/6t_Human Bard.jpg" id="6t_Human Bard" data-flag="@X" onclick="openSidebar('6t_Human Bard',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/SGP-files/img/7t_Ooze.jpg" id="7t_Ooze" data-flag="@X" onclick="openSidebar('7t_Ooze',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/1t_Eldrazi.jpg" id="SGP_1t_Eldrazi" data-flag="@X" onclick="openSidebar('SGP_1t_Eldrazi',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/2t_Eldrazi.jpg" id="SGP_2t_Eldrazi" data-flag="@X" onclick="openSidebar('SGP_2t_Eldrazi',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/3t_Eldrazi Angel.jpg" id="SGP_3t_Eldrazi Angel" data-flag="@X" onclick="openSidebar('SGP_3t_Eldrazi Angel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/4t_Eldrazi Scion.jpg" id="SGP_4t_Eldrazi Scion" data-flag="@X" onclick="openSidebar('SGP_4t_Eldrazi Scion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/12t_Clue.jpg" id="SGP_12t_Clue" data-flag="@X" onclick="openSidebar('SGP_12t_Clue',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/13t_Construct.jpg" id="SGP_13t_Construct" data-flag="@X" onclick="openSidebar('SGP_13t_Construct',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/14t_Construct.jpg" id="SGP_14t_Construct" data-flag="@X" onclick="openSidebar('SGP_14t_Construct',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/15t_Golem.jpg" id="SGP_15t_Golem" data-flag="@X" onclick="openSidebar('SGP_15t_Golem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/16t_Thopter.jpg" id="SGP_16t_Thopter" data-flag="@X" onclick="openSidebar('SGP_16t_Thopter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/17t_Treasure.jpg" id="SGP_17t_Treasure" data-flag="@X" onclick="openSidebar('SGP_17t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/5t_Dog.jpg" id="SGP_5t_Dog" data-flag="@X" onclick="openSidebar('SGP_5t_Dog',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/6t_Human.jpg" id="SGP_6t_Human" data-flag="@X" onclick="openSidebar('SGP_6t_Human',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/7t_Bird.jpg" id="SGP_7t_Bird" data-flag="@X" onclick="openSidebar('SGP_7t_Bird',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/8t_Jellyfish Horror.jpg" id="SGP_8t_Jellyfish Horror" data-flag="@X" onclick="openSidebar('SGP_8t_Jellyfish Horror',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/9t_Ooze.jpg" id="SGP_9t_Ooze" data-flag="@X" onclick="openSidebar('SGP_9t_Ooze',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/10t_Ooze_Promo.jpg" id="SGP_10t_Ooze_Promo" data-flag="@X" onclick="openSidebar('SGP_10t_Ooze_Promo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SGP-files/img/11t_Human Bard.jpg" id="SGP_11t_Human Bard" data-flag="@X" onclick="openSidebar('SGP_11t_Human Bard',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SGP_e" data-flag="@E" onclick="openSidebar('SGP_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SGP_er" data-flag="@E" onclick="openSidebar('SGP_er',false)"></div>
 	</div>
 	</div>
 	<div class="sidebar" id="sidebar">
 		<div class="sidebar-container">
-			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_img" class="sidebar-img">
 			<img id="sidebar_h_img" class="sidebar-h-img">
 			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
 		</div>
@@ -666,19 +704,111 @@
 		let specialchars = "";
 
 	document.addEventListener('DOMContentLoaded', async function() {
-		await fetch('/lists/all-cards.json')
+		await fetch(rootPath + '/lists/all-cards.json')
 					.then(response => response.json())
 					.then(json => {
 						card_list = json;
 				}).catch(error => console.error('Error:', error));
 
-				await fetch('/resources/replacechars.txt')
+				await fetch(rootPath + '/resources/replacechars.txt')
 					.then(response => response.text())
 					.then(text => {
 						specialchars = text; 
 				}).catch(error => console.error('Error:', error));
 
 				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
 
 		preloadImgs = document.getElementsByClassName('preload-hidden');
 
@@ -713,13 +843,16 @@
 			const flag = img.getAttribute('data-flag');
 
 			if (flag === '@N') {
-				img.src = '/img/card_back.png';
+				img.src = rootPath + '/img/card_back.png';
 				img.removeAttribute("onclick");
 				img.style.cursor = 'default';
 			}
 			else
 			{
-				img.src = img.alt;
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
 
 				if (flag === '@E') {
 					img.removeAttribute("onclick");
@@ -873,16 +1006,16 @@
 	});
 
 	function search() {
-		const url = new URL('search', window.location.origin);
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
 		url.searchParams.append('search', document.getElementById("search").value);
-		window.location.href = url;
+		window.location.href = url.pathname + url.search;
 	}
 
 		function randomCard() {
 				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
 				let random_card = card_list_arrayified[i];
 
-				const url = new URL('card', window.location.origin);
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
 				const params = {
 					set: random_card.set,
 					num: random_card.number,
@@ -892,7 +1025,7 @@
 					url.searchParams.append(key, params[key]);
 				}
 
-				window.location.href = url;
+				window.location.href = url.pathname + url.search;
 			}
 	</script>
 </body>

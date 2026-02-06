@@ -1,18 +1,21 @@
 ﻿<html>
 	<head>
 	  <title>All Sets</title>
-	  <link rel="icon" type="image/x-icon" href="/img/sets.png">
-	  <link rel="stylesheet" href="/resources/mana.css">
-	  <link rel="stylesheet" href="/resources/header.css">
+	  <link rel="icon" type="image/x-icon" href="./img/sets.png">
+	  <link rel="stylesheet" href="./resources/mana.css">
+	  <link rel="stylesheet" href="./resources/header.css">
 	</head>
+	<script title="root">
+		const rootPath = ".";
+	</script>
 	<style>
 		@font-face {
 			font-family: 'Beleren Small Caps';
-			src: url('/resources/beleren-caps.ttf');
+			src: url('./resources/beleren-caps.ttf');
 		}
 		@font-face {
 			font-family: Beleren;
-			src: url('/resources/beleren.ttf');
+			src: url('./resources/beleren.ttf');
 		}
 		body {
 			font-family: 'Helvetica', 'Arial', sans-serif;
@@ -79,14 +82,30 @@
 	<body>
 		<div class="header">
 		<div class="search-grid">
-			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
-			<img class="sg-icon" src="/img/search.png">
-			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
-			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
-			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
-			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
 		</div>
-	</div>			<div class="set-group">Spring</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>			<div class="set-group">Wands</div>
 		
 			<div class="set-table">
 			<div class="set-header-row">
@@ -96,174 +115,56 @@
 				<div>CARDS</div>
 			</div>
 		
-			<a href="/sets/DRP" class="set-row"> 
-				<img src="/sets/DRP-files/icon.png">
-				<div class="set-title">Derek’s Piggies</div>
-				<div>DRP</div>
-				<div>89</div>
+			<a href="sets/DHW" class="set-row"> 
+				<img src="sets/DHW-files/icon.png">
+				<div class="set-title">Deorum: Holy War</div>
+				<div>DHW</div>
+				<div>238</div>
 			</a>
 			
-			<a href="/sets/WCD" class="set-row"> 
-				<img src="/sets/WCD-files/icon.png">
-				<div class="set-title">Wroszy’s Circus of Darkness</div>
-				<div>WCD</div>
-				<div>253</div>
+			<a href="sets/HFB" class="set-row"> 
+				<img src="sets/HFB-files/icon.png">
+				<div class="set-title">Hycal: First Bloom</div>
+				<div>HFB</div>
+				<div>251</div>
 			</a>
 			
-			<a href="/sets/AEK" class="set-row"> 
-				<img src="/sets/AEK-files/icon.png">
-				<div class="set-title">Aekyu: Idyllic Days</div>
-				<div>AEK</div>
+			<a href="sets/LDT" class="set-row"> 
+				<img src="sets/LDT-files/icon.png">
+				<div class="set-title">Last Days of the Immortal Table</div>
+				<div>LDT</div>
+				<div>158</div>
+			</a>
+			
+			<a href="sets/WLG" class="set-row"> 
+				<img src="sets/WLG-files/icon.png">
+				<div class="set-title">Worlds Long Gone</div>
+				<div>WLG</div>
 				<div>262</div>
 			</a>
 			
-			<a href="/sets/DCO" class="set-row"> 
-				<img src="/sets/DCO-files/icon.png">
-				<div class="set-title">Dazon: Cosmic Outcasts</div>
-				<div>DCO</div>
-				<div>200</div>
-			</a>
-			
-			<a href="/sets/WDW" class="set-row"> 
-				<img src="/sets/WDW-files/icon.png">
-				<div class="set-title">Waters of a Drowned World</div>
-				<div>WDW</div>
-				<div>271</div>
-			</a>
-			
-			<a href="/sets/ELV" class="set-row"> 
-				<img src="/sets/ELV-files/icon.png">
-				<div class="set-title">Elegies of Vaquer</div>
-				<div>ELV</div>
-				<div>263</div>
-			</a>
-			
-			<a href="/sets/APH" class="set-row"> 
-				<img src="/sets/APH-files/icon.png">
-				<div class="set-title">Aphantasia</div>
-				<div>APH</div>
-				<div>249</div>
-			</a>
-			</div>
-					<div class="set-group">Summer</div>
-		
-			<div class="set-table">
-			<div class="set-header-row">
-				<div></div> <!-- empty div for spacing -->
-				<div>NAME</div>
-				<div>CODE</div>
-				<div>CARDS</div>
-			</div>
-		
-			<a href="/sets/2HU" class="set-row"> 
-				<img src="/sets/2HU-files/icon.png">
-				<div class="set-title">Universes Beyond: The Touhou Project</div>
-				<div>2HU</div>
-				<div>334</div>
-			</a>
-			
-			<a href="/sets/F2HU" class="set-row"> 
-				<img src="/sets/F2HU-files/icon.png">
+			<a href="sets/F2HU" class="set-row"> 
+				<img src="sets/F2HU-files/icon.png">
 				<div class="set-title">Universes Beyond: Touhou Fangames/Albums</div>
 				<div>F2HU</div>
-				<div>264</div>
+				<div>292</div>
 			</a>
 			
-			<a href="/sets/RPGM" class="set-row"> 
-				<img src="/sets/RPGM-files/icon.png">
-				<div class="set-title">Universes Beyond: RPGMaker</div>
-				<div>RPGM</div>
-				<div>298</div>
-			</a>
-			
-			<a href="/sets/RNF" class="set-row"> 
-				<img src="/sets/RNF-files/icon.png">
-				<div class="set-title">Ravnica Fractured</div>
-				<div>RNF</div>
-				<div>270</div>
-			</a>
-			
-			<a href="/sets/IWH" class="set-row"> 
-				<img src="/sets/IWH-files/icon.png">
-				<div class="set-title">Innistrad: Witching Hour</div>
-				<div>IWH</div>
-				<div>274</div>
-			</a>
-			
-			<a href="/sets/OPZ" class="set-row"> 
-				<img src="/sets/OPZ-files/icon.png">
-				<div class="set-title">Outpost Zero</div>
-				<div>OPZ</div>
-				<div>264</div>
-			</a>
-			
-			<a href="/sets/WOO" class="set-row"> 
-				<img src="/sets/WOO-files/icon.png">
-				<div class="set-title">Waking of Orlige</div>
-				<div>WOO</div>
-				<div>270</div>
-			</a>
-			</div>
-					<div class="set-group">Fall</div>
-		
-			<div class="set-table">
-			<div class="set-header-row">
-				<div></div> <!-- empty div for spacing -->
-				<div>NAME</div>
-				<div>CODE</div>
-				<div>CARDS</div>
-			</div>
-		
-			<a href="/sets/ORC" class="set-row"> 
-				<img src="/sets/ORC-files/icon.png">
-				<div class="set-title">An Oddness in the River Cities</div>
-				<div>ORC</div>
+			<a href="sets/NOT" class="set-row"> 
+				<img src="sets/NOT-files/icon.png">
+				<div class="set-title">Nightmares of Tremethys</div>
+				<div>NOT</div>
 				<div>282</div>
 			</a>
 			
-			<a href="/sets/IVP" class="set-row"> 
-				<img src="/sets/IVP-files/icon.png">
-				<div class="set-title">Invalid Precedent</div>
-				<div>IVP</div>
-				<div>101</div>
-			</a>
-			
-			<a href="/sets/VLR" class="set-row"> 
-				<img src="/sets/VLR-files/icon.png">
-				<div class="set-title">Valir: The Banished Isle</div>
-				<div>VLR</div>
-				<div>277</div>
-			</a>
-			
-			<a href="/sets/GOD" class="set-row"> 
-				<img src="/sets/GOD-files/icon.png">
-				<div class="set-title">Godspine</div>
-				<div>GOD</div>
-				<div>265</div>
-			</a>
-			
-			<a href="/sets/UND" class="set-row"> 
-				<img src="/sets/UND-files/icon.png">
-				<div class="set-title">The Underhalls</div>
-				<div>UND</div>
-				<div>265</div>
-			</a>
-			
-			<a href="/sets/EOR" class="set-row"> 
-				<img src="/sets/EOR-files/icon.png">
-				<div class="set-title">Defenders of Eorzea</div>
-				<div>EOR</div>
-				<div>240</div>
-			</a>
-			
-			<a href="/sets/VYI" class="set-row"> 
-				<img src="/sets/VYI-files/icon.png">
-				<div class="set-title">Valdrasil: Voyage to Infinity</div>
-				<div>VYI</div>
-				<div>298</div>
+			<a href="sets/RPGM" class="set-row"> 
+				<img src="sets/RPGM-files/icon.png">
+				<div class="set-title">Universes Beyond: RPGMaker</div>
+				<div>RPGM</div>
+				<div>335</div>
 			</a>
 			</div>
-					<div class="set-group">Winter</div>
+					<div class="set-group">Swords</div>
 		
 			<div class="set-table">
 			<div class="set-header-row">
@@ -273,53 +174,171 @@
 				<div>CARDS</div>
 			</div>
 		
-			<a href="/sets/SOL" class="set-row"> 
-				<img src="/sets/SOL-files/icon.png">
-				<div class="set-title">Solastere</div>
-				<div>SOL</div>
-				<div>314</div>
+			<a href="sets/SHU" class="set-row"> 
+				<img src="sets/SHU-files/icon.png">
+				<div class="set-title">Shurima: War of the Sands</div>
+				<div>SHU</div>
+				<div>290</div>
 			</a>
 			
-			<a href="/sets/POP2" class="set-row"> 
-				<img src="/sets/POP2-files/icon.png">
+			<a href="sets/MOV" class="set-row"> 
+				<img src="sets/MOV-files/icon.png">
+				<div class="set-title">Motley Oak (Field Test)</div>
+				<div>MOV</div>
+				<div>96</div>
+			</a>
+			
+			<a href="sets/VLR" class="set-row"> 
+				<img src="sets/VLR-files/icon.png">
+				<div class="set-title">Valir: The Banished Isle</div>
+				<div>VLR</div>
+				<div>271</div>
+			</a>
+			
+			<a href="sets/ORD" class="set-row"> 
+				<img src="sets/ORD-files/icon.png">
+				<div class="set-title">Crucible of Ordeval</div>
+				<div>ORD</div>
+				<div>95</div>
+			</a>
+			
+			<a href="sets/POP2" class="set-row"> 
+				<img src="sets/POP2-files/icon.png">
 				<div class="set-title">Prismavision</div>
 				<div>POP2</div>
 				<div>266</div>
 			</a>
 			
-			<a href="/sets/ORD" class="set-row"> 
-				<img src="/sets/ORD-files/icon.png">
-				<div class="set-title">Crucible of Ordeval</div>
-				<div>ORD</div>
-				<div>80</div>
+			<a href="sets/OPZ" class="set-row"> 
+				<img src="sets/OPZ-files/icon.png">
+				<div class="set-title">Outpost Zero</div>
+				<div>OPZ</div>
+				<div>269</div>
 			</a>
 			
-			<a href="/sets/TGS" class="set-row"> 
-				<img src="/sets/TGS-files/icon.png">
-				<div class="set-title">Tales from the Grave in Space</div>
-				<div>TGS</div>
-				<div>273</div>
+			<a href="sets/ONI" class="set-row"> 
+				<img src="sets/ONI-files/icon.png">
+				<div class="set-title">Onigaiko: Future Past</div>
+				<div>ONI</div>
+				<div>278</div>
+			</a>
+			</div>
+					<div class="set-group">Cups</div>
+		
+			<div class="set-table">
+			<div class="set-header-row">
+				<div></div> <!-- empty div for spacing -->
+				<div>NAME</div>
+				<div>CODE</div>
+				<div>CARDS</div>
+			</div>
+		
+			<a href="sets/ABY" class="set-row"> 
+				<img src="sets/ABY-files/icon.png">
+				<div class="set-title">A Better Yesterday</div>
+				<div>ABY</div>
+				<div>289</div>
 			</a>
 			
-			<a href="/sets/PRK" class="set-row"> 
-				<img src="/sets/PRK-files/icon.png">
-				<div class="set-title">Prakhma</div>
-				<div>PRK</div>
-				<div>273</div>
+			<a href="sets/MVX" class="set-row"> 
+				<img src="sets/MVX-files/icon.png">
+				<div class="set-title">Merveaux</div>
+				<div>MVX</div>
+				<div>295</div>
 			</a>
 			
-			<a href="/sets/LIP" class="set-row"> 
-				<img src="/sets/LIP-files/icon.png">
-				<div class="set-title">Lost in Place</div>
-				<div>LIP</div>
-				<div>247</div>
-			</a>
-			
-			<a href="/sets/SGP" class="set-row"> 
-				<img src="/sets/SGP-files/icon.png">
+			<a href="sets/SGP" class="set-row"> 
+				<img src="sets/SGP-files/icon.png">
 				<div class="set-title">Stirrings in Goldport</div>
 				<div>SGP</div>
-				<div>278</div>
+				<div>286</div>
+			</a>
+			
+			<a href="sets/CYO" class="set-row"> 
+				<img src="sets/CYO-files/icon.png">
+				<div class="set-title">Chronicles of Yor-Om</div>
+				<div>CYO</div>
+				<div>267</div>
+			</a>
+			
+			<a href="sets/BLV" class="set-row"> 
+				<img src="sets/BLV-files/icon.png">
+				<div class="set-title">Blood and Velvet</div>
+				<div>BLV</div>
+				<div>271</div>
+			</a>
+			
+			<a href="sets/EDR" class="set-row"> 
+				<img src="sets/EDR-files/icon.png">
+				<div class="set-title">Elden Ring</div>
+				<div>EDR</div>
+				<div>306</div>
+			</a>
+			
+			<a href="sets/VTK" class="set-row"> 
+				<img src="sets/VTK-files/icon.png">
+				<div class="set-title">Vaelcairn, Tomb of Kingdoms</div>
+				<div>VTK</div>
+				<div>238</div>
+			</a>
+			</div>
+					<div class="set-group">Pentacles</div>
+		
+			<div class="set-table">
+			<div class="set-header-row">
+				<div></div> <!-- empty div for spacing -->
+				<div>NAME</div>
+				<div>CODE</div>
+				<div>CARDS</div>
+			</div>
+		
+			<a href="sets/KRK" class="set-row"> 
+				<img src="sets/KRK-files/icon.png">
+				<div class="set-title">Seas of Krakonos</div>
+				<div>KRK</div>
+				<div>267</div>
+			</a>
+			
+			<a href="sets/ELV" class="set-row"> 
+				<img src="sets/ELV-files/icon.png">
+				<div class="set-title">Elegies of Vaquer</div>
+				<div>ELV</div>
+				<div>263</div>
+			</a>
+			
+			<a href="sets/TVN" class="set-row"> 
+				<img src="sets/TVN-files/icon.png">
+				<div class="set-title">Titans of Viludin</div>
+				<div>TVN</div>
+				<div>279</div>
+			</a>
+			
+			<a href="sets/WGJ" class="set-row"> 
+				<img src="sets/WGJ-files/icon.png">
+				<div class="set-title">Wrenchmar: Gambit of the Junklords</div>
+				<div>WGJ</div>
+				<div>272</div>
+			</a>
+			
+			<a href="sets/WOO" class="set-row"> 
+				<img src="sets/WOO-files/icon.png">
+				<div class="set-title">Waking of Orlige</div>
+				<div>WOO</div>
+				<div>268</div>
+			</a>
+			
+			<a href="sets/ICO" class="set-row"> 
+				<img src="sets/ICO-files/icon.png">
+				<div class="set-title">Inner Coriansa</div>
+				<div>ICO</div>
+				<div>291</div>
+			</a>
+			
+			<a href="sets/IWH" class="set-row"> 
+				<img src="sets/IWH-files/icon.png">
+				<div class="set-title">Innistrad: Witching Hour</div>
+				<div>IWH</div>
+				<div>297</div>
 			</a>
 			</div>
 		
@@ -329,19 +348,111 @@
 		let displayStyle = "";
 
 		document.addEventListener("DOMContentLoaded", async function () {
-			await fetch('/lists/all-cards.json')
+			await fetch(rootPath + '/lists/all-cards.json')
 					.then(response => response.json())
 					.then(json => {
 						card_list = json;
 				}).catch(error => console.error('Error:', error));
 
-				await fetch('/resources/replacechars.txt')
+				await fetch(rootPath + '/resources/replacechars.txt')
 					.then(response => response.text())
 					.then(text => {
 						specialchars = text; 
 				}).catch(error => console.error('Error:', error));
 
 				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
 
 		});
 
@@ -357,16 +468,16 @@
 		});
 
 		function search() {
-			const url = new URL('search', window.location.origin);
+			const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
 			url.searchParams.append('search', document.getElementById("search").value);
-			window.location.href = url;
+			window.location.href = url.pathname + url.search;
 		}
 
 		function randomCard() {
 				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
 				let random_card = card_list_arrayified[i];
 
-				const url = new URL('card', window.location.origin);
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
 				const params = {
 					set: random_card.set,
 					num: random_card.number,
@@ -376,7 +487,7 @@
 					url.searchParams.append(key, params[key]);
 				}
 
-				window.location.href = url;
+				window.location.href = url.pathname + url.search;
 			}
 	</script>
 </body>

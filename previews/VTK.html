@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/VTK-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>VTK visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/VTK-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
+	
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
+	
+		<a class="set-bar inactive" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
+	
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
+	
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
+	
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
+	
+		<a class="set-bar inactive" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
+	
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
+	
+		<a class="set-bar inactive" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
+	
+		<a class="set-bar inactive" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
+	
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/VTK-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/VTK-files/img/226.jpg" id="VTK_226" data-flag="@X" onclick="openSidebar('VTK_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/227.jpg" id="VTK_227" data-flag="@X" onclick="openSidebar('VTK_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/101.jpg" id="VTK_101" data-flag="@X" onclick="openSidebar('VTK_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/228.jpg" id="VTK_228" data-flag="@X" onclick="openSidebar('VTK_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/229.jpg" id="VTK_229" data-flag="@X" onclick="openSidebar('VTK_229',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/VTK-files/img/115_back.jpg" alt="sets/VTK-files/img/115_front.jpg" id="VTK_115" data-flag="@XD" onclick="openSidebar('VTK_115',false)"><button class="flip-btn" onclick="imgFlip('VTK_115')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/VTK-files/img/112_back.jpg" alt="sets/VTK-files/img/112_front.jpg" id="VTK_112" data-flag="@XD" onclick="openSidebar('VTK_112',false)"><button class="flip-btn" onclick="imgFlip('VTK_112')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/83.jpg" id="VTK_83" data-flag="@X" onclick="openSidebar('VTK_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/164.jpg" id="VTK_164" data-flag="@X" onclick="openSidebar('VTK_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/29.jpg" id="VTK_29" data-flag="@X" onclick="openSidebar('VTK_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/59.jpg" id="VTK_59" data-flag="@X" onclick="openSidebar('VTK_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/68.jpg" id="VTK_68" data-flag="@X" onclick="openSidebar('VTK_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/218.jpg" id="VTK_218" data-flag="@X" onclick="openSidebar('VTK_218',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/VTK-files/img/114_back.jpg" alt="sets/VTK-files/img/114_front.jpg" id="VTK_114" data-flag="@XD" onclick="openSidebar('VTK_114',false)"><button class="flip-btn" onclick="imgFlip('VTK_114')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/222.jpg" id="VTK_222" data-flag="@X" onclick="openSidebar('VTK_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/69.jpg" id="VTK_69" data-flag="@X" onclick="openSidebar('VTK_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/217.jpg" id="VTK_217" data-flag="@X" onclick="openSidebar('VTK_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/219.jpg" id="VTK_219" data-flag="@X" onclick="openSidebar('VTK_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/221.jpg" id="VTK_221" data-flag="@X" onclick="openSidebar('VTK_221',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/VTK-files/img/113_back.jpg" alt="sets/VTK-files/img/113_front.jpg" id="VTK_113" data-flag="@XD" onclick="openSidebar('VTK_113',false)"><button class="flip-btn" onclick="imgFlip('VTK_113')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/34.jpg" id="VTK_34" data-flag="@X" onclick="openSidebar('VTK_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/215.jpg" id="VTK_215" data-flag="@X" onclick="openSidebar('VTK_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/111.jpg" id="VTK_111" data-flag="@X" onclick="openSidebar('VTK_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/38.jpg" id="VTK_38" data-flag="@X" onclick="openSidebar('VTK_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/223.jpg" id="VTK_223" data-flag="@X" onclick="openSidebar('VTK_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/64.jpg" id="VTK_64" data-flag="@X" onclick="openSidebar('VTK_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/36.jpg" id="VTK_36" data-flag="@X" onclick="openSidebar('VTK_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/89.jpg" id="VTK_89" data-flag="@X" onclick="openSidebar('VTK_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/220.jpg" id="VTK_220" data-flag="@X" onclick="openSidebar('VTK_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/39.jpg" id="VTK_39" data-flag="@X" onclick="openSidebar('VTK_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/67.jpg" id="VTK_67" data-flag="@X" onclick="openSidebar('VTK_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/216.jpg" id="VTK_216" data-flag="@X" onclick="openSidebar('VTK_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/37.jpg" id="VTK_37" data-flag="@X" onclick="openSidebar('VTK_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/178.jpg" id="VTK_178" data-flag="@X" onclick="openSidebar('VTK_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/4.jpg" id="VTK_4" data-flag="@X" onclick="openSidebar('VTK_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/33.jpg" id="VTK_33" data-flag="@X" onclick="openSidebar('VTK_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/138.jpg" id="VTK_138" data-flag="@X" onclick="openSidebar('VTK_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/94.jpg" id="VTK_94" data-flag="@X" onclick="openSidebar('VTK_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/190.jpg" id="VTK_190" data-flag="@X" onclick="openSidebar('VTK_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/203.jpg" id="VTK_203" data-flag="@X" onclick="openSidebar('VTK_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/57.jpg" id="VTK_57" data-flag="@X" onclick="openSidebar('VTK_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/141.jpg" id="VTK_141" data-flag="@X" onclick="openSidebar('VTK_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/98.jpg" id="VTK_98" data-flag="@X" onclick="openSidebar('VTK_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/187.jpg" id="VTK_187" data-flag="@X" onclick="openSidebar('VTK_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/201.jpg" id="VTK_201" data-flag="@X" onclick="openSidebar('VTK_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/189.jpg" id="VTK_189" data-flag="@X" onclick="openSidebar('VTK_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/139.jpg" id="VTK_139" data-flag="@X" onclick="openSidebar('VTK_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/96.jpg" id="VTK_96" data-flag="@X" onclick="openSidebar('VTK_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/179.jpg" id="VTK_179" data-flag="@X" onclick="openSidebar('VTK_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/213.jpg" id="VTK_213" data-flag="@X" onclick="openSidebar('VTK_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/63.jpg" id="VTK_63" data-flag="@X" onclick="openSidebar('VTK_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/134.jpg" id="VTK_134" data-flag="@X" onclick="openSidebar('VTK_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/87.jpg" id="VTK_87" data-flag="@X" onclick="openSidebar('VTK_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/186.jpg" id="VTK_186" data-flag="@X" onclick="openSidebar('VTK_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/207.jpg" id="VTK_207" data-flag="@X" onclick="openSidebar('VTK_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/55.jpg" id="VTK_55" data-flag="@X" onclick="openSidebar('VTK_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/142.jpg" id="VTK_142" data-flag="@X" onclick="openSidebar('VTK_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/28.jpg" id="VTK_28" data-flag="@X" onclick="openSidebar('VTK_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/188.jpg" id="VTK_188" data-flag="@X" onclick="openSidebar('VTK_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/200.jpg" id="VTK_200" data-flag="@X" onclick="openSidebar('VTK_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/53.jpg" id="VTK_53" data-flag="@X" onclick="openSidebar('VTK_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/137.jpg" id="VTK_137" data-flag="@X" onclick="openSidebar('VTK_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/91.jpg" id="VTK_91" data-flag="@X" onclick="openSidebar('VTK_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/176.jpg" id="VTK_176" data-flag="@X" onclick="openSidebar('VTK_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/205.jpg" id="VTK_205" data-flag="@X" onclick="openSidebar('VTK_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/51.jpg" id="VTK_51" data-flag="@X" onclick="openSidebar('VTK_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/135.jpg" id="VTK_135" data-flag="@X" onclick="openSidebar('VTK_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/85.jpg" id="VTK_85" data-flag="@X" onclick="openSidebar('VTK_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/183.jpg" id="VTK_183" data-flag="@X" onclick="openSidebar('VTK_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/206.jpg" id="VTK_206" data-flag="@X" onclick="openSidebar('VTK_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/58.jpg" id="VTK_58" data-flag="@X" onclick="openSidebar('VTK_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/144.jpg" id="VTK_144" data-flag="@X" onclick="openSidebar('VTK_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/99.jpg" id="VTK_99" data-flag="@X" onclick="openSidebar('VTK_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/177.jpg" id="VTK_177" data-flag="@X" onclick="openSidebar('VTK_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/211.jpg" id="VTK_211" data-flag="@X" onclick="openSidebar('VTK_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/52.jpg" id="VTK_52" data-flag="@X" onclick="openSidebar('VTK_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/145.jpg" id="VTK_145" data-flag="@X" onclick="openSidebar('VTK_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/95.jpg" id="VTK_95" data-flag="@X" onclick="openSidebar('VTK_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/181.jpg" id="VTK_181" data-flag="@X" onclick="openSidebar('VTK_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/210.jpg" id="VTK_210" data-flag="@X" onclick="openSidebar('VTK_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/60.jpg" id="VTK_60" data-flag="@X" onclick="openSidebar('VTK_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/140.jpg" id="VTK_140" data-flag="@X" onclick="openSidebar('VTK_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/88.jpg" id="VTK_88" data-flag="@X" onclick="openSidebar('VTK_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/174.jpg" id="VTK_174" data-flag="@X" onclick="openSidebar('VTK_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/208.jpg" id="VTK_208" data-flag="@X" onclick="openSidebar('VTK_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/62.jpg" id="VTK_62" data-flag="@X" onclick="openSidebar('VTK_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/146.jpg" id="VTK_146" data-flag="@X" onclick="openSidebar('VTK_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/92.jpg" id="VTK_92" data-flag="@X" onclick="openSidebar('VTK_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/182.jpg" id="VTK_182" data-flag="@X" onclick="openSidebar('VTK_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/209.jpg" id="VTK_209" data-flag="@X" onclick="openSidebar('VTK_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/106.jpg" id="VTK_106" data-flag="@X" onclick="openSidebar('VTK_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/162.jpg" id="VTK_162" data-flag="@X" onclick="openSidebar('VTK_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/102.jpg" id="VTK_102" data-flag="@X" onclick="openSidebar('VTK_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/175.jpg" id="VTK_175" data-flag="@X" onclick="openSidebar('VTK_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/214.jpg" id="VTK_214" data-flag="@X" onclick="openSidebar('VTK_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/54.jpg" id="VTK_54" data-flag="@X" onclick="openSidebar('VTK_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/136.jpg" id="VTK_136" data-flag="@X" onclick="openSidebar('VTK_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/93.jpg" id="VTK_93" data-flag="@X" onclick="openSidebar('VTK_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/184.jpg" id="VTK_184" data-flag="@X" onclick="openSidebar('VTK_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/202.jpg" id="VTK_202" data-flag="@X" onclick="openSidebar('VTK_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/50.jpg" id="VTK_50" data-flag="@X" onclick="openSidebar('VTK_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/132.jpg" id="VTK_132" data-flag="@X" onclick="openSidebar('VTK_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/97.jpg" id="VTK_97" data-flag="@X" onclick="openSidebar('VTK_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/185.jpg" id="VTK_185" data-flag="@X" onclick="openSidebar('VTK_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/204.jpg" id="VTK_204" data-flag="@X" onclick="openSidebar('VTK_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/49.jpg" id="VTK_49" data-flag="@X" onclick="openSidebar('VTK_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/133.jpg" id="VTK_133" data-flag="@X" onclick="openSidebar('VTK_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/90.jpg" id="VTK_90" data-flag="@X" onclick="openSidebar('VTK_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/180.jpg" id="VTK_180" data-flag="@X" onclick="openSidebar('VTK_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/199.jpg" id="VTK_199" data-flag="@X" onclick="openSidebar('VTK_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/56.jpg" id="VTK_56" data-flag="@X" onclick="openSidebar('VTK_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/131.jpg" id="VTK_131" data-flag="@X" onclick="openSidebar('VTK_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/100.jpg" id="VTK_100" data-flag="@X" onclick="openSidebar('VTK_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/26.jpg" id="VTK_26" data-flag="@X" onclick="openSidebar('VTK_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/212.jpg" id="VTK_212" data-flag="@X" onclick="openSidebar('VTK_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/45.jpg" id="VTK_45" data-flag="@X" onclick="openSidebar('VTK_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/127.jpg" id="VTK_127" data-flag="@X" onclick="openSidebar('VTK_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/70.jpg" id="VTK_70" data-flag="@X" onclick="openSidebar('VTK_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/147.jpg" id="VTK_147" data-flag="@X" onclick="openSidebar('VTK_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/2.jpg" id="VTK_2" data-flag="@X" onclick="openSidebar('VTK_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/43.jpg" id="VTK_43" data-flag="@X" onclick="openSidebar('VTK_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/122.jpg" id="VTK_122" data-flag="@X" onclick="openSidebar('VTK_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/84.jpg" id="VTK_84" data-flag="@X" onclick="openSidebar('VTK_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/150.jpg" id="VTK_150" data-flag="@X" onclick="openSidebar('VTK_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/19.jpg" id="VTK_19" data-flag="@X" onclick="openSidebar('VTK_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/46.jpg" id="VTK_46" data-flag="@X" onclick="openSidebar('VTK_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/126.jpg" id="VTK_126" data-flag="@X" onclick="openSidebar('VTK_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/79.jpg" id="VTK_79" data-flag="@X" onclick="openSidebar('VTK_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/157.jpg" id="VTK_157" data-flag="@X" onclick="openSidebar('VTK_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/5.jpg" id="VTK_5" data-flag="@X" onclick="openSidebar('VTK_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/32.jpg" id="VTK_32" data-flag="@X" onclick="openSidebar('VTK_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/116.jpg" id="VTK_116" data-flag="@X" onclick="openSidebar('VTK_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/71.jpg" id="VTK_71" data-flag="@X" onclick="openSidebar('VTK_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/152.jpg" id="VTK_152" data-flag="@X" onclick="openSidebar('VTK_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/193.jpg" id="VTK_193" data-flag="@X" onclick="openSidebar('VTK_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/44.jpg" id="VTK_44" data-flag="@X" onclick="openSidebar('VTK_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/118.jpg" id="VTK_118" data-flag="@X" onclick="openSidebar('VTK_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/74.jpg" id="VTK_74" data-flag="@X" onclick="openSidebar('VTK_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/27.jpg" id="VTK_27" data-flag="@X" onclick="openSidebar('VTK_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/198.jpg" id="VTK_198" data-flag="@X" onclick="openSidebar('VTK_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/40.jpg" id="VTK_40" data-flag="@X" onclick="openSidebar('VTK_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/25.jpg" id="VTK_25" data-flag="@X" onclick="openSidebar('VTK_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/81.jpg" id="VTK_81" data-flag="@X" onclick="openSidebar('VTK_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/153.jpg" id="VTK_153" data-flag="@X" onclick="openSidebar('VTK_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/191.jpg" id="VTK_191" data-flag="@X" onclick="openSidebar('VTK_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/30.jpg" id="VTK_30" data-flag="@X" onclick="openSidebar('VTK_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/119.jpg" id="VTK_119" data-flag="@X" onclick="openSidebar('VTK_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/82.jpg" id="VTK_82" data-flag="@X" onclick="openSidebar('VTK_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/151.jpg" id="VTK_151" data-flag="@X" onclick="openSidebar('VTK_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/196.jpg" id="VTK_196" data-flag="@X" onclick="openSidebar('VTK_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/35.jpg" id="VTK_35" data-flag="@X" onclick="openSidebar('VTK_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/124.jpg" id="VTK_124" data-flag="@X" onclick="openSidebar('VTK_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/77.jpg" id="VTK_77" data-flag="@X" onclick="openSidebar('VTK_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/154.jpg" id="VTK_154" data-flag="@X" onclick="openSidebar('VTK_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/194.jpg" id="VTK_194" data-flag="@X" onclick="openSidebar('VTK_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/31.jpg" id="VTK_31" data-flag="@X" onclick="openSidebar('VTK_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/120.jpg" id="VTK_120" data-flag="@X" onclick="openSidebar('VTK_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/75.jpg" id="VTK_75" data-flag="@X" onclick="openSidebar('VTK_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/149.jpg" id="VTK_149" data-flag="@X" onclick="openSidebar('VTK_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/197.jpg" id="VTK_197" data-flag="@X" onclick="openSidebar('VTK_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/41.jpg" id="VTK_41" data-flag="@X" onclick="openSidebar('VTK_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/123.jpg" id="VTK_123" data-flag="@X" onclick="openSidebar('VTK_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/78.jpg" id="VTK_78" data-flag="@X" onclick="openSidebar('VTK_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/24.jpg" id="VTK_24" data-flag="@X" onclick="openSidebar('VTK_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/3.jpg" id="VTK_3" data-flag="@X" onclick="openSidebar('VTK_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/47.jpg" id="VTK_47" data-flag="@X" onclick="openSidebar('VTK_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/121.jpg" id="VTK_121" data-flag="@X" onclick="openSidebar('VTK_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/76.jpg" id="VTK_76" data-flag="@X" onclick="openSidebar('VTK_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/156.jpg" id="VTK_156" data-flag="@X" onclick="openSidebar('VTK_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/195.jpg" id="VTK_195" data-flag="@X" onclick="openSidebar('VTK_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/7.jpg" id="VTK_7" data-flag="@X" onclick="openSidebar('VTK_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/125.jpg" id="VTK_125" data-flag="@X" onclick="openSidebar('VTK_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/73.jpg" id="VTK_73" data-flag="@X" onclick="openSidebar('VTK_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/155.jpg" id="VTK_155" data-flag="@X" onclick="openSidebar('VTK_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/1.jpg" id="VTK_1" data-flag="@X" onclick="openSidebar('VTK_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/42.jpg" id="VTK_42" data-flag="@X" onclick="openSidebar('VTK_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/117.jpg" id="VTK_117" data-flag="@X" onclick="openSidebar('VTK_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/72.jpg" id="VTK_72" data-flag="@X" onclick="openSidebar('VTK_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/148.jpg" id="VTK_148" data-flag="@X" onclick="openSidebar('VTK_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/192.jpg" id="VTK_192" data-flag="@X" onclick="openSidebar('VTK_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/230.jpg" id="VTK_230" data-flag="@X" onclick="openSidebar('VTK_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/231.jpg" id="VTK_231" data-flag="@X" onclick="openSidebar('VTK_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/232.jpg" id="VTK_232" data-flag="@X" onclick="openSidebar('VTK_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/6.jpg" id="VTK_6" data-flag="@X" onclick="openSidebar('VTK_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/233.jpg" id="VTK_233" data-flag="@X" onclick="openSidebar('VTK_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/163.jpg" id="VTK_163" data-flag="@X" onclick="openSidebar('VTK_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/167.jpg" id="VTK_167" data-flag="@X" onclick="openSidebar('VTK_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/170.jpg" id="VTK_170" data-flag="@X" onclick="openSidebar('VTK_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/160.jpg" id="VTK_160" data-flag="@X" onclick="openSidebar('VTK_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/108.jpg" id="VTK_108" data-flag="@X" onclick="openSidebar('VTK_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/9.jpg" id="VTK_9" data-flag="@X" onclick="openSidebar('VTK_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/10.jpg" id="VTK_10" data-flag="@X" onclick="openSidebar('VTK_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/11.jpg" id="VTK_11" data-flag="@X" onclick="openSidebar('VTK_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/12.jpg" id="VTK_12" data-flag="@X" onclick="openSidebar('VTK_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/13.jpg" id="VTK_13" data-flag="@X" onclick="openSidebar('VTK_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/143.jpg" id="VTK_143" data-flag="@X" onclick="openSidebar('VTK_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/165.jpg" id="VTK_165" data-flag="@X" onclick="openSidebar('VTK_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/169.jpg" id="VTK_169" data-flag="@X" onclick="openSidebar('VTK_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/14.jpg" id="VTK_14" data-flag="@X" onclick="openSidebar('VTK_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/61.jpg" id="VTK_61" data-flag="@X" onclick="openSidebar('VTK_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/161.jpg" id="VTK_161" data-flag="@X" onclick="openSidebar('VTK_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/166.jpg" id="VTK_166" data-flag="@X" onclick="openSidebar('VTK_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/168.jpg" id="VTK_168" data-flag="@X" onclick="openSidebar('VTK_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/158.jpg" id="VTK_158" data-flag="@X" onclick="openSidebar('VTK_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/107.jpg" id="VTK_107" data-flag="@X" onclick="openSidebar('VTK_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/159.jpg" id="VTK_159" data-flag="@X" onclick="openSidebar('VTK_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/18.jpg" id="VTK_18" data-flag="@X" onclick="openSidebar('VTK_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/103.jpg" id="VTK_103" data-flag="@X" onclick="openSidebar('VTK_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/48.jpg" id="VTK_48" data-flag="@X" onclick="openSidebar('VTK_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/235.jpg" id="VTK_235" data-flag="@X" onclick="openSidebar('VTK_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/236.jpg" id="VTK_236" data-flag="@X" onclick="openSidebar('VTK_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/23.jpg" id="VTK_23" data-flag="@X" onclick="openSidebar('VTK_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/130.jpg" id="VTK_130" data-flag="@X" onclick="openSidebar('VTK_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/234.jpg" id="VTK_234" data-flag="@X" onclick="openSidebar('VTK_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/65.jpg" id="VTK_65" data-flag="@X" onclick="openSidebar('VTK_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/173.jpg" id="VTK_173" data-flag="@X" onclick="openSidebar('VTK_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/15.jpg" id="VTK_15" data-flag="@X" onclick="openSidebar('VTK_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/8.jpg" id="VTK_8" data-flag="@X" onclick="openSidebar('VTK_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/105.jpg" id="VTK_105" data-flag="@X" onclick="openSidebar('VTK_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/16.jpg" id="VTK_16" data-flag="@X" onclick="openSidebar('VTK_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/17.jpg" id="VTK_17" data-flag="@X" onclick="openSidebar('VTK_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/86.jpg" id="VTK_86" data-flag="@X" onclick="openSidebar('VTK_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/128.jpg" id="VTK_128" data-flag="@X" onclick="openSidebar('VTK_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/0.jpg" id="VTK_0" data-flag="@X" onclick="openSidebar('VTK_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/110.jpg" id="VTK_110" data-flag="@X" onclick="openSidebar('VTK_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/171.jpg" id="VTK_171" data-flag="@X" onclick="openSidebar('VTK_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/66.jpg" id="VTK_66" data-flag="@X" onclick="openSidebar('VTK_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/129.jpg" id="VTK_129" data-flag="@X" onclick="openSidebar('VTK_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/104.jpg" id="VTK_104" data-flag="@X" onclick="openSidebar('VTK_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/109.jpg" id="VTK_109" data-flag="@X" onclick="openSidebar('VTK_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/172.jpg" id="VTK_172" data-flag="@X" onclick="openSidebar('VTK_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/80.jpg" id="VTK_80" data-flag="@X" onclick="openSidebar('VTK_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/242.jpg" id="VTK_242" data-flag="@X" onclick="openSidebar('VTK_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/240.jpg" id="VTK_240" data-flag="@X" onclick="openSidebar('VTK_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/238.jpg" id="VTK_238" data-flag="@X" onclick="openSidebar('VTK_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/239.jpg" id="VTK_239" data-flag="@X" onclick="openSidebar('VTK_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/237.jpg" id="VTK_237" data-flag="@X" onclick="openSidebar('VTK_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/241.jpg" id="VTK_241" data-flag="@X" onclick="openSidebar('VTK_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="VTK_e" data-flag="@E" onclick="openSidebar('VTK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/225.jpg" id="VTK_225" data-flag="@X" onclick="openSidebar('VTK_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/244.jpg" id="VTK_244" data-flag="@X" onclick="openSidebar('VTK_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/245.jpg" id="VTK_245" data-flag="@X" onclick="openSidebar('VTK_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/246.jpg" id="VTK_246" data-flag="@X" onclick="openSidebar('VTK_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/21.jpg" id="VTK_21" data-flag="@X" onclick="openSidebar('VTK_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/243.jpg" id="VTK_243" data-flag="@X" onclick="openSidebar('VTK_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/20.jpg" id="VTK_20" data-flag="@X" onclick="openSidebar('VTK_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/224.jpg" id="VTK_224" data-flag="@X" onclick="openSidebar('VTK_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/247.jpg" id="VTK_247" data-flag="@X" onclick="openSidebar('VTK_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/VTK-files/img/22.jpg" id="VTK_22" data-flag="@X" onclick="openSidebar('VTK_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="VTK_er" data-flag="@E" onclick="openSidebar('VTK_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

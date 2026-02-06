@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/ICO-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>ICO visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/ICO-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
+	
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
+	
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
+	
+		<a class="set-bar inactive" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
+	
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
+	
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
+	
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
+	
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
+	
+		<a class="set-bar inactive" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
+	
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/ICO-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/ICO-files/img/0.jpg" id="ICO_0" data-flag="@X" onclick="openSidebar('ICO_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/4.jpg" id="ICO_4" data-flag="@X" onclick="openSidebar('ICO_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/8.jpg" id="ICO_8" data-flag="@X" onclick="openSidebar('ICO_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/12.jpg" id="ICO_12" data-flag="@X" onclick="openSidebar('ICO_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/16.jpg" id="ICO_16" data-flag="@X" onclick="openSidebar('ICO_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/1.jpg" id="ICO_1" data-flag="@X" onclick="openSidebar('ICO_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/5.jpg" id="ICO_5" data-flag="@X" onclick="openSidebar('ICO_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/9.jpg" id="ICO_9" data-flag="@X" onclick="openSidebar('ICO_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/13.jpg" id="ICO_13" data-flag="@X" onclick="openSidebar('ICO_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/17.jpg" id="ICO_17" data-flag="@X" onclick="openSidebar('ICO_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/2.jpg" id="ICO_2" data-flag="@X" onclick="openSidebar('ICO_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/6.jpg" id="ICO_6" data-flag="@X" onclick="openSidebar('ICO_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/10.jpg" id="ICO_10" data-flag="@X" onclick="openSidebar('ICO_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/14.jpg" id="ICO_14" data-flag="@X" onclick="openSidebar('ICO_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/18.jpg" id="ICO_18" data-flag="@X" onclick="openSidebar('ICO_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/3.jpg" id="ICO_3" data-flag="@X" onclick="openSidebar('ICO_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/7.jpg" id="ICO_7" data-flag="@X" onclick="openSidebar('ICO_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/11.jpg" id="ICO_11" data-flag="@X" onclick="openSidebar('ICO_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/15.jpg" id="ICO_15" data-flag="@X" onclick="openSidebar('ICO_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/19.jpg" id="ICO_19" data-flag="@X" onclick="openSidebar('ICO_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/22.jpg" id="ICO_22" data-flag="@X" onclick="openSidebar('ICO_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/34.jpg" id="ICO_34" data-flag="@X" onclick="openSidebar('ICO_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/46.jpg" id="ICO_46" data-flag="@X" onclick="openSidebar('ICO_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/50.jpg" id="ICO_50" data-flag="@X" onclick="openSidebar('ICO_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/61.jpg" id="ICO_61" data-flag="@X" onclick="openSidebar('ICO_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/23.jpg" id="ICO_23" data-flag="@X" onclick="openSidebar('ICO_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/32.jpg" id="ICO_32" data-flag="@X" onclick="openSidebar('ICO_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/38.jpg" id="ICO_38" data-flag="@X" onclick="openSidebar('ICO_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/49.jpg" id="ICO_49" data-flag="@X" onclick="openSidebar('ICO_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/62.jpg" id="ICO_62" data-flag="@X" onclick="openSidebar('ICO_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/27.jpg" id="ICO_27" data-flag="@X" onclick="openSidebar('ICO_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/29.jpg" id="ICO_29" data-flag="@X" onclick="openSidebar('ICO_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/40.jpg" id="ICO_40" data-flag="@X" onclick="openSidebar('ICO_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/52.jpg" id="ICO_52" data-flag="@X" onclick="openSidebar('ICO_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/56.jpg" id="ICO_56" data-flag="@X" onclick="openSidebar('ICO_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/21.jpg" id="ICO_21" data-flag="@X" onclick="openSidebar('ICO_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/35.jpg" id="ICO_35" data-flag="@X" onclick="openSidebar('ICO_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/42.jpg" id="ICO_42" data-flag="@X" onclick="openSidebar('ICO_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/54.jpg" id="ICO_54" data-flag="@X" onclick="openSidebar('ICO_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/60.jpg" id="ICO_60" data-flag="@X" onclick="openSidebar('ICO_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/28.jpg" id="ICO_28" data-flag="@X" onclick="openSidebar('ICO_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/33.jpg" id="ICO_33" data-flag="@X" onclick="openSidebar('ICO_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/45.jpg" id="ICO_45" data-flag="@X" onclick="openSidebar('ICO_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/47.jpg" id="ICO_47" data-flag="@X" onclick="openSidebar('ICO_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/57.jpg" id="ICO_57" data-flag="@X" onclick="openSidebar('ICO_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/24.jpg" id="ICO_24" data-flag="@X" onclick="openSidebar('ICO_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/36.jpg" id="ICO_36" data-flag="@X" onclick="openSidebar('ICO_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/39.jpg" id="ICO_39" data-flag="@X" onclick="openSidebar('ICO_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/53.jpg" id="ICO_53" data-flag="@X" onclick="openSidebar('ICO_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/59.jpg" id="ICO_59" data-flag="@X" onclick="openSidebar('ICO_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/26.jpg" id="ICO_26" data-flag="@X" onclick="openSidebar('ICO_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/30.jpg" id="ICO_30" data-flag="@X" onclick="openSidebar('ICO_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/43.jpg" id="ICO_43" data-flag="@X" onclick="openSidebar('ICO_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/51.jpg" id="ICO_51" data-flag="@X" onclick="openSidebar('ICO_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/64.jpg" id="ICO_64" data-flag="@X" onclick="openSidebar('ICO_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/20.jpg" id="ICO_20" data-flag="@X" onclick="openSidebar('ICO_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/31.jpg" id="ICO_31" data-flag="@X" onclick="openSidebar('ICO_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/41.jpg" id="ICO_41" data-flag="@X" onclick="openSidebar('ICO_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/48.jpg" id="ICO_48" data-flag="@X" onclick="openSidebar('ICO_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/58.jpg" id="ICO_58" data-flag="@X" onclick="openSidebar('ICO_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/25.jpg" id="ICO_25" data-flag="@X" onclick="openSidebar('ICO_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/37.jpg" id="ICO_37" data-flag="@X" onclick="openSidebar('ICO_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/44.jpg" id="ICO_44" data-flag="@X" onclick="openSidebar('ICO_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/55.jpg" id="ICO_55" data-flag="@X" onclick="openSidebar('ICO_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/63.jpg" id="ICO_63" data-flag="@X" onclick="openSidebar('ICO_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/83.jpg" id="ICO_83" data-flag="@X" onclick="openSidebar('ICO_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/96.jpg" id="ICO_96" data-flag="@X" onclick="openSidebar('ICO_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/123.jpg" id="ICO_123" data-flag="@X" onclick="openSidebar('ICO_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/133.jpg" id="ICO_133" data-flag="@X" onclick="openSidebar('ICO_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/147.jpg" id="ICO_147" data-flag="@X" onclick="openSidebar('ICO_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/85.jpg" id="ICO_85" data-flag="@X" onclick="openSidebar('ICO_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/101.jpg" id="ICO_101" data-flag="@X" onclick="openSidebar('ICO_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/124.jpg" id="ICO_124" data-flag="@X" onclick="openSidebar('ICO_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/125.jpg" id="ICO_125" data-flag="@X" onclick="openSidebar('ICO_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/140.jpg" id="ICO_140" data-flag="@X" onclick="openSidebar('ICO_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/81.jpg" id="ICO_81" data-flag="@X" onclick="openSidebar('ICO_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/102.jpg" id="ICO_102" data-flag="@X" onclick="openSidebar('ICO_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/119.jpg" id="ICO_119" data-flag="@X" onclick="openSidebar('ICO_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/131.jpg" id="ICO_131" data-flag="@X" onclick="openSidebar('ICO_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/148.jpg" id="ICO_148" data-flag="@X" onclick="openSidebar('ICO_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/80.jpg" id="ICO_80" data-flag="@X" onclick="openSidebar('ICO_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/95.jpg" id="ICO_95" data-flag="@X" onclick="openSidebar('ICO_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/110.jpg" id="ICO_110" data-flag="@X" onclick="openSidebar('ICO_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/128.jpg" id="ICO_128" data-flag="@X" onclick="openSidebar('ICO_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/151.jpg" id="ICO_151" data-flag="@X" onclick="openSidebar('ICO_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/92.jpg" id="ICO_92" data-flag="@X" onclick="openSidebar('ICO_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/103.jpg" id="ICO_103" data-flag="@X" onclick="openSidebar('ICO_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/114.jpg" id="ICO_114" data-flag="@X" onclick="openSidebar('ICO_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/134.jpg" id="ICO_134" data-flag="@X" onclick="openSidebar('ICO_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/153.jpg" id="ICO_153" data-flag="@X" onclick="openSidebar('ICO_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/94.jpg" id="ICO_94" data-flag="@X" onclick="openSidebar('ICO_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/106.jpg" id="ICO_106" data-flag="@X" onclick="openSidebar('ICO_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/112.jpg" id="ICO_112" data-flag="@X" onclick="openSidebar('ICO_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/130.jpg" id="ICO_130" data-flag="@X" onclick="openSidebar('ICO_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/141.jpg" id="ICO_141" data-flag="@X" onclick="openSidebar('ICO_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/87.jpg" id="ICO_87" data-flag="@X" onclick="openSidebar('ICO_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/108.jpg" id="ICO_108" data-flag="@X" onclick="openSidebar('ICO_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/113.jpg" id="ICO_113" data-flag="@X" onclick="openSidebar('ICO_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/129.jpg" id="ICO_129" data-flag="@X" onclick="openSidebar('ICO_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/143.jpg" id="ICO_143" data-flag="@X" onclick="openSidebar('ICO_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/89.jpg" id="ICO_89" data-flag="@X" onclick="openSidebar('ICO_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/107.jpg" id="ICO_107" data-flag="@X" onclick="openSidebar('ICO_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/121.jpg" id="ICO_121" data-flag="@X" onclick="openSidebar('ICO_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/136.jpg" id="ICO_136" data-flag="@X" onclick="openSidebar('ICO_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/149.jpg" id="ICO_149" data-flag="@X" onclick="openSidebar('ICO_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/86.jpg" id="ICO_86" data-flag="@X" onclick="openSidebar('ICO_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/105.jpg" id="ICO_105" data-flag="@X" onclick="openSidebar('ICO_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/118.jpg" id="ICO_118" data-flag="@X" onclick="openSidebar('ICO_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/138.jpg" id="ICO_138" data-flag="@X" onclick="openSidebar('ICO_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/142.jpg" id="ICO_142" data-flag="@X" onclick="openSidebar('ICO_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/91.jpg" id="ICO_91" data-flag="@X" onclick="openSidebar('ICO_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/97.jpg" id="ICO_97" data-flag="@X" onclick="openSidebar('ICO_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/120.jpg" id="ICO_120" data-flag="@X" onclick="openSidebar('ICO_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/126.jpg" id="ICO_126" data-flag="@X" onclick="openSidebar('ICO_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/146.jpg" id="ICO_146" data-flag="@X" onclick="openSidebar('ICO_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/88.jpg" id="ICO_88" data-flag="@X" onclick="openSidebar('ICO_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/100.jpg" id="ICO_100" data-flag="@X" onclick="openSidebar('ICO_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/111.jpg" id="ICO_111" data-flag="@X" onclick="openSidebar('ICO_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/137.jpg" id="ICO_137" data-flag="@X" onclick="openSidebar('ICO_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/150.jpg" id="ICO_150" data-flag="@X" onclick="openSidebar('ICO_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/93.jpg" id="ICO_93" data-flag="@X" onclick="openSidebar('ICO_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/104.jpg" id="ICO_104" data-flag="@X" onclick="openSidebar('ICO_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/116.jpg" id="ICO_116" data-flag="@X" onclick="openSidebar('ICO_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/127.jpg" id="ICO_127" data-flag="@X" onclick="openSidebar('ICO_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/144.jpg" id="ICO_144" data-flag="@X" onclick="openSidebar('ICO_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/90.jpg" id="ICO_90" data-flag="@X" onclick="openSidebar('ICO_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/109.jpg" id="ICO_109" data-flag="@X" onclick="openSidebar('ICO_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/117.jpg" id="ICO_117" data-flag="@X" onclick="openSidebar('ICO_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/132.jpg" id="ICO_132" data-flag="@X" onclick="openSidebar('ICO_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/145.jpg" id="ICO_145" data-flag="@X" onclick="openSidebar('ICO_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/82.jpg" id="ICO_82" data-flag="@X" onclick="openSidebar('ICO_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/99.jpg" id="ICO_99" data-flag="@X" onclick="openSidebar('ICO_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/115.jpg" id="ICO_115" data-flag="@X" onclick="openSidebar('ICO_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/135.jpg" id="ICO_135" data-flag="@X" onclick="openSidebar('ICO_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/152.jpg" id="ICO_152" data-flag="@X" onclick="openSidebar('ICO_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/84.jpg" id="ICO_84" data-flag="@X" onclick="openSidebar('ICO_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/98.jpg" id="ICO_98" data-flag="@X" onclick="openSidebar('ICO_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/122.jpg" id="ICO_122" data-flag="@X" onclick="openSidebar('ICO_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/139.jpg" id="ICO_139" data-flag="@X" onclick="openSidebar('ICO_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/154.jpg" id="ICO_154" data-flag="@X" onclick="openSidebar('ICO_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/183.jpg" id="ICO_183" data-flag="@X" onclick="openSidebar('ICO_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/194.jpg" id="ICO_194" data-flag="@X" onclick="openSidebar('ICO_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/208.jpg" id="ICO_208" data-flag="@X" onclick="openSidebar('ICO_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/221.jpg" id="ICO_221" data-flag="@X" onclick="openSidebar('ICO_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/233.jpg" id="ICO_233" data-flag="@X" onclick="openSidebar('ICO_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/187.jpg" id="ICO_187" data-flag="@X" onclick="openSidebar('ICO_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/203.jpg" id="ICO_203" data-flag="@X" onclick="openSidebar('ICO_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/215.jpg" id="ICO_215" data-flag="@X" onclick="openSidebar('ICO_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/226.jpg" id="ICO_226" data-flag="@X" onclick="openSidebar('ICO_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/235.jpg" id="ICO_235" data-flag="@X" onclick="openSidebar('ICO_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/192.jpg" id="ICO_192" data-flag="@X" onclick="openSidebar('ICO_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/198.jpg" id="ICO_198" data-flag="@X" onclick="openSidebar('ICO_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/218.jpg" id="ICO_218" data-flag="@X" onclick="openSidebar('ICO_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/228.jpg" id="ICO_228" data-flag="@X" onclick="openSidebar('ICO_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/244.jpg" id="ICO_244" data-flag="@X" onclick="openSidebar('ICO_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/180.jpg" id="ICO_180" data-flag="@X" onclick="openSidebar('ICO_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/205.jpg" id="ICO_205" data-flag="@X" onclick="openSidebar('ICO_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/213.jpg" id="ICO_213" data-flag="@X" onclick="openSidebar('ICO_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/223.jpg" id="ICO_223" data-flag="@X" onclick="openSidebar('ICO_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/232.jpg" id="ICO_232" data-flag="@X" onclick="openSidebar('ICO_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/186.jpg" id="ICO_186" data-flag="@X" onclick="openSidebar('ICO_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/195.jpg" id="ICO_195" data-flag="@X" onclick="openSidebar('ICO_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/212.jpg" id="ICO_212" data-flag="@X" onclick="openSidebar('ICO_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/229.jpg" id="ICO_229" data-flag="@X" onclick="openSidebar('ICO_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/240.jpg" id="ICO_240" data-flag="@X" onclick="openSidebar('ICO_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/185.jpg" id="ICO_185" data-flag="@X" onclick="openSidebar('ICO_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/197.jpg" id="ICO_197" data-flag="@X" onclick="openSidebar('ICO_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/214.jpg" id="ICO_214" data-flag="@X" onclick="openSidebar('ICO_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/220.jpg" id="ICO_220" data-flag="@X" onclick="openSidebar('ICO_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/242.jpg" id="ICO_242" data-flag="@X" onclick="openSidebar('ICO_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/181.jpg" id="ICO_181" data-flag="@X" onclick="openSidebar('ICO_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/200.jpg" id="ICO_200" data-flag="@X" onclick="openSidebar('ICO_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/209.jpg" id="ICO_209" data-flag="@X" onclick="openSidebar('ICO_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/227.jpg" id="ICO_227" data-flag="@X" onclick="openSidebar('ICO_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/234.jpg" id="ICO_234" data-flag="@X" onclick="openSidebar('ICO_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/182.jpg" id="ICO_182" data-flag="@X" onclick="openSidebar('ICO_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/201.jpg" id="ICO_201" data-flag="@X" onclick="openSidebar('ICO_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/210.jpg" id="ICO_210" data-flag="@X" onclick="openSidebar('ICO_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/225.jpg" id="ICO_225" data-flag="@X" onclick="openSidebar('ICO_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/241.jpg" id="ICO_241" data-flag="@X" onclick="openSidebar('ICO_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/191.jpg" id="ICO_191" data-flag="@X" onclick="openSidebar('ICO_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/196.jpg" id="ICO_196" data-flag="@X" onclick="openSidebar('ICO_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/207.jpg" id="ICO_207" data-flag="@X" onclick="openSidebar('ICO_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/224.jpg" id="ICO_224" data-flag="@X" onclick="openSidebar('ICO_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/243.jpg" id="ICO_243" data-flag="@X" onclick="openSidebar('ICO_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/188.jpg" id="ICO_188" data-flag="@X" onclick="openSidebar('ICO_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/193.jpg" id="ICO_193" data-flag="@X" onclick="openSidebar('ICO_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/211.jpg" id="ICO_211" data-flag="@X" onclick="openSidebar('ICO_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/230.jpg" id="ICO_230" data-flag="@X" onclick="openSidebar('ICO_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/238.jpg" id="ICO_238" data-flag="@X" onclick="openSidebar('ICO_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/189.jpg" id="ICO_189" data-flag="@X" onclick="openSidebar('ICO_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/199.jpg" id="ICO_199" data-flag="@X" onclick="openSidebar('ICO_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/206.jpg" id="ICO_206" data-flag="@X" onclick="openSidebar('ICO_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/231.jpg" id="ICO_231" data-flag="@X" onclick="openSidebar('ICO_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/237.jpg" id="ICO_237" data-flag="@X" onclick="openSidebar('ICO_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/184.jpg" id="ICO_184" data-flag="@X" onclick="openSidebar('ICO_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/202.jpg" id="ICO_202" data-flag="@X" onclick="openSidebar('ICO_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/217.jpg" id="ICO_217" data-flag="@X" onclick="openSidebar('ICO_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/222.jpg" id="ICO_222" data-flag="@X" onclick="openSidebar('ICO_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/236.jpg" id="ICO_236" data-flag="@X" onclick="openSidebar('ICO_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/190.jpg" id="ICO_190" data-flag="@X" onclick="openSidebar('ICO_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/204.jpg" id="ICO_204" data-flag="@X" onclick="openSidebar('ICO_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/216.jpg" id="ICO_216" data-flag="@X" onclick="openSidebar('ICO_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/219.jpg" id="ICO_219" data-flag="@X" onclick="openSidebar('ICO_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/239.jpg" id="ICO_239" data-flag="@X" onclick="openSidebar('ICO_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/65.jpg" id="ICO_65" data-flag="@X" onclick="openSidebar('ICO_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/66.jpg" id="ICO_66" data-flag="@X" onclick="openSidebar('ICO_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/67.jpg" id="ICO_67" data-flag="@X" onclick="openSidebar('ICO_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/68.jpg" id="ICO_68" data-flag="@X" onclick="openSidebar('ICO_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/69.jpg" id="ICO_69" data-flag="@X" onclick="openSidebar('ICO_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/155.jpg" id="ICO_155" data-flag="@X" onclick="openSidebar('ICO_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/156.jpg" id="ICO_156" data-flag="@X" onclick="openSidebar('ICO_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/157.jpg" id="ICO_157" data-flag="@X" onclick="openSidebar('ICO_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/158.jpg" id="ICO_158" data-flag="@X" onclick="openSidebar('ICO_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/159.jpg" id="ICO_159" data-flag="@X" onclick="openSidebar('ICO_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/245.jpg" id="ICO_245" data-flag="@X" onclick="openSidebar('ICO_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/246.jpg" id="ICO_246" data-flag="@X" onclick="openSidebar('ICO_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/247.jpg" id="ICO_247" data-flag="@X" onclick="openSidebar('ICO_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/248.jpg" id="ICO_248" data-flag="@X" onclick="openSidebar('ICO_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/249.jpg" id="ICO_249" data-flag="@X" onclick="openSidebar('ICO_249',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/70.jpg" id="ICO_70" data-flag="@X" onclick="openSidebar('ICO_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/73.jpg" id="ICO_73" data-flag="@X" onclick="openSidebar('ICO_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/71.jpg" id="ICO_71" data-flag="@X" onclick="openSidebar('ICO_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/74.jpg" id="ICO_74" data-flag="@X" onclick="openSidebar('ICO_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/72.jpg" id="ICO_72" data-flag="@X" onclick="openSidebar('ICO_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/160.jpg" id="ICO_160" data-flag="@X" onclick="openSidebar('ICO_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/163.jpg" id="ICO_163" data-flag="@X" onclick="openSidebar('ICO_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/161.jpg" id="ICO_161" data-flag="@X" onclick="openSidebar('ICO_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/164.jpg" id="ICO_164" data-flag="@X" onclick="openSidebar('ICO_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/162.jpg" id="ICO_162" data-flag="@X" onclick="openSidebar('ICO_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/250.jpg" id="ICO_250" data-flag="@X" onclick="openSidebar('ICO_250',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/253.jpg" id="ICO_253" data-flag="@X" onclick="openSidebar('ICO_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/251.jpg" id="ICO_251" data-flag="@X" onclick="openSidebar('ICO_251',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/254.jpg" id="ICO_254" data-flag="@X" onclick="openSidebar('ICO_254',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/252.jpg" id="ICO_252" data-flag="@X" onclick="openSidebar('ICO_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/76.jpg" id="ICO_76" data-flag="@X" onclick="openSidebar('ICO_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/75.jpg" id="ICO_75" data-flag="@X" onclick="openSidebar('ICO_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/77.jpg" id="ICO_77" data-flag="@X" onclick="openSidebar('ICO_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/78.jpg" id="ICO_78" data-flag="@X" onclick="openSidebar('ICO_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/174.jpg" id="ICO_174" data-flag="@X" onclick="openSidebar('ICO_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/175.jpg" id="ICO_175" data-flag="@X" onclick="openSidebar('ICO_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/178.jpg" id="ICO_178" data-flag="@X" onclick="openSidebar('ICO_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/179.jpg" id="ICO_179" data-flag="@X" onclick="openSidebar('ICO_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/177.jpg" id="ICO_177" data-flag="@X" onclick="openSidebar('ICO_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/176.jpg" id="ICO_176" data-flag="@X" onclick="openSidebar('ICO_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/173.jpg" id="ICO_173" data-flag="@X" onclick="openSidebar('ICO_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/172.jpg" id="ICO_172" data-flag="@X" onclick="openSidebar('ICO_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/258.jpg" id="ICO_258" data-flag="@X" onclick="openSidebar('ICO_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/255.jpg" id="ICO_255" data-flag="@X" onclick="openSidebar('ICO_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/259.jpg" id="ICO_259" data-flag="@X" onclick="openSidebar('ICO_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/256.jpg" id="ICO_256" data-flag="@X" onclick="openSidebar('ICO_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/257.jpg" id="ICO_257" data-flag="@X" onclick="openSidebar('ICO_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ICO_e" data-flag="@E" onclick="openSidebar('ICO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ICO_e" data-flag="@E" onclick="openSidebar('ICO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ICO_e" data-flag="@E" onclick="openSidebar('ICO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/165.jpg" id="ICO_165" data-flag="@X" onclick="openSidebar('ICO_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/166.jpg" id="ICO_166" data-flag="@X" onclick="openSidebar('ICO_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/167.jpg" id="ICO_167" data-flag="@X" onclick="openSidebar('ICO_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/168.jpg" id="ICO_168" data-flag="@X" onclick="openSidebar('ICO_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/169.jpg" id="ICO_169" data-flag="@X" onclick="openSidebar('ICO_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/79.jpg" id="ICO_79" data-flag="@X" onclick="openSidebar('ICO_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/170.jpg" id="ICO_170" data-flag="@X" onclick="openSidebar('ICO_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/171.jpg" id="ICO_171" data-flag="@X" onclick="openSidebar('ICO_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/260.jpg" id="ICO_260" data-flag="@X" onclick="openSidebar('ICO_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ICO_e" data-flag="@E" onclick="openSidebar('ICO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/261.jpg" id="ICO_261" data-flag="@X" onclick="openSidebar('ICO_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/263.jpg" id="ICO_263" data-flag="@X" onclick="openSidebar('ICO_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/264.jpg" id="ICO_264" data-flag="@X" onclick="openSidebar('ICO_264',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/265.jpg" id="ICO_265" data-flag="@X" onclick="openSidebar('ICO_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/262.jpg" id="ICO_262" data-flag="@X" onclick="openSidebar('ICO_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/311.jpg" id="ICO_311" data-flag="@X" onclick="openSidebar('ICO_311',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/309.jpg" id="ICO_309" data-flag="@X" onclick="openSidebar('ICO_309',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/310.jpg" id="ICO_310" data-flag="@X" onclick="openSidebar('ICO_310',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/312.jpg" id="ICO_312" data-flag="@X" onclick="openSidebar('ICO_312',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/298.jpg" id="ICO_298" data-flag="@X" onclick="openSidebar('ICO_298',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/297.jpg" id="ICO_297" data-flag="@X" onclick="openSidebar('ICO_297',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/296.jpg" id="ICO_296" data-flag="@X" onclick="openSidebar('ICO_296',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/301.jpg" id="ICO_301" data-flag="@X" onclick="openSidebar('ICO_301',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/300.jpg" id="ICO_300" data-flag="@X" onclick="openSidebar('ICO_300',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/299.jpg" id="ICO_299" data-flag="@X" onclick="openSidebar('ICO_299',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/303.jpg" id="ICO_303" data-flag="@X" onclick="openSidebar('ICO_303',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/302.jpg" id="ICO_302" data-flag="@X" onclick="openSidebar('ICO_302',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/306.jpg" id="ICO_306" data-flag="@X" onclick="openSidebar('ICO_306',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/305.jpg" id="ICO_305" data-flag="@X" onclick="openSidebar('ICO_305',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/304.jpg" id="ICO_304" data-flag="@X" onclick="openSidebar('ICO_304',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/307.jpg" id="ICO_307" data-flag="@X" onclick="openSidebar('ICO_307',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/308.jpg" id="ICO_308" data-flag="@X" onclick="openSidebar('ICO_308',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ICO_e" data-flag="@E" onclick="openSidebar('ICO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ICO_e" data-flag="@E" onclick="openSidebar('ICO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="ICO_e" data-flag="@E" onclick="openSidebar('ICO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div id="masterpiece" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/266.jpg" id="ICO_266" data-flag="@X" onclick="openSidebar('ICO_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/273.jpg" id="ICO_273" data-flag="@X" onclick="openSidebar('ICO_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/278.jpg" id="ICO_278" data-flag="@X" onclick="openSidebar('ICO_278',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/284.jpg" id="ICO_284" data-flag="@X" onclick="openSidebar('ICO_284',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/290.jpg" id="ICO_290" data-flag="@X" onclick="openSidebar('ICO_290',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/270.jpg" id="ICO_270" data-flag="@X" onclick="openSidebar('ICO_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/277.jpg" id="ICO_277" data-flag="@X" onclick="openSidebar('ICO_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/281.jpg" id="ICO_281" data-flag="@X" onclick="openSidebar('ICO_281',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/286.jpg" id="ICO_286" data-flag="@X" onclick="openSidebar('ICO_286',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/294.jpg" id="ICO_294" data-flag="@X" onclick="openSidebar('ICO_294',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/267.jpg" id="ICO_267" data-flag="@X" onclick="openSidebar('ICO_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/274.jpg" id="ICO_274" data-flag="@X" onclick="openSidebar('ICO_274',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/283.jpg" id="ICO_283" data-flag="@X" onclick="openSidebar('ICO_283',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/287.jpg" id="ICO_287" data-flag="@X" onclick="openSidebar('ICO_287',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/292.jpg" id="ICO_292" data-flag="@X" onclick="openSidebar('ICO_292',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/268.jpg" id="ICO_268" data-flag="@X" onclick="openSidebar('ICO_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/275.jpg" id="ICO_275" data-flag="@X" onclick="openSidebar('ICO_275',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/282.jpg" id="ICO_282" data-flag="@X" onclick="openSidebar('ICO_282',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/289.jpg" id="ICO_289" data-flag="@X" onclick="openSidebar('ICO_289',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/291.jpg" id="ICO_291" data-flag="@X" onclick="openSidebar('ICO_291',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/269.jpg" id="ICO_269" data-flag="@X" onclick="openSidebar('ICO_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/276.jpg" id="ICO_276" data-flag="@X" onclick="openSidebar('ICO_276',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/279.jpg" id="ICO_279" data-flag="@X" onclick="openSidebar('ICO_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/288.jpg" id="ICO_288" data-flag="@X" onclick="openSidebar('ICO_288',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/293.jpg" id="ICO_293" data-flag="@X" onclick="openSidebar('ICO_293',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/271.jpg" id="ICO_271" data-flag="@X" onclick="openSidebar('ICO_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/272.jpg" id="ICO_272" data-flag="@X" onclick="openSidebar('ICO_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/280.jpg" id="ICO_280" data-flag="@X" onclick="openSidebar('ICO_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/285.jpg" id="ICO_285" data-flag="@X" onclick="openSidebar('ICO_285',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/ICO-files/img/295.jpg" id="ICO_295" data-flag="@X" onclick="openSidebar('ICO_295',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="ICO_er" data-flag="@E" onclick="openSidebar('ICO_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

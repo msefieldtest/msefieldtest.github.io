@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/SHU-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>SHU visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/SHU-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
+	
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
+	
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
+	
+		<a class="set-bar inactive" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
+	
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
+	
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
+	
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
+	
+		<a class="set-bar inactive" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
+	
+		<a class="set-bar inactive" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
+	
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/SHU-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/SHU-files/img/5_The Chalicar of Setaka.jpg" id="SHU_5_The Chalicar of Setaka" data-flag="@X" onclick="openSidebar('SHU_5_The Chalicar of Setaka',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/57_Into the Rift.jpg" id="SHU_57_Into the Rift" data-flag="@X" onclick="openSidebar('SHU_57_Into the Rift',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/83_Conqueror of Belveth.jpg" id="SHU_83_Conqueror of Belveth" data-flag="@X" onclick="openSidebar('SHU_83_Conqueror of Belveth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/135_Hotheaded Explosioneer.jpg" id="SHU_135_Hotheaded Explosioneer" data-flag="@X" onclick="openSidebar('SHU_135_Hotheaded Explosioneer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/157_The Bird and the Branch.jpg" id="SHU_157_The Bird and the Branch" data-flag="@X" onclick="openSidebar('SHU_157_The Bird and the Branch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/37_Unstoppable Onslaught.jpg" id="SHU_37_Unstoppable Onslaught" data-flag="@X" onclick="openSidebar('SHU_37_Unstoppable Onslaught',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/66_Screaming Acolytes.jpg" id="SHU_66_Screaming Acolytes" data-flag="@X" onclick="openSidebar('SHU_66_Screaming Acolytes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/113_Where Icathia Once Stood.jpg" id="SHU_113_Where Icathia Once Stood" data-flag="@X" onclick="openSidebar('SHU_113_Where Icathia Once Stood',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/143_Shard of Violence.jpg" id="SHU_143_Shard of Violence" data-flag="@X" onclick="openSidebar('SHU_143_Shard of Violence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/177_Protector of the Oasis.jpg" id="SHU_177_Protector of the Oasis" data-flag="@X" onclick="openSidebar('SHU_177_Protector of the Oasis',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/6_Conductor of the Sai.jpg" id="SHU_6_Conductor of the Sai" data-flag="@X" onclick="openSidebar('SHU_6_Conductor of the Sai',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/42_Capture the Sun.jpg" id="SHU_42_Capture the Sun" data-flag="@X" onclick="openSidebar('SHU_42_Capture the Sun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/82_Cho'Gath, Hunger of the Void.jpg" id="SHU_82_ChoGath, Hunger of the Void" data-flag="@X" onclick="openSidebar('SHU_82_ChoGath, Hunger of the Void',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/115_Amumu, Cursed Child.jpg" id="SHU_115_Amumu, Cursed Child" data-flag="@X" onclick="openSidebar('SHU_115_Amumu, Cursed Child',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/165_Daring Explorer.jpg" id="SHU_165_Daring Explorer" data-flag="@X" onclick="openSidebar('SHU_165_Daring Explorer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/13_Emperor's Judgment.jpg" id="SHU_13_Emperors Judgment" data-flag="@X" onclick="openSidebar('SHU_13_Emperors Judgment',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/44_Clockling Prototype.jpg" id="SHU_44_Clockling Prototype" data-flag="@X" onclick="openSidebar('SHU_44_Clockling Prototype',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/85_Death of Divinity.jpg" id="SHU_85_Death of Divinity" data-flag="@X" onclick="openSidebar('SHU_85_Death of Divinity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/132_An Explorer's Journey.jpg" id="SHU_132_An Explorers Journey" data-flag="@X" onclick="openSidebar('SHU_132_An Explorers Journey',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/167_Golden Herald.jpg" id="SHU_167_Golden Herald" data-flag="@X" onclick="openSidebar('SHU_167_Golden Herald',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/25_Pass the Torch.jpg" id="SHU_25_Pass the Torch" data-flag="@X" onclick="openSidebar('SHU_25_Pass the Torch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/55_Herald of the Magus.jpg" id="SHU_55_Herald of the Magus" data-flag="@X" onclick="openSidebar('SHU_55_Herald of the Magus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/87_Demon of Domination.jpg" id="SHU_87_Demon of Domination" data-flag="@X" onclick="openSidebar('SHU_87_Demon of Domination',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/134_Horned Swarmcaller.jpg" id="SHU_134_Horned Swarmcaller" data-flag="@X" onclick="openSidebar('SHU_134_Horned Swarmcaller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/168_Gorging Monstrosity.jpg" id="SHU_168_Gorging Monstrosity" data-flag="@X" onclick="openSidebar('SHU_168_Gorging Monstrosity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/28_Rise from the Sands.jpg" id="SHU_28_Rise from the Sands" data-flag="@X" onclick="openSidebar('SHU_28_Rise from the Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/58_Khahiri, Chosen Through Time.jpg" id="SHU_58_Khahiri, Chosen Through Time" data-flag="@X" onclick="openSidebar('SHU_58_Khahiri, Chosen Through Time',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/88_Evangelist of Oblivion.jpg" id="SHU_88_Evangelist of Oblivion" data-flag="@X" onclick="openSidebar('SHU_88_Evangelist of Oblivion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/137_One Mind to Many.jpg" id="SHU_137_One Mind to Many" data-flag="@X" onclick="openSidebar('SHU_137_One Mind to Many',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/171_Grumpy Rockbear.jpg" id="SHU_171_Grumpy Rockbear" data-flag="@X" onclick="openSidebar('SHU_171_Grumpy Rockbear',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/30_Saijax Cail-Rynx Kohari Icath'un.jpg" id="SHU_30_Saijax Cail-Rynx Kohari Icathun" data-flag="@X" onclick="openSidebar('SHU_30_Saijax Cail-Rynx Kohari Icathun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/62_Relic Speaker.jpg" id="SHU_62_Relic Speaker" data-flag="@X" onclick="openSidebar('SHU_62_Relic Speaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/90_Feast of the Prophet.jpg" id="SHU_90_Feast of the Prophet" data-flag="@X" onclick="openSidebar('SHU_90_Feast of the Prophet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/140_Relentless Sandthresher.jpg" id="SHU_140_Relentless Sandthresher" data-flag="@X" onclick="openSidebar('SHU_140_Relentless Sandthresher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/176_Petrifying Baccai.jpg" id="SHU_176_Petrifying Baccai" data-flag="@X" onclick="openSidebar('SHU_176_Petrifying Baccai',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/32_Seer Beyond the Sands.jpg" id="SHU_32_Seer Beyond the Sands" data-flag="@X" onclick="openSidebar('SHU_32_Seer Beyond the Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/72_Time Stop.jpg" id="SHU_72_Time Stop" data-flag="@X" onclick="openSidebar('SHU_72_Time Stop',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/91_Hierophant of Zuretta.jpg" id="SHU_91_Hierophant of Zuretta" data-flag="@X" onclick="openSidebar('SHU_91_Hierophant of Zuretta',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/145_Subterranean Collapse.jpg" id="SHU_145_Subterranean Collapse" data-flag="@X" onclick="openSidebar('SHU_145_Subterranean Collapse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/178_Radiance of the Ascended.jpg" id="SHU_178_Radiance of the Ascended" data-flag="@X" onclick="openSidebar('SHU_178_Radiance of the Ascended',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/35_Sunlit Guardian.jpg" id="SHU_35_Sunlit Guardian" data-flag="@X" onclick="openSidebar('SHU_35_Sunlit Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/75_Visions of the Future.jpg" id="SHU_75_Visions of the Future" data-flag="@X" onclick="openSidebar('SHU_75_Visions of the Future',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/112_Void Abomination.jpg" id="SHU_112_Void Abomination" data-flag="@X" onclick="openSidebar('SHU_112_Void Abomination',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/150_Wandering Yordle.jpg" id="SHU_150_Wandering Yordle" data-flag="@X" onclick="openSidebar('SHU_150_Wandering Yordle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/188_Taliyah, the Stoneweaver.jpg" id="SHU_188_Taliyah, the Stoneweaver" data-flag="@X" onclick="openSidebar('SHU_188_Taliyah, the Stoneweaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/3_Azir's Verdict.jpg" id="SHU_3_Azirs Verdict" data-flag="@X" onclick="openSidebar('SHU_3_Azirs Verdict',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/43_Chronostasis.jpg" id="SHU_43_Chronostasis" data-flag="@X" onclick="openSidebar('SHU_43_Chronostasis',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/77_Adaptive Rebirth.jpg" id="SHU_77_Adaptive Rebirth" data-flag="@X" onclick="openSidebar('SHU_77_Adaptive Rebirth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/117_Armed Acquisitioner.jpg" id="SHU_117_Armed Acquisitioner" data-flag="@X" onclick="openSidebar('SHU_117_Armed Acquisitioner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/153_Amakra Refugee.jpg" id="SHU_153_Amakra Refugee" data-flag="@X" onclick="openSidebar('SHU_153_Amakra Refugee',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/7_Decree of the Sands.jpg" id="SHU_7_Decree of the Sands" data-flag="@X" onclick="openSidebar('SHU_7_Decree of the Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/46_Curator's Sentinel.jpg" id="SHU_46_Curators Sentinel" data-flag="@X" onclick="openSidebar('SHU_46_Curators Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/78_Azir's Reclaimer.jpg" id="SHU_78_Azirs Reclaimer" data-flag="@X" onclick="openSidebar('SHU_78_Azirs Reclaimer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/119_Bloodthirsty Marauder.jpg" id="SHU_119_Bloodthirsty Marauder" data-flag="@X" onclick="openSidebar('SHU_119_Bloodthirsty Marauder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/154_Ascended Warfare.jpg" id="SHU_154_Ascended Warfare" data-flag="@X" onclick="openSidebar('SHU_154_Ascended Warfare',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/8_Devoted Council.jpg" id="SHU_8_Devoted Council" data-flag="@X" onclick="openSidebar('SHU_8_Devoted Council',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/47_Curious Obsession.jpg" id="SHU_47_Curious Obsession" data-flag="@X" onclick="openSidebar('SHU_47_Curious Obsession',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/79_Baccai Taskmaster.jpg" id="SHU_79_Baccai Taskmaster" data-flag="@X" onclick="openSidebar('SHU_79_Baccai Taskmaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/122_Caravan Marker.jpg" id="SHU_122_Caravan Marker" data-flag="@X" onclick="openSidebar('SHU_122_Caravan Marker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/158_Brothers' Bloodshed.jpg" id="SHU_158_Brothers Bloodshed" data-flag="@X" onclick="openSidebar('SHU_158_Brothers Bloodshed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/9_Devoted of the Sun Disc.jpg" id="SHU_9_Devoted of the Sun Disc" data-flag="@X" onclick="openSidebar('SHU_9_Devoted of the Sun Disc',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/49_Empire Reconstructor.jpg" id="SHU_49_Empire Reconstructor" data-flag="@X" onclick="openSidebar('SHU_49_Empire Reconstructor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/80_Banished to Darkness.jpg" id="SHU_80_Banished to Darkness" data-flag="@X" onclick="openSidebar('SHU_80_Banished to Darkness',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/123_Carikkan's Guardian.jpg" id="SHU_123_Carikkans Guardian" data-flag="@X" onclick="openSidebar('SHU_123_Carikkans Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/160_Charging Tusker.jpg" id="SHU_160_Charging Tusker" data-flag="@X" onclick="openSidebar('SHU_160_Charging Tusker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/10_Dune Predator.jpg" id="SHU_10_Dune Predator" data-flag="@X" onclick="openSidebar('SHU_10_Dune Predator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/50_Forgotten Terror.jpg" id="SHU_50_Forgotten Terror" data-flag="@X" onclick="openSidebar('SHU_50_Forgotten Terror',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/84_Cut the Rope.jpg" id="SHU_84_Cut the Rope" data-flag="@X" onclick="openSidebar('SHU_84_Cut the Rope',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/124_Channeler of the Arcane.jpg" id="SHU_124_Channeler of the Arcane" data-flag="@X" onclick="openSidebar('SHU_124_Channeler of the Arcane',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/163_Corrosive Arachnid.jpg" id="SHU_163_Corrosive Arachnid" data-flag="@X" onclick="openSidebar('SHU_163_Corrosive Arachnid',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/11_Elite Sun Guard.jpg" id="SHU_11_Elite Sun Guard" data-flag="@X" onclick="openSidebar('SHU_11_Elite Sun Guard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/51_Future's Burden.jpg" id="SHU_51_Futures Burden" data-flag="@X" onclick="openSidebar('SHU_51_Futures Burden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/86_Deceitful Encouragement.jpg" id="SHU_86_Deceitful Encouragement" data-flag="@X" onclick="openSidebar('SHU_86_Deceitful Encouragement',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/126_Cursed Embrace.jpg" id="SHU_126_Cursed Embrace" data-flag="@X" onclick="openSidebar('SHU_126_Cursed Embrace',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/164_Corrupted Sanctum.jpg" id="SHU_164_Corrupted Sanctum" data-flag="@X" onclick="openSidebar('SHU_164_Corrupted Sanctum',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/14_General of the Dunes.jpg" id="SHU_14_General of the Dunes" data-flag="@X" onclick="openSidebar('SHU_14_General of the Dunes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/59_Memories of an Empire.jpg" id="SHU_59_Memories of an Empire" data-flag="@X" onclick="openSidebar('SHU_59_Memories of an Empire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/98_Priest of Conquest.jpg" id="SHU_98_Priest of Conquest" data-flag="@X" onclick="openSidebar('SHU_98_Priest of Conquest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/127_Dune Surfer.jpg" id="SHU_127_Dune Surfer" data-flag="@X" onclick="openSidebar('SHU_127_Dune Surfer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/169_Great Sai Merchant.jpg" id="SHU_169_Great Sai Merchant" data-flag="@X" onclick="openSidebar('SHU_169_Great Sai Merchant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/16_Guardian of Tombs.jpg" id="SHU_16_Guardian of Tombs" data-flag="@X" onclick="openSidebar('SHU_16_Guardian of Tombs',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/60_Multifaced Watcher.jpg" id="SHU_60_Multifaced Watcher" data-flag="@X" onclick="openSidebar('SHU_60_Multifaced Watcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/100_Ruin Runner.jpg" id="SHU_100_Ruin Runner" data-flag="@X" onclick="openSidebar('SHU_100_Ruin Runner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/128_Emperor's Divide.jpg" id="SHU_128_Emperors Divide" data-flag="@X" onclick="openSidebar('SHU_128_Emperors Divide',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/173_Migrating Dormun.jpg" id="SHU_173_Migrating Dormun" data-flag="@X" onclick="openSidebar('SHU_173_Migrating Dormun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/17_Heroic Swing.jpg" id="SHU_17_Heroic Swing" data-flag="@X" onclick="openSidebar('SHU_17_Heroic Swing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/63_Rite of the Arcane.jpg" id="SHU_63_Rite of the Arcane" data-flag="@X" onclick="openSidebar('SHU_63_Rite of the Arcane',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/101_Ruthless Financier.jpg" id="SHU_101_Ruthless Financier" data-flag="@X" onclick="openSidebar('SHU_101_Ruthless Financier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/133_Heir to the Sands.jpg" id="SHU_133_Heir to the Sands" data-flag="@X" onclick="openSidebar('SHU_133_Heir to the Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/174_Narrow Evasion.jpg" id="SHU_174_Narrow Evasion" data-flag="@X" onclick="openSidebar('SHU_174_Narrow Evasion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/22_Medallion Muncher.jpg" id="SHU_22_Medallion Muncher" data-flag="@X" onclick="openSidebar('SHU_22_Medallion Muncher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/64_Ruin Explorers.jpg" id="SHU_64_Ruin Explorers" data-flag="@X" onclick="openSidebar('SHU_64_Ruin Explorers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/102_Sandthresher Mount.jpg" id="SHU_102_Sandthresher Mount" data-flag="@X" onclick="openSidebar('SHU_102_Sandthresher Mount',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/139_Plunge into the Unknown.jpg" id="SHU_139_Plunge into the Unknown" data-flag="@X" onclick="openSidebar('SHU_139_Plunge into the Unknown',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/179_Ravaging Colossus.jpg" id="SHU_179_Ravaging Colossus" data-flag="@X" onclick="openSidebar('SHU_179_Ravaging Colossus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/24_Nazumah Huntress.jpg" id="SHU_24_Nazumah Huntress" data-flag="@X" onclick="openSidebar('SHU_24_Nazumah Huntress',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/70_Strike with Terror.jpg" id="SHU_70_Strike with Terror" data-flag="@X" onclick="openSidebar('SHU_70_Strike with Terror',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/103_Shady Appraiser.jpg" id="SHU_103_Shady Appraiser" data-flag="@X" onclick="openSidebar('SHU_103_Shady Appraiser',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/144_Shuriman Dissident.jpg" id="SHU_144_Shuriman Dissident" data-flag="@X" onclick="openSidebar('SHU_144_Shuriman Dissident',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/180_Rockbear Shepherd.jpg" id="SHU_180_Rockbear Shepherd" data-flag="@X" onclick="openSidebar('SHU_180_Rockbear Shepherd',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/26_Priestess Of Desert Light.jpg" id="SHU_26_Priestess Of Desert Light" data-flag="@X" onclick="openSidebar('SHU_26_Priestess Of Desert Light',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/71_Temporal Aberration.jpg" id="SHU_71_Temporal Aberration" data-flag="@X" onclick="openSidebar('SHU_71_Temporal Aberration',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/105_Soul-Siphon Sculpture.jpg" id="SHU_105_Soul-Siphon Sculpture" data-flag="@X" onclick="openSidebar('SHU_105_Soul-Siphon Sculpture',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/147_Trash for Treasure.jpg" id="SHU_147_Trash for Treasure" data-flag="@X" onclick="openSidebar('SHU_147_Trash for Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/181_Sandshifter.jpg" id="SHU_181_Sandshifter" data-flag="@X" onclick="openSidebar('SHU_181_Sandshifter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/36_Time in a Bottle.jpg" id="SHU_36_Time in a Bottle" data-flag="@X" onclick="openSidebar('SHU_36_Time in a Bottle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/73_Timekeeper's Apprentice.jpg" id="SHU_73_Timekeepers Apprentice" data-flag="@X" onclick="openSidebar('SHU_73_Timekeepers Apprentice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/107_Swarm of the Void.jpg" id="SHU_107_Swarm of the Void" data-flag="@X" onclick="openSidebar('SHU_107_Swarm of the Void',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/148_Vekauran Bruiser.jpg" id="SHU_148_Vekauran Bruiser" data-flag="@X" onclick="openSidebar('SHU_148_Vekauran Bruiser',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/182_Sandstone Charger.jpg" id="SHU_182_Sandstone Charger" data-flag="@X" onclick="openSidebar('SHU_182_Sandstone Charger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/38_Void-Addled Prophet.jpg" id="SHU_38_Void-Addled Prophet" data-flag="@X" onclick="openSidebar('SHU_38_Void-Addled Prophet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/74_Tomb Crawler.jpg" id="SHU_74_Tomb Crawler" data-flag="@X" onclick="openSidebar('SHU_74_Tomb Crawler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/108_Temporal Nomad.jpg" id="SHU_108_Temporal Nomad" data-flag="@X" onclick="openSidebar('SHU_108_Temporal Nomad',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/151_Xer'Sai Callers.jpg" id="SHU_151_XerSai Callers" data-flag="@X" onclick="openSidebar('SHU_151_XerSai Callers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/183_Sandstone Sentinel.jpg" id="SHU_183_Sandstone Sentinel" data-flag="@X" onclick="openSidebar('SHU_183_Sandstone Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/1_Arise!.jpg" id="SHU_1_Arise!" data-flag="@X" onclick="openSidebar('SHU_1_Arise!',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/39_Acolyte of Xerath.jpg" id="SHU_39_Acolyte of Xerath" data-flag="@X" onclick="openSidebar('SHU_39_Acolyte of Xerath',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/81_Belvethi Battlemage.jpg" id="SHU_81_Belvethi Battlemage" data-flag="@X" onclick="openSidebar('SHU_81_Belvethi Battlemage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/116_Arcane Obliteration.jpg" id="SHU_116_Arcane Obliteration" data-flag="@X" onclick="openSidebar('SHU_116_Arcane Obliteration',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/155_Baccai Warden.jpg" id="SHU_155_Baccai Warden" data-flag="@X" onclick="openSidebar('SHU_155_Baccai Warden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/2_Azir's Missionaries.jpg" id="SHU_2_Azirs Missionaries" data-flag="@X" onclick="openSidebar('SHU_2_Azirs Missionaries',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/40_Baccai Reaper.jpg" id="SHU_40_Baccai Reaper" data-flag="@X" onclick="openSidebar('SHU_40_Baccai Reaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/89_Failed Divinity.jpg" id="SHU_89_Failed Divinity" data-flag="@X" onclick="openSidebar('SHU_89_Failed Divinity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/118_Belligerent Ralsiji.jpg" id="SHU_118_Belligerent Ralsiji" data-flag="@X" onclick="openSidebar('SHU_118_Belligerent Ralsiji',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/156_Belvethi Elder.jpg" id="SHU_156_Belvethi Elder" data-flag="@X" onclick="openSidebar('SHU_156_Belvethi Elder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/4_Bel'Zhun Insurgent.jpg" id="SHU_4_BelZhun Insurgent" data-flag="@X" onclick="openSidebar('SHU_4_BelZhun Insurgent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/41_Black Rose Infiltrator.jpg" id="SHU_41_Black Rose Infiltrator" data-flag="@X" onclick="openSidebar('SHU_41_Black Rose Infiltrator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/92_Hollow Hound.jpg" id="SHU_92_Hollow Hound" data-flag="@X" onclick="openSidebar('SHU_92_Hollow Hound',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/120_Brutal Assault.jpg" id="SHU_120_Brutal Assault" data-flag="@X" onclick="openSidebar('SHU_120_Brutal Assault',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/159_Burst from Below.jpg" id="SHU_159_Burst from Below" data-flag="@X" onclick="openSidebar('SHU_159_Burst from Below',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/12_Elujrav'i' Lookout.jpg" id="SHU_12_Elujravi Lookout" data-flag="@X" onclick="openSidebar('SHU_12_Elujravi Lookout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/45_Clockwork Fabricator.jpg" id="SHU_45_Clockwork Fabricator" data-flag="@X" onclick="openSidebar('SHU_45_Clockwork Fabricator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/93_Imperial Revival.jpg" id="SHU_93_Imperial Revival" data-flag="@X" onclick="openSidebar('SHU_93_Imperial Revival',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/121_Caravan Companion.jpg" id="SHU_121_Caravan Companion" data-flag="@X" onclick="openSidebar('SHU_121_Caravan Companion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/161_Clockhand Golem.jpg" id="SHU_161_Clockhand Golem" data-flag="@X" onclick="openSidebar('SHU_161_Clockhand Golem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/15_Gilded Poro.jpg" id="SHU_15_Gilded Poro" data-flag="@X" onclick="openSidebar('SHU_15_Gilded Poro',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/48_Decode Thoughts.jpg" id="SHU_48_Decode Thoughts" data-flag="@X" onclick="openSidebar('SHU_48_Decode Thoughts',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/94_Insatiable Hunger.jpg" id="SHU_94_Insatiable Hunger" data-flag="@X" onclick="openSidebar('SHU_94_Insatiable Hunger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/125_Cull the Meek.jpg" id="SHU_125_Cull the Meek" data-flag="@X" onclick="openSidebar('SHU_125_Cull the Meek',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/162_Converted Youth.jpg" id="SHU_162_Converted Youth" data-flag="@X" onclick="openSidebar('SHU_162_Converted Youth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/18_Humble Soothsayers.jpg" id="SHU_18_Humble Soothsayers" data-flag="@X" onclick="openSidebar('SHU_18_Humble Soothsayers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/52_Glimpse of Totality.jpg" id="SHU_52_Glimpse of Totality" data-flag="@X" onclick="openSidebar('SHU_52_Glimpse of Totality',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/95_Makaran Toxicologist.jpg" id="SHU_95_Makaran Toxicologist" data-flag="@X" onclick="openSidebar('SHU_95_Makaran Toxicologist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/129_Endless Devout.jpg" id="SHU_129_Endless Devout" data-flag="@X" onclick="openSidebar('SHU_129_Endless Devout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/166_Desert Naturalist.jpg" id="SHU_166_Desert Naturalist" data-flag="@X" onclick="openSidebar('SHU_166_Desert Naturalist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/19_Icathian Mirage.jpg" id="SHU_19_Icathian Mirage" data-flag="@X" onclick="openSidebar('SHU_19_Icathian Mirage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/53_Grasping Voidspawn.jpg" id="SHU_53_Grasping Voidspawn" data-flag="@X" onclick="openSidebar('SHU_53_Grasping Voidspawn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/96_Noxian Betrayal.jpg" id="SHU_96_Noxian Betrayal" data-flag="@X" onclick="openSidebar('SHU_96_Noxian Betrayal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/130_Escaped Drakehound.jpg" id="SHU_130_Escaped Drakehound" data-flag="@X" onclick="openSidebar('SHU_130_Escaped Drakehound',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/170_Great Sai Navigation.jpg" id="SHU_170_Great Sai Navigation" data-flag="@X" onclick="openSidebar('SHU_170_Great Sai Navigation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/20_Imperial Weaponsmith.jpg" id="SHU_20_Imperial Weaponsmith" data-flag="@X" onclick="openSidebar('SHU_20_Imperial Weaponsmith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/54_Gregarious Clockling.jpg" id="SHU_54_Gregarious Clockling" data-flag="@X" onclick="openSidebar('SHU_54_Gregarious Clockling',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/97_Pluck the Soul.jpg" id="SHU_97_Pluck the Soul" data-flag="@X" onclick="openSidebar('SHU_97_Pluck the Soul',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/131_Expedition Below.jpg" id="SHU_131_Expedition Below" data-flag="@X" onclick="openSidebar('SHU_131_Expedition Below',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/172_Hibernating Rockbear.jpg" id="SHU_172_Hibernating Rockbear" data-flag="@X" onclick="openSidebar('SHU_172_Hibernating Rockbear',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/21_Kepthalla Vanguard.jpg" id="SHU_21_Kepthalla Vanguard" data-flag="@X" onclick="openSidebar('SHU_21_Kepthalla Vanguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/56_Imperial Chronicler.jpg" id="SHU_56_Imperial Chronicler" data-flag="@X" onclick="openSidebar('SHU_56_Imperial Chronicler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/99_Prophet's Devotee.jpg" id="SHU_99_Prophets Devotee" data-flag="@X" onclick="openSidebar('SHU_99_Prophets Devotee',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/136_Icathian Rain.jpg" id="SHU_136_Icathian Rain" data-flag="@X" onclick="openSidebar('SHU_136_Icathian Rain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/175_Nazumah's Bulwark.jpg" id="SHU_175_Nazumahs Bulwark" data-flag="@X" onclick="openSidebar('SHU_175_Nazumahs Bulwark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/23_Nazumah Avenger.jpg" id="SHU_23_Nazumah Avenger" data-flag="@X" onclick="openSidebar('SHU_23_Nazumah Avenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/61_Oasis Hunter.jpg" id="SHU_61_Oasis Hunter" data-flag="@X" onclick="openSidebar('SHU_61_Oasis Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/104_Shifting Sands.jpg" id="SHU_104_Shifting Sands" data-flag="@X" onclick="openSidebar('SHU_104_Shifting Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/138_Plucky Ruin Delver.jpg" id="SHU_138_Plucky Ruin Delver" data-flag="@X" onclick="openSidebar('SHU_138_Plucky Ruin Delver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/184_Sandthrasher Ambusher.jpg" id="SHU_184_Sandthrasher Ambusher" data-flag="@X" onclick="openSidebar('SHU_184_Sandthrasher Ambusher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/27_Purge the Twisted.jpg" id="SHU_27_Purge the Twisted" data-flag="@X" onclick="openSidebar('SHU_27_Purge the Twisted',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/65_Scour the Timelines.jpg" id="SHU_65_Scour the Timelines" data-flag="@X" onclick="openSidebar('SHU_65_Scour the Timelines',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/106_Sun of Bel'Zhun.jpg" id="SHU_106_Sun of BelZhun" data-flag="@X" onclick="openSidebar('SHU_106_Sun of BelZhun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/141_Rock Hopper.jpg" id="SHU_141_Rock Hopper" data-flag="@X" onclick="openSidebar('SHU_141_Rock Hopper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/185_Scout the City.jpg" id="SHU_185_Scout the City" data-flag="@X" onclick="openSidebar('SHU_185_Scout the City',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/29_Risen Sand Cavalier.jpg" id="SHU_29_Risen Sand Cavalier" data-flag="@X" onclick="openSidebar('SHU_29_Risen Sand Cavalier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/67_Seeker of Tombs.jpg" id="SHU_67_Seeker of Tombs" data-flag="@X" onclick="openSidebar('SHU_67_Seeker of Tombs',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/109_Tomb's Vigil.jpg" id="SHU_109_Tombs Vigil" data-flag="@X" onclick="openSidebar('SHU_109_Tombs Vigil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/142_Ruinous Acolyte.jpg" id="SHU_142_Ruinous Acolyte" data-flag="@X" onclick="openSidebar('SHU_142_Ruinous Acolyte',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/186_Skallashi Caravan.jpg" id="SHU_186_Skallashi Caravan" data-flag="@X" onclick="openSidebar('SHU_186_Skallashi Caravan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/31_Sealed in Darkness.jpg" id="SHU_31_Sealed in Darkness" data-flag="@X" onclick="openSidebar('SHU_31_Sealed in Darkness',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/68_Spin to Sand.jpg" id="SHU_68_Spin to Sand" data-flag="@X" onclick="openSidebar('SHU_68_Spin to Sand',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/110_Twisted Sentinel.jpg" id="SHU_110_Twisted Sentinel" data-flag="@X" onclick="openSidebar('SHU_110_Twisted Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/146_Tormented Baccai.jpg" id="SHU_146_Tormented Baccai" data-flag="@X" onclick="openSidebar('SHU_146_Tormented Baccai',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/187_Stoneweaver's Rebuttal.jpg" id="SHU_187_Stoneweavers Rebuttal" data-flag="@X" onclick="openSidebar('SHU_187_Stoneweavers Rebuttal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/33_Stolen Divinity.jpg" id="SHU_33_Stolen Divinity" data-flag="@X" onclick="openSidebar('SHU_33_Stolen Divinity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/69_Spurn.jpg" id="SHU_69_Spurn" data-flag="@X" onclick="openSidebar('SHU_69_Spurn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/111_Vekauran Safecraker.jpg" id="SHU_111_Vekauran Safecraker" data-flag="@X" onclick="openSidebar('SHU_111_Vekauran Safecraker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/149_Void Seeker.jpg" id="SHU_149_Void Seeker" data-flag="@X" onclick="openSidebar('SHU_149_Void Seeker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/189_Tamer of Serpents.jpg" id="SHU_189_Tamer of Serpents" data-flag="@X" onclick="openSidebar('SHU_189_Tamer of Serpents',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/34_Strength of Nazumah.jpg" id="SHU_34_Strength of Nazumah" data-flag="@X" onclick="openSidebar('SHU_34_Strength of Nazumah',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/76_Yordle Cardsharp.jpg" id="SHU_76_Yordle Cardsharp" data-flag="@X" onclick="openSidebar('SHU_76_Yordle Cardsharp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/114_Xer'Sai Hatchling.jpg" id="SHU_114_XerSai Hatchling" data-flag="@X" onclick="openSidebar('SHU_114_XerSai Hatchling',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/152_Xer'Sai Dunebreaker.jpg" id="SHU_152_XerSai Dunebreaker" data-flag="@X" onclick="openSidebar('SHU_152_XerSai Dunebreaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/190_Treacherous Bandit.jpg" id="SHU_190_Treacherous Bandit" data-flag="@X" onclick="openSidebar('SHU_190_Treacherous Bandit',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/191_Hive Herald.jpg" id="SHU_191_Hive Herald" data-flag="@X" onclick="openSidebar('SHU_191_Hive Herald',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/194_Bel'Veth, Empress of the Void.jpg" id="SHU_194_BelVeth, Empress of the Void" data-flag="@X" onclick="openSidebar('SHU_194_BelVeth, Empress of the Void',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/197_The Fall of Shurima.jpg" id="SHU_197_The Fall of Shurima" data-flag="@X" onclick="openSidebar('SHU_197_The Fall of Shurima',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/201_Rek'Sai, the Terror Beneath.jpg" id="SHU_201_RekSai, the Terror Beneath" data-flag="@X" onclick="openSidebar('SHU_201_RekSai, the Terror Beneath',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/203_Bonded Survivors.jpg" id="SHU_203_Bonded Survivors" data-flag="@X" onclick="openSidebar('SHU_203_Bonded Survivors',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/193_Zilean, Timekeeper.jpg" id="SHU_193_Zilean, Timekeeper" data-flag="@X" onclick="openSidebar('SHU_193_Zilean, Timekeeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/196_Pilgrim from Kathkan.jpg" id="SHU_196_Pilgrim from Kathkan" data-flag="@X" onclick="openSidebar('SHU_196_Pilgrim from Kathkan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/199_Sivir, Battle Mistress.jpg" id="SHU_199_Sivir, Battle Mistress" data-flag="@X" onclick="openSidebar('SHU_199_Sivir, Battle Mistress',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/202_Void Gate.jpg" id="SHU_202_Void Gate" data-flag="@X" onclick="openSidebar('SHU_202_Void Gate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/204_K'Sante, Pride of Nazumah.jpg" id="SHU_204_KSante, Pride of Nazumah" data-flag="@X" onclick="openSidebar('SHU_204_KSante, Pride of Nazumah',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/192_Threads of Time.jpg" id="SHU_192_Threads of Time" data-flag="@X" onclick="openSidebar('SHU_192_Threads of Time',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/195_Darkin Rapier.jpg" id="SHU_195_Darkin Rapier" data-flag="@X" onclick="openSidebar('SHU_195_Darkin Rapier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/198_Map to the Faceless God.jpg" id="SHU_198_Map to the Faceless God" data-flag="@X" onclick="openSidebar('SHU_198_Map to the Faceless God',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/200_Butcher's Faithful.jpg" id="SHU_200_Butchers Faithful" data-flag="@X" onclick="openSidebar('SHU_200_Butchers Faithful',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/205_Rampaging Saurens.jpg" id="SHU_205_Rampaging Saurens" data-flag="@X" onclick="openSidebar('SHU_205_Rampaging Saurens',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/228_Inspiring Marshal.jpg" id="SHU_228_Inspiring Marshal" data-flag="@X" onclick="openSidebar('SHU_228_Inspiring Marshal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/229_Sandstone Chimera.jpg" id="SHU_229_Sandstone Chimera" data-flag="@X" onclick="openSidebar('SHU_229_Sandstone Chimera',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/230_Void Blaster.jpg" id="SHU_230_Void Blaster" data-flag="@X" onclick="openSidebar('SHU_230_Void Blaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/231_Raider's Warfrog.jpg" id="SHU_231_Raiders Warfrog" data-flag="@X" onclick="openSidebar('SHU_231_Raiders Warfrog',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/232_Golden Phalanx.jpg" id="SHU_232_Golden Phalanx" data-flag="@X" onclick="openSidebar('SHU_232_Golden Phalanx',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/206_Betrayal of Brotherhood.jpg" id="SHU_206_Betrayal of Brotherhood" data-flag="@X" onclick="openSidebar('SHU_206_Betrayal of Brotherhood',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/210_Kassadin, the Void Walker.jpg" id="SHU_210_Kassadin, the Void Walker" data-flag="@X" onclick="openSidebar('SHU_210_Kassadin, the Void Walker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/212_Lady Cassiopeia.jpg" id="SHU_212_Lady Cassiopeia" data-flag="@X" onclick="openSidebar('SHU_212_Lady Cassiopeia',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/215_Akshan, the Rogue Sentinel.jpg" id="SHU_215_Akshan, the Rogue Sentinel" data-flag="@X" onclick="openSidebar('SHU_215_Akshan, the Rogue Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/219_Baccai Witherclaw.jpg" id="SHU_219_Baccai Witherclaw" data-flag="@X" onclick="openSidebar('SHU_219_Baccai Witherclaw',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/207_Malzahar, Prophet.jpg" id="SHU_207_Malzahar, Prophet" data-flag="@X" onclick="openSidebar('SHU_207_Malzahar, Prophet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/211_Vekauran Vagabond.jpg" id="SHU_211_Vekauran Vagabond" data-flag="@X" onclick="openSidebar('SHU_211_Vekauran Vagabond',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/213_Nashramae Delegate.jpg" id="SHU_213_Nashramae Delegate" data-flag="@X" onclick="openSidebar('SHU_213_Nashramae Delegate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/216_Kai'Sa, Who Came Back.jpg" id="SHU_216_KaiSa, Who Came Back" data-flag="@X" onclick="openSidebar('SHU_216_KaiSa, Who Came Back',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/220_Rammus the Armordillo.jpg" id="SHU_220_Rammus the Armordillo" data-flag="@X" onclick="openSidebar('SHU_220_Rammus the Armordillo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/208_Rampaging Baccai.jpg" id="SHU_208_Rampaging Baccai" data-flag="@X" onclick="openSidebar('SHU_208_Rampaging Baccai',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/209_Dunehopper Engineer.jpg" id="SHU_209_Dunehopper Engineer" data-flag="@X" onclick="openSidebar('SHU_209_Dunehopper Engineer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/214_Reconstruct the Sun Disc.jpg" id="SHU_214_Reconstruct the Sun Disc" data-flag="@X" onclick="openSidebar('SHU_214_Reconstruct the Sun Disc',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/217_Reconstructor of History.jpg" id="SHU_217_Reconstructor of History" data-flag="@X" onclick="openSidebar('SHU_217_Reconstructor of History',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/221_Saltworker.jpg" id="SHU_221_Saltworker" data-flag="@X" onclick="openSidebar('SHU_221_Saltworker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/233_Fallen Sands General.jpg" id="SHU_233_Fallen Sands General" data-flag="@X" onclick="openSidebar('SHU_233_Fallen Sands General',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/234_Echoes of an Empire.jpg" id="SHU_234_Echoes of an Empire" data-flag="@X" onclick="openSidebar('SHU_234_Echoes of an Empire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/235_A Promise in Truth.jpg" id="SHU_235_A Promise in Truth" data-flag="@X" onclick="openSidebar('SHU_235_A Promise in Truth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/218_Xer'Sai Undertitan.jpg" id="SHU_218_XerSai Undertitan" data-flag="@X" onclick="openSidebar('SHU_218_XerSai Undertitan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/237_Confront the Self.jpg" id="SHU_237_Confront the Self" data-flag="@X" onclick="openSidebar('SHU_237_Confront the Self',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SHU_e" data-flag="@E" onclick="openSidebar('SHU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SHU_e" data-flag="@E" onclick="openSidebar('SHU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SHU_e" data-flag="@E" onclick="openSidebar('SHU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/236_Voice of the Risen.jpg" id="SHU_236_Voice of the Risen" data-flag="@X" onclick="openSidebar('SHU_236_Voice of the Risen',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SHU_e" data-flag="@E" onclick="openSidebar('SHU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/222_Azir, Emperor of the Sands.jpg" id="SHU_222_Azir, Emperor of the Sands" data-flag="@X" onclick="openSidebar('SHU_222_Azir, Emperor of the Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/223_Chamber of Renewal.jpg" id="SHU_223_Chamber of Renewal" data-flag="@X" onclick="openSidebar('SHU_223_Chamber of Renewal',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/SHU-files/img/224_Naafiri of a Hundred Bites_back.jpg" alt="sets/SHU-files/img/224_Naafiri of a Hundred Bites_front.jpg" id="SHU_224_Naafiri of a Hundred Bites" data-flag="@XD" onclick="openSidebar('SHU_224_Naafiri of a Hundred Bites',false)"><button class="flip-btn" onclick="imgFlip('SHU_224_Naafiri of a Hundred Bites')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/225_Nasus, the Scholar.jpg" id="SHU_225_Nasus, the Scholar" data-flag="@X" onclick="openSidebar('SHU_225_Nasus, the Scholar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/226_Renekton, the Butcher.jpg" id="SHU_226_Renekton, the Butcher" data-flag="@X" onclick="openSidebar('SHU_226_Renekton, the Butcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/227_Xerath, Magus Ascendant.jpg" id="SHU_227_Xerath, Magus Ascendant" data-flag="@X" onclick="openSidebar('SHU_227_Xerath, Magus Ascendant',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SHU_e" data-flag="@E" onclick="openSidebar('SHU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SHU_e" data-flag="@E" onclick="openSidebar('SHU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SHU_e" data-flag="@E" onclick="openSidebar('SHU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SHU_e" data-flag="@E" onclick="openSidebar('SHU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/254_The Sun Disc.jpg" id="SHU_254_The Sun Disc" data-flag="@X" onclick="openSidebar('SHU_254_The Sun Disc',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/239_Arcane Nullifier.jpg" id="SHU_239_Arcane Nullifier" data-flag="@X" onclick="openSidebar('SHU_239_Arcane Nullifier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/242_Effigy of the Sands.jpg" id="SHU_242_Effigy of the Sands" data-flag="@X" onclick="openSidebar('SHU_242_Effigy of the Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/243_Husked Devout.jpg" id="SHU_243_Husked Devout" data-flag="@X" onclick="openSidebar('SHU_243_Husked Devout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/246_Reconstructed Soldier.jpg" id="SHU_246_Reconstructed Soldier" data-flag="@X" onclick="openSidebar('SHU_246_Reconstructed Soldier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/249_Sanctum Conservator.jpg" id="SHU_249_Sanctum Conservator" data-flag="@X" onclick="openSidebar('SHU_249_Sanctum Conservator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/240_Buried Colossus.jpg" id="SHU_240_Buried Colossus" data-flag="@X" onclick="openSidebar('SHU_240_Buried Colossus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/247_Repurposed Automaton.jpg" id="SHU_247_Repurposed Automaton" data-flag="@X" onclick="openSidebar('SHU_247_Repurposed Automaton',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/248_Restored Devout.jpg" id="SHU_248_Restored Devout" data-flag="@X" onclick="openSidebar('SHU_248_Restored Devout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/251_Serpentine Protector.jpg" id="SHU_251_Serpentine Protector" data-flag="@X" onclick="openSidebar('SHU_251_Serpentine Protector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/238_Acolyte's Reliquary.jpg" id="SHU_238_Acolytes Reliquary" data-flag="@X" onclick="openSidebar('SHU_238_Acolytes Reliquary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/241_Crushing Boulder.jpg" id="SHU_241_Crushing Boulder" data-flag="@X" onclick="openSidebar('SHU_241_Crushing Boulder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/244_Militant Timepiece.jpg" id="SHU_244_Militant Timepiece" data-flag="@X" onclick="openSidebar('SHU_244_Militant Timepiece',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/245_Preservationist.jpg" id="SHU_245_Preservationist" data-flag="@X" onclick="openSidebar('SHU_245_Preservationist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/250_Sandstone Protector.jpg" id="SHU_250_Sandstone Protector" data-flag="@X" onclick="openSidebar('SHU_250_Sandstone Protector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/252_Shuriman Tellstones.jpg" id="SHU_252_Shuriman Tellstones" data-flag="@X" onclick="openSidebar('SHU_252_Shuriman Tellstones',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/253_Staff of Forgotten Realms.jpg" id="SHU_253_Staff of Forgotten Realms" data-flag="@X" onclick="openSidebar('SHU_253_Staff of Forgotten Realms',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/255_Unyielding Warden.jpg" id="SHU_255_Unyielding Warden" data-flag="@X" onclick="openSidebar('SHU_255_Unyielding Warden',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SHU_e" data-flag="@E" onclick="openSidebar('SHU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SHU_e" data-flag="@E" onclick="openSidebar('SHU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/289_Xolan's Depths.jpg" id="SHU_289_Xolans Depths" data-flag="@X" onclick="openSidebar('SHU_289_Xolans Depths',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/261_Curator's Archive.jpg" id="SHU_261_Curators Archive" data-flag="@X" onclick="openSidebar('SHU_261_Curators Archive',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/268_Lavender Sea.jpg" id="SHU_268_Lavender Sea" data-flag="@X" onclick="openSidebar('SHU_268_Lavender Sea',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/279_Sunken Capital.jpg" id="SHU_279_Sunken Capital" data-flag="@X" onclick="openSidebar('SHU_279_Sunken Capital',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/287_Xer'Sai Burrows.jpg" id="SHU_287_XerSai Burrows" data-flag="@X" onclick="openSidebar('SHU_287_XerSai Burrows',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/276_Scoured Mesa.jpg" id="SHU_276_Scoured Mesa" data-flag="@X" onclick="openSidebar('SHU_276_Scoured Mesa',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/273_Raintouched Basin.jpg" id="SHU_273_Raintouched Basin" data-flag="@X" onclick="openSidebar('SHU_273_Raintouched Basin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/278_Silent Ridge.jpg" id="SHU_278_Silent Ridge" data-flag="@X" onclick="openSidebar('SHU_278_Silent Ridge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/286_Windworn Spires.jpg" id="SHU_286_Windworn Spires" data-flag="@X" onclick="openSidebar('SHU_286_Windworn Spires',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/263_Flourishing Lowlands.jpg" id="SHU_263_Flourishing Lowlands" data-flag="@X" onclick="openSidebar('SHU_263_Flourishing Lowlands',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/282_Tower Removed From Time.jpg" id="SHU_282_Tower Removed From Time" data-flag="@X" onclick="openSidebar('SHU_282_Tower Removed From Time',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/272_Nerimazeth, Ruins of Power.jpg" id="SHU_272_Nerimazeth, Ruins of Power" data-flag="@X" onclick="openSidebar('SHU_272_Nerimazeth, Ruins of Power',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/285_Vekaura, on Bloodied Coin.jpg" id="SHU_285_Vekaura, on Bloodied Coin" data-flag="@X" onclick="openSidebar('SHU_285_Vekaura, on Bloodied Coin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/269_Marrowmark, Ribcage Market.jpg" id="SHU_269_Marrowmark, Ribcage Market" data-flag="@X" onclick="openSidebar('SHU_269_Marrowmark, Ribcage Market',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/271_Nazumeh, Haven of Hunters.jpg" id="SHU_271_Nazumeh, Haven of Hunters" data-flag="@X" onclick="openSidebar('SHU_271_Nazumeh, Haven of Hunters',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/266_Gleaming Sands.jpg" id="SHU_266_Gleaming Sands" data-flag="@X" onclick="openSidebar('SHU_266_Gleaming Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/284_Twisted Sands.jpg" id="SHU_284_Twisted Sands" data-flag="@X" onclick="openSidebar('SHU_284_Twisted Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/258_Blighted Sands.jpg" id="SHU_258_Blighted Sands" data-flag="@X" onclick="openSidebar('SHU_258_Blighted Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/277_Shattered Sands.jpg" id="SHU_277_Shattered Sands" data-flag="@X" onclick="openSidebar('SHU_277_Shattered Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/262_Enduring Sands.jpg" id="SHU_262_Enduring Sands" data-flag="@X" onclick="openSidebar('SHU_262_Enduring Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/281_Tomb of the Ascended.jpg" id="SHU_281_Tomb of the Ascended" data-flag="@X" onclick="openSidebar('SHU_281_Tomb of the Ascended',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/257_Bel'Zhun, Noxian Outpost.jpg" id="SHU_257_BelZhun, Noxian Outpost" data-flag="@X" onclick="openSidebar('SHU_257_BelZhun, Noxian Outpost',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/290_Zuretta, Risen City.jpg" id="SHU_290_Zuretta, Risen City" data-flag="@X" onclick="openSidebar('SHU_290_Zuretta, Risen City',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/288_Xolan, Ruins of the Faceless.jpg" id="SHU_288_Xolan, Ruins of the Faceless" data-flag="@X" onclick="openSidebar('SHU_288_Xolan, Ruins of the Faceless',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/270_Nashramae, Crossroads of Wonder.jpg" id="SHU_270_Nashramae, Crossroads of Wonder" data-flag="@X" onclick="openSidebar('SHU_270_Nashramae, Crossroads of Wonder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/265_Frozen Sands.jpg" id="SHU_265_Frozen Sands" data-flag="@X" onclick="openSidebar('SHU_265_Frozen Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/259_Carved Sands.jpg" id="SHU_259_Carved Sands" data-flag="@X" onclick="openSidebar('SHU_259_Carved Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/264_Fractured Sands.jpg" id="SHU_264_Fractured Sands" data-flag="@X" onclick="openSidebar('SHU_264_Fractured Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/280_Suspended Sands.jpg" id="SHU_280_Suspended Sands" data-flag="@X" onclick="openSidebar('SHU_280_Suspended Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/283_Tranquil Sands.jpg" id="SHU_283_Tranquil Sands" data-flag="@X" onclick="openSidebar('SHU_283_Tranquil Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/267_The Great Sai.jpg" id="SHU_267_The Great Sai" data-flag="@X" onclick="openSidebar('SHU_267_The Great Sai',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/256_Abandoned Chronarium.jpg" id="SHU_256_Abandoned Chronarium" data-flag="@X" onclick="openSidebar('SHU_256_Abandoned Chronarium',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/275_Sandthresher Grounds.jpg" id="SHU_275_Sandthresher Grounds" data-flag="@X" onclick="openSidebar('SHU_275_Sandthresher Grounds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/260_Conduit Pylons.jpg" id="SHU_260_Conduit Pylons" data-flag="@X" onclick="openSidebar('SHU_260_Conduit Pylons',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/274_Roiling Sands.jpg" id="SHU_274_Roiling Sands" data-flag="@X" onclick="openSidebar('SHU_274_Roiling Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/291_Plains.jpg" id="SHU_291_Plains" data-flag="@X" onclick="openSidebar('SHU_291_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/292_Island.jpg" id="SHU_292_Island" data-flag="@X" onclick="openSidebar('SHU_292_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/293_Swamp.jpg" id="SHU_293_Swamp" data-flag="@X" onclick="openSidebar('SHU_293_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/294_Mountain.jpg" id="SHU_294_Mountain" data-flag="@X" onclick="openSidebar('SHU_294_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/295_Forest.jpg" id="SHU_295_Forest" data-flag="@X" onclick="openSidebar('SHU_295_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/1t_The City's Blessing.jpg" id="SHU_1t_The Citys Blessing" data-flag="@X" onclick="openSidebar('SHU_1t_The Citys Blessing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/9t_Clockling.jpg" id="SHU_9t_Clockling" data-flag="@X" onclick="openSidebar('SHU_9t_Clockling',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/10t_Clue.jpg" id="SHU_10t_Clue" data-flag="@X" onclick="openSidebar('SHU_10t_Clue',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/11t_Construct.jpg" id="SHU_11t_Construct" data-flag="@X" onclick="openSidebar('SHU_11t_Construct',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/12t_Lamppost.jpg" id="SHU_12t_Lamppost" data-flag="@X" onclick="openSidebar('SHU_12t_Lamppost',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/13t_Treasure.jpg" id="SHU_13t_Treasure" data-flag="@X" onclick="openSidebar('SHU_13t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/14t_Desert.jpg" id="SHU_14t_Desert" data-flag="@X" onclick="openSidebar('SHU_14t_Desert',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/2t_Sand Soldier.jpg" id="SHU_2t_Sand Soldier" data-flag="@X" onclick="openSidebar('SHU_2t_Sand Soldier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/3t_Horror.jpg" id="SHU_3t_Horror" data-flag="@X" onclick="openSidebar('SHU_3t_Horror',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/4t_Horror.jpg" id="SHU_4t_Horror" data-flag="@X" onclick="openSidebar('SHU_4t_Horror',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/5t_Horror Pest.jpg" id="SHU_5t_Horror Pest" data-flag="@X" onclick="openSidebar('SHU_5t_Horror Pest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/6t_Dog Shade.jpg" id="SHU_6t_Dog Shade" data-flag="@X" onclick="openSidebar('SHU_6t_Dog Shade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/7t_Warrior.jpg" id="SHU_7t_Warrior" data-flag="@X" onclick="openSidebar('SHU_7t_Warrior',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SHU-files/img/8t_Druid.jpg" id="SHU_8t_Druid" data-flag="@X" onclick="openSidebar('SHU_8t_Druid',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="SHU_e" data-flag="@E" onclick="openSidebar('SHU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="SHU_er" data-flag="@E" onclick="openSidebar('SHU_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

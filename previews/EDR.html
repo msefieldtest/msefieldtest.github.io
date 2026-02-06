@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/EDR-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>EDR visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/EDR-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
+	
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
+	
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
+	
+		<a class="set-bar inactive" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
+	
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
+	
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
+	
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
+	
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
+	
+		<a class="set-bar inactive" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
+	
+		<a class="set-bar inactive" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
+	
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/EDR-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" data-alt_src="sets/EDR-files/img/42_back.jpg" alt="sets/EDR-files/img/42_front.jpg" id="EDR_42" data-flag="@XD" onclick="openSidebar('EDR_42',false)"><button class="flip-btn" onclick="imgFlip('EDR_42')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/264.jpg" id="EDR_264" data-flag="@X" onclick="openSidebar('EDR_264',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/EDR-files/img/44_back.jpg" alt="sets/EDR-files/img/44_front.jpg" id="EDR_44" data-flag="@XD" onclick="openSidebar('EDR_44',false)"><button class="flip-btn" onclick="imgFlip('EDR_44')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/EDR-files/img/43_back.jpg" alt="sets/EDR-files/img/43_front.jpg" id="EDR_43" data-flag="@XD" onclick="openSidebar('EDR_43',false)"><button class="flip-btn" onclick="imgFlip('EDR_43')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/293.jpg" id="EDR_293" data-flag="@X" onclick="openSidebar('EDR_293',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/276.jpg" id="EDR_276" data-flag="@X" onclick="openSidebar('EDR_276',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/EDR-files/img/46_back.jpg" alt="sets/EDR-files/img/46_front.jpg" id="EDR_46" data-flag="@XD" onclick="openSidebar('EDR_46',false)"><button class="flip-btn" onclick="imgFlip('EDR_46')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/EDR-files/img/41_back.jpg" alt="sets/EDR-files/img/41_front.jpg" id="EDR_41" data-flag="@XD" onclick="openSidebar('EDR_41',false)"><button class="flip-btn" onclick="imgFlip('EDR_41')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/EDR-files/img/39_back.jpg" alt="sets/EDR-files/img/39_front.jpg" id="EDR_39" data-flag="@XD" onclick="openSidebar('EDR_39',false)"><button class="flip-btn" onclick="imgFlip('EDR_39')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/EDR-files/img/50_back.jpg" alt="sets/EDR-files/img/50_front.jpg" id="EDR_50" data-flag="@XD" onclick="openSidebar('EDR_50',false)"><button class="flip-btn" onclick="imgFlip('EDR_50')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/EDR-files/img/45_back.jpg" alt="sets/EDR-files/img/45_front.jpg" id="EDR_45" data-flag="@XD" onclick="openSidebar('EDR_45',false)"><button class="flip-btn" onclick="imgFlip('EDR_45')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/EDR-files/img/40_back.jpg" alt="sets/EDR-files/img/40_front.jpg" id="EDR_40" data-flag="@XD" onclick="openSidebar('EDR_40',false)"><button class="flip-btn" onclick="imgFlip('EDR_40')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/10.jpg" id="EDR_10" data-flag="@X" onclick="openSidebar('EDR_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/189.jpg" id="EDR_189" data-flag="@X" onclick="openSidebar('EDR_189',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/EDR-files/img/47_back.jpg" alt="sets/EDR-files/img/47_front.jpg" id="EDR_47" data-flag="@XD" onclick="openSidebar('EDR_47',false)"><button class="flip-btn" onclick="imgFlip('EDR_47')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/247.jpg" id="EDR_247" data-flag="@X" onclick="openSidebar('EDR_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/292.jpg" id="EDR_292" data-flag="@X" onclick="openSidebar('EDR_292',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/13.jpg" id="EDR_13" data-flag="@X" onclick="openSidebar('EDR_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/2.jpg" id="EDR_2" data-flag="@X" onclick="openSidebar('EDR_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/294.jpg" id="EDR_294" data-flag="@X" onclick="openSidebar('EDR_294',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/63.jpg" id="EDR_63" data-flag="@X" onclick="openSidebar('EDR_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/263.jpg" id="EDR_263" data-flag="@X" onclick="openSidebar('EDR_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/4.jpg" id="EDR_4" data-flag="@X" onclick="openSidebar('EDR_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/229.jpg" id="EDR_229" data-flag="@X" onclick="openSidebar('EDR_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/222.jpg" id="EDR_222" data-flag="@X" onclick="openSidebar('EDR_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/170.jpg" id="EDR_170" data-flag="@X" onclick="openSidebar('EDR_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/136.jpg" id="EDR_136" data-flag="@X" onclick="openSidebar('EDR_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/169.jpg" id="EDR_169" data-flag="@X" onclick="openSidebar('EDR_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/48.jpg" id="EDR_48" data-flag="@X" onclick="openSidebar('EDR_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/175.jpg" id="EDR_175" data-flag="@X" onclick="openSidebar('EDR_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/244.jpg" id="EDR_244" data-flag="@X" onclick="openSidebar('EDR_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/190.jpg" id="EDR_190" data-flag="@X" onclick="openSidebar('EDR_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/11.jpg" id="EDR_11" data-flag="@X" onclick="openSidebar('EDR_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/262.jpg" id="EDR_262" data-flag="@X" onclick="openSidebar('EDR_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/246.jpg" id="EDR_246" data-flag="@X" onclick="openSidebar('EDR_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/220.jpg" id="EDR_220" data-flag="@X" onclick="openSidebar('EDR_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/33.jpg" id="EDR_33" data-flag="@X" onclick="openSidebar('EDR_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/162.jpg" id="EDR_162" data-flag="@X" onclick="openSidebar('EDR_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/202.jpg" id="EDR_202" data-flag="@X" onclick="openSidebar('EDR_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/256.jpg" id="EDR_256" data-flag="@X" onclick="openSidebar('EDR_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/207.jpg" id="EDR_207" data-flag="@X" onclick="openSidebar('EDR_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/177.jpg" id="EDR_177" data-flag="@X" onclick="openSidebar('EDR_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/218.jpg" id="EDR_218" data-flag="@X" onclick="openSidebar('EDR_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/235.jpg" id="EDR_235" data-flag="@X" onclick="openSidebar('EDR_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/161.jpg" id="EDR_161" data-flag="@X" onclick="openSidebar('EDR_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/153.jpg" id="EDR_153" data-flag="@X" onclick="openSidebar('EDR_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/188.jpg" id="EDR_188" data-flag="@X" onclick="openSidebar('EDR_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/55.jpg" id="EDR_55" data-flag="@X" onclick="openSidebar('EDR_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/78.jpg" id="EDR_78" data-flag="@X" onclick="openSidebar('EDR_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/178.jpg" id="EDR_178" data-flag="@X" onclick="openSidebar('EDR_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/253.jpg" id="EDR_253" data-flag="@X" onclick="openSidebar('EDR_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/228.jpg" id="EDR_228" data-flag="@X" onclick="openSidebar('EDR_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/92.jpg" id="EDR_92" data-flag="@X" onclick="openSidebar('EDR_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/233.jpg" id="EDR_233" data-flag="@X" onclick="openSidebar('EDR_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/205.jpg" id="EDR_205" data-flag="@X" onclick="openSidebar('EDR_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/158.jpg" id="EDR_158" data-flag="@X" onclick="openSidebar('EDR_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/72.jpg" id="EDR_72" data-flag="@X" onclick="openSidebar('EDR_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/186.jpg" id="EDR_186" data-flag="@X" onclick="openSidebar('EDR_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/250.jpg" id="EDR_250" data-flag="@X" onclick="openSidebar('EDR_250',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/79.jpg" id="EDR_79" data-flag="@X" onclick="openSidebar('EDR_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/252.jpg" id="EDR_252" data-flag="@X" onclick="openSidebar('EDR_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/164.jpg" id="EDR_164" data-flag="@X" onclick="openSidebar('EDR_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/192.jpg" id="EDR_192" data-flag="@X" onclick="openSidebar('EDR_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/99.jpg" id="EDR_99" data-flag="@X" onclick="openSidebar('EDR_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/280.jpg" id="EDR_280" data-flag="@X" onclick="openSidebar('EDR_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/68.jpg" id="EDR_68" data-flag="@X" onclick="openSidebar('EDR_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/265.jpg" id="EDR_265" data-flag="@X" onclick="openSidebar('EDR_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/199.jpg" id="EDR_199" data-flag="@X" onclick="openSidebar('EDR_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/193.jpg" id="EDR_193" data-flag="@X" onclick="openSidebar('EDR_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/232.jpg" id="EDR_232" data-flag="@X" onclick="openSidebar('EDR_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/187.jpg" id="EDR_187" data-flag="@X" onclick="openSidebar('EDR_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/231.jpg" id="EDR_231" data-flag="@X" onclick="openSidebar('EDR_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/167.jpg" id="EDR_167" data-flag="@X" onclick="openSidebar('EDR_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/216.jpg" id="EDR_216" data-flag="@X" onclick="openSidebar('EDR_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/163.jpg" id="EDR_163" data-flag="@X" onclick="openSidebar('EDR_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/285.jpg" id="EDR_285" data-flag="@X" onclick="openSidebar('EDR_285',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/283.jpg" id="EDR_283" data-flag="@X" onclick="openSidebar('EDR_283',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/159.jpg" id="EDR_159" data-flag="@X" onclick="openSidebar('EDR_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/238.jpg" id="EDR_238" data-flag="@X" onclick="openSidebar('EDR_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/281.jpg" id="EDR_281" data-flag="@X" onclick="openSidebar('EDR_281',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/56.jpg" id="EDR_56" data-flag="@X" onclick="openSidebar('EDR_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/272.jpg" id="EDR_272" data-flag="@X" onclick="openSidebar('EDR_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/155.jpg" id="EDR_155" data-flag="@X" onclick="openSidebar('EDR_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/194.jpg" id="EDR_194" data-flag="@X" onclick="openSidebar('EDR_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/198.jpg" id="EDR_198" data-flag="@X" onclick="openSidebar('EDR_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/191.jpg" id="EDR_191" data-flag="@X" onclick="openSidebar('EDR_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/287.jpg" id="EDR_287" data-flag="@X" onclick="openSidebar('EDR_287',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/49.jpg" id="EDR_49" data-flag="@X" onclick="openSidebar('EDR_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/271.jpg" id="EDR_271" data-flag="@X" onclick="openSidebar('EDR_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/59.jpg" id="EDR_59" data-flag="@X" onclick="openSidebar('EDR_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/196.jpg" id="EDR_196" data-flag="@X" onclick="openSidebar('EDR_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/86.jpg" id="EDR_86" data-flag="@X" onclick="openSidebar('EDR_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/239.jpg" id="EDR_239" data-flag="@X" onclick="openSidebar('EDR_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/197.jpg" id="EDR_197" data-flag="@X" onclick="openSidebar('EDR_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/142.jpg" id="EDR_142" data-flag="@X" onclick="openSidebar('EDR_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/278.jpg" id="EDR_278" data-flag="@X" onclick="openSidebar('EDR_278',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/85.jpg" id="EDR_85" data-flag="@X" onclick="openSidebar('EDR_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/284.jpg" id="EDR_284" data-flag="@X" onclick="openSidebar('EDR_284',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/7.jpg" id="EDR_7" data-flag="@X" onclick="openSidebar('EDR_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/9.jpg" id="EDR_9" data-flag="@X" onclick="openSidebar('EDR_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/51.jpg" id="EDR_51" data-flag="@X" onclick="openSidebar('EDR_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/3.jpg" id="EDR_3" data-flag="@X" onclick="openSidebar('EDR_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/204.jpg" id="EDR_204" data-flag="@X" onclick="openSidebar('EDR_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/166.jpg" id="EDR_166" data-flag="@X" onclick="openSidebar('EDR_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/269.jpg" id="EDR_269" data-flag="@X" onclick="openSidebar('EDR_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/65.jpg" id="EDR_65" data-flag="@X" onclick="openSidebar('EDR_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/282.jpg" id="EDR_282" data-flag="@X" onclick="openSidebar('EDR_282',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/209.jpg" id="EDR_209" data-flag="@X" onclick="openSidebar('EDR_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/245.jpg" id="EDR_245" data-flag="@X" onclick="openSidebar('EDR_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/201.jpg" id="EDR_201" data-flag="@X" onclick="openSidebar('EDR_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/236.jpg" id="EDR_236" data-flag="@X" onclick="openSidebar('EDR_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/206.jpg" id="EDR_206" data-flag="@X" onclick="openSidebar('EDR_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/279.jpg" id="EDR_279" data-flag="@X" onclick="openSidebar('EDR_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/224.jpg" id="EDR_224" data-flag="@X" onclick="openSidebar('EDR_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/255.jpg" id="EDR_255" data-flag="@X" onclick="openSidebar('EDR_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/237.jpg" id="EDR_237" data-flag="@X" onclick="openSidebar('EDR_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/215.jpg" id="EDR_215" data-flag="@X" onclick="openSidebar('EDR_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/80.jpg" id="EDR_80" data-flag="@X" onclick="openSidebar('EDR_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/210.jpg" id="EDR_210" data-flag="@X" onclick="openSidebar('EDR_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/208.jpg" id="EDR_208" data-flag="@X" onclick="openSidebar('EDR_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/168.jpg" id="EDR_168" data-flag="@X" onclick="openSidebar('EDR_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/1.jpg" id="EDR_1" data-flag="@X" onclick="openSidebar('EDR_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/98.jpg" id="EDR_98" data-flag="@X" onclick="openSidebar('EDR_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/124.jpg" id="EDR_124" data-flag="@X" onclick="openSidebar('EDR_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/145.jpg" id="EDR_145" data-flag="@X" onclick="openSidebar('EDR_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/0.jpg" id="EDR_0" data-flag="@X" onclick="openSidebar('EDR_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/266.jpg" id="EDR_266" data-flag="@X" onclick="openSidebar('EDR_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/226.jpg" id="EDR_226" data-flag="@X" onclick="openSidebar('EDR_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/120.jpg" id="EDR_120" data-flag="@X" onclick="openSidebar('EDR_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/146.jpg" id="EDR_146" data-flag="@X" onclick="openSidebar('EDR_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/36.jpg" id="EDR_36" data-flag="@X" onclick="openSidebar('EDR_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/60.jpg" id="EDR_60" data-flag="@X" onclick="openSidebar('EDR_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/31.jpg" id="EDR_31" data-flag="@X" onclick="openSidebar('EDR_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/26.jpg" id="EDR_26" data-flag="@X" onclick="openSidebar('EDR_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/137.jpg" id="EDR_137" data-flag="@X" onclick="openSidebar('EDR_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/66.jpg" id="EDR_66" data-flag="@X" onclick="openSidebar('EDR_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/130.jpg" id="EDR_130" data-flag="@X" onclick="openSidebar('EDR_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/64.jpg" id="EDR_64" data-flag="@X" onclick="openSidebar('EDR_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/27.jpg" id="EDR_27" data-flag="@X" onclick="openSidebar('EDR_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/139.jpg" id="EDR_139" data-flag="@X" onclick="openSidebar('EDR_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/34.jpg" id="EDR_34" data-flag="@X" onclick="openSidebar('EDR_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/8.jpg" id="EDR_8" data-flag="@X" onclick="openSidebar('EDR_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/54.jpg" id="EDR_54" data-flag="@X" onclick="openSidebar('EDR_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/125.jpg" id="EDR_125" data-flag="@X" onclick="openSidebar('EDR_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/77.jpg" id="EDR_77" data-flag="@X" onclick="openSidebar('EDR_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/112.jpg" id="EDR_112" data-flag="@X" onclick="openSidebar('EDR_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/133.jpg" id="EDR_133" data-flag="@X" onclick="openSidebar('EDR_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/105.jpg" id="EDR_105" data-flag="@X" onclick="openSidebar('EDR_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/29.jpg" id="EDR_29" data-flag="@X" onclick="openSidebar('EDR_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/138.jpg" id="EDR_138" data-flag="@X" onclick="openSidebar('EDR_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/107.jpg" id="EDR_107" data-flag="@X" onclick="openSidebar('EDR_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/126.jpg" id="EDR_126" data-flag="@X" onclick="openSidebar('EDR_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/103.jpg" id="EDR_103" data-flag="@X" onclick="openSidebar('EDR_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/119.jpg" id="EDR_119" data-flag="@X" onclick="openSidebar('EDR_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/25.jpg" id="EDR_25" data-flag="@X" onclick="openSidebar('EDR_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/28.jpg" id="EDR_28" data-flag="@X" onclick="openSidebar('EDR_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/129.jpg" id="EDR_129" data-flag="@X" onclick="openSidebar('EDR_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/104.jpg" id="EDR_104" data-flag="@X" onclick="openSidebar('EDR_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/118.jpg" id="EDR_118" data-flag="@X" onclick="openSidebar('EDR_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/62.jpg" id="EDR_62" data-flag="@X" onclick="openSidebar('EDR_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/73.jpg" id="EDR_73" data-flag="@X" onclick="openSidebar('EDR_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/24.jpg" id="EDR_24" data-flag="@X" onclick="openSidebar('EDR_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/100.jpg" id="EDR_100" data-flag="@X" onclick="openSidebar('EDR_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/115.jpg" id="EDR_115" data-flag="@X" onclick="openSidebar('EDR_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/140.jpg" id="EDR_140" data-flag="@X" onclick="openSidebar('EDR_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/111.jpg" id="EDR_111" data-flag="@X" onclick="openSidebar('EDR_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/58.jpg" id="EDR_58" data-flag="@X" onclick="openSidebar('EDR_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/102.jpg" id="EDR_102" data-flag="@X" onclick="openSidebar('EDR_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/123.jpg" id="EDR_123" data-flag="@X" onclick="openSidebar('EDR_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/141.jpg" id="EDR_141" data-flag="@X" onclick="openSidebar('EDR_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/106.jpg" id="EDR_106" data-flag="@X" onclick="openSidebar('EDR_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/135.jpg" id="EDR_135" data-flag="@X" onclick="openSidebar('EDR_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/91.jpg" id="EDR_91" data-flag="@X" onclick="openSidebar('EDR_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/121.jpg" id="EDR_121" data-flag="@X" onclick="openSidebar('EDR_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/61.jpg" id="EDR_61" data-flag="@X" onclick="openSidebar('EDR_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/108.jpg" id="EDR_108" data-flag="@X" onclick="openSidebar('EDR_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/134.jpg" id="EDR_134" data-flag="@X" onclick="openSidebar('EDR_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/75.jpg" id="EDR_75" data-flag="@X" onclick="openSidebar('EDR_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/113.jpg" id="EDR_113" data-flag="@X" onclick="openSidebar('EDR_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/150.jpg" id="EDR_150" data-flag="@X" onclick="openSidebar('EDR_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/109.jpg" id="EDR_109" data-flag="@X" onclick="openSidebar('EDR_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/128.jpg" id="EDR_128" data-flag="@X" onclick="openSidebar('EDR_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/35.jpg" id="EDR_35" data-flag="@X" onclick="openSidebar('EDR_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/37.jpg" id="EDR_37" data-flag="@X" onclick="openSidebar('EDR_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/152.jpg" id="EDR_152" data-flag="@X" onclick="openSidebar('EDR_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/30.jpg" id="EDR_30" data-flag="@X" onclick="openSidebar('EDR_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/131.jpg" id="EDR_131" data-flag="@X" onclick="openSidebar('EDR_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/69.jpg" id="EDR_69" data-flag="@X" onclick="openSidebar('EDR_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/70.jpg" id="EDR_70" data-flag="@X" onclick="openSidebar('EDR_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/151.jpg" id="EDR_151" data-flag="@X" onclick="openSidebar('EDR_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/110.jpg" id="EDR_110" data-flag="@X" onclick="openSidebar('EDR_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/12.jpg" id="EDR_12" data-flag="@X" onclick="openSidebar('EDR_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/87.jpg" id="EDR_87" data-flag="@X" onclick="openSidebar('EDR_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/117.jpg" id="EDR_117" data-flag="@X" onclick="openSidebar('EDR_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/149.jpg" id="EDR_149" data-flag="@X" onclick="openSidebar('EDR_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/94.jpg" id="EDR_94" data-flag="@X" onclick="openSidebar('EDR_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/127.jpg" id="EDR_127" data-flag="@X" onclick="openSidebar('EDR_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/93.jpg" id="EDR_93" data-flag="@X" onclick="openSidebar('EDR_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/116.jpg" id="EDR_116" data-flag="@X" onclick="openSidebar('EDR_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/144.jpg" id="EDR_144" data-flag="@X" onclick="openSidebar('EDR_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/67.jpg" id="EDR_67" data-flag="@X" onclick="openSidebar('EDR_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/74.jpg" id="EDR_74" data-flag="@X" onclick="openSidebar('EDR_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/101.jpg" id="EDR_101" data-flag="@X" onclick="openSidebar('EDR_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/122.jpg" id="EDR_122" data-flag="@X" onclick="openSidebar('EDR_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/148.jpg" id="EDR_148" data-flag="@X" onclick="openSidebar('EDR_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/211.jpg" id="EDR_211" data-flag="@X" onclick="openSidebar('EDR_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/132.jpg" id="EDR_132" data-flag="@X" onclick="openSidebar('EDR_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/254.jpg" id="EDR_254" data-flag="@X" onclick="openSidebar('EDR_254',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/114.jpg" id="EDR_114" data-flag="@X" onclick="openSidebar('EDR_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/171.jpg" id="EDR_171" data-flag="@X" onclick="openSidebar('EDR_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/234.jpg" id="EDR_234" data-flag="@X" onclick="openSidebar('EDR_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/267.jpg" id="EDR_267" data-flag="@X" onclick="openSidebar('EDR_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/32.jpg" id="EDR_32" data-flag="@X" onclick="openSidebar('EDR_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/181.jpg" id="EDR_181" data-flag="@X" onclick="openSidebar('EDR_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/270.jpg" id="EDR_270" data-flag="@X" onclick="openSidebar('EDR_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/81.jpg" id="EDR_81" data-flag="@X" onclick="openSidebar('EDR_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/180.jpg" id="EDR_180" data-flag="@X" onclick="openSidebar('EDR_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/90.jpg" id="EDR_90" data-flag="@X" onclick="openSidebar('EDR_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/88.jpg" id="EDR_88" data-flag="@X" onclick="openSidebar('EDR_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/248.jpg" id="EDR_248" data-flag="@X" onclick="openSidebar('EDR_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/221.jpg" id="EDR_221" data-flag="@X" onclick="openSidebar('EDR_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/89.jpg" id="EDR_89" data-flag="@X" onclick="openSidebar('EDR_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/160.jpg" id="EDR_160" data-flag="@X" onclick="openSidebar('EDR_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/291.jpg" id="EDR_291" data-flag="@X" onclick="openSidebar('EDR_291',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/97.jpg" id="EDR_97" data-flag="@X" onclick="openSidebar('EDR_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/22.jpg" id="EDR_22" data-flag="@X" onclick="openSidebar('EDR_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/273.jpg" id="EDR_273" data-flag="@X" onclick="openSidebar('EDR_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/275.jpg" id="EDR_275" data-flag="@X" onclick="openSidebar('EDR_275',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/23.jpg" id="EDR_23" data-flag="@X" onclick="openSidebar('EDR_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/212.jpg" id="EDR_212" data-flag="@X" onclick="openSidebar('EDR_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/18.jpg" id="EDR_18" data-flag="@X" onclick="openSidebar('EDR_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/17.jpg" id="EDR_17" data-flag="@X" onclick="openSidebar('EDR_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/15.jpg" id="EDR_15" data-flag="@X" onclick="openSidebar('EDR_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/52.jpg" id="EDR_52" data-flag="@X" onclick="openSidebar('EDR_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/157.jpg" id="EDR_157" data-flag="@X" onclick="openSidebar('EDR_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/200.jpg" id="EDR_200" data-flag="@X" onclick="openSidebar('EDR_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/203.jpg" id="EDR_203" data-flag="@X" onclick="openSidebar('EDR_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/213.jpg" id="EDR_213" data-flag="@X" onclick="openSidebar('EDR_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/249.jpg" id="EDR_249" data-flag="@X" onclick="openSidebar('EDR_249',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/179.jpg" id="EDR_179" data-flag="@X" onclick="openSidebar('EDR_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/268.jpg" id="EDR_268" data-flag="@X" onclick="openSidebar('EDR_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/240.jpg" id="EDR_240" data-flag="@X" onclick="openSidebar('EDR_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/225.jpg" id="EDR_225" data-flag="@X" onclick="openSidebar('EDR_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/277.jpg" id="EDR_277" data-flag="@X" onclick="openSidebar('EDR_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/214.jpg" id="EDR_214" data-flag="@X" onclick="openSidebar('EDR_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/290.jpg" id="EDR_290" data-flag="@X" onclick="openSidebar('EDR_290',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/83.jpg" id="EDR_83" data-flag="@X" onclick="openSidebar('EDR_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/96.jpg" id="EDR_96" data-flag="@X" onclick="openSidebar('EDR_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/82.jpg" id="EDR_82" data-flag="@X" onclick="openSidebar('EDR_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/71.jpg" id="EDR_71" data-flag="@X" onclick="openSidebar('EDR_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/84.jpg" id="EDR_84" data-flag="@X" onclick="openSidebar('EDR_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/289.jpg" id="EDR_289" data-flag="@X" onclick="openSidebar('EDR_289',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/286.jpg" id="EDR_286" data-flag="@X" onclick="openSidebar('EDR_286',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/288.jpg" id="EDR_288" data-flag="@X" onclick="openSidebar('EDR_288',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/274.jpg" id="EDR_274" data-flag="@X" onclick="openSidebar('EDR_274',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/14.jpg" id="EDR_14" data-flag="@X" onclick="openSidebar('EDR_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/19.jpg" id="EDR_19" data-flag="@X" onclick="openSidebar('EDR_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/21.jpg" id="EDR_21" data-flag="@X" onclick="openSidebar('EDR_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/20.jpg" id="EDR_20" data-flag="@X" onclick="openSidebar('EDR_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/16.jpg" id="EDR_16" data-flag="@X" onclick="openSidebar('EDR_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/165.jpg" id="EDR_165" data-flag="@X" onclick="openSidebar('EDR_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/251.jpg" id="EDR_251" data-flag="@X" onclick="openSidebar('EDR_251',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/217.jpg" id="EDR_217" data-flag="@X" onclick="openSidebar('EDR_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/227.jpg" id="EDR_227" data-flag="@X" onclick="openSidebar('EDR_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/223.jpg" id="EDR_223" data-flag="@X" onclick="openSidebar('EDR_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/176.jpg" id="EDR_176" data-flag="@X" onclick="openSidebar('EDR_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/219.jpg" id="EDR_219" data-flag="@X" onclick="openSidebar('EDR_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/261.jpg" id="EDR_261" data-flag="@X" onclick="openSidebar('EDR_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/241.jpg" id="EDR_241" data-flag="@X" onclick="openSidebar('EDR_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/57.jpg" id="EDR_57" data-flag="@X" onclick="openSidebar('EDR_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/185.jpg" id="EDR_185" data-flag="@X" onclick="openSidebar('EDR_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/76.jpg" id="EDR_76" data-flag="@X" onclick="openSidebar('EDR_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/147.jpg" id="EDR_147" data-flag="@X" onclick="openSidebar('EDR_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/242.jpg" id="EDR_242" data-flag="@X" onclick="openSidebar('EDR_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/195.jpg" id="EDR_195" data-flag="@X" onclick="openSidebar('EDR_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/258.jpg" id="EDR_258" data-flag="@X" onclick="openSidebar('EDR_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/184.jpg" id="EDR_184" data-flag="@X" onclick="openSidebar('EDR_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/243.jpg" id="EDR_243" data-flag="@X" onclick="openSidebar('EDR_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/329.jpg" id="EDR_329" data-flag="@X" onclick="openSidebar('EDR_329',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/154.jpg" id="EDR_154" data-flag="@X" onclick="openSidebar('EDR_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/6.jpg" id="EDR_6" data-flag="@X" onclick="openSidebar('EDR_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/38.jpg" id="EDR_38" data-flag="@X" onclick="openSidebar('EDR_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/95.jpg" id="EDR_95" data-flag="@X" onclick="openSidebar('EDR_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/143.jpg" id="EDR_143" data-flag="@X" onclick="openSidebar('EDR_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/156.jpg" id="EDR_156" data-flag="@X" onclick="openSidebar('EDR_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/53.jpg" id="EDR_53" data-flag="@X" onclick="openSidebar('EDR_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/173.jpg" id="EDR_173" data-flag="@X" onclick="openSidebar('EDR_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/172.jpg" id="EDR_172" data-flag="@X" onclick="openSidebar('EDR_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/183.jpg" id="EDR_183" data-flag="@X" onclick="openSidebar('EDR_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/182.jpg" id="EDR_182" data-flag="@X" onclick="openSidebar('EDR_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/298.jpg" id="EDR_298" data-flag="@X" onclick="openSidebar('EDR_298',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/299.jpg" id="EDR_299" data-flag="@X" onclick="openSidebar('EDR_299',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/304.jpg" id="EDR_304" data-flag="@X" onclick="openSidebar('EDR_304',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/301.jpg" id="EDR_301" data-flag="@X" onclick="openSidebar('EDR_301',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/305.jpg" id="EDR_305" data-flag="@X" onclick="openSidebar('EDR_305',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/297.jpg" id="EDR_297" data-flag="@X" onclick="openSidebar('EDR_297',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/300.jpg" id="EDR_300" data-flag="@X" onclick="openSidebar('EDR_300',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/303.jpg" id="EDR_303" data-flag="@X" onclick="openSidebar('EDR_303',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/296.jpg" id="EDR_296" data-flag="@X" onclick="openSidebar('EDR_296',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/306.jpg" id="EDR_306" data-flag="@X" onclick="openSidebar('EDR_306',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/259.jpg" id="EDR_259" data-flag="@X" onclick="openSidebar('EDR_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/295.jpg" id="EDR_295" data-flag="@X" onclick="openSidebar('EDR_295',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/257.jpg" id="EDR_257" data-flag="@X" onclick="openSidebar('EDR_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/174.jpg" id="EDR_174" data-flag="@X" onclick="openSidebar('EDR_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/5.jpg" id="EDR_5" data-flag="@X" onclick="openSidebar('EDR_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/302.jpg" id="EDR_302" data-flag="@X" onclick="openSidebar('EDR_302',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/324.jpg" id="EDR_324" data-flag="@X" onclick="openSidebar('EDR_324',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/325.jpg" id="EDR_325" data-flag="@X" onclick="openSidebar('EDR_325',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/326.jpg" id="EDR_326" data-flag="@X" onclick="openSidebar('EDR_326',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/327.jpg" id="EDR_327" data-flag="@X" onclick="openSidebar('EDR_327',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/328.jpg" id="EDR_328" data-flag="@X" onclick="openSidebar('EDR_328',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/309.jpg" id="EDR_309" data-flag="@X" onclick="openSidebar('EDR_309',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/317.jpg" id="EDR_317" data-flag="@X" onclick="openSidebar('EDR_317',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/313.jpg" id="EDR_313" data-flag="@X" onclick="openSidebar('EDR_313',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/323.jpg" id="EDR_323" data-flag="@X" onclick="openSidebar('EDR_323',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/312.jpg" id="EDR_312" data-flag="@X" onclick="openSidebar('EDR_312',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/311.jpg" id="EDR_311" data-flag="@X" onclick="openSidebar('EDR_311',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/230.jpg" id="EDR_230" data-flag="@X" onclick="openSidebar('EDR_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/320.jpg" id="EDR_320" data-flag="@X" onclick="openSidebar('EDR_320',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/331.jpg" id="EDR_331" data-flag="@X" onclick="openSidebar('EDR_331',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/330.jpg" id="EDR_330" data-flag="@X" onclick="openSidebar('EDR_330',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/310.jpg" id="EDR_310" data-flag="@X" onclick="openSidebar('EDR_310',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/260.jpg" id="EDR_260" data-flag="@X" onclick="openSidebar('EDR_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/314.jpg" id="EDR_314" data-flag="@X" onclick="openSidebar('EDR_314',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/315.jpg" id="EDR_315" data-flag="@X" onclick="openSidebar('EDR_315',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/322.jpg" id="EDR_322" data-flag="@X" onclick="openSidebar('EDR_322',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/307.jpg" id="EDR_307" data-flag="@X" onclick="openSidebar('EDR_307',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/318.jpg" id="EDR_318" data-flag="@X" onclick="openSidebar('EDR_318',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/316.jpg" id="EDR_316" data-flag="@X" onclick="openSidebar('EDR_316',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/321.jpg" id="EDR_321" data-flag="@X" onclick="openSidebar('EDR_321',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/319.jpg" id="EDR_319" data-flag="@X" onclick="openSidebar('EDR_319',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EDR-files/img/308.jpg" id="EDR_308" data-flag="@X" onclick="openSidebar('EDR_308',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EDR_e" data-flag="@E" onclick="openSidebar('EDR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EDR_er" data-flag="@E" onclick="openSidebar('EDR_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/CYO-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>CYO visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/CYO-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
+	
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
+	
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
+	
+		<a class="set-bar inactive" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
+	
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
+	
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
+	
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
+	
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
+	
+		<a class="set-bar inactive" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
+	
+		<a class="set-bar inactive" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
+	
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/CYO-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/CYO-files/img/0.jpg" id="CYO_0" data-flag="@X" onclick="openSidebar('CYO_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/12.jpg" id="CYO_12" data-flag="@X" onclick="openSidebar('CYO_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/256.jpg" id="CYO_256" data-flag="@X" onclick="openSidebar('CYO_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/255.jpg" id="CYO_255" data-flag="@X" onclick="openSidebar('CYO_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/210.jpg" id="CYO_210" data-flag="@X" onclick="openSidebar('CYO_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/207.jpg" id="CYO_207" data-flag="@X" onclick="openSidebar('CYO_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/29.jpg" id="CYO_29" data-flag="@X" onclick="openSidebar('CYO_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/62.jpg" id="CYO_62" data-flag="@X" onclick="openSidebar('CYO_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/94.jpg" id="CYO_94" data-flag="@X" onclick="openSidebar('CYO_94',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/126.jpg" id="CYO_126" data-flag="@X" onclick="openSidebar('CYO_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/159.jpg" id="CYO_159" data-flag="@X" onclick="openSidebar('CYO_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/28.jpg" id="CYO_28" data-flag="@X" onclick="openSidebar('CYO_28',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/63.jpg" id="CYO_63" data-flag="@X" onclick="openSidebar('CYO_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/95.jpg" id="CYO_95" data-flag="@X" onclick="openSidebar('CYO_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/127.jpg" id="CYO_127" data-flag="@X" onclick="openSidebar('CYO_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/160.jpg" id="CYO_160" data-flag="@X" onclick="openSidebar('CYO_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/31.jpg" id="CYO_31" data-flag="@X" onclick="openSidebar('CYO_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/64.jpg" id="CYO_64" data-flag="@X" onclick="openSidebar('CYO_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/96.jpg" id="CYO_96" data-flag="@X" onclick="openSidebar('CYO_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/129.jpg" id="CYO_129" data-flag="@X" onclick="openSidebar('CYO_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/163.jpg" id="CYO_163" data-flag="@X" onclick="openSidebar('CYO_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/32.jpg" id="CYO_32" data-flag="@X" onclick="openSidebar('CYO_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/275.jpg" id="CYO_275" data-flag="@X" onclick="openSidebar('CYO_275',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/97.jpg" id="CYO_97" data-flag="@X" onclick="openSidebar('CYO_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/132.jpg" id="CYO_132" data-flag="@X" onclick="openSidebar('CYO_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/161.jpg" id="CYO_161" data-flag="@X" onclick="openSidebar('CYO_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/34.jpg" id="CYO_34" data-flag="@X" onclick="openSidebar('CYO_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/67.jpg" id="CYO_67" data-flag="@X" onclick="openSidebar('CYO_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/100.jpg" id="CYO_100" data-flag="@X" onclick="openSidebar('CYO_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/130.jpg" id="CYO_130" data-flag="@X" onclick="openSidebar('CYO_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/277.jpg" id="CYO_277" data-flag="@X" onclick="openSidebar('CYO_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/30.jpg" id="CYO_30" data-flag="@X" onclick="openSidebar('CYO_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/66.jpg" id="CYO_66" data-flag="@X" onclick="openSidebar('CYO_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/274.jpg" id="CYO_274" data-flag="@X" onclick="openSidebar('CYO_274',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/128.jpg" id="CYO_128" data-flag="@X" onclick="openSidebar('CYO_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/165.jpg" id="CYO_165" data-flag="@X" onclick="openSidebar('CYO_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/273.jpg" id="CYO_273" data-flag="@X" onclick="openSidebar('CYO_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/65.jpg" id="CYO_65" data-flag="@X" onclick="openSidebar('CYO_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/98.jpg" id="CYO_98" data-flag="@X" onclick="openSidebar('CYO_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/276.jpg" id="CYO_276" data-flag="@X" onclick="openSidebar('CYO_276',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/162.jpg" id="CYO_162" data-flag="@X" onclick="openSidebar('CYO_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/33.jpg" id="CYO_33" data-flag="@X" onclick="openSidebar('CYO_33',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/68.jpg" id="CYO_68" data-flag="@X" onclick="openSidebar('CYO_68',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/99.jpg" id="CYO_99" data-flag="@X" onclick="openSidebar('CYO_99',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/131.jpg" id="CYO_131" data-flag="@X" onclick="openSidebar('CYO_131',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/164.jpg" id="CYO_164" data-flag="@X" onclick="openSidebar('CYO_164',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/45.jpg" id="CYO_45" data-flag="@X" onclick="openSidebar('CYO_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/79.jpg" id="CYO_79" data-flag="@X" onclick="openSidebar('CYO_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/107.jpg" id="CYO_107" data-flag="@X" onclick="openSidebar('CYO_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/136.jpg" id="CYO_136" data-flag="@X" onclick="openSidebar('CYO_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/138.jpg" id="CYO_138" data-flag="@X" onclick="openSidebar('CYO_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/48.jpg" id="CYO_48" data-flag="@X" onclick="openSidebar('CYO_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/73.jpg" id="CYO_73" data-flag="@X" onclick="openSidebar('CYO_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/106.jpg" id="CYO_106" data-flag="@X" onclick="openSidebar('CYO_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/140.jpg" id="CYO_140" data-flag="@X" onclick="openSidebar('CYO_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/171.jpg" id="CYO_171" data-flag="@X" onclick="openSidebar('CYO_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/46.jpg" id="CYO_46" data-flag="@X" onclick="openSidebar('CYO_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/252.jpg" id="CYO_252" data-flag="@X" onclick="openSidebar('CYO_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/108.jpg" id="CYO_108" data-flag="@X" onclick="openSidebar('CYO_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/134.jpg" id="CYO_134" data-flag="@X" onclick="openSidebar('CYO_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/170.jpg" id="CYO_170" data-flag="@X" onclick="openSidebar('CYO_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/43.jpg" id="CYO_43" data-flag="@X" onclick="openSidebar('CYO_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/75.jpg" id="CYO_75" data-flag="@X" onclick="openSidebar('CYO_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/105.jpg" id="CYO_105" data-flag="@X" onclick="openSidebar('CYO_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/259.jpg" id="CYO_259" data-flag="@X" onclick="openSidebar('CYO_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/177.jpg" id="CYO_177" data-flag="@X" onclick="openSidebar('CYO_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/41.jpg" id="CYO_41" data-flag="@X" onclick="openSidebar('CYO_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/80.jpg" id="CYO_80" data-flag="@X" onclick="openSidebar('CYO_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/109.jpg" id="CYO_109" data-flag="@X" onclick="openSidebar('CYO_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/143.jpg" id="CYO_143" data-flag="@X" onclick="openSidebar('CYO_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/173.jpg" id="CYO_173" data-flag="@X" onclick="openSidebar('CYO_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/38.jpg" id="CYO_38" data-flag="@X" onclick="openSidebar('CYO_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/70.jpg" id="CYO_70" data-flag="@X" onclick="openSidebar('CYO_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/111.jpg" id="CYO_111" data-flag="@X" onclick="openSidebar('CYO_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/271.jpg" id="CYO_271" data-flag="@X" onclick="openSidebar('CYO_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/280.jpg" id="CYO_280" data-flag="@X" onclick="openSidebar('CYO_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/37.jpg" id="CYO_37" data-flag="@X" onclick="openSidebar('CYO_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/74.jpg" id="CYO_74" data-flag="@X" onclick="openSidebar('CYO_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/270.jpg" id="CYO_270" data-flag="@X" onclick="openSidebar('CYO_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/135.jpg" id="CYO_135" data-flag="@X" onclick="openSidebar('CYO_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/176.jpg" id="CYO_176" data-flag="@X" onclick="openSidebar('CYO_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/42.jpg" id="CYO_42" data-flag="@X" onclick="openSidebar('CYO_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/77.jpg" id="CYO_77" data-flag="@X" onclick="openSidebar('CYO_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/112.jpg" id="CYO_112" data-flag="@X" onclick="openSidebar('CYO_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/137.jpg" id="CYO_137" data-flag="@X" onclick="openSidebar('CYO_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/172.jpg" id="CYO_172" data-flag="@X" onclick="openSidebar('CYO_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/39.jpg" id="CYO_39" data-flag="@X" onclick="openSidebar('CYO_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/72.jpg" id="CYO_72" data-flag="@X" onclick="openSidebar('CYO_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/104.jpg" id="CYO_104" data-flag="@X" onclick="openSidebar('CYO_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/144.jpg" id="CYO_144" data-flag="@X" onclick="openSidebar('CYO_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/167.jpg" id="CYO_167" data-flag="@X" onclick="openSidebar('CYO_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/40.jpg" id="CYO_40" data-flag="@X" onclick="openSidebar('CYO_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/263.jpg" id="CYO_263" data-flag="@X" onclick="openSidebar('CYO_263',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/102.jpg" id="CYO_102" data-flag="@X" onclick="openSidebar('CYO_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/141.jpg" id="CYO_141" data-flag="@X" onclick="openSidebar('CYO_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/175.jpg" id="CYO_175" data-flag="@X" onclick="openSidebar('CYO_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/244.jpg" id="CYO_244" data-flag="@X" onclick="openSidebar('CYO_244',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/254.jpg" id="CYO_254" data-flag="@X" onclick="openSidebar('CYO_254',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/250.jpg" id="CYO_250" data-flag="@X" onclick="openSidebar('CYO_250',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/260.jpg" id="CYO_260" data-flag="@X" onclick="openSidebar('CYO_260',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/234.jpg" id="CYO_234" data-flag="@X" onclick="openSidebar('CYO_234',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/26.jpg" id="CYO_26" data-flag="@X" onclick="openSidebar('CYO_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/49.jpg" id="CYO_49" data-flag="@X" onclick="openSidebar('CYO_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/82.jpg" id="CYO_82" data-flag="@X" onclick="openSidebar('CYO_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/125.jpg" id="CYO_125" data-flag="@X" onclick="openSidebar('CYO_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/149.jpg" id="CYO_149" data-flag="@X" onclick="openSidebar('CYO_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/15.jpg" id="CYO_15" data-flag="@X" onclick="openSidebar('CYO_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/61.jpg" id="CYO_61" data-flag="@X" onclick="openSidebar('CYO_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/91.jpg" id="CYO_91" data-flag="@X" onclick="openSidebar('CYO_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/118.jpg" id="CYO_118" data-flag="@X" onclick="openSidebar('CYO_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/147.jpg" id="CYO_147" data-flag="@X" onclick="openSidebar('CYO_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/17.jpg" id="CYO_17" data-flag="@X" onclick="openSidebar('CYO_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/51.jpg" id="CYO_51" data-flag="@X" onclick="openSidebar('CYO_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/81.jpg" id="CYO_81" data-flag="@X" onclick="openSidebar('CYO_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/119.jpg" id="CYO_119" data-flag="@X" onclick="openSidebar('CYO_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/155.jpg" id="CYO_155" data-flag="@X" onclick="openSidebar('CYO_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/20.jpg" id="CYO_20" data-flag="@X" onclick="openSidebar('CYO_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/54.jpg" id="CYO_54" data-flag="@X" onclick="openSidebar('CYO_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/86.jpg" id="CYO_86" data-flag="@X" onclick="openSidebar('CYO_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/123.jpg" id="CYO_123" data-flag="@X" onclick="openSidebar('CYO_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/151.jpg" id="CYO_151" data-flag="@X" onclick="openSidebar('CYO_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/27.jpg" id="CYO_27" data-flag="@X" onclick="openSidebar('CYO_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/58.jpg" id="CYO_58" data-flag="@X" onclick="openSidebar('CYO_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/84.jpg" id="CYO_84" data-flag="@X" onclick="openSidebar('CYO_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/120.jpg" id="CYO_120" data-flag="@X" onclick="openSidebar('CYO_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/146.jpg" id="CYO_146" data-flag="@X" onclick="openSidebar('CYO_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/16.jpg" id="CYO_16" data-flag="@X" onclick="openSidebar('CYO_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/53.jpg" id="CYO_53" data-flag="@X" onclick="openSidebar('CYO_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/235.jpg" id="CYO_235" data-flag="@X" onclick="openSidebar('CYO_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/249.jpg" id="CYO_249" data-flag="@X" onclick="openSidebar('CYO_249',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/148.jpg" id="CYO_148" data-flag="@X" onclick="openSidebar('CYO_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/22.jpg" id="CYO_22" data-flag="@X" onclick="openSidebar('CYO_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/56.jpg" id="CYO_56" data-flag="@X" onclick="openSidebar('CYO_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/90.jpg" id="CYO_90" data-flag="@X" onclick="openSidebar('CYO_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/114.jpg" id="CYO_114" data-flag="@X" onclick="openSidebar('CYO_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/152.jpg" id="CYO_152" data-flag="@X" onclick="openSidebar('CYO_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/18.jpg" id="CYO_18" data-flag="@X" onclick="openSidebar('CYO_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/60.jpg" id="CYO_60" data-flag="@X" onclick="openSidebar('CYO_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/85.jpg" id="CYO_85" data-flag="@X" onclick="openSidebar('CYO_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/115.jpg" id="CYO_115" data-flag="@X" onclick="openSidebar('CYO_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/153.jpg" id="CYO_153" data-flag="@X" onclick="openSidebar('CYO_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/21.jpg" id="CYO_21" data-flag="@X" onclick="openSidebar('CYO_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/50.jpg" id="CYO_50" data-flag="@X" onclick="openSidebar('CYO_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/87.jpg" id="CYO_87" data-flag="@X" onclick="openSidebar('CYO_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/117.jpg" id="CYO_117" data-flag="@X" onclick="openSidebar('CYO_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/156.jpg" id="CYO_156" data-flag="@X" onclick="openSidebar('CYO_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/19.jpg" id="CYO_19" data-flag="@X" onclick="openSidebar('CYO_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/52.jpg" id="CYO_52" data-flag="@X" onclick="openSidebar('CYO_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/83.jpg" id="CYO_83" data-flag="@X" onclick="openSidebar('CYO_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/122.jpg" id="CYO_122" data-flag="@X" onclick="openSidebar('CYO_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/145.jpg" id="CYO_145" data-flag="@X" onclick="openSidebar('CYO_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/24.jpg" id="CYO_24" data-flag="@X" onclick="openSidebar('CYO_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/59.jpg" id="CYO_59" data-flag="@X" onclick="openSidebar('CYO_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/93.jpg" id="CYO_93" data-flag="@X" onclick="openSidebar('CYO_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/228.jpg" id="CYO_228" data-flag="@X" onclick="openSidebar('CYO_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/253.jpg" id="CYO_253" data-flag="@X" onclick="openSidebar('CYO_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/243.jpg" id="CYO_243" data-flag="@X" onclick="openSidebar('CYO_243',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/248.jpg" id="CYO_248" data-flag="@X" onclick="openSidebar('CYO_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/88.jpg" id="CYO_88" data-flag="@X" onclick="openSidebar('CYO_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/116.jpg" id="CYO_116" data-flag="@X" onclick="openSidebar('CYO_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/150.jpg" id="CYO_150" data-flag="@X" onclick="openSidebar('CYO_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/278.jpg" id="CYO_278" data-flag="@X" onclick="openSidebar('CYO_278',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/245.jpg" id="CYO_245" data-flag="@X" onclick="openSidebar('CYO_245',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/246.jpg" id="CYO_246" data-flag="@X" onclick="openSidebar('CYO_246',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/247.jpg" id="CYO_247" data-flag="@X" onclick="openSidebar('CYO_247',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/158.jpg" id="CYO_158" data-flag="@X" onclick="openSidebar('CYO_158',true)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/182.jpg" id="CYO_182" data-flag="@X" onclick="openSidebar('CYO_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/183.jpg" id="CYO_183" data-flag="@X" onclick="openSidebar('CYO_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/184.jpg" id="CYO_184" data-flag="@X" onclick="openSidebar('CYO_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/185.jpg" id="CYO_185" data-flag="@X" onclick="openSidebar('CYO_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/187.jpg" id="CYO_187" data-flag="@X" onclick="openSidebar('CYO_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/198.jpg" id="CYO_198" data-flag="@X" onclick="openSidebar('CYO_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/76.jpg" id="CYO_76" data-flag="@X" onclick="openSidebar('CYO_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/190.jpg" id="CYO_190" data-flag="@X" onclick="openSidebar('CYO_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/139.jpg" id="CYO_139" data-flag="@X" onclick="openSidebar('CYO_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/174.jpg" id="CYO_174" data-flag="@X" onclick="openSidebar('CYO_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/44.jpg" id="CYO_44" data-flag="@X" onclick="openSidebar('CYO_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/199.jpg" id="CYO_199" data-flag="@X" onclick="openSidebar('CYO_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/110.jpg" id="CYO_110" data-flag="@X" onclick="openSidebar('CYO_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/191.jpg" id="CYO_191" data-flag="@X" onclick="openSidebar('CYO_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/192.jpg" id="CYO_192" data-flag="@X" onclick="openSidebar('CYO_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/189.jpg" id="CYO_189" data-flag="@X" onclick="openSidebar('CYO_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/251.jpg" id="CYO_251" data-flag="@X" onclick="openSidebar('CYO_251',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/200.jpg" id="CYO_200" data-flag="@X" onclick="openSidebar('CYO_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/201.jpg" id="CYO_201" data-flag="@X" onclick="openSidebar('CYO_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/236.jpg" id="CYO_236" data-flag="@X" onclick="openSidebar('CYO_236',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/36.jpg" id="CYO_36" data-flag="@X" onclick="openSidebar('CYO_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/71.jpg" id="CYO_71" data-flag="@X" onclick="openSidebar('CYO_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/103.jpg" id="CYO_103" data-flag="@X" onclick="openSidebar('CYO_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/169.jpg" id="CYO_169" data-flag="@X" onclick="openSidebar('CYO_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/168.jpg" id="CYO_168" data-flag="@X" onclick="openSidebar('CYO_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/57.jpg" id="CYO_57" data-flag="@X" onclick="openSidebar('CYO_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/92.jpg" id="CYO_92" data-flag="@X" onclick="openSidebar('CYO_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/124.jpg" id="CYO_124" data-flag="@X" onclick="openSidebar('CYO_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/157.jpg" id="CYO_157" data-flag="@X" onclick="openSidebar('CYO_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/25.jpg" id="CYO_25" data-flag="@X" onclick="openSidebar('CYO_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/4.jpg" id="CYO_4" data-flag="@X" onclick="openSidebar('CYO_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/5.jpg" id="CYO_5" data-flag="@X" onclick="openSidebar('CYO_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/6.jpg" id="CYO_6" data-flag="@X" onclick="openSidebar('CYO_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/7.jpg" id="CYO_7" data-flag="@X" onclick="openSidebar('CYO_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/3.jpg" id="CYO_3" data-flag="@X" onclick="openSidebar('CYO_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/69.jpg" id="CYO_69" data-flag="@X" onclick="openSidebar('CYO_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/188.jpg" id="CYO_188" data-flag="@X" onclick="openSidebar('CYO_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/180.jpg" id="CYO_180" data-flag="@X" onclick="openSidebar('CYO_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/166.jpg" id="CYO_166" data-flag="@X" onclick="openSidebar('CYO_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/179.jpg" id="CYO_179" data-flag="@X" onclick="openSidebar('CYO_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/186.jpg" id="CYO_186" data-flag="@X" onclick="openSidebar('CYO_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/101.jpg" id="CYO_101" data-flag="@X" onclick="openSidebar('CYO_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/133.jpg" id="CYO_133" data-flag="@X" onclick="openSidebar('CYO_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/181.jpg" id="CYO_181" data-flag="@X" onclick="openSidebar('CYO_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/35.jpg" id="CYO_35" data-flag="@X" onclick="openSidebar('CYO_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/267.jpg" id="CYO_267" data-flag="@X" onclick="openSidebar('CYO_267',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/265.jpg" id="CYO_265" data-flag="@X" onclick="openSidebar('CYO_265',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/266.jpg" id="CYO_266" data-flag="@X" onclick="openSidebar('CYO_266',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/13.jpg" id="CYO_13" data-flag="@X" onclick="openSidebar('CYO_13',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/268.jpg" id="CYO_268" data-flag="@X" onclick="openSidebar('CYO_268',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/202.jpg" id="CYO_202" data-flag="@X" onclick="openSidebar('CYO_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/196.jpg" id="CYO_196" data-flag="@X" onclick="openSidebar('CYO_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/194.jpg" id="CYO_194" data-flag="@X" onclick="openSidebar('CYO_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/197.jpg" id="CYO_197" data-flag="@X" onclick="openSidebar('CYO_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/204.jpg" id="CYO_204" data-flag="@X" onclick="openSidebar('CYO_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/193.jpg" id="CYO_193" data-flag="@X" onclick="openSidebar('CYO_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/230.jpg" id="CYO_230" data-flag="@X" onclick="openSidebar('CYO_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/203.jpg" id="CYO_203" data-flag="@X" onclick="openSidebar('CYO_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/205.jpg" id="CYO_205" data-flag="@X" onclick="openSidebar('CYO_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/195.jpg" id="CYO_195" data-flag="@X" onclick="openSidebar('CYO_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/78.jpg" id="CYO_78" data-flag="@X" onclick="openSidebar('CYO_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/113.jpg" id="CYO_113" data-flag="@X" onclick="openSidebar('CYO_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/142.jpg" id="CYO_142" data-flag="@X" onclick="openSidebar('CYO_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/178.jpg" id="CYO_178" data-flag="@X" onclick="openSidebar('CYO_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/47.jpg" id="CYO_47" data-flag="@X" onclick="openSidebar('CYO_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/55.jpg" id="CYO_55" data-flag="@X" onclick="openSidebar('CYO_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/89.jpg" id="CYO_89" data-flag="@X" onclick="openSidebar('CYO_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/121.jpg" id="CYO_121" data-flag="@X" onclick="openSidebar('CYO_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/154.jpg" id="CYO_154" data-flag="@X" onclick="openSidebar('CYO_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/23.jpg" id="CYO_23" data-flag="@X" onclick="openSidebar('CYO_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/1.jpg" id="CYO_1" data-flag="@X" onclick="openSidebar('CYO_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/262.jpg" id="CYO_262" data-flag="@X" onclick="openSidebar('CYO_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/272.jpg" id="CYO_272" data-flag="@X" onclick="openSidebar('CYO_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/9.jpg" id="CYO_9" data-flag="@X" onclick="openSidebar('CYO_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/10.jpg" id="CYO_10" data-flag="@X" onclick="openSidebar('CYO_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/8.jpg" id="CYO_8" data-flag="@X" onclick="openSidebar('CYO_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/229.jpg" id="CYO_229" data-flag="@X" onclick="openSidebar('CYO_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/258.jpg" id="CYO_258" data-flag="@X" onclick="openSidebar('CYO_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/209.jpg" id="CYO_209" data-flag="@X" onclick="openSidebar('CYO_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/237.jpg" id="CYO_237" data-flag="@X" onclick="openSidebar('CYO_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/233.jpg" id="CYO_233" data-flag="@X" onclick="openSidebar('CYO_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/208.jpg" id="CYO_208" data-flag="@X" onclick="openSidebar('CYO_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/2.jpg" id="CYO_2" data-flag="@X" onclick="openSidebar('CYO_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/11.jpg" id="CYO_11" data-flag="@X" onclick="openSidebar('CYO_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/206.jpg" id="CYO_206" data-flag="@X" onclick="openSidebar('CYO_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div id="otherland" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/14.jpg" id="CYO_14" data-flag="@X" onclick="openSidebar('CYO_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/242.jpg" id="CYO_242" data-flag="@X" onclick="openSidebar('CYO_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/239.jpg" id="CYO_239" data-flag="@X" onclick="openSidebar('CYO_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/240.jpg" id="CYO_240" data-flag="@X" onclick="openSidebar('CYO_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/241.jpg" id="CYO_241" data-flag="@X" onclick="openSidebar('CYO_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/212.jpg" id="CYO_212" data-flag="@X" onclick="openSidebar('CYO_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/211.jpg" id="CYO_211" data-flag="@X" onclick="openSidebar('CYO_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/213.jpg" id="CYO_213" data-flag="@X" onclick="openSidebar('CYO_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/214.jpg" id="CYO_214" data-flag="@X" onclick="openSidebar('CYO_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/215.jpg" id="CYO_215" data-flag="@X" onclick="openSidebar('CYO_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/226.jpg" id="CYO_226" data-flag="@X" onclick="openSidebar('CYO_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/227.jpg" id="CYO_227" data-flag="@X" onclick="openSidebar('CYO_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/223.jpg" id="CYO_223" data-flag="@X" onclick="openSidebar('CYO_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/224.jpg" id="CYO_224" data-flag="@X" onclick="openSidebar('CYO_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/225.jpg" id="CYO_225" data-flag="@X" onclick="openSidebar('CYO_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/216.jpg" id="CYO_216" data-flag="@X" onclick="openSidebar('CYO_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/217.jpg" id="CYO_217" data-flag="@X" onclick="openSidebar('CYO_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/218.jpg" id="CYO_218" data-flag="@X" onclick="openSidebar('CYO_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/219.jpg" id="CYO_219" data-flag="@X" onclick="openSidebar('CYO_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/220.jpg" id="CYO_220" data-flag="@X" onclick="openSidebar('CYO_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div id="promo" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/264.jpg" id="CYO_264" data-flag="@X" onclick="openSidebar('CYO_264',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/231.jpg" id="CYO_231" data-flag="@X" onclick="openSidebar('CYO_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/279.jpg" id="CYO_279" data-flag="@X" onclick="openSidebar('CYO_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/257.jpg" id="CYO_257" data-flag="@X" onclick="openSidebar('CYO_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/232.jpg" id="CYO_232" data-flag="@X" onclick="openSidebar('CYO_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/221.jpg" id="CYO_221" data-flag="@X" onclick="openSidebar('CYO_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/238.jpg" id="CYO_238" data-flag="@X" onclick="openSidebar('CYO_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/269.jpg" id="CYO_269" data-flag="@X" onclick="openSidebar('CYO_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/261.jpg" id="CYO_261" data-flag="@X" onclick="openSidebar('CYO_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CYO-files/img/222.jpg" id="CYO_222" data-flag="@X" onclick="openSidebar('CYO_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CYO_e" data-flag="@E" onclick="openSidebar('CYO_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+			</div>
+			<div class="banner">
+					<img id="SPG-logo" class="logo" src="../sets/SPG-files/logo.png">
+			</div>
+			<div class="grid-container">
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div id="SPG" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/SPG-files/img/36.jpg" id="SPG_36" data-flag="@X" onclick="openSidebar('SPG_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SPG-files/img/39.jpg" id="SPG_39" data-flag="@X" onclick="openSidebar('SPG_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SPG-files/img/38.jpg" id="SPG_38" data-flag="@X" onclick="openSidebar('SPG_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SPG-files/img/37.jpg" id="SPG_37" data-flag="@X" onclick="openSidebar('SPG_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SPG-files/img/33.jpg" id="SPG_33" data-flag="@X" onclick="openSidebar('SPG_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SPG-files/img/35.jpg" id="SPG_35" data-flag="@X" onclick="openSidebar('SPG_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SPG-files/img/31.jpg" id="SPG_31" data-flag="@X" onclick="openSidebar('SPG_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SPG-files/img/21.jpg" id="SPG_21" data-flag="@X" onclick="openSidebar('SPG_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SPG-files/img/34.jpg" id="SPG_34" data-flag="@X" onclick="openSidebar('SPG_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/SPG-files/img/32.jpg" id="SPG_32" data-flag="@X" onclick="openSidebar('SPG_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CYO_er" data-flag="@E" onclick="openSidebar('CYO_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="icon" type="image/png" href="/sets/OPZ-files/icon.png"/>
-	<link rel="stylesheet" href="/resources/header.css">
+	<link rel="icon" type="image/png" href="../sets/OPZ-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
 	<title>OPZ visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
 	<style>
 		@font-face {
 			font-family: Beleren;
-			src: url('/resources/beleren.ttf');
+			src: url('../resources/beleren.ttf');
 		}
 		body {
 			font-family: Arial, sans-serif;
@@ -45,13 +48,15 @@
 			left: 10%;
 			top: 10%;
 			width: 85%;
+			border-radius: 3.733% / 2.677%;
 		}
 		.sidebar-img {
 			vertical-align: middle;
 			width: 100%;
+			border-radius: 3.733% / 2.677%;
 		}
 		.close-btn {
-			background: url('/img/close.png') no-repeat;
+			background: url('../img/close.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 			width: 10%;
@@ -62,7 +67,7 @@
 			right: 4%;
 		}
 		.close-btn:hover {
-			background: url('/img/close-hover.png') no-repeat;
+			background: url('../img/close-hover.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 		}
@@ -82,6 +87,7 @@
 			display: block;
 			visibility: hidden;
 			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
 		}
 		.banner {
 			width: 100%;
@@ -102,9 +108,10 @@
 		.container img {
 			width: 100%;
 			height: auto;
+			border-radius: 3.733% / 2.677%;
 		}
 		.flip-btn {
-			background: url('/img/flip.png') no-repeat;
+			background: url('../img/flip.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 			width: 15%;
@@ -118,7 +125,7 @@
 			opacity: 0.5;
 		}
 		.flip-btn:hover {
-			background: url('/img/flip-hover.png') no-repeat;
+			background: url('../img/flip-hover.png') no-repeat;
 			background-size: contain;
 			background-position: center;
 		}
@@ -174,466 +181,487 @@
 	</style>
 </head>
 <body>
-	<img class="preload-hidden" src="/img/dot.png" />
-	<img class="preload-hidden" src="/sets/OPZ-files/logo.png" />
-	<img class="preload-hidden" src="/sets/DRP-files/icon.png" />
-		<img class="preload-hidden" src="/sets/WCD-files/icon.png" />
-		<img class="preload-hidden" src="/sets/AEK-files/icon.png" />
-		<img class="preload-hidden" src="/sets/DCO-files/icon.png" />
-		<img class="preload-hidden" src="/sets/WDW-files/icon.png" />
-		<img class="preload-hidden" src="/sets/ELV-files/icon.png" />
-		<img class="preload-hidden" src="/sets/APH-files/icon.png" />
-		<img class="preload-hidden" src="/sets/2HU-files/icon.png" />
-		<img class="preload-hidden" src="/sets/F2HU-files/icon.png" />
-		<img class="preload-hidden" src="/sets/RPGM-files/icon.png" />
-		<img class="preload-hidden" src="/sets/RNF-files/icon.png" />
-		<img class="preload-hidden" src="/sets/IWH-files/icon.png" />
-		<img class="preload-hidden" src="/sets/OPZ-files/icon.png" />
-		<img class="preload-hidden" src="/sets/WOO-files/icon.png" />
-		<img class="preload-hidden" src="/sets/ORC-files/icon.png" />
-		<img class="preload-hidden" src="/sets/IVP-files/icon.png" />
-		<img class="preload-hidden" src="/sets/VLR-files/icon.png" />
-		<img class="preload-hidden" src="/sets/GOD-files/icon.png" />
-		<img class="preload-hidden" src="/sets/UND-files/icon.png" />
-		<img class="preload-hidden" src="/sets/EOR-files/icon.png" />
-		<img class="preload-hidden" src="/sets/VYI-files/icon.png" />
-		<img class="preload-hidden" src="/sets/SOL-files/icon.png" />
-		<img class="preload-hidden" src="/sets/POP2-files/icon.png" />
-		<img class="preload-hidden" src="/sets/ORD-files/icon.png" />
-		<img class="preload-hidden" src="/sets/TGS-files/icon.png" />
-		<img class="preload-hidden" src="/sets/PRK-files/icon.png" />
-		<img class="preload-hidden" src="/sets/LIP-files/icon.png" />
-		<img class="preload-hidden" src="/sets/SGP-files/icon.png" />
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/OPZ-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
 		<div class="header">
 		<div class="search-grid">
-			<a href="/"><img class="sg-logo" src="/img/banner.png"></a>
-			<img class="sg-icon" src="/img/search.png">
-			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
-			<a href="/all-sets"><img src="/img/sets.png" class="sg-icon">Sets</a>
-			<a href="/deckbuilder"><img src="/img/deck.png" class="sg-icon">Deckbuilder</a>
-			<a onclick="randomCard()"><img src="/img/random.png" class="sg-icon">Random</a>
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
 		</div>
 	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
 
 	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
 	
-		<a class="set-bar" href="OPZ"><img src="/sets/OPZ-files/icon.png">Outpost Zero</a>
+		<a class="set-bar" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
 	
-		<a class="set-bar inactive" href="DRP"><img src="/sets/DRP-files/icon.png">Derek’s Piggies</a>
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
 	
-		<a class="set-bar inactive" href="WCD"><img src="/sets/WCD-files/icon.png">Wroszy’s Circus of Darkness</a>
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
 	
-		<a class="set-bar inactive" href="AEK"><img src="/sets/AEK-files/icon.png">Aekyu: Idyllic Days</a>
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
 	
-		<a class="set-bar inactive" href="DCO"><img src="/sets/DCO-files/icon.png">Dazon: Cosmic Outcasts</a>
+		<a class="set-bar inactive" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
 	
-		<a class="set-bar inactive" href="WDW"><img src="/sets/WDW-files/icon.png">Waters of a Drowned World</a>
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
 	
-		<a class="set-bar inactive" href="ELV"><img src="/sets/ELV-files/icon.png">Elegies of Vaquer</a>
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
 	
-		<a class="set-bar inactive" href="APH"><img src="/sets/APH-files/icon.png">Aphantasia</a>
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
 	
-		<a class="set-bar inactive" href="2HU"><img src="/sets/2HU-files/icon.png">Universes Beyond: The Touhou Project</a>
+		<a class="set-bar inactive" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
 	
-		<a class="set-bar inactive" href="F2HU"><img src="/sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
 	
-		<a class="set-bar inactive" href="RPGM"><img src="/sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
 	
-		<a class="set-bar inactive" href="RNF"><img src="/sets/RNF-files/icon.png">Ravnica Fractured</a>
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
 	
-		<a class="set-bar inactive" href="IWH"><img src="/sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
 	
-		<a class="set-bar inactive" href="WOO"><img src="/sets/WOO-files/icon.png">Waking of Orlige</a>
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
 	
-		<a class="set-bar inactive" href="ORC"><img src="/sets/ORC-files/icon.png">An Oddness in the River Cities</a>
+		<a class="set-bar inactive" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
 	
-		<a class="set-bar inactive" href="IVP"><img src="/sets/IVP-files/icon.png">Invalid Precedent</a>
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
 	
-		<a class="set-bar inactive" href="VLR"><img src="/sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
 	
-		<a class="set-bar inactive" href="GOD"><img src="/sets/GOD-files/icon.png">Godspine</a>
+		<a class="set-bar inactive" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
 	
-		<a class="set-bar inactive" href="UND"><img src="/sets/UND-files/icon.png">The Underhalls</a>
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
 	
-		<a class="set-bar inactive" href="EOR"><img src="/sets/EOR-files/icon.png">Defenders of Eorzea</a>
+		<a class="set-bar inactive" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
 	
-		<a class="set-bar inactive" href="VYI"><img src="/sets/VYI-files/icon.png">Valdrasil: Voyage to Infinity</a>
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
 	
-		<a class="set-bar inactive" href="SOL"><img src="/sets/SOL-files/icon.png">Solastere</a>
+		<a class="set-bar inactive" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
 	
-		<a class="set-bar inactive" href="POP2"><img src="/sets/POP2-files/icon.png">Prismavision</a>
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
 	
-		<a class="set-bar inactive" href="ORD"><img src="/sets/ORD-files/icon.png">Crucible of Ordeval</a>
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
 	
-		<a class="set-bar inactive" href="TGS"><img src="/sets/TGS-files/icon.png">Tales from the Grave in Space</a>
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
 	
-		<a class="set-bar inactive" href="PRK"><img src="/sets/PRK-files/icon.png">Prakhma</a>
+		<a class="set-bar inactive" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
 	
-		<a class="set-bar inactive" href="LIP"><img src="/sets/LIP-files/icon.png">Lost in Place</a>
+		<a class="set-bar inactive" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
 	
-		<a class="set-bar inactive" href="SGP"><img src="/sets/SGP-files/icon.png">Stirrings in Goldport</a>
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
 	
 		</div>
 		<div class="banner">
-		<img class="logo" src="/sets/OPZ-files/logo.png">
+		<img class="logo" src="../sets/OPZ-files/logo.png">
 		</div>
 		<div class="main-content" id="main-content">
 			<div class="grid-container">
-					<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/276.jpg" id="276" data-flag="@X" onclick="openSidebar('276',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/277.jpg" id="277" data-flag="@X" onclick="openSidebar('277',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/146.jpg" id="146" data-flag="@X" onclick="openSidebar('146',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/224.jpg" id="224" data-flag="@X" onclick="openSidebar('224',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/223.jpg" id="223" data-flag="@X" onclick="openSidebar('223',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/143.jpg" id="143" data-flag="@X" onclick="openSidebar('143',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/133.jpg" id="133" data-flag="@X" onclick="openSidebar('133',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/140.jpg" id="140" data-flag="@X" onclick="openSidebar('140',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/135.jpg" id="135" data-flag="@X" onclick="openSidebar('135',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/69.jpg" id="69" data-flag="@X" onclick="openSidebar('69',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/204.jpg" id="204" data-flag="@X" onclick="openSidebar('204',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/187.jpg" id="187" data-flag="@X" onclick="openSidebar('187',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/246.jpg" id="246" data-flag="@X" onclick="openSidebar('246',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/150.jpg" id="150" data-flag="@X" onclick="openSidebar('150',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/188.jpg" id="188" data-flag="@X" onclick="openSidebar('188',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/138.jpg" id="138" data-flag="@X" onclick="openSidebar('138',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/139.jpg" id="139" data-flag="@X" onclick="openSidebar('139',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/206.jpg" id="206" data-flag="@X" onclick="openSidebar('206',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/189.jpg" id="189" data-flag="@X" onclick="openSidebar('189',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/152.jpg" id="152" data-flag="@X" onclick="openSidebar('152',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/132.jpg" id="132" data-flag="@X" onclick="openSidebar('132',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/232.jpg" id="232" data-flag="@X" onclick="openSidebar('232',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/190.jpg" id="190" data-flag="@X" onclick="openSidebar('190',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/141.jpg" id="141" data-flag="@X" onclick="openSidebar('141',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/260.jpg" id="260" data-flag="@X" onclick="openSidebar('260',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/147.jpg" id="147" data-flag="@X" onclick="openSidebar('147',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/148.jpg" id="148" data-flag="@X" onclick="openSidebar('148',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/145.jpg" id="145" data-flag="@X" onclick="openSidebar('145',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/240.jpg" id="240" data-flag="@X" onclick="openSidebar('240',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/151.jpg" id="151" data-flag="@X" onclick="openSidebar('151',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/222.jpg" id="222" data-flag="@X" onclick="openSidebar('222',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/241.jpg" id="241" data-flag="@X" onclick="openSidebar('241',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/134.jpg" id="134" data-flag="@X" onclick="openSidebar('134',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/149.jpg" id="149" data-flag="@X" onclick="openSidebar('149',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/221.jpg" id="221" data-flag="@X" onclick="openSidebar('221',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/259.jpg" id="259" data-flag="@X" onclick="openSidebar('259',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/144.jpg" id="144" data-flag="@X" onclick="openSidebar('144',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/201.jpg" id="201" data-flag="@X" onclick="openSidebar('201',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/200.jpg" id="200" data-flag="@X" onclick="openSidebar('200',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/137.jpg" id="137" data-flag="@X" onclick="openSidebar('137',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/130.jpg" id="130" data-flag="@X" onclick="openSidebar('130',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/184.jpg" id="184" data-flag="@X" onclick="openSidebar('184',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/123.jpg" id="123" data-flag="@X" onclick="openSidebar('123',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/53.jpg" id="53" data-flag="@X" onclick="openSidebar('53',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/185.jpg" id="185" data-flag="@X" onclick="openSidebar('185',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/245.jpg" id="245" data-flag="@X" onclick="openSidebar('245',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/213.jpg" id="213" data-flag="@X" onclick="openSidebar('213',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/208.jpg" id="208" data-flag="@X" onclick="openSidebar('208',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/56.jpg" id="56" data-flag="@X" onclick="openSidebar('56',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/254.jpg" id="254" data-flag="@X" onclick="openSidebar('254',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/244.jpg" id="244" data-flag="@X" onclick="openSidebar('244',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/210.jpg" id="210" data-flag="@X" onclick="openSidebar('210',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/127.jpg" id="127" data-flag="@X" onclick="openSidebar('127',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/52.jpg" id="52" data-flag="@X" onclick="openSidebar('52',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/239.jpg" id="239" data-flag="@X" onclick="openSidebar('239',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/121.jpg" id="121" data-flag="@X" onclick="openSidebar('121',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/122.jpg" id="122" data-flag="@X" onclick="openSidebar('122',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/203.jpg" id="203" data-flag="@X" onclick="openSidebar('203',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/249.jpg" id="249" data-flag="@X" onclick="openSidebar('249',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/61.jpg" id="61" data-flag="@X" onclick="openSidebar('61',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/24.jpg" id="24" data-flag="@X" onclick="openSidebar('24',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/198.jpg" id="198" data-flag="@X" onclick="openSidebar('198',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/214.jpg" id="214" data-flag="@X" onclick="openSidebar('214',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/250.jpg" id="250" data-flag="@X" onclick="openSidebar('250',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/63.jpg" id="63" data-flag="@X" onclick="openSidebar('63',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/20.jpg" id="20" data-flag="@X" onclick="openSidebar('20',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/199.jpg" id="199" data-flag="@X" onclick="openSidebar('199',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/41.jpg" id="41" data-flag="@X" onclick="openSidebar('41',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/217.jpg" id="217" data-flag="@X" onclick="openSidebar('217',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/125.jpg" id="125" data-flag="@X" onclick="openSidebar('125',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/242.jpg" id="242" data-flag="@X" onclick="openSidebar('242',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/197.jpg" id="197" data-flag="@X" onclick="openSidebar('197',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/192.jpg" id="192" data-flag="@X" onclick="openSidebar('192',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/251.jpg" id="251" data-flag="@X" onclick="openSidebar('251',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/253.jpg" id="253" data-flag="@X" onclick="openSidebar('253',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/194.jpg" id="194" data-flag="@X" onclick="openSidebar('194',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/33.jpg" id="33" data-flag="@X" onclick="openSidebar('33',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/205.jpg" id="205" data-flag="@X" onclick="openSidebar('205',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/186.jpg" id="186" data-flag="@X" onclick="openSidebar('186',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/131.jpg" id="131" data-flag="@X" onclick="openSidebar('131',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/195.jpg" id="195" data-flag="@X" onclick="openSidebar('195',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/30.jpg" id="30" data-flag="@X" onclick="openSidebar('30',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/43.jpg" id="43" data-flag="@X" onclick="openSidebar('43',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/209.jpg" id="209" data-flag="@X" onclick="openSidebar('209',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/129.jpg" id="129" data-flag="@X" onclick="openSidebar('129',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/243.jpg" id="243" data-flag="@X" onclick="openSidebar('243',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/32.jpg" id="32" data-flag="@X" onclick="openSidebar('32',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/231.jpg" id="231" data-flag="@X" onclick="openSidebar('231',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/55.jpg" id="55" data-flag="@X" onclick="openSidebar('55',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/252.jpg" id="252" data-flag="@X" onclick="openSidebar('252',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/16.jpg" id="16" data-flag="@X" onclick="openSidebar('16',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/191.jpg" id="191" data-flag="@X" onclick="openSidebar('191',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/40.jpg" id="40" data-flag="@X" onclick="openSidebar('40',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/216.jpg" id="216" data-flag="@X" onclick="openSidebar('216',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/60.jpg" id="60" data-flag="@X" onclick="openSidebar('60',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/196.jpg" id="196" data-flag="@X" onclick="openSidebar('196',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/31.jpg" id="31" data-flag="@X" onclick="openSidebar('31',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/247.jpg" id="247" data-flag="@X" onclick="openSidebar('247',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/124.jpg" id="124" data-flag="@X" onclick="openSidebar('124',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/66.jpg" id="66" data-flag="@X" onclick="openSidebar('66',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/211.jpg" id="211" data-flag="@X" onclick="openSidebar('211',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/126.jpg" id="126" data-flag="@X" onclick="openSidebar('126',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/38.jpg" id="38" data-flag="@X" onclick="openSidebar('38',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/128.jpg" id="128" data-flag="@X" onclick="openSidebar('128',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/212.jpg" id="212" data-flag="@X" onclick="openSidebar('212',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/193.jpg" id="193" data-flag="@X" onclick="openSidebar('193',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/215.jpg" id="215" data-flag="@X" onclick="openSidebar('215',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/237.jpg" id="237" data-flag="@X" onclick="openSidebar('237',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/248.jpg" id="248" data-flag="@X" onclick="openSidebar('248',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/15.jpg" id="15" data-flag="@X" onclick="openSidebar('15',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/72.jpg" id="72" data-flag="@X" onclick="openSidebar('72',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/10.jpg" id="10" data-flag="@X" onclick="openSidebar('10',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/12.jpg" id="12" data-flag="@X" onclick="openSidebar('12',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/111.jpg" id="111" data-flag="@X" onclick="openSidebar('111',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/117.jpg" id="117" data-flag="@X" onclick="openSidebar('117',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/81.jpg" id="81" data-flag="@X" onclick="openSidebar('81',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/35.jpg" id="35" data-flag="@X" onclick="openSidebar('35',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/42.jpg" id="42" data-flag="@X" onclick="openSidebar('42',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/59.jpg" id="59" data-flag="@X" onclick="openSidebar('59',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/119.jpg" id="119" data-flag="@X" onclick="openSidebar('119',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/22.jpg" id="22" data-flag="@X" onclick="openSidebar('22',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/29.jpg" id="29" data-flag="@X" onclick="openSidebar('29',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/100.jpg" id="100" data-flag="@X" onclick="openSidebar('100',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/75.jpg" id="75" data-flag="@X" onclick="openSidebar('75',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/62.jpg" id="62" data-flag="@X" onclick="openSidebar('62',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/27.jpg" id="27" data-flag="@X" onclick="openSidebar('27',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/86.jpg" id="86" data-flag="@X" onclick="openSidebar('86',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/44.jpg" id="44" data-flag="@X" onclick="openSidebar('44',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/106.jpg" id="106" data-flag="@X" onclick="openSidebar('106',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/65.jpg" id="65" data-flag="@X" onclick="openSidebar('65',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/28.jpg" id="28" data-flag="@X" onclick="openSidebar('28',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/34.jpg" id="34" data-flag="@X" onclick="openSidebar('34',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/103.jpg" id="103" data-flag="@X" onclick="openSidebar('103',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/108.jpg" id="108" data-flag="@X" onclick="openSidebar('108',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/136.jpg" id="136" data-flag="@X" onclick="openSidebar('136',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/21.jpg" id="21" data-flag="@X" onclick="openSidebar('21',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/36.jpg" id="36" data-flag="@X" onclick="openSidebar('36',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/48.jpg" id="48" data-flag="@X" onclick="openSidebar('48',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/58.jpg" id="58" data-flag="@X" onclick="openSidebar('58',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/0.jpg" id="0" data-flag="@X" onclick="openSidebar('0',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/25.jpg" id="25" data-flag="@X" onclick="openSidebar('25',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/37.jpg" id="37" data-flag="@X" onclick="openSidebar('37',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/74.jpg" id="74" data-flag="@X" onclick="openSidebar('74',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/49.jpg" id="49" data-flag="@X" onclick="openSidebar('49',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/14.jpg" id="14" data-flag="@X" onclick="openSidebar('14',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/82.jpg" id="82" data-flag="@X" onclick="openSidebar('82',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/84.jpg" id="84" data-flag="@X" onclick="openSidebar('84',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/102.jpg" id="102" data-flag="@X" onclick="openSidebar('102',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/109.jpg" id="109" data-flag="@X" onclick="openSidebar('109',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/76.jpg" id="76" data-flag="@X" onclick="openSidebar('76',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/95.jpg" id="95" data-flag="@X" onclick="openSidebar('95',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/1.jpg" id="1" data-flag="@X" onclick="openSidebar('1',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/39.jpg" id="39" data-flag="@X" onclick="openSidebar('39',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/54.jpg" id="54" data-flag="@X" onclick="openSidebar('54',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/116.jpg" id="116" data-flag="@X" onclick="openSidebar('116',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/23.jpg" id="23" data-flag="@X" onclick="openSidebar('23',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/73.jpg" id="73" data-flag="@X" onclick="openSidebar('73',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/46.jpg" id="46" data-flag="@X" onclick="openSidebar('46',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/57.jpg" id="57" data-flag="@X" onclick="openSidebar('57',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/68.jpg" id="68" data-flag="@X" onclick="openSidebar('68',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/80.jpg" id="80" data-flag="@X" onclick="openSidebar('80',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/9.jpg" id="9" data-flag="@X" onclick="openSidebar('9',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/45.jpg" id="45" data-flag="@X" onclick="openSidebar('45',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/110.jpg" id="110" data-flag="@X" onclick="openSidebar('110',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/115.jpg" id="115" data-flag="@X" onclick="openSidebar('115',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/83.jpg" id="83" data-flag="@X" onclick="openSidebar('83',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/98.jpg" id="98" data-flag="@X" onclick="openSidebar('98',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/99.jpg" id="99" data-flag="@X" onclick="openSidebar('99',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/51.jpg" id="51" data-flag="@X" onclick="openSidebar('51',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/234.jpg" id="234" data-flag="@X" onclick="openSidebar('234',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/26.jpg" id="26" data-flag="@X" onclick="openSidebar('26',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/97.jpg" id="97" data-flag="@X" onclick="openSidebar('97',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/104.jpg" id="104" data-flag="@X" onclick="openSidebar('104',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/11.jpg" id="11" data-flag="@X" onclick="openSidebar('11',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/64.jpg" id="64" data-flag="@X" onclick="openSidebar('64',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/18.jpg" id="18" data-flag="@X" onclick="openSidebar('18',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/13.jpg" id="13" data-flag="@X" onclick="openSidebar('13',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/2.jpg" id="2" data-flag="@X" onclick="openSidebar('2',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/50.jpg" id="50" data-flag="@X" onclick="openSidebar('50',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/236.jpg" id="236" data-flag="@X" onclick="openSidebar('236',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/96.jpg" id="96" data-flag="@X" onclick="openSidebar('96',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/85.jpg" id="85" data-flag="@X" onclick="openSidebar('85',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/101.jpg" id="101" data-flag="@X" onclick="openSidebar('101',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/107.jpg" id="107" data-flag="@X" onclick="openSidebar('107',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/118.jpg" id="118" data-flag="@X" onclick="openSidebar('118',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+					<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/278.jpg" id="OPZ_278" data-flag="@X" onclick="openSidebar('OPZ_278',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/280.jpg" id="OPZ_280" data-flag="@X" onclick="openSidebar('OPZ_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/145.jpg" id="OPZ_145" data-flag="@X" onclick="openSidebar('OPZ_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/282.jpg" id="OPZ_282" data-flag="@X" onclick="openSidebar('OPZ_282',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/222.jpg" id="OPZ_222" data-flag="@X" onclick="openSidebar('OPZ_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/275.jpg" id="OPZ_275" data-flag="@X" onclick="openSidebar('OPZ_275',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/276.jpg" id="OPZ_276" data-flag="@X" onclick="openSidebar('OPZ_276',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/279.jpg" id="OPZ_279" data-flag="@X" onclick="openSidebar('OPZ_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/223.jpg" id="OPZ_223" data-flag="@X" onclick="openSidebar('OPZ_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/281.jpg" id="OPZ_281" data-flag="@X" onclick="openSidebar('OPZ_281',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/142.jpg" id="OPZ_142" data-flag="@X" onclick="openSidebar('OPZ_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/132.jpg" id="OPZ_132" data-flag="@X" onclick="openSidebar('OPZ_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/139.jpg" id="OPZ_139" data-flag="@X" onclick="openSidebar('OPZ_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/134.jpg" id="OPZ_134" data-flag="@X" onclick="openSidebar('OPZ_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/68.jpg" id="OPZ_68" data-flag="@X" onclick="openSidebar('OPZ_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/203.jpg" id="OPZ_203" data-flag="@X" onclick="openSidebar('OPZ_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/186.jpg" id="OPZ_186" data-flag="@X" onclick="openSidebar('OPZ_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/245.jpg" id="OPZ_245" data-flag="@X" onclick="openSidebar('OPZ_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/149.jpg" id="OPZ_149" data-flag="@X" onclick="openSidebar('OPZ_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/187.jpg" id="OPZ_187" data-flag="@X" onclick="openSidebar('OPZ_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/137.jpg" id="OPZ_137" data-flag="@X" onclick="openSidebar('OPZ_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/138.jpg" id="OPZ_138" data-flag="@X" onclick="openSidebar('OPZ_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/205.jpg" id="OPZ_205" data-flag="@X" onclick="openSidebar('OPZ_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/188.jpg" id="OPZ_188" data-flag="@X" onclick="openSidebar('OPZ_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/151.jpg" id="OPZ_151" data-flag="@X" onclick="openSidebar('OPZ_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/131.jpg" id="OPZ_131" data-flag="@X" onclick="openSidebar('OPZ_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/231.jpg" id="OPZ_231" data-flag="@X" onclick="openSidebar('OPZ_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/189.jpg" id="OPZ_189" data-flag="@X" onclick="openSidebar('OPZ_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/140.jpg" id="OPZ_140" data-flag="@X" onclick="openSidebar('OPZ_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/259.jpg" id="OPZ_259" data-flag="@X" onclick="openSidebar('OPZ_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/146.jpg" id="OPZ_146" data-flag="@X" onclick="openSidebar('OPZ_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/147.jpg" id="OPZ_147" data-flag="@X" onclick="openSidebar('OPZ_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/144.jpg" id="OPZ_144" data-flag="@X" onclick="openSidebar('OPZ_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/239.jpg" id="OPZ_239" data-flag="@X" onclick="openSidebar('OPZ_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/150.jpg" id="OPZ_150" data-flag="@X" onclick="openSidebar('OPZ_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/221.jpg" id="OPZ_221" data-flag="@X" onclick="openSidebar('OPZ_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/240.jpg" id="OPZ_240" data-flag="@X" onclick="openSidebar('OPZ_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/133.jpg" id="OPZ_133" data-flag="@X" onclick="openSidebar('OPZ_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/148.jpg" id="OPZ_148" data-flag="@X" onclick="openSidebar('OPZ_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/220.jpg" id="OPZ_220" data-flag="@X" onclick="openSidebar('OPZ_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/258.jpg" id="OPZ_258" data-flag="@X" onclick="openSidebar('OPZ_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/143.jpg" id="OPZ_143" data-flag="@X" onclick="openSidebar('OPZ_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/200.jpg" id="OPZ_200" data-flag="@X" onclick="openSidebar('OPZ_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/199.jpg" id="OPZ_199" data-flag="@X" onclick="openSidebar('OPZ_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/136.jpg" id="OPZ_136" data-flag="@X" onclick="openSidebar('OPZ_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/129.jpg" id="OPZ_129" data-flag="@X" onclick="openSidebar('OPZ_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/183.jpg" id="OPZ_183" data-flag="@X" onclick="openSidebar('OPZ_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/122.jpg" id="OPZ_122" data-flag="@X" onclick="openSidebar('OPZ_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/53.jpg" id="OPZ_53" data-flag="@X" onclick="openSidebar('OPZ_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/184.jpg" id="OPZ_184" data-flag="@X" onclick="openSidebar('OPZ_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/244.jpg" id="OPZ_244" data-flag="@X" onclick="openSidebar('OPZ_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/212.jpg" id="OPZ_212" data-flag="@X" onclick="openSidebar('OPZ_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/43.jpg" id="OPZ_43" data-flag="@X" onclick="openSidebar('OPZ_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/56.jpg" id="OPZ_56" data-flag="@X" onclick="openSidebar('OPZ_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/253.jpg" id="OPZ_253" data-flag="@X" onclick="openSidebar('OPZ_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/243.jpg" id="OPZ_243" data-flag="@X" onclick="openSidebar('OPZ_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/209.jpg" id="OPZ_209" data-flag="@X" onclick="openSidebar('OPZ_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/207.jpg" id="OPZ_207" data-flag="@X" onclick="openSidebar('OPZ_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/52.jpg" id="OPZ_52" data-flag="@X" onclick="openSidebar('OPZ_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/238.jpg" id="OPZ_238" data-flag="@X" onclick="openSidebar('OPZ_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/120.jpg" id="OPZ_120" data-flag="@X" onclick="openSidebar('OPZ_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/121.jpg" id="OPZ_121" data-flag="@X" onclick="openSidebar('OPZ_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/126.jpg" id="OPZ_126" data-flag="@X" onclick="openSidebar('OPZ_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/248.jpg" id="OPZ_248" data-flag="@X" onclick="openSidebar('OPZ_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/60.jpg" id="OPZ_60" data-flag="@X" onclick="openSidebar('OPZ_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/24.jpg" id="OPZ_24" data-flag="@X" onclick="openSidebar('OPZ_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/197.jpg" id="OPZ_197" data-flag="@X" onclick="openSidebar('OPZ_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/202.jpg" id="OPZ_202" data-flag="@X" onclick="openSidebar('OPZ_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/249.jpg" id="OPZ_249" data-flag="@X" onclick="openSidebar('OPZ_249',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/62.jpg" id="OPZ_62" data-flag="@X" onclick="openSidebar('OPZ_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/20.jpg" id="OPZ_20" data-flag="@X" onclick="openSidebar('OPZ_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/198.jpg" id="OPZ_198" data-flag="@X" onclick="openSidebar('OPZ_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/213.jpg" id="OPZ_213" data-flag="@X" onclick="openSidebar('OPZ_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/216.jpg" id="OPZ_216" data-flag="@X" onclick="openSidebar('OPZ_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/124.jpg" id="OPZ_124" data-flag="@X" onclick="openSidebar('OPZ_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/241.jpg" id="OPZ_241" data-flag="@X" onclick="openSidebar('OPZ_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/196.jpg" id="OPZ_196" data-flag="@X" onclick="openSidebar('OPZ_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/41.jpg" id="OPZ_41" data-flag="@X" onclick="openSidebar('OPZ_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/250.jpg" id="OPZ_250" data-flag="@X" onclick="openSidebar('OPZ_250',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/252.jpg" id="OPZ_252" data-flag="@X" onclick="openSidebar('OPZ_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/193.jpg" id="OPZ_193" data-flag="@X" onclick="openSidebar('OPZ_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/33.jpg" id="OPZ_33" data-flag="@X" onclick="openSidebar('OPZ_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/191.jpg" id="OPZ_191" data-flag="@X" onclick="openSidebar('OPZ_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/185.jpg" id="OPZ_185" data-flag="@X" onclick="openSidebar('OPZ_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/130.jpg" id="OPZ_130" data-flag="@X" onclick="openSidebar('OPZ_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/194.jpg" id="OPZ_194" data-flag="@X" onclick="openSidebar('OPZ_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/30.jpg" id="OPZ_30" data-flag="@X" onclick="openSidebar('OPZ_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/204.jpg" id="OPZ_204" data-flag="@X" onclick="openSidebar('OPZ_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/208.jpg" id="OPZ_208" data-flag="@X" onclick="openSidebar('OPZ_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/128.jpg" id="OPZ_128" data-flag="@X" onclick="openSidebar('OPZ_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/242.jpg" id="OPZ_242" data-flag="@X" onclick="openSidebar('OPZ_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/32.jpg" id="OPZ_32" data-flag="@X" onclick="openSidebar('OPZ_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/230.jpg" id="OPZ_230" data-flag="@X" onclick="openSidebar('OPZ_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/55.jpg" id="OPZ_55" data-flag="@X" onclick="openSidebar('OPZ_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/251.jpg" id="OPZ_251" data-flag="@X" onclick="openSidebar('OPZ_251',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/16.jpg" id="OPZ_16" data-flag="@X" onclick="openSidebar('OPZ_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/190.jpg" id="OPZ_190" data-flag="@X" onclick="openSidebar('OPZ_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/40.jpg" id="OPZ_40" data-flag="@X" onclick="openSidebar('OPZ_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/215.jpg" id="OPZ_215" data-flag="@X" onclick="openSidebar('OPZ_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/65.jpg" id="OPZ_65" data-flag="@X" onclick="openSidebar('OPZ_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/195.jpg" id="OPZ_195" data-flag="@X" onclick="openSidebar('OPZ_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/31.jpg" id="OPZ_31" data-flag="@X" onclick="openSidebar('OPZ_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/246.jpg" id="OPZ_246" data-flag="@X" onclick="openSidebar('OPZ_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/123.jpg" id="OPZ_123" data-flag="@X" onclick="openSidebar('OPZ_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/211.jpg" id="OPZ_211" data-flag="@X" onclick="openSidebar('OPZ_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/210.jpg" id="OPZ_210" data-flag="@X" onclick="openSidebar('OPZ_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/125.jpg" id="OPZ_125" data-flag="@X" onclick="openSidebar('OPZ_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/38.jpg" id="OPZ_38" data-flag="@X" onclick="openSidebar('OPZ_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/127.jpg" id="OPZ_127" data-flag="@X" onclick="openSidebar('OPZ_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/15.jpg" id="OPZ_15" data-flag="@X" onclick="openSidebar('OPZ_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/192.jpg" id="OPZ_192" data-flag="@X" onclick="openSidebar('OPZ_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/214.jpg" id="OPZ_214" data-flag="@X" onclick="openSidebar('OPZ_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/236.jpg" id="OPZ_236" data-flag="@X" onclick="openSidebar('OPZ_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/247.jpg" id="OPZ_247" data-flag="@X" onclick="openSidebar('OPZ_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/277.jpg" id="OPZ_277" data-flag="@X" onclick="openSidebar('OPZ_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/71.jpg" id="OPZ_71" data-flag="@X" onclick="openSidebar('OPZ_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/10.jpg" id="OPZ_10" data-flag="@X" onclick="openSidebar('OPZ_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/12.jpg" id="OPZ_12" data-flag="@X" onclick="openSidebar('OPZ_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/110.jpg" id="OPZ_110" data-flag="@X" onclick="openSidebar('OPZ_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/116.jpg" id="OPZ_116" data-flag="@X" onclick="openSidebar('OPZ_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/80.jpg" id="OPZ_80" data-flag="@X" onclick="openSidebar('OPZ_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/35.jpg" id="OPZ_35" data-flag="@X" onclick="openSidebar('OPZ_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/42.jpg" id="OPZ_42" data-flag="@X" onclick="openSidebar('OPZ_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/59.jpg" id="OPZ_59" data-flag="@X" onclick="openSidebar('OPZ_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/118.jpg" id="OPZ_118" data-flag="@X" onclick="openSidebar('OPZ_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/22.jpg" id="OPZ_22" data-flag="@X" onclick="openSidebar('OPZ_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/29.jpg" id="OPZ_29" data-flag="@X" onclick="openSidebar('OPZ_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/99.jpg" id="OPZ_99" data-flag="@X" onclick="openSidebar('OPZ_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/74.jpg" id="OPZ_74" data-flag="@X" onclick="openSidebar('OPZ_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/61.jpg" id="OPZ_61" data-flag="@X" onclick="openSidebar('OPZ_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/27.jpg" id="OPZ_27" data-flag="@X" onclick="openSidebar('OPZ_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/85.jpg" id="OPZ_85" data-flag="@X" onclick="openSidebar('OPZ_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/44.jpg" id="OPZ_44" data-flag="@X" onclick="openSidebar('OPZ_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/105.jpg" id="OPZ_105" data-flag="@X" onclick="openSidebar('OPZ_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/64.jpg" id="OPZ_64" data-flag="@X" onclick="openSidebar('OPZ_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/28.jpg" id="OPZ_28" data-flag="@X" onclick="openSidebar('OPZ_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/34.jpg" id="OPZ_34" data-flag="@X" onclick="openSidebar('OPZ_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/102.jpg" id="OPZ_102" data-flag="@X" onclick="openSidebar('OPZ_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/107.jpg" id="OPZ_107" data-flag="@X" onclick="openSidebar('OPZ_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/135.jpg" id="OPZ_135" data-flag="@X" onclick="openSidebar('OPZ_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/21.jpg" id="OPZ_21" data-flag="@X" onclick="openSidebar('OPZ_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/36.jpg" id="OPZ_36" data-flag="@X" onclick="openSidebar('OPZ_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/48.jpg" id="OPZ_48" data-flag="@X" onclick="openSidebar('OPZ_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/58.jpg" id="OPZ_58" data-flag="@X" onclick="openSidebar('OPZ_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/0.jpg" id="OPZ_0" data-flag="@X" onclick="openSidebar('OPZ_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/25.jpg" id="OPZ_25" data-flag="@X" onclick="openSidebar('OPZ_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/37.jpg" id="OPZ_37" data-flag="@X" onclick="openSidebar('OPZ_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/73.jpg" id="OPZ_73" data-flag="@X" onclick="openSidebar('OPZ_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/49.jpg" id="OPZ_49" data-flag="@X" onclick="openSidebar('OPZ_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/14.jpg" id="OPZ_14" data-flag="@X" onclick="openSidebar('OPZ_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/81.jpg" id="OPZ_81" data-flag="@X" onclick="openSidebar('OPZ_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/83.jpg" id="OPZ_83" data-flag="@X" onclick="openSidebar('OPZ_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/101.jpg" id="OPZ_101" data-flag="@X" onclick="openSidebar('OPZ_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/108.jpg" id="OPZ_108" data-flag="@X" onclick="openSidebar('OPZ_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/75.jpg" id="OPZ_75" data-flag="@X" onclick="openSidebar('OPZ_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/94.jpg" id="OPZ_94" data-flag="@X" onclick="openSidebar('OPZ_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/1.jpg" id="OPZ_1" data-flag="@X" onclick="openSidebar('OPZ_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/39.jpg" id="OPZ_39" data-flag="@X" onclick="openSidebar('OPZ_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/54.jpg" id="OPZ_54" data-flag="@X" onclick="openSidebar('OPZ_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/115.jpg" id="OPZ_115" data-flag="@X" onclick="openSidebar('OPZ_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/23.jpg" id="OPZ_23" data-flag="@X" onclick="openSidebar('OPZ_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/72.jpg" id="OPZ_72" data-flag="@X" onclick="openSidebar('OPZ_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/46.jpg" id="OPZ_46" data-flag="@X" onclick="openSidebar('OPZ_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/57.jpg" id="OPZ_57" data-flag="@X" onclick="openSidebar('OPZ_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/67.jpg" id="OPZ_67" data-flag="@X" onclick="openSidebar('OPZ_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/79.jpg" id="OPZ_79" data-flag="@X" onclick="openSidebar('OPZ_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/9.jpg" id="OPZ_9" data-flag="@X" onclick="openSidebar('OPZ_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/45.jpg" id="OPZ_45" data-flag="@X" onclick="openSidebar('OPZ_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/109.jpg" id="OPZ_109" data-flag="@X" onclick="openSidebar('OPZ_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/114.jpg" id="OPZ_114" data-flag="@X" onclick="openSidebar('OPZ_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/82.jpg" id="OPZ_82" data-flag="@X" onclick="openSidebar('OPZ_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/97.jpg" id="OPZ_97" data-flag="@X" onclick="openSidebar('OPZ_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/98.jpg" id="OPZ_98" data-flag="@X" onclick="openSidebar('OPZ_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/51.jpg" id="OPZ_51" data-flag="@X" onclick="openSidebar('OPZ_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/233.jpg" id="OPZ_233" data-flag="@X" onclick="openSidebar('OPZ_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/26.jpg" id="OPZ_26" data-flag="@X" onclick="openSidebar('OPZ_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/96.jpg" id="OPZ_96" data-flag="@X" onclick="openSidebar('OPZ_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/103.jpg" id="OPZ_103" data-flag="@X" onclick="openSidebar('OPZ_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/11.jpg" id="OPZ_11" data-flag="@X" onclick="openSidebar('OPZ_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/63.jpg" id="OPZ_63" data-flag="@X" onclick="openSidebar('OPZ_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/18.jpg" id="OPZ_18" data-flag="@X" onclick="openSidebar('OPZ_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/13.jpg" id="OPZ_13" data-flag="@X" onclick="openSidebar('OPZ_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/2.jpg" id="OPZ_2" data-flag="@X" onclick="openSidebar('OPZ_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/50.jpg" id="OPZ_50" data-flag="@X" onclick="openSidebar('OPZ_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/235.jpg" id="OPZ_235" data-flag="@X" onclick="openSidebar('OPZ_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/95.jpg" id="OPZ_95" data-flag="@X" onclick="openSidebar('OPZ_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/84.jpg" id="OPZ_84" data-flag="@X" onclick="openSidebar('OPZ_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/100.jpg" id="OPZ_100" data-flag="@X" onclick="openSidebar('OPZ_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/106.jpg" id="OPZ_106" data-flag="@X" onclick="openSidebar('OPZ_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/117.jpg" id="OPZ_117" data-flag="@X" onclick="openSidebar('OPZ_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
 				<div id="gold" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/258.jpg" id="258" data-flag="@X" onclick="openSidebar('258',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/202.jpg" id="202" data-flag="@X" onclick="openSidebar('202',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/274.jpg" id="274" data-flag="@X" onclick="openSidebar('274',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/261.jpg" id="261" data-flag="@X" onclick="openSidebar('261',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/262.jpg" id="262" data-flag="@X" onclick="openSidebar('262',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/233.jpg" id="233" data-flag="@X" onclick="openSidebar('233',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/157.jpg" id="157" data-flag="@X" onclick="openSidebar('157',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/219.jpg" id="219" data-flag="@X" onclick="openSidebar('219',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/162.jpg" id="162" data-flag="@X" onclick="openSidebar('162',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/164.jpg" id="164" data-flag="@X" onclick="openSidebar('164',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/155.jpg" id="155" data-flag="@X" onclick="openSidebar('155',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/158.jpg" id="158" data-flag="@X" onclick="openSidebar('158',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/159.jpg" id="159" data-flag="@X" onclick="openSidebar('159',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/161.jpg" id="161" data-flag="@X" onclick="openSidebar('161',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/163.jpg" id="163" data-flag="@X" onclick="openSidebar('163',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/156.jpg" id="156" data-flag="@X" onclick="openSidebar('156',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/160.jpg" id="160" data-flag="@X" onclick="openSidebar('160',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/265.jpg" id="265" data-flag="@X" onclick="openSidebar('265',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/266.jpg" id="266" data-flag="@X" onclick="openSidebar('266',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/207.jpg" id="207" data-flag="@X" onclick="openSidebar('207',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/268.jpg" id="268" data-flag="@X" onclick="openSidebar('268',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/269.jpg" id="269" data-flag="@X" onclick="openSidebar('269',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/166.jpg" id="166" data-flag="@X" onclick="openSidebar('166',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/167.jpg" id="167" data-flag="@X" onclick="openSidebar('167',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/267.jpg" id="267" data-flag="@X" onclick="openSidebar('267',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/170.jpg" id="170" data-flag="@X" onclick="openSidebar('170',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/172.jpg" id="172" data-flag="@X" onclick="openSidebar('172',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/165.jpg" id="165" data-flag="@X" onclick="openSidebar('165',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/168.jpg" id="168" data-flag="@X" onclick="openSidebar('168',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/169.jpg" id="169" data-flag="@X" onclick="openSidebar('169',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/171.jpg" id="171" data-flag="@X" onclick="openSidebar('171',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/173.jpg" id="173" data-flag="@X" onclick="openSidebar('173',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/235.jpg" id="235" data-flag="@X" onclick="openSidebar('235',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/275.jpg" id="275" data-flag="@X" onclick="openSidebar('275',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/270.jpg" id="270" data-flag="@X" onclick="openSidebar('270',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/263.jpg" id="263" data-flag="@X" onclick="openSidebar('263',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/218.jpg" id="218" data-flag="@X" onclick="openSidebar('218',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/271.jpg" id="271" data-flag="@X" onclick="openSidebar('271',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/230.jpg" id="230" data-flag="@X" onclick="openSidebar('230',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/257.jpg" id="OPZ_257" data-flag="@X" onclick="openSidebar('OPZ_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/201.jpg" id="OPZ_201" data-flag="@X" onclick="openSidebar('OPZ_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/273.jpg" id="OPZ_273" data-flag="@X" onclick="openSidebar('OPZ_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/260.jpg" id="OPZ_260" data-flag="@X" onclick="openSidebar('OPZ_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/261.jpg" id="OPZ_261" data-flag="@X" onclick="openSidebar('OPZ_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/232.jpg" id="OPZ_232" data-flag="@X" onclick="openSidebar('OPZ_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/156.jpg" id="OPZ_156" data-flag="@X" onclick="openSidebar('OPZ_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/218.jpg" id="OPZ_218" data-flag="@X" onclick="openSidebar('OPZ_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/161.jpg" id="OPZ_161" data-flag="@X" onclick="openSidebar('OPZ_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/163.jpg" id="OPZ_163" data-flag="@X" onclick="openSidebar('OPZ_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/154.jpg" id="OPZ_154" data-flag="@X" onclick="openSidebar('OPZ_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/157.jpg" id="OPZ_157" data-flag="@X" onclick="openSidebar('OPZ_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/158.jpg" id="OPZ_158" data-flag="@X" onclick="openSidebar('OPZ_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/160.jpg" id="OPZ_160" data-flag="@X" onclick="openSidebar('OPZ_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/162.jpg" id="OPZ_162" data-flag="@X" onclick="openSidebar('OPZ_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/155.jpg" id="OPZ_155" data-flag="@X" onclick="openSidebar('OPZ_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/159.jpg" id="OPZ_159" data-flag="@X" onclick="openSidebar('OPZ_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/264.jpg" id="OPZ_264" data-flag="@X" onclick="openSidebar('OPZ_264',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/265.jpg" id="OPZ_265" data-flag="@X" onclick="openSidebar('OPZ_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/206.jpg" id="OPZ_206" data-flag="@X" onclick="openSidebar('OPZ_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/267.jpg" id="OPZ_267" data-flag="@X" onclick="openSidebar('OPZ_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/268.jpg" id="OPZ_268" data-flag="@X" onclick="openSidebar('OPZ_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/165.jpg" id="OPZ_165" data-flag="@X" onclick="openSidebar('OPZ_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/166.jpg" id="OPZ_166" data-flag="@X" onclick="openSidebar('OPZ_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/266.jpg" id="OPZ_266" data-flag="@X" onclick="openSidebar('OPZ_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/169.jpg" id="OPZ_169" data-flag="@X" onclick="openSidebar('OPZ_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/171.jpg" id="OPZ_171" data-flag="@X" onclick="openSidebar('OPZ_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/164.jpg" id="OPZ_164" data-flag="@X" onclick="openSidebar('OPZ_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/167.jpg" id="OPZ_167" data-flag="@X" onclick="openSidebar('OPZ_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/168.jpg" id="OPZ_168" data-flag="@X" onclick="openSidebar('OPZ_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/170.jpg" id="OPZ_170" data-flag="@X" onclick="openSidebar('OPZ_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/172.jpg" id="OPZ_172" data-flag="@X" onclick="openSidebar('OPZ_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/234.jpg" id="OPZ_234" data-flag="@X" onclick="openSidebar('OPZ_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/274.jpg" id="OPZ_274" data-flag="@X" onclick="openSidebar('OPZ_274',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/269.jpg" id="OPZ_269" data-flag="@X" onclick="openSidebar('OPZ_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/262.jpg" id="OPZ_262" data-flag="@X" onclick="openSidebar('OPZ_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/217.jpg" id="OPZ_217" data-flag="@X" onclick="openSidebar('OPZ_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/270.jpg" id="OPZ_270" data-flag="@X" onclick="openSidebar('OPZ_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/229.jpg" id="OPZ_229" data-flag="@X" onclick="openSidebar('OPZ_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
 				<div id="colorless" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/153.jpg" id="153" data-flag="@X" onclick="openSidebar('153',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/142.jpg" id="142" data-flag="@X" onclick="openSidebar('142',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/238.jpg" id="238" data-flag="@X" onclick="openSidebar('238',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/255.jpg" id="255" data-flag="@X" onclick="openSidebar('255',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/257.jpg" id="257" data-flag="@X" onclick="openSidebar('257',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/220.jpg" id="220" data-flag="@X" onclick="openSidebar('220',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/256.jpg" id="256" data-flag="@X" onclick="openSidebar('256',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/120.jpg" id="120" data-flag="@X" onclick="openSidebar('120',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/112.jpg" id="112" data-flag="@X" onclick="openSidebar('112',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/113.jpg" id="113" data-flag="@X" onclick="openSidebar('113',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/114.jpg" id="114" data-flag="@X" onclick="openSidebar('114',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/71.jpg" id="71" data-flag="@X" onclick="openSidebar('71',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/152.jpg" id="OPZ_152" data-flag="@X" onclick="openSidebar('OPZ_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/141.jpg" id="OPZ_141" data-flag="@X" onclick="openSidebar('OPZ_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/237.jpg" id="OPZ_237" data-flag="@X" onclick="openSidebar('OPZ_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/254.jpg" id="OPZ_254" data-flag="@X" onclick="openSidebar('OPZ_254',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/256.jpg" id="OPZ_256" data-flag="@X" onclick="openSidebar('OPZ_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/219.jpg" id="OPZ_219" data-flag="@X" onclick="openSidebar('OPZ_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/255.jpg" id="OPZ_255" data-flag="@X" onclick="openSidebar('OPZ_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/119.jpg" id="OPZ_119" data-flag="@X" onclick="openSidebar('OPZ_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/111.jpg" id="OPZ_111" data-flag="@X" onclick="openSidebar('OPZ_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/112.jpg" id="OPZ_112" data-flag="@X" onclick="openSidebar('OPZ_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/113.jpg" id="OPZ_113" data-flag="@X" onclick="openSidebar('OPZ_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/70.jpg" id="OPZ_70" data-flag="@X" onclick="openSidebar('OPZ_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
 				<div id="land" class="anchor"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/3_back.jpg" alt="/sets/OPZ-files/img/3_front.jpg" id="3" data-flag="@XD" onclick="openSidebar('3',false)"><button class="flip-btn" onclick="imgFlip('3')"></button></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/5_back.jpg" alt="/sets/OPZ-files/img/5_front.jpg" id="5" data-flag="@XD" onclick="openSidebar('5',false)"><button class="flip-btn" onclick="imgFlip('5')"></button></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/6_back.jpg" alt="/sets/OPZ-files/img/6_front.jpg" id="6" data-flag="@XD" onclick="openSidebar('6',false)"><button class="flip-btn" onclick="imgFlip('6')"></button></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/7_back.jpg" alt="/sets/OPZ-files/img/7_front.jpg" id="7" data-flag="@XD" onclick="openSidebar('7',false)"><button class="flip-btn" onclick="imgFlip('7')"></button></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/4_back.jpg" alt="/sets/OPZ-files/img/4_front.jpg" id="4" data-flag="@XD" onclick="openSidebar('4',false)"><button class="flip-btn" onclick="imgFlip('4')"></button></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/179.jpg" id="179" data-flag="@X" onclick="openSidebar('179',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/180.jpg" id="180" data-flag="@X" onclick="openSidebar('180',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/181.jpg" id="181" data-flag="@X" onclick="openSidebar('181',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/182.jpg" id="182" data-flag="@X" onclick="openSidebar('182',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/183.jpg" id="183" data-flag="@X" onclick="openSidebar('183',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/78.jpg" id="78" data-flag="@X" onclick="openSidebar('78',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/79.jpg" id="79" data-flag="@X" onclick="openSidebar('79',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/92.jpg" id="92" data-flag="@X" onclick="openSidebar('92',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/70.jpg" id="70" data-flag="@X" onclick="openSidebar('70',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/77.jpg" id="77" data-flag="@X" onclick="openSidebar('77',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/174.jpg" id="174" data-flag="@X" onclick="openSidebar('174',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/175.jpg" id="175" data-flag="@X" onclick="openSidebar('175',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/176.jpg" id="176" data-flag="@X" onclick="openSidebar('176',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/177.jpg" id="177" data-flag="@X" onclick="openSidebar('177',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/178.jpg" id="178" data-flag="@X" onclick="openSidebar('178',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/91.jpg" id="91" data-flag="@X" onclick="openSidebar('91',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/89.jpg" id="89" data-flag="@X" onclick="openSidebar('89',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/88.jpg" id="88" data-flag="@X" onclick="openSidebar('88',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/87.jpg" id="87" data-flag="@X" onclick="openSidebar('87',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/90.jpg" id="90" data-flag="@X" onclick="openSidebar('90',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/154_back.jpg" alt="/sets/OPZ-files/img/154_front.jpg" id="154" data-flag="@XD" onclick="openSidebar('154',false)"><button class="flip-btn" onclick="imgFlip('154')"></button></div>
-				<div class="container"><img loading="lazy" data-alt_src="/sets/OPZ-files/img/93_back.jpg" alt="/sets/OPZ-files/img/93_front.jpg" id="93" data-flag="@XD" onclick="openSidebar('93',false)"><button class="flip-btn" onclick="imgFlip('93')"></button></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/94.jpg" id="94" data-flag="@X" onclick="openSidebar('94',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/e.png" id="e" data-flag="@E" onclick="openSidebar('e',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/225.jpg" id="225" data-flag="@X" onclick="openSidebar('225',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/226.jpg" id="226" data-flag="@X" onclick="openSidebar('226',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/227.jpg" id="227" data-flag="@X" onclick="openSidebar('227',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/228.jpg" id="228" data-flag="@X" onclick="openSidebar('228',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/229.jpg" id="229" data-flag="@X" onclick="openSidebar('229',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/OPZ-files/img/3_back.jpg" alt="sets/OPZ-files/img/3_front.jpg" id="OPZ_3" data-flag="@XD" onclick="openSidebar('OPZ_3',false)"><button class="flip-btn" onclick="imgFlip('OPZ_3')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/OPZ-files/img/5_back.jpg" alt="sets/OPZ-files/img/5_front.jpg" id="OPZ_5" data-flag="@XD" onclick="openSidebar('OPZ_5',false)"><button class="flip-btn" onclick="imgFlip('OPZ_5')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/OPZ-files/img/6_back.jpg" alt="sets/OPZ-files/img/6_front.jpg" id="OPZ_6" data-flag="@XD" onclick="openSidebar('OPZ_6',false)"><button class="flip-btn" onclick="imgFlip('OPZ_6')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/OPZ-files/img/7_back.jpg" alt="sets/OPZ-files/img/7_front.jpg" id="OPZ_7" data-flag="@XD" onclick="openSidebar('OPZ_7',false)"><button class="flip-btn" onclick="imgFlip('OPZ_7')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/OPZ-files/img/4_back.jpg" alt="sets/OPZ-files/img/4_front.jpg" id="OPZ_4" data-flag="@XD" onclick="openSidebar('OPZ_4',false)"><button class="flip-btn" onclick="imgFlip('OPZ_4')"></button></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/178.jpg" id="OPZ_178" data-flag="@X" onclick="openSidebar('OPZ_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/179.jpg" id="OPZ_179" data-flag="@X" onclick="openSidebar('OPZ_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/180.jpg" id="OPZ_180" data-flag="@X" onclick="openSidebar('OPZ_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/181.jpg" id="OPZ_181" data-flag="@X" onclick="openSidebar('OPZ_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/182.jpg" id="OPZ_182" data-flag="@X" onclick="openSidebar('OPZ_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/77.jpg" id="OPZ_77" data-flag="@X" onclick="openSidebar('OPZ_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/78.jpg" id="OPZ_78" data-flag="@X" onclick="openSidebar('OPZ_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/91.jpg" id="OPZ_91" data-flag="@X" onclick="openSidebar('OPZ_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/69.jpg" id="OPZ_69" data-flag="@X" onclick="openSidebar('OPZ_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/76.jpg" id="OPZ_76" data-flag="@X" onclick="openSidebar('OPZ_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/173.jpg" id="OPZ_173" data-flag="@X" onclick="openSidebar('OPZ_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/174.jpg" id="OPZ_174" data-flag="@X" onclick="openSidebar('OPZ_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/175.jpg" id="OPZ_175" data-flag="@X" onclick="openSidebar('OPZ_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/176.jpg" id="OPZ_176" data-flag="@X" onclick="openSidebar('OPZ_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/177.jpg" id="OPZ_177" data-flag="@X" onclick="openSidebar('OPZ_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/90.jpg" id="OPZ_90" data-flag="@X" onclick="openSidebar('OPZ_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/88.jpg" id="OPZ_88" data-flag="@X" onclick="openSidebar('OPZ_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/87.jpg" id="OPZ_87" data-flag="@X" onclick="openSidebar('OPZ_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/86.jpg" id="OPZ_86" data-flag="@X" onclick="openSidebar('OPZ_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/89.jpg" id="OPZ_89" data-flag="@X" onclick="openSidebar('OPZ_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/OPZ-files/img/153_back.jpg" alt="sets/OPZ-files/img/153_front.jpg" id="OPZ_153" data-flag="@XD" onclick="openSidebar('OPZ_153',false)"><button class="flip-btn" onclick="imgFlip('OPZ_153')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/OPZ-files/img/92_back.jpg" alt="sets/OPZ-files/img/92_front.jpg" id="OPZ_92" data-flag="@XD" onclick="openSidebar('OPZ_92',false)"><button class="flip-btn" onclick="imgFlip('OPZ_92')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/93.jpg" id="OPZ_93" data-flag="@X" onclick="openSidebar('OPZ_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="OPZ_e" data-flag="@E" onclick="openSidebar('OPZ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/224.jpg" id="OPZ_224" data-flag="@X" onclick="openSidebar('OPZ_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/225.jpg" id="OPZ_225" data-flag="@X" onclick="openSidebar('OPZ_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/226.jpg" id="OPZ_226" data-flag="@X" onclick="openSidebar('OPZ_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/227.jpg" id="OPZ_227" data-flag="@X" onclick="openSidebar('OPZ_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/228.jpg" id="OPZ_228" data-flag="@X" onclick="openSidebar('OPZ_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
 				<div id="token" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/17.jpg" id="17" data-flag="@X" onclick="openSidebar('17',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/19.jpg" id="19" data-flag="@X" onclick="openSidebar('19',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/8.jpg" id="8" data-flag="@X" onclick="openSidebar('8',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/278.jpg" id="278" data-flag="@X" onclick="openSidebar('278',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/272.jpg" id="272" data-flag="@X" onclick="openSidebar('272',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/273.jpg" id="273" data-flag="@X" onclick="openSidebar('273',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/264.jpg" id="264" data-flag="@X" onclick="openSidebar('264',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/105.jpg" id="105" data-flag="@X" onclick="openSidebar('105',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/47.jpg" id="47" data-flag="@X" onclick="openSidebar('47',false)"></div>
-				<div class="container"><img loading="lazy" alt="/sets/OPZ-files/img/67.jpg" id="67" data-flag="@X" onclick="openSidebar('67',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
-				<div class="container"><img loading="lazy" alt="/img/er.png" id="er" data-flag="@E" onclick="openSidebar('er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/17.jpg" id="OPZ_17" data-flag="@X" onclick="openSidebar('OPZ_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/19.jpg" id="OPZ_19" data-flag="@X" onclick="openSidebar('OPZ_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/283.jpg" id="OPZ_283" data-flag="@X" onclick="openSidebar('OPZ_283',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/8.jpg" id="OPZ_8" data-flag="@X" onclick="openSidebar('OPZ_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/271.jpg" id="OPZ_271" data-flag="@X" onclick="openSidebar('OPZ_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/272.jpg" id="OPZ_272" data-flag="@X" onclick="openSidebar('OPZ_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/263.jpg" id="OPZ_263" data-flag="@X" onclick="openSidebar('OPZ_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/104.jpg" id="OPZ_104" data-flag="@X" onclick="openSidebar('OPZ_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/47.jpg" id="OPZ_47" data-flag="@X" onclick="openSidebar('OPZ_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/OPZ-files/img/66.jpg" id="OPZ_66" data-flag="@X" onclick="openSidebar('OPZ_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="OPZ_er" data-flag="@E" onclick="openSidebar('OPZ_er',false)"></div>
 	</div>
 	</div>
 	<div class="sidebar" id="sidebar">
 		<div class="sidebar-container">
-			<img id="sidebar_img" class="sidebar-img" src="/img/er.png">
+			<img id="sidebar_img" class="sidebar-img">
 			<img id="sidebar_h_img" class="sidebar-h-img">
 			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
 		</div>
@@ -646,19 +674,111 @@
 		let specialchars = "";
 
 	document.addEventListener('DOMContentLoaded', async function() {
-		await fetch('/lists/all-cards.json')
+		await fetch(rootPath + '/lists/all-cards.json')
 					.then(response => response.json())
 					.then(json => {
 						card_list = json;
 				}).catch(error => console.error('Error:', error));
 
-				await fetch('/resources/replacechars.txt')
+				await fetch(rootPath + '/resources/replacechars.txt')
 					.then(response => response.text())
 					.then(text => {
 						specialchars = text; 
 				}).catch(error => console.error('Error:', error));
 
 				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
 
 		preloadImgs = document.getElementsByClassName('preload-hidden');
 
@@ -693,13 +813,16 @@
 			const flag = img.getAttribute('data-flag');
 
 			if (flag === '@N') {
-				img.src = '/img/card_back.png';
+				img.src = rootPath + '/img/card_back.png';
 				img.removeAttribute("onclick");
 				img.style.cursor = 'default';
 			}
 			else
 			{
-				img.src = img.alt;
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
 
 				if (flag === '@E') {
 					img.removeAttribute("onclick");
@@ -853,16 +976,16 @@
 	});
 
 	function search() {
-		const url = new URL('search', window.location.origin);
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
 		url.searchParams.append('search', document.getElementById("search").value);
-		window.location.href = url;
+		window.location.href = url.pathname + url.search;
 	}
 
 		function randomCard() {
 				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
 				let random_card = card_list_arrayified[i];
 
-				const url = new URL('card', window.location.origin);
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
 				const params = {
 					set: random_card.set,
 					num: random_card.number,
@@ -872,7 +995,7 @@
 					url.searchParams.append(key, params[key]);
 				}
 
-				window.location.href = url;
+				window.location.href = url.pathname + url.search;
 			}
 	</script>
 </body>

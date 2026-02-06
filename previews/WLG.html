@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/WLG-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>WLG visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/WLG-files/logo.png" />
+	<img class="preload-hidden" src="../sets/DHW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HFB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/LDT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WLG-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/NOT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RPGM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SHU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VLR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/OPZ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ABY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CYO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EDR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KRK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ELV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WGJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WOO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ICO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/IWH-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/WLG"><img src="../sets/WLG-files/icon.png">Worlds Long Gone</a>
+	
+		<a class="set-bar inactive" href="../previews/DHW"><img src="../sets/DHW-files/icon.png">Deorum: Holy War</a>
+	
+		<a class="set-bar inactive" href="../previews/HFB"><img src="../sets/HFB-files/icon.png">Hycal: First Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/LDT"><img src="../sets/LDT-files/icon.png">Last Days of the Immortal Table</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/NOT"><img src="../sets/NOT-files/icon.png">Nightmares of Tremethys</a>
+	
+		<a class="set-bar inactive" href="../previews/RPGM"><img src="../sets/RPGM-files/icon.png">Universes Beyond: RPGMaker</a>
+	
+		<a class="set-bar inactive" href="../previews/SHU"><img src="../sets/SHU-files/icon.png">Shurima: War of the Sands</a>
+	
+		<a class="set-bar inactive" href="../previews/MOV"><img src="../sets/MOV-files/icon.png">Motley Oak (Field Test)</a>
+	
+		<a class="set-bar inactive" href="../previews/VLR"><img src="../sets/VLR-files/icon.png">Valir: The Banished Isle</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/OPZ"><img src="../sets/OPZ-files/icon.png">Outpost Zero</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/ABY"><img src="../sets/ABY-files/icon.png">A Better Yesterday</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		<a class="set-bar inactive" href="../previews/CYO"><img src="../sets/CYO-files/icon.png">Chronicles of Yor-Om</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/EDR"><img src="../sets/EDR-files/icon.png">Elden Ring</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KRK"><img src="../sets/KRK-files/icon.png">Seas of Krakonos</a>
+	
+		<a class="set-bar inactive" href="../previews/ELV"><img src="../sets/ELV-files/icon.png">Elegies of Vaquer</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WGJ"><img src="../sets/WGJ-files/icon.png">Wrenchmar: Gambit of the Junklords</a>
+	
+		<a class="set-bar inactive" href="../previews/WOO"><img src="../sets/WOO-files/icon.png">Waking of Orlige</a>
+	
+		<a class="set-bar inactive" href="../previews/ICO"><img src="../sets/ICO-files/icon.png">Inner Coriansa</a>
+	
+		<a class="set-bar inactive" href="../previews/IWH"><img src="../sets/IWH-files/icon.png">Innistrad: Witching Hour</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/WLG-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/WLG-files/img/24_Ild, The First Flint and Steel.jpg" id="WLG_24_Ild, The First Flint and Steel" data-flag="@X" onclick="openSidebar('WLG_24_Ild, The First Flint and Steel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/49_Jiva's Masterwork.jpg" id="WLG_49_Jivas Masterwork" data-flag="@X" onclick="openSidebar('WLG_49_Jivas Masterwork',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/87_Parasite Star.jpg" id="WLG_87_Parasite Star" data-flag="@X" onclick="openSidebar('WLG_87_Parasite Star',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/104_Firmament Burner.jpg" id="WLG_104_Firmament Burner" data-flag="@X" onclick="openSidebar('WLG_104_Firmament Burner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/141_Infested Emissary.jpg" id="WLG_141_Infested Emissary" data-flag="@X" onclick="openSidebar('WLG_141_Infested Emissary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/27_Planeswalker's Immortality.jpg" id="WLG_27_Planeswalkers Immortality" data-flag="@X" onclick="openSidebar('WLG_27_Planeswalkers Immortality',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/55_Planeswalker's Perspective.jpg" id="WLG_55_Planeswalkers Perspective" data-flag="@X" onclick="openSidebar('WLG_55_Planeswalkers Perspective',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/89_Planeswalker's Spite.jpg" id="WLG_89_Planeswalkers Spite" data-flag="@X" onclick="openSidebar('WLG_89_Planeswalkers Spite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/116_Planeswalker's Power.jpg" id="WLG_116_Planeswalkers Power" data-flag="@X" onclick="openSidebar('WLG_116_Planeswalkers Power',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/150_Planeswalker's Dominion.jpg" id="WLG_150_Planeswalkers Dominion" data-flag="@X" onclick="openSidebar('WLG_150_Planeswalkers Dominion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/7_Aegis of House Abrisyne.jpg" id="WLG_7_Aegis of House Abrisyne" data-flag="@X" onclick="openSidebar('WLG_7_Aegis of House Abrisyne',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/46_The Gjallarpits Revolt.jpg" id="WLG_46_The Gjallarpits Revolt" data-flag="@X" onclick="openSidebar('WLG_46_The Gjallarpits Revolt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/83_Ledger-Keeper Prince.jpg" id="WLG_83_Ledger-Keeper Prince" data-flag="@X" onclick="openSidebar('WLG_83_Ledger-Keeper Prince',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/99_Battlefield Boneworker.jpg" id="WLG_99_Battlefield Boneworker" data-flag="@X" onclick="openSidebar('WLG_99_Battlefield Boneworker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/129_Abacus, Ascendant Thrull.jpg" id="WLG_129_Abacus, Ascendant Thrull" data-flag="@X" onclick="openSidebar('WLG_129_Abacus, Ascendant Thrull',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/19_Ferrocene Fiend-Hunter.jpg" id="WLG_19_Ferrocene Fiend-Hunter" data-flag="@X" onclick="openSidebar('WLG_19_Ferrocene Fiend-Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/47_Grand Delusion.jpg" id="WLG_47_Grand Delusion" data-flag="@X" onclick="openSidebar('WLG_47_Grand Delusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/84_Left Eye of the Tomb-Star.jpg" id="WLG_84_Left Eye of the Tomb-Star" data-flag="@X" onclick="openSidebar('WLG_84_Left Eye of the Tomb-Star',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/105_The First Splitting-Tool.jpg" id="WLG_105_The First Splitting-Tool" data-flag="@X" onclick="openSidebar('WLG_105_The First Splitting-Tool',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/140_Horizon-Spanning Hydra.jpg" id="WLG_140_Horizon-Spanning Hydra" data-flag="@X" onclick="openSidebar('WLG_140_Horizon-Spanning Hydra',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/23_Hyrja, High Shepherd.jpg" id="WLG_23_Hyrja, High Shepherd" data-flag="@X" onclick="openSidebar('WLG_23_Hyrja, High Shepherd',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/51_Metaphysical Incisor.jpg" id="WLG_51_Metaphysical Incisor" data-flag="@X" onclick="openSidebar('WLG_51_Metaphysical Incisor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/86_Moulin, Fairweather Friend.jpg" id="WLG_86_Moulin, Fairweather Friend" data-flag="@X" onclick="openSidebar('WLG_86_Moulin, Fairweather Friend',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/112_Malediction Engine.jpg" id="WLG_112_Malediction Engine" data-flag="@X" onclick="openSidebar('WLG_112_Malediction Engine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/145_Light-in-the-Darkness.jpg" id="WLG_145_Light-in-the-Darkness" data-flag="@X" onclick="openSidebar('WLG_145_Light-in-the-Darkness',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/30_Sealed into the Scriptures.jpg" id="WLG_30_Sealed into the Scriptures" data-flag="@X" onclick="openSidebar('WLG_30_Sealed into the Scriptures',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/63_Time and Tide.jpg" id="WLG_63_Time and Tide" data-flag="@X" onclick="openSidebar('WLG_63_Time and Tide',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/94_Scythe of the Remembrance.jpg" id="WLG_94_Scythe of the Remembrance" data-flag="@X" onclick="openSidebar('WLG_94_Scythe of the Remembrance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/117_Profiteers' Market-Fleet.jpg" id="WLG_117_Profiteers Market-Fleet" data-flag="@X" onclick="openSidebar('WLG_117_Profiteers Market-Fleet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/152_Rules of Engagement.jpg" id="WLG_152_Rules of Engagement" data-flag="@X" onclick="openSidebar('WLG_152_Rules of Engagement',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/5_Abracine Ambrosia.jpg" id="WLG_5_Abracine Ambrosia" data-flag="@X" onclick="openSidebar('WLG_5_Abracine Ambrosia',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/65_Wellow, Undoer-of-Walls.jpg" id="WLG_65_Wellow, Undoer-of-Walls" data-flag="@X" onclick="openSidebar('WLG_65_Wellow, Undoer-of-Walls',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/95_Spiral System Scavenger.jpg" id="WLG_95_Spiral System Scavenger" data-flag="@X" onclick="openSidebar('WLG_95_Spiral System Scavenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/98_Anointment of House Ariouth.jpg" id="WLG_98_Anointment of House Ariouth" data-flag="@X" onclick="openSidebar('WLG_98_Anointment of House Ariouth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/153_Send into the Wurmways.jpg" id="WLG_153_Send into the Wurmways" data-flag="@X" onclick="openSidebar('WLG_153_Send into the Wurmways',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/8_Archangel Artisan.jpg" id="WLG_8_Archangel Artisan" data-flag="@X" onclick="openSidebar('WLG_8_Archangel Artisan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/38_Celestial Defense.jpg" id="WLG_38_Celestial Defense" data-flag="@X" onclick="openSidebar('WLG_38_Celestial Defense',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/71_Desperate Lich-Aspirant.jpg" id="WLG_71_Desperate Lich-Aspirant" data-flag="@X" onclick="openSidebar('WLG_71_Desperate Lich-Aspirant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/100_Crawling Pandemonium.jpg" id="WLG_100_Crawling Pandemonium" data-flag="@X" onclick="openSidebar('WLG_100_Crawling Pandemonium',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/130_Aggluminex.jpg" id="WLG_130_Aggluminex" data-flag="@X" onclick="openSidebar('WLG_130_Aggluminex',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/11_Calculating Battlemage.jpg" id="WLG_11_Calculating Battlemage" data-flag="@X" onclick="openSidebar('WLG_11_Calculating Battlemage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/41_Cryptic Looking-Glass.jpg" id="WLG_41_Cryptic Looking-Glass" data-flag="@X" onclick="openSidebar('WLG_41_Cryptic Looking-Glass',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/75_Eternity Breach.jpg" id="WLG_75_Eternity Breach" data-flag="@X" onclick="openSidebar('WLG_75_Eternity Breach',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/101_Desperate Contractors.jpg" id="WLG_101_Desperate Contractors" data-flag="@X" onclick="openSidebar('WLG_101_Desperate Contractors',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/132_Biomass Tributary.jpg" id="WLG_132_Biomass Tributary" data-flag="@X" onclick="openSidebar('WLG_132_Biomass Tributary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/12_Chains of Life and Death.jpg" id="WLG_12_Chains of Life and Death" data-flag="@X" onclick="openSidebar('WLG_12_Chains of Life and Death',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/42_Deepglow Skate.jpg" id="WLG_42_Deepglow Skate" data-flag="@X" onclick="openSidebar('WLG_42_Deepglow Skate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/79_Heralded Sword-Arbiter.jpg" id="WLG_79_Heralded Sword-Arbiter" data-flag="@X" onclick="openSidebar('WLG_79_Heralded Sword-Arbiter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/106_Hemolytica Respository.jpg" id="WLG_106_Hemolytica Respository" data-flag="@X" onclick="openSidebar('WLG_106_Hemolytica Respository',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/136_Desperate Conservator.jpg" id="WLG_136_Desperate Conservator" data-flag="@X" onclick="openSidebar('WLG_136_Desperate Conservator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/13_Conjured Cityback.jpg" id="WLG_13_Conjured Cityback" data-flag="@X" onclick="openSidebar('WLG_13_Conjured Cityback',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/43_Desperate Oracle.jpg" id="WLG_43_Desperate Oracle" data-flag="@X" onclick="openSidebar('WLG_43_Desperate Oracle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/80_Horizon-Cutter Technique.jpg" id="WLG_80_Horizon-Cutter Technique" data-flag="@X" onclick="openSidebar('WLG_80_Horizon-Cutter Technique',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/109_Innovator in Pain.jpg" id="WLG_109_Innovator in Pain" data-flag="@X" onclick="openSidebar('WLG_109_Innovator in Pain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/138_Failed Cartographer.jpg" id="WLG_138_Failed Cartographer" data-flag="@X" onclick="openSidebar('WLG_138_Failed Cartographer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/15_Crown's Sycophants.jpg" id="WLG_15_Crowns Sycophants" data-flag="@X" onclick="openSidebar('WLG_15_Crowns Sycophants',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/44_Eloaios' Nursery.jpg" id="WLG_44_Eloaios Nursery" data-flag="@X" onclick="openSidebar('WLG_44_Eloaios Nursery',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/82_Laughing Vulture Knight.jpg" id="WLG_82_Laughing Vulture Knight" data-flag="@X" onclick="openSidebar('WLG_82_Laughing Vulture Knight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/111_Machine-Augur.jpg" id="WLG_111_Machine-Augur" data-flag="@X" onclick="openSidebar('WLG_111_Machine-Augur',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/144_Leyline Behemoth.jpg" id="WLG_144_Leyline Behemoth" data-flag="@X" onclick="openSidebar('WLG_144_Leyline Behemoth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/16_Desperate Socialite.jpg" id="WLG_16_Desperate Socialite" data-flag="@X" onclick="openSidebar('WLG_16_Desperate Socialite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/50_Lost in the Wurmways.jpg" id="WLG_50_Lost in the Wurmways" data-flag="@X" onclick="openSidebar('WLG_50_Lost in the Wurmways',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/90_Quickening.jpg" id="WLG_90_Quickening" data-flag="@X" onclick="openSidebar('WLG_90_Quickening',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/113_Martyr-to-Be.jpg" id="WLG_113_Martyr-to-Be" data-flag="@X" onclick="openSidebar('WLG_113_Martyr-to-Be',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/146_Might of the Elements.jpg" id="WLG_146_Might of the Elements" data-flag="@X" onclick="openSidebar('WLG_146_Might of the Elements',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/20_First Blade of the Aevyr.jpg" id="WLG_20_First Blade of the Aevyr" data-flag="@X" onclick="openSidebar('WLG_20_First Blade of the Aevyr',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/54_Pilgrimage to House Sophia.jpg" id="WLG_54_Pilgrimage to House Sophia" data-flag="@X" onclick="openSidebar('WLG_54_Pilgrimage to House Sophia',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/91_Reconfiguration Agent.jpg" id="WLG_91_Reconfiguration Agent" data-flag="@X" onclick="openSidebar('WLG_91_Reconfiguration Agent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/114_Mass-Energy Converter.jpg" id="WLG_114_Mass-Energy Converter" data-flag="@X" onclick="openSidebar('WLG_114_Mass-Energy Converter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/149_Planar Oversight.jpg" id="WLG_149_Planar Oversight" data-flag="@X" onclick="openSidebar('WLG_149_Planar Oversight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/22_House Abrisyne Intercedes.jpg" id="WLG_22_House Abrisyne Intercedes" data-flag="@X" onclick="openSidebar('WLG_22_House Abrisyne Intercedes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/57_Polymorphic Enforcer.jpg" id="WLG_57_Polymorphic Enforcer" data-flag="@X" onclick="openSidebar('WLG_57_Polymorphic Enforcer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/92_Ruin-Thresh Flagellum.jpg" id="WLG_92_Ruin-Thresh Flagellum" data-flag="@X" onclick="openSidebar('WLG_92_Ruin-Thresh Flagellum',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/125_Theurge of the Last Stand.jpg" id="WLG_125_Theurge of the Last Stand" data-flag="@X" onclick="openSidebar('WLG_125_Theurge of the Last Stand',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/154_Spaceroot Superorganism.jpg" id="WLG_154_Spaceroot Superorganism" data-flag="@X" onclick="openSidebar('WLG_154_Spaceroot Superorganism',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/25_Master of a Dying Art.jpg" id="WLG_25_Master of a Dying Art" data-flag="@X" onclick="openSidebar('WLG_25_Master of a Dying Art',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/58_Practiced Talent.jpg" id="WLG_58_Practiced Talent" data-flag="@X" onclick="openSidebar('WLG_58_Practiced Talent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/93_Scheming Waytwister.jpg" id="WLG_93_Scheming Waytwister" data-flag="@X" onclick="openSidebar('WLG_93_Scheming Waytwister',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/126_Threefold Form Technique.jpg" id="WLG_126_Threefold Form Technique" data-flag="@X" onclick="openSidebar('WLG_126_Threefold Form Technique',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/157_Worldsoul Manipulator.jpg" id="WLG_157_Worldsoul Manipulator" data-flag="@X" onclick="openSidebar('WLG_157_Worldsoul Manipulator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/35_World-Circling Coil.jpg" id="WLG_35_World-Circling Coil" data-flag="@X" onclick="openSidebar('WLG_35_World-Circling Coil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/60_Shadowy Reinforcements.jpg" id="WLG_60_Shadowy Reinforcements" data-flag="@X" onclick="openSidebar('WLG_60_Shadowy Reinforcements',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/96_Sword of the Mass Grave.jpg" id="WLG_96_Sword of the Mass Grave" data-flag="@X" onclick="openSidebar('WLG_96_Sword of the Mass Grave',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/127_Twin Blades of the Raven.jpg" id="WLG_127_Twin Blades of the Raven" data-flag="@X" onclick="openSidebar('WLG_127_Twin Blades of the Raven',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/158_Wormhole Weaver.jpg" id="WLG_158_Wormhole Weaver" data-flag="@X" onclick="openSidebar('WLG_158_Wormhole Weaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/6_Abracine Artillery.jpg" id="WLG_6_Abracine Artillery" data-flag="@X" onclick="openSidebar('WLG_6_Abracine Artillery',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/36_Administrator's Attendant.jpg" id="WLG_36_Administrators Attendant" data-flag="@X" onclick="openSidebar('WLG_36_Administrators Attendant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/67_Centigonite.jpg" id="WLG_67_Centigonite" data-flag="@X" onclick="openSidebar('WLG_67_Centigonite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/102_Destruction Order.jpg" id="WLG_102_Destruction Order" data-flag="@X" onclick="openSidebar('WLG_102_Destruction Order',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/131_Amber Field Battalion.jpg" id="WLG_131_Amber Field Battalion" data-flag="@X" onclick="openSidebar('WLG_131_Amber Field Battalion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/9_Army of One.jpg" id="WLG_9_Army of One" data-flag="@X" onclick="openSidebar('WLG_9_Army of One',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/37_Blacksail Privateer Fleet.jpg" id="WLG_37_Blacksail Privateer Fleet" data-flag="@X" onclick="openSidebar('WLG_37_Blacksail Privateer Fleet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/68_Chittering Colonist.jpg" id="WLG_68_Chittering Colonist" data-flag="@X" onclick="openSidebar('WLG_68_Chittering Colonist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/103_Eloaios' Orbitar.jpg" id="WLG_103_Eloaios Orbitar" data-flag="@X" onclick="openSidebar('WLG_103_Eloaios Orbitar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/133_Bowerbrush Malevolence.jpg" id="WLG_133_Bowerbrush Malevolence" data-flag="@X" onclick="openSidebar('WLG_133_Bowerbrush Malevolence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/10_Benevolent Tutelars.jpg" id="WLG_10_Benevolent Tutelars" data-flag="@X" onclick="openSidebar('WLG_10_Benevolent Tutelars',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/39_Cloud-Gilled Vacuolus.jpg" id="WLG_39_Cloud-Gilled Vacuolus" data-flag="@X" onclick="openSidebar('WLG_39_Cloud-Gilled Vacuolus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/69_Collector of Deaths.jpg" id="WLG_69_Collector of Deaths" data-flag="@X" onclick="openSidebar('WLG_69_Collector of Deaths',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/107_House Ariouth Drillmaster.jpg" id="WLG_107_House Ariouth Drillmaster" data-flag="@X" onclick="openSidebar('WLG_107_House Ariouth Drillmaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/134_Copper Web Axonite.jpg" id="WLG_134_Copper Web Axonite" data-flag="@X" onclick="openSidebar('WLG_134_Copper Web Axonite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/14_Crest of the Winged Dawn.jpg" id="WLG_14_Crest of the Winged Dawn" data-flag="@X" onclick="openSidebar('WLG_14_Crest of the Winged Dawn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/40_Consign to Irrelevance.jpg" id="WLG_40_Consign to Irrelevance" data-flag="@X" onclick="openSidebar('WLG_40_Consign to Irrelevance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/70_Debris Belt Viceroy.jpg" id="WLG_70_Debris Belt Viceroy" data-flag="@X" onclick="openSidebar('WLG_70_Debris Belt Viceroy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/108_Infinite Rage.jpg" id="WLG_108_Infinite Rage" data-flag="@X" onclick="openSidebar('WLG_108_Infinite Rage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/135_Decisive Ambush.jpg" id="WLG_135_Decisive Ambush" data-flag="@X" onclick="openSidebar('WLG_135_Decisive Ambush',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/17_Diplomatic Resolution.jpg" id="WLG_17_Diplomatic Resolution" data-flag="@X" onclick="openSidebar('WLG_17_Diplomatic Resolution',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/45_Engorged Thaumaphage.jpg" id="WLG_45_Engorged Thaumaphage" data-flag="@X" onclick="openSidebar('WLG_45_Engorged Thaumaphage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/72_Dimensional Digestion.jpg" id="WLG_72_Dimensional Digestion" data-flag="@X" onclick="openSidebar('WLG_72_Dimensional Digestion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/110_Lightning-Armed Artillerist.jpg" id="WLG_110_Lightning-Armed Artillerist" data-flag="@X" onclick="openSidebar('WLG_110_Lightning-Armed Artillerist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/137_Dream into Existence.jpg" id="WLG_137_Dream into Existence" data-flag="@X" onclick="openSidebar('WLG_137_Dream into Existence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/18_Fallen-Crown Adherent.jpg" id="WLG_18_Fallen-Crown Adherent" data-flag="@X" onclick="openSidebar('WLG_18_Fallen-Crown Adherent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/48_Hydrologer Hermit.jpg" id="WLG_48_Hydrologer Hermit" data-flag="@X" onclick="openSidebar('WLG_48_Hydrologer Hermit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/73_Emptying Streets.jpg" id="WLG_73_Emptying Streets" data-flag="@X" onclick="openSidebar('WLG_73_Emptying Streets',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/115_Metamorphic Pit-Thresher.jpg" id="WLG_115_Metamorphic Pit-Thresher" data-flag="@X" onclick="openSidebar('WLG_115_Metamorphic Pit-Thresher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/139_Historical Impact.jpg" id="WLG_139_Historical Impact" data-flag="@X" onclick="openSidebar('WLG_139_Historical Impact',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/21_Gjallarpits Forgewarden.jpg" id="WLG_21_Gjallarpits Forgewarden" data-flag="@X" onclick="openSidebar('WLG_21_Gjallarpits Forgewarden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/52_Nectar-Weeping-Liar.jpg" id="WLG_52_Nectar-Weeping-Liar" data-flag="@X" onclick="openSidebar('WLG_52_Nectar-Weeping-Liar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/74_Enthralling Sparkseeker.jpg" id="WLG_74_Enthralling Sparkseeker" data-flag="@X" onclick="openSidebar('WLG_74_Enthralling Sparkseeker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/118_Rusted Memory.jpg" id="WLG_118_Rusted Memory" data-flag="@X" onclick="openSidebar('WLG_118_Rusted Memory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/142_Interplanar Tunneling.jpg" id="WLG_142_Interplanar Tunneling" data-flag="@X" onclick="openSidebar('WLG_142_Interplanar Tunneling',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/26_Metaira Victorious.jpg" id="WLG_26_Metaira Victorious" data-flag="@X" onclick="openSidebar('WLG_26_Metaira Victorious',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/53_Peng-Lai Guardian.jpg" id="WLG_53_Peng-Lai Guardian" data-flag="@X" onclick="openSidebar('WLG_53_Peng-Lai Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/76_Exhausted Morale.jpg" id="WLG_76_Exhausted Morale" data-flag="@X" onclick="openSidebar('WLG_76_Exhausted Morale',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/119_Scuttling Crematoria.jpg" id="WLG_119_Scuttling Crematoria" data-flag="@X" onclick="openSidebar('WLG_119_Scuttling Crematoria',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/143_Kings' End Accelerationist.jpg" id="WLG_143_Kings End Accelerationist" data-flag="@X" onclick="openSidebar('WLG_143_Kings End Accelerationist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/28_Recall the Dead Glories.jpg" id="WLG_28_Recall the Dead Glories" data-flag="@X" onclick="openSidebar('WLG_28_Recall the Dead Glories',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/56_Planeswalking.jpg" id="WLG_56_Planeswalking" data-flag="@X" onclick="openSidebar('WLG_56_Planeswalking',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/77_Fallow-Frost.jpg" id="WLG_77_Fallow-Frost" data-flag="@X" onclick="openSidebar('WLG_77_Fallow-Frost',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/120_Second Day Legionnaires.jpg" id="WLG_120_Second Day Legionnaires" data-flag="@X" onclick="openSidebar('WLG_120_Second Day Legionnaires',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/147_Mistpath Anomaly.jpg" id="WLG_147_Mistpath Anomaly" data-flag="@X" onclick="openSidebar('WLG_147_Mistpath Anomaly',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/29_Sandstorm Spindleback.jpg" id="WLG_29_Sandstorm Spindleback" data-flag="@X" onclick="openSidebar('WLG_29_Sandstorm Spindleback',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/59_Scholar of House Sophia.jpg" id="WLG_59_Scholar of House Sophia" data-flag="@X" onclick="openSidebar('WLG_59_Scholar of House Sophia',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/78_Greatclub of the Bonesmith.jpg" id="WLG_78_Greatclub of the Bonesmith" data-flag="@X" onclick="openSidebar('WLG_78_Greatclub of the Bonesmith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/121_Sound and Fury.jpg" id="WLG_121_Sound and Fury" data-flag="@X" onclick="openSidebar('WLG_121_Sound and Fury',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/148_Peng-Lai Reshaper.jpg" id="WLG_148_Peng-Lai Reshaper" data-flag="@X" onclick="openSidebar('WLG_148_Peng-Lai Reshaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/31_Supply Ships.jpg" id="WLG_31_Supply Ships" data-flag="@X" onclick="openSidebar('WLG_31_Supply Ships',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/61_Silver-Tongued Enigma.jpg" id="WLG_61_Silver-Tongued Enigma" data-flag="@X" onclick="openSidebar('WLG_61_Silver-Tongued Enigma',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/81_Korinnos' Abandoned.jpg" id="WLG_81_Korinnos Abandoned" data-flag="@X" onclick="openSidebar('WLG_81_Korinnos Abandoned',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/122_Spear of the First Soldier.jpg" id="WLG_122_Spear of the First Soldier" data-flag="@X" onclick="openSidebar('WLG_122_Spear of the First Soldier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/151_Ponderous Wealdlord.jpg" id="WLG_151_Ponderous Wealdlord" data-flag="@X" onclick="openSidebar('WLG_151_Ponderous Wealdlord',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/32_Towering Ideologue.jpg" id="WLG_32_Towering Ideologue" data-flag="@X" onclick="openSidebar('WLG_32_Towering Ideologue',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/62_Tectonic Signal.jpg" id="WLG_62_Tectonic Signal" data-flag="@X" onclick="openSidebar('WLG_62_Tectonic Signal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/85_Mastery over Death.jpg" id="WLG_85_Mastery over Death" data-flag="@X" onclick="openSidebar('WLG_85_Mastery over Death',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/123_Stardust Acephalon.jpg" id="WLG_123_Stardust Acephalon" data-flag="@X" onclick="openSidebar('WLG_123_Stardust Acephalon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/155_Startwister Conglomerate.jpg" id="WLG_155_Startwister Conglomerate" data-flag="@X" onclick="openSidebar('WLG_155_Startwister Conglomerate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/33_Wayward Sword-Saint.jpg" id="WLG_33_Wayward Sword-Saint" data-flag="@X" onclick="openSidebar('WLG_33_Wayward Sword-Saint',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/64_Transcendent Superiority.jpg" id="WLG_64_Transcendent Superiority" data-flag="@X" onclick="openSidebar('WLG_64_Transcendent Superiority',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/88_Piety Extractor.jpg" id="WLG_88_Piety Extractor" data-flag="@X" onclick="openSidebar('WLG_88_Piety Extractor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/124_Sunmaker Specialist.jpg" id="WLG_124_Sunmaker Specialist" data-flag="@X" onclick="openSidebar('WLG_124_Sunmaker Specialist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/156_Titanic Ferrosteum.jpg" id="WLG_156_Titanic Ferrosteum" data-flag="@X" onclick="openSidebar('WLG_156_Titanic Ferrosteum',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/34_Winds of the Worldsoul.jpg" id="WLG_34_Winds of the Worldsoul" data-flag="@X" onclick="openSidebar('WLG_34_Winds of the Worldsoul',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/66_Worldnerve Architect.jpg" id="WLG_66_Worldnerve Architect" data-flag="@X" onclick="openSidebar('WLG_66_Worldnerve Architect',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/97_Wurmblood Brewery.jpg" id="WLG_97_Wurmblood Brewery" data-flag="@X" onclick="openSidebar('WLG_97_Wurmblood Brewery',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/128_Ynvar's Abandoned.jpg" id="WLG_128_Ynvars Abandoned" data-flag="@X" onclick="openSidebar('WLG_128_Ynvars Abandoned',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/159_Wurmways Navigator.jpg" id="WLG_159_Wurmways Navigator" data-flag="@X" onclick="openSidebar('WLG_159_Wurmways Navigator',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/161_Abrisyne, Prime Authority.jpg" id="WLG_161_Abrisyne, Prime Authority" data-flag="@X" onclick="openSidebar('WLG_161_Abrisyne, Prime Authority',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/185_Interspatial Infestation.jpg" id="WLG_185_Interspatial Infestation" data-flag="@X" onclick="openSidebar('WLG_185_Interspatial Infestation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/187_Keina, Dancer in Crimson.jpg" id="WLG_187_Keina, Dancer in Crimson" data-flag="@X" onclick="openSidebar('WLG_187_Keina, Dancer in Crimson',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/181_Godforge.jpg" id="WLG_181_Godforge" data-flag="@X" onclick="openSidebar('WLG_181_Godforge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/188_Landscape Flattener.jpg" id="WLG_188_Landscape Flattener" data-flag="@X" onclick="openSidebar('WLG_188_Landscape Flattener',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/222_Instrument of Eternity.jpg" id="WLG_222_Instrument of Eternity" data-flag="@X" onclick="openSidebar('WLG_222_Instrument of Eternity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/230_Wurm-Court Herald.jpg" id="WLG_230_Wurm-Court Herald" data-flag="@X" onclick="openSidebar('WLG_230_Wurm-Court Herald',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/229_Unbroken Procession.jpg" id="WLG_229_Unbroken Procession" data-flag="@X" onclick="openSidebar('WLG_229_Unbroken Procession',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/218_Butcher of Abraxas.jpg" id="WLG_218_Butcher of Abraxas" data-flag="@X" onclick="openSidebar('WLG_218_Butcher of Abraxas',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/223_Jiva's Careful Watch.jpg" id="WLG_223_Jivas Careful Watch" data-flag="@X" onclick="openSidebar('WLG_223_Jivas Careful Watch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/184_Intangible Invidia.jpg" id="WLG_184_Intangible Invidia" data-flag="@X" onclick="openSidebar('WLG_184_Intangible Invidia',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/167_Beholding the Impossible.jpg" id="WLG_167_Beholding the Impossible" data-flag="@X" onclick="openSidebar('WLG_167_Beholding the Impossible',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/169_Blood Sun Disciple.jpg" id="WLG_169_Blood Sun Disciple" data-flag="@X" onclick="openSidebar('WLG_169_Blood Sun Disciple',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/166_Battle-Hungry Warpath.jpg" id="WLG_166_Battle-Hungry Warpath" data-flag="@X" onclick="openSidebar('WLG_166_Battle-Hungry Warpath',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/176_Endosymbiote.jpg" id="WLG_176_Endosymbiote" data-flag="@X" onclick="openSidebar('WLG_176_Endosymbiote',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/208_Timestream Reflectionist.jpg" id="WLG_208_Timestream Reflectionist" data-flag="@X" onclick="openSidebar('WLG_208_Timestream Reflectionist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/172_Darkwood Lord.jpg" id="WLG_172_Darkwood Lord" data-flag="@X" onclick="openSidebar('WLG_172_Darkwood Lord',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/190_Madness Devil.jpg" id="WLG_190_Madness Devil" data-flag="@X" onclick="openSidebar('WLG_190_Madness Devil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/195_Peer Past the Veil.jpg" id="WLG_195_Peer Past the Veil" data-flag="@X" onclick="openSidebar('WLG_195_Peer Past the Veil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/213_Vinelayer Titan.jpg" id="WLG_213_Vinelayer Titan" data-flag="@X" onclick="openSidebar('WLG_213_Vinelayer Titan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/198_Reformation in the Aether.jpg" id="WLG_198_Reformation in the Aether" data-flag="@X" onclick="openSidebar('WLG_198_Reformation in the Aether',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/197_Recall from the Afterlife.jpg" id="WLG_197_Recall from the Afterlife" data-flag="@X" onclick="openSidebar('WLG_197_Recall from the Afterlife',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/180_Giver of False Mercy.jpg" id="WLG_180_Giver of False Mercy" data-flag="@X" onclick="openSidebar('WLG_180_Giver of False Mercy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/202_Sophia, Prime Intelligence.jpg" id="WLG_202_Sophia, Prime Intelligence" data-flag="@X" onclick="openSidebar('WLG_202_Sophia, Prime Intelligence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/191_Marrow-Burnished Lattice.jpg" id="WLG_191_Marrow-Burnished Lattice" data-flag="@X" onclick="openSidebar('WLG_191_Marrow-Burnished Lattice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/164_Ariouth, Prime Mover.jpg" id="WLG_164_Ariouth, Prime Mover" data-flag="@X" onclick="openSidebar('WLG_164_Ariouth, Prime Mover',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/199_Seed of the Twisting.jpg" id="WLG_199_Seed of the Twisting" data-flag="@X" onclick="openSidebar('WLG_199_Seed of the Twisting',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/225_Scribe of the Last Chapter.jpg" id="WLG_225_Scribe of the Last Chapter" data-flag="@X" onclick="openSidebar('WLG_225_Scribe of the Last Chapter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/217_Battleshaper Archmage.jpg" id="WLG_217_Battleshaper Archmage" data-flag="@X" onclick="openSidebar('WLG_217_Battleshaper Archmage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/224_Protean Phantasm.jpg" id="WLG_224_Protean Phantasm" data-flag="@X" onclick="openSidebar('WLG_224_Protean Phantasm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/216_Ariouth's Stratagem.jpg" id="WLG_216_Ariouths Stratagem" data-flag="@X" onclick="openSidebar('WLG_216_Ariouths Stratagem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/228_Thunderhead Axon.jpg" id="WLG_228_Thunderhead Axon" data-flag="@X" onclick="openSidebar('WLG_228_Thunderhead Axon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/162_Alabaster Pit Ganglöt.jpg" id="WLG_162_Alabaster Pit Ganglöt" data-flag="@X" onclick="openSidebar('WLG_162_Alabaster Pit Ganglöt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/173_Divine Messenger.jpg" id="WLG_173_Divine Messenger" data-flag="@X" onclick="openSidebar('WLG_173_Divine Messenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/194_Organic Replication.jpg" id="WLG_194_Organic Replication" data-flag="@X" onclick="openSidebar('WLG_194_Organic Replication',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/170_Cleansing-Pyre Typhon.jpg" id="WLG_170_Cleansing-Pyre Typhon" data-flag="@X" onclick="openSidebar('WLG_170_Cleansing-Pyre Typhon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/201_Sky-Devouring Swarm.jpg" id="WLG_201_Sky-Devouring Swarm" data-flag="@X" onclick="openSidebar('WLG_201_Sky-Devouring Swarm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/165_Banner of the Dark King.jpg" id="WLG_165_Banner of the Dark King" data-flag="@X" onclick="openSidebar('WLG_165_Banner of the Dark King',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/212_Unverified Personal Gnosis.jpg" id="WLG_212_Unverified Personal Gnosis" data-flag="@X" onclick="openSidebar('WLG_212_Unverified Personal Gnosis',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/205_Swirling-Lake Contessa.jpg" id="WLG_205_Swirling-Lake Contessa" data-flag="@X" onclick="openSidebar('WLG_205_Swirling-Lake Contessa',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/206_Sword of the Nameless.jpg" id="WLG_206_Sword of the Nameless" data-flag="@X" onclick="openSidebar('WLG_206_Sword of the Nameless',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/214_Wartime Documentarian.jpg" id="WLG_214_Wartime Documentarian" data-flag="@X" onclick="openSidebar('WLG_214_Wartime Documentarian',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/168_Biological Conquest.jpg" id="WLG_168_Biological Conquest" data-flag="@X" onclick="openSidebar('WLG_168_Biological Conquest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/189_Lightning Helix.jpg" id="WLG_189_Lightning Helix" data-flag="@X" onclick="openSidebar('WLG_189_Lightning Helix',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/196_Planar Genesis.jpg" id="WLG_196_Planar Genesis" data-flag="@X" onclick="openSidebar('WLG_196_Planar Genesis',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/226_Song of the Dheimweil.jpg" id="WLG_226_Song of the Dheimweil" data-flag="@X" onclick="openSidebar('WLG_226_Song of the Dheimweil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/219_Derylexes, in Disgrace.jpg" id="WLG_219_Derylexes, in Disgrace" data-flag="@X" onclick="openSidebar('WLG_219_Derylexes, in Disgrace',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/177_Energy Auto-Optimizer.jpg" id="WLG_177_Energy Auto-Optimizer" data-flag="@X" onclick="openSidebar('WLG_177_Energy Auto-Optimizer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/227_Summary Execution.jpg" id="WLG_227_Summary Execution" data-flag="@X" onclick="openSidebar('WLG_227_Summary Execution',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/204_Sulcus, Humble Servant.jpg" id="WLG_204_Sulcus, Humble Servant" data-flag="@X" onclick="openSidebar('WLG_204_Sulcus, Humble Servant',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/171_Collapsing Hyperionoid.jpg" id="WLG_171_Collapsing Hyperionoid" data-flag="@X" onclick="openSidebar('WLG_171_Collapsing Hyperionoid',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/203_The Stars Are Going Out.jpg" id="WLG_203_The Stars Are Going Out" data-flag="@X" onclick="openSidebar('WLG_203_The Stars Are Going Out',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/178_Envoys of the Optimizer.jpg" id="WLG_178_Envoys of the Optimizer" data-flag="@X" onclick="openSidebar('WLG_178_Envoys of the Optimizer',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/186_Jiva's Voice.jpg" id="WLG_186_Jivas Voice" data-flag="@X" onclick="openSidebar('WLG_186_Jivas Voice',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/200_Sepulcher-Oracle.jpg" id="WLG_200_Sepulcher-Oracle" data-flag="@X" onclick="openSidebar('WLG_200_Sepulcher-Oracle',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/210_Unity Proclamation.jpg" id="WLG_210_Unity Proclamation" data-flag="@X" onclick="openSidebar('WLG_210_Unity Proclamation',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/163_Archangel Wōdnes.jpg" id="WLG_163_Archangel Wōdnes" data-flag="@X" onclick="openSidebar('WLG_163_Archangel Wōdnes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/220_Einos Struggles to Awaken.jpg" id="WLG_220_Einos Struggles to Awaken" data-flag="@X" onclick="openSidebar('WLG_220_Einos Struggles to Awaken',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/221_Entrenched Siegemasters.jpg" id="WLG_221_Entrenched Siegemasters" data-flag="@X" onclick="openSidebar('WLG_221_Entrenched Siegemasters',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/175_Eloaios, Infinite Glory.jpg" id="WLG_175_Eloaios, Infinite Glory" data-flag="@X" onclick="openSidebar('WLG_175_Eloaios, Infinite Glory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/182_The Great Convolution.jpg" id="WLG_182_The Great Convolution" data-flag="@X" onclick="openSidebar('WLG_182_The Great Convolution',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/183_Hammer of the Ironstorm.jpg" id="WLG_183_Hammer of the Ironstorm" data-flag="@X" onclick="openSidebar('WLG_183_Hammer of the Ironstorm',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/179_The First Day.jpg" id="WLG_179_The First Day" data-flag="@X" onclick="openSidebar('WLG_179_The First Day',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/209_Twisting Empty Space.jpg" id="WLG_209_Twisting Empty Space" data-flag="@X" onclick="openSidebar('WLG_209_Twisting Empty Space',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/192_Night of the Wild Hunt.jpg" id="WLG_192_Night of the Wild Hunt" data-flag="@X" onclick="openSidebar('WLG_192_Night of the Wild Hunt',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/160_Abracine Hubris.jpg" id="WLG_160_Abracine Hubris" data-flag="@X" onclick="openSidebar('WLG_160_Abracine Hubris',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/193_Open the Sky.jpg" id="WLG_193_Open the Sky" data-flag="@X" onclick="openSidebar('WLG_193_Open the Sky',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/211_Unraveled Cycle-Keeper.jpg" id="WLG_211_Unraveled Cycle-Keeper" data-flag="@X" onclick="openSidebar('WLG_211_Unraveled Cycle-Keeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/174_Eloaios Breaks the Line.jpg" id="WLG_174_Eloaios Breaks the Line" data-flag="@X" onclick="openSidebar('WLG_174_Eloaios Breaks the Line',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/215_Wriggling Precursor.jpg" id="WLG_215_Wriggling Precursor" data-flag="@X" onclick="openSidebar('WLG_215_Wriggling Precursor',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/207_Thrice-Exulted Typhon.jpg" id="WLG_207_Thrice-Exulted Typhon" data-flag="@X" onclick="openSidebar('WLG_207_Thrice-Exulted Typhon',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/235_Glyph of Allegiance.jpg" id="WLG_235_Glyph of Allegiance" data-flag="@X" onclick="openSidebar('WLG_235_Glyph of Allegiance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/2_Something Waiting in the Dust.jpg" id="WLG_2_Something Waiting in the Dust" data-flag="@X" onclick="openSidebar('WLG_2_Something Waiting in the Dust',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/3_Verdigris, Aloof Wayfarer.jpg" id="WLG_3_Verdigris, Aloof Wayfarer" data-flag="@X" onclick="openSidebar('WLG_3_Verdigris, Aloof Wayfarer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/236_Guardian of the Rusted Core.jpg" id="WLG_236_Guardian of the Rusted Core" data-flag="@X" onclick="openSidebar('WLG_236_Guardian of the Rusted Core',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/231_Abracine Chariot.jpg" id="WLG_231_Abracine Chariot" data-flag="@X" onclick="openSidebar('WLG_231_Abracine Chariot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/234_Global Positioning System.jpg" id="WLG_234_Global Positioning System" data-flag="@X" onclick="openSidebar('WLG_234_Global Positioning System',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/237_Instability Extractor.jpg" id="WLG_237_Instability Extractor" data-flag="@X" onclick="openSidebar('WLG_237_Instability Extractor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/239_Shortsword of the Great Fool.jpg" id="WLG_239_Shortsword of the Great Fool" data-flag="@X" onclick="openSidebar('WLG_239_Shortsword of the Great Fool',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/240_Supermassive Starspear.jpg" id="WLG_240_Supermassive Starspear" data-flag="@X" onclick="openSidebar('WLG_240_Supermassive Starspear',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/1_Opportunistic Observer.jpg" id="WLG_1_Opportunistic Observer" data-flag="@X" onclick="openSidebar('WLG_1_Opportunistic Observer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/4_World Recycler.jpg" id="WLG_4_World Recycler" data-flag="@X" onclick="openSidebar('WLG_4_World Recycler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/232_Artificer's Artillery.jpg" id="WLG_232_Artificers Artillery" data-flag="@X" onclick="openSidebar('WLG_232_Artificers Artillery',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/233_Battlefield Rations.jpg" id="WLG_233_Battlefield Rations" data-flag="@X" onclick="openSidebar('WLG_233_Battlefield Rations',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/238_Planar Conduit.jpg" id="WLG_238_Planar Conduit" data-flag="@X" onclick="openSidebar('WLG_238_Planar Conduit',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/243_Barracks of the Worthy.jpg" id="WLG_243_Barracks of the Worthy" data-flag="@X" onclick="openSidebar('WLG_243_Barracks of the Worthy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/249_Prime Meridian.jpg" id="WLG_249_Prime Meridian" data-flag="@X" onclick="openSidebar('WLG_249_Prime Meridian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/246_Euryschelas Labor Station.jpg" id="WLG_246_Euryschelas Labor Station" data-flag="@X" onclick="openSidebar('WLG_246_Euryschelas Labor Station',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/245_Divine Palace.jpg" id="WLG_245_Divine Palace" data-flag="@X" onclick="openSidebar('WLG_245_Divine Palace',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/252_Winding Weald.jpg" id="WLG_252_Winding Weald" data-flag="@X" onclick="openSidebar('WLG_252_Winding Weald',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/253_Advanced Battlescape.jpg" id="WLG_253_Advanced Battlescape" data-flag="@X" onclick="openSidebar('WLG_253_Advanced Battlescape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/259_Midnight Battlescape.jpg" id="WLG_259_Midnight Battlescape" data-flag="@X" onclick="openSidebar('WLG_259_Midnight Battlescape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/261_Urban Battlescape.jpg" id="WLG_261_Urban Battlescape" data-flag="@X" onclick="openSidebar('WLG_261_Urban Battlescape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/255_Cosmic Battlescape.jpg" id="WLG_255_Cosmic Battlescape" data-flag="@X" onclick="openSidebar('WLG_255_Cosmic Battlescape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/262_Vast Battlescape.jpg" id="WLG_262_Vast Battlescape" data-flag="@X" onclick="openSidebar('WLG_262_Vast Battlescape',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/257_Frozen Battlescape.jpg" id="WLG_257_Frozen Battlescape" data-flag="@X" onclick="openSidebar('WLG_257_Frozen Battlescape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/258_Hectic Battlescape.jpg" id="WLG_258_Hectic Battlescape" data-flag="@X" onclick="openSidebar('WLG_258_Hectic Battlescape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/260_Overgrown Battlescape.jpg" id="WLG_260_Overgrown Battlescape" data-flag="@X" onclick="openSidebar('WLG_260_Overgrown Battlescape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/256_Crater-Pocked Battlescape.jpg" id="WLG_256_Crater-Pocked Battlescape" data-flag="@X" onclick="openSidebar('WLG_256_Crater-Pocked Battlescape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/254_Corrupted Battlescape.jpg" id="WLG_254_Corrupted Battlescape" data-flag="@X" onclick="openSidebar('WLG_254_Corrupted Battlescape',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/247_A House that Wasn't There.jpg" id="WLG_247_A House that Wasnt There" data-flag="@X" onclick="openSidebar('WLG_247_A House that Wasnt There',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/242_Ancient Dominion.jpg" id="WLG_242_Ancient Dominion" data-flag="@X" onclick="openSidebar('WLG_242_Ancient Dominion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/244_Desolate Dominion.jpg" id="WLG_244_Desolate Dominion" data-flag="@X" onclick="openSidebar('WLG_244_Desolate Dominion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/248_Primal Dominion.jpg" id="WLG_248_Primal Dominion" data-flag="@X" onclick="openSidebar('WLG_248_Primal Dominion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/250_Stalwart Dominion.jpg" id="WLG_250_Stalwart Dominion" data-flag="@X" onclick="openSidebar('WLG_250_Stalwart Dominion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/251_Verdant Dominion.jpg" id="WLG_251_Verdant Dominion" data-flag="@X" onclick="openSidebar('WLG_251_Verdant Dominion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/241_Administrator's Tower.jpg" id="WLG_241_Administrators Tower" data-flag="@X" onclick="openSidebar('WLG_241_Administrators Tower',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/1t_Army Token.jpg" id="WLG_1t_Army Token" data-flag="@X" onclick="openSidebar('WLG_1t_Army Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/1t_In a Renaissance.jpg" id="WLG_1t_In a Renaissance" data-flag="@X" onclick="openSidebar('WLG_1t_In a Renaissance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/17t_Beast Token.jpg" id="WLG_17t_Beast Token" data-flag="@X" onclick="openSidebar('WLG_17t_Beast Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/19t_Crownspear.jpg" id="WLG_19t_Crownspear" data-flag="@X" onclick="openSidebar('WLG_19t_Crownspear',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/20t_Elemental Token.jpg" id="WLG_20t_Elemental Token" data-flag="@X" onclick="openSidebar('WLG_20t_Elemental Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/21t_Feather of Hyrja.jpg" id="WLG_21t_Feather of Hyrja" data-flag="@X" onclick="openSidebar('WLG_21t_Feather of Hyrja',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/22t_Rupture.jpg" id="WLG_22t_Rupture" data-flag="@X" onclick="openSidebar('WLG_22t_Rupture',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/23t_Energy Auto-Optimizer.jpg" id="WLG_23t_Energy Auto-Optimizer" data-flag="@X" onclick="openSidebar('WLG_23t_Energy Auto-Optimizer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/2t_Angel Token.jpg" id="WLG_2t_Angel Token" data-flag="@X" onclick="openSidebar('WLG_2t_Angel Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/3t_Demigod Token.jpg" id="WLG_3t_Demigod Token" data-flag="@X" onclick="openSidebar('WLG_3t_Demigod Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/4t_Avatar Token.jpg" id="WLG_4t_Avatar Token" data-flag="@X" onclick="openSidebar('WLG_4t_Avatar Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/5t_Eternal Prosperity.jpg" id="WLG_5t_Eternal Prosperity" data-flag="@X" onclick="openSidebar('WLG_5t_Eternal Prosperity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/6t_Demon Token.jpg" id="WLG_6t_Demon Token" data-flag="@X" onclick="openSidebar('WLG_6t_Demon Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/7t_Spider Horror Token.jpg" id="WLG_7t_Spider Horror Token" data-flag="@X" onclick="openSidebar('WLG_7t_Spider Horror Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/8t_Thrull Token.jpg" id="WLG_8t_Thrull Token" data-flag="@X" onclick="openSidebar('WLG_8t_Thrull Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/9t_Zombie Token.jpg" id="WLG_9t_Zombie Token" data-flag="@X" onclick="openSidebar('WLG_9t_Zombie Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/10t_Demigod Knight Token.jpg" id="WLG_10t_Demigod Knight Token" data-flag="@X" onclick="openSidebar('WLG_10t_Demigod Knight Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/11t_Derylexes' Fury.jpg" id="WLG_11t_Derylexes Fury" data-flag="@X" onclick="openSidebar('WLG_11t_Derylexes Fury',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/12t_Giant Token.jpg" id="WLG_12t_Giant Token" data-flag="@X" onclick="openSidebar('WLG_12t_Giant Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/13t_Oriflamme.jpg" id="WLG_13t_Oriflamme" data-flag="@X" onclick="openSidebar('WLG_13t_Oriflamme',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/14t_Treefolk Token.jpg" id="WLG_14t_Treefolk Token" data-flag="@X" onclick="openSidebar('WLG_14t_Treefolk Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/15t_Wurm Token.jpg" id="WLG_15t_Wurm Token" data-flag="@X" onclick="openSidebar('WLG_15t_Wurm Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/16t_Anthem of the Worldsoul.jpg" id="WLG_16t_Anthem of the Worldsoul" data-flag="@X" onclick="openSidebar('WLG_16t_Anthem of the Worldsoul',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WLG-files/img/18t_Mystic Token.jpg" id="WLG_18t_Mystic Token" data-flag="@X" onclick="openSidebar('WLG_18t_Mystic Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WLG_e" data-flag="@E" onclick="openSidebar('WLG_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WLG_er" data-flag="@E" onclick="openSidebar('WLG_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>
