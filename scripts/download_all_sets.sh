@@ -7,14 +7,14 @@
 # =================================================================
 
 # --- Configuration ---
-API_TOKEN="GITHUB_ACCESS_TOKEN" # <<-- PUT YOUR TOKEN HERE
+API_TOKEN="ADD_TOKEN_HERE" # <<-- PUT YOUR TOKEN HERE
 OUTPUT_ROOT_DIR="DOWNLOADED_SETS"            # Base directory for all downloads
 BRANCH="main"                                # All provided links use the 'main' branch
 # ---------------------
 
 # --- List of all Directory URLs (Same as before) ---
 #ALL_URLS="https://github.com/supergb-denny/supergb-denny.github.io/tree/main/sets/RPGM-files https://github.com/dnazangy/dnazangy.github.io/tree/main/sets/SHU-files https://github.com/schwa77/schwa77.github.io/tree/main/sets/KRK-files https://github.com/rickyrister/rickyrister.github.io/tree/main/sets/F2HU-files https://github.com/shadriarch2/shadriarch2.github.io/tree/main/sets/ELV-files https://github.com/leetwizard/leetwizard.github.io/tree/main/sets/EOR-files https://github.com/parasign-0/parasign-0.github.io/tree/main/sets/NOT-files https://github.com/curio36/curio36.github.io/tree/main/sets/TVN-files https://github.com/rrredbay/rrredbay.github.io/tree/main/sets/WGJ-files https://github.com/n3onblue/n3onblue.github.io/tree/main/sets/DHW-files https://github.com/trewqofficial/trewqofficial.github.io/tree/main/sets/HFB-files https://github.com/moxtober2025/moxtober2025.github.io/tree/main/sets/LDT-files https://github.com/bancrabs/bancrabs.github.io/tree/main/sets/WLG-files https://github.com/mattelonian/mattelonian.github.io/tree/main/sets/MVX-files https://github.com/kattalist/kattalist.github.io/tree/main/sets/SGP-files https://github.com/grapplex/grapplex.github.io/tree/main/sets/CYO-files https://github.com/drchipmunk/drchipmunk.github.io/tree/main/sets/BLV-files https://github.com/platypeople/platypeople.github.io/tree/main/sets/POP2-files https://github.com/magictheegg/magictheegg.github.io/tree/main/sets/ICO-files https://github.com/mattaurawarrior/mattaurawarrior.github.io/tree/main/sets/IWH-files https://github.com/megazumarill/megazumarill.github.io/tree/main/sets/WOO-files https://github.com/silver-parabellum/silver-parabellum.github.io/tree/main/sets/ONI-files https://github.com/provocativemtg/provocativemtg.github.io/tree/main/sets/EDR-files https://github.com/covetedpeacock/covetedpeacock.github.io/tree/main/sets/VLR-files https://github.com/ignitedxsoul/ignitedxsoul.github.io/tree/main/sets/OPZ-files https://github.com/pipsqueakmtg/pipsqueakmtg.github.io/tree/main/sets/MOV-files https://github.com/stasisbotwastaken/stasisbotwastaken.github.io/tree/main/sets/ABY-files https://github.com/kumrac/kumrac.github.io/tree/main/sets/VTK-files"
-ALL_URLS="https://github.com/schwa77/schwa77.github.io/tree/main/sets/KRK-files"
+ALL_URLS="https://github.com/leetwizard/leetwizard.github.io/tree/main/sets/ORD-files https://github.com/grapplex/grapplex.github.io/tree/main/sets/SPG-files"
 
 # -----------------------------------------------------------
 # NEW RECURSIVE FUNCTION
