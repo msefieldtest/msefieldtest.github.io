@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/CLE-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>CLE visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/CLE-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ASM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/COD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BRE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SMB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TBC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CLE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HWK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/CLE"><img src="../sets/CLE-files/icon.png">Clearingsong</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">2HU Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/ASM"><img src="../sets/ASM-files/icon.png">Amonkhet: Schism</a>
+	
+		<a class="set-bar inactive" href="../previews/COD"><img src="../sets/COD-files/icon.png">Children of Dawn</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/RNF"><img src="../sets/RNF-files/icon.png">Ravnica’s Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/WDW"><img src="../sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="../previews/BRE"><img src="../sets/BRE-files/icon.png">Kaldheim: Bretagard’s Revival</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/SMB"><img src="../sets/SMB-files/icon.png">Magic the Gathering | Super Mario Brothers</a>
+	
+		<a class="set-bar inactive" href="../previews/TBC"><img src="../sets/TBC-files/icon.png">Nemyria: The Beautiful Collapse</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Tin Lau</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLD"><img src="../sets/BLD-files/icon.png">Bloodborne</a>
+	
+		<a class="set-bar inactive" href="../previews/HWK"><img src="../sets/HWK-files/icon.png">Haishan: Warring Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KLB"><img src="../sets/KLB-files/icon.png">Kitsuo: the Last Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/MOX"><img src="../sets/MOX-files/icon.png">Midnight Omens of Xogoa</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/CLE-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/CLE-files/img/6_Crackling Hearth.jpg" id="CLE_6_Crackling Hearth" data-flag="@X" onclick="openSidebar('CLE_6_Crackling Hearth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/41_Arch-Chancellor Zybsalim.jpg" id="CLE_41_Arch-Chancellor Zybsalim" data-flag="@X" onclick="openSidebar('CLE_41_Arch-Chancellor Zybsalim',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/96_Gibbous, the Scaredybug.jpg" id="CLE_96_Gibbous, the Scaredybug" data-flag="@X" onclick="openSidebar('CLE_96_Gibbous, the Scaredybug',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/127_Easterly, Eager to Meet You.jpg" id="CLE_127_Easterly, Eager to Meet You" data-flag="@X" onclick="openSidebar('CLE_127_Easterly, Eager to Meet You',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/176_Grandpa Garoom.jpg" id="CLE_176_Grandpa Garoom" data-flag="@X" onclick="openSidebar('CLE_176_Grandpa Garoom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/15_Ice-Sculptor Dragon.jpg" id="CLE_15_Ice-Sculptor Dragon" data-flag="@X" onclick="openSidebar('CLE_15_Ice-Sculptor Dragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/48_Crest, Ever-Talkative.jpg" id="CLE_48_Crest, Ever-Talkative" data-flag="@X" onclick="openSidebar('CLE_48_Crest, Ever-Talkative',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/102_High Priestess Varga.jpg" id="CLE_102_High Priestess Varga" data-flag="@X" onclick="openSidebar('CLE_102_High Priestess Varga',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/137_Humming Hive.jpg" id="CLE_137_Humming Hive" data-flag="@X" onclick="openSidebar('CLE_137_Humming Hive',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/181_Leafcutter Disciple.jpg" id="CLE_181_Leafcutter Disciple" data-flag="@X" onclick="openSidebar('CLE_181_Leafcutter Disciple',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/21_The Legendary Mica.jpg" id="CLE_21_The Legendary Mica" data-flag="@X" onclick="openSidebar('CLE_21_The Legendary Mica',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/79_Trisect Essence.jpg" id="CLE_79_Trisect Essence" data-flag="@X" onclick="openSidebar('CLE_79_Trisect Essence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/108_Remnant of the Lost Clan.jpg" id="CLE_108_Remnant of the Lost Clan" data-flag="@X" onclick="openSidebar('CLE_108_Remnant of the Lost Clan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/144_Magmablood Dragon.jpg" id="CLE_144_Magmablood Dragon" data-flag="@X" onclick="openSidebar('CLE_144_Magmablood Dragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/186_Pepper, the Precocious.jpg" id="CLE_186_Pepper, the Precocious" data-flag="@X" onclick="openSidebar('CLE_186_Pepper, the Precocious',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/30_Queen Birrabeth.jpg" id="CLE_30_Queen Birrabeth" data-flag="@X" onclick="openSidebar('CLE_30_Queen Birrabeth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/80_Wondrous Cadet.jpg" id="CLE_80_Wondrous Cadet" data-flag="@X" onclick="openSidebar('CLE_80_Wondrous Cadet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/109_Sinister Stew.jpg" id="CLE_109_Sinister Stew" data-flag="@X" onclick="openSidebar('CLE_109_Sinister Stew',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/159_Unleader Sclo.jpg" id="CLE_159_Unleader Sclo" data-flag="@X" onclick="openSidebar('CLE_159_Unleader Sclo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/199_Wise Ol' Woodman.jpg" id="CLE_199_Wise Ol Woodman" data-flag="@X" onclick="openSidebar('CLE_199_Wise Ol Woodman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/5_Cottonscale Drifter.jpg" id="CLE_5_Cottonscale Drifter" data-flag="@X" onclick="openSidebar('CLE_5_Cottonscale Drifter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/44_Breaching Sprayback.jpg" id="CLE_44_Breaching Sprayback" data-flag="@X" onclick="openSidebar('CLE_44_Breaching Sprayback',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/92_Enthralling Gaze.jpg" id="CLE_92_Enthralling Gaze" data-flag="@X" onclick="openSidebar('CLE_92_Enthralling Gaze',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/123_Brew For the Weary.jpg" id="CLE_123_Brew For the Weary" data-flag="@X" onclick="openSidebar('CLE_123_Brew For the Weary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/162_Amethyst Talekeeper.jpg" id="CLE_162_Amethyst Talekeeper" data-flag="@X" onclick="openSidebar('CLE_162_Amethyst Talekeeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/12_Fountain of Stars.jpg" id="CLE_12_Fountain of Stars" data-flag="@X" onclick="openSidebar('CLE_12_Fountain of Stars',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/47_Coming Storm.jpg" id="CLE_47_Coming Storm" data-flag="@X" onclick="openSidebar('CLE_47_Coming Storm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/93_Exertion.jpg" id="CLE_93_Exertion" data-flag="@X" onclick="openSidebar('CLE_93_Exertion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/128_Enchanted Eruption.jpg" id="CLE_128_Enchanted Eruption" data-flag="@X" onclick="openSidebar('CLE_128_Enchanted Eruption',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/165_Blade of the Elders.jpg" id="CLE_165_Blade of the Elders" data-flag="@X" onclick="openSidebar('CLE_165_Blade of the Elders',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/13_Gno Grows Up.jpg" id="CLE_13_Gno Grows Up" data-flag="@X" onclick="openSidebar('CLE_13_Gno Grows Up',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/50_Eelectrician.jpg" id="CLE_50_Eelectrician" data-flag="@X" onclick="openSidebar('CLE_50_Eelectrician',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/95_Fleafriend Beetle.jpg" id="CLE_95_Fleafriend Beetle" data-flag="@X" onclick="openSidebar('CLE_95_Fleafriend Beetle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/132_Glintstone's Chosen.jpg" id="CLE_132_Glintstones Chosen" data-flag="@X" onclick="openSidebar('CLE_132_Glintstones Chosen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/168_Carefree Smudgebundler.jpg" id="CLE_168_Carefree Smudgebundler" data-flag="@X" onclick="openSidebar('CLE_168_Carefree Smudgebundler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/14_Havenback Tortoise.jpg" id="CLE_14_Havenback Tortoise" data-flag="@X" onclick="openSidebar('CLE_14_Havenback Tortoise',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/55_I Can Count to Three.jpg" id="CLE_55_I Can Count to Three" data-flag="@X" onclick="openSidebar('CLE_55_I Can Count to Three',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/97_Grim Yestermancy.jpg" id="CLE_97_Grim Yestermancy" data-flag="@X" onclick="openSidebar('CLE_97_Grim Yestermancy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/136_Honey-Flinger.jpg" id="CLE_136_Honey-Flinger" data-flag="@X" onclick="openSidebar('CLE_136_Honey-Flinger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/171_Everything-Eater.jpg" id="CLE_171_Everything-Eater" data-flag="@X" onclick="openSidebar('CLE_171_Everything-Eater',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/20_Leader of the Lights.jpg" id="CLE_20_Leader of the Lights" data-flag="@X" onclick="openSidebar('CLE_20_Leader of the Lights',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/58_Magnificent Inventificator.jpg" id="CLE_58_Magnificent Inventificator" data-flag="@X" onclick="openSidebar('CLE_58_Magnificent Inventificator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/98_Gurglollon.jpg" id="CLE_98_Gurglollon" data-flag="@X" onclick="openSidebar('CLE_98_Gurglollon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/138_Introduction to Impossibilities.jpg" id="CLE_138_Introduction to Impossibilities" data-flag="@X" onclick="openSidebar('CLE_138_Introduction to Impossibilities',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/173_Find Your Clearingsong.jpg" id="CLE_173_Find Your Clearingsong" data-flag="@X" onclick="openSidebar('CLE_173_Find Your Clearingsong',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/31_Ranger Knight Hatchling.jpg" id="CLE_31_Ranger Knight Hatchling" data-flag="@X" onclick="openSidebar('CLE_31_Ranger Knight Hatchling',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/61_Mind Spring.jpg" id="CLE_61_Mind Spring" data-flag="@X" onclick="openSidebar('CLE_61_Mind Spring',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/103_Homesick Sailor.jpg" id="CLE_103_Homesick Sailor" data-flag="@X" onclick="openSidebar('CLE_103_Homesick Sailor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/141_Kindlotl.jpg" id="CLE_141_Kindlotl" data-flag="@X" onclick="openSidebar('CLE_141_Kindlotl',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/189_Ranger's Oath.jpg" id="CLE_189_Rangers Oath" data-flag="@X" onclick="openSidebar('CLE_189_Rangers Oath',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/37_Steal Time Together.jpg" id="CLE_37_Steal Time Together" data-flag="@X" onclick="openSidebar('CLE_37_Steal Time Together',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/64_Orb of Old Shadows.jpg" id="CLE_64_Orb of Old Shadows" data-flag="@X" onclick="openSidebar('CLE_64_Orb of Old Shadows',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/113_Spectral Seeker.jpg" id="CLE_113_Spectral Seeker" data-flag="@X" onclick="openSidebar('CLE_113_Spectral Seeker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/155_Starburst.jpg" id="CLE_155_Starburst" data-flag="@X" onclick="openSidebar('CLE_155_Starburst',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/194_Shell Scout Leader.jpg" id="CLE_194_Shell Scout Leader" data-flag="@X" onclick="openSidebar('CLE_194_Shell Scout Leader',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/39_Venturers' Return.jpg" id="CLE_39_Venturers Return" data-flag="@X" onclick="openSidebar('CLE_39_Venturers Return',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/75_Skylobite.jpg" id="CLE_75_Skylobite" data-flag="@X" onclick="openSidebar('CLE_75_Skylobite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/118_When Dragons Fought.jpg" id="CLE_118_When Dragons Fought" data-flag="@X" onclick="openSidebar('CLE_118_When Dragons Fought',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/158_Trickety-Tickety-Tin.jpg" id="CLE_158_Trickety-Tickety-Tin" data-flag="@X" onclick="openSidebar('CLE_158_Trickety-Tickety-Tin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/195_Stupendulous Sporing.jpg" id="CLE_195_Stupendulous Sporing" data-flag="@X" onclick="openSidebar('CLE_195_Stupendulous Sporing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/1_Antiquarian.jpg" id="CLE_1_Antiquarian" data-flag="@X" onclick="openSidebar('CLE_1_Antiquarian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/45_Calamitous Miscast.jpg" id="CLE_45_Calamitous Miscast" data-flag="@X" onclick="openSidebar('CLE_45_Calamitous Miscast',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/81_Bogberry Bloom.jpg" id="CLE_81_Bogberry Bloom" data-flag="@X" onclick="openSidebar('CLE_81_Bogberry Bloom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/121_Ancient Amberflow.jpg" id="CLE_121_Ancient Amberflow" data-flag="@X" onclick="openSidebar('CLE_121_Ancient Amberflow',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/164_Birchwood Blazewarden.jpg" id="CLE_164_Birchwood Blazewarden" data-flag="@X" onclick="openSidebar('CLE_164_Birchwood Blazewarden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/2_Auroral Migrant.jpg" id="CLE_2_Auroral Migrant" data-flag="@X" onclick="openSidebar('CLE_2_Auroral Migrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/49_Cross Porpoises.jpg" id="CLE_49_Cross Porpoises" data-flag="@X" onclick="openSidebar('CLE_49_Cross Porpoises',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/83_Bubbletoad.jpg" id="CLE_83_Bubbletoad" data-flag="@X" onclick="openSidebar('CLE_83_Bubbletoad',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/122_Artisanal Puzzlebox.jpg" id="CLE_122_Artisanal Puzzlebox" data-flag="@X" onclick="openSidebar('CLE_122_Artisanal Puzzlebox',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/169_Catch-and-Releaser.jpg" id="CLE_169_Catch-and-Releaser" data-flag="@X" onclick="openSidebar('CLE_169_Catch-and-Releaser',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/3_Bowl-Shell Beetle.jpg" id="CLE_3_Bowl-Shell Beetle" data-flag="@X" onclick="openSidebar('CLE_3_Bowl-Shell Beetle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/52_Fresh Start.jpg" id="CLE_52_Fresh Start" data-flag="@X" onclick="openSidebar('CLE_52_Fresh Start',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/84_Bumbling Brewer.jpg" id="CLE_84_Bumbling Brewer" data-flag="@X" onclick="openSidebar('CLE_84_Bumbling Brewer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/124_Canny Negotiator.jpg" id="CLE_124_Canny Negotiator" data-flag="@X" onclick="openSidebar('CLE_124_Canny Negotiator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/172_Fiddle Fern Pie.jpg" id="CLE_172_Fiddle Fern Pie" data-flag="@X" onclick="openSidebar('CLE_172_Fiddle Fern Pie',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/7_Curious Shinosaur.jpg" id="CLE_7_Curious Shinosaur" data-flag="@X" onclick="openSidebar('CLE_7_Curious Shinosaur',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/54_How the Dragon Got its Wings.jpg" id="CLE_54_How the Dragon Got its Wings" data-flag="@X" onclick="openSidebar('CLE_54_How the Dragon Got its Wings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/86_Cosmos Claw.jpg" id="CLE_86_Cosmos Claw" data-flag="@X" onclick="openSidebar('CLE_86_Cosmos Claw',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/126_Discovery in Desperation.jpg" id="CLE_126_Discovery in Desperation" data-flag="@X" onclick="openSidebar('CLE_126_Discovery in Desperation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/174_Follywog's Fate.jpg" id="CLE_174_Follywogs Fate" data-flag="@X" onclick="openSidebar('CLE_174_Follywogs Fate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/9_Dinoplomacy.jpg" id="CLE_9_Dinoplomacy" data-flag="@X" onclick="openSidebar('CLE_9_Dinoplomacy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/56_Intangible Sage.jpg" id="CLE_56_Intangible Sage" data-flag="@X" onclick="openSidebar('CLE_56_Intangible Sage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/87_Dark-Tales Connaisseur.jpg" id="CLE_87_Dark-Tales Connaisseur" data-flag="@X" onclick="openSidebar('CLE_87_Dark-Tales Connaisseur',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/129_Ferocious Bite.jpg" id="CLE_129_Ferocious Bite" data-flag="@X" onclick="openSidebar('CLE_129_Ferocious Bite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/175_Foreign Chromawalker.jpg" id="CLE_175_Foreign Chromawalker" data-flag="@X" onclick="openSidebar('CLE_175_Foreign Chromawalker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/10_Druid of Watchful Stones.jpg" id="CLE_10_Druid of Watchful Stones" data-flag="@X" onclick="openSidebar('CLE_10_Druid of Watchful Stones',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/57_Long-Tenured Judge.jpg" id="CLE_57_Long-Tenured Judge" data-flag="@X" onclick="openSidebar('CLE_57_Long-Tenured Judge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/88_Decry.jpg" id="CLE_88_Decry" data-flag="@X" onclick="openSidebar('CLE_88_Decry',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/139_Jaw Order Outfitter.jpg" id="CLE_139_Jaw Order Outfitter" data-flag="@X" onclick="openSidebar('CLE_139_Jaw Order Outfitter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/178_Grove of Gathering.jpg" id="CLE_178_Grove of Gathering" data-flag="@X" onclick="openSidebar('CLE_178_Grove of Gathering',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/11_The Founding of Buttermount.jpg" id="CLE_11_The Founding of Buttermount" data-flag="@X" onclick="openSidebar('CLE_11_The Founding of Buttermount',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/60_Meticulous Quartermaster.jpg" id="CLE_60_Meticulous Quartermaster" data-flag="@X" onclick="openSidebar('CLE_60_Meticulous Quartermaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/89_Determined Snail.jpg" id="CLE_89_Determined Snail" data-flag="@X" onclick="openSidebar('CLE_89_Determined Snail',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/142_Lava Arc.jpg" id="CLE_142_Lava Arc" data-flag="@X" onclick="openSidebar('CLE_142_Lava Arc',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/180_Heritage Reclamation.jpg" id="CLE_180_Heritage Reclamation" data-flag="@X" onclick="openSidebar('CLE_180_Heritage Reclamation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/18_Keeper of the Shellseal.jpg" id="CLE_18_Keeper of the Shellseal" data-flag="@X" onclick="openSidebar('CLE_18_Keeper of the Shellseal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/63_Monsoon Proctor.jpg" id="CLE_63_Monsoon Proctor" data-flag="@X" onclick="openSidebar('CLE_63_Monsoon Proctor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/94_Fester.jpg" id="CLE_94_Fester" data-flag="@X" onclick="openSidebar('CLE_94_Fester',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/145_Molten Dancer.jpg" id="CLE_145_Molten Dancer" data-flag="@X" onclick="openSidebar('CLE_145_Molten Dancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/183_Moment's Respite.jpg" id="CLE_183_Moments Respite" data-flag="@X" onclick="openSidebar('CLE_183_Moments Respite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/19_Lead Off the Path.jpg" id="CLE_19_Lead Off the Path" data-flag="@X" onclick="openSidebar('CLE_19_Lead Off the Path',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/68_Potted Beanstalk.jpg" id="CLE_68_Potted Beanstalk" data-flag="@X" onclick="openSidebar('CLE_68_Potted Beanstalk',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/107_Pestermeleon.jpg" id="CLE_107_Pestermeleon" data-flag="@X" onclick="openSidebar('CLE_107_Pestermeleon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/147_Proud Judgewyrm.jpg" id="CLE_147_Proud Judgewyrm" data-flag="@X" onclick="openSidebar('CLE_147_Proud Judgewyrm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/184_Patient Bumblerog.jpg" id="CLE_184_Patient Bumblerog" data-flag="@X" onclick="openSidebar('CLE_184_Patient Bumblerog',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/27_Petalwind Mage.jpg" id="CLE_27_Petalwind Mage" data-flag="@X" onclick="openSidebar('CLE_27_Petalwind Mage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/69_Puzzlewyrm's Familiar.jpg" id="CLE_69_Puzzlewyrms Familiar" data-flag="@X" onclick="openSidebar('CLE_69_Puzzlewyrms Familiar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/110_The Sorrow of Waxwing.jpg" id="CLE_110_The Sorrow of Waxwing" data-flag="@X" onclick="openSidebar('CLE_110_The Sorrow of Waxwing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/148_Quickpocket.jpg" id="CLE_148_Quickpocket" data-flag="@X" onclick="openSidebar('CLE_148_Quickpocket',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/187_Primarical Goggles.jpg" id="CLE_187_Primarical Goggles" data-flag="@X" onclick="openSidebar('CLE_187_Primarical Goggles',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/28_Ponderous Ruinguard.jpg" id="CLE_28_Ponderous Ruinguard" data-flag="@X" onclick="openSidebar('CLE_28_Ponderous Ruinguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/71_Reorganize.jpg" id="CLE_71_Reorganize" data-flag="@X" onclick="openSidebar('CLE_71_Reorganize',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/111_Sorrowmancer.jpg" id="CLE_111_Sorrowmancer" data-flag="@X" onclick="openSidebar('CLE_111_Sorrowmancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/149_Racing the Wind.jpg" id="CLE_149_Racing the Wind" data-flag="@X" onclick="openSidebar('CLE_149_Racing the Wind',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/190_Reef Walker.jpg" id="CLE_190_Reef Walker" data-flag="@X" onclick="openSidebar('CLE_190_Reef Walker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/32_Riverwatch Glider.jpg" id="CLE_32_Riverwatch Glider" data-flag="@X" onclick="openSidebar('CLE_32_Riverwatch Glider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/72_See With New Eyes.jpg" id="CLE_72_See With New Eyes" data-flag="@X" onclick="openSidebar('CLE_72_See With New Eyes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/114_Stone-Masked Mage.jpg" id="CLE_114_Stone-Masked Mage" data-flag="@X" onclick="openSidebar('CLE_114_Stone-Masked Mage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/150_Redscale Challenger.jpg" id="CLE_150_Redscale Challenger" data-flag="@X" onclick="openSidebar('CLE_150_Redscale Challenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/193_Rumbling Grovewatch.jpg" id="CLE_193_Rumbling Grovewatch" data-flag="@X" onclick="openSidebar('CLE_193_Rumbling Grovewatch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/33_Shimmering Bounty.jpg" id="CLE_33_Shimmering Bounty" data-flag="@X" onclick="openSidebar('CLE_33_Shimmering Bounty',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/73_Sincere Impressionist.jpg" id="CLE_73_Sincere Impressionist" data-flag="@X" onclick="openSidebar('CLE_73_Sincere Impressionist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/115_Time-Bleached Dragon.jpg" id="CLE_115_Time-Bleached Dragon" data-flag="@X" onclick="openSidebar('CLE_115_Time-Bleached Dragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/151_Resonant Glimmerfeli.jpg" id="CLE_151_Resonant Glimmerfeli" data-flag="@X" onclick="openSidebar('CLE_151_Resonant Glimmerfeli',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/196_Sunset Seeker.jpg" id="CLE_196_Sunset Seeker" data-flag="@X" onclick="openSidebar('CLE_196_Sunset Seeker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/38_Stolid Sandlander.jpg" id="CLE_38_Stolid Sandlander" data-flag="@X" onclick="openSidebar('CLE_38_Stolid Sandlander',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/77_Spell Pierce.jpg" id="CLE_77_Spell Pierce" data-flag="@X" onclick="openSidebar('CLE_77_Spell Pierce',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/117_Well-Stocked Reagents.jpg" id="CLE_117_Well-Stocked Reagents" data-flag="@X" onclick="openSidebar('CLE_117_Well-Stocked Reagents',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/156_Stolid Secondmage.jpg" id="CLE_156_Stolid Secondmage" data-flag="@X" onclick="openSidebar('CLE_156_Stolid Secondmage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/197_Swiftmeleon.jpg" id="CLE_197_Swiftmeleon" data-flag="@X" onclick="openSidebar('CLE_197_Swiftmeleon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/40_Well-Rested.jpg" id="CLE_40_Well-Rested" data-flag="@X" onclick="openSidebar('CLE_40_Well-Rested',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/78_Stormwater Serpent.jpg" id="CLE_78_Stormwater Serpent" data-flag="@X" onclick="openSidebar('CLE_78_Stormwater Serpent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/119_White-Web Widow.jpg" id="CLE_119_White-Web Widow" data-flag="@X" onclick="openSidebar('CLE_119_White-Web Widow',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/160_Unleader's Tribune.jpg" id="CLE_160_Unleaders Tribune" data-flag="@X" onclick="openSidebar('CLE_160_Unleaders Tribune',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/198_Thistle Elemental.jpg" id="CLE_198_Thistle Elemental" data-flag="@X" onclick="openSidebar('CLE_198_Thistle Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/4_Condemnation.jpg" id="CLE_4_Condemnation" data-flag="@X" onclick="openSidebar('CLE_4_Condemnation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/42_Befuddled Apprentice.jpg" id="CLE_42_Befuddled Apprentice" data-flag="@X" onclick="openSidebar('CLE_42_Befuddled Apprentice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/82_Bounding Squangler.jpg" id="CLE_82_Bounding Squangler" data-flag="@X" onclick="openSidebar('CLE_82_Bounding Squangler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/125_Chinook Wumprider.jpg" id="CLE_125_Chinook Wumprider" data-flag="@X" onclick="openSidebar('CLE_125_Chinook Wumprider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/161_Adventure Awaits.jpg" id="CLE_161_Adventure Awaits" data-flag="@X" onclick="openSidebar('CLE_161_Adventure Awaits',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/8_Defend the Outlands.jpg" id="CLE_8_Defend the Outlands" data-flag="@X" onclick="openSidebar('CLE_8_Defend the Outlands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/43_Beginner's Blobology.jpg" id="CLE_43_Beginners Blobology" data-flag="@X" onclick="openSidebar('CLE_43_Beginners Blobology',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/85_Comet Contemptor.jpg" id="CLE_85_Comet Contemptor" data-flag="@X" onclick="openSidebar('CLE_85_Comet Contemptor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/130_Fiery Celebration.jpg" id="CLE_130_Fiery Celebration" data-flag="@X" onclick="openSidebar('CLE_130_Fiery Celebration',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/163_Aurora Chronicler.jpg" id="CLE_163_Aurora Chronicler" data-flag="@X" onclick="openSidebar('CLE_163_Aurora Chronicler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/16_Incense Censor.jpg" id="CLE_16_Incense Censor" data-flag="@X" onclick="openSidebar('CLE_16_Incense Censor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/46_Chit-Chat.jpg" id="CLE_46_Chit-Chat" data-flag="@X" onclick="openSidebar('CLE_46_Chit-Chat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/90_Diviner's Toad.jpg" id="CLE_90_Diviners Toad" data-flag="@X" onclick="openSidebar('CLE_90_Diviners Toad',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/131_Fresh-Brewed Firenectar.jpg" id="CLE_131_Fresh-Brewed Firenectar" data-flag="@X" onclick="openSidebar('CLE_131_Fresh-Brewed Firenectar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/166_Branch-Bender.jpg" id="CLE_166_Branch-Bender" data-flag="@X" onclick="openSidebar('CLE_166_Branch-Bender',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/17_Joyful Disposition.jpg" id="CLE_17_Joyful Disposition" data-flag="@X" onclick="openSidebar('CLE_17_Joyful Disposition',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/51_Flashy Aerobatics.jpg" id="CLE_51_Flashy Aerobatics" data-flag="@X" onclick="openSidebar('CLE_51_Flashy Aerobatics',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/91_Duress.jpg" id="CLE_91_Duress" data-flag="@X" onclick="openSidebar('CLE_91_Duress',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/133_Gregarious Kindler.jpg" id="CLE_133_Gregarious Kindler" data-flag="@X" onclick="openSidebar('CLE_133_Gregarious Kindler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/167_Bushwhack.jpg" id="CLE_167_Bushwhack" data-flag="@X" onclick="openSidebar('CLE_167_Bushwhack',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/22_Loess Lightbearer.jpg" id="CLE_22_Loess Lightbearer" data-flag="@X" onclick="openSidebar('CLE_22_Loess Lightbearer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/53_Hibernate.jpg" id="CLE_53_Hibernate" data-flag="@X" onclick="openSidebar('CLE_53_Hibernate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/99_Hammerhead Bully.jpg" id="CLE_99_Hammerhead Bully" data-flag="@X" onclick="openSidebar('CLE_99_Hammerhead Bully',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/134_Haughty Thespian.jpg" id="CLE_134_Haughty Thespian" data-flag="@X" onclick="openSidebar('CLE_134_Haughty Thespian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/170_Defender of the Patch.jpg" id="CLE_170_Defender of the Patch" data-flag="@X" onclick="openSidebar('CLE_170_Defender of the Patch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/23_Lumizoa.jpg" id="CLE_23_Lumizoa" data-flag="@X" onclick="openSidebar('CLE_23_Lumizoa',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/59_Majestic Kirin.jpg" id="CLE_59_Majestic Kirin" data-flag="@X" onclick="openSidebar('CLE_59_Majestic Kirin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/100_Heavy Burden.jpg" id="CLE_100_Heavy Burden" data-flag="@X" onclick="openSidebar('CLE_100_Heavy Burden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/135_Hermit of the Quairies.jpg" id="CLE_135_Hermit of the Quairies" data-flag="@X" onclick="openSidebar('CLE_135_Hermit of the Quairies',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/177_Grass-Gardener.jpg" id="CLE_177_Grass-Gardener" data-flag="@X" onclick="openSidebar('CLE_177_Grass-Gardener',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/24_Meticulous Nectarwatch.jpg" id="CLE_24_Meticulous Nectarwatch" data-flag="@X" onclick="openSidebar('CLE_24_Meticulous Nectarwatch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/62_Monsoon Fortune-Teller.jpg" id="CLE_62_Monsoon Fortune-Teller" data-flag="@X" onclick="openSidebar('CLE_62_Monsoon Fortune-Teller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/101_Hero's Downfall.jpg" id="CLE_101_Heros Downfall" data-flag="@X" onclick="openSidebar('CLE_101_Heros Downfall',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/140_Kindletouch.jpg" id="CLE_140_Kindletouch" data-flag="@X" onclick="openSidebar('CLE_140_Kindletouch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/179_Helpful Topiary.jpg" id="CLE_179_Helpful Topiary" data-flag="@X" onclick="openSidebar('CLE_179_Helpful Topiary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/25_Mournful Craftsbug.jpg" id="CLE_25_Mournful Craftsbug" data-flag="@X" onclick="openSidebar('CLE_25_Mournful Craftsbug',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/65_Pinion Gilder.jpg" id="CLE_65_Pinion Gilder" data-flag="@X" onclick="openSidebar('CLE_65_Pinion Gilder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/104_Knight of the Humblebee.jpg" id="CLE_104_Knight of the Humblebee" data-flag="@X" onclick="openSidebar('CLE_104_Knight of the Humblebee',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/143_Magma Forging.jpg" id="CLE_143_Magma Forging" data-flag="@X" onclick="openSidebar('CLE_143_Magma Forging',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/182_Lettuce Leaper.jpg" id="CLE_182_Lettuce Leaper" data-flag="@X" onclick="openSidebar('CLE_182_Lettuce Leaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/26_Old-Law Sentinel.jpg" id="CLE_26_Old-Law Sentinel" data-flag="@X" onclick="openSidebar('CLE_26_Old-Law Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/66_Playful Diver.jpg" id="CLE_66_Playful Diver" data-flag="@X" onclick="openSidebar('CLE_66_Playful Diver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/105_Might-Tracker's Bow.jpg" id="CLE_105_Might-Trackers Bow" data-flag="@X" onclick="openSidebar('CLE_105_Might-Trackers Bow',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/146_Ornery Wagonbeard.jpg" id="CLE_146_Ornery Wagonbeard" data-flag="@X" onclick="openSidebar('CLE_146_Ornery Wagonbeard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/185_Pebblemage.jpg" id="CLE_185_Pebblemage" data-flag="@X" onclick="openSidebar('CLE_185_Pebblemage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/29_Poultice Courier.jpg" id="CLE_29_Poultice Courier" data-flag="@X" onclick="openSidebar('CLE_29_Poultice Courier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/67_Possessive Archmage.jpg" id="CLE_67_Possessive Archmage" data-flag="@X" onclick="openSidebar('CLE_67_Possessive Archmage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/106_Odds-and-Ends-Monger.jpg" id="CLE_106_Odds-and-Ends-Monger" data-flag="@X" onclick="openSidebar('CLE_106_Odds-and-Ends-Monger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/152_Shroomglow Collector.jpg" id="CLE_152_Shroomglow Collector" data-flag="@X" onclick="openSidebar('CLE_152_Shroomglow Collector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/188_Ram Through.jpg" id="CLE_188_Ram Through" data-flag="@X" onclick="openSidebar('CLE_188_Ram Through',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/34_Skylands Vinecutter.jpg" id="CLE_34_Skylands Vinecutter" data-flag="@X" onclick="openSidebar('CLE_34_Skylands Vinecutter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/70_Rainshadow Shield.jpg" id="CLE_70_Rainshadow Shield" data-flag="@X" onclick="openSidebar('CLE_70_Rainshadow Shield',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/112_Souldust Shepherd.jpg" id="CLE_112_Souldust Shepherd" data-flag="@X" onclick="openSidebar('CLE_112_Souldust Shepherd',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/153_Slippery Critter.jpg" id="CLE_153_Slippery Critter" data-flag="@X" onclick="openSidebar('CLE_153_Slippery Critter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/191_Ribbon Range Guide.jpg" id="CLE_191_Ribbon Range Guide" data-flag="@X" onclick="openSidebar('CLE_191_Ribbon Range Guide',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/35_Snared in a Snap.jpg" id="CLE_35_Snared in a Snap" data-flag="@X" onclick="openSidebar('CLE_35_Snared in a Snap',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/74_Sink.jpg" id="CLE_74_Sink" data-flag="@X" onclick="openSidebar('CLE_74_Sink',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/116_Venomous Voice.jpg" id="CLE_116_Venomous Voice" data-flag="@X" onclick="openSidebar('CLE_116_Venomous Voice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/154_Splashy Syrupcaster.jpg" id="CLE_154_Splashy Syrupcaster" data-flag="@X" onclick="openSidebar('CLE_154_Splashy Syrupcaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/192_Rivertrance.jpg" id="CLE_192_Rivertrance" data-flag="@X" onclick="openSidebar('CLE_192_Rivertrance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/36_Snowpearl Sorter.jpg" id="CLE_36_Snowpearl Sorter" data-flag="@X" onclick="openSidebar('CLE_36_Snowpearl Sorter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/76_Snappy Goldenwing.jpg" id="CLE_76_Snappy Goldenwing" data-flag="@X" onclick="openSidebar('CLE_76_Snappy Goldenwing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/120_Wisdom of Experience.jpg" id="CLE_120_Wisdom of Experience" data-flag="@X" onclick="openSidebar('CLE_120_Wisdom of Experience',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/157_Stompin' Boots.jpg" id="CLE_157_Stompin Boots" data-flag="@X" onclick="openSidebar('CLE_157_Stompin Boots',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/200_Wondrous View.jpg" id="CLE_200_Wondrous View" data-flag="@X" onclick="openSidebar('CLE_200_Wondrous View',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/212_The Moon Snail.jpg" id="CLE_212_The Moon Snail" data-flag="@X" onclick="openSidebar('CLE_212_The Moon Snail',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/209_Klemph, Spawn of Grudges.jpg" id="CLE_209_Klemph, Spawn of Grudges" data-flag="@X" onclick="openSidebar('CLE_209_Klemph, Spawn of Grudges',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/202_Bigmancer Bilfin.jpg" id="CLE_202_Bigmancer Bilfin" data-flag="@X" onclick="openSidebar('CLE_202_Bigmancer Bilfin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/215_Prol Lavatoucher.jpg" id="CLE_215_Prol Lavatoucher" data-flag="@X" onclick="openSidebar('CLE_215_Prol Lavatoucher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/210_Krivvik, Cavern's Tutelage.jpg" id="CLE_210_Krivvik, Caverns Tutelage" data-flag="@X" onclick="openSidebar('CLE_210_Krivvik, Caverns Tutelage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/211_Lose Hold.jpg" id="CLE_211_Lose Hold" data-flag="@X" onclick="openSidebar('CLE_211_Lose Hold',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/205_Envision.jpg" id="CLE_205_Envision" data-flag="@X" onclick="openSidebar('CLE_205_Envision',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/208_Incinerating Breath.jpg" id="CLE_208_Incinerating Breath" data-flag="@X" onclick="openSidebar('CLE_208_Incinerating Breath',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/216_Scout the Outlands.jpg" id="CLE_216_Scout the Outlands" data-flag="@X" onclick="openSidebar('CLE_216_Scout the Outlands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/207_Harvest of Clouds.jpg" id="CLE_207_Harvest of Clouds" data-flag="@X" onclick="openSidebar('CLE_207_Harvest of Clouds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/227_Stoneword Recitalist.jpg" id="CLE_227_Stoneword Recitalist" data-flag="@X" onclick="openSidebar('CLE_227_Stoneword Recitalist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/225_Pollywog Gossbearer.jpg" id="CLE_225_Pollywog Gossbearer" data-flag="@X" onclick="openSidebar('CLE_225_Pollywog Gossbearer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/224_Nova Reenactor.jpg" id="CLE_224_Nova Reenactor" data-flag="@X" onclick="openSidebar('CLE_224_Nova Reenactor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/223_Leaf-Clad Memorial.jpg" id="CLE_223_Leaf-Clad Memorial" data-flag="@X" onclick="openSidebar('CLE_223_Leaf-Clad Memorial',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/229_Well-Stocked Singer.jpg" id="CLE_229_Well-Stocked Singer" data-flag="@X" onclick="openSidebar('CLE_229_Well-Stocked Singer',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/201_Acheaorator Zarracka.jpg" id="CLE_201_Acheaorator Zarracka" data-flag="@X" onclick="openSidebar('CLE_201_Acheaorator Zarracka',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/219_Verna the Inventive.jpg" id="CLE_219_Verna the Inventive" data-flag="@X" onclick="openSidebar('CLE_219_Verna the Inventive',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/204_Collector Quelbsy.jpg" id="CLE_204_Collector Quelbsy" data-flag="@X" onclick="openSidebar('CLE_204_Collector Quelbsy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/206_Gabl, the Dancing Mandible.jpg" id="CLE_206_Gabl, the Dancing Mandible" data-flag="@X" onclick="openSidebar('CLE_206_Gabl, the Dancing Mandible',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/218_Spiralpainter Shellsworth.jpg" id="CLE_218_Spiralpainter Shellsworth" data-flag="@X" onclick="openSidebar('CLE_218_Spiralpainter Shellsworth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/203_Bothersome Buzzer.jpg" id="CLE_203_Bothersome Buzzer" data-flag="@X" onclick="openSidebar('CLE_203_Bothersome Buzzer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/220_Whiptongue Toad.jpg" id="CLE_220_Whiptongue Toad" data-flag="@X" onclick="openSidebar('CLE_220_Whiptongue Toad',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/217_Snappytrap.jpg" id="CLE_217_Snappytrap" data-flag="@X" onclick="openSidebar('CLE_217_Snappytrap',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/214_Pollenpeace Cleric.jpg" id="CLE_214_Pollenpeace Cleric" data-flag="@X" onclick="openSidebar('CLE_214_Pollenpeace Cleric',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/213_Orearchaeologist.jpg" id="CLE_213_Orearchaeologist" data-flag="@X" onclick="openSidebar('CLE_213_Orearchaeologist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/221_Bitter Parting.jpg" id="CLE_221_Bitter Parting" data-flag="@X" onclick="openSidebar('CLE_221_Bitter Parting',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/222_Comprehend.jpg" id="CLE_222_Comprehend" data-flag="@X" onclick="openSidebar('CLE_222_Comprehend',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/226_Reawakening.jpg" id="CLE_226_Reawakening" data-flag="@X" onclick="openSidebar('CLE_226_Reawakening',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/230_Yestermantic Assistance.jpg" id="CLE_230_Yestermantic Assistance" data-flag="@X" onclick="openSidebar('CLE_230_Yestermantic Assistance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/228_Vanish.jpg" id="CLE_228_Vanish" data-flag="@X" onclick="openSidebar('CLE_228_Vanish',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/236_Friendmaker Golem.jpg" id="CLE_236_Friendmaker Golem" data-flag="@X" onclick="openSidebar('CLE_236_Friendmaker Golem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/238_Light at Land's End.jpg" id="CLE_238_Light at Lands End" data-flag="@X" onclick="openSidebar('CLE_238_Light at Lands End',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/239_The Lotus of Ovonia.jpg" id="CLE_239_The Lotus of Ovonia" data-flag="@X" onclick="openSidebar('CLE_239_The Lotus of Ovonia',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/242_Panharmonicon.jpg" id="CLE_242_Panharmonicon" data-flag="@X" onclick="openSidebar('CLE_242_Panharmonicon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/244_The Stone of Heroes.jpg" id="CLE_244_The Stone of Heroes" data-flag="@X" onclick="openSidebar('CLE_244_The Stone of Heroes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/231_Bronze Toad.jpg" id="CLE_231_Bronze Toad" data-flag="@X" onclick="openSidebar('CLE_231_Bronze Toad',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/233_Egg of the Elders.jpg" id="CLE_233_Egg of the Elders" data-flag="@X" onclick="openSidebar('CLE_233_Egg of the Elders',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/237_Guards of Old Ovonia.jpg" id="CLE_237_Guards of Old Ovonia" data-flag="@X" onclick="openSidebar('CLE_237_Guards of Old Ovonia',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/240_Memorial Lute.jpg" id="CLE_240_Memorial Lute" data-flag="@X" onclick="openSidebar('CLE_240_Memorial Lute',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/245_Sunbeam Blade.jpg" id="CLE_245_Sunbeam Blade" data-flag="@X" onclick="openSidebar('CLE_245_Sunbeam Blade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/232_Chromatic Star.jpg" id="CLE_232_Chromatic Star" data-flag="@X" onclick="openSidebar('CLE_232_Chromatic Star',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/234_Everglass.jpg" id="CLE_234_Everglass" data-flag="@X" onclick="openSidebar('CLE_234_Everglass',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/235_Friendly Fisher.jpg" id="CLE_235_Friendly Fisher" data-flag="@X" onclick="openSidebar('CLE_235_Friendly Fisher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/241_Old Jade Guardian.jpg" id="CLE_241_Old Jade Guardian" data-flag="@X" onclick="openSidebar('CLE_241_Old Jade Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/243_Sparkling Staff.jpg" id="CLE_243_Sparkling Staff" data-flag="@X" onclick="openSidebar('CLE_243_Sparkling Staff',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/258_Loess Bustleton.jpg" id="CLE_258_Loess Bustleton" data-flag="@X" onclick="openSidebar('CLE_258_Loess Bustleton',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/260_Monsooon Millery.jpg" id="CLE_260_Monsooon Millery" data-flag="@X" onclick="openSidebar('CLE_260_Monsooon Millery',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/250_Comet Starcourse.jpg" id="CLE_250_Comet Starcourse" data-flag="@X" onclick="openSidebar('CLE_250_Comet Starcourse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/249_Chinook Encampment.jpg" id="CLE_249_Chinook Encampment" data-flag="@X" onclick="openSidebar('CLE_249_Chinook Encampment',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/246_Aurora Titanwatch.jpg" id="CLE_246_Aurora Titanwatch" data-flag="@X" onclick="openSidebar('CLE_246_Aurora Titanwatch',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/247_Breathtaking Vista.jpg" id="CLE_247_Breathtaking Vista" data-flag="@X" onclick="openSidebar('CLE_247_Breathtaking Vista',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/263_Placid Icescape.jpg" id="CLE_263_Placid Icescape" data-flag="@X" onclick="openSidebar('CLE_263_Placid Icescape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/257_Inspiring Cairn.jpg" id="CLE_257_Inspiring Cairn" data-flag="@X" onclick="openSidebar('CLE_257_Inspiring Cairn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/253_Gentle Clearing.jpg" id="CLE_253_Gentle Clearing" data-flag="@X" onclick="openSidebar('CLE_253_Gentle Clearing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/262_Picturesque Field.jpg" id="CLE_262_Picturesque Field" data-flag="@X" onclick="openSidebar('CLE_262_Picturesque Field',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/252_Frigid Landmark.jpg" id="CLE_252_Frigid Landmark" data-flag="@X" onclick="openSidebar('CLE_252_Frigid Landmark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/254_Gloomy Landmark.jpg" id="CLE_254_Gloomy Landmark" data-flag="@X" onclick="openSidebar('CLE_254_Gloomy Landmark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/259_Luminous Landmark.jpg" id="CLE_259_Luminous Landmark" data-flag="@X" onclick="openSidebar('CLE_259_Luminous Landmark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/270_Secluded Landmark.jpg" id="CLE_270_Secluded Landmark" data-flag="@X" onclick="openSidebar('CLE_270_Secluded Landmark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/266_Quaint Landmark.jpg" id="CLE_266_Quaint Landmark" data-flag="@X" onclick="openSidebar('CLE_266_Quaint Landmark',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/264_Promising Overlook.jpg" id="CLE_264_Promising Overlook" data-flag="@X" onclick="openSidebar('CLE_264_Promising Overlook',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/251_Fragrant Basin.jpg" id="CLE_251_Fragrant Basin" data-flag="@X" onclick="openSidebar('CLE_251_Fragrant Basin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/268_Resplendent Moor.jpg" id="CLE_268_Resplendent Moor" data-flag="@X" onclick="openSidebar('CLE_268_Resplendent Moor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/256_Impressive Peak.jpg" id="CLE_256_Impressive Peak" data-flag="@X" onclick="openSidebar('CLE_256_Impressive Peak',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/267_Refreshing Spring.jpg" id="CLE_267_Refreshing Spring" data-flag="@X" onclick="openSidebar('CLE_267_Refreshing Spring',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/271_Solemn Landmark.jpg" id="CLE_271_Solemn Landmark" data-flag="@X" onclick="openSidebar('CLE_271_Solemn Landmark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/248_Bustling Landmark.jpg" id="CLE_248_Bustling Landmark" data-flag="@X" onclick="openSidebar('CLE_248_Bustling Landmark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/269_Restorative Landmark.jpg" id="CLE_269_Restorative Landmark" data-flag="@X" onclick="openSidebar('CLE_269_Restorative Landmark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/255_Imposing Landmark.jpg" id="CLE_255_Imposing Landmark" data-flag="@X" onclick="openSidebar('CLE_255_Imposing Landmark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/261_Overgrown Landmark.jpg" id="CLE_261_Overgrown Landmark" data-flag="@X" onclick="openSidebar('CLE_261_Overgrown Landmark',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/265_Promising Sunscape.jpg" id="CLE_265_Promising Sunscape" data-flag="@X" onclick="openSidebar('CLE_265_Promising Sunscape',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CLE_e" data-flag="@E" onclick="openSidebar('CLE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CLE_e" data-flag="@E" onclick="openSidebar('CLE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CLE_e" data-flag="@E" onclick="openSidebar('CLE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CLE_e" data-flag="@E" onclick="openSidebar('CLE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/272_Plains.jpg" id="CLE_272_Plains" data-flag="@X" onclick="openSidebar('CLE_272_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/273_Island.jpg" id="CLE_273_Island" data-flag="@X" onclick="openSidebar('CLE_273_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/274_Swamp.jpg" id="CLE_274_Swamp" data-flag="@X" onclick="openSidebar('CLE_274_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/275_Mountain.jpg" id="CLE_275_Mountain" data-flag="@X" onclick="openSidebar('CLE_275_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/276_Forest.jpg" id="CLE_276_Forest" data-flag="@X" onclick="openSidebar('CLE_276_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/1t_Clearingsong.jpg" id="CLE_1t_Clearingsong" data-flag="@X" onclick="openSidebar('CLE_1t_Clearingsong',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/2t_Treasure.jpg" id="CLE_2t_Treasure" data-flag="@X" onclick="openSidebar('CLE_2t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/3t_The Truth Pick.jpg" id="CLE_3t_The Truth Pick" data-flag="@X" onclick="openSidebar('CLE_3t_The Truth Pick',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/8t_Kindness.jpg" id="CLE_8t_Kindness" data-flag="@X" onclick="openSidebar('CLE_8t_Kindness',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/4t_Dragon.jpg" id="CLE_4t_Dragon" data-flag="@X" onclick="openSidebar('CLE_4t_Dragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/5t_Elemental.jpg" id="CLE_5t_Elemental" data-flag="@X" onclick="openSidebar('CLE_5t_Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/6t_Insect.jpg" id="CLE_6t_Insect" data-flag="@X" onclick="openSidebar('CLE_6t_Insect',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/CLE-files/img/7t_Ranger.jpg" id="CLE_7t_Ranger" data-flag="@X" onclick="openSidebar('CLE_7t_Ranger',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CLE_e" data-flag="@E" onclick="openSidebar('CLE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="CLE_e" data-flag="@E" onclick="openSidebar('CLE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="CLE_er" data-flag="@E" onclick="openSidebar('CLE_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

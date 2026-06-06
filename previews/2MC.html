@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/2MC-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>2MC visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ASM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/COD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BRE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SMB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TBC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CLE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HWK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">2HU Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/ASM"><img src="../sets/ASM-files/icon.png">Amonkhet: Schism</a>
+	
+		<a class="set-bar inactive" href="../previews/COD"><img src="../sets/COD-files/icon.png">Children of Dawn</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/RNF"><img src="../sets/RNF-files/icon.png">Ravnica’s Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/WDW"><img src="../sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="../previews/BRE"><img src="../sets/BRE-files/icon.png">Kaldheim: Bretagard’s Revival</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/SMB"><img src="../sets/SMB-files/icon.png">Magic the Gathering | Super Mario Brothers</a>
+	
+		<a class="set-bar inactive" href="../previews/TBC"><img src="../sets/TBC-files/icon.png">Nemyria: The Beautiful Collapse</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Tin Lau</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLD"><img src="../sets/BLD-files/icon.png">Bloodborne</a>
+	
+		<a class="set-bar inactive" href="../previews/CLE"><img src="../sets/CLE-files/icon.png">Clearingsong</a>
+	
+		<a class="set-bar inactive" href="../previews/HWK"><img src="../sets/HWK-files/icon.png">Haishan: Warring Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KLB"><img src="../sets/KLB-files/icon.png">Kitsuo: the Last Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/MOX"><img src="../sets/MOX-files/icon.png">Midnight Omens of Xogoa</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/2MC-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/2MC-files/img/100.jpg" id="2MC_100" data-flag="@X" onclick="openSidebar('2MC_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/111.jpg" id="2MC_111" data-flag="@X" onclick="openSidebar('2MC_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/45.jpg" id="2MC_45" data-flag="@X" onclick="openSidebar('2MC_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/123.jpg" id="2MC_123" data-flag="@X" onclick="openSidebar('2MC_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/131.jpg" id="2MC_131" data-flag="@X" onclick="openSidebar('2MC_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/35.jpg" id="2MC_35" data-flag="@X" onclick="openSidebar('2MC_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/41.jpg" id="2MC_41" data-flag="@X" onclick="openSidebar('2MC_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/119.jpg" id="2MC_119" data-flag="@X" onclick="openSidebar('2MC_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/47.jpg" id="2MC_47" data-flag="@X" onclick="openSidebar('2MC_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/52.jpg" id="2MC_52" data-flag="@X" onclick="openSidebar('2MC_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/102.jpg" id="2MC_102" data-flag="@X" onclick="openSidebar('2MC_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/32.jpg" id="2MC_32" data-flag="@X" onclick="openSidebar('2MC_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/116.jpg" id="2MC_116" data-flag="@X" onclick="openSidebar('2MC_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/3.jpg" id="2MC_3" data-flag="@X" onclick="openSidebar('2MC_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/134.jpg" id="2MC_134" data-flag="@X" onclick="openSidebar('2MC_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/23.jpg" id="2MC_23" data-flag="@X" onclick="openSidebar('2MC_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/176.jpg" id="2MC_176" data-flag="@X" onclick="openSidebar('2MC_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/4.jpg" id="2MC_4" data-flag="@X" onclick="openSidebar('2MC_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/126.jpg" id="2MC_126" data-flag="@X" onclick="openSidebar('2MC_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/175.jpg" id="2MC_175" data-flag="@X" onclick="openSidebar('2MC_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/106.jpg" id="2MC_106" data-flag="@X" onclick="openSidebar('2MC_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/113.jpg" id="2MC_113" data-flag="@X" onclick="openSidebar('2MC_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/114.jpg" id="2MC_114" data-flag="@X" onclick="openSidebar('2MC_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/127.jpg" id="2MC_127" data-flag="@X" onclick="openSidebar('2MC_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/132.jpg" id="2MC_132" data-flag="@X" onclick="openSidebar('2MC_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/101.jpg" id="2MC_101" data-flag="@X" onclick="openSidebar('2MC_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/108.jpg" id="2MC_108" data-flag="@X" onclick="openSidebar('2MC_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/9.jpg" id="2MC_9" data-flag="@X" onclick="openSidebar('2MC_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/2.jpg" id="2MC_2" data-flag="@X" onclick="openSidebar('2MC_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/167.jpg" id="2MC_167" data-flag="@X" onclick="openSidebar('2MC_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/37.jpg" id="2MC_37" data-flag="@X" onclick="openSidebar('2MC_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/164.jpg" id="2MC_164" data-flag="@X" onclick="openSidebar('2MC_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/44.jpg" id="2MC_44" data-flag="@X" onclick="openSidebar('2MC_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/125.jpg" id="2MC_125" data-flag="@X" onclick="openSidebar('2MC_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/133.jpg" id="2MC_133" data-flag="@X" onclick="openSidebar('2MC_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/24.jpg" id="2MC_24" data-flag="@X" onclick="openSidebar('2MC_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/39.jpg" id="2MC_39" data-flag="@X" onclick="openSidebar('2MC_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/1.jpg" id="2MC_1" data-flag="@X" onclick="openSidebar('2MC_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/11.jpg" id="2MC_11" data-flag="@X" onclick="openSidebar('2MC_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/53.jpg" id="2MC_53" data-flag="@X" onclick="openSidebar('2MC_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/17.jpg" id="2MC_17" data-flag="@X" onclick="openSidebar('2MC_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/25.jpg" id="2MC_25" data-flag="@X" onclick="openSidebar('2MC_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/120.jpg" id="2MC_120" data-flag="@X" onclick="openSidebar('2MC_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/15.jpg" id="2MC_15" data-flag="@X" onclick="openSidebar('2MC_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/128.jpg" id="2MC_128" data-flag="@X" onclick="openSidebar('2MC_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/27.jpg" id="2MC_27" data-flag="@X" onclick="openSidebar('2MC_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/173.jpg" id="2MC_173" data-flag="@X" onclick="openSidebar('2MC_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/43.jpg" id="2MC_43" data-flag="@X" onclick="openSidebar('2MC_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/48.jpg" id="2MC_48" data-flag="@X" onclick="openSidebar('2MC_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/129.jpg" id="2MC_129" data-flag="@X" onclick="openSidebar('2MC_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/31.jpg" id="2MC_31" data-flag="@X" onclick="openSidebar('2MC_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/112.jpg" id="2MC_112" data-flag="@X" onclick="openSidebar('2MC_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/19.jpg" id="2MC_19" data-flag="@X" onclick="openSidebar('2MC_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/5.jpg" id="2MC_5" data-flag="@X" onclick="openSidebar('2MC_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/165.jpg" id="2MC_165" data-flag="@X" onclick="openSidebar('2MC_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/103.jpg" id="2MC_103" data-flag="@X" onclick="openSidebar('2MC_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/163.jpg" id="2MC_163" data-flag="@X" onclick="openSidebar('2MC_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/115.jpg" id="2MC_115" data-flag="@X" onclick="openSidebar('2MC_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/12.jpg" id="2MC_12" data-flag="@X" onclick="openSidebar('2MC_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/130.jpg" id="2MC_130" data-flag="@X" onclick="openSidebar('2MC_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/104.jpg" id="2MC_104" data-flag="@X" onclick="openSidebar('2MC_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/107.jpg" id="2MC_107" data-flag="@X" onclick="openSidebar('2MC_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/117.jpg" id="2MC_117" data-flag="@X" onclick="openSidebar('2MC_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/10.jpg" id="2MC_10" data-flag="@X" onclick="openSidebar('2MC_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/50.jpg" id="2MC_50" data-flag="@X" onclick="openSidebar('2MC_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/36.jpg" id="2MC_36" data-flag="@X" onclick="openSidebar('2MC_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/16.jpg" id="2MC_16" data-flag="@X" onclick="openSidebar('2MC_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/118.jpg" id="2MC_118" data-flag="@X" onclick="openSidebar('2MC_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/121.jpg" id="2MC_121" data-flag="@X" onclick="openSidebar('2MC_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/168.jpg" id="2MC_168" data-flag="@X" onclick="openSidebar('2MC_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/105.jpg" id="2MC_105" data-flag="@X" onclick="openSidebar('2MC_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/22.jpg" id="2MC_22" data-flag="@X" onclick="openSidebar('2MC_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/46.jpg" id="2MC_46" data-flag="@X" onclick="openSidebar('2MC_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/122.jpg" id="2MC_122" data-flag="@X" onclick="openSidebar('2MC_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/169.jpg" id="2MC_169" data-flag="@X" onclick="openSidebar('2MC_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/38.jpg" id="2MC_38" data-flag="@X" onclick="openSidebar('2MC_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/40.jpg" id="2MC_40" data-flag="@X" onclick="openSidebar('2MC_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/6.jpg" id="2MC_6" data-flag="@X" onclick="openSidebar('2MC_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/124.jpg" id="2MC_124" data-flag="@X" onclick="openSidebar('2MC_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/51.jpg" id="2MC_51" data-flag="@X" onclick="openSidebar('2MC_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/174.jpg" id="2MC_174" data-flag="@X" onclick="openSidebar('2MC_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/49.jpg" id="2MC_49" data-flag="@X" onclick="openSidebar('2MC_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/109.jpg" id="2MC_109" data-flag="@X" onclick="openSidebar('2MC_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/110.jpg" id="2MC_110" data-flag="@X" onclick="openSidebar('2MC_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/42.jpg" id="2MC_42" data-flag="@X" onclick="openSidebar('2MC_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/26.jpg" id="2MC_26" data-flag="@X" onclick="openSidebar('2MC_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/33.jpg" id="2MC_33" data-flag="@X" onclick="openSidebar('2MC_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/56.jpg" id="2MC_56" data-flag="@X" onclick="openSidebar('2MC_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/0.jpg" id="2MC_0" data-flag="@X" onclick="openSidebar('2MC_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/141.jpg" id="2MC_141" data-flag="@X" onclick="openSidebar('2MC_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/54.jpg" id="2MC_54" data-flag="@X" onclick="openSidebar('2MC_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/135.jpg" id="2MC_135" data-flag="@X" onclick="openSidebar('2MC_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/144.jpg" id="2MC_144" data-flag="@X" onclick="openSidebar('2MC_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/138.jpg" id="2MC_138" data-flag="@X" onclick="openSidebar('2MC_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/64.jpg" id="2MC_64" data-flag="@X" onclick="openSidebar('2MC_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/149.jpg" id="2MC_149" data-flag="@X" onclick="openSidebar('2MC_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/65.jpg" id="2MC_65" data-flag="@X" onclick="openSidebar('2MC_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/71.jpg" id="2MC_71" data-flag="@X" onclick="openSidebar('2MC_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/14.jpg" id="2MC_14" data-flag="@X" onclick="openSidebar('2MC_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/68.jpg" id="2MC_68" data-flag="@X" onclick="openSidebar('2MC_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/67.jpg" id="2MC_67" data-flag="@X" onclick="openSidebar('2MC_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/20.jpg" id="2MC_20" data-flag="@X" onclick="openSidebar('2MC_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/61.jpg" id="2MC_61" data-flag="@X" onclick="openSidebar('2MC_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/30.jpg" id="2MC_30" data-flag="@X" onclick="openSidebar('2MC_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/66.jpg" id="2MC_66" data-flag="@X" onclick="openSidebar('2MC_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/72.jpg" id="2MC_72" data-flag="@X" onclick="openSidebar('2MC_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/13.jpg" id="2MC_13" data-flag="@X" onclick="openSidebar('2MC_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/142.jpg" id="2MC_142" data-flag="@X" onclick="openSidebar('2MC_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/55.jpg" id="2MC_55" data-flag="@X" onclick="openSidebar('2MC_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/58.jpg" id="2MC_58" data-flag="@X" onclick="openSidebar('2MC_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/139.jpg" id="2MC_139" data-flag="@X" onclick="openSidebar('2MC_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/172.jpg" id="2MC_172" data-flag="@X" onclick="openSidebar('2MC_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/60.jpg" id="2MC_60" data-flag="@X" onclick="openSidebar('2MC_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/136.jpg" id="2MC_136" data-flag="@X" onclick="openSidebar('2MC_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/148.jpg" id="2MC_148" data-flag="@X" onclick="openSidebar('2MC_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/62.jpg" id="2MC_62" data-flag="@X" onclick="openSidebar('2MC_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/59.jpg" id="2MC_59" data-flag="@X" onclick="openSidebar('2MC_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/69.jpg" id="2MC_69" data-flag="@X" onclick="openSidebar('2MC_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/70.jpg" id="2MC_70" data-flag="@X" onclick="openSidebar('2MC_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/75.jpg" id="2MC_75" data-flag="@X" onclick="openSidebar('2MC_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/73.jpg" id="2MC_73" data-flag="@X" onclick="openSidebar('2MC_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/145.jpg" id="2MC_145" data-flag="@X" onclick="openSidebar('2MC_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/74.jpg" id="2MC_74" data-flag="@X" onclick="openSidebar('2MC_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/166.jpg" id="2MC_166" data-flag="@X" onclick="openSidebar('2MC_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/150.jpg" id="2MC_150" data-flag="@X" onclick="openSidebar('2MC_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/140.jpg" id="2MC_140" data-flag="@X" onclick="openSidebar('2MC_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/143.jpg" id="2MC_143" data-flag="@X" onclick="openSidebar('2MC_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/146.jpg" id="2MC_146" data-flag="@X" onclick="openSidebar('2MC_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/147.jpg" id="2MC_147" data-flag="@X" onclick="openSidebar('2MC_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/57.jpg" id="2MC_57" data-flag="@X" onclick="openSidebar('2MC_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/137.jpg" id="2MC_137" data-flag="@X" onclick="openSidebar('2MC_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/63.jpg" id="2MC_63" data-flag="@X" onclick="openSidebar('2MC_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/99.jpg" id="2MC_99" data-flag="@X" onclick="openSidebar('2MC_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/153.jpg" id="2MC_153" data-flag="@X" onclick="openSidebar('2MC_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/78.jpg" id="2MC_78" data-flag="@X" onclick="openSidebar('2MC_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/170.jpg" id="2MC_170" data-flag="@X" onclick="openSidebar('2MC_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/151.jpg" id="2MC_151" data-flag="@X" onclick="openSidebar('2MC_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/76.jpg" id="2MC_76" data-flag="@X" onclick="openSidebar('2MC_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/152.jpg" id="2MC_152" data-flag="@X" onclick="openSidebar('2MC_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/154.jpg" id="2MC_154" data-flag="@X" onclick="openSidebar('2MC_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/77.jpg" id="2MC_77" data-flag="@X" onclick="openSidebar('2MC_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/79.jpg" id="2MC_79" data-flag="@X" onclick="openSidebar('2MC_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/21.jpg" id="2MC_21" data-flag="@X" onclick="openSidebar('2MC_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/87.jpg" id="2MC_87" data-flag="@X" onclick="openSidebar('2MC_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/84.jpg" id="2MC_84" data-flag="@X" onclick="openSidebar('2MC_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/83.jpg" id="2MC_83" data-flag="@X" onclick="openSidebar('2MC_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/89.jpg" id="2MC_89" data-flag="@X" onclick="openSidebar('2MC_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/81.jpg" id="2MC_81" data-flag="@X" onclick="openSidebar('2MC_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/85.jpg" id="2MC_85" data-flag="@X" onclick="openSidebar('2MC_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/86.jpg" id="2MC_86" data-flag="@X" onclick="openSidebar('2MC_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/80.jpg" id="2MC_80" data-flag="@X" onclick="openSidebar('2MC_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/88.jpg" id="2MC_88" data-flag="@X" onclick="openSidebar('2MC_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/82.jpg" id="2MC_82" data-flag="@X" onclick="openSidebar('2MC_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/18.jpg" id="2MC_18" data-flag="@X" onclick="openSidebar('2MC_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/7.jpg" id="2MC_7" data-flag="@X" onclick="openSidebar('2MC_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/8.jpg" id="2MC_8" data-flag="@X" onclick="openSidebar('2MC_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/28.jpg" id="2MC_28" data-flag="@X" onclick="openSidebar('2MC_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/29.jpg" id="2MC_29" data-flag="@X" onclick="openSidebar('2MC_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/162.jpg" id="2MC_162" data-flag="@X" onclick="openSidebar('2MC_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/171.jpg" id="2MC_171" data-flag="@X" onclick="openSidebar('2MC_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/34.jpg" id="2MC_34" data-flag="@X" onclick="openSidebar('2MC_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/90.jpg" id="2MC_90" data-flag="@X" onclick="openSidebar('2MC_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/160.jpg" id="2MC_160" data-flag="@X" onclick="openSidebar('2MC_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/97.jpg" id="2MC_97" data-flag="@X" onclick="openSidebar('2MC_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/98.jpg" id="2MC_98" data-flag="@X" onclick="openSidebar('2MC_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/177.jpg" id="2MC_177" data-flag="@X" onclick="openSidebar('2MC_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/161.jpg" id="2MC_161" data-flag="@X" onclick="openSidebar('2MC_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/91.jpg" id="2MC_91" data-flag="@X" onclick="openSidebar('2MC_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/92.jpg" id="2MC_92" data-flag="@X" onclick="openSidebar('2MC_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/93.jpg" id="2MC_93" data-flag="@X" onclick="openSidebar('2MC_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/155.jpg" id="2MC_155" data-flag="@X" onclick="openSidebar('2MC_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/156.jpg" id="2MC_156" data-flag="@X" onclick="openSidebar('2MC_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/157.jpg" id="2MC_157" data-flag="@X" onclick="openSidebar('2MC_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/94.jpg" id="2MC_94" data-flag="@X" onclick="openSidebar('2MC_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/95.jpg" id="2MC_95" data-flag="@X" onclick="openSidebar('2MC_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/158.jpg" id="2MC_158" data-flag="@X" onclick="openSidebar('2MC_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/96.jpg" id="2MC_96" data-flag="@X" onclick="openSidebar('2MC_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/2MC-files/img/159.jpg" id="2MC_159" data-flag="@X" onclick="openSidebar('2MC_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="2MC_e" data-flag="@E" onclick="openSidebar('2MC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="2MC_er" data-flag="@E" onclick="openSidebar('2MC_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

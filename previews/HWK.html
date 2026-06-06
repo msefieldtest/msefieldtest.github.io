@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/HWK-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>HWK visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/HWK-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ASM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/COD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BRE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SMB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TBC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CLE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HWK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/HWK"><img src="../sets/HWK-files/icon.png">Haishan: Warring Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">2HU Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/ASM"><img src="../sets/ASM-files/icon.png">Amonkhet: Schism</a>
+	
+		<a class="set-bar inactive" href="../previews/COD"><img src="../sets/COD-files/icon.png">Children of Dawn</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/RNF"><img src="../sets/RNF-files/icon.png">Ravnica’s Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/WDW"><img src="../sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="../previews/BRE"><img src="../sets/BRE-files/icon.png">Kaldheim: Bretagard’s Revival</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/SMB"><img src="../sets/SMB-files/icon.png">Magic the Gathering | Super Mario Brothers</a>
+	
+		<a class="set-bar inactive" href="../previews/TBC"><img src="../sets/TBC-files/icon.png">Nemyria: The Beautiful Collapse</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Tin Lau</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLD"><img src="../sets/BLD-files/icon.png">Bloodborne</a>
+	
+		<a class="set-bar inactive" href="../previews/CLE"><img src="../sets/CLE-files/icon.png">Clearingsong</a>
+	
+		<a class="set-bar inactive" href="../previews/KLB"><img src="../sets/KLB-files/icon.png">Kitsuo: the Last Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/MOX"><img src="../sets/MOX-files/icon.png">Midnight Omens of Xogoa</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/HWK-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/HWK-files/img/14_Elder of Broken Tablets.jpg" id="HWK_14_Elder of Broken Tablets" data-flag="@X" onclick="openSidebar('HWK_14_Elder of Broken Tablets',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/60_Nuolan's Coronation.jpg" id="HWK_60_Nuolans Coronation" data-flag="@X" onclick="openSidebar('HWK_60_Nuolans Coronation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/96_Looming Fate.jpg" id="HWK_96_Looming Fate" data-flag="@X" onclick="openSidebar('HWK_96_Looming Fate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/134_Hundun.jpg" id="HWK_134_Hundun" data-flag="@X" onclick="openSidebar('HWK_134_Hundun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/188_Taiyu Qiwang, Eastwarden.jpg" id="HWK_188_Taiyu Qiwang, Eastwarden" data-flag="@X" onclick="openSidebar('HWK_188_Taiyu Qiwang, Eastwarden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/35_Taixue Qiwang, Northwarden.jpg" id="HWK_35_Taixue Qiwang, Northwarden" data-flag="@X" onclick="openSidebar('HWK_35_Taixue Qiwang, Northwarden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/63_Queen Mother Qingyun.jpg" id="HWK_63_Queen Mother Qingyun" data-flag="@X" onclick="openSidebar('HWK_63_Queen Mother Qingyun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/115_Tailei Qiwang, Southwarden.jpg" id="HWK_115_Tailei Qiwang, Southwarden" data-flag="@X" onclick="openSidebar('HWK_115_Tailei Qiwang, Southwarden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/149_Taisha Qiwang, Westwarden.jpg" id="HWK_149_Taisha Qiwang, Westwarden" data-flag="@X" onclick="openSidebar('HWK_149_Taisha Qiwang, Westwarden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/193_Worldharvest.jpg" id="HWK_193_Worldharvest" data-flag="@X" onclick="openSidebar('HWK_193_Worldharvest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/15_Houtai Immortal.jpg" id="HWK_15_Houtai Immortal" data-flag="@X" onclick="openSidebar('HWK_15_Houtai Immortal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/43_Aomen Seacaptain.jpg" id="HWK_43_Aomen Seacaptain" data-flag="@X" onclick="openSidebar('HWK_43_Aomen Seacaptain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/79_Agate Grandmaster.jpg" id="HWK_79_Agate Grandmaster" data-flag="@X" onclick="openSidebar('HWK_79_Agate Grandmaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/120_Bear the Standard.jpg" id="HWK_120_Bear the Standard" data-flag="@X" onclick="openSidebar('HWK_120_Bear the Standard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/156_All Under Heaven.jpg" id="HWK_156_All Under Heaven" data-flag="@X" onclick="openSidebar('HWK_156_All Under Heaven',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/17_Ignition at Zhenzha.jpg" id="HWK_17_Ignition at Zhenzha" data-flag="@X" onclick="openSidebar('HWK_17_Ignition at Zhenzha',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/47_Daizuan, Mercurial Moralist.jpg" id="HWK_47_Daizuan, Mercurial Moralist" data-flag="@X" onclick="openSidebar('HWK_47_Daizuan, Mercurial Moralist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/90_Grave Exorcist.jpg" id="HWK_90_Grave Exorcist" data-flag="@X" onclick="openSidebar('HWK_90_Grave Exorcist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/124_Cinnabar Taotie.jpg" id="HWK_124_Cinnabar Taotie" data-flag="@X" onclick="openSidebar('HWK_124_Cinnabar Taotie',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/158_Auspicious Qilin.jpg" id="HWK_158_Auspicious Qilin" data-flag="@X" onclick="openSidebar('HWK_158_Auspicious Qilin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/25_Pampered Descendant.jpg" id="HWK_25_Pampered Descendant" data-flag="@X" onclick="openSidebar('HWK_25_Pampered Descendant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/51_Eimo of the Final Toll.jpg" id="HWK_51_Eimo of the Final Toll" data-flag="@X" onclick="openSidebar('HWK_51_Eimo of the Final Toll',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/93_Imperious Trophy-Taker.jpg" id="HWK_93_Imperious Trophy-Taker" data-flag="@X" onclick="openSidebar('HWK_93_Imperious Trophy-Taker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/126_Crucible Within.jpg" id="HWK_126_Crucible Within" data-flag="@X" onclick="openSidebar('HWK_126_Crucible Within',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/168_Grandmother of Many.jpg" id="HWK_168_Grandmother of Many" data-flag="@X" onclick="openSidebar('HWK_168_Grandmother of Many',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/29_Regulate the Spheres.jpg" id="HWK_29_Regulate the Spheres" data-flag="@X" onclick="openSidebar('HWK_29_Regulate the Spheres',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/52_Erhu Symphonist.jpg" id="HWK_52_Erhu Symphonist" data-flag="@X" onclick="openSidebar('HWK_52_Erhu Symphonist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/99_Mind-Morass Reaper.jpg" id="HWK_99_Mind-Morass Reaper" data-flag="@X" onclick="openSidebar('HWK_99_Mind-Morass Reaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/132_The Golden Crow.jpg" id="HWK_132_The Golden Crow" data-flag="@X" onclick="openSidebar('HWK_132_The Golden Crow',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/169_Infidelipede.jpg" id="HWK_169_Infidelipede" data-flag="@X" onclick="openSidebar('HWK_169_Infidelipede',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/30_Rule by Birthright.jpg" id="HWK_30_Rule by Birthright" data-flag="@X" onclick="openSidebar('HWK_30_Rule by Birthright',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/56_Grim Purpose.jpg" id="HWK_56_Grim Purpose" data-flag="@X" onclick="openSidebar('HWK_56_Grim Purpose',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/108_Procession into Dusk.jpg" id="HWK_108_Procession into Dusk" data-flag="@X" onclick="openSidebar('HWK_108_Procession into Dusk',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/137_Ironflail Tyrant.jpg" id="HWK_137_Ironflail Tyrant" data-flag="@X" onclick="openSidebar('HWK_137_Ironflail Tyrant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/176_Midnight Market.jpg" id="HWK_176_Midnight Market" data-flag="@X" onclick="openSidebar('HWK_176_Midnight Market',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/40_Yin Tuan, Improdigal Son.jpg" id="HWK_40_Yin Tuan, Improdigal Son" data-flag="@X" onclick="openSidebar('HWK_40_Yin Tuan, Improdigal Son',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/66_Rooftop Espionage.jpg" id="HWK_66_Rooftop Espionage" data-flag="@X" onclick="openSidebar('HWK_66_Rooftop Espionage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/109_Rule by Authority.jpg" id="HWK_109_Rule by Authority" data-flag="@X" onclick="openSidebar('HWK_109_Rule by Authority',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/140_Mortal-Strand Stitcher.jpg" id="HWK_140_Mortal-Strand Stitcher" data-flag="@X" onclick="openSidebar('HWK_140_Mortal-Strand Stitcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/177_Nine-Petal Xiangliu.jpg" id="HWK_177_Nine-Petal Xiangliu" data-flag="@X" onclick="openSidebar('HWK_177_Nine-Petal Xiangliu',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/41_Zenith Fenghuang.jpg" id="HWK_41_Zenith Fenghuang" data-flag="@X" onclick="openSidebar('HWK_41_Zenith Fenghuang',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/67_Rule by Ineffability.jpg" id="HWK_67_Rule by Ineffability" data-flag="@X" onclick="openSidebar('HWK_67_Rule by Ineffability',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/116_Tense Negotiations.jpg" id="HWK_116_Tense Negotiations" data-flag="@X" onclick="openSidebar('HWK_116_Tense Negotiations',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/144_Recruiter of Traitors.jpg" id="HWK_144_Recruiter of Traitors" data-flag="@X" onclick="openSidebar('HWK_144_Recruiter of Traitors',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/178_Nuolan, Philosopher-Queen.jpg" id="HWK_178_Nuolan, Philosopher-Queen" data-flag="@X" onclick="openSidebar('HWK_178_Nuolan, Philosopher-Queen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/4_Aizu Battalion.jpg" id="HWK_4_Aizu Battalion" data-flag="@X" onclick="openSidebar('HWK_4_Aizu Battalion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/42_Adjourn.jpg" id="HWK_42_Adjourn" data-flag="@X" onclick="openSidebar('HWK_42_Adjourn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/82_Blunt Turncoat.jpg" id="HWK_82_Blunt Turncoat" data-flag="@X" onclick="openSidebar('HWK_82_Blunt Turncoat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/146_Rule by Resolve.jpg" id="HWK_146_Rule by Resolve" data-flag="@X" onclick="openSidebar('HWK_146_Rule by Resolve',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/185_Rule by Pragmatism.jpg" id="HWK_185_Rule by Pragmatism" data-flag="@X" onclick="openSidebar('HWK_185_Rule by Pragmatism',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/5_Alabaster Tigress.jpg" id="HWK_5_Alabaster Tigress" data-flag="@X" onclick="openSidebar('HWK_5_Alabaster Tigress',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/45_Beseech Hell.jpg" id="HWK_45_Beseech Hell" data-flag="@X" onclick="openSidebar('HWK_45_Beseech Hell',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/86_Derelict Tutor.jpg" id="HWK_86_Derelict Tutor" data-flag="@X" onclick="openSidebar('HWK_86_Derelict Tutor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/118_Ash-Mortar Alchemist.jpg" id="HWK_118_Ash-Mortar Alchemist" data-flag="@X" onclick="openSidebar('HWK_118_Ash-Mortar Alchemist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/155_Agate-Tablet Champion.jpg" id="HWK_155_Agate-Tablet Champion" data-flag="@X" onclick="openSidebar('HWK_155_Agate-Tablet Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/8_By the Court's Graces.jpg" id="HWK_8_By the Courts Graces" data-flag="@X" onclick="openSidebar('HWK_8_By the Courts Graces',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/49_Death-Ledger Rearguard.jpg" id="HWK_49_Death-Ledger Rearguard" data-flag="@X" onclick="openSidebar('HWK_49_Death-Ledger Rearguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/88_Eng Keepguard.jpg" id="HWK_88_Eng Keepguard" data-flag="@X" onclick="openSidebar('HWK_88_Eng Keepguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/122_Campsite Torcher.jpg" id="HWK_122_Campsite Torcher" data-flag="@X" onclick="openSidebar('HWK_122_Campsite Torcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/161_Display of Dominance.jpg" id="HWK_161_Display of Dominance" data-flag="@X" onclick="openSidebar('HWK_161_Display of Dominance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/9_Candlebearer Haigui.jpg" id="HWK_9_Candlebearer Haigui" data-flag="@X" onclick="openSidebar('HWK_9_Candlebearer Haigui',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/53_Forked-Bolt Leigong.jpg" id="HWK_53_Forked-Bolt Leigong" data-flag="@X" onclick="openSidebar('HWK_53_Forked-Bolt Leigong',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/89_Engrave.jpg" id="HWK_89_Engrave" data-flag="@X" onclick="openSidebar('HWK_89_Engrave',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/125_Crack the Pillars of Hell.jpg" id="HWK_125_Crack the Pillars of Hell" data-flag="@X" onclick="openSidebar('HWK_125_Crack the Pillars of Hell',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/162_Dissolve into Memory.jpg" id="HWK_162_Dissolve into Memory" data-flag="@X" onclick="openSidebar('HWK_162_Dissolve into Memory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/11_Dragonspine Marshal.jpg" id="HWK_11_Dragonspine Marshal" data-flag="@X" onclick="openSidebar('HWK_11_Dragonspine Marshal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/54_Forlorn Gazebo.jpg" id="HWK_54_Forlorn Gazebo" data-flag="@X" onclick="openSidebar('HWK_54_Forlorn Gazebo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/94_Imposing Tombseal.jpg" id="HWK_94_Imposing Tombseal" data-flag="@X" onclick="openSidebar('HWK_94_Imposing Tombseal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/127_Duke of Ashen Haloes.jpg" id="HWK_127_Duke of Ashen Haloes" data-flag="@X" onclick="openSidebar('HWK_127_Duke of Ashen Haloes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/166_Engulfing Taotie.jpg" id="HWK_166_Engulfing Taotie" data-flag="@X" onclick="openSidebar('HWK_166_Engulfing Taotie',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/13_Duke of Goldspun Tales.jpg" id="HWK_13_Duke of Goldspun Tales" data-flag="@X" onclick="openSidebar('HWK_13_Duke of Goldspun Tales',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/55_Framed Scion.jpg" id="HWK_55_Framed Scion" data-flag="@X" onclick="openSidebar('HWK_55_Framed Scion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/95_Last-Wish Accountant.jpg" id="HWK_95_Last-Wish Accountant" data-flag="@X" onclick="openSidebar('HWK_95_Last-Wish Accountant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/129_Flowing Riposte.jpg" id="HWK_129_Flowing Riposte" data-flag="@X" onclick="openSidebar('HWK_129_Flowing Riposte',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/172_Jingzhi Commandant.jpg" id="HWK_172_Jingzhi Commandant" data-flag="@X" onclick="openSidebar('HWK_172_Jingzhi Commandant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/16_Hui Heiress.jpg" id="HWK_16_Hui Heiress" data-flag="@X" onclick="openSidebar('HWK_16_Hui Heiress',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/58_Jiangshi Archlich.jpg" id="HWK_58_Jiangshi Archlich" data-flag="@X" onclick="openSidebar('HWK_58_Jiangshi Archlich',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/97_Master of Siegecraft.jpg" id="HWK_97_Master of Siegecraft" data-flag="@X" onclick="openSidebar('HWK_97_Master of Siegecraft',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/135_Ignite Inner Fires.jpg" id="HWK_135_Ignite Inner Fires" data-flag="@X" onclick="openSidebar('HWK_135_Ignite Inner Fires',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/173_Liuliang Partisan.jpg" id="HWK_173_Liuliang Partisan" data-flag="@X" onclick="openSidebar('HWK_173_Liuliang Partisan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/20_Legacy Guandao.jpg" id="HWK_20_Legacy Guandao" data-flag="@X" onclick="openSidebar('HWK_20_Legacy Guandao',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/59_Miasmic Pilgrimage.jpg" id="HWK_59_Miasmic Pilgrimage" data-flag="@X" onclick="openSidebar('HWK_59_Miasmic Pilgrimage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/101_Morality or Mortality.jpg" id="HWK_101_Morality or Mortality" data-flag="@X" onclick="openSidebar('HWK_101_Morality or Mortality',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/136_Immortal's Palanquin.jpg" id="HWK_136_Immortals Palanquin" data-flag="@X" onclick="openSidebar('HWK_136_Immortals Palanquin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/175_Lumbering Bixi.jpg" id="HWK_175_Lumbering Bixi" data-flag="@X" onclick="openSidebar('HWK_175_Lumbering Bixi',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/24_Never Shatter.jpg" id="HWK_24_Never Shatter" data-flag="@X" onclick="openSidebar('HWK_24_Never Shatter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/69_Silk to Scale.jpg" id="HWK_69_Silk to Scale" data-flag="@X" onclick="openSidebar('HWK_69_Silk to Scale',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/102_Nepotistic Marshal.jpg" id="HWK_102_Nepotistic Marshal" data-flag="@X" onclick="openSidebar('HWK_102_Nepotistic Marshal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/138_Judge of Dying Pleas.jpg" id="HWK_138_Judge of Dying Pleas" data-flag="@X" onclick="openSidebar('HWK_138_Judge of Dying Pleas',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/181_Passage of a Wild Lord.jpg" id="HWK_181_Passage of a Wild Lord" data-flag="@X" onclick="openSidebar('HWK_181_Passage of a Wild Lord',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/26_Patriarch Vessel.jpg" id="HWK_26_Patriarch Vessel" data-flag="@X" onclick="openSidebar('HWK_26_Patriarch Vessel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/75_Torrential Jiaolong.jpg" id="HWK_75_Torrential Jiaolong" data-flag="@X" onclick="openSidebar('HWK_75_Torrential Jiaolong',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/105_Over the Ramparts.jpg" id="HWK_105_Over the Ramparts" data-flag="@X" onclick="openSidebar('HWK_105_Over the Ramparts',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/143_Qi Manifest.jpg" id="HWK_143_Qi Manifest" data-flag="@X" onclick="openSidebar('HWK_143_Qi Manifest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/183_Reverent Tombsweeper.jpg" id="HWK_183_Reverent Tombsweeper" data-flag="@X" onclick="openSidebar('HWK_183_Reverent Tombsweeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/28_Record Sky and Sea.jpg" id="HWK_28_Record Sky and Sea" data-flag="@X" onclick="openSidebar('HWK_28_Record Sky and Sea',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/78_Xian Counselor.jpg" id="HWK_78_Xian Counselor" data-flag="@X" onclick="openSidebar('HWK_78_Xian Counselor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/110_Servile Summons.jpg" id="HWK_110_Servile Summons" data-flag="@X" onclick="openSidebar('HWK_110_Servile Summons',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/151_Vengeant Huolong.jpg" id="HWK_151_Vengeant Huolong" data-flag="@X" onclick="openSidebar('HWK_151_Vengeant Huolong',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/187_Sun Forcesage.jpg" id="HWK_187_Sun Forcesage" data-flag="@X" onclick="openSidebar('HWK_187_Sun Forcesage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/34_Swifthammer Leigong.jpg" id="HWK_34_Swifthammer Leigong" data-flag="@X" onclick="openSidebar('HWK_34_Swifthammer Leigong',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/44_Austere Fuzhu.jpg" id="HWK_44_Austere Fuzhu" data-flag="@X" onclick="openSidebar('HWK_44_Austere Fuzhu',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/114_Swathcutter Commandant.jpg" id="HWK_114_Swathcutter Commandant" data-flag="@X" onclick="openSidebar('HWK_114_Swathcutter Commandant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/152_Weave with Conviction.jpg" id="HWK_152_Weave with Conviction" data-flag="@X" onclick="openSidebar('HWK_152_Weave with Conviction',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/189_Tenuous Truce.jpg" id="HWK_189_Tenuous Truce" data-flag="@X" onclick="openSidebar('HWK_189_Tenuous Truce',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/36_Veteran Tactician.jpg" id="HWK_36_Veteran Tactician" data-flag="@X" onclick="openSidebar('HWK_36_Veteran Tactician',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/46_Crossing the Aomen Sea.jpg" id="HWK_46_Crossing the Aomen Sea" data-flag="@X" onclick="openSidebar('HWK_46_Crossing the Aomen Sea',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/80_Art of Slaughter.jpg" id="HWK_80_Art of Slaughter" data-flag="@X" onclick="openSidebar('HWK_80_Art of Slaughter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/154_Yin Bowmaster.jpg" id="HWK_154_Yin Bowmaster" data-flag="@X" onclick="openSidebar('HWK_154_Yin Bowmaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/190_Thousand-Ink Muralist.jpg" id="HWK_190_Thousand-Ink Muralist" data-flag="@X" onclick="openSidebar('HWK_190_Thousand-Ink Muralist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/3_Agate-Tablet Hermit.jpg" id="HWK_3_Agate-Tablet Hermit" data-flag="@X" onclick="openSidebar('HWK_3_Agate-Tablet Hermit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/48_Daoshi of Natural Paths.jpg" id="HWK_48_Daoshi of Natural Paths" data-flag="@X" onclick="openSidebar('HWK_48_Daoshi of Natural Paths',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/81_Beckoner of Dark Incense.jpg" id="HWK_81_Beckoner of Dark Incense" data-flag="@X" onclick="openSidebar('HWK_81_Beckoner of Dark Incense',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/117_Aizu Bulwark.jpg" id="HWK_117_Aizu Bulwark" data-flag="@X" onclick="openSidebar('HWK_117_Aizu Bulwark',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/157_At Lake Tai's Mercies.jpg" id="HWK_157_At Lake Tais Mercies" data-flag="@X" onclick="openSidebar('HWK_157_At Lake Tais Mercies',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/6_Audience at Mount Ruan.jpg" id="HWK_6_Audience at Mount Ruan" data-flag="@X" onclick="openSidebar('HWK_6_Audience at Mount Ruan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/50_Dragoncoil Bashe.jpg" id="HWK_50_Dragoncoil Bashe" data-flag="@X" onclick="openSidebar('HWK_50_Dragoncoil Bashe',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/83_Bowl Over.jpg" id="HWK_83_Bowl Over" data-flag="@X" onclick="openSidebar('HWK_83_Bowl Over',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/119_Autumnal Nian.jpg" id="HWK_119_Autumnal Nian" data-flag="@X" onclick="openSidebar('HWK_119_Autumnal Nian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/159_Corpsemire Ferryman.jpg" id="HWK_159_Corpsemire Ferryman" data-flag="@X" onclick="openSidebar('HWK_159_Corpsemire Ferryman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/7_Blizzard-Swift Captain.jpg" id="HWK_7_Blizzard-Swift Captain" data-flag="@X" onclick="openSidebar('HWK_7_Blizzard-Swift Captain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/57_Houtai Mortocrat.jpg" id="HWK_57_Houtai Mortocrat" data-flag="@X" onclick="openSidebar('HWK_57_Houtai Mortocrat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/84_Bronzepaw.jpg" id="HWK_84_Bronzepaw" data-flag="@X" onclick="openSidebar('HWK_84_Bronzepaw',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/121_Blazing Festivities.jpg" id="HWK_121_Blazing Festivities" data-flag="@X" onclick="openSidebar('HWK_121_Blazing Festivities',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/160_Daunt.jpg" id="HWK_160_Daunt" data-flag="@X" onclick="openSidebar('HWK_160_Daunt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/10_Cedarwood Summoner.jpg" id="HWK_10_Cedarwood Summoner" data-flag="@X" onclick="openSidebar('HWK_10_Cedarwood Summoner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/61_Preening Paradisiac.jpg" id="HWK_61_Preening Paradisiac" data-flag="@X" onclick="openSidebar('HWK_61_Preening Paradisiac',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/85_Dashing Debtor.jpg" id="HWK_85_Dashing Debtor" data-flag="@X" onclick="openSidebar('HWK_85_Dashing Debtor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/123_Cinderscourge.jpg" id="HWK_123_Cinderscourge" data-flag="@X" onclick="openSidebar('HWK_123_Cinderscourge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/163_Dustwhisper Archer.jpg" id="HWK_163_Dustwhisper Archer" data-flag="@X" onclick="openSidebar('HWK_163_Dustwhisper Archer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/12_Drifting-Dust Feitian.jpg" id="HWK_12_Drifting-Dust Feitian" data-flag="@X" onclick="openSidebar('HWK_12_Drifting-Dust Feitian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/62_Qi Transfer.jpg" id="HWK_62_Qi Transfer" data-flag="@X" onclick="openSidebar('HWK_62_Qi Transfer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/87_Dethrone.jpg" id="HWK_87_Dethrone" data-flag="@X" onclick="openSidebar('HWK_87_Dethrone',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/128_Fiery Virtue Courtesan.jpg" id="HWK_128_Fiery Virtue Courtesan" data-flag="@X" onclick="openSidebar('HWK_128_Fiery Virtue Courtesan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/164_Elder Etching.jpg" id="HWK_164_Elder Etching" data-flag="@X" onclick="openSidebar('HWK_164_Elder Etching',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/18_Immortal's Foresight.jpg" id="HWK_18_Immortals Foresight" data-flag="@X" onclick="openSidebar('HWK_18_Immortals Foresight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/64_Raindrench Infantry.jpg" id="HWK_64_Raindrench Infantry" data-flag="@X" onclick="openSidebar('HWK_64_Raindrench Infantry',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/91_Grievous Deeds.jpg" id="HWK_91_Grievous Deeds" data-flag="@X" onclick="openSidebar('HWK_91_Grievous Deeds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/130_Forward-March Officer.jpg" id="HWK_130_Forward-March Officer" data-flag="@X" onclick="openSidebar('HWK_130_Forward-March Officer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/165_Eng Vizier.jpg" id="HWK_165_Eng Vizier" data-flag="@X" onclick="openSidebar('HWK_165_Eng Vizier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/19_Inherited Aid.jpg" id="HWK_19_Inherited Aid" data-flag="@X" onclick="openSidebar('HWK_19_Inherited Aid',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/65_Rise from the Stockade.jpg" id="HWK_65_Rise from the Stockade" data-flag="@X" onclick="openSidebar('HWK_65_Rise from the Stockade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/92_Hui Revenant.jpg" id="HWK_92_Hui Revenant" data-flag="@X" onclick="openSidebar('HWK_92_Hui Revenant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/131_Gleeful Instigator.jpg" id="HWK_131_Gleeful Instigator" data-flag="@X" onclick="openSidebar('HWK_131_Gleeful Instigator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/167_Fire at Will.jpg" id="HWK_167_Fire at Will" data-flag="@X" onclick="openSidebar('HWK_167_Fire at Will',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/21_Lunar-Mansion Auditor.jpg" id="HWK_21_Lunar-Mansion Auditor" data-flag="@X" onclick="openSidebar('HWK_21_Lunar-Mansion Auditor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/68_Secure.jpg" id="HWK_68_Secure" data-flag="@X" onclick="openSidebar('HWK_68_Secure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/98_Memorial Dolls.jpg" id="HWK_98_Memorial Dolls" data-flag="@X" onclick="openSidebar('HWK_98_Memorial Dolls',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/133_Grandiose Destiny.jpg" id="HWK_133_Grandiose Destiny" data-flag="@X" onclick="openSidebar('HWK_133_Grandiose Destiny',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/170_Invoker of Forebears.jpg" id="HWK_170_Invoker of Forebears" data-flag="@X" onclick="openSidebar('HWK_170_Invoker of Forebears',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/22_Magister of True Worth.jpg" id="HWK_22_Magister of True Worth" data-flag="@X" onclick="openSidebar('HWK_22_Magister of True Worth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/70_Soul-Slip Purveyor.jpg" id="HWK_70_Soul-Slip Purveyor" data-flag="@X" onclick="openSidebar('HWK_70_Soul-Slip Purveyor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/100_Moldmansion Hulk.jpg" id="HWK_100_Moldmansion Hulk" data-flag="@X" onclick="openSidebar('HWK_100_Moldmansion Hulk',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/139_Mortal Furor.jpg" id="HWK_139_Mortal Furor" data-flag="@X" onclick="openSidebar('HWK_139_Mortal Furor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/171_Jade-Plated Patrol.jpg" id="HWK_171_Jade-Plated Patrol" data-flag="@X" onclick="openSidebar('HWK_171_Jade-Plated Patrol',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/23_Moral Absolutes.jpg" id="HWK_23_Moral Absolutes" data-flag="@X" onclick="openSidebar('HWK_23_Moral Absolutes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/71_Sun Navigator.jpg" id="HWK_71_Sun Navigator" data-flag="@X" onclick="openSidebar('HWK_71_Sun Navigator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/103_Officer of Morale.jpg" id="HWK_103_Officer of Morale" data-flag="@X" onclick="openSidebar('HWK_103_Officer of Morale',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/141_Outflanking Firebrand.jpg" id="HWK_141_Outflanking Firebrand" data-flag="@X" onclick="openSidebar('HWK_141_Outflanking Firebrand',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/174_Liuliang Transmuter.jpg" id="HWK_174_Liuliang Transmuter" data-flag="@X" onclick="openSidebar('HWK_174_Liuliang Transmuter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/27_Prisoner of War.jpg" id="HWK_27_Prisoner of War" data-flag="@X" onclick="openSidebar('HWK_27_Prisoner of War',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/72_Suppressing Strike Baron.jpg" id="HWK_72_Suppressing Strike Baron" data-flag="@X" onclick="openSidebar('HWK_72_Suppressing Strike Baron',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/104_On Diyu's Threshold.jpg" id="HWK_104_On Diyus Threshold" data-flag="@X" onclick="openSidebar('HWK_104_On Diyus Threshold',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/142_Poleaxe.jpg" id="HWK_142_Poleaxe" data-flag="@X" onclick="openSidebar('HWK_142_Poleaxe',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/179_Nurturing Shenglong.jpg" id="HWK_179_Nurturing Shenglong" data-flag="@X" onclick="openSidebar('HWK_179_Nurturing Shenglong',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/31_Scratch from the Ledger.jpg" id="HWK_31_Scratch from the Ledger" data-flag="@X" onclick="openSidebar('HWK_31_Scratch from the Ledger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/73_Sweep the Pieces.jpg" id="HWK_73_Sweep the Pieces" data-flag="@X" onclick="openSidebar('HWK_73_Sweep the Pieces',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/106_Palanquin Hauler.jpg" id="HWK_106_Palanquin Hauler" data-flag="@X" onclick="openSidebar('HWK_106_Palanquin Hauler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/145_Righteous Hailstorm.jpg" id="HWK_145_Righteous Hailstorm" data-flag="@X" onclick="openSidebar('HWK_145_Righteous Hailstorm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/180_Onward to Purpose.jpg" id="HWK_180_Onward to Purpose" data-flag="@X" onclick="openSidebar('HWK_180_Onward to Purpose',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/32_Steward of Estates.jpg" id="HWK_32_Steward of Estates" data-flag="@X" onclick="openSidebar('HWK_32_Steward of Estates',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/74_Thunder-Tempo Official.jpg" id="HWK_74_Thunder-Tempo Official" data-flag="@X" onclick="openSidebar('HWK_74_Thunder-Tempo Official',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/107_Petulant Eimo.jpg" id="HWK_107_Petulant Eimo" data-flag="@X" onclick="openSidebar('HWK_107_Petulant Eimo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/147_Stoke Animosity.jpg" id="HWK_147_Stoke Animosity" data-flag="@X" onclick="openSidebar('HWK_147_Stoke Animosity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/182_Pure Elixirist.jpg" id="HWK_182_Pure Elixirist" data-flag="@X" onclick="openSidebar('HWK_182_Pure Elixirist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/33_Sunflare Marquess.jpg" id="HWK_33_Sunflare Marquess" data-flag="@X" onclick="openSidebar('HWK_33_Sunflare Marquess',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/76_Unbound Flow.jpg" id="HWK_76_Unbound Flow" data-flag="@X" onclick="openSidebar('HWK_76_Unbound Flow',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/111_Spiritlight Courier.jpg" id="HWK_111_Spiritlight Courier" data-flag="@X" onclick="openSidebar('HWK_111_Spiritlight Courier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/148_Storming Caolun Plains.jpg" id="HWK_148_Storming Caolun Plains" data-flag="@X" onclick="openSidebar('HWK_148_Storming Caolun Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/184_Ruin Poet.jpg" id="HWK_184_Ruin Poet" data-flag="@X" onclick="openSidebar('HWK_184_Ruin Poet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/37_Virtuous Deeds.jpg" id="HWK_37_Virtuous Deeds" data-flag="@X" onclick="openSidebar('HWK_37_Virtuous Deeds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/77_Watery Virtue Courtesan.jpg" id="HWK_77_Watery Virtue Courtesan" data-flag="@X" onclick="openSidebar('HWK_77_Watery Virtue Courtesan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/112_Stray Hulk.jpg" id="HWK_112_Stray Hulk" data-flag="@X" onclick="openSidebar('HWK_112_Stray Hulk',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/150_Vanguard of Immortals.jpg" id="HWK_150_Vanguard of Immortals" data-flag="@X" onclick="openSidebar('HWK_150_Vanguard of Immortals',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/186_Shun Luxuries.jpg" id="HWK_186_Shun Luxuries" data-flag="@X" onclick="openSidebar('HWK_186_Shun Luxuries',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/38_Weight of Ancestry.jpg" id="HWK_38_Weight of Ancestry" data-flag="@X" onclick="openSidebar('HWK_38_Weight of Ancestry',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/113_Supernatural Stamina.jpg" id="HWK_113_Supernatural Stamina" data-flag="@X" onclick="openSidebar('HWK_113_Supernatural Stamina',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/153_Xian Fateweaver.jpg" id="HWK_153_Xian Fateweaver" data-flag="@X" onclick="openSidebar('HWK_153_Xian Fateweaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/191_Tromp the Battlements.jpg" id="HWK_191_Tromp the Battlements" data-flag="@X" onclick="openSidebar('HWK_191_Tromp the Battlements',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/39_Yin Heavy Cavalry.jpg" id="HWK_39_Yin Heavy Cavalry" data-flag="@X" onclick="openSidebar('HWK_39_Yin Heavy Cavalry',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/192_Unfazed Maozi.jpg" id="HWK_192_Unfazed Maozi" data-flag="@X" onclick="openSidebar('HWK_192_Unfazed Maozi',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/230_Thunderstave Justiciar.jpg" id="HWK_230_Thunderstave Justiciar" data-flag="@X" onclick="openSidebar('HWK_230_Thunderstave Justiciar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/237_Wretched Shacklemage.jpg" id="HWK_237_Wretched Shacklemage" data-flag="@X" onclick="openSidebar('HWK_237_Wretched Shacklemage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/234_Unscrupulous Profiteer.jpg" id="HWK_234_Unscrupulous Profiteer" data-flag="@X" onclick="openSidebar('HWK_234_Unscrupulous Profiteer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/204_Daoshi Survivalist.jpg" id="HWK_204_Daoshi Survivalist" data-flag="@X" onclick="openSidebar('HWK_204_Daoshi Survivalist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/210_Fraying Filiality.jpg" id="HWK_210_Fraying Filiality" data-flag="@X" onclick="openSidebar('HWK_210_Fraying Filiality',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/194_Abbot of Forgotten Paths.jpg" id="HWK_194_Abbot of Forgotten Paths" data-flag="@X" onclick="openSidebar('HWK_194_Abbot of Forgotten Paths',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/216_Inkwater Earl.jpg" id="HWK_216_Inkwater Earl" data-flag="@X" onclick="openSidebar('HWK_216_Inkwater Earl',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/198_Barterer of Souls.jpg" id="HWK_198_Barterer of Souls" data-flag="@X" onclick="openSidebar('HWK_198_Barterer of Souls',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/196_Aspect of Authority.jpg" id="HWK_196_Aspect of Authority" data-flag="@X" onclick="openSidebar('HWK_196_Aspect of Authority',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/207_Everscale.jpg" id="HWK_207_Everscale" data-flag="@X" onclick="openSidebar('HWK_207_Everscale',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/215_Imperious Genealogist.jpg" id="HWK_215_Imperious Genealogist" data-flag="@X" onclick="openSidebar('HWK_215_Imperious Genealogist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/228_Swift-Arm Lu Yao.jpg" id="HWK_228_Swift-Arm Lu Yao" data-flag="@X" onclick="openSidebar('HWK_228_Swift-Arm Lu Yao',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/208_Favor of the Tombs.jpg" id="HWK_208_Favor of the Tombs" data-flag="@X" onclick="openSidebar('HWK_208_Favor of the Tombs',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/220_Severing-Blade Sheng Lei.jpg" id="HWK_220_Severing-Blade Sheng Lei" data-flag="@X" onclick="openSidebar('HWK_220_Severing-Blade Sheng Lei',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/232_Tormenting Questions.jpg" id="HWK_232_Tormenting Questions" data-flag="@X" onclick="openSidebar('HWK_232_Tormenting Questions',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/195_Ancestral Holdings.jpg" id="HWK_195_Ancestral Holdings" data-flag="@X" onclick="openSidebar('HWK_195_Ancestral Holdings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/202_Clash of Conscience.jpg" id="HWK_202_Clash of Conscience" data-flag="@X" onclick="openSidebar('HWK_202_Clash of Conscience',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/200_Bloodless Broodmother.jpg" id="HWK_200_Bloodless Broodmother" data-flag="@X" onclick="openSidebar('HWK_200_Bloodless Broodmother',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/223_Sky-Slicing Houtai.jpg" id="HWK_223_Sky-Slicing Houtai" data-flag="@X" onclick="openSidebar('HWK_223_Sky-Slicing Houtai',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/201_Character of Terrain.jpg" id="HWK_201_Character of Terrain" data-flag="@X" onclick="openSidebar('HWK_201_Character of Terrain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/233_Underhanded Slice.jpg" id="HWK_233_Underhanded Slice" data-flag="@X" onclick="openSidebar('HWK_233_Underhanded Slice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/214_Imbalanced Qi.jpg" id="HWK_214_Imbalanced Qi" data-flag="@X" onclick="openSidebar('HWK_214_Imbalanced Qi',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/224_Strike of the Tablet.jpg" id="HWK_224_Strike of the Tablet" data-flag="@X" onclick="openSidebar('HWK_224_Strike of the Tablet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/235_Veil-Lifting Lordship.jpg" id="HWK_235_Veil-Lifting Lordship" data-flag="@X" onclick="openSidebar('HWK_235_Veil-Lifting Lordship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/218_Lurking Reaper.jpg" id="HWK_218_Lurking Reaper" data-flag="@X" onclick="openSidebar('HWK_218_Lurking Reaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/240_Xudan, Emperor of Yin.jpg" id="HWK_240_Xudan, Emperor of Yin" data-flag="@X" onclick="openSidebar('HWK_240_Xudan, Emperor of Yin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/222_Shennao, Empress of Sun.jpg" id="HWK_222_Shennao, Empress of Sun" data-flag="@X" onclick="openSidebar('HWK_222_Shennao, Empress of Sun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/231_Tieshou, Emperor of Hui.jpg" id="HWK_231_Tieshou, Emperor of Hui" data-flag="@X" onclick="openSidebar('HWK_231_Tieshou, Emperor of Hui',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/221_Sheng Lei, Righteous Thunder.jpg" id="HWK_221_Sheng Lei, Righteous Thunder" data-flag="@X" onclick="openSidebar('HWK_221_Sheng Lei, Righteous Thunder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/217_Lu Yao, Shattered Guandao.jpg" id="HWK_217_Lu Yao, Shattered Guandao" data-flag="@X" onclick="openSidebar('HWK_217_Lu Yao, Shattered Guandao',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/241_Yin Ascendancy.jpg" id="HWK_241_Yin Ascendancy" data-flag="@X" onclick="openSidebar('HWK_241_Yin Ascendancy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/225_Sun Ascendancy.jpg" id="HWK_225_Sun Ascendancy" data-flag="@X" onclick="openSidebar('HWK_225_Sun Ascendancy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/211_Hui Ascendancy.jpg" id="HWK_211_Hui Ascendancy" data-flag="@X" onclick="openSidebar('HWK_211_Hui Ascendancy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/209_Feimeng, Ten-Plumed Fan.jpg" id="HWK_209_Feimeng, Ten-Plumed Fan" data-flag="@X" onclick="openSidebar('HWK_209_Feimeng, Ten-Plumed Fan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/197_Banxin, Unliving Loophole.jpg" id="HWK_197_Banxin, Unliving Loophole" data-flag="@X" onclick="openSidebar('HWK_197_Banxin, Unliving Loophole',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/243_Yin Taizhan, Rightful Heir.jpg" id="HWK_243_Yin Taizhan, Rightful Heir" data-flag="@X" onclick="openSidebar('HWK_243_Yin Taizhan, Rightful Heir',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/226_Sun Bao, Cinnabar Flame.jpg" id="HWK_226_Sun Bao, Cinnabar Flame" data-flag="@X" onclick="openSidebar('HWK_226_Sun Bao, Cinnabar Flame',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/212_Hui Chen, Dust in the Wind.jpg" id="HWK_212_Hui Chen, Dust in the Wind" data-flag="@X" onclick="openSidebar('HWK_212_Hui Chen, Dust in the Wind',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/238_Xian Ascendancy.jpg" id="HWK_238_Xian Ascendancy" data-flag="@X" onclick="openSidebar('HWK_238_Xian Ascendancy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/205_Eng Ascendancy.jpg" id="HWK_205_Eng Ascendancy" data-flag="@X" onclick="openSidebar('HWK_205_Eng Ascendancy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/199_Bloodied Yet Victorious.jpg" id="HWK_199_Bloodied Yet Victorious" data-flag="@X" onclick="openSidebar('HWK_199_Bloodied Yet Victorious',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/227_Sun Enraptured.jpg" id="HWK_227_Sun Enraptured" data-flag="@X" onclick="openSidebar('HWK_227_Sun Enraptured',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/203_Collapse.jpg" id="HWK_203_Collapse" data-flag="@X" onclick="openSidebar('HWK_203_Collapse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/229_Thrice-Ascendant Form.jpg" id="HWK_229_Thrice-Ascendant Form" data-flag="@X" onclick="openSidebar('HWK_229_Thrice-Ascendant Form',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/206_Eng Scrivener.jpg" id="HWK_206_Eng Scrivener" data-flag="@X" onclick="openSidebar('HWK_206_Eng Scrivener',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/242_Yin Commandant.jpg" id="HWK_242_Yin Commandant" data-flag="@X" onclick="openSidebar('HWK_242_Yin Commandant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/236_Wondrous Genesis.jpg" id="HWK_236_Wondrous Genesis" data-flag="@X" onclick="openSidebar('HWK_236_Wondrous Genesis',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/213_Hui Melodist.jpg" id="HWK_213_Hui Melodist" data-flag="@X" onclick="openSidebar('HWK_213_Hui Melodist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/239_Xian Decrier.jpg" id="HWK_239_Xian Decrier" data-flag="@X" onclick="openSidebar('HWK_239_Xian Decrier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/219_Overmind's Throne.jpg" id="HWK_219_Overminds Throne" data-flag="@X" onclick="openSidebar('HWK_219_Overminds Throne',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/247_Surveying Sergeant.jpg" id="HWK_247_Surveying Sergeant" data-flag="@X" onclick="openSidebar('HWK_247_Surveying Sergeant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/246_Nightblossom Feitian.jpg" id="HWK_246_Nightblossom Feitian" data-flag="@X" onclick="openSidebar('HWK_246_Nightblossom Feitian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/248_Tablet-Borne Broker.jpg" id="HWK_248_Tablet-Borne Broker" data-flag="@X" onclick="openSidebar('HWK_248_Tablet-Borne Broker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/244_Fenghuang of Marvels.jpg" id="HWK_244_Fenghuang of Marvels" data-flag="@X" onclick="openSidebar('HWK_244_Fenghuang of Marvels',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/245_Hellish Exaltation.jpg" id="HWK_245_Hellish Exaltation" data-flag="@X" onclick="openSidebar('HWK_245_Hellish Exaltation',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/2_Zhuquan, Queenly Messenger.jpg" id="HWK_2_Zhuquan, Queenly Messenger" data-flag="@X" onclick="openSidebar('HWK_2_Zhuquan, Queenly Messenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/HWK-files/img/1_Dixia Jun_back.jpg" alt="sets/HWK-files/img/1_Dixia Jun_front.jpg" id="HWK_1_Dixia Jun" data-flag="@XD" onclick="openSidebar('HWK_1_Dixia Jun',false)"><button class="flip-btn" onclick="imgFlip('HWK_1_Dixia Jun')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/249_Ageless Guardian.jpg" id="HWK_249_Ageless Guardian" data-flag="@X" onclick="openSidebar('HWK_249_Ageless Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/250_Banner of Tenfold Glories.jpg" id="HWK_250_Banner of Tenfold Glories" data-flag="@X" onclick="openSidebar('HWK_250_Banner of Tenfold Glories',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/253_Ever-Radiant Qipao.jpg" id="HWK_253_Ever-Radiant Qipao" data-flag="@X" onclick="openSidebar('HWK_253_Ever-Radiant Qipao',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/255_Grandstanding Puppetry.jpg" id="HWK_255_Grandstanding Puppetry" data-flag="@X" onclick="openSidebar('HWK_255_Grandstanding Puppetry',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/258_Reinforced Chariot.jpg" id="HWK_258_Reinforced Chariot" data-flag="@X" onclick="openSidebar('HWK_258_Reinforced Chariot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/259_Seambreaking Jingwa.jpg" id="HWK_259_Seambreaking Jingwa" data-flag="@X" onclick="openSidebar('HWK_259_Seambreaking Jingwa',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/261_Unrobed Monolith.jpg" id="HWK_261_Unrobed Monolith" data-flag="@X" onclick="openSidebar('HWK_261_Unrobed Monolith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/251_Baojian.jpg" id="HWK_251_Baojian" data-flag="@X" onclick="openSidebar('HWK_251_Baojian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/252_Eng Gateway.jpg" id="HWK_252_Eng Gateway" data-flag="@X" onclick="openSidebar('HWK_252_Eng Gateway',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/254_Glass-Petal Cameo.jpg" id="HWK_254_Glass-Petal Cameo" data-flag="@X" onclick="openSidebar('HWK_254_Glass-Petal Cameo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/256_Hui Gateway.jpg" id="HWK_256_Hui Gateway" data-flag="@X" onclick="openSidebar('HWK_256_Hui Gateway',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/257_Portraits of Lost Communion.jpg" id="HWK_257_Portraits of Lost Communion" data-flag="@X" onclick="openSidebar('HWK_257_Portraits of Lost Communion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/260_Sun Gateway.jpg" id="HWK_260_Sun Gateway" data-flag="@X" onclick="openSidebar('HWK_260_Sun Gateway',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/262_Xian Gateway.jpg" id="HWK_262_Xian Gateway" data-flag="@X" onclick="openSidebar('HWK_262_Xian Gateway',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/263_Yin Gateway.jpg" id="HWK_263_Yin Gateway" data-flag="@X" onclick="openSidebar('HWK_263_Yin Gateway',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/269_Gliding Courthouse.jpg" id="HWK_269_Gliding Courthouse" data-flag="@X" onclick="openSidebar('HWK_269_Gliding Courthouse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/278_Listless Harbor.jpg" id="HWK_278_Listless Harbor" data-flag="@X" onclick="openSidebar('HWK_278_Listless Harbor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/288_Trainee's Plaza.jpg" id="HWK_288_Trainees Plaza" data-flag="@X" onclick="openSidebar('HWK_288_Trainees Plaza',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/286_Sunset Courtyard.jpg" id="HWK_286_Sunset Courtyard" data-flag="@X" onclick="openSidebar('HWK_286_Sunset Courtyard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/283_Ruined Sanctuary.jpg" id="HWK_283_Ruined Sanctuary" data-flag="@X" onclick="openSidebar('HWK_283_Ruined Sanctuary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/284_Serenesky Pagoda.jpg" id="HWK_284_Serenesky Pagoda" data-flag="@X" onclick="openSidebar('HWK_284_Serenesky Pagoda',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/276_Hymnecho Alley.jpg" id="HWK_276_Hymnecho Alley" data-flag="@X" onclick="openSidebar('HWK_276_Hymnecho Alley',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/266_Dimlantern Market.jpg" id="HWK_266_Dimlantern Market" data-flag="@X" onclick="openSidebar('HWK_266_Dimlantern Market',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/281_Riverperch Retreat.jpg" id="HWK_281_Riverperch Retreat" data-flag="@X" onclick="openSidebar('HWK_281_Riverperch Retreat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/268_Dustchoked Ramparts.jpg" id="HWK_268_Dustchoked Ramparts" data-flag="@X" onclick="openSidebar('HWK_268_Dustchoked Ramparts',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/289_Unyielding Edifice.jpg" id="HWK_289_Unyielding Edifice" data-flag="@X" onclick="openSidebar('HWK_289_Unyielding Edifice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/264_Churning Waterfront.jpg" id="HWK_264_Churning Waterfront" data-flag="@X" onclick="openSidebar('HWK_264_Churning Waterfront',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/277_Incense Haunt.jpg" id="HWK_277_Incense Haunt" data-flag="@X" onclick="openSidebar('HWK_277_Incense Haunt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/275_Heavenward Turret.jpg" id="HWK_275_Heavenward Turret" data-flag="@X" onclick="openSidebar('HWK_275_Heavenward Turret',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/279_Miasmic Mansion.jpg" id="HWK_279_Miasmic Mansion" data-flag="@X" onclick="openSidebar('HWK_279_Miasmic Mansion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/287_Timehonored Passage.jpg" id="HWK_287_Timehonored Passage" data-flag="@X" onclick="openSidebar('HWK_287_Timehonored Passage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/265_Cliffclinging Shrines.jpg" id="HWK_265_Cliffclinging Shrines" data-flag="@X" onclick="openSidebar('HWK_265_Cliffclinging Shrines',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/282_Rotcolumn Rectory.jpg" id="HWK_282_Rotcolumn Rectory" data-flag="@X" onclick="openSidebar('HWK_282_Rotcolumn Rectory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/285_Starkscar Battlefield.jpg" id="HWK_285_Starkscar Battlefield" data-flag="@X" onclick="openSidebar('HWK_285_Starkscar Battlefield',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/267_Dragoncoil Falls.jpg" id="HWK_267_Dragoncoil Falls" data-flag="@X" onclick="openSidebar('HWK_267_Dragoncoil Falls',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/270_Halls of Change.jpg" id="HWK_270_Halls of Change" data-flag="@X" onclick="openSidebar('HWK_270_Halls of Change',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/271_Halls of Grace.jpg" id="HWK_271_Halls of Grace" data-flag="@X" onclick="openSidebar('HWK_271_Halls of Grace',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/272_Halls of Grit.jpg" id="HWK_272_Halls of Grit" data-flag="@X" onclick="openSidebar('HWK_272_Halls of Grit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/273_Halls of Past.jpg" id="HWK_273_Halls of Past" data-flag="@X" onclick="openSidebar('HWK_273_Halls of Past',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/274_Halls of Toil.jpg" id="HWK_274_Halls of Toil" data-flag="@X" onclick="openSidebar('HWK_274_Halls of Toil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/280_Placid Inn.jpg" id="HWK_280_Placid Inn" data-flag="@X" onclick="openSidebar('HWK_280_Placid Inn',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HWK_e" data-flag="@E" onclick="openSidebar('HWK_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/1t_Conflict.jpg" id="HWK_1t_Conflict" data-flag="@X" onclick="openSidebar('HWK_1t_Conflict',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/2t_Copy.jpg" id="HWK_2t_Copy" data-flag="@X" onclick="openSidebar('HWK_2t_Copy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/3t_Drake.jpg" id="HWK_3t_Drake" data-flag="@X" onclick="openSidebar('HWK_3t_Drake',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/4t_Spirit.jpg" id="HWK_4t_Spirit" data-flag="@X" onclick="openSidebar('HWK_4t_Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/14t_Soul-Slip.jpg" id="HWK_14t_Soul-Slip" data-flag="@X" onclick="openSidebar('HWK_14t_Soul-Slip',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/15t_Treasure.jpg" id="HWK_15t_Treasure" data-flag="@X" onclick="openSidebar('HWK_15t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/5t_Bird.jpg" id="HWK_5t_Bird" data-flag="@X" onclick="openSidebar('HWK_5t_Bird',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/6t_Noble.jpg" id="HWK_6t_Noble" data-flag="@X" onclick="openSidebar('HWK_6t_Noble',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/7t_Dragon Turtle.jpg" id="HWK_7t_Dragon Turtle" data-flag="@X" onclick="openSidebar('HWK_7t_Dragon Turtle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/8t_Elixir.jpg" id="HWK_8t_Elixir" data-flag="@X" onclick="openSidebar('HWK_8t_Elixir',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/9t_Zombie Serf.jpg" id="HWK_9t_Zombie Serf" data-flag="@X" onclick="openSidebar('HWK_9t_Zombie Serf',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/10t_Avatar Beast.jpg" id="HWK_10t_Avatar Beast" data-flag="@X" onclick="openSidebar('HWK_10t_Avatar Beast',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/11t_Beast.jpg" id="HWK_11t_Beast" data-flag="@X" onclick="openSidebar('HWK_11t_Beast',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/12t_Soldier.jpg" id="HWK_12t_Soldier" data-flag="@X" onclick="openSidebar('HWK_12t_Soldier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HWK-files/img/13t_Devil.jpg" id="HWK_13t_Devil" data-flag="@X" onclick="openSidebar('HWK_13t_Devil',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HWK_er" data-flag="@E" onclick="openSidebar('HWK_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

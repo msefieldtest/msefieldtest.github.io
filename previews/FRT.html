@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/FRT-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>FRT visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/FRT-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ASM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/COD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BRE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SMB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TBC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CLE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HWK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">2HU Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/ASM"><img src="../sets/ASM-files/icon.png">Amonkhet: Schism</a>
+	
+		<a class="set-bar inactive" href="../previews/COD"><img src="../sets/COD-files/icon.png">Children of Dawn</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/RNF"><img src="../sets/RNF-files/icon.png">Ravnica’s Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/WDW"><img src="../sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="../previews/BRE"><img src="../sets/BRE-files/icon.png">Kaldheim: Bretagard’s Revival</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/SMB"><img src="../sets/SMB-files/icon.png">Magic the Gathering | Super Mario Brothers</a>
+	
+		<a class="set-bar inactive" href="../previews/TBC"><img src="../sets/TBC-files/icon.png">Nemyria: The Beautiful Collapse</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Tin Lau</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLD"><img src="../sets/BLD-files/icon.png">Bloodborne</a>
+	
+		<a class="set-bar inactive" href="../previews/CLE"><img src="../sets/CLE-files/icon.png">Clearingsong</a>
+	
+		<a class="set-bar inactive" href="../previews/HWK"><img src="../sets/HWK-files/icon.png">Haishan: Warring Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KLB"><img src="../sets/KLB-files/icon.png">Kitsuo: the Last Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/MOX"><img src="../sets/MOX-files/icon.png">Midnight Omens of Xogoa</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/FRT-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/FRT-files/img/2_Bask in Glory.jpg" id="FRT_2_Bask in Glory" data-flag="@X" onclick="openSidebar('FRT_2_Bask in Glory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/54_Phasebound Emergence.jpg" id="FRT_54_Phasebound Emergence" data-flag="@X" onclick="openSidebar('FRT_54_Phasebound Emergence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/78_Imperial Shadowhand.jpg" id="FRT_78_Imperial Shadowhand" data-flag="@X" onclick="openSidebar('FRT_78_Imperial Shadowhand',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/118_Tactical Gamble.jpg" id="FRT_118_Tactical Gamble" data-flag="@X" onclick="openSidebar('FRT_118_Tactical Gamble',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/137_Grovekeeper Monument.jpg" id="FRT_137_Grovekeeper Monument" data-flag="@X" onclick="openSidebar('FRT_137_Grovekeeper Monument',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/4_Bishop of Persistence.jpg" id="FRT_4_Bishop of Persistence" data-flag="@X" onclick="openSidebar('FRT_4_Bishop of Persistence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/33_Beckon the Starlight Forms.jpg" id="FRT_33_Beckon the Starlight Forms" data-flag="@X" onclick="openSidebar('FRT_33_Beckon the Starlight Forms',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/64_Ambitious Saboteur.jpg" id="FRT_64_Ambitious Saboteur" data-flag="@X" onclick="openSidebar('FRT_64_Ambitious Saboteur',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/96_Blaze-Wield Bandit.jpg" id="FRT_96_Blaze-Wield Bandit" data-flag="@X" onclick="openSidebar('FRT_96_Blaze-Wield Bandit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/126_Blessings of Strength.jpg" id="FRT_126_Blessings of Strength" data-flag="@X" onclick="openSidebar('FRT_126_Blessings of Strength',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/13_Front-Legion Surveyor.jpg" id="FRT_13_Front-Legion Surveyor" data-flag="@X" onclick="openSidebar('FRT_13_Front-Legion Surveyor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/36_Channeling of Moonlight.jpg" id="FRT_36_Channeling of Moonlight" data-flag="@X" onclick="openSidebar('FRT_36_Channeling of Moonlight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/79_Lone-Wander Resurrector.jpg" id="FRT_79_Lone-Wander Resurrector" data-flag="@X" onclick="openSidebar('FRT_79_Lone-Wander Resurrector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/102_Desperate Assault.jpg" id="FRT_102_Desperate Assault" data-flag="@X" onclick="openSidebar('FRT_102_Desperate Assault',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/132_Far-Wander Ranger.jpg" id="FRT_132_Far-Wander Ranger" data-flag="@X" onclick="openSidebar('FRT_132_Far-Wander Ranger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/15_Gracious Wanderer.jpg" id="FRT_15_Gracious Wanderer" data-flag="@X" onclick="openSidebar('FRT_15_Gracious Wanderer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/49_Mind-Focused Warden.jpg" id="FRT_49_Mind-Focused Warden" data-flag="@X" onclick="openSidebar('FRT_49_Mind-Focused Warden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/84_Priest of the Damned.jpg" id="FRT_84_Priest of the Damned" data-flag="@X" onclick="openSidebar('FRT_84_Priest of the Damned',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/111_Gold and Glory.jpg" id="FRT_111_Gold and Glory" data-flag="@X" onclick="openSidebar('FRT_111_Gold and Glory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/136_Grovebound Tender.jpg" id="FRT_136_Grovebound Tender" data-flag="@X" onclick="openSidebar('FRT_136_Grovebound Tender',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/20_Might of Faith.jpg" id="FRT_20_Might of Faith" data-flag="@X" onclick="openSidebar('FRT_20_Might of Faith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/52_Pathbound Mystic.jpg" id="FRT_52_Pathbound Mystic" data-flag="@X" onclick="openSidebar('FRT_52_Pathbound Mystic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/88_Scaled Dusk-Blade.jpg" id="FRT_88_Scaled Dusk-Blade" data-flag="@X" onclick="openSidebar('FRT_88_Scaled Dusk-Blade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/113_Rage-Legion Brute.jpg" id="FRT_113_Rage-Legion Brute" data-flag="@X" onclick="openSidebar('FRT_113_Rage-Legion Brute',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/139_Lurking Huntkeeper.jpg" id="FRT_139_Lurking Huntkeeper" data-flag="@X" onclick="openSidebar('FRT_139_Lurking Huntkeeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/28_Stalwart Representative.jpg" id="FRT_28_Stalwart Representative" data-flag="@X" onclick="openSidebar('FRT_28_Stalwart Representative',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/57_Riverbound Seer.jpg" id="FRT_57_Riverbound Seer" data-flag="@X" onclick="openSidebar('FRT_57_Riverbound Seer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/89_Skills of the Shadowed.jpg" id="FRT_89_Skills of the Shadowed" data-flag="@X" onclick="openSidebar('FRT_89_Skills of the Shadowed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/122_Virtuous Vagabond.jpg" id="FRT_122_Virtuous Vagabond" data-flag="@X" onclick="openSidebar('FRT_122_Virtuous Vagabond',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/146_Primal Summons.jpg" id="FRT_146_Primal Summons" data-flag="@X" onclick="openSidebar('FRT_146_Primal Summons',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/31_Twilight Cleansing.jpg" id="FRT_31_Twilight Cleansing" data-flag="@X" onclick="openSidebar('FRT_31_Twilight Cleansing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/59_Sacred Shrine Mason.jpg" id="FRT_59_Sacred Shrine Mason" data-flag="@X" onclick="openSidebar('FRT_59_Sacred Shrine Mason',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/92_Twilight Reckoning.jpg" id="FRT_92_Twilight Reckoning" data-flag="@X" onclick="openSidebar('FRT_92_Twilight Reckoning',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/125_Wildfire Tamer.jpg" id="FRT_125_Wildfire Tamer" data-flag="@X" onclick="openSidebar('FRT_125_Wildfire Tamer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/153_Trumpeting Captain.jpg" id="FRT_153_Trumpeting Captain" data-flag="@X" onclick="openSidebar('FRT_153_Trumpeting Captain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/5_Blasphemer Detainer.jpg" id="FRT_5_Blasphemer Detainer" data-flag="@X" onclick="openSidebar('FRT_5_Blasphemer Detainer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/35_Bright-Grove Watcher.jpg" id="FRT_35_Bright-Grove Watcher" data-flag="@X" onclick="openSidebar('FRT_35_Bright-Grove Watcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/66_Bog-Wander Poisoner.jpg" id="FRT_66_Bog-Wander Poisoner" data-flag="@X" onclick="openSidebar('FRT_66_Bog-Wander Poisoner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/97_Bold-Grove Elder.jpg" id="FRT_97_Bold-Grove Elder" data-flag="@X" onclick="openSidebar('FRT_97_Bold-Grove Elder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/129_Chart the Game Trails.jpg" id="FRT_129_Chart the Game Trails" data-flag="@X" onclick="openSidebar('FRT_129_Chart the Game Trails',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/9_Brightlight Paladin.jpg" id="FRT_9_Brightlight Paladin" data-flag="@X" onclick="openSidebar('FRT_9_Brightlight Paladin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/38_Current-Wield Warden.jpg" id="FRT_38_Current-Wield Warden" data-flag="@X" onclick="openSidebar('FRT_38_Current-Wield Warden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/71_Fear-Tuned Mauler.jpg" id="FRT_71_Fear-Tuned Mauler" data-flag="@X" onclick="openSidebar('FRT_71_Fear-Tuned Mauler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/98_Bovidian Barkeep.jpg" id="FRT_98_Bovidian Barkeep" data-flag="@X" onclick="openSidebar('FRT_98_Bovidian Barkeep',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/130_Elephon Vanguard.jpg" id="FRT_130_Elephon Vanguard" data-flag="@X" onclick="openSidebar('FRT_130_Elephon Vanguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/11_Elephon Frontliner.jpg" id="FRT_11_Elephon Frontliner" data-flag="@X" onclick="openSidebar('FRT_11_Elephon Frontliner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/40_Drowned Efforts.jpg" id="FRT_40_Drowned Efforts" data-flag="@X" onclick="openSidebar('FRT_40_Drowned Efforts',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/72_Feared River-Lurker.jpg" id="FRT_72_Feared River-Lurker" data-flag="@X" onclick="openSidebar('FRT_72_Feared River-Lurker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/106_Forced Conscription.jpg" id="FRT_106_Forced Conscription" data-flag="@X" onclick="openSidebar('FRT_106_Forced Conscription',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/131_Equalizing Hunter.jpg" id="FRT_131_Equalizing Hunter" data-flag="@X" onclick="openSidebar('FRT_131_Equalizing Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/16_Great-Horn Knight.jpg" id="FRT_16_Great-Horn Knight" data-flag="@X" onclick="openSidebar('FRT_16_Great-Horn Knight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/41_Dusk-Touched Pacifier.jpg" id="FRT_41_Dusk-Touched Pacifier" data-flag="@X" onclick="openSidebar('FRT_41_Dusk-Touched Pacifier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/73_Fell the Blasphemer.jpg" id="FRT_73_Fell the Blasphemer" data-flag="@X" onclick="openSidebar('FRT_73_Fell the Blasphemer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/108_Front-Legion Strategist.jpg" id="FRT_108_Front-Legion Strategist" data-flag="@X" onclick="openSidebar('FRT_108_Front-Legion Strategist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/135_Fostered Might.jpg" id="FRT_135_Fostered Might" data-flag="@X" onclick="openSidebar('FRT_135_Fostered Might',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/18_Honorable Exile.jpg" id="FRT_18_Honorable Exile" data-flag="@X" onclick="openSidebar('FRT_18_Honorable Exile',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/42_Enshrinement.jpg" id="FRT_42_Enshrinement" data-flag="@X" onclick="openSidebar('FRT_42_Enshrinement',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/74_Foul Tactics.jpg" id="FRT_74_Foul Tactics" data-flag="@X" onclick="openSidebar('FRT_74_Foul Tactics',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/110_Fury of the Desperate.jpg" id="FRT_110_Fury of the Desperate" data-flag="@X" onclick="openSidebar('FRT_110_Fury of the Desperate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/138_Grovetown Mentor.jpg" id="FRT_138_Grovetown Mentor" data-flag="@X" onclick="openSidebar('FRT_138_Grovetown Mentor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/23_Pride-Heart Lieutenant.jpg" id="FRT_23_Pride-Heart Lieutenant" data-flag="@X" onclick="openSidebar('FRT_23_Pride-Heart Lieutenant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/51_Mind-Wander Acolyte.jpg" id="FRT_51_Mind-Wander Acolyte" data-flag="@X" onclick="openSidebar('FRT_51_Mind-Wander Acolyte',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/75_Glorymarked Returner.jpg" id="FRT_75_Glorymarked Returner" data-flag="@X" onclick="openSidebar('FRT_75_Glorymarked Returner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/112_Natural Pushback.jpg" id="FRT_112_Natural Pushback" data-flag="@X" onclick="openSidebar('FRT_112_Natural Pushback',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/141_Marshland Trawler.jpg" id="FRT_141_Marshland Trawler" data-flag="@X" onclick="openSidebar('FRT_141_Marshland Trawler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/24_Rallier's Boon.jpg" id="FRT_24_Ralliers Boon" data-flag="@X" onclick="openSidebar('FRT_24_Ralliers Boon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/55_River-Cloak Thief.jpg" id="FRT_55_River-Cloak Thief" data-flag="@X" onclick="openSidebar('FRT_55_River-Cloak Thief',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/83_Night-Feather Inquisitor.jpg" id="FRT_83_Night-Feather Inquisitor" data-flag="@X" onclick="openSidebar('FRT_83_Night-Feather Inquisitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/115_Range-Legion Flanker.jpg" id="FRT_115_Range-Legion Flanker" data-flag="@X" onclick="openSidebar('FRT_115_Range-Legion Flanker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/142_Might-Legion Champion.jpg" id="FRT_142_Might-Legion Champion" data-flag="@X" onclick="openSidebar('FRT_142_Might-Legion Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/26_Righteous Restoration.jpg" id="FRT_26_Righteous Restoration" data-flag="@X" onclick="openSidebar('FRT_26_Righteous Restoration',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/61_Stream-Warden Guide.jpg" id="FRT_61_Stream-Warden Guide" data-flag="@X" onclick="openSidebar('FRT_61_Stream-Warden Guide',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/85_Pull from the Bogs.jpg" id="FRT_85_Pull from the Bogs" data-flag="@X" onclick="openSidebar('FRT_85_Pull from the Bogs',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/123_Wander-Heart Mercenary.jpg" id="FRT_123_Wander-Heart Mercenary" data-flag="@X" onclick="openSidebar('FRT_123_Wander-Heart Mercenary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/149_Stampede of the Legion.jpg" id="FRT_149_Stampede of the Legion" data-flag="@X" onclick="openSidebar('FRT_149_Stampede of the Legion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/27_Solid-Hoof Veteran.jpg" id="FRT_27_Solid-Hoof Veteran" data-flag="@X" onclick="openSidebar('FRT_27_Solid-Hoof Veteran',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/62_Ursaeic Repurposing.jpg" id="FRT_62_Ursaeic Repurposing" data-flag="@X" onclick="openSidebar('FRT_62_Ursaeic Repurposing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/91_Tithe Enforcer.jpg" id="FRT_91_Tithe Enforcer" data-flag="@X" onclick="openSidebar('FRT_91_Tithe Enforcer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/124_Wild Energy Apprentice.jpg" id="FRT_124_Wild Energy Apprentice" data-flag="@X" onclick="openSidebar('FRT_124_Wild Energy Apprentice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/156_Wild-Wander Shepherd.jpg" id="FRT_156_Wild-Wander Shepherd" data-flag="@X" onclick="openSidebar('FRT_156_Wild-Wander Shepherd',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/3_Battlefront Scrounger.jpg" id="FRT_3_Battlefront Scrounger" data-flag="@X" onclick="openSidebar('FRT_3_Battlefront Scrounger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/34_Bright-Eyed Adept.jpg" id="FRT_34_Bright-Eyed Adept" data-flag="@X" onclick="openSidebar('FRT_34_Bright-Eyed Adept',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/65_Battlefield Finisher.jpg" id="FRT_65_Battlefield Finisher" data-flag="@X" onclick="openSidebar('FRT_65_Battlefield Finisher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/95_Battlefield Pilferer.jpg" id="FRT_95_Battlefield Pilferer" data-flag="@X" onclick="openSidebar('FRT_95_Battlefield Pilferer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/127_Bright-Tusk Recruit.jpg" id="FRT_127_Bright-Tusk Recruit" data-flag="@X" onclick="openSidebar('FRT_127_Bright-Tusk Recruit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/6_Blessed Talon Sigil.jpg" id="FRT_6_Blessed Talon Sigil" data-flag="@X" onclick="openSidebar('FRT_6_Blessed Talon Sigil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/37_Clever Swiper.jpg" id="FRT_37_Clever Swiper" data-flag="@X" onclick="openSidebar('FRT_37_Clever Swiper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/67_Call the Once Blessed.jpg" id="FRT_67_Call the Once Blessed" data-flag="@X" onclick="openSidebar('FRT_67_Call the Once Blessed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/99_Claw-Striker Bracers.jpg" id="FRT_99_Claw-Striker Bracers" data-flag="@X" onclick="openSidebar('FRT_99_Claw-Striker Bracers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/128_Brighthollow Guard.jpg" id="FRT_128_Brighthollow Guard" data-flag="@X" onclick="openSidebar('FRT_128_Brighthollow Guard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/7_Blessings Mystic.jpg" id="FRT_7_Blessings Mystic" data-flag="@X" onclick="openSidebar('FRT_7_Blessings Mystic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/39_Downpour Leviathan.jpg" id="FRT_39_Downpour Leviathan" data-flag="@X" onclick="openSidebar('FRT_39_Downpour Leviathan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/68_Dark River Hiss.jpg" id="FRT_68_Dark River Hiss" data-flag="@X" onclick="openSidebar('FRT_68_Dark River Hiss',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/100_Cleanse with Fire.jpg" id="FRT_100_Cleanse with Fire" data-flag="@X" onclick="openSidebar('FRT_100_Cleanse with Fire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/133_Far-Wander Shaman.jpg" id="FRT_133_Far-Wander Shaman" data-flag="@X" onclick="openSidebar('FRT_133_Far-Wander Shaman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/8_Bolstered Veteran.jpg" id="FRT_8_Bolstered Veteran" data-flag="@X" onclick="openSidebar('FRT_8_Bolstered Veteran',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/43_Graceful Intervention.jpg" id="FRT_43_Graceful Intervention" data-flag="@X" onclick="openSidebar('FRT_43_Graceful Intervention',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/69_Death Roll.jpg" id="FRT_69_Death Roll" data-flag="@X" onclick="openSidebar('FRT_69_Death Roll',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/101_Dauntless Recruits.jpg" id="FRT_101_Dauntless Recruits" data-flag="@X" onclick="openSidebar('FRT_101_Dauntless Recruits',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/134_Feline Instinct.jpg" id="FRT_134_Feline Instinct" data-flag="@X" onclick="openSidebar('FRT_134_Feline Instinct',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/10_Courageous Rallier.jpg" id="FRT_10_Courageous Rallier" data-flag="@X" onclick="openSidebar('FRT_10_Courageous Rallier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/44_Guardian Instinct.jpg" id="FRT_44_Guardian Instinct" data-flag="@X" onclick="openSidebar('FRT_44_Guardian Instinct',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/70_Death-Wreathed Terror.jpg" id="FRT_70_Death-Wreathed Terror" data-flag="@X" onclick="openSidebar('FRT_70_Death-Wreathed Terror',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/103_Distraction Strike.jpg" id="FRT_103_Distraction Strike" data-flag="@X" onclick="openSidebar('FRT_103_Distraction Strike',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/140_Marshland Hunter.jpg" id="FRT_140_Marshland Hunter" data-flag="@X" onclick="openSidebar('FRT_140_Marshland Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/12_Feathered Acolyte.jpg" id="FRT_12_Feathered Acolyte" data-flag="@X" onclick="openSidebar('FRT_12_Feathered Acolyte',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/45_Holy Gust.jpg" id="FRT_45_Holy Gust" data-flag="@X" onclick="openSidebar('FRT_45_Holy Gust',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/76_Greedy Poacher.jpg" id="FRT_76_Greedy Poacher" data-flag="@X" onclick="openSidebar('FRT_76_Greedy Poacher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/104_Eager-Horn Rookie.jpg" id="FRT_104_Eager-Horn Rookie" data-flag="@X" onclick="openSidebar('FRT_104_Eager-Horn Rookie',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/143_Mighty Deserter.jpg" id="FRT_143_Mighty Deserter" data-flag="@X" onclick="openSidebar('FRT_143_Mighty Deserter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/14_Glorious Stampede.jpg" id="FRT_14_Glorious Stampede" data-flag="@X" onclick="openSidebar('FRT_14_Glorious Stampede',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/46_Holy Site Watcher.jpg" id="FRT_46_Holy Site Watcher" data-flag="@X" onclick="openSidebar('FRT_46_Holy Site Watcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/77_Horn Bore.jpg" id="FRT_77_Horn Bore" data-flag="@X" onclick="openSidebar('FRT_77_Horn Bore',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/105_Enraged Blast.jpg" id="FRT_105_Enraged Blast" data-flag="@X" onclick="openSidebar('FRT_105_Enraged Blast',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/144_Nurturing Nature.jpg" id="FRT_144_Nurturing Nature" data-flag="@X" onclick="openSidebar('FRT_144_Nurturing Nature',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/17_Holy Holding.jpg" id="FRT_17_Holy Holding" data-flag="@X" onclick="openSidebar('FRT_17_Holy Holding',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/47_Jaw-Lock Glyph.jpg" id="FRT_47_Jaw-Lock Glyph" data-flag="@X" onclick="openSidebar('FRT_47_Jaw-Lock Glyph',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/80_Might-Marauder Helm.jpg" id="FRT_80_Might-Marauder Helm" data-flag="@X" onclick="openSidebar('FRT_80_Might-Marauder Helm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/107_Frenzy-Kin Reinforcer.jpg" id="FRT_107_Frenzy-Kin Reinforcer" data-flag="@X" onclick="openSidebar('FRT_107_Frenzy-Kin Reinforcer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/145_Prepare an Ambush.jpg" id="FRT_145_Prepare an Ambush" data-flag="@X" onclick="openSidebar('FRT_145_Prepare an Ambush',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/19_Horned Beligerent.jpg" id="FRT_19_Horned Beligerent" data-flag="@X" onclick="openSidebar('FRT_19_Horned Beligerent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/48_Marsh Sifting.jpg" id="FRT_48_Marsh Sifting" data-flag="@X" onclick="openSidebar('FRT_48_Marsh Sifting',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/81_Muck-Wield Stalker.jpg" id="FRT_81_Muck-Wield Stalker" data-flag="@X" onclick="openSidebar('FRT_81_Muck-Wield Stalker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/109_Front-Wander Scout.jpg" id="FRT_109_Front-Wander Scout" data-flag="@X" onclick="openSidebar('FRT_109_Front-Wander Scout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/147_Protective Charger.jpg" id="FRT_147_Protective Charger" data-flag="@X" onclick="openSidebar('FRT_147_Protective Charger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/21_Might-Wrought Boon.jpg" id="FRT_21_Might-Wrought Boon" data-flag="@X" onclick="openSidebar('FRT_21_Might-Wrought Boon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/50_Mind-Honed Mentor.jpg" id="FRT_50_Mind-Honed Mentor" data-flag="@X" onclick="openSidebar('FRT_50_Mind-Honed Mentor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/82_Night-Blessed Inquisitor.jpg" id="FRT_82_Night-Blessed Inquisitor" data-flag="@X" onclick="openSidebar('FRT_82_Night-Blessed Inquisitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/114_Rage-Legion Charger.jpg" id="FRT_114_Rage-Legion Charger" data-flag="@X" onclick="openSidebar('FRT_114_Rage-Legion Charger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/148_Rally-Legion Requisition.jpg" id="FRT_148_Rally-Legion Requisition" data-flag="@X" onclick="openSidebar('FRT_148_Rally-Legion Requisition',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/22_Nomadic Defense.jpg" id="FRT_22_Nomadic Defense" data-flag="@X" onclick="openSidebar('FRT_22_Nomadic Defense',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/53_Patient Trapper.jpg" id="FRT_53_Patient Trapper" data-flag="@X" onclick="openSidebar('FRT_53_Patient Trapper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/86_Purge the Heresy.jpg" id="FRT_86_Purge the Heresy" data-flag="@X" onclick="openSidebar('FRT_86_Purge the Heresy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/116_Rune-Charged Striker.jpg" id="FRT_116_Rune-Charged Striker" data-flag="@X" onclick="openSidebar('FRT_116_Rune-Charged Striker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/150_Stomper-Legion Hammer.jpg" id="FRT_150_Stomper-Legion Hammer" data-flag="@X" onclick="openSidebar('FRT_150_Stomper-Legion Hammer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/25_Reckless Inventory.jpg" id="FRT_25_Reckless Inventory" data-flag="@X" onclick="openSidebar('FRT_25_Reckless Inventory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/56_River-Hunter's Cloak.jpg" id="FRT_56_River-Hunters Cloak" data-flag="@X" onclick="openSidebar('FRT_56_River-Hunters Cloak',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/87_Ruin-Wander Watch.jpg" id="FRT_87_Ruin-Wander Watch" data-flag="@X" onclick="openSidebar('FRT_87_Ruin-Wander Watch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/117_Rune-Guard Sharpshooter.jpg" id="FRT_117_Rune-Guard Sharpshooter" data-flag="@X" onclick="openSidebar('FRT_117_Rune-Guard Sharpshooter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/151_Surge of Might.jpg" id="FRT_151_Surge of Might" data-flag="@X" onclick="openSidebar('FRT_151_Surge of Might',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/29_Streetwise Nomad.jpg" id="FRT_29_Streetwise Nomad" data-flag="@X" onclick="openSidebar('FRT_29_Streetwise Nomad',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/58_Rune-Carved Guardian.jpg" id="FRT_58_Rune-Carved Guardian" data-flag="@X" onclick="openSidebar('FRT_58_Rune-Carved Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/90_Strixan Siphon Priest.jpg" id="FRT_90_Strixan Siphon Priest" data-flag="@X" onclick="openSidebar('FRT_90_Strixan Siphon Priest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/119_Trade In.jpg" id="FRT_119_Trade In" data-flag="@X" onclick="openSidebar('FRT_119_Trade In',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/152_Surge-Seeker Wurm.jpg" id="FRT_152_Surge-Seeker Wurm" data-flag="@X" onclick="openSidebar('FRT_152_Surge-Seeker Wurm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/30_Sturdy Advancer.jpg" id="FRT_30_Sturdy Advancer" data-flag="@X" onclick="openSidebar('FRT_30_Sturdy Advancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/60_Shimmer Guard Blessing.jpg" id="FRT_60_Shimmer Guard Blessing" data-flag="@X" onclick="openSidebar('FRT_60_Shimmer Guard Blessing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/93_Wander-Rite Offering.jpg" id="FRT_93_Wander-Rite Offering" data-flag="@X" onclick="openSidebar('FRT_93_Wander-Rite Offering',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/120_Trample the Opposition.jpg" id="FRT_120_Trample the Opposition" data-flag="@X" onclick="openSidebar('FRT_120_Trample the Opposition',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/154_Venemous Repurpose.jpg" id="FRT_154_Venemous Repurpose" data-flag="@X" onclick="openSidebar('FRT_154_Venemous Repurpose',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/32_Undaunted Avenger.jpg" id="FRT_32_Undaunted Avenger" data-flag="@X" onclick="openSidebar('FRT_32_Undaunted Avenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/63_Wayfinder's Meditation.jpg" id="FRT_63_Wayfinders Meditation" data-flag="@X" onclick="openSidebar('FRT_63_Wayfinders Meditation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/94_Wound Wielder.jpg" id="FRT_94_Wound Wielder" data-flag="@X" onclick="openSidebar('FRT_94_Wound Wielder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/121_Unstoppable Force.jpg" id="FRT_121_Unstoppable Force" data-flag="@X" onclick="openSidebar('FRT_121_Unstoppable Force',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/155_Watchful Game Tracker.jpg" id="FRT_155_Watchful Game Tracker" data-flag="@X" onclick="openSidebar('FRT_155_Watchful Game Tracker',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/173_Dusk-Veiled Professional.jpg" id="FRT_173_Dusk-Veiled Professional" data-flag="@X" onclick="openSidebar('FRT_173_Dusk-Veiled Professional',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/235_Wild-Surge Beckoner.jpg" id="FRT_235_Wild-Surge Beckoner" data-flag="@X" onclick="openSidebar('FRT_235_Wild-Surge Beckoner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/174_Duskrite Priest.jpg" id="FRT_174_Duskrite Priest" data-flag="@X" onclick="openSidebar('FRT_174_Duskrite Priest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/184_Garrison-Legion Quatemaster.jpg" id="FRT_184_Garrison-Legion Quatemaster" data-flag="@X" onclick="openSidebar('FRT_184_Garrison-Legion Quatemaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/168_Clever Skywatcher.jpg" id="FRT_168_Clever Skywatcher" data-flag="@X" onclick="openSidebar('FRT_168_Clever Skywatcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/180_Fanatical Heretic.jpg" id="FRT_180_Fanatical Heretic" data-flag="@X" onclick="openSidebar('FRT_180_Fanatical Heretic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/232_Unyielding Resilience.jpg" id="FRT_232_Unyielding Resilience" data-flag="@X" onclick="openSidebar('FRT_232_Unyielding Resilience',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/159_Balance of Dusk and Dawn.jpg" id="FRT_159_Balance of Dusk and Dawn" data-flag="@X" onclick="openSidebar('FRT_159_Balance of Dusk and Dawn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/162_Battleground Improviser.jpg" id="FRT_162_Battleground Improviser" data-flag="@X" onclick="openSidebar('FRT_162_Battleground Improviser',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/201_Naturalist Enhancements.jpg" id="FRT_201_Naturalist Enhancements" data-flag="@X" onclick="openSidebar('FRT_201_Naturalist Enhancements',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/221_Siphon Technique.jpg" id="FRT_221_Siphon Technique" data-flag="@X" onclick="openSidebar('FRT_221_Siphon Technique',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/234_Wild-Legion Deserter.jpg" id="FRT_234_Wild-Legion Deserter" data-flag="@X" onclick="openSidebar('FRT_234_Wild-Legion Deserter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/196_Mercenary Inquisitor.jpg" id="FRT_196_Mercenary Inquisitor" data-flag="@X" onclick="openSidebar('FRT_196_Mercenary Inquisitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/222_Support of the Legion.jpg" id="FRT_222_Support of the Legion" data-flag="@X" onclick="openSidebar('FRT_222_Support of the Legion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/237_Wildland Guardian.jpg" id="FRT_237_Wildland Guardian" data-flag="@X" onclick="openSidebar('FRT_237_Wildland Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/204_Night-Tuned Etchings.jpg" id="FRT_204_Night-Tuned Etchings" data-flag="@X" onclick="openSidebar('FRT_204_Night-Tuned Etchings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/190_Grove-Guard Sigils.jpg" id="FRT_190_Grove-Guard Sigils" data-flag="@X" onclick="openSidebar('FRT_190_Grove-Guard Sigils',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/160_Battle-Tithe Priest.jpg" id="FRT_160_Battle-Tithe Priest" data-flag="@X" onclick="openSidebar('FRT_160_Battle-Tithe Priest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/211_Raid Lieutenant.jpg" id="FRT_211_Raid Lieutenant" data-flag="@X" onclick="openSidebar('FRT_211_Raid Lieutenant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/236_Wilderness Cultivator.jpg" id="FRT_236_Wilderness Cultivator" data-flag="@X" onclick="openSidebar('FRT_236_Wilderness Cultivator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/243_Night-Wind Spirits.jpg" id="FRT_243_Night-Wind Spirits" data-flag="@X" onclick="openSidebar('FRT_243_Night-Wind Spirits',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/242_High-Eyed Spirits.jpg" id="FRT_242_High-Eyed Spirits" data-flag="@X" onclick="openSidebar('FRT_242_High-Eyed Spirits',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/247_Vigor-Cloak Spirits.jpg" id="FRT_247_Vigor-Cloak Spirits" data-flag="@X" onclick="openSidebar('FRT_247_Vigor-Cloak Spirits',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/244_Quick-Arm Spirits.jpg" id="FRT_244_Quick-Arm Spirits" data-flag="@X" onclick="openSidebar('FRT_244_Quick-Arm Spirits',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/248_Wild-Might Spirits.jpg" id="FRT_248_Wild-Might Spirits" data-flag="@X" onclick="openSidebar('FRT_248_Wild-Might Spirits',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/198_Might of the Elephon.jpg" id="FRT_198_Might of the Elephon" data-flag="@X" onclick="openSidebar('FRT_198_Might of the Elephon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/210_Quirrellus, Prophet of the Phases.jpg" id="FRT_210_Quirrellus, Prophet of the Phases" data-flag="@X" onclick="openSidebar('FRT_210_Quirrellus, Prophet of the Phases',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/185_Gifts of the Bayou.jpg" id="FRT_185_Gifts of the Bayou" data-flag="@X" onclick="openSidebar('FRT_185_Gifts of the Bayou',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/165_Bloodboiling Retribution.jpg" id="FRT_165_Bloodboiling Retribution" data-flag="@X" onclick="openSidebar('FRT_165_Bloodboiling Retribution',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/158_Aoife, the Warden Mother.jpg" id="FRT_158_Aoife, the Warden Mother" data-flag="@X" onclick="openSidebar('FRT_158_Aoife, the Warden Mother',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/203_Neurevin, Herald of the Legions.jpg" id="FRT_203_Neurevin, Herald of the Legions" data-flag="@X" onclick="openSidebar('FRT_203_Neurevin, Herald of the Legions',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/215_Rites of Twilight.jpg" id="FRT_215_Rites of Twilight" data-flag="@X" onclick="openSidebar('FRT_215_Rites of Twilight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/227_Tenoc, Huntcaller.jpg" id="FRT_227_Tenoc, Huntcaller" data-flag="@X" onclick="openSidebar('FRT_227_Tenoc, Huntcaller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/191_Leuric, Glory Profiteer.jpg" id="FRT_191_Leuric, Glory Profiteer" data-flag="@X" onclick="openSidebar('FRT_191_Leuric, Glory Profiteer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/213_Rhythms of the World.jpg" id="FRT_213_Rhythms of the World" data-flag="@X" onclick="openSidebar('FRT_213_Rhythms of the World',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/179_Emnian, Legion Commander.jpg" id="FRT_179_Emnian, Legion Commander" data-flag="@X" onclick="openSidebar('FRT_179_Emnian, Legion Commander',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/163_Blessings of Moon and Star.jpg" id="FRT_163_Blessings of Moon and Star" data-flag="@X" onclick="openSidebar('FRT_163_Blessings of Moon and Star',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/171_Decay Specialist.jpg" id="FRT_171_Decay Specialist" data-flag="@X" onclick="openSidebar('FRT_171_Decay Specialist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/172_Dusk-Blessed Brutalist.jpg" id="FRT_172_Dusk-Blessed Brutalist" data-flag="@X" onclick="openSidebar('FRT_172_Dusk-Blessed Brutalist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/167_Cian, Earth Whisperer.jpg" id="FRT_167_Cian, Earth Whisperer" data-flag="@X" onclick="openSidebar('FRT_167_Cian, Earth Whisperer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/199_Mighty Strike.jpg" id="FRT_199_Mighty Strike" data-flag="@X" onclick="openSidebar('FRT_199_Mighty Strike',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/181_First Dance of Twilight.jpg" id="FRT_181_First Dance of Twilight" data-flag="@X" onclick="openSidebar('FRT_181_First Dance of Twilight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/206_Oremen, Wild-Keeper.jpg" id="FRT_206_Oremen, Wild-Keeper" data-flag="@X" onclick="openSidebar('FRT_206_Oremen, Wild-Keeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/178_Ellevena, Rambunctious Heir.jpg" id="FRT_178_Ellevena, Rambunctious Heir" data-flag="@X" onclick="openSidebar('FRT_178_Ellevena, Rambunctious Heir',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/212_Rallying Turncoat.jpg" id="FRT_212_Rallying Turncoat" data-flag="@X" onclick="openSidebar('FRT_212_Rallying Turncoat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/214_Rise of the Stampedes.jpg" id="FRT_214_Rise of the Stampedes" data-flag="@X" onclick="openSidebar('FRT_214_Rise of the Stampedes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/207_Outskirts Inquisitor.jpg" id="FRT_207_Outskirts Inquisitor" data-flag="@X" onclick="openSidebar('FRT_207_Outskirts Inquisitor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/209_The Paths of the Rivers.jpg" id="FRT_209_The Paths of the Rivers" data-flag="@X" onclick="openSidebar('FRT_209_The Paths of the Rivers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/208_The Path of Promise.jpg" id="FRT_208_The Path of Promise" data-flag="@X" onclick="openSidebar('FRT_208_The Path of Promise',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/217_Roar of the Wilds.jpg" id="FRT_217_Roar of the Wilds" data-flag="@X" onclick="openSidebar('FRT_217_Roar of the Wilds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/220_Shine-Horn Lieutenant.jpg" id="FRT_220_Shine-Horn Lieutenant" data-flag="@X" onclick="openSidebar('FRT_220_Shine-Horn Lieutenant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/224_Tanus, Eye of the Heavens.jpg" id="FRT_224_Tanus, Eye of the Heavens" data-flag="@X" onclick="openSidebar('FRT_224_Tanus, Eye of the Heavens',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/216_Riverbound Surge.jpg" id="FRT_216_Riverbound Surge" data-flag="@X" onclick="openSidebar('FRT_216_Riverbound Surge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/219_Shared Earnings.jpg" id="FRT_219_Shared Earnings" data-flag="@X" onclick="openSidebar('FRT_219_Shared Earnings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/238_The Wild's First Whisper.jpg" id="FRT_238_The Wilds First Whisper" data-flag="@X" onclick="openSidebar('FRT_238_The Wilds First Whisper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/241_Elephon Representative.jpg" id="FRT_241_Elephon Representative" data-flag="@X" onclick="openSidebar('FRT_241_Elephon Representative',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/245_Strixan Representative.jpg" id="FRT_245_Strixan Representative" data-flag="@X" onclick="openSidebar('FRT_245_Strixan Representative',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/240_Crocodilid Representative.jpg" id="FRT_240_Crocodilid Representative" data-flag="@X" onclick="openSidebar('FRT_240_Crocodilid Representative',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/239_Bovidian Representative.jpg" id="FRT_239_Bovidian Representative" data-flag="@X" onclick="openSidebar('FRT_239_Bovidian Representative',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/246_Ursaeic Representative.jpg" id="FRT_246_Ursaeic Representative" data-flag="@X" onclick="openSidebar('FRT_246_Ursaeic Representative',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/169_Core-Legion Wildguard.jpg" id="FRT_169_Core-Legion Wildguard" data-flag="@X" onclick="openSidebar('FRT_169_Core-Legion Wildguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/200_Moonbound Prophet.jpg" id="FRT_200_Moonbound Prophet" data-flag="@X" onclick="openSidebar('FRT_200_Moonbound Prophet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/182_The First Hunt of Roag.jpg" id="FRT_182_The First Hunt of Roag" data-flag="@X" onclick="openSidebar('FRT_182_The First Hunt of Roag',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/161_Battleground Assailant.jpg" id="FRT_161_Battleground Assailant" data-flag="@X" onclick="openSidebar('FRT_161_Battleground Assailant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/176_Elder Wood-Warden.jpg" id="FRT_176_Elder Wood-Warden" data-flag="@X" onclick="openSidebar('FRT_176_Elder Wood-Warden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/177_Elephon Charger.jpg" id="FRT_177_Elephon Charger" data-flag="@X" onclick="openSidebar('FRT_177_Elephon Charger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/225_Tanus' Observants.jpg" id="FRT_225_Tanus Observants" data-flag="@X" onclick="openSidebar('FRT_225_Tanus Observants',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/187_Greathunt Champion.jpg" id="FRT_187_Greathunt Champion" data-flag="@X" onclick="openSidebar('FRT_187_Greathunt Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/166_Bovidian Brutalist.jpg" id="FRT_166_Bovidian Brutalist" data-flag="@X" onclick="openSidebar('FRT_166_Bovidian Brutalist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/186_Great-Grove Guardian.jpg" id="FRT_186_Great-Grove Guardian" data-flag="@X" onclick="openSidebar('FRT_186_Great-Grove Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/197_The Might of Tanabon.jpg" id="FRT_197_The Might of Tanabon" data-flag="@X" onclick="openSidebar('FRT_197_The Might of Tanabon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/229_The Trials of Saint Mornus.jpg" id="FRT_229_The Trials of Saint Mornus" data-flag="@X" onclick="openSidebar('FRT_229_The Trials of Saint Mornus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/195_Marshland Witch.jpg" id="FRT_195_Marshland Witch" data-flag="@X" onclick="openSidebar('FRT_195_Marshland Witch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/192_Leuric's Highwayman.jpg" id="FRT_192_Leurics Highwayman" data-flag="@X" onclick="openSidebar('FRT_192_Leurics Highwayman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/188_Grizzled Rallier.jpg" id="FRT_188_Grizzled Rallier" data-flag="@X" onclick="openSidebar('FRT_188_Grizzled Rallier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/218_Serene Veteran.jpg" id="FRT_218_Serene Veteran" data-flag="@X" onclick="openSidebar('FRT_218_Serene Veteran',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/231_Twilight Reinforcer.jpg" id="FRT_231_Twilight Reinforcer" data-flag="@X" onclick="openSidebar('FRT_231_Twilight Reinforcer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/228_Tenoc's Huntguard.jpg" id="FRT_228_Tenocs Huntguard" data-flag="@X" onclick="openSidebar('FRT_228_Tenocs Huntguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/223_The Tale of Ol Barrot.jpg" id="FRT_223_The Tale of Ol Barrot" data-flag="@X" onclick="openSidebar('FRT_223_The Tale of Ol Barrot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/226_The Teachings of Aodhan.jpg" id="FRT_226_The Teachings of Aodhan" data-flag="@X" onclick="openSidebar('FRT_226_The Teachings of Aodhan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/183_Frontline Rejuvinator.jpg" id="FRT_183_Frontline Rejuvinator" data-flag="@X" onclick="openSidebar('FRT_183_Frontline Rejuvinator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/175_Dusktouched Seeker.jpg" id="FRT_175_Dusktouched Seeker" data-flag="@X" onclick="openSidebar('FRT_175_Dusktouched Seeker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/170_Dagger-Bite Stalker.jpg" id="FRT_170_Dagger-Bite Stalker" data-flag="@X" onclick="openSidebar('FRT_170_Dagger-Bite Stalker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/164_Blood-Bound Mercenaries.jpg" id="FRT_164_Blood-Bound Mercenaries" data-flag="@X" onclick="openSidebar('FRT_164_Blood-Bound Mercenaries',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/189_Grove Warden Rager.jpg" id="FRT_189_Grove Warden Rager" data-flag="@X" onclick="openSidebar('FRT_189_Grove Warden Rager',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/230_Tusked Reinforcements.jpg" id="FRT_230_Tusked Reinforcements" data-flag="@X" onclick="openSidebar('FRT_230_Tusked Reinforcements',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/205_Night-Veiled Font.jpg" id="FRT_205_Night-Veiled Font" data-flag="@X" onclick="openSidebar('FRT_205_Night-Veiled Font',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/194_Marsh-Lurker Ambush.jpg" id="FRT_194_Marsh-Lurker Ambush" data-flag="@X" onclick="openSidebar('FRT_194_Marsh-Lurker Ambush',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/193_Marauder's Fee.jpg" id="FRT_193_Marauders Fee" data-flag="@X" onclick="openSidebar('FRT_193_Marauders Fee',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/202_Nature Surge.jpg" id="FRT_202_Nature Surge" data-flag="@X" onclick="openSidebar('FRT_202_Nature Surge',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/157_Ade, Heir to Nothing.jpg" id="FRT_157_Ade, Heir to Nothing" data-flag="@X" onclick="openSidebar('FRT_157_Ade, Heir to Nothing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/233_Ways of the Wanderers.jpg" id="FRT_233_Ways of the Wanderers" data-flag="@X" onclick="openSidebar('FRT_233_Ways of the Wanderers',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="FRT_e" data-flag="@E" onclick="openSidebar('FRT_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="FRT_e" data-flag="@E" onclick="openSidebar('FRT_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="FRT_e" data-flag="@E" onclick="openSidebar('FRT_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/1_Elefetik, Wary Watcher.jpg" id="FRT_1_Elefetik, Wary Watcher" data-flag="@X" onclick="openSidebar('FRT_1_Elefetik, Wary Watcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/249_The Book of Names.jpg" id="FRT_249_The Book of Names" data-flag="@X" onclick="openSidebar('FRT_249_The Book of Names',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/250_Bovidian Banner.jpg" id="FRT_250_Bovidian Banner" data-flag="@X" onclick="openSidebar('FRT_250_Bovidian Banner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/251_Crocdilid Banner.jpg" id="FRT_251_Crocdilid Banner" data-flag="@X" onclick="openSidebar('FRT_251_Crocdilid Banner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/252_Elephon Banner.jpg" id="FRT_252_Elephon Banner" data-flag="@X" onclick="openSidebar('FRT_252_Elephon Banner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/253_Felidian Guidestone.jpg" id="FRT_253_Felidian Guidestone" data-flag="@X" onclick="openSidebar('FRT_253_Felidian Guidestone',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/254_Strixan Banner.jpg" id="FRT_254_Strixan Banner" data-flag="@X" onclick="openSidebar('FRT_254_Strixan Banner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/255_Ursaeic Banner.jpg" id="FRT_255_Ursaeic Banner" data-flag="@X" onclick="openSidebar('FRT_255_Ursaeic Banner',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="FRT_e" data-flag="@E" onclick="openSidebar('FRT_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="FRT_e" data-flag="@E" onclick="openSidebar('FRT_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/269_Tranquil Cove.jpg" id="FRT_269_Tranquil Cove" data-flag="@X" onclick="openSidebar('FRT_269_Tranquil Cove',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/261_Dismal Backwater.jpg" id="FRT_261_Dismal Backwater" data-flag="@X" onclick="openSidebar('FRT_261_Dismal Backwater',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/258_Bloodfell Caves.jpg" id="FRT_258_Bloodfell Caves" data-flag="@X" onclick="openSidebar('FRT_258_Bloodfell Caves',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/265_Rugged Highlands.jpg" id="FRT_265_Rugged Highlands" data-flag="@X" onclick="openSidebar('FRT_265_Rugged Highlands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/259_Blossoming Sands.jpg" id="FRT_259_Blossoming Sands" data-flag="@X" onclick="openSidebar('FRT_259_Blossoming Sands',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/266_Scoured Barrens.jpg" id="FRT_266_Scoured Barrens" data-flag="@X" onclick="openSidebar('FRT_266_Scoured Barrens',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/267_Swiftwater Cliffs.jpg" id="FRT_267_Swiftwater Cliffs" data-flag="@X" onclick="openSidebar('FRT_267_Swiftwater Cliffs',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/262_Jungle Hollow.jpg" id="FRT_262_Jungle Hollow" data-flag="@X" onclick="openSidebar('FRT_262_Jungle Hollow',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/270_Wind-scarred Crag.jpg" id="FRT_270_Wind-scarred Crag" data-flag="@X" onclick="openSidebar('FRT_270_Wind-scarred Crag',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/268_Thornwood Falls.jpg" id="FRT_268_Thornwood Falls" data-flag="@X" onclick="openSidebar('FRT_268_Thornwood Falls',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/256_Avia, Imperial Capital.jpg" id="FRT_256_Avia, Imperial Capital" data-flag="@X" onclick="openSidebar('FRT_256_Avia, Imperial Capital',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/257_Bannerless Town.jpg" id="FRT_257_Bannerless Town" data-flag="@X" onclick="openSidebar('FRT_257_Bannerless Town',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/260_Bustling Monastery.jpg" id="FRT_260_Bustling Monastery" data-flag="@X" onclick="openSidebar('FRT_260_Bustling Monastery',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/263_Mighty Fort Town.jpg" id="FRT_263_Mighty Fort Town" data-flag="@X" onclick="openSidebar('FRT_263_Mighty Fort Town',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/264_Quaint Marsh Village.jpg" id="FRT_264_Quaint Marsh Village" data-flag="@X" onclick="openSidebar('FRT_264_Quaint Marsh Village',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/271_Woodland Hamlet.jpg" id="FRT_271_Woodland Hamlet" data-flag="@X" onclick="openSidebar('FRT_271_Woodland Hamlet',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="FRT_e" data-flag="@E" onclick="openSidebar('FRT_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="FRT_e" data-flag="@E" onclick="openSidebar('FRT_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="FRT_e" data-flag="@E" onclick="openSidebar('FRT_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="FRT_e" data-flag="@E" onclick="openSidebar('FRT_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/272_Plains.jpg" id="FRT_272_Plains" data-flag="@X" onclick="openSidebar('FRT_272_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/273_Island.jpg" id="FRT_273_Island" data-flag="@X" onclick="openSidebar('FRT_273_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/274_Swamp.jpg" id="FRT_274_Swamp" data-flag="@X" onclick="openSidebar('FRT_274_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/275_Mountain.jpg" id="FRT_275_Mountain" data-flag="@X" onclick="openSidebar('FRT_275_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/276_Forest.jpg" id="FRT_276_Forest" data-flag="@X" onclick="openSidebar('FRT_276_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/1t_Blessing.jpg" id="FRT_1t_Blessing" data-flag="@X" onclick="openSidebar('FRT_1t_Blessing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/2t_Elemental.jpg" id="FRT_2t_Elemental" data-flag="@X" onclick="openSidebar('FRT_2t_Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/12t_Clue.jpg" id="FRT_12t_Clue" data-flag="@X" onclick="openSidebar('FRT_12t_Clue',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/13t_Food.jpg" id="FRT_13t_Food" data-flag="@X" onclick="openSidebar('FRT_13t_Food',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/14t_Shrine.jpg" id="FRT_14t_Shrine" data-flag="@X" onclick="openSidebar('FRT_14t_Shrine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/15t_Treasure.jpg" id="FRT_15t_Treasure" data-flag="@X" onclick="openSidebar('FRT_15t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/16t_Weapon.jpg" id="FRT_16t_Weapon" data-flag="@X" onclick="openSidebar('FRT_16t_Weapon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/17t_Weapon.jpg" id="FRT_17t_Weapon" data-flag="@X" onclick="openSidebar('FRT_17t_Weapon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/18t_Weapon.jpg" id="FRT_18t_Weapon" data-flag="@X" onclick="openSidebar('FRT_18t_Weapon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/19t_Elefetik, Wary Watcher.jpg" id="FRT_19t_Elefetik, Wary Watcher" data-flag="@X" onclick="openSidebar('FRT_19t_Elefetik, Wary Watcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/3t_Elephant Soldier.jpg" id="FRT_3t_Elephant Soldier" data-flag="@X" onclick="openSidebar('FRT_3t_Elephant Soldier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/4t_Elephant Soldier.jpg" id="FRT_4t_Elephant Soldier" data-flag="@X" onclick="openSidebar('FRT_4t_Elephant Soldier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/5t_Elephant Soldier.jpg" id="FRT_5t_Elephant Soldier" data-flag="@X" onclick="openSidebar('FRT_5t_Elephant Soldier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/6t_Bird Cleric.jpg" id="FRT_6t_Bird Cleric" data-flag="@X" onclick="openSidebar('FRT_6t_Bird Cleric',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/7t_Spirit Illusion.jpg" id="FRT_7t_Spirit Illusion" data-flag="@X" onclick="openSidebar('FRT_7t_Spirit Illusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/8t_Crocodile Assassin.jpg" id="FRT_8t_Crocodile Assassin" data-flag="@X" onclick="openSidebar('FRT_8t_Crocodile Assassin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/9t_Elemental.jpg" id="FRT_9t_Elemental" data-flag="@X" onclick="openSidebar('FRT_9t_Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/10t_Minotaur Warrior.jpg" id="FRT_10t_Minotaur Warrior" data-flag="@X" onclick="openSidebar('FRT_10t_Minotaur Warrior',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/FRT-files/img/11t_Bear Druid.jpg" id="FRT_11t_Bear Druid" data-flag="@X" onclick="openSidebar('FRT_11t_Bear Druid',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="FRT_e" data-flag="@E" onclick="openSidebar('FRT_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="FRT_er" data-flag="@E" onclick="openSidebar('FRT_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

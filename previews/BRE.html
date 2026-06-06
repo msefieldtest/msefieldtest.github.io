@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/BRE-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>BRE visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/BRE-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ASM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/COD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BRE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SMB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TBC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CLE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HWK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/BRE"><img src="../sets/BRE-files/icon.png">Kaldheim: Bretagard’s Revival</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">2HU Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/ASM"><img src="../sets/ASM-files/icon.png">Amonkhet: Schism</a>
+	
+		<a class="set-bar inactive" href="../previews/COD"><img src="../sets/COD-files/icon.png">Children of Dawn</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/RNF"><img src="../sets/RNF-files/icon.png">Ravnica’s Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/WDW"><img src="../sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/SMB"><img src="../sets/SMB-files/icon.png">Magic the Gathering | Super Mario Brothers</a>
+	
+		<a class="set-bar inactive" href="../previews/TBC"><img src="../sets/TBC-files/icon.png">Nemyria: The Beautiful Collapse</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Tin Lau</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLD"><img src="../sets/BLD-files/icon.png">Bloodborne</a>
+	
+		<a class="set-bar inactive" href="../previews/CLE"><img src="../sets/CLE-files/icon.png">Clearingsong</a>
+	
+		<a class="set-bar inactive" href="../previews/HWK"><img src="../sets/HWK-files/icon.png">Haishan: Warring Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KLB"><img src="../sets/KLB-files/icon.png">Kitsuo: the Last Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/MOX"><img src="../sets/MOX-files/icon.png">Midnight Omens of Xogoa</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/BRE-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/BRE-files/img/67.jpg" id="BRE_67" data-flag="@X" onclick="openSidebar('BRE_67',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/26_back.jpg" alt="sets/BRE-files/img/26_front.jpg" id="BRE_26" data-flag="@XD" onclick="openSidebar('BRE_26',false)"><button class="flip-btn" onclick="imgFlip('BRE_26')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/69.jpg" id="BRE_69" data-flag="@X" onclick="openSidebar('BRE_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/70.jpg" id="BRE_70" data-flag="@X" onclick="openSidebar('BRE_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/72.jpg" id="BRE_72" data-flag="@X" onclick="openSidebar('BRE_72',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/30_back.jpg" alt="sets/BRE-files/img/30_front.jpg" id="BRE_30" data-flag="@XD" onclick="openSidebar('BRE_30',false)"><button class="flip-btn" onclick="imgFlip('BRE_30')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/57.jpg" id="BRE_57" data-flag="@X" onclick="openSidebar('BRE_57',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/27_back.jpg" alt="sets/BRE-files/img/27_front.jpg" id="BRE_27" data-flag="@XD" onclick="openSidebar('BRE_27',false)"><button class="flip-btn" onclick="imgFlip('BRE_27')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/23_back.jpg" alt="sets/BRE-files/img/23_front.jpg" id="BRE_23" data-flag="@XD" onclick="openSidebar('BRE_23',false)"><button class="flip-btn" onclick="imgFlip('BRE_23')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/29_back.jpg" alt="sets/BRE-files/img/29_front.jpg" id="BRE_29" data-flag="@XD" onclick="openSidebar('BRE_29',false)"><button class="flip-btn" onclick="imgFlip('BRE_29')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/273.jpg" id="BRE_273" data-flag="@X" onclick="openSidebar('BRE_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/262.jpg" id="BRE_262" data-flag="@X" onclick="openSidebar('BRE_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/263.jpg" id="BRE_263" data-flag="@X" onclick="openSidebar('BRE_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/64.jpg" id="BRE_64" data-flag="@X" onclick="openSidebar('BRE_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/71.jpg" id="BRE_71" data-flag="@X" onclick="openSidebar('BRE_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/56.jpg" id="BRE_56" data-flag="@X" onclick="openSidebar('BRE_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/259.jpg" id="BRE_259" data-flag="@X" onclick="openSidebar('BRE_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/59.jpg" id="BRE_59" data-flag="@X" onclick="openSidebar('BRE_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/62.jpg" id="BRE_62" data-flag="@X" onclick="openSidebar('BRE_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/271.jpg" id="BRE_271" data-flag="@X" onclick="openSidebar('BRE_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/258.jpg" id="BRE_258" data-flag="@X" onclick="openSidebar('BRE_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/260.jpg" id="BRE_260" data-flag="@X" onclick="openSidebar('BRE_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/63.jpg" id="BRE_63" data-flag="@X" onclick="openSidebar('BRE_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/58.jpg" id="BRE_58" data-flag="@X" onclick="openSidebar('BRE_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/272.jpg" id="BRE_272" data-flag="@X" onclick="openSidebar('BRE_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/255.jpg" id="BRE_255" data-flag="@X" onclick="openSidebar('BRE_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/66.jpg" id="BRE_66" data-flag="@X" onclick="openSidebar('BRE_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/265.jpg" id="BRE_265" data-flag="@X" onclick="openSidebar('BRE_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/268.jpg" id="BRE_268" data-flag="@X" onclick="openSidebar('BRE_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/65.jpg" id="BRE_65" data-flag="@X" onclick="openSidebar('BRE_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/256.jpg" id="BRE_256" data-flag="@X" onclick="openSidebar('BRE_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/261.jpg" id="BRE_261" data-flag="@X" onclick="openSidebar('BRE_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/61.jpg" id="BRE_61" data-flag="@X" onclick="openSidebar('BRE_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/266.jpg" id="BRE_266" data-flag="@X" onclick="openSidebar('BRE_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/269.jpg" id="BRE_269" data-flag="@X" onclick="openSidebar('BRE_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/257.jpg" id="BRE_257" data-flag="@X" onclick="openSidebar('BRE_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/55.jpg" id="BRE_55" data-flag="@X" onclick="openSidebar('BRE_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/264.jpg" id="BRE_264" data-flag="@X" onclick="openSidebar('BRE_264',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/267.jpg" id="BRE_267" data-flag="@X" onclick="openSidebar('BRE_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/60.jpg" id="BRE_60" data-flag="@X" onclick="openSidebar('BRE_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/217.jpg" id="BRE_217" data-flag="@X" onclick="openSidebar('BRE_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/53.jpg" id="BRE_53" data-flag="@X" onclick="openSidebar('BRE_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/235.jpg" id="BRE_235" data-flag="@X" onclick="openSidebar('BRE_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/239.jpg" id="BRE_239" data-flag="@X" onclick="openSidebar('BRE_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/270.jpg" id="BRE_270" data-flag="@X" onclick="openSidebar('BRE_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/43.jpg" id="BRE_43" data-flag="@X" onclick="openSidebar('BRE_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/223.jpg" id="BRE_223" data-flag="@X" onclick="openSidebar('BRE_223',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/22_back.jpg" alt="sets/BRE-files/img/22_front.jpg" id="BRE_22" data-flag="@XD" onclick="openSidebar('BRE_22',false)"><button class="flip-btn" onclick="imgFlip('BRE_22')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/242.jpg" id="BRE_242" data-flag="@X" onclick="openSidebar('BRE_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/44.jpg" id="BRE_44" data-flag="@X" onclick="openSidebar('BRE_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/219.jpg" id="BRE_219" data-flag="@X" onclick="openSidebar('BRE_219',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/21_back.jpg" alt="sets/BRE-files/img/21_front.jpg" id="BRE_21" data-flag="@XD" onclick="openSidebar('BRE_21',false)"><button class="flip-btn" onclick="imgFlip('BRE_21')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/229.jpg" id="BRE_229" data-flag="@X" onclick="openSidebar('BRE_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/50.jpg" id="BRE_50" data-flag="@X" onclick="openSidebar('BRE_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/246.jpg" id="BRE_246" data-flag="@X" onclick="openSidebar('BRE_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/222.jpg" id="BRE_222" data-flag="@X" onclick="openSidebar('BRE_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/48.jpg" id="BRE_48" data-flag="@X" onclick="openSidebar('BRE_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/236.jpg" id="BRE_236" data-flag="@X" onclick="openSidebar('BRE_236',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/33_back.jpg" alt="sets/BRE-files/img/33_front.jpg" id="BRE_33" data-flag="@XD" onclick="openSidebar('BRE_33',false)"><button class="flip-btn" onclick="imgFlip('BRE_33')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/245.jpg" id="BRE_245" data-flag="@X" onclick="openSidebar('BRE_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/218.jpg" id="BRE_218" data-flag="@X" onclick="openSidebar('BRE_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/224.jpg" id="BRE_224" data-flag="@X" onclick="openSidebar('BRE_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/230.jpg" id="BRE_230" data-flag="@X" onclick="openSidebar('BRE_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/238.jpg" id="BRE_238" data-flag="@X" onclick="openSidebar('BRE_238',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/24_back.jpg" alt="sets/BRE-files/img/24_front.jpg" id="BRE_24" data-flag="@XD" onclick="openSidebar('BRE_24',false)"><button class="flip-btn" onclick="imgFlip('BRE_24')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/215.jpg" id="BRE_215" data-flag="@X" onclick="openSidebar('BRE_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/228.jpg" id="BRE_228" data-flag="@X" onclick="openSidebar('BRE_228',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/32_back.jpg" alt="sets/BRE-files/img/32_front.jpg" id="BRE_32" data-flag="@XD" onclick="openSidebar('BRE_32',false)"><button class="flip-btn" onclick="imgFlip('BRE_32')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/241.jpg" id="BRE_241" data-flag="@X" onclick="openSidebar('BRE_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/251.jpg" id="BRE_251" data-flag="@X" onclick="openSidebar('BRE_251',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/35_back.jpg" alt="sets/BRE-files/img/35_front.jpg" id="BRE_35" data-flag="@XD" onclick="openSidebar('BRE_35',false)"><button class="flip-btn" onclick="imgFlip('BRE_35')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/51.jpg" id="BRE_51" data-flag="@X" onclick="openSidebar('BRE_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/231.jpg" id="BRE_231" data-flag="@X" onclick="openSidebar('BRE_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/47.jpg" id="BRE_47" data-flag="@X" onclick="openSidebar('BRE_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/243.jpg" id="BRE_243" data-flag="@X" onclick="openSidebar('BRE_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/221.jpg" id="BRE_221" data-flag="@X" onclick="openSidebar('BRE_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/225.jpg" id="BRE_225" data-flag="@X" onclick="openSidebar('BRE_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/234.jpg" id="BRE_234" data-flag="@X" onclick="openSidebar('BRE_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/54.jpg" id="BRE_54" data-flag="@X" onclick="openSidebar('BRE_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/249.jpg" id="BRE_249" data-flag="@X" onclick="openSidebar('BRE_249',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/46.jpg" id="BRE_46" data-flag="@X" onclick="openSidebar('BRE_46',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/31_back.jpg" alt="sets/BRE-files/img/31_front.jpg" id="BRE_31" data-flag="@XD" onclick="openSidebar('BRE_31',false)"><button class="flip-btn" onclick="imgFlip('BRE_31')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/232.jpg" id="BRE_232" data-flag="@X" onclick="openSidebar('BRE_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/49.jpg" id="BRE_49" data-flag="@X" onclick="openSidebar('BRE_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/247.jpg" id="BRE_247" data-flag="@X" onclick="openSidebar('BRE_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/216.jpg" id="BRE_216" data-flag="@X" onclick="openSidebar('BRE_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/226.jpg" id="BRE_226" data-flag="@X" onclick="openSidebar('BRE_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/45.jpg" id="BRE_45" data-flag="@X" onclick="openSidebar('BRE_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/52.jpg" id="BRE_52" data-flag="@X" onclick="openSidebar('BRE_52',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/34_back.jpg" alt="sets/BRE-files/img/34_front.jpg" id="BRE_34" data-flag="@XD" onclick="openSidebar('BRE_34',false)"><button class="flip-btn" onclick="imgFlip('BRE_34')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/220.jpg" id="BRE_220" data-flag="@X" onclick="openSidebar('BRE_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/227.jpg" id="BRE_227" data-flag="@X" onclick="openSidebar('BRE_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/233.jpg" id="BRE_233" data-flag="@X" onclick="openSidebar('BRE_233',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/28_back.jpg" alt="sets/BRE-files/img/28_front.jpg" id="BRE_28" data-flag="@XD" onclick="openSidebar('BRE_28',false)"><button class="flip-btn" onclick="imgFlip('BRE_28')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/250.jpg" id="BRE_250" data-flag="@X" onclick="openSidebar('BRE_250',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/16_back.jpg" alt="sets/BRE-files/img/16_front.jpg" id="BRE_16" data-flag="@XD" onclick="openSidebar('BRE_16',false)"><button class="flip-btn" onclick="imgFlip('BRE_16')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/131.jpg" id="BRE_131" data-flag="@X" onclick="openSidebar('BRE_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/237.jpg" id="BRE_237" data-flag="@X" onclick="openSidebar('BRE_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/240.jpg" id="BRE_240" data-flag="@X" onclick="openSidebar('BRE_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/244.jpg" id="BRE_244" data-flag="@X" onclick="openSidebar('BRE_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/126.jpg" id="BRE_126" data-flag="@X" onclick="openSidebar('BRE_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/135.jpg" id="BRE_135" data-flag="@X" onclick="openSidebar('BRE_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/145.jpg" id="BRE_145" data-flag="@X" onclick="openSidebar('BRE_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/161.jpg" id="BRE_161" data-flag="@X" onclick="openSidebar('BRE_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/248.jpg" id="BRE_248" data-flag="@X" onclick="openSidebar('BRE_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/129.jpg" id="BRE_129" data-flag="@X" onclick="openSidebar('BRE_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/136.jpg" id="BRE_136" data-flag="@X" onclick="openSidebar('BRE_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/146.jpg" id="BRE_146" data-flag="@X" onclick="openSidebar('BRE_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/170.jpg" id="BRE_170" data-flag="@X" onclick="openSidebar('BRE_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/187.jpg" id="BRE_187" data-flag="@X" onclick="openSidebar('BRE_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/127.jpg" id="BRE_127" data-flag="@X" onclick="openSidebar('BRE_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/134.jpg" id="BRE_134" data-flag="@X" onclick="openSidebar('BRE_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/151.jpg" id="BRE_151" data-flag="@X" onclick="openSidebar('BRE_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/163.jpg" id="BRE_163" data-flag="@X" onclick="openSidebar('BRE_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/111.jpg" id="BRE_111" data-flag="@X" onclick="openSidebar('BRE_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/121.jpg" id="BRE_121" data-flag="@X" onclick="openSidebar('BRE_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/132.jpg" id="BRE_132" data-flag="@X" onclick="openSidebar('BRE_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/150.jpg" id="BRE_150" data-flag="@X" onclick="openSidebar('BRE_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/164.jpg" id="BRE_164" data-flag="@X" onclick="openSidebar('BRE_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/186.jpg" id="BRE_186" data-flag="@X" onclick="openSidebar('BRE_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/109.jpg" id="BRE_109" data-flag="@X" onclick="openSidebar('BRE_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/140.jpg" id="BRE_140" data-flag="@X" onclick="openSidebar('BRE_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/155.jpg" id="BRE_155" data-flag="@X" onclick="openSidebar('BRE_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/168.jpg" id="BRE_168" data-flag="@X" onclick="openSidebar('BRE_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/183.jpg" id="BRE_183" data-flag="@X" onclick="openSidebar('BRE_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/118.jpg" id="BRE_118" data-flag="@X" onclick="openSidebar('BRE_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/110.jpg" id="BRE_110" data-flag="@X" onclick="openSidebar('BRE_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/154.jpg" id="BRE_154" data-flag="@X" onclick="openSidebar('BRE_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/173.jpg" id="BRE_173" data-flag="@X" onclick="openSidebar('BRE_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/184.jpg" id="BRE_184" data-flag="@X" onclick="openSidebar('BRE_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/119.jpg" id="BRE_119" data-flag="@X" onclick="openSidebar('BRE_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/143.jpg" id="BRE_143" data-flag="@X" onclick="openSidebar('BRE_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/149.jpg" id="BRE_149" data-flag="@X" onclick="openSidebar('BRE_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/169.jpg" id="BRE_169" data-flag="@X" onclick="openSidebar('BRE_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/180.jpg" id="BRE_180" data-flag="@X" onclick="openSidebar('BRE_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/128.jpg" id="BRE_128" data-flag="@X" onclick="openSidebar('BRE_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/138.jpg" id="BRE_138" data-flag="@X" onclick="openSidebar('BRE_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/147.jpg" id="BRE_147" data-flag="@X" onclick="openSidebar('BRE_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/172.jpg" id="BRE_172" data-flag="@X" onclick="openSidebar('BRE_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/175.jpg" id="BRE_175" data-flag="@X" onclick="openSidebar('BRE_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/130.jpg" id="BRE_130" data-flag="@X" onclick="openSidebar('BRE_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/142.jpg" id="BRE_142" data-flag="@X" onclick="openSidebar('BRE_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/153.jpg" id="BRE_153" data-flag="@X" onclick="openSidebar('BRE_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/171.jpg" id="BRE_171" data-flag="@X" onclick="openSidebar('BRE_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/176.jpg" id="BRE_176" data-flag="@X" onclick="openSidebar('BRE_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/123.jpg" id="BRE_123" data-flag="@X" onclick="openSidebar('BRE_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/137.jpg" id="BRE_137" data-flag="@X" onclick="openSidebar('BRE_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/152.jpg" id="BRE_152" data-flag="@X" onclick="openSidebar('BRE_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/162.jpg" id="BRE_162" data-flag="@X" onclick="openSidebar('BRE_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/177.jpg" id="BRE_177" data-flag="@X" onclick="openSidebar('BRE_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/120.jpg" id="BRE_120" data-flag="@X" onclick="openSidebar('BRE_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/139.jpg" id="BRE_139" data-flag="@X" onclick="openSidebar('BRE_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/159.jpg" id="BRE_159" data-flag="@X" onclick="openSidebar('BRE_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/160.jpg" id="BRE_160" data-flag="@X" onclick="openSidebar('BRE_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/178.jpg" id="BRE_178" data-flag="@X" onclick="openSidebar('BRE_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/124.jpg" id="BRE_124" data-flag="@X" onclick="openSidebar('BRE_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/133.jpg" id="BRE_133" data-flag="@X" onclick="openSidebar('BRE_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/158.jpg" id="BRE_158" data-flag="@X" onclick="openSidebar('BRE_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/167.jpg" id="BRE_167" data-flag="@X" onclick="openSidebar('BRE_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/179.jpg" id="BRE_179" data-flag="@X" onclick="openSidebar('BRE_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/125.jpg" id="BRE_125" data-flag="@X" onclick="openSidebar('BRE_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/141.jpg" id="BRE_141" data-flag="@X" onclick="openSidebar('BRE_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/148.jpg" id="BRE_148" data-flag="@X" onclick="openSidebar('BRE_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/174.jpg" id="BRE_174" data-flag="@X" onclick="openSidebar('BRE_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/182.jpg" id="BRE_182" data-flag="@X" onclick="openSidebar('BRE_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/117.jpg" id="BRE_117" data-flag="@X" onclick="openSidebar('BRE_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/144.jpg" id="BRE_144" data-flag="@X" onclick="openSidebar('BRE_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/157.jpg" id="BRE_157" data-flag="@X" onclick="openSidebar('BRE_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/165.jpg" id="BRE_165" data-flag="@X" onclick="openSidebar('BRE_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/181.jpg" id="BRE_181" data-flag="@X" onclick="openSidebar('BRE_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/122.jpg" id="BRE_122" data-flag="@X" onclick="openSidebar('BRE_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/156.jpg" id="BRE_156" data-flag="@X" onclick="openSidebar('BRE_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/166.jpg" id="BRE_166" data-flag="@X" onclick="openSidebar('BRE_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/188.jpg" id="BRE_188" data-flag="@X" onclick="openSidebar('BRE_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/185.jpg" id="BRE_185" data-flag="@X" onclick="openSidebar('BRE_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/214.jpg" id="BRE_214" data-flag="@X" onclick="openSidebar('BRE_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/76.jpg" id="BRE_76" data-flag="@X" onclick="openSidebar('BRE_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/75.jpg" id="BRE_75" data-flag="@X" onclick="openSidebar('BRE_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/73.jpg" id="BRE_73" data-flag="@X" onclick="openSidebar('BRE_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/74.jpg" id="BRE_74" data-flag="@X" onclick="openSidebar('BRE_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/82.jpg" id="BRE_82" data-flag="@X" onclick="openSidebar('BRE_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/83.jpg" id="BRE_83" data-flag="@X" onclick="openSidebar('BRE_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/212.jpg" id="BRE_212" data-flag="@X" onclick="openSidebar('BRE_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/84.jpg" id="BRE_84" data-flag="@X" onclick="openSidebar('BRE_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/209.jpg" id="BRE_209" data-flag="@X" onclick="openSidebar('BRE_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/1.jpg" id="BRE_1" data-flag="@X" onclick="openSidebar('BRE_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/213.jpg" id="BRE_213" data-flag="@X" onclick="openSidebar('BRE_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/211.jpg" id="BRE_211" data-flag="@X" onclick="openSidebar('BRE_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/85.jpg" id="BRE_85" data-flag="@X" onclick="openSidebar('BRE_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/210.jpg" id="BRE_210" data-flag="@X" onclick="openSidebar('BRE_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/0.jpg" id="BRE_0" data-flag="@X" onclick="openSidebar('BRE_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/2.jpg" id="BRE_2" data-flag="@X" onclick="openSidebar('BRE_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/192.jpg" id="BRE_192" data-flag="@X" onclick="openSidebar('BRE_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/193.jpg" id="BRE_193" data-flag="@X" onclick="openSidebar('BRE_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/5.jpg" id="BRE_5" data-flag="@X" onclick="openSidebar('BRE_5',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/11_back.jpg" alt="sets/BRE-files/img/11_front.jpg" id="BRE_11" data-flag="@XD" onclick="openSidebar('BRE_11',false)"><button class="flip-btn" onclick="imgFlip('BRE_11')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/191.jpg" id="BRE_191" data-flag="@X" onclick="openSidebar('BRE_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/3.jpg" id="BRE_3" data-flag="@X" onclick="openSidebar('BRE_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/4.jpg" id="BRE_4" data-flag="@X" onclick="openSidebar('BRE_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/194.jpg" id="BRE_194" data-flag="@X" onclick="openSidebar('BRE_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/12_back.jpg" alt="sets/BRE-files/img/12_front.jpg" id="BRE_12" data-flag="@XD" onclick="openSidebar('BRE_12',false)"><button class="flip-btn" onclick="imgFlip('BRE_12')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/13_back.jpg" alt="sets/BRE-files/img/13_front.jpg" id="BRE_13" data-flag="@XD" onclick="openSidebar('BRE_13',false)"><button class="flip-btn" onclick="imgFlip('BRE_13')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/14_back.jpg" alt="sets/BRE-files/img/14_front.jpg" id="BRE_14" data-flag="@XD" onclick="openSidebar('BRE_14',false)"><button class="flip-btn" onclick="imgFlip('BRE_14')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/15_back.jpg" alt="sets/BRE-files/img/15_front.jpg" id="BRE_15" data-flag="@XD" onclick="openSidebar('BRE_15',false)"><button class="flip-btn" onclick="imgFlip('BRE_15')"></button></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/77.jpg" id="BRE_77" data-flag="@X" onclick="openSidebar('BRE_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/68.jpg" id="BRE_68" data-flag="@X" onclick="openSidebar('BRE_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/79.jpg" id="BRE_79" data-flag="@X" onclick="openSidebar('BRE_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/201.jpg" id="BRE_201" data-flag="@X" onclick="openSidebar('BRE_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/78.jpg" id="BRE_78" data-flag="@X" onclick="openSidebar('BRE_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/207.jpg" id="BRE_207" data-flag="@X" onclick="openSidebar('BRE_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/205.jpg" id="BRE_205" data-flag="@X" onclick="openSidebar('BRE_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/203.jpg" id="BRE_203" data-flag="@X" onclick="openSidebar('BRE_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/202.jpg" id="BRE_202" data-flag="@X" onclick="openSidebar('BRE_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/200.jpg" id="BRE_200" data-flag="@X" onclick="openSidebar('BRE_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/208.jpg" id="BRE_208" data-flag="@X" onclick="openSidebar('BRE_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/206.jpg" id="BRE_206" data-flag="@X" onclick="openSidebar('BRE_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/204.jpg" id="BRE_204" data-flag="@X" onclick="openSidebar('BRE_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/197.jpg" id="BRE_197" data-flag="@X" onclick="openSidebar('BRE_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/199.jpg" id="BRE_199" data-flag="@X" onclick="openSidebar('BRE_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/6.jpg" id="BRE_6" data-flag="@X" onclick="openSidebar('BRE_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/7.jpg" id="BRE_7" data-flag="@X" onclick="openSidebar('BRE_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/310.jpg" id="BRE_310" data-flag="@X" onclick="openSidebar('BRE_310',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/9.jpg" id="BRE_9" data-flag="@X" onclick="openSidebar('BRE_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/198.jpg" id="BRE_198" data-flag="@X" onclick="openSidebar('BRE_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/195.jpg" id="BRE_195" data-flag="@X" onclick="openSidebar('BRE_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/196.jpg" id="BRE_196" data-flag="@X" onclick="openSidebar('BRE_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/8.jpg" id="BRE_8" data-flag="@X" onclick="openSidebar('BRE_8',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/19_back.jpg" alt="sets/BRE-files/img/19_front.jpg" id="BRE_19" data-flag="@XD" onclick="openSidebar('BRE_19',false)"><button class="flip-btn" onclick="imgFlip('BRE_19')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/10.jpg" id="BRE_10" data-flag="@X" onclick="openSidebar('BRE_10',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/25_back.jpg" alt="sets/BRE-files/img/25_front.jpg" id="BRE_25" data-flag="@XD" onclick="openSidebar('BRE_25',false)"><button class="flip-btn" onclick="imgFlip('BRE_25')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/17_back.jpg" alt="sets/BRE-files/img/17_front.jpg" id="BRE_17" data-flag="@XD" onclick="openSidebar('BRE_17',false)"><button class="flip-btn" onclick="imgFlip('BRE_17')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/18_back.jpg" alt="sets/BRE-files/img/18_front.jpg" id="BRE_18" data-flag="@XD" onclick="openSidebar('BRE_18',false)"><button class="flip-btn" onclick="imgFlip('BRE_18')"></button></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/BRE-files/img/20_back.jpg" alt="sets/BRE-files/img/20_front.jpg" id="BRE_20" data-flag="@XD" onclick="openSidebar('BRE_20',false)"><button class="flip-btn" onclick="imgFlip('BRE_20')"></button></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/81.jpg" id="BRE_81" data-flag="@X" onclick="openSidebar('BRE_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/80.jpg" id="BRE_80" data-flag="@X" onclick="openSidebar('BRE_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/252.jpg" id="BRE_252" data-flag="@X" onclick="openSidebar('BRE_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/253.jpg" id="BRE_253" data-flag="@X" onclick="openSidebar('BRE_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/254.jpg" id="BRE_254" data-flag="@X" onclick="openSidebar('BRE_254',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/108.jpg" id="BRE_108" data-flag="@X" onclick="openSidebar('BRE_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/107.jpg" id="BRE_107" data-flag="@X" onclick="openSidebar('BRE_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/189.jpg" id="BRE_189" data-flag="@X" onclick="openSidebar('BRE_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/36.jpg" id="BRE_36" data-flag="@X" onclick="openSidebar('BRE_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/39.jpg" id="BRE_39" data-flag="@X" onclick="openSidebar('BRE_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/38.jpg" id="BRE_38" data-flag="@X" onclick="openSidebar('BRE_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/40.jpg" id="BRE_40" data-flag="@X" onclick="openSidebar('BRE_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/37.jpg" id="BRE_37" data-flag="@X" onclick="openSidebar('BRE_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/86.jpg" id="BRE_86" data-flag="@X" onclick="openSidebar('BRE_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/88.jpg" id="BRE_88" data-flag="@X" onclick="openSidebar('BRE_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/92.jpg" id="BRE_92" data-flag="@X" onclick="openSidebar('BRE_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/94.jpg" id="BRE_94" data-flag="@X" onclick="openSidebar('BRE_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/91.jpg" id="BRE_91" data-flag="@X" onclick="openSidebar('BRE_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/102.jpg" id="BRE_102" data-flag="@X" onclick="openSidebar('BRE_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/99.jpg" id="BRE_99" data-flag="@X" onclick="openSidebar('BRE_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/105.jpg" id="BRE_105" data-flag="@X" onclick="openSidebar('BRE_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/100.jpg" id="BRE_100" data-flag="@X" onclick="openSidebar('BRE_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/97.jpg" id="BRE_97" data-flag="@X" onclick="openSidebar('BRE_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/90.jpg" id="BRE_90" data-flag="@X" onclick="openSidebar('BRE_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/95.jpg" id="BRE_95" data-flag="@X" onclick="openSidebar('BRE_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/93.jpg" id="BRE_93" data-flag="@X" onclick="openSidebar('BRE_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/87.jpg" id="BRE_87" data-flag="@X" onclick="openSidebar('BRE_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/89.jpg" id="BRE_89" data-flag="@X" onclick="openSidebar('BRE_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/103.jpg" id="BRE_103" data-flag="@X" onclick="openSidebar('BRE_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/98.jpg" id="BRE_98" data-flag="@X" onclick="openSidebar('BRE_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/104.jpg" id="BRE_104" data-flag="@X" onclick="openSidebar('BRE_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/101.jpg" id="BRE_101" data-flag="@X" onclick="openSidebar('BRE_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/96.jpg" id="BRE_96" data-flag="@X" onclick="openSidebar('BRE_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/41.jpg" id="BRE_41" data-flag="@X" onclick="openSidebar('BRE_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/42.jpg" id="BRE_42" data-flag="@X" onclick="openSidebar('BRE_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/190.jpg" id="BRE_190" data-flag="@X" onclick="openSidebar('BRE_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/106.jpg" id="BRE_106" data-flag="@X" onclick="openSidebar('BRE_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="BRE_e" data-flag="@E" onclick="openSidebar('BRE_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/112.jpg" id="BRE_112" data-flag="@X" onclick="openSidebar('BRE_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/113.jpg" id="BRE_113" data-flag="@X" onclick="openSidebar('BRE_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/114.jpg" id="BRE_114" data-flag="@X" onclick="openSidebar('BRE_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/115.jpg" id="BRE_115" data-flag="@X" onclick="openSidebar('BRE_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/116.jpg" id="BRE_116" data-flag="@X" onclick="openSidebar('BRE_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/280.jpg" id="BRE_280" data-flag="@X" onclick="openSidebar('BRE_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/279.jpg" id="BRE_279" data-flag="@X" onclick="openSidebar('BRE_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/288.jpg" id="BRE_288" data-flag="@X" onclick="openSidebar('BRE_288',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/277.jpg" id="BRE_277" data-flag="@X" onclick="openSidebar('BRE_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/275.jpg" id="BRE_275" data-flag="@X" onclick="openSidebar('BRE_275',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/276.jpg" id="BRE_276" data-flag="@X" onclick="openSidebar('BRE_276',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/292.jpg" id="BRE_292" data-flag="@X" onclick="openSidebar('BRE_292',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/287.jpg" id="BRE_287" data-flag="@X" onclick="openSidebar('BRE_287',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/286.jpg" id="BRE_286" data-flag="@X" onclick="openSidebar('BRE_286',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/283.jpg" id="BRE_283" data-flag="@X" onclick="openSidebar('BRE_283',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/281.jpg" id="BRE_281" data-flag="@X" onclick="openSidebar('BRE_281',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/278.jpg" id="BRE_278" data-flag="@X" onclick="openSidebar('BRE_278',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/293.jpg" id="BRE_293" data-flag="@X" onclick="openSidebar('BRE_293',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/274.jpg" id="BRE_274" data-flag="@X" onclick="openSidebar('BRE_274',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/284.jpg" id="BRE_284" data-flag="@X" onclick="openSidebar('BRE_284',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/285.jpg" id="BRE_285" data-flag="@X" onclick="openSidebar('BRE_285',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/282.jpg" id="BRE_282" data-flag="@X" onclick="openSidebar('BRE_282',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/289.jpg" id="BRE_289" data-flag="@X" onclick="openSidebar('BRE_289',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/290.jpg" id="BRE_290" data-flag="@X" onclick="openSidebar('BRE_290',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/291.jpg" id="BRE_291" data-flag="@X" onclick="openSidebar('BRE_291',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/294.jpg" id="BRE_294" data-flag="@X" onclick="openSidebar('BRE_294',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/295.jpg" id="BRE_295" data-flag="@X" onclick="openSidebar('BRE_295',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/296.jpg" id="BRE_296" data-flag="@X" onclick="openSidebar('BRE_296',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/297.jpg" id="BRE_297" data-flag="@X" onclick="openSidebar('BRE_297',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/314.jpg" id="BRE_314" data-flag="@X" onclick="openSidebar('BRE_314',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/298.jpg" id="BRE_298" data-flag="@X" onclick="openSidebar('BRE_298',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/299.jpg" id="BRE_299" data-flag="@X" onclick="openSidebar('BRE_299',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/300.jpg" id="BRE_300" data-flag="@X" onclick="openSidebar('BRE_300',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/301.jpg" id="BRE_301" data-flag="@X" onclick="openSidebar('BRE_301',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/302.jpg" id="BRE_302" data-flag="@X" onclick="openSidebar('BRE_302',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/313.jpg" id="BRE_313" data-flag="@X" onclick="openSidebar('BRE_313',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/303.jpg" id="BRE_303" data-flag="@X" onclick="openSidebar('BRE_303',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/304.jpg" id="BRE_304" data-flag="@X" onclick="openSidebar('BRE_304',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/312.jpg" id="BRE_312" data-flag="@X" onclick="openSidebar('BRE_312',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/311.jpg" id="BRE_311" data-flag="@X" onclick="openSidebar('BRE_311',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/305.jpg" id="BRE_305" data-flag="@X" onclick="openSidebar('BRE_305',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/306.jpg" id="BRE_306" data-flag="@X" onclick="openSidebar('BRE_306',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/307.jpg" id="BRE_307" data-flag="@X" onclick="openSidebar('BRE_307',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/308.jpg" id="BRE_308" data-flag="@X" onclick="openSidebar('BRE_308',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/BRE-files/img/309.jpg" id="BRE_309" data-flag="@X" onclick="openSidebar('BRE_309',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="BRE_er" data-flag="@E" onclick="openSidebar('BRE_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

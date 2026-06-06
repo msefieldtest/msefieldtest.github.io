@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/TBC-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>TBC visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/TBC-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ASM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/COD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RNF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WDW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BRE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SMB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TBC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLD-files/icon.png" />
+		<img class="preload-hidden" src="../sets/CLE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HWK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/KLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MOX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/TBC"><img src="../sets/TBC-files/icon.png">Nemyria: The Beautiful Collapse</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">2HU Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/ASM"><img src="../sets/ASM-files/icon.png">Amonkhet: Schism</a>
+	
+		<a class="set-bar inactive" href="../previews/COD"><img src="../sets/COD-files/icon.png">Children of Dawn</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+	
+		<a class="set-bar inactive" href="../previews/RNF"><img src="../sets/RNF-files/icon.png">Ravnica’s Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/WDW"><img src="../sets/WDW-files/icon.png">Waters of a Drowned World</a>
+	
+		<a class="set-bar inactive" href="../previews/BRE"><img src="../sets/BRE-files/icon.png">Kaldheim: Bretagard’s Revival</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+	
+		<a class="set-bar inactive" href="../previews/SMB"><img src="../sets/SMB-files/icon.png">Magic the Gathering | Super Mario Brothers</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Tin Lau</a>
+	
+		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLD"><img src="../sets/BLD-files/icon.png">Bloodborne</a>
+	
+		<a class="set-bar inactive" href="../previews/CLE"><img src="../sets/CLE-files/icon.png">Clearingsong</a>
+	
+		<a class="set-bar inactive" href="../previews/HWK"><img src="../sets/HWK-files/icon.png">Haishan: Warring Kingdoms</a>
+	
+		<a class="set-bar inactive" href="../previews/KLB"><img src="../sets/KLB-files/icon.png">Kitsuo: the Last Bloom</a>
+	
+		<a class="set-bar inactive" href="../previews/MOX"><img src="../sets/MOX-files/icon.png">Midnight Omens of Xogoa</a>
+	
+		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+	
+		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/TBC-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/TBC-files/img/255.jpg" id="TBC_255" data-flag="@X" onclick="openSidebar('TBC_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/250.jpg" id="TBC_250" data-flag="@X" onclick="openSidebar('TBC_250',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/248.jpg" id="TBC_248" data-flag="@X" onclick="openSidebar('TBC_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/237.jpg" id="TBC_237" data-flag="@X" onclick="openSidebar('TBC_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/251.jpg" id="TBC_251" data-flag="@X" onclick="openSidebar('TBC_251',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/254.jpg" id="TBC_254" data-flag="@X" onclick="openSidebar('TBC_254',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/253.jpg" id="TBC_253" data-flag="@X" onclick="openSidebar('TBC_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/256.jpg" id="TBC_256" data-flag="@X" onclick="openSidebar('TBC_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/289.jpg" id="TBC_289" data-flag="@X" onclick="openSidebar('TBC_289',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/252.jpg" id="TBC_252" data-flag="@X" onclick="openSidebar('TBC_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/177.jpg" id="TBC_177" data-flag="@X" onclick="openSidebar('TBC_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/234.jpg" id="TBC_234" data-flag="@X" onclick="openSidebar('TBC_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/179.jpg" id="TBC_179" data-flag="@X" onclick="openSidebar('TBC_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/245.jpg" id="TBC_245" data-flag="@X" onclick="openSidebar('TBC_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/231.jpg" id="TBC_231" data-flag="@X" onclick="openSidebar('TBC_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/240.jpg" id="TBC_240" data-flag="@X" onclick="openSidebar('TBC_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/183.jpg" id="TBC_183" data-flag="@X" onclick="openSidebar('TBC_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/184.jpg" id="TBC_184" data-flag="@X" onclick="openSidebar('TBC_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/165.jpg" id="TBC_165" data-flag="@X" onclick="openSidebar('TBC_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/126.jpg" id="TBC_126" data-flag="@X" onclick="openSidebar('TBC_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/167.jpg" id="TBC_167" data-flag="@X" onclick="openSidebar('TBC_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/173.jpg" id="TBC_173" data-flag="@X" onclick="openSidebar('TBC_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/169.jpg" id="TBC_169" data-flag="@X" onclick="openSidebar('TBC_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/160.jpg" id="TBC_160" data-flag="@X" onclick="openSidebar('TBC_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/236.jpg" id="TBC_236" data-flag="@X" onclick="openSidebar('TBC_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/182.jpg" id="TBC_182" data-flag="@X" onclick="openSidebar('TBC_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/239.jpg" id="TBC_239" data-flag="@X" onclick="openSidebar('TBC_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/233.jpg" id="TBC_233" data-flag="@X" onclick="openSidebar('TBC_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/185.jpg" id="TBC_185" data-flag="@X" onclick="openSidebar('TBC_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/186.jpg" id="TBC_186" data-flag="@X" onclick="openSidebar('TBC_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/172.jpg" id="TBC_172" data-flag="@X" onclick="openSidebar('TBC_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/178.jpg" id="TBC_178" data-flag="@X" onclick="openSidebar('TBC_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/159.jpg" id="TBC_159" data-flag="@X" onclick="openSidebar('TBC_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/180.jpg" id="TBC_180" data-flag="@X" onclick="openSidebar('TBC_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/181.jpg" id="TBC_181" data-flag="@X" onclick="openSidebar('TBC_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/157.jpg" id="TBC_157" data-flag="@X" onclick="openSidebar('TBC_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/158.jpg" id="TBC_158" data-flag="@X" onclick="openSidebar('TBC_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/238.jpg" id="TBC_238" data-flag="@X" onclick="openSidebar('TBC_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/170.jpg" id="TBC_170" data-flag="@X" onclick="openSidebar('TBC_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/166.jpg" id="TBC_166" data-flag="@X" onclick="openSidebar('TBC_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/162.jpg" id="TBC_162" data-flag="@X" onclick="openSidebar('TBC_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/168.jpg" id="TBC_168" data-flag="@X" onclick="openSidebar('TBC_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/164.jpg" id="TBC_164" data-flag="@X" onclick="openSidebar('TBC_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/241.jpg" id="TBC_241" data-flag="@X" onclick="openSidebar('TBC_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/171.jpg" id="TBC_171" data-flag="@X" onclick="openSidebar('TBC_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/235.jpg" id="TBC_235" data-flag="@X" onclick="openSidebar('TBC_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/163.jpg" id="TBC_163" data-flag="@X" onclick="openSidebar('TBC_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/174.jpg" id="TBC_174" data-flag="@X" onclick="openSidebar('TBC_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/232.jpg" id="TBC_232" data-flag="@X" onclick="openSidebar('TBC_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/176.jpg" id="TBC_176" data-flag="@X" onclick="openSidebar('TBC_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/137.jpg" id="TBC_137" data-flag="@X" onclick="openSidebar('TBC_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/143.jpg" id="TBC_143" data-flag="@X" onclick="openSidebar('TBC_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/119.jpg" id="TBC_119" data-flag="@X" onclick="openSidebar('TBC_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/175.jpg" id="TBC_175" data-flag="@X" onclick="openSidebar('TBC_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/151.jpg" id="TBC_151" data-flag="@X" onclick="openSidebar('TBC_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/262.jpg" id="TBC_262" data-flag="@X" onclick="openSidebar('TBC_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/138.jpg" id="TBC_138" data-flag="@X" onclick="openSidebar('TBC_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/259.jpg" id="TBC_259" data-flag="@X" onclick="openSidebar('TBC_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/115.jpg" id="TBC_115" data-flag="@X" onclick="openSidebar('TBC_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/141.jpg" id="TBC_141" data-flag="@X" onclick="openSidebar('TBC_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/122.jpg" id="TBC_122" data-flag="@X" onclick="openSidebar('TBC_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/148.jpg" id="TBC_148" data-flag="@X" onclick="openSidebar('TBC_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/154.jpg" id="TBC_154" data-flag="@X" onclick="openSidebar('TBC_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/120.jpg" id="TBC_120" data-flag="@X" onclick="openSidebar('TBC_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/161.jpg" id="TBC_161" data-flag="@X" onclick="openSidebar('TBC_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/107.jpg" id="TBC_107" data-flag="@X" onclick="openSidebar('TBC_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/113.jpg" id="TBC_113" data-flag="@X" onclick="openSidebar('TBC_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/149.jpg" id="TBC_149" data-flag="@X" onclick="openSidebar('TBC_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/140.jpg" id="TBC_140" data-flag="@X" onclick="openSidebar('TBC_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/146.jpg" id="TBC_146" data-flag="@X" onclick="openSidebar('TBC_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/132.jpg" id="TBC_132" data-flag="@X" onclick="openSidebar('TBC_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/258.jpg" id="TBC_258" data-flag="@X" onclick="openSidebar('TBC_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/109.jpg" id="TBC_109" data-flag="@X" onclick="openSidebar('TBC_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/265.jpg" id="TBC_265" data-flag="@X" onclick="openSidebar('TBC_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/136.jpg" id="TBC_136" data-flag="@X" onclick="openSidebar('TBC_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/257.jpg" id="TBC_257" data-flag="@X" onclick="openSidebar('TBC_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/153.jpg" id="TBC_153" data-flag="@X" onclick="openSidebar('TBC_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/139.jpg" id="TBC_139" data-flag="@X" onclick="openSidebar('TBC_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/110.jpg" id="TBC_110" data-flag="@X" onclick="openSidebar('TBC_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/116.jpg" id="TBC_116" data-flag="@X" onclick="openSidebar('TBC_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/127.jpg" id="TBC_127" data-flag="@X" onclick="openSidebar('TBC_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/118.jpg" id="TBC_118" data-flag="@X" onclick="openSidebar('TBC_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/134.jpg" id="TBC_134" data-flag="@X" onclick="openSidebar('TBC_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/145.jpg" id="TBC_145" data-flag="@X" onclick="openSidebar('TBC_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/156.jpg" id="TBC_156" data-flag="@X" onclick="openSidebar('TBC_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/152.jpg" id="TBC_152" data-flag="@X" onclick="openSidebar('TBC_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/128.jpg" id="TBC_128" data-flag="@X" onclick="openSidebar('TBC_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/264.jpg" id="TBC_264" data-flag="@X" onclick="openSidebar('TBC_264',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/150.jpg" id="TBC_150" data-flag="@X" onclick="openSidebar('TBC_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/266.jpg" id="TBC_266" data-flag="@X" onclick="openSidebar('TBC_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/142.jpg" id="TBC_142" data-flag="@X" onclick="openSidebar('TBC_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/133.jpg" id="TBC_133" data-flag="@X" onclick="openSidebar('TBC_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/144.jpg" id="TBC_144" data-flag="@X" onclick="openSidebar('TBC_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/130.jpg" id="TBC_130" data-flag="@X" onclick="openSidebar('TBC_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/131.jpg" id="TBC_131" data-flag="@X" onclick="openSidebar('TBC_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/147.jpg" id="TBC_147" data-flag="@X" onclick="openSidebar('TBC_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/123.jpg" id="TBC_123" data-flag="@X" onclick="openSidebar('TBC_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/129.jpg" id="TBC_129" data-flag="@X" onclick="openSidebar('TBC_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/125.jpg" id="TBC_125" data-flag="@X" onclick="openSidebar('TBC_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/261.jpg" id="TBC_261" data-flag="@X" onclick="openSidebar('TBC_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/117.jpg" id="TBC_117" data-flag="@X" onclick="openSidebar('TBC_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/263.jpg" id="TBC_263" data-flag="@X" onclick="openSidebar('TBC_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/114.jpg" id="TBC_114" data-flag="@X" onclick="openSidebar('TBC_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/155.jpg" id="TBC_155" data-flag="@X" onclick="openSidebar('TBC_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/121.jpg" id="TBC_121" data-flag="@X" onclick="openSidebar('TBC_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/112.jpg" id="TBC_112" data-flag="@X" onclick="openSidebar('TBC_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/108.jpg" id="TBC_108" data-flag="@X" onclick="openSidebar('TBC_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/124.jpg" id="TBC_124" data-flag="@X" onclick="openSidebar('TBC_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/135.jpg" id="TBC_135" data-flag="@X" onclick="openSidebar('TBC_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/111.jpg" id="TBC_111" data-flag="@X" onclick="openSidebar('TBC_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/92.jpg" id="TBC_92" data-flag="@X" onclick="openSidebar('TBC_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/63.jpg" id="TBC_63" data-flag="@X" onclick="openSidebar('TBC_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/39.jpg" id="TBC_39" data-flag="@X" onclick="openSidebar('TBC_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/260.jpg" id="TBC_260" data-flag="@X" onclick="openSidebar('TBC_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/46.jpg" id="TBC_46" data-flag="@X" onclick="openSidebar('TBC_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/87.jpg" id="TBC_87" data-flag="@X" onclick="openSidebar('TBC_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/83.jpg" id="TBC_83" data-flag="@X" onclick="openSidebar('TBC_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/74.jpg" id="TBC_74" data-flag="@X" onclick="openSidebar('TBC_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/85.jpg" id="TBC_85" data-flag="@X" onclick="openSidebar('TBC_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/76.jpg" id="TBC_76" data-flag="@X" onclick="openSidebar('TBC_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/57.jpg" id="TBC_57" data-flag="@X" onclick="openSidebar('TBC_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/58.jpg" id="TBC_58" data-flag="@X" onclick="openSidebar('TBC_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/94.jpg" id="TBC_94" data-flag="@X" onclick="openSidebar('TBC_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/45.jpg" id="TBC_45" data-flag="@X" onclick="openSidebar('TBC_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/56.jpg" id="TBC_56" data-flag="@X" onclick="openSidebar('TBC_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/62.jpg" id="TBC_62" data-flag="@X" onclick="openSidebar('TBC_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/43.jpg" id="TBC_43" data-flag="@X" onclick="openSidebar('TBC_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/54.jpg" id="TBC_54" data-flag="@X" onclick="openSidebar('TBC_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/60.jpg" id="TBC_60" data-flag="@X" onclick="openSidebar('TBC_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/86.jpg" id="TBC_86" data-flag="@X" onclick="openSidebar('TBC_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/77.jpg" id="TBC_77" data-flag="@X" onclick="openSidebar('TBC_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/68.jpg" id="TBC_68" data-flag="@X" onclick="openSidebar('TBC_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/49.jpg" id="TBC_49" data-flag="@X" onclick="openSidebar('TBC_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/80.jpg" id="TBC_80" data-flag="@X" onclick="openSidebar('TBC_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/66.jpg" id="TBC_66" data-flag="@X" onclick="openSidebar('TBC_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/67.jpg" id="TBC_67" data-flag="@X" onclick="openSidebar('TBC_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/38.jpg" id="TBC_38" data-flag="@X" onclick="openSidebar('TBC_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/69.jpg" id="TBC_69" data-flag="@X" onclick="openSidebar('TBC_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/55.jpg" id="TBC_55" data-flag="@X" onclick="openSidebar('TBC_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/81.jpg" id="TBC_81" data-flag="@X" onclick="openSidebar('TBC_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/72.jpg" id="TBC_72" data-flag="@X" onclick="openSidebar('TBC_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/93.jpg" id="TBC_93" data-flag="@X" onclick="openSidebar('TBC_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/104.jpg" id="TBC_104" data-flag="@X" onclick="openSidebar('TBC_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/70.jpg" id="TBC_70" data-flag="@X" onclick="openSidebar('TBC_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/101.jpg" id="TBC_101" data-flag="@X" onclick="openSidebar('TBC_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/32.jpg" id="TBC_32" data-flag="@X" onclick="openSidebar('TBC_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/103.jpg" id="TBC_103" data-flag="@X" onclick="openSidebar('TBC_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/64.jpg" id="TBC_64" data-flag="@X" onclick="openSidebar('TBC_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/75.jpg" id="TBC_75" data-flag="@X" onclick="openSidebar('TBC_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/106.jpg" id="TBC_106" data-flag="@X" onclick="openSidebar('TBC_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/102.jpg" id="TBC_102" data-flag="@X" onclick="openSidebar('TBC_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/98.jpg" id="TBC_98" data-flag="@X" onclick="openSidebar('TBC_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/84.jpg" id="TBC_84" data-flag="@X" onclick="openSidebar('TBC_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/35.jpg" id="TBC_35" data-flag="@X" onclick="openSidebar('TBC_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/91.jpg" id="TBC_91" data-flag="@X" onclick="openSidebar('TBC_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/52.jpg" id="TBC_52" data-flag="@X" onclick="openSidebar('TBC_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/33.jpg" id="TBC_33" data-flag="@X" onclick="openSidebar('TBC_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/59.jpg" id="TBC_59" data-flag="@X" onclick="openSidebar('TBC_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/40.jpg" id="TBC_40" data-flag="@X" onclick="openSidebar('TBC_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/41.jpg" id="TBC_41" data-flag="@X" onclick="openSidebar('TBC_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/97.jpg" id="TBC_97" data-flag="@X" onclick="openSidebar('TBC_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/73.jpg" id="TBC_73" data-flag="@X" onclick="openSidebar('TBC_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/34.jpg" id="TBC_34" data-flag="@X" onclick="openSidebar('TBC_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/105.jpg" id="TBC_105" data-flag="@X" onclick="openSidebar('TBC_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/71.jpg" id="TBC_71" data-flag="@X" onclick="openSidebar('TBC_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/82.jpg" id="TBC_82" data-flag="@X" onclick="openSidebar('TBC_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/53.jpg" id="TBC_53" data-flag="@X" onclick="openSidebar('TBC_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/44.jpg" id="TBC_44" data-flag="@X" onclick="openSidebar('TBC_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/90.jpg" id="TBC_90" data-flag="@X" onclick="openSidebar('TBC_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/51.jpg" id="TBC_51" data-flag="@X" onclick="openSidebar('TBC_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/47.jpg" id="TBC_47" data-flag="@X" onclick="openSidebar('TBC_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/48.jpg" id="TBC_48" data-flag="@X" onclick="openSidebar('TBC_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/89.jpg" id="TBC_89" data-flag="@X" onclick="openSidebar('TBC_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/50.jpg" id="TBC_50" data-flag="@X" onclick="openSidebar('TBC_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/61.jpg" id="TBC_61" data-flag="@X" onclick="openSidebar('TBC_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/42.jpg" id="TBC_42" data-flag="@X" onclick="openSidebar('TBC_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/88.jpg" id="TBC_88" data-flag="@X" onclick="openSidebar('TBC_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/99.jpg" id="TBC_99" data-flag="@X" onclick="openSidebar('TBC_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/100.jpg" id="TBC_100" data-flag="@X" onclick="openSidebar('TBC_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/96.jpg" id="TBC_96" data-flag="@X" onclick="openSidebar('TBC_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/37.jpg" id="TBC_37" data-flag="@X" onclick="openSidebar('TBC_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/78.jpg" id="TBC_78" data-flag="@X" onclick="openSidebar('TBC_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/79.jpg" id="TBC_79" data-flag="@X" onclick="openSidebar('TBC_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/65.jpg" id="TBC_65" data-flag="@X" onclick="openSidebar('TBC_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/36.jpg" id="TBC_36" data-flag="@X" onclick="openSidebar('TBC_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/95.jpg" id="TBC_95" data-flag="@X" onclick="openSidebar('TBC_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/1.jpg" id="TBC_1" data-flag="@X" onclick="openSidebar('TBC_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/222.jpg" id="TBC_222" data-flag="@X" onclick="openSidebar('TBC_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/247.jpg" id="TBC_247" data-flag="@X" onclick="openSidebar('TBC_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/224.jpg" id="TBC_224" data-flag="@X" onclick="openSidebar('TBC_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/191.jpg" id="TBC_191" data-flag="@X" onclick="openSidebar('TBC_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/221.jpg" id="TBC_221" data-flag="@X" onclick="openSidebar('TBC_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/188.jpg" id="TBC_188" data-flag="@X" onclick="openSidebar('TBC_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/0.jpg" id="TBC_0" data-flag="@X" onclick="openSidebar('TBC_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/190.jpg" id="TBC_190" data-flag="@X" onclick="openSidebar('TBC_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/225.jpg" id="TBC_225" data-flag="@X" onclick="openSidebar('TBC_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/187.jpg" id="TBC_187" data-flag="@X" onclick="openSidebar('TBC_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/13.jpg" id="TBC_13" data-flag="@X" onclick="openSidebar('TBC_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/223.jpg" id="TBC_223" data-flag="@X" onclick="openSidebar('TBC_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/15.jpg" id="TBC_15" data-flag="@X" onclick="openSidebar('TBC_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/16.jpg" id="TBC_16" data-flag="@X" onclick="openSidebar('TBC_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/12.jpg" id="TBC_12" data-flag="@X" onclick="openSidebar('TBC_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/23.jpg" id="TBC_23" data-flag="@X" onclick="openSidebar('TBC_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/189.jpg" id="TBC_189" data-flag="@X" onclick="openSidebar('TBC_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/25.jpg" id="TBC_25" data-flag="@X" onclick="openSidebar('TBC_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/26.jpg" id="TBC_26" data-flag="@X" onclick="openSidebar('TBC_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/2.jpg" id="TBC_2" data-flag="@X" onclick="openSidebar('TBC_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/3.jpg" id="TBC_3" data-flag="@X" onclick="openSidebar('TBC_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/14.jpg" id="TBC_14" data-flag="@X" onclick="openSidebar('TBC_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/5.jpg" id="TBC_5" data-flag="@X" onclick="openSidebar('TBC_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/6.jpg" id="TBC_6" data-flag="@X" onclick="openSidebar('TBC_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/22.jpg" id="TBC_22" data-flag="@X" onclick="openSidebar('TBC_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/4.jpg" id="TBC_4" data-flag="@X" onclick="openSidebar('TBC_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/24.jpg" id="TBC_24" data-flag="@X" onclick="openSidebar('TBC_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/226.jpg" id="TBC_226" data-flag="@X" onclick="openSidebar('TBC_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/243.jpg" id="TBC_243" data-flag="@X" onclick="openSidebar('TBC_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/228.jpg" id="TBC_228" data-flag="@X" onclick="openSidebar('TBC_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/229.jpg" id="TBC_229" data-flag="@X" onclick="openSidebar('TBC_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/196.jpg" id="TBC_196" data-flag="@X" onclick="openSidebar('TBC_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/192.jpg" id="TBC_192" data-flag="@X" onclick="openSidebar('TBC_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/227.jpg" id="TBC_227" data-flag="@X" onclick="openSidebar('TBC_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/194.jpg" id="TBC_194" data-flag="@X" onclick="openSidebar('TBC_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/195.jpg" id="TBC_195" data-flag="@X" onclick="openSidebar('TBC_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/230.jpg" id="TBC_230" data-flag="@X" onclick="openSidebar('TBC_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/17.jpg" id="TBC_17" data-flag="@X" onclick="openSidebar('TBC_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/193.jpg" id="TBC_193" data-flag="@X" onclick="openSidebar('TBC_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/19.jpg" id="TBC_19" data-flag="@X" onclick="openSidebar('TBC_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/20.jpg" id="TBC_20" data-flag="@X" onclick="openSidebar('TBC_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/21.jpg" id="TBC_21" data-flag="@X" onclick="openSidebar('TBC_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/7.jpg" id="TBC_7" data-flag="@X" onclick="openSidebar('TBC_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/18.jpg" id="TBC_18" data-flag="@X" onclick="openSidebar('TBC_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/29.jpg" id="TBC_29" data-flag="@X" onclick="openSidebar('TBC_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/10.jpg" id="TBC_10" data-flag="@X" onclick="openSidebar('TBC_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/11.jpg" id="TBC_11" data-flag="@X" onclick="openSidebar('TBC_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/27.jpg" id="TBC_27" data-flag="@X" onclick="openSidebar('TBC_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/8.jpg" id="TBC_8" data-flag="@X" onclick="openSidebar('TBC_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/9.jpg" id="TBC_9" data-flag="@X" onclick="openSidebar('TBC_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/30.jpg" id="TBC_30" data-flag="@X" onclick="openSidebar('TBC_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/31.jpg" id="TBC_31" data-flag="@X" onclick="openSidebar('TBC_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/28.jpg" id="TBC_28" data-flag="@X" onclick="openSidebar('TBC_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/269.jpg" id="TBC_269" data-flag="@X" onclick="openSidebar('TBC_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/246.jpg" id="TBC_246" data-flag="@X" onclick="openSidebar('TBC_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/244.jpg" id="TBC_244" data-flag="@X" onclick="openSidebar('TBC_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/268.jpg" id="TBC_268" data-flag="@X" onclick="openSidebar('TBC_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/249.jpg" id="TBC_249" data-flag="@X" onclick="openSidebar('TBC_249',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/242.jpg" id="TBC_242" data-flag="@X" onclick="openSidebar('TBC_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/267.jpg" id="TBC_267" data-flag="@X" onclick="openSidebar('TBC_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/220.jpg" id="TBC_220" data-flag="@X" onclick="openSidebar('TBC_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/218.jpg" id="TBC_218" data-flag="@X" onclick="openSidebar('TBC_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/219.jpg" id="TBC_219" data-flag="@X" onclick="openSidebar('TBC_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/217.jpg" id="TBC_217" data-flag="@X" onclick="openSidebar('TBC_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/201.jpg" id="TBC_201" data-flag="@X" onclick="openSidebar('TBC_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/197.jpg" id="TBC_197" data-flag="@X" onclick="openSidebar('TBC_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/202.jpg" id="TBC_202" data-flag="@X" onclick="openSidebar('TBC_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/200.jpg" id="TBC_200" data-flag="@X" onclick="openSidebar('TBC_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/204.jpg" id="TBC_204" data-flag="@X" onclick="openSidebar('TBC_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/207.jpg" id="TBC_207" data-flag="@X" onclick="openSidebar('TBC_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/212.jpg" id="TBC_212" data-flag="@X" onclick="openSidebar('TBC_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/205.jpg" id="TBC_205" data-flag="@X" onclick="openSidebar('TBC_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/203.jpg" id="TBC_203" data-flag="@X" onclick="openSidebar('TBC_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/206.jpg" id="TBC_206" data-flag="@X" onclick="openSidebar('TBC_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/208.jpg" id="TBC_208" data-flag="@X" onclick="openSidebar('TBC_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/211.jpg" id="TBC_211" data-flag="@X" onclick="openSidebar('TBC_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/209.jpg" id="TBC_209" data-flag="@X" onclick="openSidebar('TBC_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/213.jpg" id="TBC_213" data-flag="@X" onclick="openSidebar('TBC_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/216.jpg" id="TBC_216" data-flag="@X" onclick="openSidebar('TBC_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/214.jpg" id="TBC_214" data-flag="@X" onclick="openSidebar('TBC_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/210.jpg" id="TBC_210" data-flag="@X" onclick="openSidebar('TBC_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/215.jpg" id="TBC_215" data-flag="@X" onclick="openSidebar('TBC_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/199.jpg" id="TBC_199" data-flag="@X" onclick="openSidebar('TBC_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/198.jpg" id="TBC_198" data-flag="@X" onclick="openSidebar('TBC_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TBC_e" data-flag="@E" onclick="openSidebar('TBC_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/284.jpg" id="TBC_284" data-flag="@X" onclick="openSidebar('TBC_284',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/285.jpg" id="TBC_285" data-flag="@X" onclick="openSidebar('TBC_285',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/286.jpg" id="TBC_286" data-flag="@X" onclick="openSidebar('TBC_286',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/287.jpg" id="TBC_287" data-flag="@X" onclick="openSidebar('TBC_287',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/288.jpg" id="TBC_288" data-flag="@X" onclick="openSidebar('TBC_288',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/290.jpg" id="TBC_290" data-flag="@X" onclick="openSidebar('TBC_290',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/281.jpg" id="TBC_281" data-flag="@X" onclick="openSidebar('TBC_281',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/273.jpg" id="TBC_273" data-flag="@X" onclick="openSidebar('TBC_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/270.jpg" id="TBC_270" data-flag="@X" onclick="openSidebar('TBC_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/271.jpg" id="TBC_271" data-flag="@X" onclick="openSidebar('TBC_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/282.jpg" id="TBC_282" data-flag="@X" onclick="openSidebar('TBC_282',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/283.jpg" id="TBC_283" data-flag="@X" onclick="openSidebar('TBC_283',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/272.jpg" id="TBC_272" data-flag="@X" onclick="openSidebar('TBC_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/275.jpg" id="TBC_275" data-flag="@X" onclick="openSidebar('TBC_275',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/276.jpg" id="TBC_276" data-flag="@X" onclick="openSidebar('TBC_276',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/278.jpg" id="TBC_278" data-flag="@X" onclick="openSidebar('TBC_278',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/279.jpg" id="TBC_279" data-flag="@X" onclick="openSidebar('TBC_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/277.jpg" id="TBC_277" data-flag="@X" onclick="openSidebar('TBC_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/274.jpg" id="TBC_274" data-flag="@X" onclick="openSidebar('TBC_274',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TBC-files/img/280.jpg" id="TBC_280" data-flag="@X" onclick="openSidebar('TBC_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TBC_er" data-flag="@E" onclick="openSidebar('TBC_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1]);
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>
