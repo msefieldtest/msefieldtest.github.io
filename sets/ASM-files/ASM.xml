@@ -5,7 +5,7 @@
 			<name>ASM</name>
 			<longname>Amonkhet: Schism</longname>
 			<settype>Custom</settype>
-			<releasedate>2026-06-06</releasedate>
+			<releasedate>2026-06-16</releasedate>
 		</set>
 	</sets>
 	<cards>
@@ -308,7 +308,7 @@ Scry 1.</text>
 		</card>
 		<card>
 			<name>Maathep&apos;s Interdiction</name>
-			<text>Exile target tapped nonland permanent. Its controller creates a tapped Treasure token.</text>
+			<text>Exile target tapped nonland permanent. Its controller creates a Treasure token.</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/ASM-files/img/21_Maathep&apos;s Interdiction.jpg" num="21">ASM</set>
 			<prop>
 				<layout>normal</layout>
@@ -1638,15 +1638,15 @@ This creature assigns combat damage to planeswalkers and players equal to its to
 		</card>
 		<card>
 			<name>Cover-Up</name>
-			<text>Destroy target nonbasic permanent. Its controller may search their library for a basic land card, put it onto the battlefield, then shuffle.</text>
+			<text>Exile target artifact, enchantment, battle or nonbasic land. Its controller may search their library for a basic land card, put it onto the battlefield, then shuffle.</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/ASM-files/img/166_Cover-Up.jpg" num="166">ASM</set>
 			<prop>
 				<layout>normal</layout>
 				<side>front</side>
 				<type>Instant</type>
 				<maintype>Instant</maintype>
-				<manacost>2G</manacost>
-				<cmc>3</cmc>
+				<manacost>1G</manacost>
+				<cmc>2</cmc>
 				<colors>G</colors>
 				<coloridentity>G</coloridentity>
 			</prop>
@@ -2420,7 +2420,7 @@ If a creature would die this turn, exile it instead.</text>
 		<card>
 			<name>Luxa Shoremage</name>
 			<text>When this creature enters, put a +1/+1 counter on it and another target creature you control.
-Whenever you attack with one or more creatures with counters on them, you may untap up to that many lands you control.</text>
+Whenever a creature you control with a counter on it deals combat damage to an opponent, you may untap a land you control.</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/ASM-files/img/184_Luxa Shoremage.jpg" num="184">ASM</set>
 			<prop>
 				<layout>normal</layout>
@@ -2564,7 +2564,7 @@ Trample, vigilance</text>
 		</card>
 		<card>
 			<name>Supervisor&apos;s Intervention</name>
-			<text>Put a +1/+1 counter on target permanent you control.
+			<text>Put a +1/+1 counter on target permanent you control. That permanent gains indestructible until end of turn.
 Permanents you control with counters on them gain hexproof until end of turn.</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/ASM-files/img/193_Supervisor&apos;s Intervention.jpg" num="193">ASM</set>
 			<prop>
@@ -3014,8 +3014,8 @@ When this creature betrays another permanent, it deals 2 damage to any target. I
 		</card>
 		<card>
 			<name>Righteous Passion</name>
-			<text>When this enchantment enters, and at the beginning of your upkeep, choose one —
-• put a Coward creature type counter on target creature you don&apos;t control.
+			<text>At the beginning of combat on your turn, choose one —
+• Put a Coward creature type counter on target creature you don&apos;t control.
 • Put a +1/+1 counter on target Warrior you control.
 Cowards can&apos;t block Warriors.</text>
 			<set rarity="rare" picurl="https://msefieldtest.github.io/sets/ASM-files/img/147_Righteous Passion.jpg" num="147">ASM</set>
@@ -3201,7 +3201,7 @@ At the beginning of your upkeep, you may pay {2}{R} and reveal this card from yo
 			<name>Tekhen, Ancient Spiresoul</name>
 			<text>Flying
 Lands you control are Treasure artifacts in addition to their other types and have &quot;{T}, Sacrifice this artifact: Add one mana of any color.&quot;
-Whenever a Treasure enters under your control, if you don&apos;t control another Treasure with the same name, draw a card.</text>
+Whenever Tekhen deals combat damage to an opponent, you may pay {2}{W}. When you do, you gain 1 life for each differently named artifact you control.</text>
 			<set rarity="mythic" picurl="https://msefieldtest.github.io/sets/ASM-files/img/35_Tekhen, Ancient Spiresoul.jpg" num="35">ASM</set>
 			<prop>
 				<layout>normal</layout>
@@ -3376,7 +3376,7 @@ Once each turn, you may pay {0} rather than pay the mana cost for a creature spe
 		<card>
 			<name>Pandevotional Summoner</name>
 			<text>Ward {1}
-{T}: Create a 1/1 Elemental creature token that&apos;s all colors.</text>
+At the beginning of each end step, if you don&apos;t control an Elemental creature token, create a 1/1 Elemental creature token that&apos;s all colors.</text>
 			<set rarity="mythic" picurl="https://msefieldtest.github.io/sets/ASM-files/img/190_Pandevotional Summoner.jpg" num="190">ASM</set>
 			<prop>
 				<layout>normal</layout>
@@ -3433,7 +3433,7 @@ Return target creature card from your graveyard to the battlefield.</text>
 		</card>
 		<card>
 			<name>Embalmed Dragon</name>
-			<text>Ward—Pay 2 life
+			<text>Ward—Pay 2 life, sacrifice a nonland permanent
 Flying
 Whenever a player sacrifices a nonland permanent, this creature deals 1 damage to any target.</text>
 			<set rarity="rare" picurl="https://msefieldtest.github.io/sets/ASM-files/img/210_Embalmed Dragon.jpg" num="210">ASM</set>
@@ -3525,7 +3525,7 @@ Create a 3/3 red Phoenix creature token with flying.</text>
 		</card>
 		<card>
 			<name>Great Serpent&apos;s Arrival</name>
-			<text>Whenever this permanent deals combat damage to an opponent, that player loses the game.
+			<text>Whenever this permanent deals combat damage to an opponent, that player loses half their life, rounded up.
 Sacrifice a creature: This enchantment becomes a 3/5 Snake creature in addition to its other types until end of turn. Activate only as a sorcery.</text>
 			<set rarity="rare" picurl="https://msefieldtest.github.io/sets/ASM-files/img/215_Great Serpent&apos;s Arrival.jpg" num="215">ASM</set>
 			<prop>
@@ -3533,8 +3533,8 @@ Sacrifice a creature: This enchantment becomes a 3/5 Snake creature in addition 
 				<side>front</side>
 				<type>Legendary Enchantment</type>
 				<maintype>Enchantment</maintype>
-				<manacost>2BG</manacost>
-				<cmc>4</cmc>
+				<manacost>1BG</manacost>
+				<cmc>3</cmc>
 				<colors>BG</colors>
 				<coloridentity>BG</coloridentity>
 			</prop>
@@ -3550,8 +3550,8 @@ Other creatures you control get +1/+1.</text>
 				<side>front</side>
 				<type>Legendary Creature — Human Warrior Soldier</type>
 				<maintype>Creature</maintype>
-				<manacost>RW</manacost>
-				<cmc>2</cmc>
+				<manacost>1RW</manacost>
+				<cmc>3</cmc>
 				<colors>WR</colors>
 				<coloridentity>WR</coloridentity>
 				<pt>3/2</pt>
@@ -4273,7 +4273,7 @@ When this creature enters, each opponent discards a card.</text>
 		</card>
 		<card>
 			<name>Chamber of New Anointment</name>
-			<text>Whenever you betray a permanent, you gain 2 life. Then if that permanent was a creature, put a charge counter on this artifact.
+			<text>Whenever you betray a permanent, you gain 2 life, then put a charge counter on this artifact.
 {2}{W}{B}, {T}, Remove X charge counters from this artifact: Return target creature card with mana value less than or equal to X plus 2 from your graveyard to the battlefield. Activate only as a sorcery.</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/ASM-files/img/201_Chamber of New Anointment.jpg" num="201">ASM</set>
 			<prop>
@@ -4281,8 +4281,8 @@ When this creature enters, each opponent discards a card.</text>
 				<side>front</side>
 				<type>Artifact</type>
 				<maintype>Artifact</maintype>
-				<manacost>3WB</manacost>
-				<cmc>5</cmc>
+				<manacost>2WB</manacost>
+				<cmc>4</cmc>
 				<colors>WB</colors>
 				<coloridentity>WB</coloridentity>
 			</prop>

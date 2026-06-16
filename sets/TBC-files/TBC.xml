@@ -5,16 +5,15 @@
 			<name>TBC</name>
 			<longname>Nemyria: The Beautiful Collapse</longname>
 			<settype>Custom</settype>
-			<releasedate>2026-06-06</releasedate>
+			<releasedate>2026-06-16</releasedate>
 		</set>
 	</sets>
 	<cards>
 		<card>
 			<name>Ludolf, Out of Touch</name>
 			<text>Begin your breakdown. (It begins at 4 and decreases by 1 on each of your turns when the second card is put into your graveyard that turn. You reach rock bottom at 0.)
-Rock Bottom — You may activate Ludolf&apos;s loyalty abilities twice each turn rather than once.
-[+1]: Each player discards a card.
-[-2]: Each opponent sacrifices a permanent with the lowest mana value among nonland permanents they control.</text>
+[+1]: Each player discards a card. Then draw a card if you&apos;re at rock bottom.
+[-2]: Any number of target players each sacrifices a nonland permanent. If you sacrificed a permanent or you&apos;re at rock bottom, return a creature card from your graveyard to your hand.</text>
 			<set rarity="mythic" picurl="https://msefieldtest.github.io/sets/TBC-files/img/0.jpg" num="197">TBC</set>
 			<prop>
 				<layout>normal</layout>
@@ -597,7 +596,7 @@ When Veyran&apos;s Champion enters, create a 3/3 green Zombie Knight creature to
 		</card>
 		<card>
 			<name>Where the Story Goes</name>
-			<text>Look at the top three cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your library in any order.
+			<text>Mill three cards. You may return a creature or land card milled this way to your hand.
 Flashback {4}{GU}{GU} (You may cast this card from your graveyard for its flashback cost. Then exile it.)</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/TBC-files/img/31.jpg" num="246">TBC</set>
 			<prop>
@@ -809,7 +808,7 @@ Put a +1/+1 counter on each of up to two target creatures.</text>
 		<card>
 			<name>Stay a Little Longer</name>
 			<text>Create a 1/1 white Spirit creature token with flying. It can&apos;t block this turn.
-Flashback {1}{W} (You may cast this card from your graveyard for its flashback cost. Then exile it.)</text>
+Flashback {W} (You may cast this card from your graveyard for its flashback cost. Then exile it.)</text>
 			<set rarity="common" picurl="https://msefieldtest.github.io/sets/TBC-files/img/42.jpg" num="35">TBC</set>
 			<prop>
 				<layout>normal</layout>
@@ -2098,14 +2097,14 @@ When Tide Carried Ghost enters, return target artifact or enchantment card from 
 		</card>
 		<card>
 			<name>Goodnight and Go</name>
-			<text>Return up to two target creatures with total mana value 4 or less to their owner&apos;s hands.</text>
+			<text>Return up to two target creatures with total mana value 4 or less you don&apos;t control to their owner&apos;s hands.</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/TBC-files/img/113.jpg" num="50">TBC</set>
 			<prop>
 				<layout>normal</layout>
 				<side>front</side>
 				<type>Instant</type>
 				<maintype>Instant</maintype>
-				<manacost>1U</manacost>
+				<manacost>UU</manacost>
 				<cmc>2</cmc>
 				<colors>U</colors>
 				<coloridentity>U</coloridentity>
@@ -2185,7 +2184,7 @@ Rock bottom — At the beginning of your end step, create a 2/2 green Wolf creat
 		</card>
 		<card>
 			<name>Psychobabble</name>
-			<text>Counter target spell unless its controller unravels {3}. If they do, create a 2/2 blue Spirit creature token with flying.</text>
+			<text>Counter target spell unless its controller unravels {3}. If they do, create a 2/2 blue Spirit creature token with flying. (While paying an unravel cost, a player can exile cards from their graveyard. Each card pays for {1}.)</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/TBC-files/img/118.jpg" num="59">TBC</set>
 			<prop>
 				<layout>normal</layout>
@@ -2352,7 +2351,7 @@ Mill seven cards. For each permanent type, you may put a permanent of that type 
 			<name>Lovelorn Spirit</name>
 			<text>Vigilance
 Other Spirits you control have vigilance.
-Sacrifice Lovelorn Spirit: Target Spirit you control phases out. (Treat it and anything attached to it as though they don&apos;t exist until its controller&apos;s next turn.)</text>
+Sacrifice Lovelorn Spirit: Another target Spirit you control phases out. (Treat it and anything attached to it as though they don&apos;t exist until its controller&apos;s next turn.)</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/TBC-files/img/127.jpg" num="22">TBC</set>
 			<prop>
 				<layout>normal</layout>
@@ -2849,9 +2848,9 @@ Whenever another nontoken creature you control dies, if its mana value was 1 or 
 		</card>
 		<card>
 			<name>Pensive Dragoon</name>
-			<text>Flying, ward {1}
+			<text>Flying
 Begin your breakdown. (It begins at 4 and decreases by 1 on each of your turns when the second card is put into your graveyard that turn. You reach rock bottom at 0.)
-Pensive Dragoon can&apos;t attack or block unless the number of cards in your hand is more than twice the your level of breakdown.</text>
+Pensive Dragoon can&apos;t attack or block unless the number of cards in your hand is more than your level of breakdown.</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/TBC-files/img/153.jpg" num="58">TBC</set>
 			<prop>
 				<layout>normal</layout>
@@ -2862,7 +2861,7 @@ Pensive Dragoon can&apos;t attack or block unless the number of cards in your ha
 				<cmc>2</cmc>
 				<colors>U</colors>
 				<coloridentity>U</coloridentity>
-				<pt>3/4</pt>
+				<pt>3/3</pt>
 			</prop>
 			<tablerow>2</tablerow>
 		</card>
@@ -2931,8 +2930,8 @@ When Mouth of Infinity enters, you may exile target nonland permanent if its man
 				<side>front</side>
 				<type>Creature — Spirit</type>
 				<maintype>Creature</maintype>
-				<manacost>7W</manacost>
-				<cmc>8</cmc>
+				<manacost>6W</manacost>
+				<cmc>7</cmc>
 				<colors>W</colors>
 				<coloridentity>W</coloridentity>
 				<pt>4/4</pt>
@@ -3197,8 +3196,8 @@ Flashback {6}{R} (You may cast this card from your graveyard for its flashback c
 			<prop>
 				<layout>normal</layout>
 				<side>front</side>
-				<type>Instant</type>
-				<maintype>Instant</maintype>
+				<type>Sorcery</type>
+				<maintype>Sorcery</maintype>
 				<manacost>XG</manacost>
 				<cmc>1</cmc>
 				<colors>G</colors>
@@ -3609,7 +3608,7 @@ Whenever you discard one or more cards, put that many +1/+1 counters on Dreams o
 		<card>
 			<name>Solath, the Hollow</name>
 			<text>Whenever Solath, the Hollow enters or attacks, surveil 1.
-At the beginning of your first main phase, you may unravel {X}{X}. When you do, return target creature card with mana value X or less from your graveyard to the battlefield with a finality counter on it. (While paying an unravel cost, you can exile cards from your graveyard. Each card pays for {1}.)</text>
+At the beginning of your first main phase, you may unravel {X}{X}. When you do, return target creature card with mana value X or less from your graveyard to the battlefield with a finality counter on it.</text>
 			<set rarity="rare" picurl="https://msefieldtest.github.io/sets/TBC-files/img/194.jpg" num="213">TBC</set>
 			<prop>
 				<layout>normal</layout>
@@ -3697,9 +3696,10 @@ Tap all creatures target player controls. Those creatures don&apos;t untap durin
 			<tablerow>0</tablerow>
 		</card>
 		<card>
-			<name>Evolving Wilds</name>
-			<text>{T}, Sacrifice Evolving Wilds: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.</text>
-			<set rarity="common" picurl="https://msefieldtest.github.io/sets/TBC-files/img/199.jpg" num="261">TBC</set>
+			<name>New Divide</name>
+			<text>As New Divide enters, you may pay 2 life. If you don&apos;t, it enters tapped.
+{T}, Sacrifice New Divide: Search your library for a basic land card, put it onto the battlefield, then shuffle.</text>
+			<set rarity="common" picurl="https://msefieldtest.github.io/sets/TBC-files/img/199.jpg" num="264">TBC</set>
 			<prop>
 				<layout>normal</layout>
 				<side>front</side>
@@ -3874,7 +3874,7 @@ When Embedded Surveyor enters, you may search your library for a basic land card
 			<name>Fracture Point</name>
 			<text>{T}: Add {C}.
 {2}, {T}, Sacrifice Fracture Point: Destroy up to one target nonbasic land. You and that land&apos;s controller each creates a tapped Everywhere token. (It&apos;s a land with all basic land types.)</text>
-			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/TBC-files/img/210.jpg" num="262">TBC</set>
+			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/TBC-files/img/210.jpg" num="261">TBC</set>
 			<prop>
 				<layout>normal</layout>
 				<side>front</side>
@@ -3905,7 +3905,7 @@ When Embedded Surveyor enters, you may search your library for a basic land card
 			<name>Haunted Ridge</name>
 			<text>Haunted Ridge enters tapped unless you control two or more other lands.
 {T}: Add {B} or {R}.</text>
-			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/TBC-files/img/212.jpg" num="264">TBC</set>
+			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/TBC-files/img/212.jpg" num="263">TBC</set>
 			<prop>
 				<layout>normal</layout>
 				<side>front</side>
@@ -3952,7 +3952,7 @@ Unravel {2}, {T}: Add one mana of any color. (While paying an unravel cost, you 
 			<name>Garden of Stories</name>
 			<text>{T}: Add {C}.
 {3}, {T}, Discard a card: Draw a card.</text>
-			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/TBC-files/img/215.jpg" num="263">TBC</set>
+			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/TBC-files/img/215.jpg" num="262">TBC</set>
 			<prop>
 				<layout>normal</layout>
 				<side>front</side>
@@ -4055,8 +4055,8 @@ Players can&apos;t create tokens.</text>
 				<side>front</side>
 				<type>Enchantment</type>
 				<maintype>Enchantment</maintype>
-				<manacost>1WU</manacost>
-				<cmc>3</cmc>
+				<manacost>WU</manacost>
+				<cmc>2</cmc>
 				<colors>WU</colors>
 				<coloridentity>WU</coloridentity>
 			</prop>
@@ -4216,7 +4216,7 @@ At the beginning of your second main phase, untap each creature you control. Ahe
 		<card>
 			<name>Tidal Tender // Mind into Matter</name>
 			<text>You may play an additional land on each of your turns.
-At the beginning of your end step, if you didn&apos;t play a land this turn, Tidal Tender becomes prepared. This abilities triggers only once. (While it&apos;s prepared, you may cast a copy of its spell. Doing so unprepares it.)
+At the beginning of your end step, if you didn&apos;t play a land this turn, Tidal Tender becomes prepared. This ability triggers only once. (While it&apos;s prepared, you may cast a copy of its spell. Doing so unprepares it.)
 
 ---
 
@@ -4237,7 +4237,7 @@ Draw X cards. Then you may put a permanent card with mana value X or less from y
 		</card>
 		<card>
 			<name>Arcadian Dealer // Missing Piece</name>
-			<text>Whenever a creature you control becomes the target of a spell or ability an opponent controls, Arcadian Dealer becomes prepared. (While it&apos;s prepared, you may cast a copy of its spell. Doing so unprepares it.)
+			<text>Whenever you or a creature you control becomes the target of a spell or ability an opponent controls, Arcadian Dealer becomes prepared. (While it&apos;s prepared, you may cast a copy of its spell. Doing so unprepares it.)
 
 ---
 
@@ -4479,8 +4479,8 @@ You may put a card you own from outside the game into your hand. You lose half y
 		<card>
 			<name>Igrath of the Weave // New Poetry</name>
 			<text>Indestructible, flying
-Igrath can&apos;t attack or block as long as he is prepared.
-Whenever Igrath enters or attacks, prepare him.
+Igrath of the Weave can&apos;t attack or block as long as he is prepared.
+At the beginning of your end step, prepare Igrath.
 
 ---
 
@@ -4503,7 +4503,7 @@ Sacrifice a creature. Reveal cards from the top of your library until you reveal
 			<name>Ilyan of the Pattern // Let Go, Just Get In</name>
 			<text>Indestructible, flying
 Ilyan can&apos;t attack or block as long as she is prepared.
-Whenever Ilyan enters or attacks, prepare them.
+At the beginning of your end step, prepare Ilyan.
 
 ---
 
@@ -4561,8 +4561,8 @@ Whenever you play a card, draw a card, then you lose life equal to your level of
 		<card>
 			<name>Drevos of the Dream // Wake Up</name>
 			<text>Indestructible, flying
-Drevos can&apos;t attack or block as long as he is prepared.
-Whenever Drevos enters or attacks, prepare him.
+Drevos of the Dream can&apos;t attack or block as long as he is prepared.
+At the beginning of your end step, prepare Drevos.
 
 ---
 
