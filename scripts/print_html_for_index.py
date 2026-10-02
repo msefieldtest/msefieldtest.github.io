@@ -107,10 +107,10 @@ def generateHTML():
 		border-bottom: 2px solid #171717;
 	}
 	.button-grid {
-		display: grid;
+		display: flex;
+		justify-content: center;
 		margin: auto;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 20px;
+		gap: 12px;
 		padding-top: 10px;
 		padding-bottom: 20px;
 	}
@@ -118,10 +118,10 @@ def generateHTML():
 		background-color: #171717;
 		border: none;
 		color: #f3f3f3;
-		border-radius: 5px;
+		border-radius: 8px;
 		cursor: pointer;
-		font-size: 15px;
-		width: 150px;
+		font-size: 14px;
+		width: 135px;
 		height: 35px;
 		display: flex;
 		align-items: center;
@@ -215,8 +215,10 @@ def generateHTML():
 			<input type="text" inputmode="search" placeholder="Search ..." autofocus="autofocus" name="search" id="search" spellcheck="false" autocomplete="off" autocorrext="off" spellcheck="false">
 			<div class="button-grid">
 				<button onclick="goToSets()"><img src="img/sets.png" class="btn-img">All Sets</button>
-				<button onclick="goToDeckbuilder()"><img src="img/deck.png" class="btn-img">Deckbuilder</button>
-				<button onclick="randomCard()"><img src="img/random.png" class="btn-img">Random Card</button>
+				<button id="home-articles-btn" onclick="goToArticles()" style="display: none;"><img src="img/articles.png" class="btn-img">Articles</button>
+				<button id="home-decks-btn" onclick="goToDecks()" style="display: none;"><img src="img/deck.png" class="btn-img">Decks</button>
+				<button onclick="goToDeckbuilder()"><img src="img/deckbuilder.png" class="btn-img">Deckbuilder</button>
+				<button onclick="randomCard()"><img src="img/random.png" class="btn-img">Random</button>
 			</div>
 			<div class="two-part-grid">
 				<div class="container" id="preview-container">
@@ -267,6 +269,18 @@ def generateHTML():
 			let initial_gradient = true;
 
 			document.addEventListener("DOMContentLoaded", async function () {
+				// Hide Articles if none exist
+				fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+					.then(response => {
+						if (response.ok) document.getElementById('home-articles-btn').style.display = 'flex';
+					}).catch(() => {});
+
+				// Hide Decks if none exist
+				fetch(rootPath + '/decks.html', { method: 'HEAD' })
+					.then(response => {
+						if (response.ok) document.getElementById('home-decks-btn').style.display = 'flex';
+					}).catch(() => {});
+
 				try {
 					const response = await fetch(rootPath + '/resources/gradients.json');
 					raw_gradients = await response.json();
@@ -425,6 +439,14 @@ def generateHTML():
 
 			function goToSets() {
 				window.location = (rootPath + "/all-sets");
+			}
+
+			function goToArticles() {
+				window.location = (rootPath + "/all-articles");
+			}
+
+			function goToDecks() {
+				window.location = (rootPath + "/decks");
 			}
 
 			function goToDeckbuilder() {

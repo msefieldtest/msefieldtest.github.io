@@ -5,6 +5,11 @@ import json
 def generateHTML(codes):
 	output_html_file = "deck.html"
 
+	with open(os.path.join('resources', 'site-config.json'), encoding='utf-8-sig') as f:
+		config = json.load(f)
+		base_url = config.get('base_url', '')
+		hub_name = base_url.split('https://')[1].split('.github.io')[0].lower() if 'https://' in base_url else 'unknown'
+
 	# Start creating the HTML file content
 	html_content = '''<html>
 <head>
@@ -13,9 +18,15 @@ def generateHTML(codes):
 	<link rel="stylesheet" href="./resources/mana.css">
 	<link rel="stylesheet" href="./resources/header.css">
 	<link rel="stylesheet" href="./resources/card-text.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <script title="root">
 	const rootPath = ".";
+	const SUPABASE_URL = 'https://mtjkkvtcmejzcpjmropd.supabase.co';
+	const SUPABASE_KEY = 'sb_publishable_Hgyr2JJRsJRa1pYwoz-ijQ_ozfwnp9t';
+	const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+	const hubName = "''' + hub_name + '''";
 </script>
 <style>
 	@font-face {
@@ -39,6 +50,9 @@ def generateHTML(codes):
 	}
 	.deck-display-container {
 		height: 100%;
+		width: 100%;
+		max-width: 1300px;
+		margin: auto;
 		border: 1px solid #d5d9d9;
 		border-top: 4px solid #171717;
 		border-bottom: 4px solid #171717;
@@ -97,7 +111,7 @@ def generateHTML(codes):
 	.deck-columns-container {
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
-		gap: 15px;
+		gap: 0px;
 	}
 	@media (max-width: 1200px) {
 		.deck-columns-container {
@@ -105,7 +119,7 @@ def generateHTML(codes):
 		}
 	}
 	.deck-col {
-		padding: 0 15px;
+		padding: 0 12px;
 	}
 	.deck-section {
 		margin-bottom: 20px;
@@ -312,7 +326,13 @@ def generateHTML(codes):
 		<div class="deck-display-container">
 			<div class="deck-main-area">
 				<div class="deck-header">
-					<div id="deck-title">Loading Deck...</div>
+					<div style="display: flex; flex-direction: column; gap: 2px;">
+						<div style="display: flex; align-items: baseline; gap: 15px;">
+							<div id="deck-title">Loading Deck...</div>
+							<div id="deck-format" style="font-size: 16px; color: #666; font-style: italic;"></div>
+						</div>
+						<div id="deck-hub" style="font-size: 12px; color: #888;"></div>
+					</div>
 					<div class="dropdown-container">
 						View cards as<select id="view-select" onchange="setView(this.value)">
 							<option value="text">Text</option>
@@ -322,6 +342,7 @@ def generateHTML(codes):
 						<select id="export-menu" onchange="if(this.value != 'default') exportFile(this.value)">
 							<option value="default">Export ...</option>
 							<option value="clipboard">Copy text</option>
+							<option value="deck-image">Deck Image</option>
 							<option value="export-dek">Export .dek</option>
 							<option value="export-txt">Export .txt</option>
 							<option value="export-cod">Export .cod</option>
@@ -349,39 +370,112 @@ def generateHTML(codes):
 		html_content += f.read()
 
 	html_content += '''
-			loadDeckFromHash();
+'''
+
+	if os.path.exists(os.path.join('lists', 'external-hubs.txt')):
+		html_content += '''
+			try {
+				const hubResp = await fetch(rootPath + '/lists/external-hubs.txt');
+				if (hubResp.ok) {
+					const hubsText = await hubResp.text();
+					const hubURLs = hubsText.split(/\\r?\\n/).map(url => url.trim()).filter(url => url.length > 0);
+					for (let url of hubURLs) {
+						if (!url.startsWith('http')) {
+							url = 'https://' + url;
+						}
+						try {
+							const externalCardsResp = await fetch(url + '/lists/all-cards.json');
+							if (externalCardsResp.ok) {
+								const externalCardsJson = await externalCardsResp.json();
+								externalCardsJson.cards.forEach(c => {
+									c.hubURL = url;
+									card_list_arrayified.push(c);
+								});
+							}
+						} catch (e) {
+							console.error('Error fetching external hub:', url, e);
+						}
+					}
+				}
+			} catch (e) {
+				// No external hubs file or other error
+			}
+'''
+
+	html_content += '''
+			const urlParams = new URLSearchParams(window.location.search);
+			const deckId = urlParams.get('id');
+			
+			if (deckId) {
+				const { data, error } = await _supabase
+					.from('decks')
+					.select('*')
+					.eq('id', deckId)
+					.eq('hub', hubName)
+					.single();
+
+				if (error) {
+					console.error('Error fetching deck:', error);
+					loadDeckFromHash();
+				} else {
+					currentDeck = {
+						name: data.name,
+						format: data.format,
+						main: data.mainboard,
+						side: data.sideboard
+					};
+					document.getElementById("deck-title").innerText = currentDeck.name || "Untitled Deck";
+					document.getElementById("deck-format").innerText = (currentDeck.format && currentDeck.format !== "None") ? currentDeck.format : "";
+					document.title = (currentDeck.name || "Deck") + " - Magic the Egg";
+					render();
+					
+					// Autopopulate first card
+					const allCards = lookupCards(currentDeck.main.concat(currentDeck.side));
+					if (allCards.length > 0) {
+						showCardInGrid(allCards[0].stats);
+					}
+				}
+			} else {
+				loadDeckFromHash();
+			}
 		});
 
 		function loadDeckFromHash() {
 			const hash = window.location.hash.substring(1);
 			if (!hash) return;
 			try {
-				const decoded = atob(hash);
+				const decoded = decodeURIComponent(escape(atob(hash)));
 				if (decoded.startsWith('{')) {
 					// Old JSON format
 					currentDeck = JSON.parse(decoded);
 				} else {
-					// New compact format: Name|MainCards|SideCards
+					// New compact format: Name|Format|MainCards|SideCards
 					const parts = decoded.split('|');
 					const name = parts[0];
-					const mainStr = parts[1] || "";
-					const sideStr = parts[2] || "";
+					const format = parts.length > 3 ? parts[1] : "None";
+					const mainStr = parts.length > 3 ? parts[2] : (parts[1] || "");
+					const sideStr = parts.length > 3 ? parts[3] : (parts[2] || "");
 
 					const parsePart = (str) => {
 						if (!str) return [];
-						return str.split(',').map(item => {
-							const bits = item.split('.');
-							return { set: bits[0], num: bits[1], count: parseInt(bits[2]) };
+						// Try semicolon first (new format), fallback to comma (old format)
+						const items = str.includes(';') ? str.split(';') : str.split(',');
+						return items.map(item => {
+							// Try colon first (new format), fallback to period (old format)
+							const bits = item.includes(':') ? item.split(':') : item.split('.');
+							return { set: bits[0], num: bits[1], count: parseInt(bits[2]), name: bits[3] };
 						});
 					};
 
 					currentDeck = {
 						name: name,
+						format: format,
 						main: parsePart(mainStr),
 						side: parsePart(sideStr)
 					};
 				}
 				document.getElementById("deck-title").innerText = currentDeck.name || "Untitled Deck";
+				document.getElementById("deck-format").innerText = (currentDeck.format && currentDeck.format !== "None") ? currentDeck.format : "";
 				document.title = (currentDeck.name || "Deck") + " - Magic the Egg";
 				render();
 				
@@ -465,7 +559,28 @@ def generateHTML(codes):
 		function lookupCards(codes) {
 			if (!codes) return [];
 			return codes.map(item => {
-				const stats = card_list_arrayified.find(c => c.set === item.set && c.number == (item.num || item.number));
+				const name = (item.name || item.card_name || "").trim();
+				const num = item.num || item.number;
+				const set = item.set;
+
+				let stats = null;
+				const notToken = (c) => !c.shape || !c.shape.includes("token");
+				
+				// 1. Try Set + Name + Number
+				if (name && num) {
+					stats = card_list_arrayified.find(c => c.set === set && c.card_name.trim() === name && c.number == num && notToken(c));
+				}
+				
+				// 2. Try Set + Name
+				if (!stats && name) {
+					stats = card_list_arrayified.find(c => c.set === set && c.card_name.trim() === name && notToken(c));
+				}
+				
+				// 3. Try Set + Number
+				if (!stats && num) {
+					stats = card_list_arrayified.find(c => c.set === set && c.number == num && notToken(c));
+				}
+
 				return stats ? { count: item.count, stats: stats } : null;
 			}).filter(c => c !== null);
 		}
@@ -473,6 +588,78 @@ def generateHTML(codes):
 		async function exportFile(export_as) {
 			let deck_text = "";
 			let deck_name = currentDeck.name || "Untitled Deck";
+
+			if (export_as == "deck-image") {
+				const container = document.getElementById("deck-scroll-container");
+				const oldView = currentView;
+				
+				// Force images view if not already there
+				if (currentView !== 'images') {
+					setView('images');
+					document.getElementById("view-select").value = "images";
+				}
+
+				// Wait for images to potentially load and layout to stabilize
+				await new Promise(resolve => setTimeout(resolve, 1000));
+
+				const spoilerCont = container.querySelector(".spoiler-container");
+				if (spoilerCont) {
+					const currentWidth = spoilerCont.offsetWidth;
+
+					html2canvas(spoilerCont, {
+						useCORS: true,
+						allowTaint: true,
+						backgroundColor: "#f3f3f3",
+						scale: 2,
+						logging: false,
+						onclone: (clonedDoc) => {
+							const cloned = clonedDoc.querySelector(".spoiler-container");
+							if (cloned) {
+								cloned.style.marginRight = "0";
+								cloned.style.padding = "20px";
+								cloned.style.background = "#f3f3f3";
+								cloned.style.width = currentWidth + "px";
+
+								// Add Title to the image
+								const header = clonedDoc.createElement("div");
+								header.style.marginBottom = "20px";
+								header.style.width = "100%";
+								header.style.borderBottom = "1px solid #898989";
+								header.style.paddingBottom = "10px";
+								header.style.display = "flex";
+								header.style.alignItems = "baseline";
+								header.style.gap = "15px";
+
+								const title = clonedDoc.createElement("div");
+								title.innerText = currentDeck.name || "Untitled Deck";
+								title.style.fontFamily = "Beleren";
+								title.style.fontSize = "32px";
+								header.appendChild(title);
+
+								if (currentDeck.format && currentDeck.format !== "None") {
+									const format = clonedDoc.createElement("div");
+									format.innerText = currentDeck.format;
+									format.style.fontSize = "20px";
+									format.style.color = "#666";
+									format.style.fontStyle = "italic";
+									header.appendChild(format);
+								}
+
+								cloned.prepend(header);
+							}
+						}
+					}).then(canvas => {
+						const link = document.createElement('a');
+						link.download = deck_name + ".png";
+						link.href = canvas.toDataURL("image/png");
+						link.click();
+					});
+				}
+
+				document.getElementById("export-menu").value = "default";
+				return;
+			}
+
 			let export_cod = (export_as == "export-cod");
 
 			if (export_cod) {
@@ -550,7 +737,6 @@ def generateHTML(codes):
 					}
 					const card_img = document.createElement("img");
 					card_img.src = getCardImgSrc(card_stats);
-					card_img.loading = "lazy";
 					
 					const fx1 = document.createElement("div"); fx1.className = "card-fx";
 					const fx2 = document.createElement("div"); fx2.className = "card-fx";
@@ -592,7 +778,7 @@ def generateHTML(codes):
 				const div = document.createElement("div");
 				div.className = "spoiler-card";
 				div.style.width = "140px";
-				div.innerHTML = `<div class="spoiler-count">${card.count}</div><img loading="lazy" src="${getCardImgSrc(card.stats)}">`;
+				div.innerHTML = `<div class="spoiler-count">${card.count}</div><img src="${getCardImgSrc(card.stats)}">`;
 				div.onmouseover = () => showCardInGrid(card.stats);
 				div.onclick = () => window.open(getCardUrl(card.stats), '_blank');
 				grid.appendChild(div);
@@ -616,14 +802,16 @@ def generateHTML(codes):
 		}
 
 		function getCardImgSrc(card_stats) {
+			const prefix = card_stats.hubURL ? card_stats.hubURL : rootPath;
 			if ("position" in card_stats) {
-				return rootPath + "/sets/" + card_stats.set + "-files/img/" + card_stats.position + ((card_stats.shape.includes("double")) ? "_front" : "") + "." + card_stats.image_type;
+				return prefix + "/sets/" + card_stats.set + "-files/img/" + card_stats.position + ((card_stats.shape.includes("double")) ? "_front" : "") + "." + card_stats.image_type;
 			}
-			return rootPath + "/sets/" + card_stats.set + "-files/img/" + card_stats.number + (card_stats.shape.includes("token") ? "t_" : "_") + card_stats.card_name + ((card_stats.shape.includes("double")) ? "_front" : "") + "." + card_stats.image_type;
+			return prefix + "/sets/" + card_stats.set + "-files/img/" + card_stats.number + (card_stats.shape.includes("token") ? "t_" : "_") + card_stats.card_name + ((card_stats.shape.includes("double")) ? "_front" : "") + "." + card_stats.image_type;
 		}
 
 		function getCardUrl(card) {
-			const url = new URL(rootPath + '/card', window.location.origin);
+			const prefix = card.hubURL ? card.hubURL : window.location.origin;
+			const url = new URL(prefix + '/card', prefix);
 			url.searchParams.append('set', card.set);
 			url.searchParams.append('num', card.number);
 			url.searchParams.append('name', card.card_name);
@@ -641,6 +829,37 @@ def generateHTML(codes):
 
 	with open(os.path.join('scripts', 'snippets', 'img-container-defs.txt'), encoding='utf-8-sig') as f:
 		html_content += f.read()
+
+	html_content += '''
+		const originalBuildImgContainer = buildImgContainer;
+		buildImgContainer = function(card_stats, hidden_title = false, rotate_card = false) {
+			const container = originalBuildImgContainer(card_stats, hidden_title, rotate_card);
+			if (card_stats.hubURL) {
+				const img = container.querySelector(".card-image");
+				if (img) {
+					img.src = img.src.replace(/^.*\/sets\//, card_stats.hubURL + "/sets/");
+				}
+				const hImg = container.querySelector(".h-img");
+				if (hImg) {
+					hImg.src = hImg.src.replace(/^.*\/sets\//, card_stats.hubURL + "/sets/");
+				}
+				const link = container.querySelector("a");
+				if (link) {
+					const url = new URL(card_stats.hubURL + '/card', card_stats.hubURL);
+					const params = {
+						set: card_stats.set,
+						num: card_stats.number,
+						name: card_stats.card_name
+					}
+					for (const key in params) {
+						url.searchParams.append(key, params[key]);
+					}
+					link.href = url.toString();
+				}
+			}
+			return container;
+		};
+'''
 
 	with open(os.path.join('scripts', 'snippets', 'tokenize-symbolize.txt'), encoding='utf-8-sig') as f:
 		html_content += f.read()

@@ -16,6 +16,8 @@ import print_html_for_set
 import print_html_for_sets_page
 import print_html_for_deckbuilder
 import print_html_for_deck_page
+import print_html_for_articles
+import print_html_for_decks_page
 
 import markdown
 
@@ -38,6 +40,8 @@ def genAllCards(codes):
 		with open(os.path.join('sets', code + '-files', code + '.json'), encoding='utf-8-sig') as f:
 			#F: puts its card data into a temp dictionary,
 			raw = json.load(f)
+			if raw.get('hidden'):
+				continue
 			for card in raw['cards']:
 				card['type'] = card['type'].replace('—', '–')
 				card['rules_text'] = card['rules_text'].replace('—', '–')
@@ -68,6 +72,21 @@ def genAllCards(codes):
 		json.dump(card_input, f, indent=4)
 	with open(os.path.join('lists', 'all-sets.json'), 'w', encoding='utf-8-sig') as f:
 		json.dump(set_input, f, indent=4)
+
+def generateFormats():
+	default_path = os.path.join('resources', 'default-formats.json')
+	custom_path = os.path.join('custom', 'lists', 'formats.json')
+	output_path = os.path.join('lists', 'formats.json')
+
+	with open(default_path, 'r', encoding='utf-8-sig') as f:
+		data = json.load(f)
+
+	if os.path.exists(custom_path):
+		with open(custom_path, 'r', encoding='utf-8-sig') as f:
+			data = json.load(f)
+
+	with open(output_path, 'w', encoding='utf-8-sig') as f:
+		json.dump(data, f, indent=4)
 
 def prettifyJSON(filepath):
 	with open(filepath, encoding='utf-8-sig') as f:
@@ -110,7 +129,7 @@ for entry in os.scandir('.'):
 		os.remove(entry)
 
 #CE: auto-generate site-config.json
-repo_name = os.path.basename(os.getcwd())
+repo_name = os.path.basename(os.getcwd()).lower()
 default_config = {
 	"base_url": f"https://{repo_name}"
 }
@@ -130,6 +149,22 @@ for entry in os.scandir('sets'):
 for entry in os.scandir('lists'):
 	if entry.name != 'README.md' and os.path.isfile(entry):
 		os.remove(entry)
+
+generateFormats()
+
+if os.path.exists('articles'):
+	# Recursive cleanup of .html files
+	for root, dirs, files in os.walk('articles'):
+		for file in files:
+			if file.endswith('.html'):
+				os.remove(os.path.join(root, file))
+	
+	# Prune empty subdirectories
+	for root, dirs, files in os.walk('articles', topdown=False):
+		for dir in dirs:
+			dir_path = os.path.join(root, dir)
+			if not os.listdir(dir_path):
+				os.rmdir(dir_path)
 
 #CE: remove stale files from set directories
 removeStaleFiles('sets')
@@ -209,16 +244,18 @@ for code in set_codes:
 					prev_card = previous_data['cards'][prev_card_names.index(card['card_name'])]
 					prev_card_names[prev_card_names.index(card['card_name'])] = ''
 
-					# ignore card number, since that often changes for reasons unrelated to the card itself
+					# ignore fields that often change for reasons unrelated to the card itself
 					card_copy = card.copy()
 					prev_card_copy = prev_card.copy()
 					card_copy.pop("number", None)
 					prev_card_copy.pop("number", None)
+					card_copy.pop("position", None)
+					prev_card_copy.pop("position", None)
 
 					if card_copy != prev_card_copy:
 						changed = True
 						changed_string += card['card_name'] + '\n'
-						for key in [ 'type', 'cost', 'rules_text', 'pt', 'special_text', 'loyalty' ]:
+						for key in [ 'type', 'cost', 'rules_text', 'flavor_text', 'pt', 'special_text', 'loyalty', "artist" ]:
 							if card[key] != prev_card[key]:
 								changed_string += key + ': ' + prev_card[key] + ' => ' + card[key] + '\n'
 						changed_string += '\n'
@@ -263,7 +300,7 @@ if not os.path.exists(custom_order):
 for code in set_codes:
 	#F: more important functions
 	#CE: moving this down after we create the 'set-order.json' file
-	if not os.path.exists(os.path.join('sets', code + '-files', 'ignore.txt')):
+	if not os.path.exists(os.path.join('sets', code + '-files', 'ignore.txt')) and not os.path.isfile(os.path.join('custom', 'previews', code + '.html')):
 		print_html_for_preview.generateHTML(code)
 	print_html_for_set.generateHTML(code)
 
@@ -271,4 +308,40 @@ print_html_for_sets_page.generateHTML()
 print_html_for_search.generateHTML(set_codes)
 print_html_for_deckbuilder.generateHTML(set_codes)
 print_html_for_deck_page.generateHTML(set_codes)
+# Clear existing global pages to ensure they only exist if content is present
+for page in ['all-articles.html', 'decks.html']:
+	if os.path.exists(page):
+		os.remove(page)
+
 print_html_for_index.generateHTML()
+
+# Only generate Articles if content exists
+has_articles = print_html_for_articles.generateHTML()
+if not has_articles:
+	print("No articles found; skipping all-articles.html")
+
+# Only generate Decks if decks exist in Supabase for this hub
+def check_for_decks():
+	try:
+		import urllib.request
+		with open(os.path.join('resources', 'site-config.json'), encoding='utf-8-sig') as f:
+			config = json.load(f)
+			base_url = config.get('base_url', '')
+			hub_name = base_url.split('https://')[1].split('.github.io')[0].lower() if 'https://' in base_url else 'unknown'
+		
+		url = f"https://mtjkkvtcmejzcpjmropd.supabase.co/rest/v1/decks?hub=eq.{hub_name}&select=id&limit=1"
+		req = urllib.request.Request(url)
+		req.add_header('apikey', 'sb_publishable_Hgyr2JJRsJRa1pYwoz-ijQ_ozfwnp9t')
+		req.add_header('Authorization', 'Bearer sb_publishable_Hgyr2JJRsJRa1pYwoz-ijQ_ozfwnp9t')
+		
+		with urllib.request.urlopen(req) as response:
+			data = json.loads(response.read().decode())
+			return len(data) > 0
+	except Exception as e:
+		print(f"Warning: Could not check Supabase for decks: {e}")
+		return True # Default to generating if check fails
+
+if check_for_decks():
+	print_html_for_decks_page.generateHTML()
+else:
+	print("No decks found for this hub; skipping decks.html")
