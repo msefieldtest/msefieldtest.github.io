@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/EAJ-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>EAJ visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/EAJ-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MST-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SSC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WHL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/XCX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ECB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TFF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WBY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AWA-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EAJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/M6D-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RAW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SPX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/DRM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EVO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FIM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/EAJ"><img src="../sets/EAJ-files/icon.png">Eternal Autumn of Javor</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">UB Touhou Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/HEX"><img src="../sets/HEX-files/icon.png">The Hex Games</a>
+	
+		<a class="set-bar inactive" href="../previews/MST"><img src="../sets/MST-files/icon.png">Rural Dwellings, in Seafoam Mist</a>
+	
+		<a class="set-bar inactive" href="../previews/SSC"><img src="../sets/SSC-files/icon.png">Shiyue: Soul's Crossing</a>
+	
+		<a class="set-bar inactive" href="../previews/WHL"><img src="../sets/WHL-files/icon.png">Building Fortune's Wheel</a>
+	
+		<a class="set-bar inactive" href="../previews/XCX"><img src="../sets/XCX-files/icon.png">Xenoblade Chronicles X</a>
+	
+		<a class="set-bar inactive" href="../previews/ECB"><img src="../sets/ECB-files/icon.png">Elnyreth: Contact With Those Beyond</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/TEX"><img src="../sets/TEX-files/icon.png">Tarkir: Extinction</a>
+	
+		<a class="set-bar inactive" href="../previews/TFF"><img src="../sets/TFF-files/icon.png">Dark Souls: The Fire Fades</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WBY"><img src="../sets/WBY-files/icon.png">Wild Blue Yonder</a>
+	
+		<a class="set-bar inactive" href="../previews/AWA"><img src="../sets/AWA-files/icon.png">Anglodoor Awakened</a>
+	
+		<a class="set-bar inactive" href="../previews/M6D"><img src="../sets/M6D-files/icon.png">Mysticism of the Sixth Day</a>
+	
+		<a class="set-bar inactive" href="../previews/RAW"><img src="../sets/RAW-files/icon.png">Ravnica's Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/SPX"><img src="../sets/SPX-files/icon.png">Splendor of Excelsior</a>
+	
+		<a class="set-bar inactive" href="../previews/TEL"><img src="../sets/TEL-files/icon.png">Theros: The Elekteid</a>
+	
+		<a class="set-bar inactive" href="../previews/TLB"><img src="../sets/TLB-files/icon.png">The Lands Between</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/DRM"><img src="../sets/DRM-files/icon.png">Dreamers of Antausia</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/EVO"><img src="../sets/EVO-files/icon.png">Evolution on Srai-Val-Nul</a>
+	
+		<a class="set-bar inactive" href="../previews/FIM"><img src="../sets/FIM-files/icon.png">Periss: Friendship is Magic</a>
+	
+		<a class="set-bar inactive" href="../previews/ORE"><img src="../sets/ORE-files/icon.png">Orestan</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Towers of Tin Lau</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/EAJ-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/199.jpg" id="EAJ_199" data-flag="@X" onclick="openSidebar('EAJ_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/200.jpg" id="EAJ_200" data-flag="@X" onclick="openSidebar('EAJ_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/202.jpg" id="EAJ_202" data-flag="@X" onclick="openSidebar('EAJ_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/196.jpg" id="EAJ_196" data-flag="@X" onclick="openSidebar('EAJ_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/197.jpg" id="EAJ_197" data-flag="@X" onclick="openSidebar('EAJ_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/194.jpg" id="EAJ_194" data-flag="@X" onclick="openSidebar('EAJ_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/168.jpg" id="EAJ_168" data-flag="@X" onclick="openSidebar('EAJ_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/195.jpg" id="EAJ_195" data-flag="@X" onclick="openSidebar('EAJ_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/201.jpg" id="EAJ_201" data-flag="@X" onclick="openSidebar('EAJ_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/198.jpg" id="EAJ_198" data-flag="@X" onclick="openSidebar('EAJ_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/180.jpg" id="EAJ_180" data-flag="@X" onclick="openSidebar('EAJ_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/182.jpg" id="EAJ_182" data-flag="@X" onclick="openSidebar('EAJ_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/184.jpg" id="EAJ_184" data-flag="@X" onclick="openSidebar('EAJ_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/186.jpg" id="EAJ_186" data-flag="@X" onclick="openSidebar('EAJ_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/179.jpg" id="EAJ_179" data-flag="@X" onclick="openSidebar('EAJ_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/181.jpg" id="EAJ_181" data-flag="@X" onclick="openSidebar('EAJ_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/183.jpg" id="EAJ_183" data-flag="@X" onclick="openSidebar('EAJ_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/177.jpg" id="EAJ_177" data-flag="@X" onclick="openSidebar('EAJ_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/187.jpg" id="EAJ_187" data-flag="@X" onclick="openSidebar('EAJ_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/190.jpg" id="EAJ_190" data-flag="@X" onclick="openSidebar('EAJ_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/170.jpg" id="EAJ_170" data-flag="@X" onclick="openSidebar('EAJ_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/176.jpg" id="EAJ_176" data-flag="@X" onclick="openSidebar('EAJ_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/185.jpg" id="EAJ_185" data-flag="@X" onclick="openSidebar('EAJ_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/178.jpg" id="EAJ_178" data-flag="@X" onclick="openSidebar('EAJ_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/191.jpg" id="EAJ_191" data-flag="@X" onclick="openSidebar('EAJ_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/100.jpg" id="EAJ_100" data-flag="@X" onclick="openSidebar('EAJ_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/110.jpg" id="EAJ_110" data-flag="@X" onclick="openSidebar('EAJ_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/123.jpg" id="EAJ_123" data-flag="@X" onclick="openSidebar('EAJ_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/188.jpg" id="EAJ_188" data-flag="@X" onclick="openSidebar('EAJ_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/152.jpg" id="EAJ_152" data-flag="@X" onclick="openSidebar('EAJ_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/92.jpg" id="EAJ_92" data-flag="@X" onclick="openSidebar('EAJ_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/104.jpg" id="EAJ_104" data-flag="@X" onclick="openSidebar('EAJ_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/118.jpg" id="EAJ_118" data-flag="@X" onclick="openSidebar('EAJ_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/138.jpg" id="EAJ_138" data-flag="@X" onclick="openSidebar('EAJ_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/151.jpg" id="EAJ_151" data-flag="@X" onclick="openSidebar('EAJ_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/96.jpg" id="EAJ_96" data-flag="@X" onclick="openSidebar('EAJ_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/103.jpg" id="EAJ_103" data-flag="@X" onclick="openSidebar('EAJ_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/119.jpg" id="EAJ_119" data-flag="@X" onclick="openSidebar('EAJ_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/137.jpg" id="EAJ_137" data-flag="@X" onclick="openSidebar('EAJ_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/147.jpg" id="EAJ_147" data-flag="@X" onclick="openSidebar('EAJ_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/88.jpg" id="EAJ_88" data-flag="@X" onclick="openSidebar('EAJ_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/109.jpg" id="EAJ_109" data-flag="@X" onclick="openSidebar('EAJ_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/121.jpg" id="EAJ_121" data-flag="@X" onclick="openSidebar('EAJ_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/131.jpg" id="EAJ_131" data-flag="@X" onclick="openSidebar('EAJ_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/145.jpg" id="EAJ_145" data-flag="@X" onclick="openSidebar('EAJ_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/101.jpg" id="EAJ_101" data-flag="@X" onclick="openSidebar('EAJ_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/102.jpg" id="EAJ_102" data-flag="@X" onclick="openSidebar('EAJ_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/125.jpg" id="EAJ_125" data-flag="@X" onclick="openSidebar('EAJ_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/132.jpg" id="EAJ_132" data-flag="@X" onclick="openSidebar('EAJ_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/143.jpg" id="EAJ_143" data-flag="@X" onclick="openSidebar('EAJ_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/97.jpg" id="EAJ_97" data-flag="@X" onclick="openSidebar('EAJ_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/106.jpg" id="EAJ_106" data-flag="@X" onclick="openSidebar('EAJ_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/11.jpg" id="EAJ_11" data-flag="@X" onclick="openSidebar('EAJ_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/139.jpg" id="EAJ_139" data-flag="@X" onclick="openSidebar('EAJ_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/149.jpg" id="EAJ_149" data-flag="@X" onclick="openSidebar('EAJ_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/94.jpg" id="EAJ_94" data-flag="@X" onclick="openSidebar('EAJ_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/105.jpg" id="EAJ_105" data-flag="@X" onclick="openSidebar('EAJ_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/115.jpg" id="EAJ_115" data-flag="@X" onclick="openSidebar('EAJ_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/135.jpg" id="EAJ_135" data-flag="@X" onclick="openSidebar('EAJ_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/146.jpg" id="EAJ_146" data-flag="@X" onclick="openSidebar('EAJ_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/93.jpg" id="EAJ_93" data-flag="@X" onclick="openSidebar('EAJ_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/111.jpg" id="EAJ_111" data-flag="@X" onclick="openSidebar('EAJ_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/120.jpg" id="EAJ_120" data-flag="@X" onclick="openSidebar('EAJ_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/129.jpg" id="EAJ_129" data-flag="@X" onclick="openSidebar('EAJ_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/153.jpg" id="EAJ_153" data-flag="@X" onclick="openSidebar('EAJ_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/91.jpg" id="EAJ_91" data-flag="@X" onclick="openSidebar('EAJ_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/107.jpg" id="EAJ_107" data-flag="@X" onclick="openSidebar('EAJ_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/116.jpg" id="EAJ_116" data-flag="@X" onclick="openSidebar('EAJ_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/140.jpg" id="EAJ_140" data-flag="@X" onclick="openSidebar('EAJ_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/142.jpg" id="EAJ_142" data-flag="@X" onclick="openSidebar('EAJ_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/98.jpg" id="EAJ_98" data-flag="@X" onclick="openSidebar('EAJ_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/112.jpg" id="EAJ_112" data-flag="@X" onclick="openSidebar('EAJ_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/126.jpg" id="EAJ_126" data-flag="@X" onclick="openSidebar('EAJ_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/133.jpg" id="EAJ_133" data-flag="@X" onclick="openSidebar('EAJ_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/141.jpg" id="EAJ_141" data-flag="@X" onclick="openSidebar('EAJ_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/95.jpg" id="EAJ_95" data-flag="@X" onclick="openSidebar('EAJ_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/114.jpg" id="EAJ_114" data-flag="@X" onclick="openSidebar('EAJ_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/124.jpg" id="EAJ_124" data-flag="@X" onclick="openSidebar('EAJ_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/130.jpg" id="EAJ_130" data-flag="@X" onclick="openSidebar('EAJ_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/144.jpg" id="EAJ_144" data-flag="@X" onclick="openSidebar('EAJ_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/99.jpg" id="EAJ_99" data-flag="@X" onclick="openSidebar('EAJ_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/113.jpg" id="EAJ_113" data-flag="@X" onclick="openSidebar('EAJ_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/122.jpg" id="EAJ_122" data-flag="@X" onclick="openSidebar('EAJ_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/128.jpg" id="EAJ_128" data-flag="@X" onclick="openSidebar('EAJ_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/70.jpg" id="EAJ_70" data-flag="@X" onclick="openSidebar('EAJ_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/90.jpg" id="EAJ_90" data-flag="@X" onclick="openSidebar('EAJ_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/108.jpg" id="EAJ_108" data-flag="@X" onclick="openSidebar('EAJ_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/117.jpg" id="EAJ_117" data-flag="@X" onclick="openSidebar('EAJ_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/134.jpg" id="EAJ_134" data-flag="@X" onclick="openSidebar('EAJ_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/148.jpg" id="EAJ_148" data-flag="@X" onclick="openSidebar('EAJ_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/18.jpg" id="EAJ_18" data-flag="@X" onclick="openSidebar('EAJ_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/43.jpg" id="EAJ_43" data-flag="@X" onclick="openSidebar('EAJ_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/48.jpg" id="EAJ_48" data-flag="@X" onclick="openSidebar('EAJ_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/136.jpg" id="EAJ_136" data-flag="@X" onclick="openSidebar('EAJ_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/73.jpg" id="EAJ_73" data-flag="@X" onclick="openSidebar('EAJ_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/7.jpg" id="EAJ_7" data-flag="@X" onclick="openSidebar('EAJ_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/34.jpg" id="EAJ_34" data-flag="@X" onclick="openSidebar('EAJ_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/2.jpg" id="EAJ_2" data-flag="@X" onclick="openSidebar('EAJ_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/66.jpg" id="EAJ_66" data-flag="@X" onclick="openSidebar('EAJ_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/69.jpg" id="EAJ_69" data-flag="@X" onclick="openSidebar('EAJ_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/19.jpg" id="EAJ_19" data-flag="@X" onclick="openSidebar('EAJ_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/6.jpg" id="EAJ_6" data-flag="@X" onclick="openSidebar('EAJ_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/50.jpg" id="EAJ_50" data-flag="@X" onclick="openSidebar('EAJ_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/62.jpg" id="EAJ_62" data-flag="@X" onclick="openSidebar('EAJ_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/74.jpg" id="EAJ_74" data-flag="@X" onclick="openSidebar('EAJ_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/26.jpg" id="EAJ_26" data-flag="@X" onclick="openSidebar('EAJ_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/38.jpg" id="EAJ_38" data-flag="@X" onclick="openSidebar('EAJ_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/53.jpg" id="EAJ_53" data-flag="@X" onclick="openSidebar('EAJ_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/60.jpg" id="EAJ_60" data-flag="@X" onclick="openSidebar('EAJ_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/1.jpg" id="EAJ_1" data-flag="@X" onclick="openSidebar('EAJ_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/32.jpg" id="EAJ_32" data-flag="@X" onclick="openSidebar('EAJ_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/36.jpg" id="EAJ_36" data-flag="@X" onclick="openSidebar('EAJ_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/45.jpg" id="EAJ_45" data-flag="@X" onclick="openSidebar('EAJ_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/56.jpg" id="EAJ_56" data-flag="@X" onclick="openSidebar('EAJ_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/79.jpg" id="EAJ_79" data-flag="@X" onclick="openSidebar('EAJ_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/30.jpg" id="EAJ_30" data-flag="@X" onclick="openSidebar('EAJ_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/3.jpg" id="EAJ_3" data-flag="@X" onclick="openSidebar('EAJ_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/51.jpg" id="EAJ_51" data-flag="@X" onclick="openSidebar('EAJ_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/57.jpg" id="EAJ_57" data-flag="@X" onclick="openSidebar('EAJ_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/71.jpg" id="EAJ_71" data-flag="@X" onclick="openSidebar('EAJ_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/27.jpg" id="EAJ_27" data-flag="@X" onclick="openSidebar('EAJ_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/39.jpg" id="EAJ_39" data-flag="@X" onclick="openSidebar('EAJ_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/46.jpg" id="EAJ_46" data-flag="@X" onclick="openSidebar('EAJ_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/10.jpg" id="EAJ_10" data-flag="@X" onclick="openSidebar('EAJ_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/9.jpg" id="EAJ_9" data-flag="@X" onclick="openSidebar('EAJ_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/31.jpg" id="EAJ_31" data-flag="@X" onclick="openSidebar('EAJ_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/44.jpg" id="EAJ_44" data-flag="@X" onclick="openSidebar('EAJ_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/54.jpg" id="EAJ_54" data-flag="@X" onclick="openSidebar('EAJ_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/63.jpg" id="EAJ_63" data-flag="@X" onclick="openSidebar('EAJ_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/80.jpg" id="EAJ_80" data-flag="@X" onclick="openSidebar('EAJ_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/21.jpg" id="EAJ_21" data-flag="@X" onclick="openSidebar('EAJ_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/35.jpg" id="EAJ_35" data-flag="@X" onclick="openSidebar('EAJ_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/8.jpg" id="EAJ_8" data-flag="@X" onclick="openSidebar('EAJ_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/64.jpg" id="EAJ_64" data-flag="@X" onclick="openSidebar('EAJ_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/76.jpg" id="EAJ_76" data-flag="@X" onclick="openSidebar('EAJ_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/29.jpg" id="EAJ_29" data-flag="@X" onclick="openSidebar('EAJ_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/37.jpg" id="EAJ_37" data-flag="@X" onclick="openSidebar('EAJ_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/47.jpg" id="EAJ_47" data-flag="@X" onclick="openSidebar('EAJ_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/58.jpg" id="EAJ_58" data-flag="@X" onclick="openSidebar('EAJ_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/75.jpg" id="EAJ_75" data-flag="@X" onclick="openSidebar('EAJ_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/28.jpg" id="EAJ_28" data-flag="@X" onclick="openSidebar('EAJ_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/41.jpg" id="EAJ_41" data-flag="@X" onclick="openSidebar('EAJ_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/49.jpg" id="EAJ_49" data-flag="@X" onclick="openSidebar('EAJ_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/59.jpg" id="EAJ_59" data-flag="@X" onclick="openSidebar('EAJ_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/68.jpg" id="EAJ_68" data-flag="@X" onclick="openSidebar('EAJ_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/25.jpg" id="EAJ_25" data-flag="@X" onclick="openSidebar('EAJ_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/40.jpg" id="EAJ_40" data-flag="@X" onclick="openSidebar('EAJ_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/52.jpg" id="EAJ_52" data-flag="@X" onclick="openSidebar('EAJ_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/61.jpg" id="EAJ_61" data-flag="@X" onclick="openSidebar('EAJ_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/72.jpg" id="EAJ_72" data-flag="@X" onclick="openSidebar('EAJ_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/20.jpg" id="EAJ_20" data-flag="@X" onclick="openSidebar('EAJ_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/42.jpg" id="EAJ_42" data-flag="@X" onclick="openSidebar('EAJ_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/55.jpg" id="EAJ_55" data-flag="@X" onclick="openSidebar('EAJ_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/0.jpg" id="EAJ_0" data-flag="@X" onclick="openSidebar('EAJ_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/78.jpg" id="EAJ_78" data-flag="@X" onclick="openSidebar('EAJ_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EAJ_e" data-flag="@E" onclick="openSidebar('EAJ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EAJ_e" data-flag="@E" onclick="openSidebar('EAJ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EAJ_e" data-flag="@E" onclick="openSidebar('EAJ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/65.jpg" id="EAJ_65" data-flag="@X" onclick="openSidebar('EAJ_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EAJ_e" data-flag="@E" onclick="openSidebar('EAJ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/158.jpg" id="EAJ_158" data-flag="@X" onclick="openSidebar('EAJ_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/5.jpg" id="EAJ_5" data-flag="@X" onclick="openSidebar('EAJ_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/160.jpg" id="EAJ_160" data-flag="@X" onclick="openSidebar('EAJ_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/161.jpg" id="EAJ_161" data-flag="@X" onclick="openSidebar('EAJ_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/14.jpg" id="EAJ_14" data-flag="@X" onclick="openSidebar('EAJ_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/23.jpg" id="EAJ_23" data-flag="@X" onclick="openSidebar('EAJ_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/159.jpg" id="EAJ_159" data-flag="@X" onclick="openSidebar('EAJ_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/12.jpg" id="EAJ_12" data-flag="@X" onclick="openSidebar('EAJ_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/13.jpg" id="EAJ_13" data-flag="@X" onclick="openSidebar('EAJ_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/162.jpg" id="EAJ_162" data-flag="@X" onclick="openSidebar('EAJ_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/4.jpg" id="EAJ_4" data-flag="@X" onclick="openSidebar('EAJ_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/165.jpg" id="EAJ_165" data-flag="@X" onclick="openSidebar('EAJ_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/24.jpg" id="EAJ_24" data-flag="@X" onclick="openSidebar('EAJ_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/166.jpg" id="EAJ_166" data-flag="@X" onclick="openSidebar('EAJ_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/167.jpg" id="EAJ_167" data-flag="@X" onclick="openSidebar('EAJ_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/164.jpg" id="EAJ_164" data-flag="@X" onclick="openSidebar('EAJ_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/15.jpg" id="EAJ_15" data-flag="@X" onclick="openSidebar('EAJ_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/163.jpg" id="EAJ_163" data-flag="@X" onclick="openSidebar('EAJ_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/16.jpg" id="EAJ_16" data-flag="@X" onclick="openSidebar('EAJ_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/17.jpg" id="EAJ_17" data-flag="@X" onclick="openSidebar('EAJ_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/213.jpg" id="EAJ_213" data-flag="@X" onclick="openSidebar('EAJ_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EAJ_e" data-flag="@E" onclick="openSidebar('EAJ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EAJ_e" data-flag="@E" onclick="openSidebar('EAJ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EAJ_e" data-flag="@E" onclick="openSidebar('EAJ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EAJ_e" data-flag="@E" onclick="openSidebar('EAJ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/214.jpg" id="EAJ_214" data-flag="@X" onclick="openSidebar('EAJ_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/192.jpg" id="EAJ_192" data-flag="@X" onclick="openSidebar('EAJ_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/193.jpg" id="EAJ_193" data-flag="@X" onclick="openSidebar('EAJ_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/156.jpg" id="EAJ_156" data-flag="@X" onclick="openSidebar('EAJ_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/157.jpg" id="EAJ_157" data-flag="@X" onclick="openSidebar('EAJ_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/154.jpg" id="EAJ_154" data-flag="@X" onclick="openSidebar('EAJ_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/155.jpg" id="EAJ_155" data-flag="@X" onclick="openSidebar('EAJ_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/86.jpg" id="EAJ_86" data-flag="@X" onclick="openSidebar('EAJ_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/85.jpg" id="EAJ_85" data-flag="@X" onclick="openSidebar('EAJ_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/82.jpg" id="EAJ_82" data-flag="@X" onclick="openSidebar('EAJ_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/83.jpg" id="EAJ_83" data-flag="@X" onclick="openSidebar('EAJ_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/87.jpg" id="EAJ_87" data-flag="@X" onclick="openSidebar('EAJ_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/84.jpg" id="EAJ_84" data-flag="@X" onclick="openSidebar('EAJ_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/81.jpg" id="EAJ_81" data-flag="@X" onclick="openSidebar('EAJ_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EAJ_e" data-flag="@E" onclick="openSidebar('EAJ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/206.jpg" id="EAJ_206" data-flag="@X" onclick="openSidebar('EAJ_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/204.jpg" id="EAJ_204" data-flag="@X" onclick="openSidebar('EAJ_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/212.jpg" id="EAJ_212" data-flag="@X" onclick="openSidebar('EAJ_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/203.jpg" id="EAJ_203" data-flag="@X" onclick="openSidebar('EAJ_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/208.jpg" id="EAJ_208" data-flag="@X" onclick="openSidebar('EAJ_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/215.jpg" id="EAJ_215" data-flag="@X" onclick="openSidebar('EAJ_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/224.jpg" id="EAJ_224" data-flag="@X" onclick="openSidebar('EAJ_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/216.jpg" id="EAJ_216" data-flag="@X" onclick="openSidebar('EAJ_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/219.jpg" id="EAJ_219" data-flag="@X" onclick="openSidebar('EAJ_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/218.jpg" id="EAJ_218" data-flag="@X" onclick="openSidebar('EAJ_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/209.jpg" id="EAJ_209" data-flag="@X" onclick="openSidebar('EAJ_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/210.jpg" id="EAJ_210" data-flag="@X" onclick="openSidebar('EAJ_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/207.jpg" id="EAJ_207" data-flag="@X" onclick="openSidebar('EAJ_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/211.jpg" id="EAJ_211" data-flag="@X" onclick="openSidebar('EAJ_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/205.jpg" id="EAJ_205" data-flag="@X" onclick="openSidebar('EAJ_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/221.jpg" id="EAJ_221" data-flag="@X" onclick="openSidebar('EAJ_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/220.jpg" id="EAJ_220" data-flag="@X" onclick="openSidebar('EAJ_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/222.jpg" id="EAJ_222" data-flag="@X" onclick="openSidebar('EAJ_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/223.jpg" id="EAJ_223" data-flag="@X" onclick="openSidebar('EAJ_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/217.jpg" id="EAJ_217" data-flag="@X" onclick="openSidebar('EAJ_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/171.jpg" id="EAJ_171" data-flag="@X" onclick="openSidebar('EAJ_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/172.jpg" id="EAJ_172" data-flag="@X" onclick="openSidebar('EAJ_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/173.jpg" id="EAJ_173" data-flag="@X" onclick="openSidebar('EAJ_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/174.jpg" id="EAJ_174" data-flag="@X" onclick="openSidebar('EAJ_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/175.jpg" id="EAJ_175" data-flag="@X" onclick="openSidebar('EAJ_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/189.jpg" id="EAJ_189" data-flag="@X" onclick="openSidebar('EAJ_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/67.jpg" id="EAJ_67" data-flag="@X" onclick="openSidebar('EAJ_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/33.jpg" id="EAJ_33" data-flag="@X" onclick="openSidebar('EAJ_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/22.jpg" id="EAJ_22" data-flag="@X" onclick="openSidebar('EAJ_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/169.jpg" id="EAJ_169" data-flag="@X" onclick="openSidebar('EAJ_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/127.jpg" id="EAJ_127" data-flag="@X" onclick="openSidebar('EAJ_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/150.jpg" id="EAJ_150" data-flag="@X" onclick="openSidebar('EAJ_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EAJ-files/img/77.jpg" id="EAJ_77" data-flag="@X" onclick="openSidebar('EAJ_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EAJ_e" data-flag="@E" onclick="openSidebar('EAJ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EAJ_e" data-flag="@E" onclick="openSidebar('EAJ_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EAJ_er" data-flag="@E" onclick="openSidebar('EAJ_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1].toLowerCase());
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/WBY-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>WBY visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/WBY-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MST-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SSC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WHL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/XCX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ECB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TFF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WBY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AWA-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EAJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/M6D-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RAW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SPX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/DRM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EVO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FIM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/WBY"><img src="../sets/WBY-files/icon.png">Wild Blue Yonder</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">UB Touhou Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/HEX"><img src="../sets/HEX-files/icon.png">The Hex Games</a>
+	
+		<a class="set-bar inactive" href="../previews/MST"><img src="../sets/MST-files/icon.png">Rural Dwellings, in Seafoam Mist</a>
+	
+		<a class="set-bar inactive" href="../previews/SSC"><img src="../sets/SSC-files/icon.png">Shiyue: Soul's Crossing</a>
+	
+		<a class="set-bar inactive" href="../previews/WHL"><img src="../sets/WHL-files/icon.png">Building Fortune's Wheel</a>
+	
+		<a class="set-bar inactive" href="../previews/XCX"><img src="../sets/XCX-files/icon.png">Xenoblade Chronicles X</a>
+	
+		<a class="set-bar inactive" href="../previews/ECB"><img src="../sets/ECB-files/icon.png">Elnyreth: Contact With Those Beyond</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/TEX"><img src="../sets/TEX-files/icon.png">Tarkir: Extinction</a>
+	
+		<a class="set-bar inactive" href="../previews/TFF"><img src="../sets/TFF-files/icon.png">Dark Souls: The Fire Fades</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/AWA"><img src="../sets/AWA-files/icon.png">Anglodoor Awakened</a>
+	
+		<a class="set-bar inactive" href="../previews/EAJ"><img src="../sets/EAJ-files/icon.png">Eternal Autumn of Javor</a>
+	
+		<a class="set-bar inactive" href="../previews/M6D"><img src="../sets/M6D-files/icon.png">Mysticism of the Sixth Day</a>
+	
+		<a class="set-bar inactive" href="../previews/RAW"><img src="../sets/RAW-files/icon.png">Ravnica's Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/SPX"><img src="../sets/SPX-files/icon.png">Splendor of Excelsior</a>
+	
+		<a class="set-bar inactive" href="../previews/TEL"><img src="../sets/TEL-files/icon.png">Theros: The Elekteid</a>
+	
+		<a class="set-bar inactive" href="../previews/TLB"><img src="../sets/TLB-files/icon.png">The Lands Between</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/DRM"><img src="../sets/DRM-files/icon.png">Dreamers of Antausia</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/EVO"><img src="../sets/EVO-files/icon.png">Evolution on Srai-Val-Nul</a>
+	
+		<a class="set-bar inactive" href="../previews/FIM"><img src="../sets/FIM-files/icon.png">Periss: Friendship is Magic</a>
+	
+		<a class="set-bar inactive" href="../previews/ORE"><img src="../sets/ORE-files/icon.png">Orestan</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Towers of Tin Lau</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/WBY-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/WBY-files/img/3_Aspect of Sister Buffalo.jpg" id="WBY_3_Aspect of Sister Buffalo" data-flag="@X" onclick="openSidebar('WBY_3_Aspect of Sister Buffalo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/46_Aspect of Mother Owl.jpg" id="WBY_46_Aspect of Mother Owl" data-flag="@X" onclick="openSidebar('WBY_46_Aspect of Mother Owl',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/89_Aspect of Uncle Racoon.jpg" id="WBY_89_Aspect of Uncle Racoon" data-flag="@X" onclick="openSidebar('WBY_89_Aspect of Uncle Racoon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/131_Aspect of the Horse Twins.jpg" id="WBY_131_Aspect of the Horse Twins" data-flag="@X" onclick="openSidebar('WBY_131_Aspect of the Horse Twins',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/176_Aspect of Grandmother Spider.jpg" id="WBY_176_Aspect of Grandmother Spider" data-flag="@X" onclick="openSidebar('WBY_176_Aspect of Grandmother Spider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/21_Jethro, Marshal of Dawn.jpg" id="WBY_21_Jethro, Marshal of Dawn" data-flag="@X" onclick="openSidebar('WBY_21_Jethro, Marshal of Dawn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/82_Tumultuous Journey.jpg" id="WBY_82_Tumultuous Journey" data-flag="@X" onclick="openSidebar('WBY_82_Tumultuous Journey',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/102_Dirge of the Damned.jpg" id="WBY_102_Dirge of the Damned" data-flag="@X" onclick="openSidebar('WBY_102_Dirge of the Damned',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/158_Raise the Stakes.jpg" id="WBY_158_Raise the Stakes" data-flag="@X" onclick="openSidebar('WBY_158_Raise the Stakes',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/206_Scavenging Hodag_back.jpg" alt="sets/WBY-files/img/206_Scavenging Hodag_front.jpg" id="WBY_206_Scavenging Hodag" data-flag="@XD" onclick="openSidebar('WBY_206_Scavenging Hodag',false)"><button class="flip-btn" onclick="imgFlip('WBY_206_Scavenging Hodag')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/4_Bestower of Flintlocks.jpg" id="WBY_4_Bestower of Flintlocks" data-flag="@X" onclick="openSidebar('WBY_4_Bestower of Flintlocks',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/47_Bayou Drakeling_back.jpg" alt="sets/WBY-files/img/47_Bayou Drakeling_front.jpg" id="WBY_47_Bayou Drakeling" data-flag="@XD" onclick="openSidebar('WBY_47_Bayou Drakeling',false)"><button class="flip-btn" onclick="imgFlip('WBY_47_Bayou Drakeling')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/88_Ancestral Hunger.jpg" id="WBY_88_Ancestral Hunger" data-flag="@X" onclick="openSidebar('WBY_88_Ancestral Hunger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/134_Blustering Bull.jpg" id="WBY_134_Blustering Bull" data-flag="@X" onclick="openSidebar('WBY_134_Blustering Bull',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/177_Burgeoning Spinepistols.jpg" id="WBY_177_Burgeoning Spinepistols" data-flag="@X" onclick="openSidebar('WBY_177_Burgeoning Spinepistols',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/5_Blazing the Paragon Trail.jpg" id="WBY_5_Blazing the Paragon Trail" data-flag="@X" onclick="openSidebar('WBY_5_Blazing the Paragon Trail',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/48_Behind the Curtain.jpg" id="WBY_48_Behind the Curtain" data-flag="@X" onclick="openSidebar('WBY_48_Behind the Curtain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/93_Bloodshot Coachthief.jpg" id="WBY_93_Bloodshot Coachthief" data-flag="@X" onclick="openSidebar('WBY_93_Bloodshot Coachthief',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/135_Calamity Bulletsprayer.jpg" id="WBY_135_Calamity Bulletsprayer" data-flag="@X" onclick="openSidebar('WBY_135_Calamity Bulletsprayer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/181_Dunestalk Cactacat.jpg" id="WBY_181_Dunestalk Cactacat" data-flag="@X" onclick="openSidebar('WBY_181_Dunestalk Cactacat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/10_Consign to the Mines.jpg" id="WBY_10_Consign to the Mines" data-flag="@X" onclick="openSidebar('WBY_10_Consign to the Mines',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/51_Convocation of Spirits.jpg" id="WBY_51_Convocation of Spirits" data-flag="@X" onclick="openSidebar('WBY_51_Convocation of Spirits',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/98_Crossroads Prowler_back.jpg" alt="sets/WBY-files/img/98_Crossroads Prowler_front.jpg" id="WBY_98_Crossroads Prowler" data-flag="@XD" onclick="openSidebar('WBY_98_Crossroads Prowler',false)"><button class="flip-btn" onclick="imgFlip('WBY_98_Crossroads Prowler')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/144_Double-Bit Drillblades.jpg" id="WBY_144_Double-Bit Drillblades" data-flag="@X" onclick="openSidebar('WBY_144_Double-Bit Drillblades',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/184_Endless Possibilities.jpg" id="WBY_184_Endless Possibilities" data-flag="@X" onclick="openSidebar('WBY_184_Endless Possibilities',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/14_Doomed Expedition.jpg" id="WBY_14_Doomed Expedition" data-flag="@X" onclick="openSidebar('WBY_14_Doomed Expedition',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/56_Frontier Provisoner.jpg" id="WBY_56_Frontier Provisoner" data-flag="@X" onclick="openSidebar('WBY_56_Frontier Provisoner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/104_Edge of Disaster.jpg" id="WBY_104_Edge of Disaster" data-flag="@X" onclick="openSidebar('WBY_104_Edge of Disaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/151_Haunting Mirage.jpg" id="WBY_151_Haunting Mirage" data-flag="@X" onclick="openSidebar('WBY_151_Haunting Mirage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/185_Frankie Jessup, Homesteader.jpg" id="WBY_185_Frankie Jessup, Homesteader" data-flag="@X" onclick="openSidebar('WBY_185_Frankie Jessup, Homesteader',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/20_Harland Shaw, Stock Wrangler.jpg" id="WBY_20_Harland Shaw, Stock Wrangler" data-flag="@X" onclick="openSidebar('WBY_20_Harland Shaw, Stock Wrangler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/64_Madam Tawney.jpg" id="WBY_64_Madam Tawney" data-flag="@X" onclick="openSidebar('WBY_64_Madam Tawney',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/113_Kimo, Pactbound Herald.jpg" id="WBY_113_Kimo, Pactbound Herald" data-flag="@X" onclick="openSidebar('WBY_113_Kimo, Pactbound Herald',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/159_Rampaging Titanjaw_back.jpg" alt="sets/WBY-files/img/159_Rampaging Titanjaw_front.jpg" id="WBY_159_Rampaging Titanjaw" data-flag="@XD" onclick="openSidebar('WBY_159_Rampaging Titanjaw',false)"><button class="flip-btn" onclick="imgFlip('WBY_159_Rampaging Titanjaw')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/195_Lumberwood Sasquatch.jpg" id="WBY_195_Lumberwood Sasquatch" data-flag="@X" onclick="openSidebar('WBY_195_Lumberwood Sasquatch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/23_Otto, Loyal Companion.jpg" id="WBY_23_Otto, Loyal Companion" data-flag="@X" onclick="openSidebar('WBY_23_Otto, Loyal Companion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/69_Phantom Arsenal.jpg" id="WBY_69_Phantom Arsenal" data-flag="@X" onclick="openSidebar('WBY_69_Phantom Arsenal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/115_Moxenspit Desperada.jpg" id="WBY_115_Moxenspit Desperada" data-flag="@X" onclick="openSidebar('WBY_115_Moxenspit Desperada',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/163_Rustler Gang.jpg" id="WBY_163_Rustler Gang" data-flag="@X" onclick="openSidebar('WBY_163_Rustler Gang',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/196_Marion Hawthorne, Naturalist.jpg" id="WBY_196_Marion Hawthorne, Naturalist" data-flag="@X" onclick="openSidebar('WBY_196_Marion Hawthorne, Naturalist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/30_Shootout at Guthram.jpg" id="WBY_30_Shootout at Guthram" data-flag="@X" onclick="openSidebar('WBY_30_Shootout at Guthram',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/73_Shady Avian.jpg" id="WBY_73_Shady Avian" data-flag="@X" onclick="openSidebar('WBY_73_Shady Avian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/120_Raul Costa, the Unhung.jpg" id="WBY_120_Raul Costa, the Unhung" data-flag="@X" onclick="openSidebar('WBY_120_Raul Costa, the Unhung',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/166_Shootout at Calamity.jpg" id="WBY_166_Shootout at Calamity" data-flag="@X" onclick="openSidebar('WBY_166_Shootout at Calamity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/197_On the Hunt.jpg" id="WBY_197_On the Hunt" data-flag="@X" onclick="openSidebar('WBY_197_On the Hunt',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/33_Spirit-Blessed Bear_back.jpg" alt="sets/WBY-files/img/33_Spirit-Blessed Bear_front.jpg" id="WBY_33_Spirit-Blessed Bear" data-flag="@XD" onclick="openSidebar('WBY_33_Spirit-Blessed Bear',false)"><button class="flip-btn" onclick="imgFlip('WBY_33_Spirit-Blessed Bear')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/75_Shootout at Tawney's.jpg" id="WBY_75_Shootout at Tawneys" data-flag="@X" onclick="openSidebar('WBY_75_Shootout at Tawneys',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/121_Revenant's Rifle.jpg" id="WBY_121_Revenants Rifle" data-flag="@X" onclick="openSidebar('WBY_121_Revenants Rifle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/167_'Slingin' Sammy Sixguns.jpg" id="WBY_167_Slingin Sammy Sixguns" data-flag="@X" onclick="openSidebar('WBY_167_Slingin Sammy Sixguns',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/208_Shootout at the Lumberwood.jpg" id="WBY_208_Shootout at the Lumberwood" data-flag="@X" onclick="openSidebar('WBY_208_Shootout at the Lumberwood',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/43_Wrangler's Lassoes.jpg" id="WBY_43_Wranglers Lassoes" data-flag="@X" onclick="openSidebar('WBY_43_Wranglers Lassoes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/76_Shrieking Snallygaster.jpg" id="WBY_76_Shrieking Snallygaster" data-flag="@X" onclick="openSidebar('WBY_76_Shrieking Snallygaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/123_Shootout at the Crossroads.jpg" id="WBY_123_Shootout at the Crossroads" data-flag="@X" onclick="openSidebar('WBY_123_Shootout at the Crossroads',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/168_Smuggled Goods.jpg" id="WBY_168_Smuggled Goods" data-flag="@X" onclick="openSidebar('WBY_168_Smuggled Goods',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/209_Snuffling Pig_back.jpg" alt="sets/WBY-files/img/209_Snuffling Pig_front.jpg" id="WBY_209_Snuffling Pig" data-flag="@XD" onclick="openSidebar('WBY_209_Snuffling Pig',false)"><button class="flip-btn" onclick="imgFlip('WBY_209_Snuffling Pig')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/7_Call for Paragons.jpg" id="WBY_7_Call for Paragons" data-flag="@X" onclick="openSidebar('WBY_7_Call for Paragons',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/50_Career Criminality.jpg" id="WBY_50_Career Criminality" data-flag="@X" onclick="openSidebar('WBY_50_Career Criminality',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/95_Call Their Bluff.jpg" id="WBY_95_Call Their Bluff" data-flag="@X" onclick="openSidebar('WBY_95_Call Their Bluff',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/132_Banemare.jpg" id="WBY_132_Banemare" data-flag="@X" onclick="openSidebar('WBY_132_Banemare',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/175_Around the Campfire.jpg" id="WBY_175_Around the Campfire" data-flag="@X" onclick="openSidebar('WBY_175_Around the Campfire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/9_Cirrus Mustang.jpg" id="WBY_9_Cirrus Mustang" data-flag="@X" onclick="openSidebar('WBY_9_Cirrus Mustang',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/55_Fisherfolk's Bow.jpg" id="WBY_55_Fisherfolks Bow" data-flag="@X" onclick="openSidebar('WBY_55_Fisherfolks Bow',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/97_Crossroads Justice.jpg" id="WBY_97_Crossroads Justice" data-flag="@X" onclick="openSidebar('WBY_97_Crossroads Justice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/139_Claim Jumping.jpg" id="WBY_139_Claim Jumping" data-flag="@X" onclick="openSidebar('WBY_139_Claim Jumping',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/179_Dangerous Deed.jpg" id="WBY_179_Dangerous Deed" data-flag="@X" onclick="openSidebar('WBY_179_Dangerous Deed',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/13_Curious Featherswine.jpg" id="WBY_13_Curious Featherswine" data-flag="@X" onclick="openSidebar('WBY_13_Curious Featherswine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/61_Joyous Munchkins.jpg" id="WBY_61_Joyous Munchkins" data-flag="@X" onclick="openSidebar('WBY_61_Joyous Munchkins',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/100_Deftpaw Wildshaper.jpg" id="WBY_100_Deftpaw Wildshaper" data-flag="@X" onclick="openSidebar('WBY_100_Deftpaw Wildshaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/142_Crooked Dealer.jpg" id="WBY_142_Crooked Dealer" data-flag="@X" onclick="openSidebar('WBY_142_Crooked Dealer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/182_Emerald Spellgun.jpg" id="WBY_182_Emerald Spellgun" data-flag="@X" onclick="openSidebar('WBY_182_Emerald Spellgun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/16_Far From Home.jpg" id="WBY_16_Far From Home" data-flag="@X" onclick="openSidebar('WBY_16_Far From Home',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/62_Living Tornado.jpg" id="WBY_62_Living Tornado" data-flag="@X" onclick="openSidebar('WBY_62_Living Tornado',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/105_Empty the Chambers.jpg" id="WBY_105_Empty the Chambers" data-flag="@X" onclick="openSidebar('WBY_105_Empty the Chambers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/145_Eli's Lucky Bullets.jpg" id="WBY_145_Elis Lucky Bullets" data-flag="@X" onclick="openSidebar('WBY_145_Elis Lucky Bullets',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/186_Frontier Stakeraiser.jpg" id="WBY_186_Frontier Stakeraiser" data-flag="@X" onclick="openSidebar('WBY_186_Frontier Stakeraiser',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/17_Frankie's Ranchhands.jpg" id="WBY_17_Frankies Ranchhands" data-flag="@X" onclick="openSidebar('WBY_17_Frankies Ranchhands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/63_Losing Hand.jpg" id="WBY_63_Losing Hand" data-flag="@X" onclick="openSidebar('WBY_63_Losing Hand',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/106_Goatsuck.jpg" id="WBY_106_Goatsuck" data-flag="@X" onclick="openSidebar('WBY_106_Goatsuck',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/146_Express Demolitionist.jpg" id="WBY_146_Express Demolitionist" data-flag="@X" onclick="openSidebar('WBY_146_Express Demolitionist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/187_Grandmother's Guardian.jpg" id="WBY_187_Grandmothers Guardian" data-flag="@X" onclick="openSidebar('WBY_187_Grandmothers Guardian',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/18_Frontier Jackalope_back.jpg" alt="sets/WBY-files/img/18_Frontier Jackalope_front.jpg" id="WBY_18_Frontier Jackalope" data-flag="@XD" onclick="openSidebar('WBY_18_Frontier Jackalope',false)"><button class="flip-btn" onclick="imgFlip('WBY_18_Frontier Jackalope')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/65_Marked Cards.jpg" id="WBY_65_Marked Cards" data-flag="@X" onclick="openSidebar('WBY_65_Marked Cards',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/107_Grant and Allie, Gravekeepers.jpg" id="WBY_107_Grant and Allie, Gravekeepers" data-flag="@X" onclick="openSidebar('WBY_107_Grant and Allie, Gravekeepers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/147_Fanning the Hammer.jpg" id="WBY_147_Fanning the Hammer" data-flag="@X" onclick="openSidebar('WBY_147_Fanning the Hammer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/188_Heart Where the Herd Is.jpg" id="WBY_188_Heart Where the Herd Is" data-flag="@X" onclick="openSidebar('WBY_188_Heart Where the Herd Is',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/24_Ozuawe Ghostspeaker.jpg" id="WBY_24_Ozuawe Ghostspeaker" data-flag="@X" onclick="openSidebar('WBY_24_Ozuawe Ghostspeaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/66_Marshal's Recompense.jpg" id="WBY_66_Marshals Recompense" data-flag="@X" onclick="openSidebar('WBY_66_Marshals Recompense',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/109_Hissing Maskthief_back.jpg" alt="sets/WBY-files/img/109_Hissing Maskthief_front.jpg" id="WBY_109_Hissing Maskthief" data-flag="@XD" onclick="openSidebar('WBY_109_Hissing Maskthief',false)"><button class="flip-btn" onclick="imgFlip('WBY_109_Hissing Maskthief')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/148_Gallant Caballero_back.jpg" alt="sets/WBY-files/img/148_Gallant Caballero_front.jpg" id="WBY_148_Gallant Caballero" data-flag="@XD" onclick="openSidebar('WBY_148_Gallant Caballero',false)"><button class="flip-btn" onclick="imgFlip('WBY_148_Gallant Caballero')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/190_Hunt of the Unnatural.jpg" id="WBY_190_Hunt of the Unnatural" data-flag="@X" onclick="openSidebar('WBY_190_Hunt of the Unnatural',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/25_Pearl Spellgun.jpg" id="WBY_25_Pearl Spellgun" data-flag="@X" onclick="openSidebar('WBY_25_Pearl Spellgun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/68_Omenflock Wildshaper.jpg" id="WBY_68_Omenflock Wildshaper" data-flag="@X" onclick="openSidebar('WBY_68_Omenflock Wildshaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/111_Jet Spellgun.jpg" id="WBY_111_Jet Spellgun" data-flag="@X" onclick="openSidebar('WBY_111_Jet Spellgun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/153_Live and Let Die.jpg" id="WBY_153_Live and Let Die" data-flag="@X" onclick="openSidebar('WBY_153_Live and Let Die',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/201_Pursued Hog.jpg" id="WBY_201_Pursued Hog" data-flag="@X" onclick="openSidebar('WBY_201_Pursued Hog',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/27_Prize-Winning Bull.jpg" id="WBY_27_Prize-Winning Bull" data-flag="@X" onclick="openSidebar('WBY_27_Prize-Winning Bull',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/71_Sapphire Spellgun.jpg" id="WBY_71_Sapphire Spellgun" data-flag="@X" onclick="openSidebar('WBY_71_Sapphire Spellgun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/114_Longhorn Bandito.jpg" id="WBY_114_Longhorn Bandito" data-flag="@X" onclick="openSidebar('WBY_114_Longhorn Bandito',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/157_Pine Gulch Marauder.jpg" id="WBY_157_Pine Gulch Marauder" data-flag="@X" onclick="openSidebar('WBY_157_Pine Gulch Marauder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/202_Rancher's Paradise.jpg" id="WBY_202_Ranchers Paradise" data-flag="@X" onclick="openSidebar('WBY_202_Ranchers Paradise',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/31_Singled Out.jpg" id="WBY_31_Singled Out" data-flag="@X" onclick="openSidebar('WBY_31_Singled Out',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/77_Sold Out.jpg" id="WBY_77_Sold Out" data-flag="@X" onclick="openSidebar('WBY_77_Sold Out',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/118_Presence of the Mothmen.jpg" id="WBY_118_Presence of the Mothmen" data-flag="@X" onclick="openSidebar('WBY_118_Presence of the Mothmen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/160_Rival Claim.jpg" id="WBY_160_Rival Claim" data-flag="@X" onclick="openSidebar('WBY_160_Rival Claim',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/205_Scampering Bandit.jpg" id="WBY_205_Scampering Bandit" data-flag="@X" onclick="openSidebar('WBY_205_Scampering Bandit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/32_Sister's Anointment.jpg" id="WBY_32_Sisters Anointment" data-flag="@X" onclick="openSidebar('WBY_32_Sisters Anointment',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/78_Stormcloud Hunter.jpg" id="WBY_78_Stormcloud Hunter" data-flag="@X" onclick="openSidebar('WBY_78_Stormcloud Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/124_Simian Assailants.jpg" id="WBY_124_Simian Assailants" data-flag="@X" onclick="openSidebar('WBY_124_Simian Assailants',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/161_Ruby Spellgun.jpg" id="WBY_161_Ruby Spellgun" data-flag="@X" onclick="openSidebar('WBY_161_Ruby Spellgun',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/210_Stenchridden Ape.jpg" id="WBY_210_Stenchridden Ape" data-flag="@X" onclick="openSidebar('WBY_210_Stenchridden Ape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/38_Steely Maverick.jpg" id="WBY_38_Steely Maverick" data-flag="@X" onclick="openSidebar('WBY_38_Steely Maverick',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/79_Suspicious Cardsharp.jpg" id="WBY_79_Suspicious Cardsharp" data-flag="@X" onclick="openSidebar('WBY_79_Suspicious Cardsharp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/125_Soulstolen Pact.jpg" id="WBY_125_Soulstolen Pact" data-flag="@X" onclick="openSidebar('WBY_125_Soulstolen Pact',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/171_Stormhoof Wildshaper.jpg" id="WBY_171_Stormhoof Wildshaper" data-flag="@X" onclick="openSidebar('WBY_171_Stormhoof Wildshaper',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/211_Stubborn Packhauler_back.jpg" alt="sets/WBY-files/img/211_Stubborn Packhauler_front.jpg" id="WBY_211_Stubborn Packhauler" data-flag="@XD" onclick="openSidebar('WBY_211_Stubborn Packhauler',false)"><button class="flip-btn" onclick="imgFlip('WBY_211_Stubborn Packhauler')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/39_Story's End.jpg" id="WBY_39_Storys End" data-flag="@X" onclick="openSidebar('WBY_39_Storys End',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/83_Upon the Horizon.jpg" id="WBY_83_Upon the Horizon" data-flag="@X" onclick="openSidebar('WBY_83_Upon the Horizon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/126_Stripminer's Stash.jpg" id="WBY_126_Stripminers Stash" data-flag="@X" onclick="openSidebar('WBY_126_Stripminers Stash',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/172_Vein Chaser.jpg" id="WBY_172_Vein Chaser" data-flag="@X" onclick="openSidebar('WBY_172_Vein Chaser',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/212_Teeming Warrens.jpg" id="WBY_212_Teeming Warrens" data-flag="@X" onclick="openSidebar('WBY_212_Teeming Warrens',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/41_Whitehide Wildshaper.jpg" id="WBY_41_Whitehide Wildshaper" data-flag="@X" onclick="openSidebar('WBY_41_Whitehide Wildshaper',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/87_Writhing Copperheard_back.jpg" alt="sets/WBY-files/img/87_Writhing Copperheard_front.jpg" id="WBY_87_Writhing Copperheard" data-flag="@XD" onclick="openSidebar('WBY_87_Writhing Copperheard',false)"><button class="flip-btn" onclick="imgFlip('WBY_87_Writhing Copperheard')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/128_Tinburnt Accomplice.jpg" id="WBY_128_Tinburnt Accomplice" data-flag="@X" onclick="openSidebar('WBY_128_Tinburnt Accomplice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/173_Wasteland Deadeye.jpg" id="WBY_173_Wasteland Deadeye" data-flag="@X" onclick="openSidebar('WBY_173_Wasteland Deadeye',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/215_Webwise Wildshaper.jpg" id="WBY_215_Webwise Wildshaper" data-flag="@X" onclick="openSidebar('WBY_215_Webwise Wildshaper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/2_Ambling Motherlode.jpg" id="WBY_2_Ambling Motherlode" data-flag="@X" onclick="openSidebar('WBY_2_Ambling Motherlode',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/45_Asigati Familiar.jpg" id="WBY_45_Asigati Familiar" data-flag="@X" onclick="openSidebar('WBY_45_Asigati Familiar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/90_Aven Outcast.jpg" id="WBY_90_Aven Outcast" data-flag="@X" onclick="openSidebar('WBY_90_Aven Outcast',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/133_Big Boom.jpg" id="WBY_133_Big Boom" data-flag="@X" onclick="openSidebar('WBY_133_Big Boom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/174_Ancestral Weaver.jpg" id="WBY_174_Ancestral Weaver" data-flag="@X" onclick="openSidebar('WBY_174_Ancestral Weaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/6_Blessed Billy-Goat.jpg" id="WBY_6_Blessed Billy-Goat" data-flag="@X" onclick="openSidebar('WBY_6_Blessed Billy-Goat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/49_Big Spender.jpg" id="WBY_49_Big Spender" data-flag="@X" onclick="openSidebar('WBY_49_Big Spender',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/91_Baleful Omen.jpg" id="WBY_91_Baleful Omen" data-flag="@X" onclick="openSidebar('WBY_91_Baleful Omen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/136_Case of 100-Proof.jpg" id="WBY_136_Case of 100-Proof" data-flag="@X" onclick="openSidebar('WBY_136_Case of 100-Proof',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/178_Coursing Reindeer_back.jpg" alt="sets/WBY-files/img/178_Coursing Reindeer_front.jpg" id="WBY_178_Coursing Reindeer" data-flag="@XD" onclick="openSidebar('WBY_178_Coursing Reindeer',false)"><button class="flip-btn" onclick="imgFlip('WBY_178_Coursing Reindeer')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/8_Chasing Featherswine.jpg" id="WBY_8_Chasing Featherswine" data-flag="@X" onclick="openSidebar('WBY_8_Chasing Featherswine',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/52_Drunken Monkey.jpg" id="WBY_52_Drunken Monkey" data-flag="@X" onclick="openSidebar('WBY_52_Drunken Monkey',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/92_Bittersweet Parting.jpg" id="WBY_92_Bittersweet Parting" data-flag="@X" onclick="openSidebar('WBY_92_Bittersweet Parting',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/137_Charging Assault.jpg" id="WBY_137_Charging Assault" data-flag="@X" onclick="openSidebar('WBY_137_Charging Assault',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/180_Drover's Oxen.jpg" id="WBY_180_Drovers Oxen" data-flag="@X" onclick="openSidebar('WBY_180_Drovers Oxen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/11_Courier Buzzard.jpg" id="WBY_11_Courier Buzzard" data-flag="@X" onclick="openSidebar('WBY_11_Courier Buzzard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/53_Esoterica Peddler.jpg" id="WBY_53_Esoterica Peddler" data-flag="@X" onclick="openSidebar('WBY_53_Esoterica Peddler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/94_Bloodshot Vanguard.jpg" id="WBY_94_Bloodshot Vanguard" data-flag="@X" onclick="openSidebar('WBY_94_Bloodshot Vanguard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/138_Cheating Tinbaron.jpg" id="WBY_138_Cheating Tinbaron" data-flag="@X" onclick="openSidebar('WBY_138_Cheating Tinbaron',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/183_Emeraldmox Infusion.jpg" id="WBY_183_Emeraldmox Infusion" data-flag="@X" onclick="openSidebar('WBY_183_Emeraldmox Infusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/12_Crushed Under a House.jpg" id="WBY_12_Crushed Under a House" data-flag="@X" onclick="openSidebar('WBY_12_Crushed Under a House',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/54_Eyes on the Prize.jpg" id="WBY_54_Eyes on the Prize" data-flag="@X" onclick="openSidebar('WBY_54_Eyes on the Prize',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/96_Cowardly Lion.jpg" id="WBY_96_Cowardly Lion" data-flag="@X" onclick="openSidebar('WBY_96_Cowardly Lion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/140_Confident Cardsharp.jpg" id="WBY_140_Confident Cardsharp" data-flag="@X" onclick="openSidebar('WBY_140_Confident Cardsharp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/189_Hodag Ambush.jpg" id="WBY_189_Hodag Ambush" data-flag="@X" onclick="openSidebar('WBY_189_Hodag Ambush',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/15_Dustway Sidekick.jpg" id="WBY_15_Dustway Sidekick" data-flag="@X" onclick="openSidebar('WBY_15_Dustway Sidekick',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/57_Giant Eagle_back.jpg" alt="sets/WBY-files/img/57_Giant Eagle_front.jpg" id="WBY_57_Giant Eagle" data-flag="@XD" onclick="openSidebar('WBY_57_Giant Eagle',false)"><button class="flip-btn" onclick="imgFlip('WBY_57_Giant Eagle')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/99_Cunning Sibling.jpg" id="WBY_99_Cunning Sibling" data-flag="@X" onclick="openSidebar('WBY_99_Cunning Sibling',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/141_Crag Prowler_back.jpg" alt="sets/WBY-files/img/141_Crag Prowler_front.jpg" id="WBY_141_Crag Prowler" data-flag="@XD" onclick="openSidebar('WBY_141_Crag Prowler',false)"><button class="flip-btn" onclick="imgFlip('WBY_141_Crag Prowler')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/191_Hyastee Venomancer.jpg" id="WBY_191_Hyastee Venomancer" data-flag="@X" onclick="openSidebar('WBY_191_Hyastee Venomancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/19_Gaggle of Goats.jpg" id="WBY_19_Gaggle of Goats" data-flag="@X" onclick="openSidebar('WBY_19_Gaggle of Goats',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/58_Go Bust.jpg" id="WBY_58_Go Bust" data-flag="@X" onclick="openSidebar('WBY_58_Go Bust',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/101_Desiccating Rustler.jpg" id="WBY_101_Desiccating Rustler" data-flag="@X" onclick="openSidebar('WBY_101_Desiccating Rustler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/143_Darkening Hunger.jpg" id="WBY_143_Darkening Hunger" data-flag="@X" onclick="openSidebar('WBY_143_Darkening Hunger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/192_Ill-Tempered Stock.jpg" id="WBY_192_Ill-Tempered Stock" data-flag="@X" onclick="openSidebar('WBY_192_Ill-Tempered Stock',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/22_Naaki Harrier.jpg" id="WBY_22_Naaki Harrier" data-flag="@X" onclick="openSidebar('WBY_22_Naaki Harrier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/59_Hexcatcher's Staff.jpg" id="WBY_59_Hexcatchers Staff" data-flag="@X" onclick="openSidebar('WBY_59_Hexcatchers Staff',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/103_Drygulch Skitterbug.jpg" id="WBY_103_Drygulch Skitterbug" data-flag="@X" onclick="openSidebar('WBY_103_Drygulch Skitterbug',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/149_Goblin Boomrunner.jpg" id="WBY_149_Goblin Boomrunner" data-flag="@X" onclick="openSidebar('WBY_149_Goblin Boomrunner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/193_Kayeri Sharpshooter.jpg" id="WBY_193_Kayeri Sharpshooter" data-flag="@X" onclick="openSidebar('WBY_193_Kayeri Sharpshooter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/26_Pearlmox Infusion.jpg" id="WBY_26_Pearlmox Infusion" data-flag="@X" onclick="openSidebar('WBY_26_Pearlmox Infusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/60_Hyastee Rainspeaker.jpg" id="WBY_60_Hyastee Rainspeaker" data-flag="@X" onclick="openSidebar('WBY_60_Hyastee Rainspeaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/108_Heartless Desperada.jpg" id="WBY_108_Heartless Desperada" data-flag="@X" onclick="openSidebar('WBY_108_Heartless Desperada',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/150_Gunslinger's Grit.jpg" id="WBY_150_Gunslingers Grit" data-flag="@X" onclick="openSidebar('WBY_150_Gunslingers Grit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/194_Lost in the Thickets.jpg" id="WBY_194_Lost in the Thickets" data-flag="@X" onclick="openSidebar('WBY_194_Lost in the Thickets',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/28_Prospector's Shovel.jpg" id="WBY_28_Prospectors Shovel" data-flag="@X" onclick="openSidebar('WBY_28_Prospectors Shovel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/67_Misfire.jpg" id="WBY_67_Misfire" data-flag="@X" onclick="openSidebar('WBY_67_Misfire',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/110_Horse with No Name_back.jpg" alt="sets/WBY-files/img/110_Horse with No Name_front.jpg" id="WBY_110_Horse with No Name" data-flag="@XD" onclick="openSidebar('WBY_110_Horse with No Name',false)"><button class="flip-btn" onclick="imgFlip('WBY_110_Horse with No Name')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/152_Horse Whisperer.jpg" id="WBY_152_Horse Whisperer" data-flag="@X" onclick="openSidebar('WBY_152_Horse Whisperer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/198_Ornery Lumberhog.jpg" id="WBY_198_Ornery Lumberhog" data-flag="@X" onclick="openSidebar('WBY_198_Ornery Lumberhog',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/29_Sacred Herd.jpg" id="WBY_29_Sacred Herd" data-flag="@X" onclick="openSidebar('WBY_29_Sacred Herd',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/70_Roll the Dice.jpg" id="WBY_70_Roll the Dice" data-flag="@X" onclick="openSidebar('WBY_70_Roll the Dice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/112_Jetmox Infusion.jpg" id="WBY_112_Jetmox Infusion" data-flag="@X" onclick="openSidebar('WBY_112_Jetmox Infusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/154_Lurking Sasquatch.jpg" id="WBY_154_Lurking Sasquatch" data-flag="@X" onclick="openSidebar('WBY_154_Lurking Sasquatch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/199_Panning Expedition.jpg" id="WBY_199_Panning Expedition" data-flag="@X" onclick="openSidebar('WBY_199_Panning Expedition',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/34_Spiritchaser Lynx.jpg" id="WBY_34_Spiritchaser Lynx" data-flag="@X" onclick="openSidebar('WBY_34_Spiritchaser Lynx',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/72_Sapphiremox Infusion.jpg" id="WBY_72_Sapphiremox Infusion" data-flag="@X" onclick="openSidebar('WBY_72_Sapphiremox Infusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/116_One in the Chamber.jpg" id="WBY_116_One in the Chamber" data-flag="@X" onclick="openSidebar('WBY_116_One in the Chamber',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/155_Moxenite Rush.jpg" id="WBY_155_Moxenite Rush" data-flag="@X" onclick="openSidebar('WBY_155_Moxenite Rush',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/200_Pastoral Bighorn.jpg" id="WBY_200_Pastoral Bighorn" data-flag="@X" onclick="openSidebar('WBY_200_Pastoral Bighorn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/35_Springs Peacekeeper.jpg" id="WBY_35_Springs Peacekeeper" data-flag="@X" onclick="openSidebar('WBY_35_Springs Peacekeeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/74_Shellback Protector.jpg" id="WBY_74_Shellback Protector" data-flag="@X" onclick="openSidebar('WBY_74_Shellback Protector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/117_Phebele's Flock.jpg" id="WBY_117_Phebeles Flock" data-flag="@X" onclick="openSidebar('WBY_117_Phebeles Flock',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/156_Naaki War-Braves.jpg" id="WBY_156_Naaki War-Braves" data-flag="@X" onclick="openSidebar('WBY_156_Naaki War-Braves',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/203_Rugged Frontiersman.jpg" id="WBY_203_Rugged Frontiersman" data-flag="@X" onclick="openSidebar('WBY_203_Rugged Frontiersman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/36_Stay of Execution.jpg" id="WBY_36_Stay of Execution" data-flag="@X" onclick="openSidebar('WBY_36_Stay of Execution',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/80_Tawney's Highrollers.jpg" id="WBY_80_Tawneys Highrollers" data-flag="@X" onclick="openSidebar('WBY_80_Tawneys Highrollers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/119_Profane Bargain.jpg" id="WBY_119_Profane Bargain" data-flag="@X" onclick="openSidebar('WBY_119_Profane Bargain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/162_Rubymox Infusion.jpg" id="WBY_162_Rubymox Infusion" data-flag="@X" onclick="openSidebar('WBY_162_Rubymox Infusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/204_Sacred Cleansing.jpg" id="WBY_204_Sacred Cleansing" data-flag="@X" onclick="openSidebar('WBY_204_Sacred Cleansing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/37_Steely Grit.jpg" id="WBY_37_Steely Grit" data-flag="@X" onclick="openSidebar('WBY_37_Steely Grit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/81_Titanic Snapper.jpg" id="WBY_81_Titanic Snapper" data-flag="@X" onclick="openSidebar('WBY_81_Titanic Snapper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/122_Ridgeway Howler.jpg" id="WBY_122_Ridgeway Howler" data-flag="@X" onclick="openSidebar('WBY_122_Ridgeway Howler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/164_Scalping Tomahawk.jpg" id="WBY_164_Scalping Tomahawk" data-flag="@X" onclick="openSidebar('WBY_164_Scalping Tomahawk',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/207_Selective Breeder.jpg" id="WBY_207_Selective Breeder" data-flag="@X" onclick="openSidebar('WBY_207_Selective Breeder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/40_Twinning Bond.jpg" id="WBY_40_Twinning Bond" data-flag="@X" onclick="openSidebar('WBY_40_Twinning Bond',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/84_Vengeful Rustler.jpg" id="WBY_84_Vengeful Rustler" data-flag="@X" onclick="openSidebar('WBY_84_Vengeful Rustler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/127_Tainted Waya.jpg" id="WBY_127_Tainted Waya" data-flag="@X" onclick="openSidebar('WBY_127_Tainted Waya',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/165_Shaman of the Sunset.jpg" id="WBY_165_Shaman of the Sunset" data-flag="@X" onclick="openSidebar('WBY_165_Shaman of the Sunset',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/213_Titanic Diamondback.jpg" id="WBY_213_Titanic Diamondback" data-flag="@X" onclick="openSidebar('WBY_213_Titanic Diamondback',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/42_Wild Stallion_back.jpg" alt="sets/WBY-files/img/42_Wild Stallion_front.jpg" id="WBY_42_Wild Stallion" data-flag="@XD" onclick="openSidebar('WBY_42_Wild Stallion',false)"><button class="flip-btn" onclick="imgFlip('WBY_42_Wild Stallion')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/85_Well Prepared.jpg" id="WBY_85_Well Prepared" data-flag="@X" onclick="openSidebar('WBY_85_Well Prepared',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/129_Venomous Persuasion.jpg" id="WBY_129_Venomous Persuasion" data-flag="@X" onclick="openSidebar('WBY_129_Venomous Persuasion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/169_Staking a Claim.jpg" id="WBY_169_Staking a Claim" data-flag="@X" onclick="openSidebar('WBY_169_Staking a Claim',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/214_Ursine Deedholder.jpg" id="WBY_214_Ursine Deedholder" data-flag="@X" onclick="openSidebar('WBY_214_Ursine Deedholder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/44_Yearning Tinman.jpg" id="WBY_44_Yearning Tinman" data-flag="@X" onclick="openSidebar('WBY_44_Yearning Tinman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/86_Windwhirl Elemental.jpg" id="WBY_86_Windwhirl Elemental" data-flag="@X" onclick="openSidebar('WBY_86_Windwhirl Elemental',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/130_Villainous Showdown.jpg" id="WBY_130_Villainous Showdown" data-flag="@X" onclick="openSidebar('WBY_130_Villainous Showdown',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/170_Stormcloud Mustangs.jpg" id="WBY_170_Stormcloud Mustangs" data-flag="@X" onclick="openSidebar('WBY_170_Stormcloud Mustangs',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/216_Wilderlands Blessing.jpg" id="WBY_216_Wilderlands Blessing" data-flag="@X" onclick="openSidebar('WBY_216_Wilderlands Blessing',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WBY_e" data-flag="@E" onclick="openSidebar('WBY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WBY_e" data-flag="@E" onclick="openSidebar('WBY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WBY_e" data-flag="@E" onclick="openSidebar('WBY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/315_Oh My!.jpg" id="WBY_315_Oh My!" data-flag="@X" onclick="openSidebar('WBY_315_Oh My!',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WBY_e" data-flag="@E" onclick="openSidebar('WBY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/269_Walk The Right Path.jpg" id="WBY_269_Walk The Right Path" data-flag="@X" onclick="openSidebar('WBY_269_Walk The Right Path',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/228_Buck Danger, On the Edge.jpg" id="WBY_228_Buck Danger, On the Edge" data-flag="@X" onclick="openSidebar('WBY_228_Buck Danger, On the Edge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/232_Dreadfire Desperado.jpg" id="WBY_232_Dreadfire Desperado" data-flag="@X" onclick="openSidebar('WBY_232_Dreadfire Desperado',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/266_Uniting the Tribes.jpg" id="WBY_266_Uniting the Tribes" data-flag="@X" onclick="openSidebar('WBY_266_Uniting the Tribes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/218_Ace in the Hole.jpg" id="WBY_218_Ace in the Hole" data-flag="@X" onclick="openSidebar('WBY_218_Ace in the Hole',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/220_Air of Authority.jpg" id="WBY_220_Air of Authority" data-flag="@X" onclick="openSidebar('WBY_220_Air of Authority',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/265_Unalivestock.jpg" id="WBY_265_Unalivestock" data-flag="@X" onclick="openSidebar('WBY_265_Unalivestock',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/241_Hellforge Mystic.jpg" id="WBY_241_Hellforge Mystic" data-flag="@X" onclick="openSidebar('WBY_241_Hellforge Mystic',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/243_Imbued Stag_back.jpg" alt="sets/WBY-files/img/243_Imbued Stag_front.jpg" id="WBY_243_Imbued Stag" data-flag="@XD" onclick="openSidebar('WBY_243_Imbued Stag',false)"><button class="flip-btn" onclick="imgFlip('WBY_243_Imbued Stag')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/225_Big Gus, Shaw's Prize Steer.jpg" id="WBY_225_Big Gus, Shaws Prize Steer" data-flag="@X" onclick="openSidebar('WBY_225_Big Gus, Shaws Prize Steer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/236_Esselga, Witch of Gifts.jpg" id="WBY_236_Esselga, Witch of Gifts" data-flag="@X" onclick="openSidebar('WBY_236_Esselga, Witch of Gifts',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/268_Vivian Alston, Mana Baron.jpg" id="WBY_268_Vivian Alston, Mana Baron" data-flag="@X" onclick="openSidebar('WBY_268_Vivian Alston, Mana Baron',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/271_The One-Gun Armory.jpg" id="WBY_271_The One-Gun Armory" data-flag="@X" onclick="openSidebar('WBY_271_The One-Gun Armory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/264_Tucker, Rowdy Roughrider.jpg" id="WBY_264_Tucker, Rowdy Roughrider" data-flag="@X" onclick="openSidebar('WBY_264_Tucker, Rowdy Roughrider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/235_Escaped Tuskox.jpg" id="WBY_235_Escaped Tuskox" data-flag="@X" onclick="openSidebar('WBY_235_Escaped Tuskox',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/221_Angelfeather Flintlocks.jpg" id="WBY_221_Angelfeather Flintlocks" data-flag="@X" onclick="openSidebar('WBY_221_Angelfeather Flintlocks',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/253_Raven's Rebirth.jpg" id="WBY_253_Ravens Rebirth" data-flag="@X" onclick="openSidebar('WBY_253_Ravens Rebirth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/227_Bryce, the Boomstick.jpg" id="WBY_227_Bryce, the Boomstick" data-flag="@X" onclick="openSidebar('WBY_227_Bryce, the Boomstick',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/239_Ghost of the Prairie_back.jpg" alt="sets/WBY-files/img/239_Ghost of the Prairie_front.jpg" id="WBY_239_Ghost of the Prairie" data-flag="@XD" onclick="openSidebar('WBY_239_Ghost of the Prairie',false)"><button class="flip-btn" onclick="imgFlip('WBY_239_Ghost of the Prairie')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/219_Ahagi, Naaki Flockleader.jpg" id="WBY_219_Ahagi, Naaki Flockleader" data-flag="@X" onclick="openSidebar('WBY_219_Ahagi, Naaki Flockleader',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/244_Iron Jeb, Paragon Gunsmith.jpg" id="WBY_244_Iron Jeb, Paragon Gunsmith" data-flag="@X" onclick="openSidebar('WBY_244_Iron Jeb, Paragon Gunsmith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/255_Ririd, the Dread Omen.jpg" id="WBY_255_Ririd, the Dread Omen" data-flag="@X" onclick="openSidebar('WBY_255_Ririd, the Dread Omen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/252_Possessed Sidearm.jpg" id="WBY_252_Possessed Sidearm" data-flag="@X" onclick="openSidebar('WBY_252_Possessed Sidearm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/257_Saddle Up.jpg" id="WBY_257_Saddle Up" data-flag="@X" onclick="openSidebar('WBY_257_Saddle Up',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/230_Day on the Farm.jpg" id="WBY_230_Day on the Farm" data-flag="@X" onclick="openSidebar('WBY_230_Day on the Farm',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/233_Eli, Pilgrim of the Road.jpg" id="WBY_233_Eli, Pilgrim of the Road" data-flag="@X" onclick="openSidebar('WBY_233_Eli, Pilgrim of the Road',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/251_Phebele, Wicked Mistress.jpg" id="WBY_251_Phebele, Wicked Mistress" data-flag="@X" onclick="openSidebar('WBY_251_Phebele, Wicked Mistress',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/231_Deadbore Tremorwurm.jpg" id="WBY_231_Deadbore Tremorwurm" data-flag="@X" onclick="openSidebar('WBY_231_Deadbore Tremorwurm',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/242_Hiwaha, First of the Kayeri.jpg" id="WBY_242_Hiwaha, First of the Kayeri" data-flag="@X" onclick="openSidebar('WBY_242_Hiwaha, First of the Kayeri',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/267_Up My Sleeve.jpg" id="WBY_267_Up My Sleeve" data-flag="@X" onclick="openSidebar('WBY_267_Up My Sleeve',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/240_Grim Jim.jpg" id="WBY_240_Grim Jim" data-flag="@X" onclick="openSidebar('WBY_240_Grim Jim',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/223_Arcane Salvo.jpg" id="WBY_223_Arcane Salvo" data-flag="@X" onclick="openSidebar('WBY_223_Arcane Salvo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/222_Appleseed Nourishment.jpg" id="WBY_222_Appleseed Nourishment" data-flag="@X" onclick="openSidebar('WBY_222_Appleseed Nourishment',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/226_Bloodgear Tinman.jpg" id="WBY_226_Bloodgear Tinman" data-flag="@X" onclick="openSidebar('WBY_226_Bloodgear Tinman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/229_Chopping to It.jpg" id="WBY_229_Chopping to It" data-flag="@X" onclick="openSidebar('WBY_229_Chopping to It',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/248_Meona'hane the Dire.jpg" id="WBY_248_Meonahane the Dire" data-flag="@X" onclick="openSidebar('WBY_248_Meonahane the Dire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/259_Shady Gambler.jpg" id="WBY_259_Shady Gambler" data-flag="@X" onclick="openSidebar('WBY_259_Shady Gambler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/256_Roadside Stalker.jpg" id="WBY_256_Roadside Stalker" data-flag="@X" onclick="openSidebar('WBY_256_Roadside Stalker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/262_Thunderbird's Splendor.jpg" id="WBY_262_Thunderbirds Splendor" data-flag="@X" onclick="openSidebar('WBY_262_Thunderbirds Splendor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/237_Feral Cloudboar.jpg" id="WBY_237_Feral Cloudboar" data-flag="@X" onclick="openSidebar('WBY_237_Feral Cloudboar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/234_Empty the Bone Orchard.jpg" id="WBY_234_Empty the Bone Orchard" data-flag="@X" onclick="openSidebar('WBY_234_Empty the Bone Orchard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/246_Lucky Sevens.jpg" id="WBY_246_Lucky Sevens" data-flag="@X" onclick="openSidebar('WBY_246_Lucky Sevens',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/247_Lumberwoods Invocation.jpg" id="WBY_247_Lumberwoods Invocation" data-flag="@X" onclick="openSidebar('WBY_247_Lumberwoods Invocation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/224_Bex Wilde, Lone Ranger.jpg" id="WBY_224_Bex Wilde, Lone Ranger" data-flag="@X" onclick="openSidebar('WBY_224_Bex Wilde, Lone Ranger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/245_Lokwa, Brother's Chosen.jpg" id="WBY_245_Lokwa, Brothers Chosen" data-flag="@X" onclick="openSidebar('WBY_245_Lokwa, Brothers Chosen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/260_The Sootmask Entourage.jpg" id="WBY_260_The Sootmask Entourage" data-flag="@X" onclick="openSidebar('WBY_260_The Sootmask Entourage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/258_Sammy Stone, High Roller.jpg" id="WBY_258_Sammy Stone, High Roller" data-flag="@X" onclick="openSidebar('WBY_258_Sammy Stone, High Roller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/249_Nadoshi, Night Prowler.jpg" id="WBY_249_Nadoshi, Night Prowler" data-flag="@X" onclick="openSidebar('WBY_249_Nadoshi, Night Prowler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/270_Work Better Alone.jpg" id="WBY_270_Work Better Alone" data-flag="@X" onclick="openSidebar('WBY_270_Work Better Alone',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/263_Trickster's Dance.jpg" id="WBY_263_Tricksters Dance" data-flag="@X" onclick="openSidebar('WBY_263_Tricksters Dance',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/217_Mad Marn, Scorchminer.jpg" id="WBY_217_Mad Marn, Scorchminer" data-flag="@X" onclick="openSidebar('WBY_217_Mad Marn, Scorchminer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/238_Frontiersman's Cannon.jpg" id="WBY_238_Frontiersmans Cannon" data-flag="@X" onclick="openSidebar('WBY_238_Frontiersmans Cannon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/250_Overwhelming Possibilities.jpg" id="WBY_250_Overwhelming Possibilities" data-flag="@X" onclick="openSidebar('WBY_250_Overwhelming Possibilities',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/254_The Redemption Marshals.jpg" id="WBY_254_The Redemption Marshals" data-flag="@X" onclick="openSidebar('WBY_254_The Redemption Marshals',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/261_The Thirteenth Child.jpg" id="WBY_261_The Thirteenth Child" data-flag="@X" onclick="openSidebar('WBY_261_The Thirteenth Child',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/275_The Calamity Express.jpg" id="WBY_275_The Calamity Express" data-flag="@X" onclick="openSidebar('WBY_275_The Calamity Express',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/277_Deputy-Issue Pistol.jpg" id="WBY_277_Deputy-Issue Pistol" data-flag="@X" onclick="openSidebar('WBY_277_Deputy-Issue Pistol',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/278_Doromia's Diary.jpg" id="WBY_278_Doromias Diary" data-flag="@X" onclick="openSidebar('WBY_278_Doromias Diary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/283_Gunmetal Dragon.jpg" id="WBY_283_Gunmetal Dragon" data-flag="@X" onclick="openSidebar('WBY_283_Gunmetal Dragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/286_Ruby Slippers.jpg" id="WBY_286_Ruby Slippers" data-flag="@X" onclick="openSidebar('WBY_286_Ruby Slippers',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/WBY-files/img/272_Adaptive Steed_back.jpg" alt="sets/WBY-files/img/272_Adaptive Steed_front.jpg" id="WBY_272_Adaptive Steed" data-flag="@XD" onclick="openSidebar('WBY_272_Adaptive Steed',false)"><button class="flip-btn" onclick="imgFlip('WBY_272_Adaptive Steed')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/274_Bucket of Water.jpg" id="WBY_274_Bucket of Water" data-flag="@X" onclick="openSidebar('WBY_274_Bucket of Water',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/276_Cloud Nine Express.jpg" id="WBY_276_Cloud Nine Express" data-flag="@X" onclick="openSidebar('WBY_276_Cloud Nine Express',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/280_Essence of the Spirits.jpg" id="WBY_280_Essence of the Spirits" data-flag="@X" onclick="openSidebar('WBY_280_Essence of the Spirits',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/287_Thornspur Boots.jpg" id="WBY_287_Thornspur Boots" data-flag="@X" onclick="openSidebar('WBY_287_Thornspur Boots',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/289_Tinmarshal Paragon.jpg" id="WBY_289_Tinmarshal Paragon" data-flag="@X" onclick="openSidebar('WBY_289_Tinmarshal Paragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/290_Totem of Grandmother Spider.jpg" id="WBY_290_Totem of Grandmother Spider" data-flag="@X" onclick="openSidebar('WBY_290_Totem of Grandmother Spider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/291_Totem of Mother Owl.jpg" id="WBY_291_Totem of Mother Owl" data-flag="@X" onclick="openSidebar('WBY_291_Totem of Mother Owl',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/292_Totem of Sister Buffalo.jpg" id="WBY_292_Totem of Sister Buffalo" data-flag="@X" onclick="openSidebar('WBY_292_Totem of Sister Buffalo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/293_Totem of the Horse Twins.jpg" id="WBY_293_Totem of the Horse Twins" data-flag="@X" onclick="openSidebar('WBY_293_Totem of the Horse Twins',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/294_Totem of Uncle Raccoon.jpg" id="WBY_294_Totem of Uncle Raccoon" data-flag="@X" onclick="openSidebar('WBY_294_Totem of Uncle Raccoon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/296_Warning Shooter.jpg" id="WBY_296_Warning Shooter" data-flag="@X" onclick="openSidebar('WBY_296_Warning Shooter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/1_Logging Season.jpg" id="WBY_1_Logging Season" data-flag="@X" onclick="openSidebar('WBY_1_Logging Season',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/273_Brainless Crowscarer.jpg" id="WBY_273_Brainless Crowscarer" data-flag="@X" onclick="openSidebar('WBY_273_Brainless Crowscarer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/279_Drygulch Boomstash.jpg" id="WBY_279_Drygulch Boomstash" data-flag="@X" onclick="openSidebar('WBY_279_Drygulch Boomstash',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/281_Galvanized Cattleprod.jpg" id="WBY_281_Galvanized Cattleprod" data-flag="@X" onclick="openSidebar('WBY_281_Galvanized Cattleprod',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/282_Goldmox Deposits.jpg" id="WBY_282_Goldmox Deposits" data-flag="@X" onclick="openSidebar('WBY_282_Goldmox Deposits',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/284_Moxenslug Marauder.jpg" id="WBY_284_Moxenslug Marauder" data-flag="@X" onclick="openSidebar('WBY_284_Moxenslug Marauder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/285_Rattlescythe Outlaw.jpg" id="WBY_285_Rattlescythe Outlaw" data-flag="@X" onclick="openSidebar('WBY_285_Rattlescythe Outlaw',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/288_Tinman Charlatan.jpg" id="WBY_288_Tinman Charlatan" data-flag="@X" onclick="openSidebar('WBY_288_Tinman Charlatan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/295_Towering Tinbull.jpg" id="WBY_295_Towering Tinbull" data-flag="@X" onclick="openSidebar('WBY_295_Towering Tinbull',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WBY_e" data-flag="@E" onclick="openSidebar('WBY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WBY_e" data-flag="@E" onclick="openSidebar('WBY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WBY_e" data-flag="@E" onclick="openSidebar('WBY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WBY_e" data-flag="@E" onclick="openSidebar('WBY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/302_Frontier Mission.jpg" id="WBY_302_Frontier Mission" data-flag="@X" onclick="openSidebar('WBY_302_Frontier Mission',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/312_Poisoned Waterhole.jpg" id="WBY_312_Poisoned Waterhole" data-flag="@X" onclick="openSidebar('WBY_312_Poisoned Waterhole',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/307_Hangman's Rock.jpg" id="WBY_307_Hangmans Rock" data-flag="@X" onclick="openSidebar('WBY_307_Hangmans Rock',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/310_Lush Mesa.jpg" id="WBY_310_Lush Mesa" data-flag="@X" onclick="openSidebar('WBY_310_Lush Mesa',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/300_Fenced Pasture.jpg" id="WBY_300_Fenced Pasture" data-flag="@X" onclick="openSidebar('WBY_300_Fenced Pasture',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/298_Boom Town.jpg" id="WBY_298_Boom Town" data-flag="@X" onclick="openSidebar('WBY_298_Boom Town',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/314_Waterworn Gully.jpg" id="WBY_314_Waterworn Gully" data-flag="@X" onclick="openSidebar('WBY_314_Waterworn Gully',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/299_Carnivorous Bog.jpg" id="WBY_299_Carnivorous Bog" data-flag="@X" onclick="openSidebar('WBY_299_Carnivorous Bog',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/308_Hoodoo Valley.jpg" id="WBY_308_Hoodoo Valley" data-flag="@X" onclick="openSidebar('WBY_308_Hoodoo Valley',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/309_Lumber Mill.jpg" id="WBY_309_Lumber Mill" data-flag="@X" onclick="openSidebar('WBY_309_Lumber Mill',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/301_Fort Emerald.jpg" id="WBY_301_Fort Emerald" data-flag="@X" onclick="openSidebar('WBY_301_Fort Emerald',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/304_Goldenbrick Trail.jpg" id="WBY_304_Goldenbrick Trail" data-flag="@X" onclick="openSidebar('WBY_304_Goldenbrick Trail',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/305_Greener Pastures.jpg" id="WBY_305_Greener Pastures" data-flag="@X" onclick="openSidebar('WBY_305_Greener Pastures',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/311_Malastrix's Boneyard.jpg" id="WBY_311_Malastrixs Boneyard" data-flag="@X" onclick="openSidebar('WBY_311_Malastrixs Boneyard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/297_Bleaktread, Villain's Haunt.jpg" id="WBY_297_Bleaktread, Villains Haunt" data-flag="@X" onclick="openSidebar('WBY_297_Bleaktread, Villains Haunt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/306_Gunrunner's Hideout.jpg" id="WBY_306_Gunrunners Hideout" data-flag="@X" onclick="openSidebar('WBY_306_Gunrunners Hideout',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/303_Gambler's Den.jpg" id="WBY_303_Gamblers Den" data-flag="@X" onclick="openSidebar('WBY_303_Gamblers Den',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WBY-files/img/313_Terramorphic Expanse.jpg" id="WBY_313_Terramorphic Expanse" data-flag="@X" onclick="openSidebar('WBY_313_Terramorphic Expanse',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WBY_e" data-flag="@E" onclick="openSidebar('WBY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WBY_e" data-flag="@E" onclick="openSidebar('WBY_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WBY_er" data-flag="@E" onclick="openSidebar('WBY_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1].toLowerCase());
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

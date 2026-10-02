@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/TLB-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>TLB visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/TLB-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MST-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SSC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WHL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/XCX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ECB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TFF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WBY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AWA-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EAJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/M6D-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RAW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SPX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/DRM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EVO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FIM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/TLB"><img src="../sets/TLB-files/icon.png">The Lands Between</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">UB Touhou Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/HEX"><img src="../sets/HEX-files/icon.png">The Hex Games</a>
+	
+		<a class="set-bar inactive" href="../previews/MST"><img src="../sets/MST-files/icon.png">Rural Dwellings, in Seafoam Mist</a>
+	
+		<a class="set-bar inactive" href="../previews/SSC"><img src="../sets/SSC-files/icon.png">Shiyue: Soul's Crossing</a>
+	
+		<a class="set-bar inactive" href="../previews/WHL"><img src="../sets/WHL-files/icon.png">Building Fortune's Wheel</a>
+	
+		<a class="set-bar inactive" href="../previews/XCX"><img src="../sets/XCX-files/icon.png">Xenoblade Chronicles X</a>
+	
+		<a class="set-bar inactive" href="../previews/ECB"><img src="../sets/ECB-files/icon.png">Elnyreth: Contact With Those Beyond</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/TEX"><img src="../sets/TEX-files/icon.png">Tarkir: Extinction</a>
+	
+		<a class="set-bar inactive" href="../previews/TFF"><img src="../sets/TFF-files/icon.png">Dark Souls: The Fire Fades</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WBY"><img src="../sets/WBY-files/icon.png">Wild Blue Yonder</a>
+	
+		<a class="set-bar inactive" href="../previews/AWA"><img src="../sets/AWA-files/icon.png">Anglodoor Awakened</a>
+	
+		<a class="set-bar inactive" href="../previews/EAJ"><img src="../sets/EAJ-files/icon.png">Eternal Autumn of Javor</a>
+	
+		<a class="set-bar inactive" href="../previews/M6D"><img src="../sets/M6D-files/icon.png">Mysticism of the Sixth Day</a>
+	
+		<a class="set-bar inactive" href="../previews/RAW"><img src="../sets/RAW-files/icon.png">Ravnica's Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/SPX"><img src="../sets/SPX-files/icon.png">Splendor of Excelsior</a>
+	
+		<a class="set-bar inactive" href="../previews/TEL"><img src="../sets/TEL-files/icon.png">Theros: The Elekteid</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/DRM"><img src="../sets/DRM-files/icon.png">Dreamers of Antausia</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/EVO"><img src="../sets/EVO-files/icon.png">Evolution on Srai-Val-Nul</a>
+	
+		<a class="set-bar inactive" href="../previews/FIM"><img src="../sets/FIM-files/icon.png">Periss: Friendship is Magic</a>
+	
+		<a class="set-bar inactive" href="../previews/ORE"><img src="../sets/ORE-files/icon.png">Orestan</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Towers of Tin Lau</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/TLB-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" data-alt_src="sets/TLB-files/img/343_back.jpg" alt="sets/TLB-files/img/343_front.jpg" id="TLB_343" data-flag="@XD" onclick="openSidebar('TLB_343',false)"><button class="flip-btn" onclick="imgFlip('TLB_343')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TLB-files/img/351_back.jpg" alt="sets/TLB-files/img/351_front.jpg" id="TLB_351" data-flag="@XD" onclick="openSidebar('TLB_351',false)"><button class="flip-btn" onclick="imgFlip('TLB_351')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TLB-files/img/347_back.jpg" alt="sets/TLB-files/img/347_front.jpg" id="TLB_347" data-flag="@XD" onclick="openSidebar('TLB_347',false)"><button class="flip-btn" onclick="imgFlip('TLB_347')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TLB-files/img/345_back.jpg" alt="sets/TLB-files/img/345_front.jpg" id="TLB_345" data-flag="@XD" onclick="openSidebar('TLB_345',false)"><button class="flip-btn" onclick="imgFlip('TLB_345')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/280.jpg" id="TLB_280" data-flag="@X" onclick="openSidebar('TLB_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/264.jpg" id="TLB_264" data-flag="@X" onclick="openSidebar('TLB_264',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TLB-files/img/339_back.jpg" alt="sets/TLB-files/img/339_front.jpg" id="TLB_339" data-flag="@XD" onclick="openSidebar('TLB_339',false)"><button class="flip-btn" onclick="imgFlip('TLB_339')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TLB-files/img/341_back.jpg" alt="sets/TLB-files/img/341_front.jpg" id="TLB_341" data-flag="@XD" onclick="openSidebar('TLB_341',false)"><button class="flip-btn" onclick="imgFlip('TLB_341')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TLB-files/img/337_back.jpg" alt="sets/TLB-files/img/337_front.jpg" id="TLB_337" data-flag="@XD" onclick="openSidebar('TLB_337',false)"><button class="flip-btn" onclick="imgFlip('TLB_337')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/322.jpg" id="TLB_322" data-flag="@X" onclick="openSidebar('TLB_322',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TLB-files/img/349_back.jpg" alt="sets/TLB-files/img/349_front.jpg" id="TLB_349" data-flag="@XD" onclick="openSidebar('TLB_349',false)"><button class="flip-btn" onclick="imgFlip('TLB_349')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/279.jpg" id="TLB_279" data-flag="@X" onclick="openSidebar('TLB_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/15.jpg" id="TLB_15" data-flag="@X" onclick="openSidebar('TLB_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/178.jpg" id="TLB_178" data-flag="@X" onclick="openSidebar('TLB_178',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TLB-files/img/355_back.jpg" alt="sets/TLB-files/img/355_front.jpg" id="TLB_355" data-flag="@XD" onclick="openSidebar('TLB_355',false)"><button class="flip-btn" onclick="imgFlip('TLB_355')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/236.jpg" id="TLB_236" data-flag="@X" onclick="openSidebar('TLB_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/252.jpg" id="TLB_252" data-flag="@X" onclick="openSidebar('TLB_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/18.jpg" id="TLB_18" data-flag="@X" onclick="openSidebar('TLB_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/224.jpg" id="TLB_224" data-flag="@X" onclick="openSidebar('TLB_224',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TLB-files/img/353_back.jpg" alt="sets/TLB-files/img/353_front.jpg" id="TLB_353" data-flag="@XD" onclick="openSidebar('TLB_353',false)"><button class="flip-btn" onclick="imgFlip('TLB_353')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/58.jpg" id="TLB_58" data-flag="@X" onclick="openSidebar('TLB_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/251.jpg" id="TLB_251" data-flag="@X" onclick="openSidebar('TLB_251',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/9.jpg" id="TLB_9" data-flag="@X" onclick="openSidebar('TLB_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/218.jpg" id="TLB_218" data-flag="@X" onclick="openSidebar('TLB_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/164.jpg" id="TLB_164" data-flag="@X" onclick="openSidebar('TLB_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/328.jpg" id="TLB_328" data-flag="@X" onclick="openSidebar('TLB_328',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/127.jpg" id="TLB_127" data-flag="@X" onclick="openSidebar('TLB_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/16.jpg" id="TLB_16" data-flag="@X" onclick="openSidebar('TLB_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/44.jpg" id="TLB_44" data-flag="@X" onclick="openSidebar('TLB_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/235.jpg" id="TLB_235" data-flag="@X" onclick="openSidebar('TLB_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/160.jpg" id="TLB_160" data-flag="@X" onclick="openSidebar('TLB_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/179.jpg" id="TLB_179" data-flag="@X" onclick="openSidebar('TLB_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/331.jpg" id="TLB_331" data-flag="@X" onclick="openSidebar('TLB_331',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/315.jpg" id="TLB_315" data-flag="@X" onclick="openSidebar('TLB_315',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/244.jpg" id="TLB_244" data-flag="@X" onclick="openSidebar('TLB_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/233.jpg" id="TLB_233" data-flag="@X" onclick="openSidebar('TLB_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/220.jpg" id="TLB_220" data-flag="@X" onclick="openSidebar('TLB_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/45.jpg" id="TLB_45" data-flag="@X" onclick="openSidebar('TLB_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/334.jpg" id="TLB_334" data-flag="@X" onclick="openSidebar('TLB_334',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/211.jpg" id="TLB_211" data-flag="@X" onclick="openSidebar('TLB_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/209.jpg" id="TLB_209" data-flag="@X" onclick="openSidebar('TLB_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/166.jpg" id="TLB_166" data-flag="@X" onclick="openSidebar('TLB_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/152.jpg" id="TLB_152" data-flag="@X" onclick="openSidebar('TLB_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/250.jpg" id="TLB_250" data-flag="@X" onclick="openSidebar('TLB_250',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/151.jpg" id="TLB_151" data-flag="@X" onclick="openSidebar('TLB_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/196.jpg" id="TLB_196" data-flag="@X" onclick="openSidebar('TLB_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/38.jpg" id="TLB_38" data-flag="@X" onclick="openSidebar('TLB_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/207.jpg" id="TLB_207" data-flag="@X" onclick="openSidebar('TLB_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/191.jpg" id="TLB_191" data-flag="@X" onclick="openSidebar('TLB_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/167.jpg" id="TLB_167" data-flag="@X" onclick="openSidebar('TLB_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/143.jpg" id="TLB_143" data-flag="@X" onclick="openSidebar('TLB_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/332.jpg" id="TLB_332" data-flag="@X" onclick="openSidebar('TLB_332',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/50.jpg" id="TLB_50" data-flag="@X" onclick="openSidebar('TLB_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/7.jpg" id="TLB_7" data-flag="@X" onclick="openSidebar('TLB_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/194.jpg" id="TLB_194" data-flag="@X" onclick="openSidebar('TLB_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/241.jpg" id="TLB_241" data-flag="@X" onclick="openSidebar('TLB_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/177.jpg" id="TLB_177" data-flag="@X" onclick="openSidebar('TLB_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/87.jpg" id="TLB_87" data-flag="@X" onclick="openSidebar('TLB_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/73.jpg" id="TLB_73" data-flag="@X" onclick="openSidebar('TLB_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/74.jpg" id="TLB_74" data-flag="@X" onclick="openSidebar('TLB_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/148.jpg" id="TLB_148" data-flag="@X" onclick="openSidebar('TLB_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/67.jpg" id="TLB_67" data-flag="@X" onclick="openSidebar('TLB_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/175.jpg" id="TLB_175" data-flag="@X" onclick="openSidebar('TLB_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/222.jpg" id="TLB_222" data-flag="@X" onclick="openSidebar('TLB_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/327.jpg" id="TLB_327" data-flag="@X" onclick="openSidebar('TLB_327',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/240.jpg" id="TLB_240" data-flag="@X" onclick="openSidebar('TLB_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/154.jpg" id="TLB_154" data-flag="@X" onclick="openSidebar('TLB_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/159.jpg" id="TLB_159" data-flag="@X" onclick="openSidebar('TLB_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/94.jpg" id="TLB_94" data-flag="@X" onclick="openSidebar('TLB_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/221.jpg" id="TLB_221" data-flag="@X" onclick="openSidebar('TLB_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/63.jpg" id="TLB_63" data-flag="@X" onclick="openSidebar('TLB_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/6.jpg" id="TLB_6" data-flag="@X" onclick="openSidebar('TLB_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/181.jpg" id="TLB_181" data-flag="@X" onclick="openSidebar('TLB_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/205.jpg" id="TLB_205" data-flag="@X" onclick="openSidebar('TLB_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/153.jpg" id="TLB_153" data-flag="@X" onclick="openSidebar('TLB_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/272.jpg" id="TLB_272" data-flag="@X" onclick="openSidebar('TLB_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/329.jpg" id="TLB_329" data-flag="@X" onclick="openSidebar('TLB_329',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/228.jpg" id="TLB_228" data-flag="@X" onclick="openSidebar('TLB_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/227.jpg" id="TLB_227" data-flag="@X" onclick="openSidebar('TLB_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/326.jpg" id="TLB_326" data-flag="@X" onclick="openSidebar('TLB_326',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/317.jpg" id="TLB_317" data-flag="@X" onclick="openSidebar('TLB_317',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/271.jpg" id="TLB_271" data-flag="@X" onclick="openSidebar('TLB_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/188.jpg" id="TLB_188" data-flag="@X" onclick="openSidebar('TLB_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/183.jpg" id="TLB_183" data-flag="@X" onclick="openSidebar('TLB_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/187.jpg" id="TLB_187" data-flag="@X" onclick="openSidebar('TLB_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/51.jpg" id="TLB_51" data-flag="@X" onclick="openSidebar('TLB_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/260.jpg" id="TLB_260" data-flag="@X" onclick="openSidebar('TLB_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/157.jpg" id="TLB_157" data-flag="@X" onclick="openSidebar('TLB_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/186.jpg" id="TLB_186" data-flag="@X" onclick="openSidebar('TLB_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/54.jpg" id="TLB_54" data-flag="@X" onclick="openSidebar('TLB_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/180.jpg" id="TLB_180" data-flag="@X" onclick="openSidebar('TLB_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/270.jpg" id="TLB_270" data-flag="@X" onclick="openSidebar('TLB_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/149.jpg" id="TLB_149" data-flag="@X" onclick="openSidebar('TLB_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/12.jpg" id="TLB_12" data-flag="@X" onclick="openSidebar('TLB_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/133.jpg" id="TLB_133" data-flag="@X" onclick="openSidebar('TLB_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/185.jpg" id="TLB_185" data-flag="@X" onclick="openSidebar('TLB_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/274.jpg" id="TLB_274" data-flag="@X" onclick="openSidebar('TLB_274',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/145.jpg" id="TLB_145" data-flag="@X" onclick="openSidebar('TLB_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/156.jpg" id="TLB_156" data-flag="@X" onclick="openSidebar('TLB_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/257.jpg" id="TLB_257" data-flag="@X" onclick="openSidebar('TLB_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/325.jpg" id="TLB_325" data-flag="@X" onclick="openSidebar('TLB_325',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/253.jpg" id="TLB_253" data-flag="@X" onclick="openSidebar('TLB_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/86.jpg" id="TLB_86" data-flag="@X" onclick="openSidebar('TLB_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/182.jpg" id="TLB_182" data-flag="@X" onclick="openSidebar('TLB_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/190.jpg" id="TLB_190" data-flag="@X" onclick="openSidebar('TLB_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/266.jpg" id="TLB_266" data-flag="@X" onclick="openSidebar('TLB_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/81.jpg" id="TLB_81" data-flag="@X" onclick="openSidebar('TLB_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/193.jpg" id="TLB_193" data-flag="@X" onclick="openSidebar('TLB_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/330.jpg" id="TLB_330" data-flag="@X" onclick="openSidebar('TLB_330',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/269.jpg" id="TLB_269" data-flag="@X" onclick="openSidebar('TLB_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/46.jpg" id="TLB_46" data-flag="@X" onclick="openSidebar('TLB_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/80.jpg" id="TLB_80" data-flag="@X" onclick="openSidebar('TLB_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/324.jpg" id="TLB_324" data-flag="@X" onclick="openSidebar('TLB_324',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/234.jpg" id="TLB_234" data-flag="@X" onclick="openSidebar('TLB_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/316.jpg" id="TLB_316" data-flag="@X" onclick="openSidebar('TLB_316',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/5.jpg" id="TLB_5" data-flag="@X" onclick="openSidebar('TLB_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/254.jpg" id="TLB_254" data-flag="@X" onclick="openSidebar('TLB_254',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/198.jpg" id="TLB_198" data-flag="@X" onclick="openSidebar('TLB_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/213.jpg" id="TLB_213" data-flag="@X" onclick="openSidebar('TLB_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/243.jpg" id="TLB_243" data-flag="@X" onclick="openSidebar('TLB_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/60.jpg" id="TLB_60" data-flag="@X" onclick="openSidebar('TLB_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/8.jpg" id="TLB_8" data-flag="@X" onclick="openSidebar('TLB_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/267.jpg" id="TLB_267" data-flag="@X" onclick="openSidebar('TLB_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/199.jpg" id="TLB_199" data-flag="@X" onclick="openSidebar('TLB_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/197.jpg" id="TLB_197" data-flag="@X" onclick="openSidebar('TLB_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/225.jpg" id="TLB_225" data-flag="@X" onclick="openSidebar('TLB_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/195.jpg" id="TLB_195" data-flag="@X" onclick="openSidebar('TLB_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/333.jpg" id="TLB_333" data-flag="@X" onclick="openSidebar('TLB_333',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/116.jpg" id="TLB_116" data-flag="@X" onclick="openSidebar('TLB_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/136.jpg" id="TLB_136" data-flag="@X" onclick="openSidebar('TLB_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/226.jpg" id="TLB_226" data-flag="@X" onclick="openSidebar('TLB_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/204.jpg" id="TLB_204" data-flag="@X" onclick="openSidebar('TLB_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/75.jpg" id="TLB_75" data-flag="@X" onclick="openSidebar('TLB_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/259.jpg" id="TLB_259" data-flag="@X" onclick="openSidebar('TLB_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/14.jpg" id="TLB_14" data-flag="@X" onclick="openSidebar('TLB_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/158.jpg" id="TLB_158" data-flag="@X" onclick="openSidebar('TLB_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/217.jpg" id="TLB_217" data-flag="@X" onclick="openSidebar('TLB_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/215.jpg" id="TLB_215" data-flag="@X" onclick="openSidebar('TLB_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/112.jpg" id="TLB_112" data-flag="@X" onclick="openSidebar('TLB_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/137.jpg" id="TLB_137" data-flag="@X" onclick="openSidebar('TLB_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/41.jpg" id="TLB_41" data-flag="@X" onclick="openSidebar('TLB_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/55.jpg" id="TLB_55" data-flag="@X" onclick="openSidebar('TLB_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/36.jpg" id="TLB_36" data-flag="@X" onclick="openSidebar('TLB_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/31.jpg" id="TLB_31" data-flag="@X" onclick="openSidebar('TLB_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/128.jpg" id="TLB_128" data-flag="@X" onclick="openSidebar('TLB_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/176.jpg" id="TLB_176" data-flag="@X" onclick="openSidebar('TLB_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/122.jpg" id="TLB_122" data-flag="@X" onclick="openSidebar('TLB_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/59.jpg" id="TLB_59" data-flag="@X" onclick="openSidebar('TLB_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/32.jpg" id="TLB_32" data-flag="@X" onclick="openSidebar('TLB_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/130.jpg" id="TLB_130" data-flag="@X" onclick="openSidebar('TLB_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/39.jpg" id="TLB_39" data-flag="@X" onclick="openSidebar('TLB_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/13.jpg" id="TLB_13" data-flag="@X" onclick="openSidebar('TLB_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/49.jpg" id="TLB_49" data-flag="@X" onclick="openSidebar('TLB_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/117.jpg" id="TLB_117" data-flag="@X" onclick="openSidebar('TLB_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/72.jpg" id="TLB_72" data-flag="@X" onclick="openSidebar('TLB_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/105.jpg" id="TLB_105" data-flag="@X" onclick="openSidebar('TLB_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/125.jpg" id="TLB_125" data-flag="@X" onclick="openSidebar('TLB_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/99.jpg" id="TLB_99" data-flag="@X" onclick="openSidebar('TLB_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/34.jpg" id="TLB_34" data-flag="@X" onclick="openSidebar('TLB_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/129.jpg" id="TLB_129" data-flag="@X" onclick="openSidebar('TLB_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/101.jpg" id="TLB_101" data-flag="@X" onclick="openSidebar('TLB_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/118.jpg" id="TLB_118" data-flag="@X" onclick="openSidebar('TLB_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/97.jpg" id="TLB_97" data-flag="@X" onclick="openSidebar('TLB_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/111.jpg" id="TLB_111" data-flag="@X" onclick="openSidebar('TLB_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/141.jpg" id="TLB_141" data-flag="@X" onclick="openSidebar('TLB_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/68.jpg" id="TLB_68" data-flag="@X" onclick="openSidebar('TLB_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/121.jpg" id="TLB_121" data-flag="@X" onclick="openSidebar('TLB_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/98.jpg" id="TLB_98" data-flag="@X" onclick="openSidebar('TLB_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/110.jpg" id="TLB_110" data-flag="@X" onclick="openSidebar('TLB_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/30.jpg" id="TLB_30" data-flag="@X" onclick="openSidebar('TLB_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/33.jpg" id="TLB_33" data-flag="@X" onclick="openSidebar('TLB_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/53.jpg" id="TLB_53" data-flag="@X" onclick="openSidebar('TLB_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/318.jpg" id="TLB_318" data-flag="@X" onclick="openSidebar('TLB_318',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/107.jpg" id="TLB_107" data-flag="@X" onclick="openSidebar('TLB_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/57.jpg" id="TLB_57" data-flag="@X" onclick="openSidebar('TLB_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/104.jpg" id="TLB_104" data-flag="@X" onclick="openSidebar('TLB_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/29.jpg" id="TLB_29" data-flag="@X" onclick="openSidebar('TLB_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/96.jpg" id="TLB_96" data-flag="@X" onclick="openSidebar('TLB_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/320.jpg" id="TLB_320" data-flag="@X" onclick="openSidebar('TLB_320',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/131.jpg" id="TLB_131" data-flag="@X" onclick="openSidebar('TLB_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/100.jpg" id="TLB_100" data-flag="@X" onclick="openSidebar('TLB_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/126.jpg" id="TLB_126" data-flag="@X" onclick="openSidebar('TLB_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/70.jpg" id="TLB_70" data-flag="@X" onclick="openSidebar('TLB_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/115.jpg" id="TLB_115" data-flag="@X" onclick="openSidebar('TLB_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/132.jpg" id="TLB_132" data-flag="@X" onclick="openSidebar('TLB_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/102.jpg" id="TLB_102" data-flag="@X" onclick="openSidebar('TLB_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/319.jpg" id="TLB_319" data-flag="@X" onclick="openSidebar('TLB_319',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/40.jpg" id="TLB_40" data-flag="@X" onclick="openSidebar('TLB_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/113.jpg" id="TLB_113" data-flag="@X" onclick="openSidebar('TLB_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/142.jpg" id="TLB_142" data-flag="@X" onclick="openSidebar('TLB_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/61.jpg" id="TLB_61" data-flag="@X" onclick="openSidebar('TLB_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/120.jpg" id="TLB_120" data-flag="@X" onclick="openSidebar('TLB_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/64.jpg" id="TLB_64" data-flag="@X" onclick="openSidebar('TLB_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/42.jpg" id="TLB_42" data-flag="@X" onclick="openSidebar('TLB_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/56.jpg" id="TLB_56" data-flag="@X" onclick="openSidebar('TLB_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/35.jpg" id="TLB_35" data-flag="@X" onclick="openSidebar('TLB_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/17.jpg" id="TLB_17" data-flag="@X" onclick="openSidebar('TLB_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/82.jpg" id="TLB_82" data-flag="@X" onclick="openSidebar('TLB_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/65.jpg" id="TLB_65" data-flag="@X" onclick="openSidebar('TLB_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/140.jpg" id="TLB_140" data-flag="@X" onclick="openSidebar('TLB_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/103.jpg" id="TLB_103" data-flag="@X" onclick="openSidebar('TLB_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/119.jpg" id="TLB_119" data-flag="@X" onclick="openSidebar('TLB_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/93.jpg" id="TLB_93" data-flag="@X" onclick="openSidebar('TLB_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/109.jpg" id="TLB_109" data-flag="@X" onclick="openSidebar('TLB_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/268.jpg" id="TLB_268" data-flag="@X" onclick="openSidebar('TLB_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/89.jpg" id="TLB_89" data-flag="@X" onclick="openSidebar('TLB_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/69.jpg" id="TLB_69" data-flag="@X" onclick="openSidebar('TLB_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/88.jpg" id="TLB_88" data-flag="@X" onclick="openSidebar('TLB_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/108.jpg" id="TLB_108" data-flag="@X" onclick="openSidebar('TLB_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/135.jpg" id="TLB_135" data-flag="@X" onclick="openSidebar('TLB_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/62.jpg" id="TLB_62" data-flag="@X" onclick="openSidebar('TLB_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/123.jpg" id="TLB_123" data-flag="@X" onclick="openSidebar('TLB_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/95.jpg" id="TLB_95" data-flag="@X" onclick="openSidebar('TLB_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/114.jpg" id="TLB_114" data-flag="@X" onclick="openSidebar('TLB_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/139.jpg" id="TLB_139" data-flag="@X" onclick="openSidebar('TLB_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/200.jpg" id="TLB_200" data-flag="@X" onclick="openSidebar('TLB_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/124.jpg" id="TLB_124" data-flag="@X" onclick="openSidebar('TLB_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/242.jpg" id="TLB_242" data-flag="@X" onclick="openSidebar('TLB_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/106.jpg" id="TLB_106" data-flag="@X" onclick="openSidebar('TLB_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/281.jpg" id="TLB_281" data-flag="@X" onclick="openSidebar('TLB_281',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/223.jpg" id="TLB_223" data-flag="@X" onclick="openSidebar('TLB_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/255.jpg" id="TLB_255" data-flag="@X" onclick="openSidebar('TLB_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/37.jpg" id="TLB_37" data-flag="@X" onclick="openSidebar('TLB_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/170.jpg" id="TLB_170" data-flag="@X" onclick="openSidebar('TLB_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/161.jpg" id="TLB_161" data-flag="@X" onclick="openSidebar('TLB_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/76.jpg" id="TLB_76" data-flag="@X" onclick="openSidebar('TLB_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/169.jpg" id="TLB_169" data-flag="@X" onclick="openSidebar('TLB_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/85.jpg" id="TLB_85" data-flag="@X" onclick="openSidebar('TLB_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/83.jpg" id="TLB_83" data-flag="@X" onclick="openSidebar('TLB_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/258.jpg" id="TLB_258" data-flag="@X" onclick="openSidebar('TLB_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/210.jpg" id="TLB_210" data-flag="@X" onclick="openSidebar('TLB_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/84.jpg" id="TLB_84" data-flag="@X" onclick="openSidebar('TLB_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/150.jpg" id="TLB_150" data-flag="@X" onclick="openSidebar('TLB_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/278.jpg" id="TLB_278" data-flag="@X" onclick="openSidebar('TLB_278',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/237.jpg" id="TLB_237" data-flag="@X" onclick="openSidebar('TLB_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/27.jpg" id="TLB_27" data-flag="@X" onclick="openSidebar('TLB_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/261.jpg" id="TLB_261" data-flag="@X" onclick="openSidebar('TLB_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/263.jpg" id="TLB_263" data-flag="@X" onclick="openSidebar('TLB_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/28.jpg" id="TLB_28" data-flag="@X" onclick="openSidebar('TLB_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/92.jpg" id="TLB_92" data-flag="@X" onclick="openSidebar('TLB_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/23.jpg" id="TLB_23" data-flag="@X" onclick="openSidebar('TLB_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/22.jpg" id="TLB_22" data-flag="@X" onclick="openSidebar('TLB_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/201.jpg" id="TLB_201" data-flag="@X" onclick="openSidebar('TLB_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/20.jpg" id="TLB_20" data-flag="@X" onclick="openSidebar('TLB_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/47.jpg" id="TLB_47" data-flag="@X" onclick="openSidebar('TLB_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/147.jpg" id="TLB_147" data-flag="@X" onclick="openSidebar('TLB_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/189.jpg" id="TLB_189" data-flag="@X" onclick="openSidebar('TLB_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/192.jpg" id="TLB_192" data-flag="@X" onclick="openSidebar('TLB_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/202.jpg" id="TLB_202" data-flag="@X" onclick="openSidebar('TLB_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/238.jpg" id="TLB_238" data-flag="@X" onclick="openSidebar('TLB_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/168.jpg" id="TLB_168" data-flag="@X" onclick="openSidebar('TLB_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/256.jpg" id="TLB_256" data-flag="@X" onclick="openSidebar('TLB_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/229.jpg" id="TLB_229" data-flag="@X" onclick="openSidebar('TLB_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/214.jpg" id="TLB_214" data-flag="@X" onclick="openSidebar('TLB_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/265.jpg" id="TLB_265" data-flag="@X" onclick="openSidebar('TLB_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/203.jpg" id="TLB_203" data-flag="@X" onclick="openSidebar('TLB_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/79.jpg" id="TLB_79" data-flag="@X" onclick="openSidebar('TLB_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/78.jpg" id="TLB_78" data-flag="@X" onclick="openSidebar('TLB_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/91.jpg" id="TLB_91" data-flag="@X" onclick="openSidebar('TLB_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/77.jpg" id="TLB_77" data-flag="@X" onclick="openSidebar('TLB_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/66.jpg" id="TLB_66" data-flag="@X" onclick="openSidebar('TLB_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/277.jpg" id="TLB_277" data-flag="@X" onclick="openSidebar('TLB_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/276.jpg" id="TLB_276" data-flag="@X" onclick="openSidebar('TLB_276',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/273.jpg" id="TLB_273" data-flag="@X" onclick="openSidebar('TLB_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/275.jpg" id="TLB_275" data-flag="@X" onclick="openSidebar('TLB_275',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/262.jpg" id="TLB_262" data-flag="@X" onclick="openSidebar('TLB_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/19.jpg" id="TLB_19" data-flag="@X" onclick="openSidebar('TLB_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/24.jpg" id="TLB_24" data-flag="@X" onclick="openSidebar('TLB_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/26.jpg" id="TLB_26" data-flag="@X" onclick="openSidebar('TLB_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/25.jpg" id="TLB_25" data-flag="@X" onclick="openSidebar('TLB_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/21.jpg" id="TLB_21" data-flag="@X" onclick="openSidebar('TLB_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/155.jpg" id="TLB_155" data-flag="@X" onclick="openSidebar('TLB_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/321.jpg" id="TLB_321" data-flag="@X" onclick="openSidebar('TLB_321',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/239.jpg" id="TLB_239" data-flag="@X" onclick="openSidebar('TLB_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/206.jpg" id="TLB_206" data-flag="@X" onclick="openSidebar('TLB_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/216.jpg" id="TLB_216" data-flag="@X" onclick="openSidebar('TLB_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/212.jpg" id="TLB_212" data-flag="@X" onclick="openSidebar('TLB_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/336.jpg" id="TLB_336" data-flag="@X" onclick="openSidebar('TLB_336',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/52.jpg" id="TLB_52" data-flag="@X" onclick="openSidebar('TLB_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/165.jpg" id="TLB_165" data-flag="@X" onclick="openSidebar('TLB_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/208.jpg" id="TLB_208" data-flag="@X" onclick="openSidebar('TLB_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/249.jpg" id="TLB_249" data-flag="@X" onclick="openSidebar('TLB_249',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/230.jpg" id="TLB_230" data-flag="@X" onclick="openSidebar('TLB_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/335.jpg" id="TLB_335" data-flag="@X" onclick="openSidebar('TLB_335',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/174.jpg" id="TLB_174" data-flag="@X" onclick="openSidebar('TLB_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/71.jpg" id="TLB_71" data-flag="@X" onclick="openSidebar('TLB_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/138.jpg" id="TLB_138" data-flag="@X" onclick="openSidebar('TLB_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/231.jpg" id="TLB_231" data-flag="@X" onclick="openSidebar('TLB_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/184.jpg" id="TLB_184" data-flag="@X" onclick="openSidebar('TLB_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/246.jpg" id="TLB_246" data-flag="@X" onclick="openSidebar('TLB_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/173.jpg" id="TLB_173" data-flag="@X" onclick="openSidebar('TLB_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/323.jpg" id="TLB_323" data-flag="@X" onclick="openSidebar('TLB_323',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/232.jpg" id="TLB_232" data-flag="@X" onclick="openSidebar('TLB_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/311.jpg" id="TLB_311" data-flag="@X" onclick="openSidebar('TLB_311',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/144.jpg" id="TLB_144" data-flag="@X" onclick="openSidebar('TLB_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/11.jpg" id="TLB_11" data-flag="@X" onclick="openSidebar('TLB_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/43.jpg" id="TLB_43" data-flag="@X" onclick="openSidebar('TLB_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/90.jpg" id="TLB_90" data-flag="@X" onclick="openSidebar('TLB_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/134.jpg" id="TLB_134" data-flag="@X" onclick="openSidebar('TLB_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/146.jpg" id="TLB_146" data-flag="@X" onclick="openSidebar('TLB_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/48.jpg" id="TLB_48" data-flag="@X" onclick="openSidebar('TLB_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/163.jpg" id="TLB_163" data-flag="@X" onclick="openSidebar('TLB_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/162.jpg" id="TLB_162" data-flag="@X" onclick="openSidebar('TLB_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/172.jpg" id="TLB_172" data-flag="@X" onclick="openSidebar('TLB_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/171.jpg" id="TLB_171" data-flag="@X" onclick="openSidebar('TLB_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/285.jpg" id="TLB_285" data-flag="@X" onclick="openSidebar('TLB_285',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/286.jpg" id="TLB_286" data-flag="@X" onclick="openSidebar('TLB_286',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/291.jpg" id="TLB_291" data-flag="@X" onclick="openSidebar('TLB_291',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/288.jpg" id="TLB_288" data-flag="@X" onclick="openSidebar('TLB_288',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/292.jpg" id="TLB_292" data-flag="@X" onclick="openSidebar('TLB_292',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/284.jpg" id="TLB_284" data-flag="@X" onclick="openSidebar('TLB_284',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/287.jpg" id="TLB_287" data-flag="@X" onclick="openSidebar('TLB_287',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/290.jpg" id="TLB_290" data-flag="@X" onclick="openSidebar('TLB_290',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/283.jpg" id="TLB_283" data-flag="@X" onclick="openSidebar('TLB_283',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/293.jpg" id="TLB_293" data-flag="@X" onclick="openSidebar('TLB_293',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/247.jpg" id="TLB_247" data-flag="@X" onclick="openSidebar('TLB_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/282.jpg" id="TLB_282" data-flag="@X" onclick="openSidebar('TLB_282',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/10.jpg" id="TLB_10" data-flag="@X" onclick="openSidebar('TLB_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/245.jpg" id="TLB_245" data-flag="@X" onclick="openSidebar('TLB_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/314.jpg" id="TLB_314" data-flag="@X" onclick="openSidebar('TLB_314',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/289.jpg" id="TLB_289" data-flag="@X" onclick="openSidebar('TLB_289',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/0.jpg" id="TLB_0" data-flag="@X" onclick="openSidebar('TLB_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/1.jpg" id="TLB_1" data-flag="@X" onclick="openSidebar('TLB_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/2.jpg" id="TLB_2" data-flag="@X" onclick="openSidebar('TLB_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/3.jpg" id="TLB_3" data-flag="@X" onclick="openSidebar('TLB_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/4.jpg" id="TLB_4" data-flag="@X" onclick="openSidebar('TLB_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/296.jpg" id="TLB_296" data-flag="@X" onclick="openSidebar('TLB_296',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/304.jpg" id="TLB_304" data-flag="@X" onclick="openSidebar('TLB_304',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/300.jpg" id="TLB_300" data-flag="@X" onclick="openSidebar('TLB_300',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/310.jpg" id="TLB_310" data-flag="@X" onclick="openSidebar('TLB_310',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/299.jpg" id="TLB_299" data-flag="@X" onclick="openSidebar('TLB_299',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/298.jpg" id="TLB_298" data-flag="@X" onclick="openSidebar('TLB_298',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/219.jpg" id="TLB_219" data-flag="@X" onclick="openSidebar('TLB_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/307.jpg" id="TLB_307" data-flag="@X" onclick="openSidebar('TLB_307',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/313.jpg" id="TLB_313" data-flag="@X" onclick="openSidebar('TLB_313',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/312.jpg" id="TLB_312" data-flag="@X" onclick="openSidebar('TLB_312',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/297.jpg" id="TLB_297" data-flag="@X" onclick="openSidebar('TLB_297',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/248.jpg" id="TLB_248" data-flag="@X" onclick="openSidebar('TLB_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/295.jpg" id="TLB_295" data-flag="@X" onclick="openSidebar('TLB_295',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/301.jpg" id="TLB_301" data-flag="@X" onclick="openSidebar('TLB_301',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/302.jpg" id="TLB_302" data-flag="@X" onclick="openSidebar('TLB_302',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/309.jpg" id="TLB_309" data-flag="@X" onclick="openSidebar('TLB_309',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/294.jpg" id="TLB_294" data-flag="@X" onclick="openSidebar('TLB_294',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/305.jpg" id="TLB_305" data-flag="@X" onclick="openSidebar('TLB_305',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/303.jpg" id="TLB_303" data-flag="@X" onclick="openSidebar('TLB_303',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/308.jpg" id="TLB_308" data-flag="@X" onclick="openSidebar('TLB_308',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TLB-files/img/306.jpg" id="TLB_306" data-flag="@X" onclick="openSidebar('TLB_306',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TLB_e" data-flag="@E" onclick="openSidebar('TLB_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TLB_er" data-flag="@E" onclick="openSidebar('TLB_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1].toLowerCase());
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

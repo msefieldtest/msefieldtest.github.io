@@ -184,28 +184,34 @@
 	<img class="preload-hidden" src="../img/dot.png" />
 	<img class="preload-hidden" src="../sets/F2HU-files/logo.png" />
 	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
-		<img class="preload-hidden" src="../sets/ASM-files/icon.png" />
-		<img class="preload-hidden" src="../sets/COD-files/icon.png" />
 		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
-		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
-		<img class="preload-hidden" src="../sets/RNF-files/icon.png" />
-		<img class="preload-hidden" src="../sets/WDW-files/icon.png" />
-		<img class="preload-hidden" src="../sets/BRE-files/icon.png" />
-		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MST-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SSC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WHL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/XCX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ECB-files/icon.png" />
 		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
-		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
-		<img class="preload-hidden" src="../sets/SMB-files/icon.png" />
-		<img class="preload-hidden" src="../sets/TBC-files/icon.png" />
-		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
-		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TFF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WBY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AWA-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EAJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/M6D-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RAW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SPX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TLB-files/icon.png" />
 		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
-		<img class="preload-hidden" src="../sets/BLD-files/icon.png" />
-		<img class="preload-hidden" src="../sets/CLE-files/icon.png" />
-		<img class="preload-hidden" src="../sets/HWK-files/icon.png" />
-		<img class="preload-hidden" src="../sets/KLB-files/icon.png" />
-		<img class="preload-hidden" src="../sets/MOX-files/icon.png" />
-		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
-		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/DRM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EVO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FIM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
 		<div class="header">
 		<div class="search-grid">
 			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
@@ -215,7 +221,9 @@
 				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
 			</div>
 			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
-			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
 			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
 		</div>
 	</div>
@@ -224,8 +232,22 @@
 			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
 			document.getElementById("header-search").src = rootPath + "/img/search.png";
 			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
-			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
 			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
 		});
 
 		function goToSearch() {
@@ -237,49 +259,61 @@
 	
 		<a class="set-bar" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
 	
-		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">2HU Miniset Collection</a>
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">UB Touhou Miniset Collection</a>
 	
-		<a class="set-bar inactive" href="../previews/ASM"><img src="../sets/ASM-files/icon.png">Amonkhet: Schism</a>
+		<a class="set-bar inactive" href="../previews/HEX"><img src="../sets/HEX-files/icon.png">The Hex Games</a>
 	
-		<a class="set-bar inactive" href="../previews/COD"><img src="../sets/COD-files/icon.png">Children of Dawn</a>
+		<a class="set-bar inactive" href="../previews/MST"><img src="../sets/MST-files/icon.png">Rural Dwellings, in Seafoam Mist</a>
 	
-		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+		<a class="set-bar inactive" href="../previews/SSC"><img src="../sets/SSC-files/icon.png">Shiyue: Soul's Crossing</a>
 	
-		<a class="set-bar inactive" href="../previews/RNF"><img src="../sets/RNF-files/icon.png">Ravnica’s Awakening</a>
+		<a class="set-bar inactive" href="../previews/WHL"><img src="../sets/WHL-files/icon.png">Building Fortune's Wheel</a>
 	
-		<a class="set-bar inactive" href="../previews/WDW"><img src="../sets/WDW-files/icon.png">Waters of a Drowned World</a>
+		<a class="set-bar inactive" href="../previews/XCX"><img src="../sets/XCX-files/icon.png">Xenoblade Chronicles X</a>
 	
-		<a class="set-bar inactive" href="../previews/BRE"><img src="../sets/BRE-files/icon.png">Kaldheim: Bretagard’s Revival</a>
-	
-		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+		<a class="set-bar inactive" href="../previews/ECB"><img src="../sets/ECB-files/icon.png">Elnyreth: Contact With Those Beyond</a>
 	
 		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
 	
-		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
 	
-		<a class="set-bar inactive" href="../previews/SMB"><img src="../sets/SMB-files/icon.png">Magic the Gathering | Super Mario Brothers</a>
+		<a class="set-bar inactive" href="../previews/TEX"><img src="../sets/TEX-files/icon.png">Tarkir: Extinction</a>
 	
-		<a class="set-bar inactive" href="../previews/TBC"><img src="../sets/TBC-files/icon.png">Nemyria: The Beautiful Collapse</a>
+		<a class="set-bar inactive" href="../previews/TFF"><img src="../sets/TFF-files/icon.png">Dark Souls: The Fire Fades</a>
 	
-		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Tin Lau</a>
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
 	
-		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+		<a class="set-bar inactive" href="../previews/WBY"><img src="../sets/WBY-files/icon.png">Wild Blue Yonder</a>
+	
+		<a class="set-bar inactive" href="../previews/AWA"><img src="../sets/AWA-files/icon.png">Anglodoor Awakened</a>
+	
+		<a class="set-bar inactive" href="../previews/EAJ"><img src="../sets/EAJ-files/icon.png">Eternal Autumn of Javor</a>
+	
+		<a class="set-bar inactive" href="../previews/M6D"><img src="../sets/M6D-files/icon.png">Mysticism of the Sixth Day</a>
+	
+		<a class="set-bar inactive" href="../previews/RAW"><img src="../sets/RAW-files/icon.png">Ravnica's Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/SPX"><img src="../sets/SPX-files/icon.png">Splendor of Excelsior</a>
+	
+		<a class="set-bar inactive" href="../previews/TEL"><img src="../sets/TEL-files/icon.png">Theros: The Elekteid</a>
+	
+		<a class="set-bar inactive" href="../previews/TLB"><img src="../sets/TLB-files/icon.png">The Lands Between</a>
 	
 		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
 	
-		<a class="set-bar inactive" href="../previews/BLD"><img src="../sets/BLD-files/icon.png">Bloodborne</a>
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
 	
-		<a class="set-bar inactive" href="../previews/CLE"><img src="../sets/CLE-files/icon.png">Clearingsong</a>
+		<a class="set-bar inactive" href="../previews/DRM"><img src="../sets/DRM-files/icon.png">Dreamers of Antausia</a>
 	
-		<a class="set-bar inactive" href="../previews/HWK"><img src="../sets/HWK-files/icon.png">Haishan: Warring Kingdoms</a>
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
 	
-		<a class="set-bar inactive" href="../previews/KLB"><img src="../sets/KLB-files/icon.png">Kitsuo: the Last Bloom</a>
+		<a class="set-bar inactive" href="../previews/EVO"><img src="../sets/EVO-files/icon.png">Evolution on Srai-Val-Nul</a>
 	
-		<a class="set-bar inactive" href="../previews/MOX"><img src="../sets/MOX-files/icon.png">Midnight Omens of Xogoa</a>
+		<a class="set-bar inactive" href="../previews/FIM"><img src="../sets/FIM-files/icon.png">Periss: Friendship is Magic</a>
 	
-		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
+		<a class="set-bar inactive" href="../previews/ORE"><img src="../sets/ORE-files/icon.png">Orestan</a>
 	
-		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Towers of Tin Lau</a>
 	
 		</div>
 		<div class="banner">
@@ -287,173 +321,183 @@
 		</div>
 		<div class="main-content" id="main-content">
 			<div class="grid-container">
-					<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/3_Akiwaza, Crossroads God.jpg" id="F2HU_3_Akiwaza, Crossroads God" data-flag="@X" onclick="openSidebar('F2HU_3_Akiwaza, Crossroads God',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/47_Gensokyo's Longest Day.jpg" id="F2HU_47_Gensokyos Longest Day" data-flag="@X" onclick="openSidebar('F2HU_47_Gensokyos Longest Day',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/80_Hako, Ark of Death.jpg" id="F2HU_80_Hako, Ark of Death" data-flag="@X" onclick="openSidebar('F2HU_80_Hako, Ark of Death',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/118_Mayonaka, the Kishin.jpg" id="F2HU_118_Mayonaka, the Kishin" data-flag="@X" onclick="openSidebar('F2HU_118_Mayonaka, the Kishin',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/138_Eight Million Gods.jpg" id="F2HU_138_Eight Million Gods" data-flag="@X" onclick="openSidebar('F2HU_138_Eight Million Gods',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/25_Mumei, Discarded Pottery.jpg" id="F2HU_25_Mumei, Discarded Pottery" data-flag="@X" onclick="openSidebar('F2HU_25_Mumei, Discarded Pottery',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/55_Patricia Turing.jpg" id="F2HU_55_Patricia Turing" data-flag="@X" onclick="openSidebar('F2HU_55_Patricia Turing',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/91_Musaraku, Source of Nightmares.jpg" id="F2HU_91_Musaraku, Source of Nightmares" data-flag="@X" onclick="openSidebar('F2HU_91_Musaraku, Source of Nightmares',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/119_Megumu, Newborn Dragon.jpg" id="F2HU_119_Megumu, Newborn Dragon" data-flag="@X" onclick="openSidebar('F2HU_119_Megumu, Newborn Dragon',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/147_Mihana, Princess of Greenery.jpg" id="F2HU_147_Mihana, Princess of Greenery" data-flag="@X" onclick="openSidebar('F2HU_147_Mihana, Princess of Greenery',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/28_Null Recreator.jpg" id="F2HU_28_Null Recreator" data-flag="@X" onclick="openSidebar('F2HU_28_Null Recreator',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/37_Annie, the Bygone Fleet.jpg" id="F2HU_37_Annie, the Bygone Fleet" data-flag="@X" onclick="openSidebar('F2HU_37_Annie, the Bygone Fleet',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/70_Aelivia Grapeseedling.jpg" id="F2HU_70_Aelivia Grapeseedling" data-flag="@X" onclick="openSidebar('F2HU_70_Aelivia Grapeseedling',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/103_Amanozako, Crimson Tyrant.jpg" id="F2HU_103_Amanozako, Crimson Tyrant" data-flag="@X" onclick="openSidebar('F2HU_103_Amanozako, Crimson Tyrant',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/135_An, Kodama of Tobiume.jpg" id="F2HU_135_An, Kodama of Tobiume" data-flag="@X" onclick="openSidebar('F2HU_135_An, Kodama of Tobiume',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/30_Riko Toone, Divine Diva.jpg" id="F2HU_30_Riko Toone, Divine Diva" data-flag="@X" onclick="openSidebar('F2HU_30_Riko Toone, Divine Diva',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/54_Nua, Captain of the Ark.jpg" id="F2HU_54_Nua, Captain of the Ark" data-flag="@X" onclick="openSidebar('F2HU_54_Nua, Captain of the Ark',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/71_Aimi, Dreaming Heartbroken Girl.jpg" id="F2HU_71_Aimi, Dreaming Heartbroken Girl" data-flag="@X" onclick="openSidebar('F2HU_71_Aimi, Dreaming Heartbroken Girl',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/109_Everyone's Everlasting Danmaku.jpg" id="F2HU_109_Everyones Everlasting Danmaku" data-flag="@X" onclick="openSidebar('F2HU_109_Everyones Everlasting Danmaku',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/140_The Festival Starts Today.jpg" id="F2HU_140_The Festival Starts Today" data-flag="@X" onclick="openSidebar('F2HU_140_The Festival Starts Today',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/13_Gensokyo's Final Day.jpg" id="F2HU_13_Gensokyos Final Day" data-flag="@X" onclick="openSidebar('F2HU_13_Gensokyos Final Day',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/57_Philippa A.T.B. von Hohenheim.jpg" id="F2HU_57_Philippa A.T.B. von Hohenheim" data-flag="@X" onclick="openSidebar('F2HU_57_Philippa A.T.B. von Hohenheim',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/78_General Set.jpg" id="F2HU_78_General Set" data-flag="@X" onclick="openSidebar('F2HU_78_General Set',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/111_Hasuta, the Blinding Royal.jpg" id="F2HU_111_Hasuta, the Blinding Royal" data-flag="@X" onclick="openSidebar('F2HU_111_Hasuta, the Blinding Royal',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/144_Kiseki, the Pruning Saw.jpg" id="F2HU_144_Kiseki, the Pruning Saw" data-flag="@X" onclick="openSidebar('F2HU_144_Kiseki, the Pruning Saw',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/16_Iesua, the Forgiver.jpg" id="F2HU_16_Iesua, the Forgiver" data-flag="@X" onclick="openSidebar('F2HU_16_Iesua, the Forgiver',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/61_Shiina, Deep-Sea Conductor.jpg" id="F2HU_61_Shiina, Deep-Sea Conductor" data-flag="@X" onclick="openSidebar('F2HU_61_Shiina, Deep-Sea Conductor',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/81_Keshika, Flower of Evil.jpg" id="F2HU_81_Keshika, Flower of Evil" data-flag="@X" onclick="openSidebar('F2HU_81_Keshika, Flower of Evil',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/112_Homura, Blacksmith of Living Flame.jpg" id="F2HU_112_Homura, Blacksmith of Living Flame" data-flag="@X" onclick="openSidebar('F2HU_112_Homura, Blacksmith of Living Flame',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="sets/F2HU-files/img/146_Leaf Ponders the Flower_back.jpg" alt="sets/F2HU-files/img/146_Leaf Ponders the Flower_front.jpg" id="F2HU_146_Leaf Ponders the Flower" data-flag="@XD" onclick="openSidebar('F2HU_146_Leaf Ponders the Flower',false)"><button class="flip-btn" onclick="imgFlip('F2HU_146_Leaf Ponders the Flower')"></button></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/17_Inori, Shrine Maiden of Sakura.jpg" id="F2HU_17_Inori, Shrine Maiden of Sakura" data-flag="@X" onclick="openSidebar('F2HU_17_Inori, Shrine Maiden of Sakura',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/63_Soukai, Rain Dragon.jpg" id="F2HU_63_Soukai, Rain Dragon" data-flag="@X" onclick="openSidebar('F2HU_63_Soukai, Rain Dragon',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/82_Lethal Entertainment.jpg" id="F2HU_82_Lethal Entertainment" data-flag="@X" onclick="openSidebar('F2HU_82_Lethal Entertainment',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/120_Mirei, Deep-Sea Symphonist.jpg" id="F2HU_120_Mirei, Deep-Sea Symphonist" data-flag="@X" onclick="openSidebar('F2HU_120_Mirei, Deep-Sea Symphonist',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/148_Munomoto, Bud of Lost Dreams.jpg" id="F2HU_148_Munomoto, Bud of Lost Dreams" data-flag="@X" onclick="openSidebar('F2HU_148_Munomoto, Bud of Lost Dreams',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/20_Jinka, the Yearning Light.jpg" id="F2HU_20_Jinka, the Yearning Light" data-flag="@X" onclick="openSidebar('F2HU_20_Jinka, the Yearning Light',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/66_Umikaze, Sea Angel.jpg" id="F2HU_66_Umikaze, Sea Angel" data-flag="@X" onclick="openSidebar('F2HU_66_Umikaze, Sea Angel',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/83_Leyline of the Underworld.jpg" id="F2HU_83_Leyline of the Underworld" data-flag="@X" onclick="openSidebar('F2HU_83_Leyline of the Underworld',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/121_Mitama, Vengeful Spirit.jpg" id="F2HU_121_Mitama, Vengeful Spirit" data-flag="@X" onclick="openSidebar('F2HU_121_Mitama, Vengeful Spirit',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/149_Munomoto, Returning Dream.jpg" id="F2HU_149_Munomoto, Returning Dream" data-flag="@X" onclick="openSidebar('F2HU_149_Munomoto, Returning Dream',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/21_Luciana Abatangelo.jpg" id="F2HU_21_Luciana Abatangelo" data-flag="@X" onclick="openSidebar('F2HU_21_Luciana Abatangelo',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/67_Yamoto, Steam Age Remnant.jpg" id="F2HU_67_Yamoto, Steam Age Remnant" data-flag="@X" onclick="openSidebar('F2HU_67_Yamoto, Steam Age Remnant',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/84_Lokhens, Blind Night Raven.jpg" id="F2HU_84_Lokhens, Blind Night Raven" data-flag="@X" onclick="openSidebar('F2HU_84_Lokhens, Blind Night Raven',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/128_Steam Age Overture.jpg" id="F2HU_128_Steam Age Overture" data-flag="@X" onclick="openSidebar('F2HU_128_Steam Age Overture',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/150_Nanahiyakumi, Song Saint.jpg" id="F2HU_150_Nanahiyakumi, Song Saint" data-flag="@X" onclick="openSidebar('F2HU_150_Nanahiyakumi, Song Saint',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/24_Michel Sant'Angelo.jpg" id="F2HU_24_Michel SantAngelo" data-flag="@X" onclick="openSidebar('F2HU_24_Michel SantAngelo',false)"></div>
-				<div class="container"><img loading="lazy" data-alt_src="sets/F2HU-files/img/40_Empty News_back.jpg" alt="sets/F2HU-files/img/40_Empty News_front.jpg" id="F2HU_40_Empty News" data-flag="@XD" onclick="openSidebar('F2HU_40_Empty News',false)"><button class="flip-btn" onclick="imgFlip('F2HU_40_Empty News')"></button></div>
-				<div class="container"><img loading="lazy" data-alt_src="sets/F2HU-files/img/85_Mariko, the Downtrodden_back.jpg" alt="sets/F2HU-files/img/85_Mariko, the Downtrodden_front.jpg" id="F2HU_85_Mariko, the Downtrodden" data-flag="@XD" onclick="openSidebar('F2HU_85_Mariko, the Downtrodden',false)"><button class="flip-btn" onclick="imgFlip('F2HU_85_Mariko, the Downtrodden')"></button></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/129_Steel is Born from Flame.jpg" id="F2HU_129_Steel is Born from Flame" data-flag="@X" onclick="openSidebar('F2HU_129_Steel is Born from Flame',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/153_Princess's Wish.jpg" id="F2HU_153_Princesss Wish" data-flag="@X" onclick="openSidebar('F2HU_153_Princesss Wish',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/27_Nueko, Castle Protector.jpg" id="F2HU_27_Nueko, Castle Protector" data-flag="@X" onclick="openSidebar('F2HU_27_Nueko, Castle Protector',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/41_End of History.jpg" id="F2HU_41_End of History" data-flag="@X" onclick="openSidebar('F2HU_41_End of History',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/87_Medicine, Queen of Dolls.jpg" id="F2HU_87_Medicine, Queen of Dolls" data-flag="@X" onclick="openSidebar('F2HU_87_Medicine, Queen of Dolls',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/133_Yomimi, Ultimate Phantom.jpg" id="F2HU_133_Yomimi, Ultimate Phantom" data-flag="@X" onclick="openSidebar('F2HU_133_Yomimi, Ultimate Phantom',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/161_Toyomi, Former Sea Queen.jpg" id="F2HU_161_Toyomi, Former Sea Queen" data-flag="@X" onclick="openSidebar('F2HU_161_Toyomi, Former Sea Queen',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/31_Senkiusei, the Supernova.jpg" id="F2HU_31_Senkiusei, the Supernova" data-flag="@X" onclick="openSidebar('F2HU_31_Senkiusei, the Supernova',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/49_Hikariko Aosagi.jpg" id="F2HU_49_Hikariko Aosagi" data-flag="@X" onclick="openSidebar('F2HU_49_Hikariko Aosagi',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/89_Mitsuru, Formless Thunder God.jpg" id="F2HU_89_Mitsuru, Formless Thunder God" data-flag="@X" onclick="openSidebar('F2HU_89_Mitsuru, Formless Thunder God',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/102_Akira, Jazzy Detective.jpg" id="F2HU_102_Akira, Jazzy Detective" data-flag="@X" onclick="openSidebar('F2HU_102_Akira, Jazzy Detective',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/163_Valloside, Pure Suzuran.jpg" id="F2HU_163_Valloside, Pure Suzuran" data-flag="@X" onclick="openSidebar('F2HU_163_Valloside, Pure Suzuran',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/35_Yuyuko, Host of the Banquet.jpg" id="F2HU_35_Yuyuko, Host of the Banquet" data-flag="@X" onclick="openSidebar('F2HU_35_Yuyuko, Host of the Banquet',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/50_Himemiko, Erased Princess.jpg" id="F2HU_50_Himemiko, Erased Princess" data-flag="@X" onclick="openSidebar('F2HU_50_Himemiko, Erased Princess',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/92_Nezu, Wicked Kitsune.jpg" id="F2HU_92_Nezu, Wicked Kitsune" data-flag="@X" onclick="openSidebar('F2HU_92_Nezu, Wicked Kitsune',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/107_Clamor of the Festival.jpg" id="F2HU_107_Clamor of the Festival" data-flag="@X" onclick="openSidebar('F2HU_107_Clamor of the Festival',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/165_Yamatoyo no Momohime.jpg" id="F2HU_165_Yamatoyo no Momohime" data-flag="@X" onclick="openSidebar('F2HU_165_Yamatoyo no Momohime',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/7_Birds of a Feather.jpg" id="F2HU_7_Birds of a Feather" data-flag="@X" onclick="openSidebar('F2HU_7_Birds of a Feather',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/56_Phiased, the Magi.jpg" id="F2HU_56_Phiased, the Magi" data-flag="@X" onclick="openSidebar('F2HU_56_Phiased, the Magi',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/96_Padma, Molting Zeal.jpg" id="F2HU_96_Padma, Molting Zeal" data-flag="@X" onclick="openSidebar('F2HU_96_Padma, Molting Zeal',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/113_Instant Brilliant Night.jpg" id="F2HU_113_Instant Brilliant Night" data-flag="@X" onclick="openSidebar('F2HU_113_Instant Brilliant Night',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/143_Ichiyou, Ninja Descendant.jpg" id="F2HU_143_Ichiyou, Ninja Descendant" data-flag="@X" onclick="openSidebar('F2HU_143_Ichiyou, Ninja Descendant',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/8_Cage of Marital Vows.jpg" id="F2HU_8_Cage of Marital Vows" data-flag="@X" onclick="openSidebar('F2HU_8_Cage of Marital Vows',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/58_Prune Reality.jpg" id="F2HU_58_Prune Reality" data-flag="@X" onclick="openSidebar('F2HU_58_Prune Reality',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/99_Sonia von Auersperg.jpg" id="F2HU_99_Sonia von Auersperg" data-flag="@X" onclick="openSidebar('F2HU_99_Sonia von Auersperg',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/114_Kousan, Spear of Chaos.jpg" id="F2HU_114_Kousan, Spear of Chaos" data-flag="@X" onclick="openSidebar('F2HU_114_Kousan, Spear of Chaos',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/157_Sakura, Decision Maker.jpg" id="F2HU_157_Sakura, Decision Maker" data-flag="@X" onclick="openSidebar('F2HU_157_Sakura, Decision Maker',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/12_Fairy Contest.jpg" id="F2HU_12_Fairy Contest" data-flag="@X" onclick="openSidebar('F2HU_12_Fairy Contest',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/64_Starry Wisdom.jpg" id="F2HU_64_Starry Wisdom" data-flag="@X" onclick="openSidebar('F2HU_64_Starry Wisdom',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/101_Unrepentant Mantra.jpg" id="F2HU_101_Unrepentant Mantra" data-flag="@X" onclick="openSidebar('F2HU_101_Unrepentant Mantra',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/115_Kousen, Drought Deity.jpg" id="F2HU_115_Kousen, Drought Deity" data-flag="@X" onclick="openSidebar('F2HU_115_Kousen, Drought Deity',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/158_Scuttle Nightbug.jpg" id="F2HU_158_Scuttle Nightbug" data-flag="@X" onclick="openSidebar('F2HU_158_Scuttle Nightbug',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/14_Golden Hymn.jpg" id="F2HU_14_Golden Hymn" data-flag="@X" onclick="openSidebar('F2HU_14_Golden Hymn',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/69_Yuuto, Out-of-Place Magician.jpg" id="F2HU_69_Yuuto, Out-of-Place Magician" data-flag="@X" onclick="openSidebar('F2HU_69_Yuuto, Out-of-Place Magician',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/73_Bon, the Greedy Beast.jpg" id="F2HU_73_Bon, the Greedy Beast" data-flag="@X" onclick="openSidebar('F2HU_73_Bon, the Greedy Beast',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/116_Lightning Word.jpg" id="F2HU_116_Lightning Word" data-flag="@X" onclick="openSidebar('F2HU_116_Lightning Word',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/159_Seiryuu, Willow Spirit.jpg" id="F2HU_159_Seiryuu, Willow Spirit" data-flag="@X" onclick="openSidebar('F2HU_159_Seiryuu, Willow Spirit',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/18_Izuhime, Shrine Maiden.jpg" id="F2HU_18_Izuhime, Shrine Maiden" data-flag="@X" onclick="openSidebar('F2HU_18_Izuhime, Shrine Maiden',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/38_Artistic Dedication.jpg" id="F2HU_38_Artistic Dedication" data-flag="@X" onclick="openSidebar('F2HU_38_Artistic Dedication',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/74_Dangerous Curiosity.jpg" id="F2HU_74_Dangerous Curiosity" data-flag="@X" onclick="openSidebar('F2HU_74_Dangerous Curiosity',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/117_Magura, the Taotie.jpg" id="F2HU_117_Magura, the Taotie" data-flag="@X" onclick="openSidebar('F2HU_117_Magura, the Taotie',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/160_Sunrise Moon Viewing.jpg" id="F2HU_160_Sunrise Moon Viewing" data-flag="@X" onclick="openSidebar('F2HU_160_Sunrise Moon Viewing',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/19_Janet Arc'Angelo.jpg" id="F2HU_19_Janet ArcAngelo" data-flag="@X" onclick="openSidebar('F2HU_19_Janet ArcAngelo',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/39_Chirplagarism.jpg" id="F2HU_39_Chirplagarism" data-flag="@X" onclick="openSidebar('F2HU_39_Chirplagarism',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/75_Datura, Weaver of Death.jpg" id="F2HU_75_Datura, Weaver of Death" data-flag="@X" onclick="openSidebar('F2HU_75_Datura, Weaver of Death',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/125_Rebellion God Force.jpg" id="F2HU_125_Rebellion God Force" data-flag="@X" onclick="openSidebar('F2HU_125_Rebellion God Force',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/134_An Addendum to the Past.jpg" id="F2HU_134_An Addendum to the Past" data-flag="@X" onclick="openSidebar('F2HU_134_An Addendum to the Past',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/22_Ma Sekisei, Fabled Baker.jpg" id="F2HU_22_Ma Sekisei, Fabled Baker" data-flag="@X" onclick="openSidebar('F2HU_22_Ma Sekisei, Fabled Baker',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/42_Epro, the Programmer.jpg" id="F2HU_42_Epro, the Programmer" data-flag="@X" onclick="openSidebar('F2HU_42_Epro, the Programmer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/76_Existential Humankind.jpg" id="F2HU_76_Existential Humankind" data-flag="@X" onclick="openSidebar('F2HU_76_Existential Humankind',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/126_Sekito, Shadow-Severing Speed.jpg" id="F2HU_126_Sekito, Shadow-Severing Speed" data-flag="@X" onclick="openSidebar('F2HU_126_Sekito, Shadow-Severing Speed',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/136_Apple Girlington.jpg" id="F2HU_136_Apple Girlington" data-flag="@X" onclick="openSidebar('F2HU_136_Apple Girlington',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/23_Mankind Salvation Plan.jpg" id="F2HU_23_Mankind Salvation Plan" data-flag="@X" onclick="openSidebar('F2HU_23_Mankind Salvation Plan',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/43_Excessive Monologuing.jpg" id="F2HU_43_Excessive Monologuing" data-flag="@X" onclick="openSidebar('F2HU_43_Excessive Monologuing',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/77_Fantasy Withdrawal Syndrome.jpg" id="F2HU_77_Fantasy Withdrawal Syndrome" data-flag="@X" onclick="openSidebar('F2HU_77_Fantasy Withdrawal Syndrome',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/104_Annika A.T.B von Hohenheim.jpg" id="F2HU_104_Annika A.T.B von Hohenheim" data-flag="@X" onclick="openSidebar('F2HU_104_Annika A.T.B von Hohenheim',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/137_Birds Return at Dusk.jpg" id="F2HU_137_Birds Return at Dusk" data-flag="@X" onclick="openSidebar('F2HU_137_Birds Return at Dusk',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/33_Tanboku, Austral Pearl.jpg" id="F2HU_33_Tanboku, Austral Pearl" data-flag="@X" onclick="openSidebar('F2HU_33_Tanboku, Austral Pearl',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/44_Fiction Sign.jpg" id="F2HU_44_Fiction Sign" data-flag="@X" onclick="openSidebar('F2HU_44_Fiction Sign',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/86_Masahi, the Carefree Princess.jpg" id="F2HU_86_Masahi, the Carefree Princess" data-flag="@X" onclick="openSidebar('F2HU_86_Masahi, the Carefree Princess',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/105_Ayaka, Newborn Bass.jpg" id="F2HU_105_Ayaka, Newborn Bass" data-flag="@X" onclick="openSidebar('F2HU_105_Ayaka, Newborn Bass',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/139_Fabritis and Iphonea.jpg" id="F2HU_139_Fabritis and Iphonea" data-flag="@X" onclick="openSidebar('F2HU_139_Fabritis and Iphonea',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/34_Tsubakurowa, Weather-Wise.jpg" id="F2HU_34_Tsubakurowa, Weather-Wise" data-flag="@X" onclick="openSidebar('F2HU_34_Tsubakurowa, Weather-Wise',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/45_Footprints of Treiste.jpg" id="F2HU_45_Footprints of Treiste" data-flag="@X" onclick="openSidebar('F2HU_45_Footprints of Treiste',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/88_Meimei, the Wishing Doll.jpg" id="F2HU_88_Meimei, the Wishing Doll" data-flag="@X" onclick="openSidebar('F2HU_88_Meimei, the Wishing Doll',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/106_Casual Arson.jpg" id="F2HU_106_Casual Arson" data-flag="@X" onclick="openSidebar('F2HU_106_Casual Arson',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/141_High-Angle Shot.jpg" id="F2HU_141_High-Angle Shot" data-flag="@X" onclick="openSidebar('F2HU_141_High-Angle Shot',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/36_Zheng Shu, Tranquil Beast.jpg" id="F2HU_36_Zheng Shu, Tranquil Beast" data-flag="@X" onclick="openSidebar('F2HU_36_Zheng Shu, Tranquil Beast',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/46_Fujioki, Soul of Cuckoos.jpg" id="F2HU_46_Fujioki, Soul of Cuckoos" data-flag="@X" onclick="openSidebar('F2HU_46_Fujioki, Soul of Cuckoos',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/90_Mumumu, the Morning Star.jpg" id="F2HU_90_Mumumu, the Morning Star" data-flag="@X" onclick="openSidebar('F2HU_90_Mumumu, the Morning Star',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/108_Corin Charite.jpg" id="F2HU_108_Corin Charite" data-flag="@X" onclick="openSidebar('F2HU_108_Corin Charite',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/142_Horizon Sign.jpg" id="F2HU_142_Horizon Sign" data-flag="@X" onclick="openSidebar('F2HU_142_Horizon Sign',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/4_Amanojaku's Folly.jpg" id="F2HU_4_Amanojakus Folly" data-flag="@X" onclick="openSidebar('F2HU_4_Amanojakus Folly',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/48_Hate Not the Wind.jpg" id="F2HU_48_Hate Not the Wind" data-flag="@X" onclick="openSidebar('F2HU_48_Hate Not the Wind',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/97_Salomé, Patasola.jpg" id="F2HU_97_Salomé, Patasola" data-flag="@X" onclick="openSidebar('F2HU_97_Salomé, Patasola',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/110_Fog Sign.jpg" id="F2HU_110_Fog Sign" data-flag="@X" onclick="openSidebar('F2HU_110_Fog Sign',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/145_Konoha, Uncaptured Raccoon.jpg" id="F2HU_145_Konoha, Uncaptured Raccoon" data-flag="@X" onclick="openSidebar('F2HU_145_Konoha, Uncaptured Raccoon',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/5_Aspect Shift.jpg" id="F2HU_5_Aspect Shift" data-flag="@X" onclick="openSidebar('F2HU_5_Aspect Shift',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/51_Kumoame, Rain Maiden.jpg" id="F2HU_51_Kumoame, Rain Maiden" data-flag="@X" onclick="openSidebar('F2HU_51_Kumoame, Rain Maiden',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/98_Shiran, the Fake Priest.jpg" id="F2HU_98_Shiran, the Fake Priest" data-flag="@X" onclick="openSidebar('F2HU_98_Shiran, the Fake Priest',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/122_Nene, Mountain Shouter.jpg" id="F2HU_122_Nene, Mountain Shouter" data-flag="@X" onclick="openSidebar('F2HU_122_Nene, Mountain Shouter',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/151_Noah, Sugar-Spun.jpg" id="F2HU_151_Noah, Sugar-Spun" data-flag="@X" onclick="openSidebar('F2HU_151_Noah, Sugar-Spun',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/6_Bird Sign.jpg" id="F2HU_6_Bird Sign" data-flag="@X" onclick="openSidebar('F2HU_6_Bird Sign',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/52_Kusuko, False God.jpg" id="F2HU_52_Kusuko, False God" data-flag="@X" onclick="openSidebar('F2HU_52_Kusuko, False God',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/72_Ammolite Light.jpg" id="F2HU_72_Ammolite Light" data-flag="@X" onclick="openSidebar('F2HU_72_Ammolite Light',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/123_Overture of an Euphonious Act.jpg" id="F2HU_123_Overture of an Euphonious Act" data-flag="@X" onclick="openSidebar('F2HU_123_Overture of an Euphonious Act',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/152_Oxas, Fairy of Clovers.jpg" id="F2HU_152_Oxas, Fairy of Clovers" data-flag="@X" onclick="openSidebar('F2HU_152_Oxas, Fairy of Clovers',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/9_Chieko, Bright Sparrow.jpg" id="F2HU_9_Chieko, Bright Sparrow" data-flag="@X" onclick="openSidebar('F2HU_9_Chieko, Bright Sparrow',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/53_Naruko, the Whirlpool.jpg" id="F2HU_53_Naruko, the Whirlpool" data-flag="@X" onclick="openSidebar('F2HU_53_Naruko, the Whirlpool',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/79_God's Toy.jpg" id="F2HU_79_Gods Toy" data-flag="@X" onclick="openSidebar('F2HU_79_Gods Toy',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/124_Ranran, Scarlet Monkey.jpg" id="F2HU_124_Ranran, Scarlet Monkey" data-flag="@X" onclick="openSidebar('F2HU_124_Ranran, Scarlet Monkey',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/154_Rebirth of Dreams.jpg" id="F2HU_154_Rebirth of Dreams" data-flag="@X" onclick="openSidebar('F2HU_154_Rebirth of Dreams',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/10_Chii, Toothpick Tsukumogami.jpg" id="F2HU_10_Chii, Toothpick Tsukumogami" data-flag="@X" onclick="openSidebar('F2HU_10_Chii, Toothpick Tsukumogami',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/59_Serene Heikegani, Crustacean.jpg" id="F2HU_59_Serene Heikegani, Crustacean" data-flag="@X" onclick="openSidebar('F2HU_59_Serene Heikegani, Crustacean',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/93_Nix, Messenger of Darkness.jpg" id="F2HU_93_Nix, Messenger of Darkness" data-flag="@X" onclick="openSidebar('F2HU_93_Nix, Messenger of Darkness',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/127_Shirane, Thunderbird.jpg" id="F2HU_127_Shirane, Thunderbird" data-flag="@X" onclick="openSidebar('F2HU_127_Shirane, Thunderbird',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/155_Reconsidered Paths.jpg" id="F2HU_155_Reconsidered Paths" data-flag="@X" onclick="openSidebar('F2HU_155_Reconsidered Paths',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/11_Dorothy, Hardworking Bee.jpg" id="F2HU_11_Dorothy, Hardworking Bee" data-flag="@X" onclick="openSidebar('F2HU_11_Dorothy, Hardworking Bee',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/60_Shekle, Snowflake Fairy.jpg" id="F2HU_60_Shekle, Snowflake Fairy" data-flag="@X" onclick="openSidebar('F2HU_60_Shekle, Snowflake Fairy',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/94_Nue Sign.jpg" id="F2HU_94_Nue Sign" data-flag="@X" onclick="openSidebar('F2HU_94_Nue Sign',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/130_Theophilia, the Mad Host.jpg" id="F2HU_130_Theophilia, the Mad Host" data-flag="@X" onclick="openSidebar('F2HU_130_Theophilia, the Mad Host',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/156_Ruka, Fawn Spirit.jpg" id="F2HU_156_Ruka, Fawn Spirit" data-flag="@X" onclick="openSidebar('F2HU_156_Ruka, Fawn Spirit',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/15_Hyp, Wandering White.jpg" id="F2HU_15_Hyp, Wandering White" data-flag="@X" onclick="openSidebar('F2HU_15_Hyp, Wandering White',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/62_Shizuka, Solitary Hunter.jpg" id="F2HU_62_Shizuka, Solitary Hunter" data-flag="@X" onclick="openSidebar('F2HU_62_Shizuka, Solitary Hunter',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/95_Omen of Black Clouds.jpg" id="F2HU_95_Omen of Black Clouds" data-flag="@X" onclick="openSidebar('F2HU_95_Omen of Black Clouds',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/131_Traitor's Requiem.jpg" id="F2HU_131_Traitors Requiem" data-flag="@X" onclick="openSidebar('F2HU_131_Traitors Requiem',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/162_Vallenria Cinal.jpg" id="F2HU_162_Vallenria Cinal" data-flag="@X" onclick="openSidebar('F2HU_162_Vallenria Cinal',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/26_Nana Fumoto, Doll Dealer.jpg" id="F2HU_26_Nana Fumoto, Doll Dealer" data-flag="@X" onclick="openSidebar('F2HU_26_Nana Fumoto, Doll Dealer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/65_A Thousand Fathoms Under.jpg" id="F2HU_65_A Thousand Fathoms Under" data-flag="@X" onclick="openSidebar('F2HU_65_A Thousand Fathoms Under',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/100_Unane, the Composer.jpg" id="F2HU_100_Unane, the Composer" data-flag="@X" onclick="openSidebar('F2HU_100_Unane, the Composer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/132_Tsumugi Enishi.jpg" id="F2HU_132_Tsumugi Enishi" data-flag="@X" onclick="openSidebar('F2HU_132_Tsumugi Enishi',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/164_Withered Bounty.jpg" id="F2HU_164_Withered Bounty" data-flag="@X" onclick="openSidebar('F2HU_164_Withered Bounty',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/29_Nunokae, the Grateful Crane.jpg" id="F2HU_29_Nunokae, the Grateful Crane" data-flag="@X" onclick="openSidebar('F2HU_29_Nunokae, the Grateful Crane',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/68_Yet Another Rain Incident.jpg" id="F2HU_68_Yet Another Rain Incident" data-flag="@X" onclick="openSidebar('F2HU_68_Yet Another Rain Incident',false)"></div>
+					<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/225.jpg" id="F2HU_225" data-flag="@X" onclick="openSidebar('F2HU_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/91.jpg" id="F2HU_91" data-flag="@X" onclick="openSidebar('F2HU_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/181.jpg" id="F2HU_181" data-flag="@X" onclick="openSidebar('F2HU_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/145.jpg" id="F2HU_145" data-flag="@X" onclick="openSidebar('F2HU_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/48.jpg" id="F2HU_48" data-flag="@X" onclick="openSidebar('F2HU_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/111.jpg" id="F2HU_111" data-flag="@X" onclick="openSidebar('F2HU_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/180.jpg" id="F2HU_180" data-flag="@X" onclick="openSidebar('F2HU_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/115.jpg" id="F2HU_115" data-flag="@X" onclick="openSidebar('F2HU_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/142.jpg" id="F2HU_142" data-flag="@X" onclick="openSidebar('F2HU_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/103.jpg" id="F2HU_103" data-flag="@X" onclick="openSidebar('F2HU_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/260.jpg" id="F2HU_260" data-flag="@X" onclick="openSidebar('F2HU_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/299.jpg" id="F2HU_299" data-flag="@X" onclick="openSidebar('F2HU_299',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/175.jpg" id="F2HU_175" data-flag="@X" onclick="openSidebar('F2HU_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/99.jpg" id="F2HU_99" data-flag="@X" onclick="openSidebar('F2HU_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/186.jpg" id="F2HU_186" data-flag="@X" onclick="openSidebar('F2HU_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/282.jpg" id="F2HU_282" data-flag="@X" onclick="openSidebar('F2HU_282',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/92.jpg" id="F2HU_92" data-flag="@X" onclick="openSidebar('F2HU_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/98.jpg" id="F2HU_98" data-flag="@X" onclick="openSidebar('F2HU_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/131.jpg" id="F2HU_131" data-flag="@X" onclick="openSidebar('F2HU_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/46.jpg" id="F2HU_46" data-flag="@X" onclick="openSidebar('F2HU_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/342.jpg" id="F2HU_342" data-flag="@X" onclick="openSidebar('F2HU_342',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/94.jpg" id="F2HU_94" data-flag="@X" onclick="openSidebar('F2HU_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/25.jpg" id="F2HU_25" data-flag="@X" onclick="openSidebar('F2HU_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/228.jpg" id="F2HU_228" data-flag="@X" onclick="openSidebar('F2HU_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/336.jpg" id="F2HU_336" data-flag="@X" onclick="openSidebar('F2HU_336',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/280.jpg" id="F2HU_280" data-flag="@X" onclick="openSidebar('F2HU_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/124.jpg" id="F2HU_124" data-flag="@X" onclick="openSidebar('F2HU_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/26.jpg" id="F2HU_26" data-flag="@X" onclick="openSidebar('F2HU_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/253.jpg" id="F2HU_253" data-flag="@X" onclick="openSidebar('F2HU_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/163.jpg" id="F2HU_163" data-flag="@X" onclick="openSidebar('F2HU_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/147.jpg" id="F2HU_147" data-flag="@X" onclick="openSidebar('F2HU_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/132.jpg" id="F2HU_132" data-flag="@X" onclick="openSidebar('F2HU_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/118.jpg" id="F2HU_118" data-flag="@X" onclick="openSidebar('F2HU_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/174.jpg" id="F2HU_174" data-flag="@X" onclick="openSidebar('F2HU_174',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/F2HU-files/img/320_back.jpg" alt="sets/F2HU-files/img/320_front.jpg" id="F2HU_320" data-flag="@XD" onclick="openSidebar('F2HU_320',false)"><button class="flip-btn" onclick="imgFlip('F2HU_320')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/167.jpg" id="F2HU_167" data-flag="@X" onclick="openSidebar('F2HU_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/164.jpg" id="F2HU_164" data-flag="@X" onclick="openSidebar('F2HU_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/300.jpg" id="F2HU_300" data-flag="@X" onclick="openSidebar('F2HU_300',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/173.jpg" id="F2HU_173" data-flag="@X" onclick="openSidebar('F2HU_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/47.jpg" id="F2HU_47" data-flag="@X" onclick="openSidebar('F2HU_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/192.jpg" id="F2HU_192" data-flag="@X" onclick="openSidebar('F2HU_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/191.jpg" id="F2HU_191" data-flag="@X" onclick="openSidebar('F2HU_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/27.jpg" id="F2HU_27" data-flag="@X" onclick="openSidebar('F2HU_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/345.jpg" id="F2HU_345" data-flag="@X" onclick="openSidebar('F2HU_345',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/303.jpg" id="F2HU_303" data-flag="@X" onclick="openSidebar('F2HU_303',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/15.jpg" id="F2HU_15" data-flag="@X" onclick="openSidebar('F2HU_15',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/F2HU-files/img/322_back.jpg" alt="sets/F2HU-files/img/322_front.jpg" id="F2HU_322" data-flag="@XD" onclick="openSidebar('F2HU_322',false)"><button class="flip-btn" onclick="imgFlip('F2HU_322')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/F2HU-files/img/318_back.jpg" alt="sets/F2HU-files/img/318_front.jpg" id="F2HU_318" data-flag="@XD" onclick="openSidebar('F2HU_318',false)"><button class="flip-btn" onclick="imgFlip('F2HU_318')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/43.jpg" id="F2HU_43" data-flag="@X" onclick="openSidebar('F2HU_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/188.jpg" id="F2HU_188" data-flag="@X" onclick="openSidebar('F2HU_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/10.jpg" id="F2HU_10" data-flag="@X" onclick="openSidebar('F2HU_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/125.jpg" id="F2HU_125" data-flag="@X" onclick="openSidebar('F2HU_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/140.jpg" id="F2HU_140" data-flag="@X" onclick="openSidebar('F2HU_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/122.jpg" id="F2HU_122" data-flag="@X" onclick="openSidebar('F2HU_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/234.jpg" id="F2HU_234" data-flag="@X" onclick="openSidebar('F2HU_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/13.jpg" id="F2HU_13" data-flag="@X" onclick="openSidebar('F2HU_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/84.jpg" id="F2HU_84" data-flag="@X" onclick="openSidebar('F2HU_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/254.jpg" id="F2HU_254" data-flag="@X" onclick="openSidebar('F2HU_254',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/265.jpg" id="F2HU_265" data-flag="@X" onclick="openSidebar('F2HU_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/255.jpg" id="F2HU_255" data-flag="@X" onclick="openSidebar('F2HU_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/343.jpg" id="F2HU_343" data-flag="@X" onclick="openSidebar('F2HU_343',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/113.jpg" id="F2HU_113" data-flag="@X" onclick="openSidebar('F2HU_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/179.jpg" id="F2HU_179" data-flag="@X" onclick="openSidebar('F2HU_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/259.jpg" id="F2HU_259" data-flag="@X" onclick="openSidebar('F2HU_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/143.jpg" id="F2HU_143" data-flag="@X" onclick="openSidebar('F2HU_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/149.jpg" id="F2HU_149" data-flag="@X" onclick="openSidebar('F2HU_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/93.jpg" id="F2HU_93" data-flag="@X" onclick="openSidebar('F2HU_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/31.jpg" id="F2HU_31" data-flag="@X" onclick="openSidebar('F2HU_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/245.jpg" id="F2HU_245" data-flag="@X" onclick="openSidebar('F2HU_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/138.jpg" id="F2HU_138" data-flag="@X" onclick="openSidebar('F2HU_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/116.jpg" id="F2HU_116" data-flag="@X" onclick="openSidebar('F2HU_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/96.jpg" id="F2HU_96" data-flag="@X" onclick="openSidebar('F2HU_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/226.jpg" id="F2HU_226" data-flag="@X" onclick="openSidebar('F2HU_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/36.jpg" id="F2HU_36" data-flag="@X" onclick="openSidebar('F2HU_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/247.jpg" id="F2HU_247" data-flag="@X" onclick="openSidebar('F2HU_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/4.jpg" id="F2HU_4" data-flag="@X" onclick="openSidebar('F2HU_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/332.jpg" id="F2HU_332" data-flag="@X" onclick="openSidebar('F2HU_332',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/141.jpg" id="F2HU_141" data-flag="@X" onclick="openSidebar('F2HU_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/153.jpg" id="F2HU_153" data-flag="@X" onclick="openSidebar('F2HU_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/312.jpg" id="F2HU_312" data-flag="@X" onclick="openSidebar('F2HU_312',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/307.jpg" id="F2HU_307" data-flag="@X" onclick="openSidebar('F2HU_307',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/119.jpg" id="F2HU_119" data-flag="@X" onclick="openSidebar('F2HU_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/23.jpg" id="F2HU_23" data-flag="@X" onclick="openSidebar('F2HU_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/37.jpg" id="F2HU_37" data-flag="@X" onclick="openSidebar('F2HU_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/232.jpg" id="F2HU_232" data-flag="@X" onclick="openSidebar('F2HU_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/1.jpg" id="F2HU_1" data-flag="@X" onclick="openSidebar('F2HU_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/97.jpg" id="F2HU_97" data-flag="@X" onclick="openSidebar('F2HU_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/229.jpg" id="F2HU_229" data-flag="@X" onclick="openSidebar('F2HU_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/38.jpg" id="F2HU_38" data-flag="@X" onclick="openSidebar('F2HU_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/114.jpg" id="F2HU_114" data-flag="@X" onclick="openSidebar('F2HU_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/7.jpg" id="F2HU_7" data-flag="@X" onclick="openSidebar('F2HU_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/86.jpg" id="F2HU_86" data-flag="@X" onclick="openSidebar('F2HU_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/197.jpg" id="F2HU_197" data-flag="@X" onclick="openSidebar('F2HU_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/331.jpg" id="F2HU_331" data-flag="@X" onclick="openSidebar('F2HU_331',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/130.jpg" id="F2HU_130" data-flag="@X" onclick="openSidebar('F2HU_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/101.jpg" id="F2HU_101" data-flag="@X" onclick="openSidebar('F2HU_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/87.jpg" id="F2HU_87" data-flag="@X" onclick="openSidebar('F2HU_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/220.jpg" id="F2HU_220" data-flag="@X" onclick="openSidebar('F2HU_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/185.jpg" id="F2HU_185" data-flag="@X" onclick="openSidebar('F2HU_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/120.jpg" id="F2HU_120" data-flag="@X" onclick="openSidebar('F2HU_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/6.jpg" id="F2HU_6" data-flag="@X" onclick="openSidebar('F2HU_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/88.jpg" id="F2HU_88" data-flag="@X" onclick="openSidebar('F2HU_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/24.jpg" id="F2HU_24" data-flag="@X" onclick="openSidebar('F2HU_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/41.jpg" id="F2HU_41" data-flag="@X" onclick="openSidebar('F2HU_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/45.jpg" id="F2HU_45" data-flag="@X" onclick="openSidebar('F2HU_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/2.jpg" id="F2HU_2" data-flag="@X" onclick="openSidebar('F2HU_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/89.jpg" id="F2HU_89" data-flag="@X" onclick="openSidebar('F2HU_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/106.jpg" id="F2HU_106" data-flag="@X" onclick="openSidebar('F2HU_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/298.jpg" id="F2HU_298" data-flag="@X" onclick="openSidebar('F2HU_298',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/126.jpg" id="F2HU_126" data-flag="@X" onclick="openSidebar('F2HU_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/129.jpg" id="F2HU_129" data-flag="@X" onclick="openSidebar('F2HU_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/146.jpg" id="F2HU_146" data-flag="@X" onclick="openSidebar('F2HU_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/28.jpg" id="F2HU_28" data-flag="@X" onclick="openSidebar('F2HU_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/109.jpg" id="F2HU_109" data-flag="@X" onclick="openSidebar('F2HU_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/139.jpg" id="F2HU_139" data-flag="@X" onclick="openSidebar('F2HU_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/0.jpg" id="F2HU_0" data-flag="@X" onclick="openSidebar('F2HU_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/121.jpg" id="F2HU_121" data-flag="@X" onclick="openSidebar('F2HU_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/187.jpg" id="F2HU_187" data-flag="@X" onclick="openSidebar('F2HU_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/266.jpg" id="F2HU_266" data-flag="@X" onclick="openSidebar('F2HU_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/166.jpg" id="F2HU_166" data-flag="@X" onclick="openSidebar('F2HU_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/230.jpg" id="F2HU_230" data-flag="@X" onclick="openSidebar('F2HU_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/90.jpg" id="F2HU_90" data-flag="@X" onclick="openSidebar('F2HU_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/32.jpg" id="F2HU_32" data-flag="@X" onclick="openSidebar('F2HU_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/35.jpg" id="F2HU_35" data-flag="@X" onclick="openSidebar('F2HU_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/152.jpg" id="F2HU_152" data-flag="@X" onclick="openSidebar('F2HU_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/277.jpg" id="F2HU_277" data-flag="@X" onclick="openSidebar('F2HU_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/158.jpg" id="F2HU_158" data-flag="@X" onclick="openSidebar('F2HU_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/33.jpg" id="F2HU_33" data-flag="@X" onclick="openSidebar('F2HU_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/127.jpg" id="F2HU_127" data-flag="@X" onclick="openSidebar('F2HU_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/17.jpg" id="F2HU_17" data-flag="@X" onclick="openSidebar('F2HU_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/8.jpg" id="F2HU_8" data-flag="@X" onclick="openSidebar('F2HU_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/272.jpg" id="F2HU_272" data-flag="@X" onclick="openSidebar('F2HU_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/306.jpg" id="F2HU_306" data-flag="@X" onclick="openSidebar('F2HU_306',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/160.jpg" id="F2HU_160" data-flag="@X" onclick="openSidebar('F2HU_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/150.jpg" id="F2HU_150" data-flag="@X" onclick="openSidebar('F2HU_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/243.jpg" id="F2HU_243" data-flag="@X" onclick="openSidebar('F2HU_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/244.jpg" id="F2HU_244" data-flag="@X" onclick="openSidebar('F2HU_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/279.jpg" id="F2HU_279" data-flag="@X" onclick="openSidebar('F2HU_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/39.jpg" id="F2HU_39" data-flag="@X" onclick="openSidebar('F2HU_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/49.jpg" id="F2HU_49" data-flag="@X" onclick="openSidebar('F2HU_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/159.jpg" id="F2HU_159" data-flag="@X" onclick="openSidebar('F2HU_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/326.jpg" id="F2HU_326" data-flag="@X" onclick="openSidebar('F2HU_326',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/29.jpg" id="F2HU_29" data-flag="@X" onclick="openSidebar('F2HU_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/271.jpg" id="F2HU_271" data-flag="@X" onclick="openSidebar('F2HU_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/50.jpg" id="F2HU_50" data-flag="@X" onclick="openSidebar('F2HU_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/305.jpg" id="F2HU_305" data-flag="@X" onclick="openSidebar('F2HU_305',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/333.jpg" id="F2HU_333" data-flag="@X" onclick="openSidebar('F2HU_333',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/161.jpg" id="F2HU_161" data-flag="@X" onclick="openSidebar('F2HU_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/40.jpg" id="F2HU_40" data-flag="@X" onclick="openSidebar('F2HU_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/301.jpg" id="F2HU_301" data-flag="@X" onclick="openSidebar('F2HU_301',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/5.jpg" id="F2HU_5" data-flag="@X" onclick="openSidebar('F2HU_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/16.jpg" id="F2HU_16" data-flag="@X" onclick="openSidebar('F2HU_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/30.jpg" id="F2HU_30" data-flag="@X" onclick="openSidebar('F2HU_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/42.jpg" id="F2HU_42" data-flag="@X" onclick="openSidebar('F2HU_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/144.jpg" id="F2HU_144" data-flag="@X" onclick="openSidebar('F2HU_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/290.jpg" id="F2HU_290" data-flag="@X" onclick="openSidebar('F2HU_290',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/223.jpg" id="F2HU_223" data-flag="@X" onclick="openSidebar('F2HU_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/328.jpg" id="F2HU_328" data-flag="@X" onclick="openSidebar('F2HU_328',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/151.jpg" id="F2HU_151" data-flag="@X" onclick="openSidebar('F2HU_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/309.jpg" id="F2HU_309" data-flag="@X" onclick="openSidebar('F2HU_309',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/85.jpg" id="F2HU_85" data-flag="@X" onclick="openSidebar('F2HU_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/123.jpg" id="F2HU_123" data-flag="@X" onclick="openSidebar('F2HU_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/34.jpg" id="F2HU_34" data-flag="@X" onclick="openSidebar('F2HU_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/190.jpg" id="F2HU_190" data-flag="@X" onclick="openSidebar('F2HU_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/51.jpg" id="F2HU_51" data-flag="@X" onclick="openSidebar('F2HU_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/11.jpg" id="F2HU_11" data-flag="@X" onclick="openSidebar('F2HU_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/95.jpg" id="F2HU_95" data-flag="@X" onclick="openSidebar('F2HU_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/44.jpg" id="F2HU_44" data-flag="@X" onclick="openSidebar('F2HU_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/286.jpg" id="F2HU_286" data-flag="@X" onclick="openSidebar('F2HU_286',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/12.jpg" id="F2HU_12" data-flag="@X" onclick="openSidebar('F2HU_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/165.jpg" id="F2HU_165" data-flag="@X" onclick="openSidebar('F2HU_165',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/166_Yuyuko, Sakurachill Blossom.jpg" id="F2HU_166_Yuyuko, Sakurachill Blossom" data-flag="@X" onclick="openSidebar('F2HU_166_Yuyuko, Sakurachill Blossom',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/32_Sever Relationship.jpg" id="F2HU_32_Sever Relationship" data-flag="@X" onclick="openSidebar('F2HU_32_Sever Relationship',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/14.jpg" id="F2HU_14" data-flag="@X" onclick="openSidebar('F2HU_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/249.jpg" id="F2HU_249" data-flag="@X" onclick="openSidebar('F2HU_249',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
@@ -462,137 +506,147 @@
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div id="gold" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/207_Mitori, the Crimson Grudge.jpg" id="F2HU_207_Mitori, the Crimson Grudge" data-flag="@X" onclick="openSidebar('F2HU_207_Mitori, the Crimson Grudge',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/211_Mizuho, Onmyouji.jpg" id="F2HU_211_Mizuho, Onmyouji" data-flag="@X" onclick="openSidebar('F2HU_211_Mizuho, Onmyouji',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/201_Lovia Joutsela, Hiisi.jpg" id="F2HU_201_Lovia Joutsela, Hiisi" data-flag="@X" onclick="openSidebar('F2HU_201_Lovia Joutsela, Hiisi',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/174_Cathu, Dreaming Herald.jpg" id="F2HU_174_Cathu, Dreaming Herald" data-flag="@X" onclick="openSidebar('F2HU_174_Cathu, Dreaming Herald',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/180_Ei, the Eternal Stillness.jpg" id="F2HU_180_Ei, the Eternal Stillness" data-flag="@X" onclick="openSidebar('F2HU_180_Ei, the Eternal Stillness',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/215_Nijie of Earthly Amusements.jpg" id="F2HU_215_Nijie of Earthly Amusements" data-flag="@X" onclick="openSidebar('F2HU_215_Nijie of Earthly Amusements',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/204_Megumi, the Mermaid's Dream.jpg" id="F2HU_204_Megumi, the Mermaids Dream" data-flag="@X" onclick="openSidebar('F2HU_204_Megumi, the Mermaids Dream',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/194_Jagiko, Witch of Scrolls.jpg" id="F2HU_194_Jagiko, Witch of Scrolls" data-flag="@X" onclick="openSidebar('F2HU_194_Jagiko, Witch of Scrolls',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/191_Hideka, Queen of Dragons.jpg" id="F2HU_191_Hideka, Queen of Dragons" data-flag="@X" onclick="openSidebar('F2HU_191_Hideka, Queen of Dragons',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/186_Feza, Blessed Pathfinder.jpg" id="F2HU_186_Feza, Blessed Pathfinder" data-flag="@X" onclick="openSidebar('F2HU_186_Feza, Blessed Pathfinder',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/237_Tamako Sant'Angelo.jpg" id="F2HU_237_Tamako SantAngelo" data-flag="@X" onclick="openSidebar('F2HU_237_Tamako SantAngelo',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/212_Mizukami, Aqua Seraph.jpg" id="F2HU_212_Mizukami, Aqua Seraph" data-flag="@X" onclick="openSidebar('F2HU_212_Mizukami, Aqua Seraph',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/198_Lamis Corrosa.jpg" id="F2HU_198_Lamis Corrosa" data-flag="@X" onclick="openSidebar('F2HU_198_Lamis Corrosa',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/193_Inasa, Warring Celestial.jpg" id="F2HU_193_Inasa, Warring Celestial" data-flag="@X" onclick="openSidebar('F2HU_193_Inasa, Warring Celestial',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/245_Tokuko, Divine Swordbearer.jpg" id="F2HU_245_Tokuko, Divine Swordbearer" data-flag="@X" onclick="openSidebar('F2HU_245_Tokuko, Divine Swordbearer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/250_Yakari, Bridger of Realms.jpg" id="F2HU_250_Yakari, Bridger of Realms" data-flag="@X" onclick="openSidebar('F2HU_250_Yakari, Bridger of Realms',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/216_Omote, Information Uploader.jpg" id="F2HU_216_Omote, Information Uploader" data-flag="@X" onclick="openSidebar('F2HU_216_Omote, Information Uploader',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/168_Akaste, Shark's Bite.jpg" id="F2HU_168_Akaste, Sharks Bite" data-flag="@X" onclick="openSidebar('F2HU_168_Akaste, Sharks Bite',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/225_Rin Satsuki, Protagonist.jpg" id="F2HU_225_Rin Satsuki, Protagonist" data-flag="@X" onclick="openSidebar('F2HU_225_Rin Satsuki, Protagonist',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/246_Touko, Harvest God.jpg" id="F2HU_246_Touko, Harvest God" data-flag="@X" onclick="openSidebar('F2HU_246_Touko, Harvest God',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/251_Yanduo, Dance of Fabric.jpg" id="F2HU_251_Yanduo, Dance of Fabric" data-flag="@X" onclick="openSidebar('F2HU_251_Yanduo, Dance of Fabric',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/226_Ruine, Discarded Data.jpg" id="F2HU_226_Ruine, Discarded Data" data-flag="@X" onclick="openSidebar('F2HU_226_Ruine, Discarded Data',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/176_Choo-Eunae, Snake's Bite.jpg" id="F2HU_176_Choo-Eunae, Snakes Bite" data-flag="@X" onclick="openSidebar('F2HU_176_Choo-Eunae, Snakes Bite',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/257_Geo-Poetry.jpg" id="F2HU_257_Geo-Poetry" data-flag="@X" onclick="openSidebar('F2HU_257_Geo-Poetry',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/173_Banka, Tiny Ancient Legacy.jpg" id="F2HU_173_Banka, Tiny Ancient Legacy" data-flag="@X" onclick="openSidebar('F2HU_173_Banka, Tiny Ancient Legacy',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/179_Drunken Sailor's Charm.jpg" id="F2HU_179_Drunken Sailors Charm" data-flag="@X" onclick="openSidebar('F2HU_179_Drunken Sailors Charm',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/239_Tenmu Suitokuin, Daitengu.jpg" id="F2HU_239_Tenmu Suitokuin, Daitengu" data-flag="@X" onclick="openSidebar('F2HU_239_Tenmu Suitokuin, Daitengu',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/182_Eléonore, Alligator's Bite.jpg" id="F2HU_182_Eléonore, Alligators Bite" data-flag="@X" onclick="openSidebar('F2HU_182_Eléonore, Alligators Bite',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/219_Pale Fanhead, Fan Enjoyer.jpg" id="F2HU_219_Pale Fanhead, Fan Enjoyer" data-flag="@X" onclick="openSidebar('F2HU_219_Pale Fanhead, Fan Enjoyer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/175_Chieka, the Artist.jpg" id="F2HU_175_Chieka, the Artist" data-flag="@X" onclick="openSidebar('F2HU_175_Chieka, the Artist',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/210_Miyo and Tsubame, Wavecasters.jpg" id="F2HU_210_Miyo and Tsubame, Wavecasters" data-flag="@X" onclick="openSidebar('F2HU_210_Miyo and Tsubame, Wavecasters',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/249_Winter Spirit's Charm.jpg" id="F2HU_249_Winter Spirits Charm" data-flag="@X" onclick="openSidebar('F2HU_249_Winter Spirits Charm',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/248_Vengeful Spirit's Charm.jpg" id="F2HU_248_Vengeful Spirits Charm" data-flag="@X" onclick="openSidebar('F2HU_248_Vengeful Spirits Charm',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/221_Poetry Immortal's Charm.jpg" id="F2HU_221_Poetry Immortals Charm" data-flag="@X" onclick="openSidebar('F2HU_221_Poetry Immortals Charm',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/243_Tiny Buddha's Charm.jpg" id="F2HU_243_Tiny Buddhas Charm" data-flag="@X" onclick="openSidebar('F2HU_243_Tiny Buddhas Charm',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/217_Ophelia, the Writer.jpg" id="F2HU_217_Ophelia, the Writer" data-flag="@X" onclick="openSidebar('F2HU_217_Ophelia, the Writer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/244_Tobiko, Cunning Reporter.jpg" id="F2HU_244_Tobiko, Cunning Reporter" data-flag="@X" onclick="openSidebar('F2HU_244_Tobiko, Cunning Reporter',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/256_Dancing Plague.jpg" id="F2HU_256_Dancing Plague" data-flag="@X" onclick="openSidebar('F2HU_256_Dancing Plague',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/261_Sayuri, Fire Spirit.jpg" id="F2HU_261_Sayuri, Fire Spirit" data-flag="@X" onclick="openSidebar('F2HU_261_Sayuri, Fire Spirit',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/255_Beanstalk Linking Heaven and Earth.jpg" id="F2HU_255_Beanstalk Linking Heaven and Earth" data-flag="@X" onclick="openSidebar('F2HU_255_Beanstalk Linking Heaven and Earth',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/254_Azure Swirl.jpg" id="F2HU_254_Azure Swirl" data-flag="@X" onclick="openSidebar('F2HU_254_Azure Swirl',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/259_Mystia, Daystruck.jpg" id="F2HU_259_Mystia, Daystruck" data-flag="@X" onclick="openSidebar('F2HU_259_Mystia, Daystruck',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/65.jpg" id="F2HU_65" data-flag="@X" onclick="openSidebar('F2HU_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/66.jpg" id="F2HU_66" data-flag="@X" onclick="openSidebar('F2HU_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/64.jpg" id="F2HU_64" data-flag="@X" onclick="openSidebar('F2HU_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/128.jpg" id="F2HU_128" data-flag="@X" onclick="openSidebar('F2HU_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/177.jpg" id="F2HU_177" data-flag="@X" onclick="openSidebar('F2HU_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/155.jpg" id="F2HU_155" data-flag="@X" onclick="openSidebar('F2HU_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/19.jpg" id="F2HU_19" data-flag="@X" onclick="openSidebar('F2HU_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/219.jpg" id="F2HU_219" data-flag="@X" onclick="openSidebar('F2HU_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/170.jpg" id="F2HU_170" data-flag="@X" onclick="openSidebar('F2HU_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/58.jpg" id="F2HU_58" data-flag="@X" onclick="openSidebar('F2HU_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/198.jpg" id="F2HU_198" data-flag="@X" onclick="openSidebar('F2HU_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/182.jpg" id="F2HU_182" data-flag="@X" onclick="openSidebar('F2HU_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/63.jpg" id="F2HU_63" data-flag="@X" onclick="openSidebar('F2HU_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/189.jpg" id="F2HU_189" data-flag="@X" onclick="openSidebar('F2HU_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/168.jpg" id="F2HU_168" data-flag="@X" onclick="openSidebar('F2HU_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/227.jpg" id="F2HU_227" data-flag="@X" onclick="openSidebar('F2HU_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/238.jpg" id="F2HU_238" data-flag="@X" onclick="openSidebar('F2HU_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/222.jpg" id="F2HU_222" data-flag="@X" onclick="openSidebar('F2HU_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/193.jpg" id="F2HU_193" data-flag="@X" onclick="openSidebar('F2HU_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/74.jpg" id="F2HU_74" data-flag="@X" onclick="openSidebar('F2HU_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/76.jpg" id="F2HU_76" data-flag="@X" onclick="openSidebar('F2HU_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/293.jpg" id="F2HU_293" data-flag="@X" onclick="openSidebar('F2HU_293',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/104.jpg" id="F2HU_104" data-flag="@X" onclick="openSidebar('F2HU_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/263.jpg" id="F2HU_263" data-flag="@X" onclick="openSidebar('F2HU_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/235.jpg" id="F2HU_235" data-flag="@X" onclick="openSidebar('F2HU_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/250.jpg" id="F2HU_250" data-flag="@X" onclick="openSidebar('F2HU_250',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/107.jpg" id="F2HU_107" data-flag="@X" onclick="openSidebar('F2HU_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/56.jpg" id="F2HU_56" data-flag="@X" onclick="openSidebar('F2HU_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/68.jpg" id="F2HU_68" data-flag="@X" onclick="openSidebar('F2HU_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/102.jpg" id="F2HU_102" data-flag="@X" onclick="openSidebar('F2HU_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/21.jpg" id="F2HU_21" data-flag="@X" onclick="openSidebar('F2HU_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/257.jpg" id="F2HU_257" data-flag="@X" onclick="openSidebar('F2HU_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/252.jpg" id="F2HU_252" data-flag="@X" onclick="openSidebar('F2HU_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/256.jpg" id="F2HU_256" data-flag="@X" onclick="openSidebar('F2HU_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/251.jpg" id="F2HU_251" data-flag="@X" onclick="openSidebar('F2HU_251',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/67.jpg" id="F2HU_67" data-flag="@X" onclick="openSidebar('F2HU_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/169.jpg" id="F2HU_169" data-flag="@X" onclick="openSidebar('F2HU_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/264.jpg" id="F2HU_264" data-flag="@X" onclick="openSidebar('F2HU_264',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/297.jpg" id="F2HU_297" data-flag="@X" onclick="openSidebar('F2HU_297',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/284.jpg" id="F2HU_284" data-flag="@X" onclick="openSidebar('F2HU_284',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/233.jpg" id="F2HU_233" data-flag="@X" onclick="openSidebar('F2HU_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/79.jpg" id="F2HU_79" data-flag="@X" onclick="openSidebar('F2HU_79',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/264_Vinca Wars.jpg" id="F2HU_264_Vinca Wars" data-flag="@X" onclick="openSidebar('F2HU_264_Vinca Wars',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/285.jpg" id="F2HU_285" data-flag="@X" onclick="openSidebar('F2HU_285',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/190_Hazuki, Onmyouji.jpg" id="F2HU_190_Hazuki, Onmyouji" data-flag="@X" onclick="openSidebar('F2HU_190_Hazuki, Onmyouji',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/213_Muneyuki, Merchant Sailor.jpg" id="F2HU_213_Muneyuki, Merchant Sailor" data-flag="@X" onclick="openSidebar('F2HU_213_Muneyuki, Merchant Sailor',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/196_Kawauso, Funnel of Desire.jpg" id="F2HU_196_Kawauso, Funnel of Desire" data-flag="@X" onclick="openSidebar('F2HU_196_Kawauso, Funnel of Desire',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/177_Cindy Plum, Rakshasa.jpg" id="F2HU_177_Cindy Plum, Rakshasa" data-flag="@X" onclick="openSidebar('F2HU_177_Cindy Plum, Rakshasa',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/183_Elfin Mint.jpg" id="F2HU_183_Elfin Mint" data-flag="@X" onclick="openSidebar('F2HU_183_Elfin Mint',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/171_Awaji, Ruler of Nothingness.jpg" id="F2HU_171_Awaji, Ruler of Nothingness" data-flag="@X" onclick="openSidebar('F2HU_171_Awaji, Ruler of Nothingness',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/241_Tenxka Shin.jpg" id="F2HU_241_Tenxka Shin" data-flag="@X" onclick="openSidebar('F2HU_241_Tenxka Shin',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/203_Mamo, the Mastermind.jpg" id="F2HU_203_Mamo, the Mastermind" data-flag="@X" onclick="openSidebar('F2HU_203_Mamo, the Mastermind',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/197_Kazuha, Compiler of Waka.jpg" id="F2HU_197_Kazuha, Compiler of Waka" data-flag="@X" onclick="openSidebar('F2HU_197_Kazuha, Compiler of Waka',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/167_Ai Hinoide, Perfect Human.jpg" id="F2HU_167_Ai Hinoide, Perfect Human" data-flag="@X" onclick="openSidebar('F2HU_167_Ai Hinoide, Perfect Human',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/200_Lily White, Fairy Imperator.jpg" id="F2HU_200_Lily White, Fairy Imperator" data-flag="@X" onclick="openSidebar('F2HU_200_Lily White, Fairy Imperator',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/202_Lycaropia Hearn.jpg" id="F2HU_202_Lycaropia Hearn" data-flag="@X" onclick="openSidebar('F2HU_202_Lycaropia Hearn',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/231_Shizuka, Dissector of Fairies.jpg" id="F2HU_231_Shizuka, Dissector of Fairies" data-flag="@X" onclick="openSidebar('F2HU_231_Shizuka, Dissector of Fairies',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/223_Reimu, the Final Dream.jpg" id="F2HU_223_Reimu, the Final Dream" data-flag="@X" onclick="openSidebar('F2HU_223_Reimu, the Final Dream',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/170_Aoi, Creator Deity.jpg" id="F2HU_170_Aoi, Creator Deity" data-flag="@X" onclick="openSidebar('F2HU_170_Aoi, Creator Deity',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/240_Tensei, the Star God.jpg" id="F2HU_240_Tensei, the Star God" data-flag="@X" onclick="openSidebar('F2HU_240_Tensei, the Star God',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/222_Rachel, Unstable Scientist.jpg" id="F2HU_222_Rachel, Unstable Scientist" data-flag="@X" onclick="openSidebar('F2HU_222_Rachel, Unstable Scientist',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/232_Shizuka, the Transient Elegance.jpg" id="F2HU_232_Shizuka, the Transient Elegance" data-flag="@X" onclick="openSidebar('F2HU_232_Shizuka, the Transient Elegance',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/233_Shushu, Igniter of Night Skies.jpg" id="F2HU_233_Shushu, Igniter of Night Skies" data-flag="@X" onclick="openSidebar('F2HU_233_Shushu, Igniter of Night Skies',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/184_Elly, the Immutable Truth.jpg" id="F2HU_184_Elly, the Immutable Truth" data-flag="@X" onclick="openSidebar('F2HU_184_Elly, the Immutable Truth',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/263_Testament's Star Chapter.jpg" id="F2HU_263_Testaments Star Chapter" data-flag="@X" onclick="openSidebar('F2HU_263_Testaments Star Chapter',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/195_Kasumi, Submarine Illusion.jpg" id="F2HU_195_Kasumi, Submarine Illusion" data-flag="@X" onclick="openSidebar('F2HU_195_Kasumi, Submarine Illusion',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/262_The Shadow Over Gensokyo.jpg" id="F2HU_262_The Shadow Over Gensokyo" data-flag="@X" onclick="openSidebar('F2HU_262_The Shadow Over Gensokyo',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/227_Saraka, Fallen Angel.jpg" id="F2HU_227_Saraka, Fallen Angel" data-flag="@X" onclick="openSidebar('F2HU_227_Saraka, Fallen Angel',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/214_Muu, Tragedy Princess.jpg" id="F2HU_214_Muu, Tragedy Princess" data-flag="@X" onclick="openSidebar('F2HU_214_Muu, Tragedy Princess',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/260_Nebet Tefet.jpg" id="F2HU_260_Nebet Tefet" data-flag="@X" onclick="openSidebar('F2HU_260_Nebet Tefet',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/199_Lepus Timidys Snowy.jpg" id="F2HU_199_Lepus Timidys Snowy" data-flag="@X" onclick="openSidebar('F2HU_199_Lepus Timidys Snowy',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/188_Hallusehyen, False God.jpg" id="F2HU_188_Hallusehyen, False God" data-flag="@X" onclick="openSidebar('F2HU_188_Hallusehyen, False God',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/258_Marry Shepherd.jpg" id="F2HU_258_Marry Shepherd" data-flag="@X" onclick="openSidebar('F2HU_258_Marry Shepherd',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/220_Phantasm Paradise.jpg" id="F2HU_220_Phantasm Paradise" data-flag="@X" onclick="openSidebar('F2HU_220_Phantasm Paradise',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/60.jpg" id="F2HU_60" data-flag="@X" onclick="openSidebar('F2HU_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/287.jpg" id="F2HU_287" data-flag="@X" onclick="openSidebar('F2HU_287',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/221.jpg" id="F2HU_221" data-flag="@X" onclick="openSidebar('F2HU_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/54.jpg" id="F2HU_54" data-flag="@X" onclick="openSidebar('F2HU_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/57.jpg" id="F2HU_57" data-flag="@X" onclick="openSidebar('F2HU_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/246.jpg" id="F2HU_246" data-flag="@X" onclick="openSidebar('F2HU_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/73.jpg" id="F2HU_73" data-flag="@X" onclick="openSidebar('F2HU_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/291.jpg" id="F2HU_291" data-flag="@X" onclick="openSidebar('F2HU_291',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/344.jpg" id="F2HU_344" data-flag="@X" onclick="openSidebar('F2HU_344',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/52.jpg" id="F2HU_52" data-flag="@X" onclick="openSidebar('F2HU_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/334.jpg" id="F2HU_334" data-flag="@X" onclick="openSidebar('F2HU_334',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/224.jpg" id="F2HU_224" data-flag="@X" onclick="openSidebar('F2HU_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/325.jpg" id="F2HU_325" data-flag="@X" onclick="openSidebar('F2HU_325',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/62.jpg" id="F2HU_62" data-flag="@X" onclick="openSidebar('F2HU_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/162.jpg" id="F2HU_162" data-flag="@X" onclick="openSidebar('F2HU_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/184.jpg" id="F2HU_184" data-flag="@X" onclick="openSidebar('F2HU_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/178.jpg" id="F2HU_178" data-flag="@X" onclick="openSidebar('F2HU_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/195.jpg" id="F2HU_195" data-flag="@X" onclick="openSidebar('F2HU_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/329.jpg" id="F2HU_329" data-flag="@X" onclick="openSidebar('F2HU_329',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/231.jpg" id="F2HU_231" data-flag="@X" onclick="openSidebar('F2HU_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/112.jpg" id="F2HU_112" data-flag="@X" onclick="openSidebar('F2HU_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/18.jpg" id="F2HU_18" data-flag="@X" onclick="openSidebar('F2HU_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/176.jpg" id="F2HU_176" data-flag="@X" onclick="openSidebar('F2HU_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/337.jpg" id="F2HU_337" data-flag="@X" onclick="openSidebar('F2HU_337',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/194.jpg" id="F2HU_194" data-flag="@X" onclick="openSidebar('F2HU_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/346.jpg" id="F2HU_346" data-flag="@X" onclick="openSidebar('F2HU_346',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/133.jpg" id="F2HU_133" data-flag="@X" onclick="openSidebar('F2HU_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/241.jpg" id="F2HU_241" data-flag="@X" onclick="openSidebar('F2HU_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/148.jpg" id="F2HU_148" data-flag="@X" onclick="openSidebar('F2HU_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/69.jpg" id="F2HU_69" data-flag="@X" onclick="openSidebar('F2HU_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/80.jpg" id="F2HU_80" data-flag="@X" onclick="openSidebar('F2HU_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/267.jpg" id="F2HU_267" data-flag="@X" onclick="openSidebar('F2HU_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/308.jpg" id="F2HU_308" data-flag="@X" onclick="openSidebar('F2HU_308',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/172.jpg" id="F2HU_172" data-flag="@X" onclick="openSidebar('F2HU_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/134.jpg" id="F2HU_134" data-flag="@X" onclick="openSidebar('F2HU_134',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/208_Mitsuki and Mashu.jpg" id="F2HU_208_Mitsuki and Mashu" data-flag="@X" onclick="openSidebar('F2HU_208_Mitsuki and Mashu',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/253_Yukiko, Heart of the Swarm.jpg" id="F2HU_253_Yukiko, Heart of the Swarm" data-flag="@X" onclick="openSidebar('F2HU_253_Yukiko, Heart of the Swarm',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/238_Tarumi, World Yamataizer.jpg" id="F2HU_238_Tarumi, World Yamataizer" data-flag="@X" onclick="openSidebar('F2HU_238_Tarumi, World Yamataizer',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/224_Reverence U'n-Llisardggy.jpg" id="F2HU_224_Reverence Un-Llisardggy" data-flag="@X" onclick="openSidebar('F2HU_224_Reverence Un-Llisardggy',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/252_Yukari, Terrifying Enigma.jpg" id="F2HU_252_Yukari, Terrifying Enigma" data-flag="@X" onclick="openSidebar('F2HU_252_Yukari, Terrifying Enigma',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/242_Theone Phillips.jpg" id="F2HU_242_Theone Phillips" data-flag="@X" onclick="openSidebar('F2HU_242_Theone Phillips',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/178_Cisa Perlach Augusta.jpg" id="F2HU_178_Cisa Perlach Augusta" data-flag="@X" onclick="openSidebar('F2HU_178_Cisa Perlach Augusta',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/189_Hanezu, Definer of Fantasy.jpg" id="F2HU_189_Hanezu, Definer of Fantasy" data-flag="@X" onclick="openSidebar('F2HU_189_Hanezu, Definer of Fantasy',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/181_Eirin and Kaguya.jpg" id="F2HU_181_Eirin and Kaguya" data-flag="@X" onclick="openSidebar('F2HU_181_Eirin and Kaguya',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/187_Fuma Mishandra.jpg" id="F2HU_187_Fuma Mishandra" data-flag="@X" onclick="openSidebar('F2HU_187_Fuma Mishandra',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/172_Ayame, Essence of Chaos.jpg" id="F2HU_172_Ayame, Essence of Chaos" data-flag="@X" onclick="openSidebar('F2HU_172_Ayame, Essence of Chaos',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/228_Seiko, Spirited Away.jpg" id="F2HU_228_Seiko, Spirited Away" data-flag="@X" onclick="openSidebar('F2HU_228_Seiko, Spirited Away',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/230_Shirogane, Bravehearted.jpg" id="F2HU_230_Shirogane, Bravehearted" data-flag="@X" onclick="openSidebar('F2HU_230_Shirogane, Bravehearted',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/77.jpg" id="F2HU_77" data-flag="@X" onclick="openSidebar('F2HU_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/105.jpg" id="F2HU_105" data-flag="@X" onclick="openSidebar('F2HU_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/324.jpg" id="F2HU_324" data-flag="@X" onclick="openSidebar('F2HU_324',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/205_Mikoto, Mother Goddess.jpg" id="F2HU_205_Mikoto, Mother Goddess" data-flag="@X" onclick="openSidebar('F2HU_205_Mikoto, Mother Goddess',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/185_Erica Leroux, Grand Maestro.jpg" id="F2HU_185_Erica Leroux, Grand Maestro" data-flag="@X" onclick="openSidebar('F2HU_185_Erica Leroux, Grand Maestro',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/209_Miyako, Lamp of Life.jpg" id="F2HU_209_Miyako, Lamp of Life" data-flag="@X" onclick="openSidebar('F2HU_209_Miyako, Lamp of Life',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/169_Amane Shin.jpg" id="F2HU_169_Amane Shin" data-flag="@X" onclick="openSidebar('F2HU_169_Amane Shin',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/218_Otohime Kanpukugu.jpg" id="F2HU_218_Otohime Kanpukugu" data-flag="@X" onclick="openSidebar('F2HU_218_Otohime Kanpukugu',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/229_Shinyoku, Figment of Some God.jpg" id="F2HU_229_Shinyoku, Figment of Some God" data-flag="@X" onclick="openSidebar('F2HU_229_Shinyoku, Figment of Some God',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/234_Shuuu, God of Weapons.jpg" id="F2HU_234_Shuuu, God of Weapons" data-flag="@X" onclick="openSidebar('F2HU_234_Shuuu, God of Weapons',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/206_Mikoto, Tyrant Queen.jpg" id="F2HU_206_Mikoto, Tyrant Queen" data-flag="@X" onclick="openSidebar('F2HU_206_Mikoto, Tyrant Queen',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/192_Horou, Crested Ibis.jpg" id="F2HU_192_Horou, Crested Ibis" data-flag="@X" onclick="openSidebar('F2HU_192_Horou, Crested Ibis',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/247_Ummu, Antediluvian.jpg" id="F2HU_247_Ummu, Antediluvian" data-flag="@X" onclick="openSidebar('F2HU_247_Ummu, Antediluvian',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/235_Sumomo, Misantropic Artist.jpg" id="F2HU_235_Sumomo, Misantropic Artist" data-flag="@X" onclick="openSidebar('F2HU_235_Sumomo, Misantropic Artist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/78.jpg" id="F2HU_78" data-flag="@X" onclick="openSidebar('F2HU_78',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/236_Taeyori, the Leader.jpg" id="F2HU_236_Taeyori, the Leader" data-flag="@X" onclick="openSidebar('F2HU_236_Taeyori, the Leader',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/315.jpg" id="F2HU_315" data-flag="@X" onclick="openSidebar('F2HU_315',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/313.jpg" id="F2HU_313" data-flag="@X" onclick="openSidebar('F2HU_313',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/314.jpg" id="F2HU_314" data-flag="@X" onclick="openSidebar('F2HU_314',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/55.jpg" id="F2HU_55" data-flag="@X" onclick="openSidebar('F2HU_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/317.jpg" id="F2HU_317" data-flag="@X" onclick="openSidebar('F2HU_317',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/302.jpg" id="F2HU_302" data-flag="@X" onclick="openSidebar('F2HU_302',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/59.jpg" id="F2HU_59" data-flag="@X" onclick="openSidebar('F2HU_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/53.jpg" id="F2HU_53" data-flag="@X" onclick="openSidebar('F2HU_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/316.jpg" id="F2HU_316" data-flag="@X" onclick="openSidebar('F2HU_316',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/70.jpg" id="F2HU_70" data-flag="@X" onclick="openSidebar('F2HU_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/20.jpg" id="F2HU_20" data-flag="@X" onclick="openSidebar('F2HU_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/240.jpg" id="F2HU_240" data-flag="@X" onclick="openSidebar('F2HU_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/183.jpg" id="F2HU_183" data-flag="@X" onclick="openSidebar('F2HU_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/304.jpg" id="F2HU_304" data-flag="@X" onclick="openSidebar('F2HU_304',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/22.jpg" id="F2HU_22" data-flag="@X" onclick="openSidebar('F2HU_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/288.jpg" id="F2HU_288" data-flag="@X" onclick="openSidebar('F2HU_288',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/71.jpg" id="F2HU_71" data-flag="@X" onclick="openSidebar('F2HU_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/268.jpg" id="F2HU_268" data-flag="@X" onclick="openSidebar('F2HU_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/61.jpg" id="F2HU_61" data-flag="@X" onclick="openSidebar('F2HU_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/75.jpg" id="F2HU_75" data-flag="@X" onclick="openSidebar('F2HU_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/296.jpg" id="F2HU_296" data-flag="@X" onclick="openSidebar('F2HU_296',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/72.jpg" id="F2HU_72" data-flag="@X" onclick="openSidebar('F2HU_72',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
@@ -602,86 +656,91 @@
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div id="colorless" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/1_Consonica, the Grand.jpg" id="F2HU_1_Consonica, the Grand" data-flag="@X" onclick="openSidebar('F2HU_1_Consonica, the Grand',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/268_The Divine Mirror.jpg" id="F2HU_268_The Divine Mirror" data-flag="@X" onclick="openSidebar('F2HU_268_The Divine Mirror',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/269_The Divine Sword.jpg" id="F2HU_269_The Divine Sword" data-flag="@X" onclick="openSidebar('F2HU_269_The Divine Sword',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/270_Emerald Tablet.jpg" id="F2HU_270_Emerald Tablet" data-flag="@X" onclick="openSidebar('F2HU_270_Emerald Tablet',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/271_The Great Ark.jpg" id="F2HU_271_The Great Ark" data-flag="@X" onclick="openSidebar('F2HU_271_The Great Ark',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/273_Immortal Lotus.jpg" id="F2HU_273_Immortal Lotus" data-flag="@X" onclick="openSidebar('F2HU_273_Immortal Lotus',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/274_The Lesser Key of Solomon.jpg" id="F2HU_274_The Lesser Key of Solomon" data-flag="@X" onclick="openSidebar('F2HU_274_The Lesser Key of Solomon',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/277_Scroll of Forgotten Fables.jpg" id="F2HU_277_Scroll of Forgotten Fables" data-flag="@X" onclick="openSidebar('F2HU_277_Scroll of Forgotten Fables',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/285_Douraku Kazane, Colorless Tone.jpg" id="F2HU_285_Douraku Kazane, Colorless Tone" data-flag="@X" onclick="openSidebar('F2HU_285_Douraku Kazane, Colorless Tone',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/2_OC.jpg" id="F2HU_2_OC" data-flag="@X" onclick="openSidebar('F2HU_2_OC',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/267_The Divine Jewel.jpg" id="F2HU_267_The Divine Jewel" data-flag="@X" onclick="openSidebar('F2HU_267_The Divine Jewel',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/265_Chirper Phone.jpg" id="F2HU_265_Chirper Phone" data-flag="@X" onclick="openSidebar('F2HU_265_Chirper Phone',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/266_Diva's Device.jpg" id="F2HU_266_Divas Device" data-flag="@X" onclick="openSidebar('F2HU_266_Divas Device',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/272_Ibis Feather.jpg" id="F2HU_272_Ibis Feather" data-flag="@X" onclick="openSidebar('F2HU_272_Ibis Feather',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/275_Map Orb.jpg" id="F2HU_275_Map Orb" data-flag="@X" onclick="openSidebar('F2HU_275_Map Orb',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/276_Nomi no Hanie.jpg" id="F2HU_276_Nomi no Hanie" data-flag="@X" onclick="openSidebar('F2HU_276_Nomi no Hanie',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/278_Treasure Lantern.jpg" id="F2HU_278_Treasure Lantern" data-flag="@X" onclick="openSidebar('F2HU_278_Treasure Lantern',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/335.jpg" id="F2HU_335" data-flag="@X" onclick="openSidebar('F2HU_335',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/236.jpg" id="F2HU_236" data-flag="@X" onclick="openSidebar('F2HU_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/136.jpg" id="F2HU_136" data-flag="@X" onclick="openSidebar('F2HU_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/137.jpg" id="F2HU_137" data-flag="@X" onclick="openSidebar('F2HU_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/156.jpg" id="F2HU_156" data-flag="@X" onclick="openSidebar('F2HU_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/82.jpg" id="F2HU_82" data-flag="@X" onclick="openSidebar('F2HU_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/283.jpg" id="F2HU_283" data-flag="@X" onclick="openSidebar('F2HU_283',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/330.jpg" id="F2HU_330" data-flag="@X" onclick="openSidebar('F2HU_330',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/157.jpg" id="F2HU_157" data-flag="@X" onclick="openSidebar('F2HU_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/310.jpg" id="F2HU_310" data-flag="@X" onclick="openSidebar('F2HU_310',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/108.jpg" id="F2HU_108" data-flag="@X" onclick="openSidebar('F2HU_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/292.jpg" id="F2HU_292" data-flag="@X" onclick="openSidebar('F2HU_292',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/135.jpg" id="F2HU_135" data-flag="@X" onclick="openSidebar('F2HU_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/81.jpg" id="F2HU_81" data-flag="@X" onclick="openSidebar('F2HU_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/281.jpg" id="F2HU_281" data-flag="@X" onclick="openSidebar('F2HU_281',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/100.jpg" id="F2HU_100" data-flag="@X" onclick="openSidebar('F2HU_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/242.jpg" id="F2HU_242" data-flag="@X" onclick="openSidebar('F2HU_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/154.jpg" id="F2HU_154" data-flag="@X" onclick="openSidebar('F2HU_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/83.jpg" id="F2HU_83" data-flag="@X" onclick="openSidebar('F2HU_83',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div id="land" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/287_Far-East El Dorado.jpg" id="F2HU_287_Far-East El Dorado" data-flag="@X" onclick="openSidebar('F2HU_287_Far-East El Dorado',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/279_Abyssal Abandoned Metropolis.jpg" id="F2HU_279_Abyssal Abandoned Metropolis" data-flag="@X" onclick="openSidebar('F2HU_279_Abyssal Abandoned Metropolis',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/290_Hollow Mansion.jpg" id="F2HU_290_Hollow Mansion" data-flag="@X" onclick="openSidebar('F2HU_290_Hollow Mansion',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/283_Deep-Stratum Limestone.jpg" id="F2HU_283_Deep-Stratum Limestone" data-flag="@X" onclick="openSidebar('F2HU_283_Deep-Stratum Limestone',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/291_Memento Forest.jpg" id="F2HU_291_Memento Forest" data-flag="@X" onclick="openSidebar('F2HU_291_Memento Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/273.jpg" id="F2HU_273" data-flag="@X" onclick="openSidebar('F2HU_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/340.jpg" id="F2HU_340" data-flag="@X" onclick="openSidebar('F2HU_340',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/275.jpg" id="F2HU_275" data-flag="@X" onclick="openSidebar('F2HU_275',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/270.jpg" id="F2HU_270" data-flag="@X" onclick="openSidebar('F2HU_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/341.jpg" id="F2HU_341" data-flag="@X" onclick="openSidebar('F2HU_341',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/338.jpg" id="F2HU_338" data-flag="@X" onclick="openSidebar('F2HU_338',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/327.jpg" id="F2HU_327" data-flag="@X" onclick="openSidebar('F2HU_327',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/295.jpg" id="F2HU_295" data-flag="@X" onclick="openSidebar('F2HU_295',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/339.jpg" id="F2HU_339" data-flag="@X" onclick="openSidebar('F2HU_339',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/269.jpg" id="F2HU_269" data-flag="@X" onclick="openSidebar('F2HU_269',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/281_Ceramic Graveyard.jpg" id="F2HU_281_Ceramic Graveyard" data-flag="@X" onclick="openSidebar('F2HU_281_Ceramic Graveyard',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/286_The Dreamyard.jpg" id="F2HU_286_The Dreamyard" data-flag="@X" onclick="openSidebar('F2HU_286_The Dreamyard',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/292_Orwell's Quarantined Utopia.jpg" id="F2HU_292_Orwells Quarantined Utopia" data-flag="@X" onclick="openSidebar('F2HU_292_Orwells Quarantined Utopia',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/282_Deep Mutating Cavern.jpg" id="F2HU_282_Deep Mutating Cavern" data-flag="@X" onclick="openSidebar('F2HU_282_Deep Mutating Cavern',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/288_Festival Entrance.jpg" id="F2HU_288_Festival Entrance" data-flag="@X" onclick="openSidebar('F2HU_288_Festival Entrance',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/289_The Grand Theatre.jpg" id="F2HU_289_The Grand Theatre" data-flag="@X" onclick="openSidebar('F2HU_289_The Grand Theatre',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/294_Sea of Lament.jpg" id="F2HU_294_Sea of Lament" data-flag="@X" onclick="openSidebar('F2HU_294_Sea of Lament',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/280_Cave Leading to Somewhere.jpg" id="F2HU_280_Cave Leading to Somewhere" data-flag="@X" onclick="openSidebar('F2HU_280_Cave Leading to Somewhere',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/284_Distant Sky Realm.jpg" id="F2HU_284_Distant Sky Realm" data-flag="@X" onclick="openSidebar('F2HU_284_Distant Sky Realm',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/293_Otherland's Edge.jpg" id="F2HU_293_Otherlands Edge" data-flag="@X" onclick="openSidebar('F2HU_293_Otherlands Edge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/278.jpg" id="F2HU_278" data-flag="@X" onclick="openSidebar('F2HU_278',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/261.jpg" id="F2HU_261" data-flag="@X" onclick="openSidebar('F2HU_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/248.jpg" id="F2HU_248" data-flag="@X" onclick="openSidebar('F2HU_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/239.jpg" id="F2HU_239" data-flag="@X" onclick="openSidebar('F2HU_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/258.jpg" id="F2HU_258" data-flag="@X" onclick="openSidebar('F2HU_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/262.jpg" id="F2HU_262" data-flag="@X" onclick="openSidebar('F2HU_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/274.jpg" id="F2HU_274" data-flag="@X" onclick="openSidebar('F2HU_274',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/289.jpg" id="F2HU_289" data-flag="@X" onclick="openSidebar('F2HU_289',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/276.jpg" id="F2HU_276" data-flag="@X" onclick="openSidebar('F2HU_276',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div id="token" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/1t_Illusion.jpg" id="F2HU_1t_Illusion" data-flag="@X" onclick="openSidebar('F2HU_1t_Illusion',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/2t_Vial.jpg" id="F2HU_2t_Vial" data-flag="@X" onclick="openSidebar('F2HU_2t_Vial',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/21t_Blood.jpg" id="F2HU_21t_Blood" data-flag="@X" onclick="openSidebar('F2HU_21t_Blood',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/22t_Clue.jpg" id="F2HU_22t_Clue" data-flag="@X" onclick="openSidebar('F2HU_22t_Clue',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/23t_Doll.jpg" id="F2HU_23t_Doll" data-flag="@X" onclick="openSidebar('F2HU_23t_Doll',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/24t_Doll.jpg" id="F2HU_24t_Doll" data-flag="@X" onclick="openSidebar('F2HU_24t_Doll',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/25t_Food.jpg" id="F2HU_25t_Food" data-flag="@X" onclick="openSidebar('F2HU_25t_Food',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/26t_Sawdust.jpg" id="F2HU_26t_Sawdust" data-flag="@X" onclick="openSidebar('F2HU_26t_Sawdust',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/27t_Snowball.jpg" id="F2HU_27t_Snowball" data-flag="@X" onclick="openSidebar('F2HU_27t_Snowball',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/28t_Treasure.jpg" id="F2HU_28t_Treasure" data-flag="@X" onclick="openSidebar('F2HU_28t_Treasure',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/29t_Weapon.jpg" id="F2HU_29t_Weapon" data-flag="@X" onclick="openSidebar('F2HU_29t_Weapon',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/30t_Evolving Wilds.jpg" id="F2HU_30t_Evolving Wilds" data-flag="@X" onclick="openSidebar('F2HU_30t_Evolving Wilds',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/3t_Bird.jpg" id="F2HU_3t_Bird" data-flag="@X" onclick="openSidebar('F2HU_3t_Bird',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/4t_Faerie.jpg" id="F2HU_4t_Faerie" data-flag="@X" onclick="openSidebar('F2HU_4t_Faerie',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/5t_Garment.jpg" id="F2HU_5t_Garment" data-flag="@X" onclick="openSidebar('F2HU_5t_Garment',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/6t_Human.jpg" id="F2HU_6t_Human" data-flag="@X" onclick="openSidebar('F2HU_6t_Human',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/7t_Sheep.jpg" id="F2HU_7t_Sheep" data-flag="@X" onclick="openSidebar('F2HU_7t_Sheep',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/8t_Spirit.jpg" id="F2HU_8t_Spirit" data-flag="@X" onclick="openSidebar('F2HU_8t_Spirit',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/9t_Bird.jpg" id="F2HU_9t_Bird" data-flag="@X" onclick="openSidebar('F2HU_9t_Bird',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/10t_Faerie.jpg" id="F2HU_10t_Faerie" data-flag="@X" onclick="openSidebar('F2HU_10t_Faerie',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/11t_Faerie Army.jpg" id="F2HU_11t_Faerie Army" data-flag="@X" onclick="openSidebar('F2HU_11t_Faerie Army',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/12t_Homunculus.jpg" id="F2HU_12t_Homunculus" data-flag="@X" onclick="openSidebar('F2HU_12t_Homunculus',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/13t_Snail.jpg" id="F2HU_13t_Snail" data-flag="@X" onclick="openSidebar('F2HU_13t_Snail',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/14t_Youkai.jpg" id="F2HU_14t_Youkai" data-flag="@X" onclick="openSidebar('F2HU_14t_Youkai',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/15t_Faerie Soldier.jpg" id="F2HU_15t_Faerie Soldier" data-flag="@X" onclick="openSidebar('F2HU_15t_Faerie Soldier',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/16t_Aiguillon Gifttaenzer.jpg" id="F2HU_16t_Aiguillon Gifttaenzer" data-flag="@X" onclick="openSidebar('F2HU_16t_Aiguillon Gifttaenzer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/17t_Bubble Universe.jpg" id="F2HU_17t_Bubble Universe" data-flag="@X" onclick="openSidebar('F2HU_17t_Bubble Universe',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/18t_Fujunryu.jpg" id="F2HU_18t_Fujunryu" data-flag="@X" onclick="openSidebar('F2HU_18t_Fujunryu',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/19t_Spirit.jpg" id="F2HU_19t_Spirit" data-flag="@X" onclick="openSidebar('F2HU_19t_Spirit',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/20t_Zankurou.jpg" id="F2HU_20t_Zankurou" data-flag="@X" onclick="openSidebar('F2HU_20t_Zankurou',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/201.jpg" id="F2HU_201" data-flag="@X" onclick="openSidebar('F2HU_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/214.jpg" id="F2HU_214" data-flag="@X" onclick="openSidebar('F2HU_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/209.jpg" id="F2HU_209" data-flag="@X" onclick="openSidebar('F2HU_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/203.jpg" id="F2HU_203" data-flag="@X" onclick="openSidebar('F2HU_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/218.jpg" id="F2HU_218" data-flag="@X" onclick="openSidebar('F2HU_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/311.jpg" id="F2HU_311" data-flag="@X" onclick="openSidebar('F2HU_311',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/212.jpg" id="F2HU_212" data-flag="@X" onclick="openSidebar('F2HU_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/206.jpg" id="F2HU_206" data-flag="@X" onclick="openSidebar('F2HU_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/213.jpg" id="F2HU_213" data-flag="@X" onclick="openSidebar('F2HU_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/208.jpg" id="F2HU_208" data-flag="@X" onclick="openSidebar('F2HU_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/294.jpg" id="F2HU_294" data-flag="@X" onclick="openSidebar('F2HU_294',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/204.jpg" id="F2HU_204" data-flag="@X" onclick="openSidebar('F2HU_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/199.jpg" id="F2HU_199" data-flag="@X" onclick="openSidebar('F2HU_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/210.jpg" id="F2HU_210" data-flag="@X" onclick="openSidebar('F2HU_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/216.jpg" id="F2HU_216" data-flag="@X" onclick="openSidebar('F2HU_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/205.jpg" id="F2HU_205" data-flag="@X" onclick="openSidebar('F2HU_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/217.jpg" id="F2HU_217" data-flag="@X" onclick="openSidebar('F2HU_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/9.jpg" id="F2HU_9" data-flag="@X" onclick="openSidebar('F2HU_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/196.jpg" id="F2HU_196" data-flag="@X" onclick="openSidebar('F2HU_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/200.jpg" id="F2HU_200" data-flag="@X" onclick="openSidebar('F2HU_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/110.jpg" id="F2HU_110" data-flag="@X" onclick="openSidebar('F2HU_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/207.jpg" id="F2HU_207" data-flag="@X" onclick="openSidebar('F2HU_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/215.jpg" id="F2HU_215" data-flag="@X" onclick="openSidebar('F2HU_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/202.jpg" id="F2HU_202" data-flag="@X" onclick="openSidebar('F2HU_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/237.jpg" id="F2HU_237" data-flag="@X" onclick="openSidebar('F2HU_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/117.jpg" id="F2HU_117" data-flag="@X" onclick="openSidebar('F2HU_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/171.jpg" id="F2HU_171" data-flag="@X" onclick="openSidebar('F2HU_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/211.jpg" id="F2HU_211" data-flag="@X" onclick="openSidebar('F2HU_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/F2HU-files/img/3.jpg" id="F2HU_3" data-flag="@X" onclick="openSidebar('F2HU_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="F2HU_e" data-flag="@E" onclick="openSidebar('F2HU_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="F2HU_er" data-flag="@E" onclick="openSidebar('F2HU_er',false)"></div>
@@ -723,7 +782,7 @@
 					if (card.notes) {
 						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
 						for (const match of tagMatches) {
-							all_tags.add(match[1]);
+							all_tags.add(match[1].toLowerCase());
 						}
 					}
 				});

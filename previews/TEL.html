@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/TEL-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>TEL visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/TEL-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MST-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SSC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WHL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/XCX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ECB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TFF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WBY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AWA-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EAJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/M6D-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RAW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SPX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/DRM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EVO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FIM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/TEL"><img src="../sets/TEL-files/icon.png">Theros: The Elekteid</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">UB Touhou Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/HEX"><img src="../sets/HEX-files/icon.png">The Hex Games</a>
+	
+		<a class="set-bar inactive" href="../previews/MST"><img src="../sets/MST-files/icon.png">Rural Dwellings, in Seafoam Mist</a>
+	
+		<a class="set-bar inactive" href="../previews/SSC"><img src="../sets/SSC-files/icon.png">Shiyue: Soul's Crossing</a>
+	
+		<a class="set-bar inactive" href="../previews/WHL"><img src="../sets/WHL-files/icon.png">Building Fortune's Wheel</a>
+	
+		<a class="set-bar inactive" href="../previews/XCX"><img src="../sets/XCX-files/icon.png">Xenoblade Chronicles X</a>
+	
+		<a class="set-bar inactive" href="../previews/ECB"><img src="../sets/ECB-files/icon.png">Elnyreth: Contact With Those Beyond</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/TEX"><img src="../sets/TEX-files/icon.png">Tarkir: Extinction</a>
+	
+		<a class="set-bar inactive" href="../previews/TFF"><img src="../sets/TFF-files/icon.png">Dark Souls: The Fire Fades</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WBY"><img src="../sets/WBY-files/icon.png">Wild Blue Yonder</a>
+	
+		<a class="set-bar inactive" href="../previews/AWA"><img src="../sets/AWA-files/icon.png">Anglodoor Awakened</a>
+	
+		<a class="set-bar inactive" href="../previews/EAJ"><img src="../sets/EAJ-files/icon.png">Eternal Autumn of Javor</a>
+	
+		<a class="set-bar inactive" href="../previews/M6D"><img src="../sets/M6D-files/icon.png">Mysticism of the Sixth Day</a>
+	
+		<a class="set-bar inactive" href="../previews/RAW"><img src="../sets/RAW-files/icon.png">Ravnica's Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/SPX"><img src="../sets/SPX-files/icon.png">Splendor of Excelsior</a>
+	
+		<a class="set-bar inactive" href="../previews/TLB"><img src="../sets/TLB-files/icon.png">The Lands Between</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/DRM"><img src="../sets/DRM-files/icon.png">Dreamers of Antausia</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/EVO"><img src="../sets/EVO-files/icon.png">Evolution on Srai-Val-Nul</a>
+	
+		<a class="set-bar inactive" href="../previews/FIM"><img src="../sets/FIM-files/icon.png">Periss: Friendship is Magic</a>
+	
+		<a class="set-bar inactive" href="../previews/ORE"><img src="../sets/ORE-files/icon.png">Orestan</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Towers of Tin Lau</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/TEL-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/TEL-files/img/0.jpg" id="TEL_0" data-flag="@X" onclick="openSidebar('TEL_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/1.jpg" id="TEL_1" data-flag="@X" onclick="openSidebar('TEL_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/2.jpg" id="TEL_2" data-flag="@X" onclick="openSidebar('TEL_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/3.jpg" id="TEL_3" data-flag="@X" onclick="openSidebar('TEL_3',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/4_back.jpg" alt="sets/TEL-files/img/4_front.jpg" id="TEL_4" data-flag="@XD" onclick="openSidebar('TEL_4',false)"><button class="flip-btn" onclick="imgFlip('TEL_4')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/111.jpg" id="TEL_111" data-flag="@X" onclick="openSidebar('TEL_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/69.jpg" id="TEL_69" data-flag="@X" onclick="openSidebar('TEL_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/270.jpg" id="TEL_270" data-flag="@X" onclick="openSidebar('TEL_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/95.jpg" id="TEL_95" data-flag="@X" onclick="openSidebar('TEL_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/5.jpg" id="TEL_5" data-flag="@X" onclick="openSidebar('TEL_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/78.jpg" id="TEL_78" data-flag="@X" onclick="openSidebar('TEL_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/74.jpg" id="TEL_74" data-flag="@X" onclick="openSidebar('TEL_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/75.jpg" id="TEL_75" data-flag="@X" onclick="openSidebar('TEL_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/91.jpg" id="TEL_91" data-flag="@X" onclick="openSidebar('TEL_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/77.jpg" id="TEL_77" data-flag="@X" onclick="openSidebar('TEL_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/60.jpg" id="TEL_60" data-flag="@X" onclick="openSidebar('TEL_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/84.jpg" id="TEL_84" data-flag="@X" onclick="openSidebar('TEL_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/90.jpg" id="TEL_90" data-flag="@X" onclick="openSidebar('TEL_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/76.jpg" id="TEL_76" data-flag="@X" onclick="openSidebar('TEL_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/72.jpg" id="TEL_72" data-flag="@X" onclick="openSidebar('TEL_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/63.jpg" id="TEL_63" data-flag="@X" onclick="openSidebar('TEL_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/299.jpg" id="TEL_299" data-flag="@X" onclick="openSidebar('TEL_299',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/70.jpg" id="TEL_70" data-flag="@X" onclick="openSidebar('TEL_70',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/86_back.jpg" alt="sets/TEL-files/img/86_front.jpg" id="TEL_86" data-flag="@XD" onclick="openSidebar('TEL_86',false)"><button class="flip-btn" onclick="imgFlip('TEL_86')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/92.jpg" id="TEL_92" data-flag="@X" onclick="openSidebar('TEL_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/266.jpg" id="TEL_266" data-flag="@X" onclick="openSidebar('TEL_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/269.jpg" id="TEL_269" data-flag="@X" onclick="openSidebar('TEL_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/265.jpg" id="TEL_265" data-flag="@X" onclick="openSidebar('TEL_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/268.jpg" id="TEL_268" data-flag="@X" onclick="openSidebar('TEL_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/87.jpg" id="TEL_87" data-flag="@X" onclick="openSidebar('TEL_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/88.jpg" id="TEL_88" data-flag="@X" onclick="openSidebar('TEL_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/64.jpg" id="TEL_64" data-flag="@X" onclick="openSidebar('TEL_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/80.jpg" id="TEL_80" data-flag="@X" onclick="openSidebar('TEL_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/66.jpg" id="TEL_66" data-flag="@X" onclick="openSidebar('TEL_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/96.jpg" id="TEL_96" data-flag="@X" onclick="openSidebar('TEL_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/93.jpg" id="TEL_93" data-flag="@X" onclick="openSidebar('TEL_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/79.jpg" id="TEL_79" data-flag="@X" onclick="openSidebar('TEL_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/94.jpg" id="TEL_94" data-flag="@X" onclick="openSidebar('TEL_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/71.jpg" id="TEL_71" data-flag="@X" onclick="openSidebar('TEL_71',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/82_back.jpg" alt="sets/TEL-files/img/82_front.jpg" id="TEL_82" data-flag="@XD" onclick="openSidebar('TEL_82',false)"><button class="flip-btn" onclick="imgFlip('TEL_82')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/73.jpg" id="TEL_73" data-flag="@X" onclick="openSidebar('TEL_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/61.jpg" id="TEL_61" data-flag="@X" onclick="openSidebar('TEL_61',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/85_back.jpg" alt="sets/TEL-files/img/85_front.jpg" id="TEL_85" data-flag="@XD" onclick="openSidebar('TEL_85',false)"><button class="flip-btn" onclick="imgFlip('TEL_85')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/306.jpg" id="TEL_306" data-flag="@X" onclick="openSidebar('TEL_306',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/267.jpg" id="TEL_267" data-flag="@X" onclick="openSidebar('TEL_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/83.jpg" id="TEL_83" data-flag="@X" onclick="openSidebar('TEL_83',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/89_back.jpg" alt="sets/TEL-files/img/89_front.jpg" id="TEL_89" data-flag="@XD" onclick="openSidebar('TEL_89',false)"><button class="flip-btn" onclick="imgFlip('TEL_89')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/65.jpg" id="TEL_65" data-flag="@X" onclick="openSidebar('TEL_65',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/81.jpg" id="TEL_81" data-flag="@X" onclick="openSidebar('TEL_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/67.jpg" id="TEL_67" data-flag="@X" onclick="openSidebar('TEL_67',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/167_back.jpg" alt="sets/TEL-files/img/167_front.jpg" id="TEL_167" data-flag="@XD" onclick="openSidebar('TEL_167',false)"><button class="flip-btn" onclick="imgFlip('TEL_167')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/118.jpg" id="TEL_118" data-flag="@X" onclick="openSidebar('TEL_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/134.jpg" id="TEL_134" data-flag="@X" onclick="openSidebar('TEL_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/145.jpg" id="TEL_145" data-flag="@X" onclick="openSidebar('TEL_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/62.jpg" id="TEL_62" data-flag="@X" onclick="openSidebar('TEL_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/117.jpg" id="TEL_117" data-flag="@X" onclick="openSidebar('TEL_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/123.jpg" id="TEL_123" data-flag="@X" onclick="openSidebar('TEL_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/169.jpg" id="TEL_169" data-flag="@X" onclick="openSidebar('TEL_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/150.jpg" id="TEL_150" data-flag="@X" onclick="openSidebar('TEL_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/161.jpg" id="TEL_161" data-flag="@X" onclick="openSidebar('TEL_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/142.jpg" id="TEL_142" data-flag="@X" onclick="openSidebar('TEL_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/143.jpg" id="TEL_143" data-flag="@X" onclick="openSidebar('TEL_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/144.jpg" id="TEL_144" data-flag="@X" onclick="openSidebar('TEL_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/170.jpg" id="TEL_170" data-flag="@X" onclick="openSidebar('TEL_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/121.jpg" id="TEL_121" data-flag="@X" onclick="openSidebar('TEL_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/162.jpg" id="TEL_162" data-flag="@X" onclick="openSidebar('TEL_162',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/298.jpg" id="TEL_298" data-flag="@X" onclick="openSidebar('TEL_298',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/149_back.jpg" alt="sets/TEL-files/img/149_front.jpg" id="TEL_149" data-flag="@XD" onclick="openSidebar('TEL_149',false)"><button class="flip-btn" onclick="imgFlip('TEL_149')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/135.jpg" id="TEL_135" data-flag="@X" onclick="openSidebar('TEL_135',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/141_back.jpg" alt="sets/TEL-files/img/141_front.jpg" id="TEL_141" data-flag="@XD" onclick="openSidebar('TEL_141',false)"><button class="flip-btn" onclick="imgFlip('TEL_141')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/122.jpg" id="TEL_122" data-flag="@X" onclick="openSidebar('TEL_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/133.jpg" id="TEL_133" data-flag="@X" onclick="openSidebar('TEL_133',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/139_back.jpg" alt="sets/TEL-files/img/139_front.jpg" id="TEL_139" data-flag="@XD" onclick="openSidebar('TEL_139',false)"><button class="flip-btn" onclick="imgFlip('TEL_139')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/184_back.jpg" alt="sets/TEL-files/img/184_front.jpg" id="TEL_184" data-flag="@XD" onclick="openSidebar('TEL_184',false)"><button class="flip-btn" onclick="imgFlip('TEL_184')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/131.jpg" id="TEL_131" data-flag="@X" onclick="openSidebar('TEL_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/177.jpg" id="TEL_177" data-flag="@X" onclick="openSidebar('TEL_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/182.jpg" id="TEL_182" data-flag="@X" onclick="openSidebar('TEL_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/129.jpg" id="TEL_129" data-flag="@X" onclick="openSidebar('TEL_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/130.jpg" id="TEL_130" data-flag="@X" onclick="openSidebar('TEL_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/156.jpg" id="TEL_156" data-flag="@X" onclick="openSidebar('TEL_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/127.jpg" id="TEL_127" data-flag="@X" onclick="openSidebar('TEL_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/173.jpg" id="TEL_173" data-flag="@X" onclick="openSidebar('TEL_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/159.jpg" id="TEL_159" data-flag="@X" onclick="openSidebar('TEL_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/160.jpg" id="TEL_160" data-flag="@X" onclick="openSidebar('TEL_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/126.jpg" id="TEL_126" data-flag="@X" onclick="openSidebar('TEL_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/172.jpg" id="TEL_172" data-flag="@X" onclick="openSidebar('TEL_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/153.jpg" id="TEL_153" data-flag="@X" onclick="openSidebar('TEL_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/174.jpg" id="TEL_174" data-flag="@X" onclick="openSidebar('TEL_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/175.jpg" id="TEL_175" data-flag="@X" onclick="openSidebar('TEL_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/136.jpg" id="TEL_136" data-flag="@X" onclick="openSidebar('TEL_136',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/181_back.jpg" alt="sets/TEL-files/img/181_front.jpg" id="TEL_181" data-flag="@XD" onclick="openSidebar('TEL_181',false)"><button class="flip-btn" onclick="imgFlip('TEL_181')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/148.jpg" id="TEL_148" data-flag="@X" onclick="openSidebar('TEL_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/119.jpg" id="TEL_119" data-flag="@X" onclick="openSidebar('TEL_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/120.jpg" id="TEL_120" data-flag="@X" onclick="openSidebar('TEL_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/166.jpg" id="TEL_166" data-flag="@X" onclick="openSidebar('TEL_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/152.jpg" id="TEL_152" data-flag="@X" onclick="openSidebar('TEL_152',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/138_back.jpg" alt="sets/TEL-files/img/138_front.jpg" id="TEL_138" data-flag="@XD" onclick="openSidebar('TEL_138',false)"><button class="flip-btn" onclick="imgFlip('TEL_138')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/178.jpg" id="TEL_178" data-flag="@X" onclick="openSidebar('TEL_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/179.jpg" id="TEL_179" data-flag="@X" onclick="openSidebar('TEL_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/180.jpg" id="TEL_180" data-flag="@X" onclick="openSidebar('TEL_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/137.jpg" id="TEL_137" data-flag="@X" onclick="openSidebar('TEL_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/168.jpg" id="TEL_168" data-flag="@X" onclick="openSidebar('TEL_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/164.jpg" id="TEL_164" data-flag="@X" onclick="openSidebar('TEL_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/125.jpg" id="TEL_125" data-flag="@X" onclick="openSidebar('TEL_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/146.jpg" id="TEL_146" data-flag="@X" onclick="openSidebar('TEL_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/157.jpg" id="TEL_157" data-flag="@X" onclick="openSidebar('TEL_157',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/128_back.jpg" alt="sets/TEL-files/img/128_front.jpg" id="TEL_128" data-flag="@XD" onclick="openSidebar('TEL_128',false)"><button class="flip-btn" onclick="imgFlip('TEL_128')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/124.jpg" id="TEL_124" data-flag="@X" onclick="openSidebar('TEL_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/165.jpg" id="TEL_165" data-flag="@X" onclick="openSidebar('TEL_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/176.jpg" id="TEL_176" data-flag="@X" onclick="openSidebar('TEL_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/132.jpg" id="TEL_132" data-flag="@X" onclick="openSidebar('TEL_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/158.jpg" id="TEL_158" data-flag="@X" onclick="openSidebar('TEL_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/224.jpg" id="TEL_224" data-flag="@X" onclick="openSidebar('TEL_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/155.jpg" id="TEL_155" data-flag="@X" onclick="openSidebar('TEL_155',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/171_back.jpg" alt="sets/TEL-files/img/171_front.jpg" id="TEL_171" data-flag="@XD" onclick="openSidebar('TEL_171',false)"><button class="flip-btn" onclick="imgFlip('TEL_171')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/147.jpg" id="TEL_147" data-flag="@X" onclick="openSidebar('TEL_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/163.jpg" id="TEL_163" data-flag="@X" onclick="openSidebar('TEL_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/154.jpg" id="TEL_154" data-flag="@X" onclick="openSidebar('TEL_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/140.jpg" id="TEL_140" data-flag="@X" onclick="openSidebar('TEL_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/151.jpg" id="TEL_151" data-flag="@X" onclick="openSidebar('TEL_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/231.jpg" id="TEL_231" data-flag="@X" onclick="openSidebar('TEL_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/283.jpg" id="TEL_283" data-flag="@X" onclick="openSidebar('TEL_283',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/262.jpg" id="TEL_262" data-flag="@X" onclick="openSidebar('TEL_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/229.jpg" id="TEL_229" data-flag="@X" onclick="openSidebar('TEL_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/185.jpg" id="TEL_185" data-flag="@X" onclick="openSidebar('TEL_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/248.jpg" id="TEL_248" data-flag="@X" onclick="openSidebar('TEL_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/249.jpg" id="TEL_249" data-flag="@X" onclick="openSidebar('TEL_249',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/302.jpg" id="TEL_302" data-flag="@X" onclick="openSidebar('TEL_302',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/263.jpg" id="TEL_263" data-flag="@X" onclick="openSidebar('TEL_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/218.jpg" id="TEL_218" data-flag="@X" onclick="openSidebar('TEL_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/226.jpg" id="TEL_226" data-flag="@X" onclick="openSidebar('TEL_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/227.jpg" id="TEL_227" data-flag="@X" onclick="openSidebar('TEL_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/228.jpg" id="TEL_228" data-flag="@X" onclick="openSidebar('TEL_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/305.jpg" id="TEL_305" data-flag="@X" onclick="openSidebar('TEL_305',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/225.jpg" id="TEL_225" data-flag="@X" onclick="openSidebar('TEL_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/241.jpg" id="TEL_241" data-flag="@X" onclick="openSidebar('TEL_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/256.jpg" id="TEL_256" data-flag="@X" onclick="openSidebar('TEL_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/235.jpg" id="TEL_235" data-flag="@X" onclick="openSidebar('TEL_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/251.jpg" id="TEL_251" data-flag="@X" onclick="openSidebar('TEL_251',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/286.jpg" id="TEL_286" data-flag="@X" onclick="openSidebar('TEL_286',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/245_back.jpg" alt="sets/TEL-files/img/245_front.jpg" id="TEL_245" data-flag="@XD" onclick="openSidebar('TEL_245',false)"><button class="flip-btn" onclick="imgFlip('TEL_245')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/274_back.jpg" alt="sets/TEL-files/img/274_front.jpg" id="TEL_274" data-flag="@XD" onclick="openSidebar('TEL_274',false)"><button class="flip-btn" onclick="imgFlip('TEL_274')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/303.jpg" id="TEL_303" data-flag="@X" onclick="openSidebar('TEL_303',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/285.jpg" id="TEL_285" data-flag="@X" onclick="openSidebar('TEL_285',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/237.jpg" id="TEL_237" data-flag="@X" onclick="openSidebar('TEL_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/223.jpg" id="TEL_223" data-flag="@X" onclick="openSidebar('TEL_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/246.jpg" id="TEL_246" data-flag="@X" onclick="openSidebar('TEL_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/242.jpg" id="TEL_242" data-flag="@X" onclick="openSidebar('TEL_242',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/254_back.jpg" alt="sets/TEL-files/img/254_front.jpg" id="TEL_254" data-flag="@XD" onclick="openSidebar('TEL_254',false)"><button class="flip-btn" onclick="imgFlip('TEL_254')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/272.jpg" id="TEL_272" data-flag="@X" onclick="openSidebar('TEL_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/255.jpg" id="TEL_255" data-flag="@X" onclick="openSidebar('TEL_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/301.jpg" id="TEL_301" data-flag="@X" onclick="openSidebar('TEL_301',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/253.jpg" id="TEL_253" data-flag="@X" onclick="openSidebar('TEL_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/304.jpg" id="TEL_304" data-flag="@X" onclick="openSidebar('TEL_304',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/230.jpg" id="TEL_230" data-flag="@X" onclick="openSidebar('TEL_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/260.jpg" id="TEL_260" data-flag="@X" onclick="openSidebar('TEL_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/261.jpg" id="TEL_261" data-flag="@X" onclick="openSidebar('TEL_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/233.jpg" id="TEL_233" data-flag="@X" onclick="openSidebar('TEL_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/258.jpg" id="TEL_258" data-flag="@X" onclick="openSidebar('TEL_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/307.jpg" id="TEL_307" data-flag="@X" onclick="openSidebar('TEL_307',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/252.jpg" id="TEL_252" data-flag="@X" onclick="openSidebar('TEL_252',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/342_back.jpg" alt="sets/TEL-files/img/342_front.jpg" id="TEL_342" data-flag="@XD" onclick="openSidebar('TEL_342',false)"><button class="flip-btn" onclick="imgFlip('TEL_342')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/220.jpg" id="TEL_220" data-flag="@X" onclick="openSidebar('TEL_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/243.jpg" id="TEL_243" data-flag="@X" onclick="openSidebar('TEL_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/264.jpg" id="TEL_264" data-flag="@X" onclick="openSidebar('TEL_264',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/219.jpg" id="TEL_219" data-flag="@X" onclick="openSidebar('TEL_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/275.jpg" id="TEL_275" data-flag="@X" onclick="openSidebar('TEL_275',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/183_back.jpg" alt="sets/TEL-files/img/183_front.jpg" id="TEL_183" data-flag="@XD" onclick="openSidebar('TEL_183',false)"><button class="flip-btn" onclick="imgFlip('TEL_183')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/234.jpg" id="TEL_234" data-flag="@X" onclick="openSidebar('TEL_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/259.jpg" id="TEL_259" data-flag="@X" onclick="openSidebar('TEL_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/238.jpg" id="TEL_238" data-flag="@X" onclick="openSidebar('TEL_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/239.jpg" id="TEL_239" data-flag="@X" onclick="openSidebar('TEL_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/216.jpg" id="TEL_216" data-flag="@X" onclick="openSidebar('TEL_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/247.jpg" id="TEL_247" data-flag="@X" onclick="openSidebar('TEL_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/222.jpg" id="TEL_222" data-flag="@X" onclick="openSidebar('TEL_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/214.jpg" id="TEL_214" data-flag="@X" onclick="openSidebar('TEL_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/215.jpg" id="TEL_215" data-flag="@X" onclick="openSidebar('TEL_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/250.jpg" id="TEL_250" data-flag="@X" onclick="openSidebar('TEL_250',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/217.jpg" id="TEL_217" data-flag="@X" onclick="openSidebar('TEL_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/308.jpg" id="TEL_308" data-flag="@X" onclick="openSidebar('TEL_308',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/282.jpg" id="TEL_282" data-flag="@X" onclick="openSidebar('TEL_282',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/300.jpg" id="TEL_300" data-flag="@X" onclick="openSidebar('TEL_300',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/284.jpg" id="TEL_284" data-flag="@X" onclick="openSidebar('TEL_284',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/236.jpg" id="TEL_236" data-flag="@X" onclick="openSidebar('TEL_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/244.jpg" id="TEL_244" data-flag="@X" onclick="openSidebar('TEL_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/297.jpg" id="TEL_297" data-flag="@X" onclick="openSidebar('TEL_297',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/232.jpg" id="TEL_232" data-flag="@X" onclick="openSidebar('TEL_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/257.jpg" id="TEL_257" data-flag="@X" onclick="openSidebar('TEL_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/221.jpg" id="TEL_221" data-flag="@X" onclick="openSidebar('TEL_221',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/273_back.jpg" alt="sets/TEL-files/img/273_front.jpg" id="TEL_273" data-flag="@XD" onclick="openSidebar('TEL_273',false)"><button class="flip-btn" onclick="imgFlip('TEL_273')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/22.jpg" id="TEL_22" data-flag="@X" onclick="openSidebar('TEL_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/29.jpg" id="TEL_29" data-flag="@X" onclick="openSidebar('TEL_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/38.jpg" id="TEL_38" data-flag="@X" onclick="openSidebar('TEL_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/45.jpg" id="TEL_45" data-flag="@X" onclick="openSidebar('TEL_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/240.jpg" id="TEL_240" data-flag="@X" onclick="openSidebar('TEL_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/23.jpg" id="TEL_23" data-flag="@X" onclick="openSidebar('TEL_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/30.jpg" id="TEL_30" data-flag="@X" onclick="openSidebar('TEL_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/37.jpg" id="TEL_37" data-flag="@X" onclick="openSidebar('TEL_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/46.jpg" id="TEL_46" data-flag="@X" onclick="openSidebar('TEL_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/52.jpg" id="TEL_52" data-flag="@X" onclick="openSidebar('TEL_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/20.jpg" id="TEL_20" data-flag="@X" onclick="openSidebar('TEL_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/32.jpg" id="TEL_32" data-flag="@X" onclick="openSidebar('TEL_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/39.jpg" id="TEL_39" data-flag="@X" onclick="openSidebar('TEL_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/47.jpg" id="TEL_47" data-flag="@X" onclick="openSidebar('TEL_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/55.jpg" id="TEL_55" data-flag="@X" onclick="openSidebar('TEL_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/24.jpg" id="TEL_24" data-flag="@X" onclick="openSidebar('TEL_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/31.jpg" id="TEL_31" data-flag="@X" onclick="openSidebar('TEL_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/40.jpg" id="TEL_40" data-flag="@X" onclick="openSidebar('TEL_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/48.jpg" id="TEL_48" data-flag="@X" onclick="openSidebar('TEL_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/53.jpg" id="TEL_53" data-flag="@X" onclick="openSidebar('TEL_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/25.jpg" id="TEL_25" data-flag="@X" onclick="openSidebar('TEL_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/33.jpg" id="TEL_33" data-flag="@X" onclick="openSidebar('TEL_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/41.jpg" id="TEL_41" data-flag="@X" onclick="openSidebar('TEL_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/49.jpg" id="TEL_49" data-flag="@X" onclick="openSidebar('TEL_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/56.jpg" id="TEL_56" data-flag="@X" onclick="openSidebar('TEL_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/26.jpg" id="TEL_26" data-flag="@X" onclick="openSidebar('TEL_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/34.jpg" id="TEL_34" data-flag="@X" onclick="openSidebar('TEL_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/42.jpg" id="TEL_42" data-flag="@X" onclick="openSidebar('TEL_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/44.jpg" id="TEL_44" data-flag="@X" onclick="openSidebar('TEL_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/57.jpg" id="TEL_57" data-flag="@X" onclick="openSidebar('TEL_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/27.jpg" id="TEL_27" data-flag="@X" onclick="openSidebar('TEL_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/35.jpg" id="TEL_35" data-flag="@X" onclick="openSidebar('TEL_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/43.jpg" id="TEL_43" data-flag="@X" onclick="openSidebar('TEL_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/50.jpg" id="TEL_50" data-flag="@X" onclick="openSidebar('TEL_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/58.jpg" id="TEL_58" data-flag="@X" onclick="openSidebar('TEL_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/21.jpg" id="TEL_21" data-flag="@X" onclick="openSidebar('TEL_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/36.jpg" id="TEL_36" data-flag="@X" onclick="openSidebar('TEL_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/51.jpg" id="TEL_51" data-flag="@X" onclick="openSidebar('TEL_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/59.jpg" id="TEL_59" data-flag="@X" onclick="openSidebar('TEL_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/54.jpg" id="TEL_54" data-flag="@X" onclick="openSidebar('TEL_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/7.jpg" id="TEL_7" data-flag="@X" onclick="openSidebar('TEL_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/6.jpg" id="TEL_6" data-flag="@X" onclick="openSidebar('TEL_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/10.jpg" id="TEL_10" data-flag="@X" onclick="openSidebar('TEL_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/11.jpg" id="TEL_11" data-flag="@X" onclick="openSidebar('TEL_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/12.jpg" id="TEL_12" data-flag="@X" onclick="openSidebar('TEL_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/8.jpg" id="TEL_8" data-flag="@X" onclick="openSidebar('TEL_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/9.jpg" id="TEL_9" data-flag="@X" onclick="openSidebar('TEL_9',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/109_back.jpg" alt="sets/TEL-files/img/109_front.jpg" id="TEL_109" data-flag="@XD" onclick="openSidebar('TEL_109',false)"><button class="flip-btn" onclick="imgFlip('TEL_109')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/110.jpg" id="TEL_110" data-flag="@X" onclick="openSidebar('TEL_110',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/68_back.jpg" alt="sets/TEL-files/img/68_front.jpg" id="TEL_68" data-flag="@XD" onclick="openSidebar('TEL_68',false)"><button class="flip-btn" onclick="imgFlip('TEL_68')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/107.jpg" id="TEL_107" data-flag="@X" onclick="openSidebar('TEL_107',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/108_back.jpg" alt="sets/TEL-files/img/108_front.jpg" id="TEL_108" data-flag="@XD" onclick="openSidebar('TEL_108',false)"><button class="flip-btn" onclick="imgFlip('TEL_108')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/203.jpg" id="TEL_203" data-flag="@X" onclick="openSidebar('TEL_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/204.jpg" id="TEL_204" data-flag="@X" onclick="openSidebar('TEL_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/205.jpg" id="TEL_205" data-flag="@X" onclick="openSidebar('TEL_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/201.jpg" id="TEL_201" data-flag="@X" onclick="openSidebar('TEL_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/202.jpg" id="TEL_202" data-flag="@X" onclick="openSidebar('TEL_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/13.jpg" id="TEL_13" data-flag="@X" onclick="openSidebar('TEL_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/14.jpg" id="TEL_14" data-flag="@X" onclick="openSidebar('TEL_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/15.jpg" id="TEL_15" data-flag="@X" onclick="openSidebar('TEL_15',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/16_back.jpg" alt="sets/TEL-files/img/16_front.jpg" id="TEL_16" data-flag="@XD" onclick="openSidebar('TEL_16',false)"><button class="flip-btn" onclick="imgFlip('TEL_16')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/18.jpg" id="TEL_18" data-flag="@X" onclick="openSidebar('TEL_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/112.jpg" id="TEL_112" data-flag="@X" onclick="openSidebar('TEL_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/113.jpg" id="TEL_113" data-flag="@X" onclick="openSidebar('TEL_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/114.jpg" id="TEL_114" data-flag="@X" onclick="openSidebar('TEL_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/17.jpg" id="TEL_17" data-flag="@X" onclick="openSidebar('TEL_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/116.jpg" id="TEL_116" data-flag="@X" onclick="openSidebar('TEL_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/206.jpg" id="TEL_206" data-flag="@X" onclick="openSidebar('TEL_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/207.jpg" id="TEL_207" data-flag="@X" onclick="openSidebar('TEL_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/208.jpg" id="TEL_208" data-flag="@X" onclick="openSidebar('TEL_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/115.jpg" id="TEL_115" data-flag="@X" onclick="openSidebar('TEL_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/309.jpg" id="TEL_309" data-flag="@X" onclick="openSidebar('TEL_309',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/209.jpg" id="TEL_209" data-flag="@X" onclick="openSidebar('TEL_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/19.jpg" id="TEL_19" data-flag="@X" onclick="openSidebar('TEL_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/189.jpg" id="TEL_189" data-flag="@X" onclick="openSidebar('TEL_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/188.jpg" id="TEL_188" data-flag="@X" onclick="openSidebar('TEL_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/190.jpg" id="TEL_190" data-flag="@X" onclick="openSidebar('TEL_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/186.jpg" id="TEL_186" data-flag="@X" onclick="openSidebar('TEL_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/187.jpg" id="TEL_187" data-flag="@X" onclick="openSidebar('TEL_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/212.jpg" id="TEL_212" data-flag="@X" onclick="openSidebar('TEL_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/210.jpg" id="TEL_210" data-flag="@X" onclick="openSidebar('TEL_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/211.jpg" id="TEL_211" data-flag="@X" onclick="openSidebar('TEL_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/213.jpg" id="TEL_213" data-flag="@X" onclick="openSidebar('TEL_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/194.jpg" id="TEL_194" data-flag="@X" onclick="openSidebar('TEL_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/193.jpg" id="TEL_193" data-flag="@X" onclick="openSidebar('TEL_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/195.jpg" id="TEL_195" data-flag="@X" onclick="openSidebar('TEL_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/192.jpg" id="TEL_192" data-flag="@X" onclick="openSidebar('TEL_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/191.jpg" id="TEL_191" data-flag="@X" onclick="openSidebar('TEL_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/276.jpg" id="TEL_276" data-flag="@X" onclick="openSidebar('TEL_276',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/277.jpg" id="TEL_277" data-flag="@X" onclick="openSidebar('TEL_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/278.jpg" id="TEL_278" data-flag="@X" onclick="openSidebar('TEL_278',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/279.jpg" id="TEL_279" data-flag="@X" onclick="openSidebar('TEL_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/280.jpg" id="TEL_280" data-flag="@X" onclick="openSidebar('TEL_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/103_back.jpg" alt="sets/TEL-files/img/103_front.jpg" id="TEL_103" data-flag="@XD" onclick="openSidebar('TEL_103',false)"><button class="flip-btn" onclick="imgFlip('TEL_103')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/102_back.jpg" alt="sets/TEL-files/img/102_front.jpg" id="TEL_102" data-flag="@XD" onclick="openSidebar('TEL_102',false)"><button class="flip-btn" onclick="imgFlip('TEL_102')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/100_back.jpg" alt="sets/TEL-files/img/100_front.jpg" id="TEL_100" data-flag="@XD" onclick="openSidebar('TEL_100',false)"><button class="flip-btn" onclick="imgFlip('TEL_100')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/99_back.jpg" alt="sets/TEL-files/img/99_front.jpg" id="TEL_99" data-flag="@XD" onclick="openSidebar('TEL_99',false)"><button class="flip-btn" onclick="imgFlip('TEL_99')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/104_back.jpg" alt="sets/TEL-files/img/104_front.jpg" id="TEL_104" data-flag="@XD" onclick="openSidebar('TEL_104',false)"><button class="flip-btn" onclick="imgFlip('TEL_104')"></button></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/98_back.jpg" alt="sets/TEL-files/img/98_front.jpg" id="TEL_98" data-flag="@XD" onclick="openSidebar('TEL_98',false)"><button class="flip-btn" onclick="imgFlip('TEL_98')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/97_back.jpg" alt="sets/TEL-files/img/97_front.jpg" id="TEL_97" data-flag="@XD" onclick="openSidebar('TEL_97',false)"><button class="flip-btn" onclick="imgFlip('TEL_97')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/105_back.jpg" alt="sets/TEL-files/img/105_front.jpg" id="TEL_105" data-flag="@XD" onclick="openSidebar('TEL_105',false)"><button class="flip-btn" onclick="imgFlip('TEL_105')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/101_back.jpg" alt="sets/TEL-files/img/101_front.jpg" id="TEL_101" data-flag="@XD" onclick="openSidebar('TEL_101',false)"><button class="flip-btn" onclick="imgFlip('TEL_101')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/TEL-files/img/106_back.jpg" alt="sets/TEL-files/img/106_front.jpg" id="TEL_106" data-flag="@XD" onclick="openSidebar('TEL_106',false)"><button class="flip-btn" onclick="imgFlip('TEL_106')"></button></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/271.jpg" id="TEL_271" data-flag="@X" onclick="openSidebar('TEL_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TEL_e" data-flag="@E" onclick="openSidebar('TEL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/196.jpg" id="TEL_196" data-flag="@X" onclick="openSidebar('TEL_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/197.jpg" id="TEL_197" data-flag="@X" onclick="openSidebar('TEL_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/198.jpg" id="TEL_198" data-flag="@X" onclick="openSidebar('TEL_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/199.jpg" id="TEL_199" data-flag="@X" onclick="openSidebar('TEL_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/200.jpg" id="TEL_200" data-flag="@X" onclick="openSidebar('TEL_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/281.jpg" id="TEL_281" data-flag="@X" onclick="openSidebar('TEL_281',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/344.jpg" id="TEL_344" data-flag="@X" onclick="openSidebar('TEL_344',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/290.jpg" id="TEL_290" data-flag="@X" onclick="openSidebar('TEL_290',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/296.jpg" id="TEL_296" data-flag="@X" onclick="openSidebar('TEL_296',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/291.jpg" id="TEL_291" data-flag="@X" onclick="openSidebar('TEL_291',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/288.jpg" id="TEL_288" data-flag="@X" onclick="openSidebar('TEL_288',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/320.jpg" id="TEL_320" data-flag="@X" onclick="openSidebar('TEL_320',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/326.jpg" id="TEL_326" data-flag="@X" onclick="openSidebar('TEL_326',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/332.jpg" id="TEL_332" data-flag="@X" onclick="openSidebar('TEL_332',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/321.jpg" id="TEL_321" data-flag="@X" onclick="openSidebar('TEL_321',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/287.jpg" id="TEL_287" data-flag="@X" onclick="openSidebar('TEL_287',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/318.jpg" id="TEL_318" data-flag="@X" onclick="openSidebar('TEL_318',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/314.jpg" id="TEL_314" data-flag="@X" onclick="openSidebar('TEL_314',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/340.jpg" id="TEL_340" data-flag="@X" onclick="openSidebar('TEL_340',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/336.jpg" id="TEL_336" data-flag="@X" onclick="openSidebar('TEL_336',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/315.jpg" id="TEL_315" data-flag="@X" onclick="openSidebar('TEL_315',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/338.jpg" id="TEL_338" data-flag="@X" onclick="openSidebar('TEL_338',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/316.jpg" id="TEL_316" data-flag="@X" onclick="openSidebar('TEL_316',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/293.jpg" id="TEL_293" data-flag="@X" onclick="openSidebar('TEL_293',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/317.jpg" id="TEL_317" data-flag="@X" onclick="openSidebar('TEL_317',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/331.jpg" id="TEL_331" data-flag="@X" onclick="openSidebar('TEL_331',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/319.jpg" id="TEL_319" data-flag="@X" onclick="openSidebar('TEL_319',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/335.jpg" id="TEL_335" data-flag="@X" onclick="openSidebar('TEL_335',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/333.jpg" id="TEL_333" data-flag="@X" onclick="openSidebar('TEL_333',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/294.jpg" id="TEL_294" data-flag="@X" onclick="openSidebar('TEL_294',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/334.jpg" id="TEL_334" data-flag="@X" onclick="openSidebar('TEL_334',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/341.jpg" id="TEL_341" data-flag="@X" onclick="openSidebar('TEL_341',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/339.jpg" id="TEL_339" data-flag="@X" onclick="openSidebar('TEL_339',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/311.jpg" id="TEL_311" data-flag="@X" onclick="openSidebar('TEL_311',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/313.jpg" id="TEL_313" data-flag="@X" onclick="openSidebar('TEL_313',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/312.jpg" id="TEL_312" data-flag="@X" onclick="openSidebar('TEL_312',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/324.jpg" id="TEL_324" data-flag="@X" onclick="openSidebar('TEL_324',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/330.jpg" id="TEL_330" data-flag="@X" onclick="openSidebar('TEL_330',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/289.jpg" id="TEL_289" data-flag="@X" onclick="openSidebar('TEL_289',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/328.jpg" id="TEL_328" data-flag="@X" onclick="openSidebar('TEL_328',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/343.jpg" id="TEL_343" data-flag="@X" onclick="openSidebar('TEL_343',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/292.jpg" id="TEL_292" data-flag="@X" onclick="openSidebar('TEL_292',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/325.jpg" id="TEL_325" data-flag="@X" onclick="openSidebar('TEL_325',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/323.jpg" id="TEL_323" data-flag="@X" onclick="openSidebar('TEL_323',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/337.jpg" id="TEL_337" data-flag="@X" onclick="openSidebar('TEL_337',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/310.jpg" id="TEL_310" data-flag="@X" onclick="openSidebar('TEL_310',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/295.jpg" id="TEL_295" data-flag="@X" onclick="openSidebar('TEL_295',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/322.jpg" id="TEL_322" data-flag="@X" onclick="openSidebar('TEL_322',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/327.jpg" id="TEL_327" data-flag="@X" onclick="openSidebar('TEL_327',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TEL-files/img/329.jpg" id="TEL_329" data-flag="@X" onclick="openSidebar('TEL_329',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TEL_er" data-flag="@E" onclick="openSidebar('TEL_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1].toLowerCase());
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

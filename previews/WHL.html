@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/WHL-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>WHL visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/WHL-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MST-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SSC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WHL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/XCX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ECB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TFF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WBY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AWA-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EAJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/M6D-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RAW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SPX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/DRM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EVO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FIM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/WHL"><img src="../sets/WHL-files/icon.png">Building Fortune's Wheel</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">UB Touhou Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/HEX"><img src="../sets/HEX-files/icon.png">The Hex Games</a>
+	
+		<a class="set-bar inactive" href="../previews/MST"><img src="../sets/MST-files/icon.png">Rural Dwellings, in Seafoam Mist</a>
+	
+		<a class="set-bar inactive" href="../previews/SSC"><img src="../sets/SSC-files/icon.png">Shiyue: Soul's Crossing</a>
+	
+		<a class="set-bar inactive" href="../previews/XCX"><img src="../sets/XCX-files/icon.png">Xenoblade Chronicles X</a>
+	
+		<a class="set-bar inactive" href="../previews/ECB"><img src="../sets/ECB-files/icon.png">Elnyreth: Contact With Those Beyond</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/TEX"><img src="../sets/TEX-files/icon.png">Tarkir: Extinction</a>
+	
+		<a class="set-bar inactive" href="../previews/TFF"><img src="../sets/TFF-files/icon.png">Dark Souls: The Fire Fades</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WBY"><img src="../sets/WBY-files/icon.png">Wild Blue Yonder</a>
+	
+		<a class="set-bar inactive" href="../previews/AWA"><img src="../sets/AWA-files/icon.png">Anglodoor Awakened</a>
+	
+		<a class="set-bar inactive" href="../previews/EAJ"><img src="../sets/EAJ-files/icon.png">Eternal Autumn of Javor</a>
+	
+		<a class="set-bar inactive" href="../previews/M6D"><img src="../sets/M6D-files/icon.png">Mysticism of the Sixth Day</a>
+	
+		<a class="set-bar inactive" href="../previews/RAW"><img src="../sets/RAW-files/icon.png">Ravnica's Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/SPX"><img src="../sets/SPX-files/icon.png">Splendor of Excelsior</a>
+	
+		<a class="set-bar inactive" href="../previews/TEL"><img src="../sets/TEL-files/icon.png">Theros: The Elekteid</a>
+	
+		<a class="set-bar inactive" href="../previews/TLB"><img src="../sets/TLB-files/icon.png">The Lands Between</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/DRM"><img src="../sets/DRM-files/icon.png">Dreamers of Antausia</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/EVO"><img src="../sets/EVO-files/icon.png">Evolution on Srai-Val-Nul</a>
+	
+		<a class="set-bar inactive" href="../previews/FIM"><img src="../sets/FIM-files/icon.png">Periss: Friendship is Magic</a>
+	
+		<a class="set-bar inactive" href="../previews/ORE"><img src="../sets/ORE-files/icon.png">Orestan</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Towers of Tin Lau</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/WHL-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/WHL-files/img/39_Unremarkable Servant.jpg" id="WHL_39_Unremarkable Servant" data-flag="@X" onclick="openSidebar('WHL_39_Unremarkable Servant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/49_The Future Reaching Back.jpg" id="WHL_49_The Future Reaching Back" data-flag="@X" onclick="openSidebar('WHL_49_The Future Reaching Back',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/82_Chance-in-Hell, Power Player.jpg" id="WHL_82_Chance-in-Hell, Power Player" data-flag="@X" onclick="openSidebar('WHL_82_Chance-in-Hell, Power Player',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/116_Arjal, Last Prince of Iyra-Elai.jpg" id="WHL_116_Arjal, Last Prince of Iyra-Elai" data-flag="@X" onclick="openSidebar('WHL_116_Arjal, Last Prince of Iyra-Elai',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/155_The Beloved Baroness Bellet.jpg" id="WHL_155_The Beloved Baroness Bellet" data-flag="@X" onclick="openSidebar('WHL_155_The Beloved Baroness Bellet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/7_Arborescence.jpg" id="WHL_7_Arborescence" data-flag="@X" onclick="openSidebar('WHL_7_Arborescence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/43_An Auspicious Air.jpg" id="WHL_43_An Auspicious Air" data-flag="@X" onclick="openSidebar('WHL_43_An Auspicious Air',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/78_A Fall From Grace.jpg" id="WHL_78_A Fall From Grace" data-flag="@X" onclick="openSidebar('WHL_78_A Fall From Grace',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/133_Militarization.jpg" id="WHL_133_Militarization" data-flag="@X" onclick="openSidebar('WHL_133_Militarization',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/159_Colossus of the Rose.jpg" id="WHL_159_Colossus of the Rose" data-flag="@X" onclick="openSidebar('WHL_159_Colossus of the Rose',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/10_Connected Socialite.jpg" id="WHL_10_Connected Socialite" data-flag="@X" onclick="openSidebar('WHL_10_Connected Socialite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/45_Dazzle-Scale Ghernakon.jpg" id="WHL_45_Dazzle-Scale Ghernakon" data-flag="@X" onclick="openSidebar('WHL_45_Dazzle-Scale Ghernakon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/80_The Burden of Empire.jpg" id="WHL_80_The Burden of Empire" data-flag="@X" onclick="openSidebar('WHL_80_The Burden of Empire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/118_The Bombing of Iyra-Elai.jpg" id="WHL_118_The Bombing of Iyra-Elai" data-flag="@X" onclick="openSidebar('WHL_118_The Bombing of Iyra-Elai',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/160_Cultural Hegemony.jpg" id="WHL_160_Cultural Hegemony" data-flag="@X" onclick="openSidebar('WHL_160_Cultural Hegemony',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/21_Inventor of Immortalities.jpg" id="WHL_21_Inventor of Immortalities" data-flag="@X" onclick="openSidebar('WHL_21_Inventor of Immortalities',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/51_In for a Penny.jpg" id="WHL_51_In for a Penny" data-flag="@X" onclick="openSidebar('WHL_51_In for a Penny',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/81_Butcher of the Lotus Fields.jpg" id="WHL_81_Butcher of the Lotus Fields" data-flag="@X" onclick="openSidebar('WHL_81_Butcher of the Lotus Fields',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/122_Etanz, the Last Resplendent.jpg" id="WHL_122_Etanz, the Last Resplendent" data-flag="@X" onclick="openSidebar('WHL_122_Etanz, the Last Resplendent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/161_Earthbreaker Idol.jpg" id="WHL_161_Earthbreaker Idol" data-flag="@X" onclick="openSidebar('WHL_161_Earthbreaker Idol',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/24_The Nation Above All.jpg" id="WHL_24_The Nation Above All" data-flag="@X" onclick="openSidebar('WHL_24_The Nation Above All',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/53_Inventor of Lenses.jpg" id="WHL_53_Inventor of Lenses" data-flag="@X" onclick="openSidebar('WHL_53_Inventor of Lenses',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/95_Inventor of Tortures.jpg" id="WHL_95_Inventor of Tortures" data-flag="@X" onclick="openSidebar('WHL_95_Inventor of Tortures',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/128_Inventor of Wings.jpg" id="WHL_128_Inventor of Wings" data-flag="@X" onclick="openSidebar('WHL_128_Inventor of Wings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/167_Imperial Spoils.jpg" id="WHL_167_Imperial Spoils" data-flag="@X" onclick="openSidebar('WHL_167_Imperial Spoils',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/26_Never Found.jpg" id="WHL_26_Never Found" data-flag="@X" onclick="openSidebar('WHL_26_Never Found',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/60_Mechanical Reproduction.jpg" id="WHL_60_Mechanical Reproduction" data-flag="@X" onclick="openSidebar('WHL_60_Mechanical Reproduction',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/99_Persistent Nabob.jpg" id="WHL_99_Persistent Nabob" data-flag="@X" onclick="openSidebar('WHL_99_Persistent Nabob',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/135_Ornamental Firebird.jpg" id="WHL_135_Ornamental Firebird" data-flag="@X" onclick="openSidebar('WHL_135_Ornamental Firebird',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/169_Inventor of Vaults.jpg" id="WHL_169_Inventor of Vaults" data-flag="@X" onclick="openSidebar('WHL_169_Inventor of Vaults',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/29_Poor Laws.jpg" id="WHL_29_Poor Laws" data-flag="@X" onclick="openSidebar('WHL_29_Poor Laws',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/67_Price Manipulator.jpg" id="WHL_67_Price Manipulator" data-flag="@X" onclick="openSidebar('WHL_67_Price Manipulator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/105_Scythe Co. Requisitioner.jpg" id="WHL_105_Scythe Co. Requisitioner" data-flag="@X" onclick="openSidebar('WHL_105_Scythe Co. Requisitioner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/139_Primary Investor.jpg" id="WHL_139_Primary Investor" data-flag="@X" onclick="openSidebar('WHL_139_Primary Investor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/176_Pride of the Menagerie.jpg" id="WHL_176_Pride of the Menagerie" data-flag="@X" onclick="openSidebar('WHL_176_Pride of the Menagerie',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/36_Undeniable Truth.jpg" id="WHL_36_Undeniable Truth" data-flag="@X" onclick="openSidebar('WHL_36_Undeniable Truth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/74_Singer in the Smokestacks.jpg" id="WHL_74_Singer in the Smokestacks" data-flag="@X" onclick="openSidebar('WHL_74_Singer in the Smokestacks',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/108_Speculative Value.jpg" id="WHL_108_Speculative Value" data-flag="@X" onclick="openSidebar('WHL_108_Speculative Value',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/142_Retributive Destruction.jpg" id="WHL_142_Retributive Destruction" data-flag="@X" onclick="openSidebar('WHL_142_Retributive Destruction',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/181_Syr Scythe, Governor of Iyra.jpg" id="WHL_181_Syr Scythe, Governor of Iyra" data-flag="@X" onclick="openSidebar('WHL_181_Syr Scythe, Governor of Iyra',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/41_Watered with Blood.jpg" id="WHL_41_Watered with Blood" data-flag="@X" onclick="openSidebar('WHL_41_Watered with Blood',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/76_Traveling Salesman.jpg" id="WHL_76_Traveling Salesman" data-flag="@X" onclick="openSidebar('WHL_76_Traveling Salesman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/111_The Trefoil Textiles Revenant.jpg" id="WHL_111_The Trefoil Textiles Revenant" data-flag="@X" onclick="openSidebar('WHL_111_The Trefoil Textiles Revenant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/144_Rising from the Earth.jpg" id="WHL_144_Rising from the Earth" data-flag="@X" onclick="openSidebar('WHL_144_Rising from the Earth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/183_Up-and-Comer.jpg" id="WHL_183_Up-and-Comer" data-flag="@X" onclick="openSidebar('WHL_183_Up-and-Comer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/6_Angel of the Ruins.jpg" id="WHL_6_Angel of the Ruins" data-flag="@X" onclick="openSidebar('WHL_6_Angel of the Ruins',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/44_Chintz Collector.jpg" id="WHL_44_Chintz Collector" data-flag="@X" onclick="openSidebar('WHL_44_Chintz Collector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/79_Blasphemous Defacement.jpg" id="WHL_79_Blasphemous Defacement" data-flag="@X" onclick="openSidebar('WHL_79_Blasphemous Defacement',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/148_Tomb Torcher.jpg" id="WHL_148_Tomb Torcher" data-flag="@X" onclick="openSidebar('WHL_148_Tomb Torcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/152_Agdol Port Harbormaster.jpg" id="WHL_152_Agdol Port Harbormaster" data-flag="@X" onclick="openSidebar('WHL_152_Agdol Port Harbormaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/9_Concsecrator of Storehouses.jpg" id="WHL_9_Concsecrator of Storehouses" data-flag="@X" onclick="openSidebar('WHL_9_Concsecrator of Storehouses',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/46_Dreaming of the Future.jpg" id="WHL_46_Dreaming of the Future" data-flag="@X" onclick="openSidebar('WHL_46_Dreaming of the Future',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/83_Conqueror's Guilt.jpg" id="WHL_83_Conquerors Guilt" data-flag="@X" onclick="openSidebar('WHL_83_Conquerors Guilt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/121_Early Adopter.jpg" id="WHL_121_Early Adopter" data-flag="@X" onclick="openSidebar('WHL_121_Early Adopter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/153_Agricultural Revolution.jpg" id="WHL_153_Agricultural Revolution" data-flag="@X" onclick="openSidebar('WHL_153_Agricultural Revolution',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/12_Dreaming of Forms.jpg" id="WHL_12_Dreaming of Forms" data-flag="@X" onclick="openSidebar('WHL_12_Dreaming of Forms',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/48_Fort Perianth Informant.jpg" id="WHL_48_Fort Perianth Informant" data-flag="@X" onclick="openSidebar('WHL_48_Fort Perianth Informant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/85_Decaying Conditions.jpg" id="WHL_85_Decaying Conditions" data-flag="@X" onclick="openSidebar('WHL_85_Decaying Conditions',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/123_Fires of Industry.jpg" id="WHL_123_Fires of Industry" data-flag="@X" onclick="openSidebar('WHL_123_Fires of Industry',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/156_Blessing of the Stem.jpg" id="WHL_156_Blessing of the Stem" data-flag="@X" onclick="openSidebar('WHL_156_Blessing of the Stem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/13_Favorable Public Image.jpg" id="WHL_13_Favorable Public Image" data-flag="@X" onclick="openSidebar('WHL_13_Favorable Public Image',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/56_Lancet Co. Blockade.jpg" id="WHL_56_Lancet Co. Blockade" data-flag="@X" onclick="openSidebar('WHL_56_Lancet Co. Blockade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/87_Dispossessed Rabble.jpg" id="WHL_87_Dispossessed Rabble" data-flag="@X" onclick="openSidebar('WHL_87_Dispossessed Rabble',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/124_Forces of the Resplendent.jpg" id="WHL_124_Forces of the Resplendent" data-flag="@X" onclick="openSidebar('WHL_124_Forces of the Resplendent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/157_Bursar of the Taproot.jpg" id="WHL_157_Bursar of the Taproot" data-flag="@X" onclick="openSidebar('WHL_157_Bursar of the Taproot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/15_Fort Perianth Armory.jpg" id="WHL_15_Fort Perianth Armory" data-flag="@X" onclick="openSidebar('WHL_15_Fort Perianth Armory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/58_Lancet Crackshots.jpg" id="WHL_58_Lancet Crackshots" data-flag="@X" onclick="openSidebar('WHL_58_Lancet Crackshots',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/88_Dreams in the Runoff.jpg" id="WHL_88_Dreams in the Runoff" data-flag="@X" onclick="openSidebar('WHL_88_Dreams in the Runoff',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/126_Hustler's Pitch.jpg" id="WHL_126_Hustlers Pitch" data-flag="@X" onclick="openSidebar('WHL_126_Hustlers Pitch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/162_Edge of Autumn.jpg" id="WHL_162_Edge of Autumn" data-flag="@X" onclick="openSidebar('WHL_162_Edge of Autumn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/16_Fort Perianth Patrolmen.jpg" id="WHL_16_Fort Perianth Patrolmen" data-flag="@X" onclick="openSidebar('WHL_16_Fort Perianth Patrolmen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/59_Litigate.jpg" id="WHL_59_Litigate" data-flag="@X" onclick="openSidebar('WHL_59_Litigate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/90_Fancy Rat.jpg" id="WHL_90_Fancy Rat" data-flag="@X" onclick="openSidebar('WHL_90_Fancy Rat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/127_Impetuous Romantic.jpg" id="WHL_127_Impetuous Romantic" data-flag="@X" onclick="openSidebar('WHL_127_Impetuous Romantic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/165_House Lily Harpists.jpg" id="WHL_165_House Lily Harpists" data-flag="@X" onclick="openSidebar('WHL_165_House Lily Harpists',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/17_Freelance Cartographer.jpg" id="WHL_17_Freelance Cartographer" data-flag="@X" onclick="openSidebar('WHL_17_Freelance Cartographer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/61_Moondweller Ghernakon.jpg" id="WHL_61_Moondweller Ghernakon" data-flag="@X" onclick="openSidebar('WHL_61_Moondweller Ghernakon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/97_Lotus-Eater Alembic.jpg" id="WHL_97_Lotus-Eater Alembic" data-flag="@X" onclick="openSidebar('WHL_97_Lotus-Eater Alembic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/129_Inveterate Veterans.jpg" id="WHL_129_Inveterate Veterans" data-flag="@X" onclick="openSidebar('WHL_129_Inveterate Veterans',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/166_Imperial Musketeer.jpg" id="WHL_166_Imperial Musketeer" data-flag="@X" onclick="openSidebar('WHL_166_Imperial Musketeer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/22_Joint-Stock Charter.jpg" id="WHL_22_Joint-Stock Charter" data-flag="@X" onclick="openSidebar('WHL_22_Joint-Stock Charter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/62_Occupation Stratonauts.jpg" id="WHL_62_Occupation Stratonauts" data-flag="@X" onclick="openSidebar('WHL_62_Occupation Stratonauts',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/98_Perianth Levy-Extractor.jpg" id="WHL_98_Perianth Levy-Extractor" data-flag="@X" onclick="openSidebar('WHL_98_Perianth Levy-Extractor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/130_Lancet Co. Divebomber.jpg" id="WHL_130_Lancet Co. Divebomber" data-flag="@X" onclick="openSidebar('WHL_130_Lancet Co. Divebomber',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/168_Inner-Stem Pollinator.jpg" id="WHL_168_Inner-Stem Pollinator" data-flag="@X" onclick="openSidebar('WHL_168_Inner-Stem Pollinator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/23_Missionaries of the Root.jpg" id="WHL_23_Missionaries of the Root" data-flag="@X" onclick="openSidebar('WHL_23_Missionaries of the Root',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/63_Perspectivist Performer.jpg" id="WHL_63_Perspectivist Performer" data-flag="@X" onclick="openSidebar('WHL_63_Perspectivist Performer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/100_Perverse Incentive.jpg" id="WHL_100_Perverse Incentive" data-flag="@X" onclick="openSidebar('WHL_100_Perverse Incentive',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/134_Monopoly on Violence.jpg" id="WHL_134_Monopoly on Violence" data-flag="@X" onclick="openSidebar('WHL_134_Monopoly on Violence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/171_Iyrian Polycephalite.jpg" id="WHL_171_Iyrian Polycephalite" data-flag="@X" onclick="openSidebar('WHL_171_Iyrian Polycephalite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/25_National Anthem.jpg" id="WHL_25_National Anthem" data-flag="@X" onclick="openSidebar('WHL_25_National Anthem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/66_Preempt.jpg" id="WHL_66_Preempt" data-flag="@X" onclick="openSidebar('WHL_66_Preempt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/101_Rebellion Queller.jpg" id="WHL_101_Rebellion Queller" data-flag="@X" onclick="openSidebar('WHL_101_Rebellion Queller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/136_Perpetual Brazier.jpg" id="WHL_136_Perpetual Brazier" data-flag="@X" onclick="openSidebar('WHL_136_Perpetual Brazier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/172_Largesse.jpg" id="WHL_172_Largesse" data-flag="@X" onclick="openSidebar('WHL_172_Largesse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/28_Philanthropic Patrician.jpg" id="WHL_28_Philanthropic Patrician" data-flag="@X" onclick="openSidebar('WHL_28_Philanthropic Patrician',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/68_Regulatory Capture.jpg" id="WHL_68_Regulatory Capture" data-flag="@X" onclick="openSidebar('WHL_68_Regulatory Capture',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/104_Ruin of the Angels.jpg" id="WHL_104_Ruin of the Angels" data-flag="@X" onclick="openSidebar('WHL_104_Ruin of the Angels',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/141_Remorseless Flower-Hunter.jpg" id="WHL_141_Remorseless Flower-Hunter" data-flag="@X" onclick="openSidebar('WHL_141_Remorseless Flower-Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/173_Looted Sagaris.jpg" id="WHL_173_Looted Sagaris" data-flag="@X" onclick="openSidebar('WHL_173_Looted Sagaris',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/31_Rent is Due.jpg" id="WHL_31_Rent is Due" data-flag="@X" onclick="openSidebar('WHL_31_Rent is Due',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/69_Resplendent's Gatekeeper.jpg" id="WHL_69_Resplendents Gatekeeper" data-flag="@X" onclick="openSidebar('WHL_69_Resplendents Gatekeeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/106_Shipwreck Scraper.jpg" id="WHL_106_Shipwreck Scraper" data-flag="@X" onclick="openSidebar('WHL_106_Shipwreck Scraper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/143_Revelation of the Stem.jpg" id="WHL_143_Revelation of the Stem" data-flag="@X" onclick="openSidebar('WHL_143_Revelation of the Stem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/174_Nouveau Riche.jpg" id="WHL_174_Nouveau Riche" data-flag="@X" onclick="openSidebar('WHL_174_Nouveau Riche',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/32_Root-Cutters' Escort.jpg" id="WHL_32_Root-Cutters Escort" data-flag="@X" onclick="openSidebar('WHL_32_Root-Cutters Escort',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/70_Risk Aversion.jpg" id="WHL_70_Risk Aversion" data-flag="@X" onclick="openSidebar('WHL_70_Risk Aversion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/109_Supply Chain Disruption.jpg" id="WHL_109_Supply Chain Disruption" data-flag="@X" onclick="openSidebar('WHL_109_Supply Chain Disruption',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/145_The Scramble for Iyra.jpg" id="WHL_145_The Scramble for Iyra" data-flag="@X" onclick="openSidebar('WHL_145_The Scramble for Iyra',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/179_Spreading the Roots.jpg" id="WHL_179_Spreading the Roots" data-flag="@X" onclick="openSidebar('WHL_179_Spreading the Roots',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/37_Unfinished Business.jpg" id="WHL_37_Unfinished Business" data-flag="@X" onclick="openSidebar('WHL_37_Unfinished Business',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/75_Thirst for Control.jpg" id="WHL_75_Thirst for Control" data-flag="@X" onclick="openSidebar('WHL_75_Thirst for Control',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/110_Too Big to Fail.jpg" id="WHL_110_Too Big to Fail" data-flag="@X" onclick="openSidebar('WHL_110_Too Big to Fail',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/146_Self-Starter.jpg" id="WHL_146_Self-Starter" data-flag="@X" onclick="openSidebar('WHL_146_Self-Starter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/185_Weaver of the Wheel.jpg" id="WHL_185_Weaver of the Wheel" data-flag="@X" onclick="openSidebar('WHL_185_Weaver of the Wheel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/8_Cardinal of Conscription.jpg" id="WHL_8_Cardinal of Conscription" data-flag="@X" onclick="openSidebar('WHL_8_Cardinal of Conscription',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/42_Ambitious Apothecary.jpg" id="WHL_42_Ambitious Apothecary" data-flag="@X" onclick="openSidebar('WHL_42_Ambitious Apothecary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/84_Corrupt Courier.jpg" id="WHL_84_Corrupt Courier" data-flag="@X" onclick="openSidebar('WHL_84_Corrupt Courier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/149_The Trefoil Textiles Fire.jpg" id="WHL_149_The Trefoil Textiles Fire" data-flag="@X" onclick="openSidebar('WHL_149_The Trefoil Textiles Fire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/151_Agdol Harbor Boatswain.jpg" id="WHL_151_Agdol Harbor Boatswain" data-flag="@X" onclick="openSidebar('WHL_151_Agdol Harbor Boatswain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/11_Consecrated Farmland.jpg" id="WHL_11_Consecrated Farmland" data-flag="@X" onclick="openSidebar('WHL_11_Consecrated Farmland',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/47_Enforcers of Enclosure.jpg" id="WHL_47_Enforcers of Enclosure" data-flag="@X" onclick="openSidebar('WHL_47_Enforcers of Enclosure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/86_Discreet Transaction.jpg" id="WHL_86_Discreet Transaction" data-flag="@X" onclick="openSidebar('WHL_86_Discreet Transaction',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/114_Amaltha Mills Overseer.jpg" id="WHL_114_Amaltha Mills Overseer" data-flag="@X" onclick="openSidebar('WHL_114_Amaltha Mills Overseer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/154_Amaltha Co. Windmill.jpg" id="WHL_154_Amaltha Co. Windmill" data-flag="@X" onclick="openSidebar('WHL_154_Amaltha Co. Windmill',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/14_Foreign Creditor.jpg" id="WHL_14_Foreign Creditor" data-flag="@X" onclick="openSidebar('WHL_14_Foreign Creditor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/50_Held in the Harbor.jpg" id="WHL_50_Held in the Harbor" data-flag="@X" onclick="openSidebar('WHL_50_Held in the Harbor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/89_Embezzlement.jpg" id="WHL_89_Embezzlement" data-flag="@X" onclick="openSidebar('WHL_89_Embezzlement',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/115_Ambitious Floriculturist.jpg" id="WHL_115_Ambitious Floriculturist" data-flag="@X" onclick="openSidebar('WHL_115_Ambitious Floriculturist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/158_Colonial Caravaneer.jpg" id="WHL_158_Colonial Caravaneer" data-flag="@X" onclick="openSidebar('WHL_158_Colonial Caravaneer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/18_Guardian of the Taproot.jpg" id="WHL_18_Guardian of the Taproot" data-flag="@X" onclick="openSidebar('WHL_18_Guardian of the Taproot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/52_Intricate Globe.jpg" id="WHL_52_Intricate Globe" data-flag="@X" onclick="openSidebar('WHL_52_Intricate Globe',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/91_Fort Perianth Artillerists.jpg" id="WHL_91_Fort Perianth Artillerists" data-flag="@X" onclick="openSidebar('WHL_91_Fort Perianth Artillerists',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/117_Bombadiers' Balloon.jpg" id="WHL_117_Bombadiers Balloon" data-flag="@X" onclick="openSidebar('WHL_117_Bombadiers Balloon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/163_Entrepreneurial Spirit.jpg" id="WHL_163_Entrepreneurial Spirit" data-flag="@X" onclick="openSidebar('WHL_163_Entrepreneurial Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/19_Imported Goldpaw.jpg" id="WHL_19_Imported Goldpaw" data-flag="@X" onclick="openSidebar('WHL_19_Imported Goldpaw',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/54_Iterative Horticulture.jpg" id="WHL_54_Iterative Horticulture" data-flag="@X" onclick="openSidebar('WHL_54_Iterative Horticulture',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/92_Gated Community.jpg" id="WHL_92_Gated Community" data-flag="@X" onclick="openSidebar('WHL_92_Gated Community',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/119_Claim Insurance.jpg" id="WHL_119_Claim Insurance" data-flag="@X" onclick="openSidebar('WHL_119_Claim Insurance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/164_Exhibition Mosstelid.jpg" id="WHL_164_Exhibition Mosstelid" data-flag="@X" onclick="openSidebar('WHL_164_Exhibition Mosstelid',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/20_Impoverish.jpg" id="WHL_20_Impoverish" data-flag="@X" onclick="openSidebar('WHL_20_Impoverish',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/55_Juvenile Ghernakon.jpg" id="WHL_55_Juvenile Ghernakon" data-flag="@X" onclick="openSidebar('WHL_55_Juvenile Ghernakon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/93_Gleeful Grifters.jpg" id="WHL_93_Gleeful Grifters" data-flag="@X" onclick="openSidebar('WHL_93_Gleeful Grifters',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/120_Conquest Festival.jpg" id="WHL_120_Conquest Festival" data-flag="@X" onclick="openSidebar('WHL_120_Conquest Festival',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/170_Iyrian Longcoil.jpg" id="WHL_170_Iyrian Longcoil" data-flag="@X" onclick="openSidebar('WHL_170_Iyrian Longcoil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/27_Patent Enforcers.jpg" id="WHL_27_Patent Enforcers" data-flag="@X" onclick="openSidebar('WHL_27_Patent Enforcers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/57_Lancet Co. Cartographer.jpg" id="WHL_57_Lancet Co. Cartographer" data-flag="@X" onclick="openSidebar('WHL_57_Lancet Co. Cartographer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/94_Hard Times.jpg" id="WHL_94_Hard Times" data-flag="@X" onclick="openSidebar('WHL_94_Hard Times',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/125_Fort Perianth Cannons.jpg" id="WHL_125_Fort Perianth Cannons" data-flag="@X" onclick="openSidebar('WHL_125_Fort Perianth Cannons',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/175_Petal Dance.jpg" id="WHL_175_Petal Dance" data-flag="@X" onclick="openSidebar('WHL_175_Petal Dance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/30_Psolin District Outfitter.jpg" id="WHL_30_Psolin District Outfitter" data-flag="@X" onclick="openSidebar('WHL_30_Psolin District Outfitter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/64_Port Agdol Pilferer.jpg" id="WHL_64_Port Agdol Pilferer" data-flag="@X" onclick="openSidebar('WHL_64_Port Agdol Pilferer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/96_Knives in the Night.jpg" id="WHL_96_Knives in the Night" data-flag="@X" onclick="openSidebar('WHL_96_Knives in the Night',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/131_Lancet Co. Enforcer.jpg" id="WHL_131_Lancet Co. Enforcer" data-flag="@X" onclick="openSidebar('WHL_131_Lancet Co. Enforcer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/177_Provisional Protection.jpg" id="WHL_177_Provisional Protection" data-flag="@X" onclick="openSidebar('WHL_177_Provisional Protection',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/33_Scythe Co. Commodore.jpg" id="WHL_33_Scythe Co. Commodore" data-flag="@X" onclick="openSidebar('WHL_33_Scythe Co. Commodore',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/65_Powered Flight.jpg" id="WHL_65_Powered Flight" data-flag="@X" onclick="openSidebar('WHL_65_Powered Flight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/102_Refinance.jpg" id="WHL_102_Refinance" data-flag="@X" onclick="openSidebar('WHL_102_Refinance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/132_Lucky Shot.jpg" id="WHL_132_Lucky Shot" data-flag="@X" onclick="openSidebar('WHL_132_Lucky Shot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/178_Requisitioned Ralidol.jpg" id="WHL_178_Requisitioned Ralidol" data-flag="@X" onclick="openSidebar('WHL_178_Requisitioned Ralidol',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/34_Seize the Outlands.jpg" id="WHL_34_Seize the Outlands" data-flag="@X" onclick="openSidebar('WHL_34_Seize the Outlands',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/71_Sabotage Shipment.jpg" id="WHL_71_Sabotage Shipment" data-flag="@X" onclick="openSidebar('WHL_71_Sabotage Shipment',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/103_Rosebearer.jpg" id="WHL_103_Rosebearer" data-flag="@X" onclick="openSidebar('WHL_103_Rosebearer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/137_Port Agdol Duelist.jpg" id="WHL_137_Port Agdol Duelist" data-flag="@X" onclick="openSidebar('WHL_137_Port Agdol Duelist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/180_Sprouted Servant.jpg" id="WHL_180_Sprouted Servant" data-flag="@X" onclick="openSidebar('WHL_180_Sprouted Servant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/35_Shipped to the Colonies.jpg" id="WHL_35_Shipped to the Colonies" data-flag="@X" onclick="openSidebar('WHL_35_Shipped to the Colonies',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/72_Scythe Co. Supplier.jpg" id="WHL_72_Scythe Co. Supplier" data-flag="@X" onclick="openSidebar('WHL_72_Scythe Co. Supplier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/107_Specialized Sellsword.jpg" id="WHL_107_Specialized Sellsword" data-flag="@X" onclick="openSidebar('WHL_107_Specialized Sellsword',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/138_Preening Veteran.jpg" id="WHL_138_Preening Veteran" data-flag="@X" onclick="openSidebar('WHL_138_Preening Veteran',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/182_Unrest in the Periphery.jpg" id="WHL_182_Unrest in the Periphery" data-flag="@X" onclick="openSidebar('WHL_182_Unrest in the Periphery',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/38_Unrealized Marble.jpg" id="WHL_38_Unrealized Marble" data-flag="@X" onclick="openSidebar('WHL_38_Unrealized Marble',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/73_Shrewd Stockjobber.jpg" id="WHL_73_Shrewd Stockjobber" data-flag="@X" onclick="openSidebar('WHL_73_Shrewd Stockjobber',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/112_Utterly Destitute.jpg" id="WHL_112_Utterly Destitute" data-flag="@X" onclick="openSidebar('WHL_112_Utterly Destitute',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/140_Pulling Strings.jpg" id="WHL_140_Pulling Strings" data-flag="@X" onclick="openSidebar('WHL_140_Pulling Strings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/184_Vitriol Vendor.jpg" id="WHL_184_Vitriol Vendor" data-flag="@X" onclick="openSidebar('WHL_184_Vitriol Vendor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/40_Viceroy's Messenger.jpg" id="WHL_40_Viceroys Messenger" data-flag="@X" onclick="openSidebar('WHL_40_Viceroys Messenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/77_Tribute to the Resplendent.jpg" id="WHL_77_Tribute to the Resplendent" data-flag="@X" onclick="openSidebar('WHL_77_Tribute to the Resplendent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/113_Wastewater Winnower.jpg" id="WHL_113_Wastewater Winnower" data-flag="@X" onclick="openSidebar('WHL_113_Wastewater Winnower',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/147_Suppress Revolt.jpg" id="WHL_147_Suppress Revolt" data-flag="@X" onclick="openSidebar('WHL_147_Suppress Revolt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/186_Wilt.jpg" id="WHL_186_Wilt" data-flag="@X" onclick="openSidebar('WHL_186_Wilt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/268_A Tale for the Ages.jpg" id="WHL_268_A Tale for the Ages" data-flag="@X" onclick="openSidebar('WHL_268_A Tale for the Ages',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/269_Curiosity.jpg" id="WHL_269_Curiosity" data-flag="@X" onclick="openSidebar('WHL_269_Curiosity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/271_Shadow of the Grave.jpg" id="WHL_271_Shadow of the Grave" data-flag="@X" onclick="openSidebar('WHL_271_Shadow of the Grave',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/150_Tumultuous Partnership.jpg" id="WHL_150_Tumultuous Partnership" data-flag="@X" onclick="openSidebar('WHL_150_Tumultuous Partnership',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/275_Birds of Paradise.jpg" id="WHL_275_Birds of Paradise" data-flag="@X" onclick="openSidebar('WHL_275_Birds of Paradise',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/270_Fateful Discovery.jpg" id="WHL_270_Fateful Discovery" data-flag="@X" onclick="openSidebar('WHL_270_Fateful Discovery',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/272_Stolen Grain.jpg" id="WHL_272_Stolen Grain" data-flag="@X" onclick="openSidebar('WHL_272_Stolen Grain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/273_Rain of Riches.jpg" id="WHL_273_Rain of Riches" data-flag="@X" onclick="openSidebar('WHL_273_Rain of Riches',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/276_Chatterstorm.jpg" id="WHL_276_Chatterstorm" data-flag="@X" onclick="openSidebar('WHL_276_Chatterstorm',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/274_Wheel of Fortune.jpg" id="WHL_274_Wheel of Fortune" data-flag="@X" onclick="openSidebar('WHL_274_Wheel of Fortune',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/226_Dominion.jpg" id="WHL_226_Dominion" data-flag="@X" onclick="openSidebar('WHL_226_Dominion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/232_Wijay, Captive Chemist.jpg" id="WHL_232_Wijay, Captive Chemist" data-flag="@X" onclick="openSidebar('WHL_232_Wijay, Captive Chemist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/228_Fringe Economic Theory.jpg" id="WHL_228_Fringe Economic Theory" data-flag="@X" onclick="openSidebar('WHL_228_Fringe Economic Theory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/230_The Royal Botanists' Folly.jpg" id="WHL_230_The Royal Botanists Folly" data-flag="@X" onclick="openSidebar('WHL_230_The Royal Botanists Folly',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/223_Aflesia, High Rhizomotos.jpg" id="WHL_223_Aflesia, High Rhizomotos" data-flag="@X" onclick="openSidebar('WHL_223_Aflesia, High Rhizomotos',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/196_Cloud-Sailing Ghernakon.jpg" id="WHL_196_Cloud-Sailing Ghernakon" data-flag="@X" onclick="openSidebar('WHL_196_Cloud-Sailing Ghernakon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/197_Colonial Malaise.jpg" id="WHL_197_Colonial Malaise" data-flag="@X" onclick="openSidebar('WHL_197_Colonial Malaise',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/207_Impoverished Patrician.jpg" id="WHL_207_Impoverished Patrician" data-flag="@X" onclick="openSidebar('WHL_207_Impoverished Patrician',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/203_Emissary of the Stem.jpg" id="WHL_203_Emissary of the Stem" data-flag="@X" onclick="openSidebar('WHL_203_Emissary of the Stem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/216_Reverie Chamber.jpg" id="WHL_216_Reverie Chamber" data-flag="@X" onclick="openSidebar('WHL_216_Reverie Chamber',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/202_Dreaming of Flowers.jpg" id="WHL_202_Dreaming of Flowers" data-flag="@X" onclick="openSidebar('WHL_202_Dreaming of Flowers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/214_Orhizoma Orbweavers.jpg" id="WHL_214_Orhizoma Orbweavers" data-flag="@X" onclick="openSidebar('WHL_214_Orhizoma Orbweavers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/222_Toxic Asset.jpg" id="WHL_222_Toxic Asset" data-flag="@X" onclick="openSidebar('WHL_222_Toxic Asset',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/212_Noblesse Oblige.jpg" id="WHL_212_Noblesse Oblige" data-flag="@X" onclick="openSidebar('WHL_212_Noblesse Oblige',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/217_Root-Weaver Initiate.jpg" id="WHL_217_Root-Weaver Initiate" data-flag="@X" onclick="openSidebar('WHL_217_Root-Weaver Initiate',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/193_Bringer of the Day's End.jpg" id="WHL_193_Bringer of the Days End" data-flag="@X" onclick="openSidebar('WHL_193_Bringer of the Days End',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/194_Bringer of the Known World.jpg" id="WHL_194_Bringer of the Known World" data-flag="@X" onclick="openSidebar('WHL_194_Bringer of the Known World',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/192_Bringer of History's March.jpg" id="WHL_192_Bringer of Historys March" data-flag="@X" onclick="openSidebar('WHL_192_Bringer of Historys March',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/190_Bringer of Beautiful Futures.jpg" id="WHL_190_Bringer of Beautiful Futures" data-flag="@X" onclick="openSidebar('WHL_190_Bringer of Beautiful Futures',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/191_Bringer of Conquered Skies.jpg" id="WHL_191_Bringer of Conquered Skies" data-flag="@X" onclick="openSidebar('WHL_191_Bringer of Conquered Skies',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/225_Automatic Teller.jpg" id="WHL_225_Automatic Teller" data-flag="@X" onclick="openSidebar('WHL_225_Automatic Teller',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/231_Total Impunity.jpg" id="WHL_231_Total Impunity" data-flag="@X" onclick="openSidebar('WHL_231_Total Impunity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/224_Alephan, the Perspectivist.jpg" id="WHL_224_Alephan, the Perspectivist" data-flag="@X" onclick="openSidebar('WHL_224_Alephan, the Perspectivist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/229_The Gentleman Syr Lancet.jpg" id="WHL_229_The Gentleman Syr Lancet" data-flag="@X" onclick="openSidebar('WHL_229_The Gentleman Syr Lancet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/227_Enshrined in Gold.jpg" id="WHL_227_Enshrined in Gold" data-flag="@X" onclick="openSidebar('WHL_227_Enshrined in Gold',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/205_Extravagant Pantomime.jpg" id="WHL_205_Extravagant Pantomime" data-flag="@X" onclick="openSidebar('WHL_205_Extravagant Pantomime',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/195_Cartographic Campaign.jpg" id="WHL_195_Cartographic Campaign" data-flag="@X" onclick="openSidebar('WHL_195_Cartographic Campaign',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/206_Gilded Guardsman.jpg" id="WHL_206_Gilded Guardsman" data-flag="@X" onclick="openSidebar('WHL_206_Gilded Guardsman',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/199_Crowkiss Mine Manager.jpg" id="WHL_199_Crowkiss Mine Manager" data-flag="@X" onclick="openSidebar('WHL_199_Crowkiss Mine Manager',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/201_Destiny Voyager.jpg" id="WHL_201_Destiny Voyager" data-flag="@X" onclick="openSidebar('WHL_201_Destiny Voyager',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/213_Obsessed Depiction.jpg" id="WHL_213_Obsessed Depiction" data-flag="@X" onclick="openSidebar('WHL_213_Obsessed Depiction',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/215_Osprey Rider.jpg" id="WHL_215_Osprey Rider" data-flag="@X" onclick="openSidebar('WHL_215_Osprey Rider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/208_Inexperienced Trailblazer.jpg" id="WHL_208_Inexperienced Trailblazer" data-flag="@X" onclick="openSidebar('WHL_208_Inexperienced Trailblazer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/211_Mass Conscription.jpg" id="WHL_211_Mass Conscription" data-flag="@X" onclick="openSidebar('WHL_211_Mass Conscription',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/218_Seller of Sundries.jpg" id="WHL_218_Seller of Sundries" data-flag="@X" onclick="openSidebar('WHL_218_Seller of Sundries',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/189_Bargain with Death.jpg" id="WHL_189_Bargain with Death" data-flag="@X" onclick="openSidebar('WHL_189_Bargain with Death',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/198_Corner the Market.jpg" id="WHL_198_Corner the Market" data-flag="@X" onclick="openSidebar('WHL_198_Corner the Market',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/220_Splendor.jpg" id="WHL_220_Splendor" data-flag="@X" onclick="openSidebar('WHL_220_Splendor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/204_Eva, Publisher of Atlases.jpg" id="WHL_204_Eva, Publisher of Atlases" data-flag="@X" onclick="openSidebar('WHL_204_Eva, Publisher of Atlases',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/221_Strategic Command.jpg" id="WHL_221_Strategic Command" data-flag="@X" onclick="openSidebar('WHL_221_Strategic Command',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/200_Dancer in Gold.jpg" id="WHL_200_Dancer in Gold" data-flag="@X" onclick="openSidebar('WHL_200_Dancer in Gold',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/187_Arcturo, Waste Clay.jpg" id="WHL_187_Arcturo, Waste Clay" data-flag="@X" onclick="openSidebar('WHL_187_Arcturo, Waste Clay',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/210_Lotus Plantation.jpg" id="WHL_210_Lotus Plantation" data-flag="@X" onclick="openSidebar('WHL_210_Lotus Plantation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/209_Ivan Lancet, Flying Ace.jpg" id="WHL_209_Ivan Lancet, Flying Ace" data-flag="@X" onclick="openSidebar('WHL_209_Ivan Lancet, Flying Ace',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/188_The Autumn with No Sun.jpg" id="WHL_188_The Autumn with No Sun" data-flag="@X" onclick="openSidebar('WHL_188_The Autumn with No Sun',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/219_Soft Times.jpg" id="WHL_219_Soft Times" data-flag="@X" onclick="openSidebar('WHL_219_Soft Times',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/277_Fortune.jpg" id="WHL_277_Fortune" data-flag="@X" onclick="openSidebar('WHL_277_Fortune',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/5_Psol, Polymath Industrialist.jpg" id="WHL_5_Psol, Polymath Industrialist" data-flag="@X" onclick="openSidebar('WHL_5_Psol, Polymath Industrialist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/236_Lumpen Marble.jpg" id="WHL_236_Lumpen Marble" data-flag="@X" onclick="openSidebar('WHL_236_Lumpen Marble',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/233_Bountiful Bouquet.jpg" id="WHL_233_Bountiful Bouquet" data-flag="@X" onclick="openSidebar('WHL_233_Bountiful Bouquet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/237_Printing Press.jpg" id="WHL_237_Printing Press" data-flag="@X" onclick="openSidebar('WHL_237_Printing Press',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/238_Promissory Note.jpg" id="WHL_238_Promissory Note" data-flag="@X" onclick="openSidebar('WHL_238_Promissory Note',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/239_Resplendent Effigy.jpg" id="WHL_239_Resplendent Effigy" data-flag="@X" onclick="openSidebar('WHL_239_Resplendent Effigy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/1_Change in the Air.jpg" id="WHL_1_Change in the Air" data-flag="@X" onclick="openSidebar('WHL_1_Change in the Air',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/2_Come to Nothing.jpg" id="WHL_2_Come to Nothing" data-flag="@X" onclick="openSidebar('WHL_2_Come to Nothing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/3_Commercial Activity.jpg" id="WHL_3_Commercial Activity" data-flag="@X" onclick="openSidebar('WHL_3_Commercial Activity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/4_The Past Falling Away.jpg" id="WHL_4_The Past Falling Away" data-flag="@X" onclick="openSidebar('WHL_4_The Past Falling Away',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/234_Bullion Masterwork.jpg" id="WHL_234_Bullion Masterwork" data-flag="@X" onclick="openSidebar('WHL_234_Bullion Masterwork',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/235_Chiseled Colossus.jpg" id="WHL_235_Chiseled Colossus" data-flag="@X" onclick="openSidebar('WHL_235_Chiseled Colossus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/267_Investment.jpg" id="WHL_267_Investment" data-flag="@X" onclick="openSidebar('WHL_267_Investment',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/278_Black Lotus.jpg" id="WHL_278_Black Lotus" data-flag="@X" onclick="openSidebar('WHL_278_Black Lotus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/279_Coin of Mastery.jpg" id="WHL_279_Coin of Mastery" data-flag="@X" onclick="openSidebar('WHL_279_Coin of Mastery',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/280_Fluctuator.jpg" id="WHL_280_Fluctuator" data-flag="@X" onclick="openSidebar('WHL_280_Fluctuator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/281_Lich's Tomb.jpg" id="WHL_281_Lichs Tomb" data-flag="@X" onclick="openSidebar('WHL_281_Lichs Tomb',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/282_Lotus Bud.jpg" id="WHL_282_Lotus Bud" data-flag="@X" onclick="openSidebar('WHL_282_Lotus Bud',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/283_Ornithopter.jpg" id="WHL_283_Ornithopter" data-flag="@X" onclick="openSidebar('WHL_283_Ornithopter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/284_The Rack.jpg" id="WHL_284_The Rack" data-flag="@X" onclick="openSidebar('WHL_284_The Rack',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/253_Orizhoma, Cultural Roots.jpg" id="WHL_253_Orizhoma, Cultural Roots" data-flag="@X" onclick="openSidebar('WHL_253_Orizhoma, Cultural Roots',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/256_Psolin, the First Factory.jpg" id="WHL_256_Psolin, the First Factory" data-flag="@X" onclick="openSidebar('WHL_256_Psolin, the First Factory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/245_Fort Perianth, Colonial Office.jpg" id="WHL_245_Fort Perianth, Colonial Office" data-flag="@X" onclick="openSidebar('WHL_245_Fort Perianth, Colonial Office',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/240_Agdol, Port Harbor.jpg" id="WHL_240_Agdol, Port Harbor" data-flag="@X" onclick="openSidebar('WHL_240_Agdol, Port Harbor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/259_The Stem, Seat of the Verdant.jpg" id="WHL_259_The Stem, Seat of the Verdant" data-flag="@X" onclick="openSidebar('WHL_259_The Stem, Seat of the Verdant',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/261_Stonework University.jpg" id="WHL_261_Stonework University" data-flag="@X" onclick="openSidebar('WHL_261_Stonework University',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/244_Fishmongers' Docks.jpg" id="WHL_244_Fishmongers Docks" data-flag="@X" onclick="openSidebar('WHL_244_Fishmongers Docks',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/243_Colonial Outpost.jpg" id="WHL_243_Colonial Outpost" data-flag="@X" onclick="openSidebar('WHL_243_Colonial Outpost',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/251_Luxury Boutique.jpg" id="WHL_251_Luxury Boutique" data-flag="@X" onclick="openSidebar('WHL_251_Luxury Boutique',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/255_Produce Plaza.jpg" id="WHL_255_Produce Plaza" data-flag="@X" onclick="openSidebar('WHL_255_Produce Plaza',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/260_Stockjobbers' Square.jpg" id="WHL_260_Stockjobbers Square" data-flag="@X" onclick="openSidebar('WHL_260_Stockjobbers Square',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/247_Industrial Workshops.jpg" id="WHL_247_Industrial Workshops" data-flag="@X" onclick="openSidebar('WHL_247_Industrial Workshops',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/258_Rootweavers' Crevasse.jpg" id="WHL_258_Rootweavers Crevasse" data-flag="@X" onclick="openSidebar('WHL_258_Rootweavers Crevasse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/257_Roadside Smithy.jpg" id="WHL_257_Roadside Smithy" data-flag="@X" onclick="openSidebar('WHL_257_Roadside Smithy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/241_Apothecaries' Avenue.jpg" id="WHL_241_Apothecaries Avenue" data-flag="@X" onclick="openSidebar('WHL_241_Apothecaries Avenue',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/246_The Free Market.jpg" id="WHL_246_The Free Market" data-flag="@X" onclick="openSidebar('WHL_246_The Free Market',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/249_Iyra-Elai, Colonial Capital.jpg" id="WHL_249_Iyra-Elai, Colonial Capital" data-flag="@X" onclick="openSidebar('WHL_249_Iyra-Elai, Colonial Capital',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/242_Colonial Airstrip.jpg" id="WHL_242_Colonial Airstrip" data-flag="@X" onclick="openSidebar('WHL_242_Colonial Airstrip',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/248_Inventors' Coffeehouse.jpg" id="WHL_248_Inventors Coffeehouse" data-flag="@X" onclick="openSidebar('WHL_248_Inventors Coffeehouse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/250_The Lily Bank.jpg" id="WHL_250_The Lily Bank" data-flag="@X" onclick="openSidebar('WHL_250_The Lily Bank',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/252_Midnight Auction.jpg" id="WHL_252_Midnight Auction" data-flag="@X" onclick="openSidebar('WHL_252_Midnight Auction',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/254_Port of Call.jpg" id="WHL_254_Port of Call" data-flag="@X" onclick="openSidebar('WHL_254_Port of Call',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/265_Mountain.jpg" id="WHL_265_Mountain" data-flag="@X" onclick="openSidebar('WHL_265_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/263_Island.jpg" id="WHL_263_Island" data-flag="@X" onclick="openSidebar('WHL_263_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/264_Swamp.jpg" id="WHL_264_Swamp" data-flag="@X" onclick="openSidebar('WHL_264_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/266_Forest.jpg" id="WHL_266_Forest" data-flag="@X" onclick="openSidebar('WHL_266_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/262_Plains.jpg" id="WHL_262_Plains" data-flag="@X" onclick="openSidebar('WHL_262_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/WHL-files/img/1t_Human Token.jpg" id="WHL_1t_Human Token" data-flag="@X" onclick="openSidebar('WHL_1t_Human Token',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="WHL_e" data-flag="@E" onclick="openSidebar('WHL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="WHL_er" data-flag="@E" onclick="openSidebar('WHL_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1].toLowerCase());
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

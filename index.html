@@ -99,10 +99,10 @@
 		border-bottom: 2px solid #171717;
 	}
 	.button-grid {
-		display: grid;
+		display: flex;
+		justify-content: center;
 		margin: auto;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 20px;
+		gap: 12px;
 		padding-top: 10px;
 		padding-bottom: 20px;
 	}
@@ -110,10 +110,10 @@
 		background-color: #171717;
 		border: none;
 		color: #f3f3f3;
-		border-radius: 5px;
+		border-radius: 8px;
 		cursor: pointer;
-		font-size: 15px;
-		width: 150px;
+		font-size: 14px;
+		width: 135px;
 		height: 35px;
 		display: flex;
 		align-items: center;
@@ -207,111 +207,140 @@
 			<input type="text" inputmode="search" placeholder="Search ..." autofocus="autofocus" name="search" id="search" spellcheck="false" autocomplete="off" autocorrext="off" spellcheck="false">
 			<div class="button-grid">
 				<button onclick="goToSets()"><img src="img/sets.png" class="btn-img">All Sets</button>
-				<button onclick="goToDeckbuilder()"><img src="img/deck.png" class="btn-img">Deckbuilder</button>
-				<button onclick="randomCard()"><img src="img/random.png" class="btn-img">Random Card</button>
+				<button id="home-articles-btn" onclick="goToArticles()" style="display: none;"><img src="img/articles.png" class="btn-img">Articles</button>
+				<button id="home-decks-btn" onclick="goToDecks()" style="display: none;"><img src="img/deck.png" class="btn-img">Decks</button>
+				<button onclick="goToDeckbuilder()"><img src="img/deckbuilder.png" class="btn-img">Deckbuilder</button>
+				<button onclick="randomCard()"><img src="img/random.png" class="btn-img">Random</button>
 			</div>
 			<div class="two-part-grid">
 				<div class="container" id="preview-container">
 					<p>Preview Galleries</p>
-										<div class="set-group">Alvin</div>
+										<div class="set-group">War</div>
 							<div class="preview-container">
 		<div class="set-icon-container">
-									<a href="previews/2MC"><div class="set-icon"><img src="sets/2MC-files/icon.png" title="2HU Miniset Collection"></img></div>
-									<div class="set-icon-name">2HU Miniset Collection</div></a>
-								</div>
-				<div class="set-icon-container">
-									<a href="previews/ASM"><div class="set-icon"><img src="sets/ASM-files/icon.png" title="Amonkhet: Schism"></img></div>
-									<div class="set-icon-name">Amonkhet: Schism</div></a>
-								</div>
-				<div class="set-icon-container">
-									<a href="previews/COD"><div class="set-icon"><img src="sets/COD-files/icon.png" title="Children of Dawn"></img></div>
-									<div class="set-icon-name">Children of Dawn</div></a>
+									<a href="previews/2MC"><div class="set-icon"><img src="sets/2MC-files/icon.png" title="UB Touhou Miniset Collection"></img></div>
+									<div class="set-icon-name">UB Touhou Miniset Collection</div></a>
 								</div>
 				<div class="set-icon-container">
 									<a href="previews/F2HU"><div class="set-icon"><img src="sets/F2HU-files/icon.png" title="Universes Beyond: Touhou Fangames/Albums"></img></div>
 									<div class="set-icon-name">Universes Beyond: Touhou Fangames/Albums</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/ONI"><div class="set-icon"><img src="sets/ONI-files/icon.png" title="Onigaiko: Future Past"></img></div>
-									<div class="set-icon-name">Onigaiko: Future Past</div></a>
+									<a href="previews/HEX"><div class="set-icon"><img src="sets/HEX-files/icon.png" title="The Hex Games"></img></div>
+									<div class="set-icon-name">The Hex Games</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/RNF"><div class="set-icon"><img src="sets/RNF-files/icon.png" title="Ravnica’s Awakening"></img></div>
-									<div class="set-icon-name">Ravnica’s Awakening</div></a>
+									<a href="previews/MST"><div class="set-icon"><img src="sets/MST-files/icon.png" title="Rural Dwellings, in Seafoam Mist"></img></div>
+									<div class="set-icon-name">Rural Dwellings, in Seafoam Mist</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/WDW"><div class="set-icon"><img src="sets/WDW-files/icon.png" title="Waters of a Drowned World"></img></div>
-									<div class="set-icon-name">Waters of a Drowned World</div></a>
+									<a href="previews/SSC"><div class="set-icon"><img src="sets/SSC-files/icon.png" title="Shiyue: Soul's Crossing"></img></div>
+									<div class="set-icon-name">Shiyue: Soul's Crossing</div></a>
+								</div>
+				<div class="set-icon-container">
+									<a href="previews/WHL"><div class="set-icon"><img src="sets/WHL-files/icon.png" title="Building Fortune's Wheel"></img></div>
+									<div class="set-icon-name">Building Fortune's Wheel</div></a>
+								</div>
+				<div class="set-icon-container">
+									<a href="previews/XCX"><div class="set-icon"><img src="sets/XCX-files/icon.png" title="Xenoblade Chronicles X"></img></div>
+									<div class="set-icon-name">Xenoblade Chronicles X</div></a>
 								</div>
 									</div>
-							<div class="set-group">Simon</div>
+							<div class="set-group">Famine</div>
 							<div class="preview-container">
 		<div class="set-icon-container">
-									<a href="previews/BRE"><div class="set-icon"><img src="sets/BRE-files/icon.png" title="Kaldheim: Bretagard’s Revival"></img></div>
-									<div class="set-icon-name">Kaldheim: Bretagard’s Revival</div></a>
-								</div>
-				<div class="set-icon-container">
-									<a href="previews/EOR"><div class="set-icon"><img src="sets/EOR-files/icon.png" title="Defenders of Eorzea"></img></div>
-									<div class="set-icon-name">Defenders of Eorzea</div></a>
+									<a href="previews/ECB"><div class="set-icon"><img src="sets/ECB-files/icon.png" title="Elnyreth: Contact With Those Beyond"></img></div>
+									<div class="set-icon-name">Elnyreth: Contact With Those Beyond</div></a>
 								</div>
 				<div class="set-icon-container">
 									<a href="previews/FRT"><div class="set-icon"><img src="sets/FRT-files/icon.png" title="Felidea: Rising Tensions"></img></div>
 									<div class="set-icon-name">Felidea: Rising Tensions</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/ORD"><div class="set-icon"><img src="sets/ORD-files/icon.png" title="Crucible of Ordeval"></img></div>
-									<div class="set-icon-name">Crucible of Ordeval</div></a>
+									<a href="previews/MVX"><div class="set-icon"><img src="sets/MVX-files/icon.png" title="Merveaux"></img></div>
+									<div class="set-icon-name">Merveaux</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/SMB"><div class="set-icon"><img src="sets/SMB-files/icon.png" title="Magic the Gathering | Super Mario Brothers"></img></div>
-									<div class="set-icon-name">Magic the Gathering | Super Mario Brothers</div></a>
+									<a href="previews/TEX"><div class="set-icon"><img src="sets/TEX-files/icon.png" title="Tarkir: Extinction"></img></div>
+									<div class="set-icon-name">Tarkir: Extinction</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/TBC"><div class="set-icon"><img src="sets/TBC-files/icon.png" title="Nemyria: The Beautiful Collapse"></img></div>
-									<div class="set-icon-name">Nemyria: The Beautiful Collapse</div></a>
+									<a href="previews/TFF"><div class="set-icon"><img src="sets/TFF-files/icon.png" title="Dark Souls: The Fire Fades"></img></div>
+									<div class="set-icon-name">Dark Souls: The Fire Fades</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/TOTL"><div class="set-icon"><img src="sets/TOTL-files/icon.png" title="Tin Lau"></img></div>
-									<div class="set-icon-name">Tin Lau</div></a>
+									<a href="previews/TVN"><div class="set-icon"><img src="sets/TVN-files/icon.png" title="Titans of Viludin"></img></div>
+									<div class="set-icon-name">Titans of Viludin</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/VTK"><div class="set-icon"><img src="sets/VTK-files/icon.png" title="Vaelcairn, Tomb of Kingdoms"></img></div>
-									<div class="set-icon-name">Vaelcairn, Tomb of Kingdoms</div></a>
+									<a href="previews/WBY"><div class="set-icon"><img src="sets/WBY-files/icon.png" title="Wild Blue Yonder"></img></div>
+									<div class="set-icon-name">Wild Blue Yonder</div></a>
 								</div>
 									</div>
-							<div class="set-group">Theodore</div>
+							<div class="set-group">Pestilence</div>
+							<div class="preview-container">
+		<div class="set-icon-container">
+									<a href="previews/AWA"><div class="set-icon"><img src="sets/AWA-files/icon.png" title="Anglodoor Awakened"></img></div>
+									<div class="set-icon-name">Anglodoor Awakened</div></a>
+								</div>
+				<div class="set-icon-container">
+									<a href="previews/EAJ"><div class="set-icon"><img src="sets/EAJ-files/icon.png" title="Eternal Autumn of Javor"></img></div>
+									<div class="set-icon-name">Eternal Autumn of Javor</div></a>
+								</div>
+				<div class="set-icon-container">
+									<a href="previews/M6D"><div class="set-icon"><img src="sets/M6D-files/icon.png" title="Mysticism of the Sixth Day"></img></div>
+									<div class="set-icon-name">Mysticism of the Sixth Day</div></a>
+								</div>
+				<div class="set-icon-container">
+									<a href="previews/RAW"><div class="set-icon"><img src="sets/RAW-files/icon.png" title="Ravnica's Awakening"></img></div>
+									<div class="set-icon-name">Ravnica's Awakening</div></a>
+								</div>
+				<div class="set-icon-container">
+									<a href="previews/SPX"><div class="set-icon"><img src="sets/SPX-files/icon.png" title="Splendor of Excelsior"></img></div>
+									<div class="set-icon-name">Splendor of Excelsior</div></a>
+								</div>
+				<div class="set-icon-container">
+									<a href="previews/TEL"><div class="set-icon"><img src="sets/TEL-files/icon.png" title="Theros: The Elekteid"></img></div>
+									<div class="set-icon-name">Theros: The Elekteid</div></a>
+								</div>
+				<div class="set-icon-container">
+									<a href="previews/TLB"><div class="set-icon"><img src="sets/TLB-files/icon.png" title="The Lands Between"></img></div>
+									<div class="set-icon-name">The Lands Between</div></a>
+								</div>
+									</div>
+							<div class="set-group">Death</div>
 							<div class="preview-container">
 		<div class="set-icon-container">
 									<a href="previews/AJY"><div class="set-icon"><img src="sets/AJY-files/icon.png" title="Alder Jane in: The Prince of Years"></img></div>
 									<div class="set-icon-name">Alder Jane in: The Prince of Years</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/BLD"><div class="set-icon"><img src="sets/BLD-files/icon.png" title="Bloodborne"></img></div>
-									<div class="set-icon-name">Bloodborne</div></a>
+									<a href="previews/BLV"><div class="set-icon"><img src="sets/BLV-files/icon.png" title="Blood and Velvet"></img></div>
+									<div class="set-icon-name">Blood and Velvet</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/CLE"><div class="set-icon"><img src="sets/CLE-files/icon.png" title="Clearingsong"></img></div>
-									<div class="set-icon-name">Clearingsong</div></a>
+									<a href="previews/DRM"><div class="set-icon"><img src="sets/DRM-files/icon.png" title="Dreamers of Antausia"></img></div>
+									<div class="set-icon-name">Dreamers of Antausia</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/HWK"><div class="set-icon"><img src="sets/HWK-files/icon.png" title="Haishan: Warring Kingdoms"></img></div>
-									<div class="set-icon-name">Haishan: Warring Kingdoms</div></a>
+									<a href="previews/EOR"><div class="set-icon"><img src="sets/EOR-files/icon.png" title="Defenders of Eorzea"></img></div>
+									<div class="set-icon-name">Defenders of Eorzea</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/KLB"><div class="set-icon"><img src="sets/KLB-files/icon.png" title="Kitsuo: the Last Bloom"></img></div>
-									<div class="set-icon-name">Kitsuo: the Last Bloom</div></a>
+									<a href="previews/EVO"><div class="set-icon"><img src="sets/EVO-files/icon.png" title="Evolution on Srai-Val-Nul"></img></div>
+									<div class="set-icon-name">Evolution on Srai-Val-Nul</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/MOX"><div class="set-icon"><img src="sets/MOX-files/icon.png" title="Midnight Omens of Xogoa"></img></div>
-									<div class="set-icon-name">Midnight Omens of Xogoa</div></a>
+									<a href="previews/FIM"><div class="set-icon"><img src="sets/FIM-files/icon.png" title="Periss: Friendship is Magic"></img></div>
+									<div class="set-icon-name">Periss: Friendship is Magic</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/POP2"><div class="set-icon"><img src="sets/POP2-files/icon.png" title="Prismavision"></img></div>
-									<div class="set-icon-name">Prismavision</div></a>
+									<a href="previews/ORE"><div class="set-icon"><img src="sets/ORE-files/icon.png" title="Orestan"></img></div>
+									<div class="set-icon-name">Orestan</div></a>
 								</div>
 				<div class="set-icon-container">
-									<a href="previews/SGP"><div class="set-icon"><img src="sets/SGP-files/icon.png" title="Stirrings in Goldport"></img></div>
-									<div class="set-icon-name">Stirrings in Goldport</div></a>
+									<a href="previews/TOTL"><div class="set-icon"><img src="sets/TOTL-files/icon.png" title="Towers of Tin Lau"></img></div>
+									<div class="set-icon-name">Towers of Tin Lau</div></a>
 								</div>
 									</div>
 		
@@ -329,6 +358,18 @@
 			let initial_gradient = true;
 
 			document.addEventListener("DOMContentLoaded", async function () {
+				// Hide Articles if none exist
+				fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+					.then(response => {
+						if (response.ok) document.getElementById('home-articles-btn').style.display = 'flex';
+					}).catch(() => {});
+
+				// Hide Decks if none exist
+				fetch(rootPath + '/decks.html', { method: 'HEAD' })
+					.then(response => {
+						if (response.ok) document.getElementById('home-decks-btn').style.display = 'flex';
+					}).catch(() => {});
+
 				try {
 					const response = await fetch(rootPath + '/resources/gradients.json');
 					raw_gradients = await response.json();
@@ -359,7 +400,7 @@
 					if (card.notes) {
 						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
 						for (const match of tagMatches) {
-							all_tags.add(match[1]);
+							all_tags.add(match[1].toLowerCase());
 						}
 					}
 				});
@@ -586,6 +627,14 @@
 
 			function goToSets() {
 				window.location = (rootPath + "/all-sets");
+			}
+
+			function goToArticles() {
+				window.location = (rootPath + "/all-articles");
+			}
+
+			function goToDecks() {
+				window.location = (rootPath + "/decks");
 			}
 
 			function goToDeckbuilder() {

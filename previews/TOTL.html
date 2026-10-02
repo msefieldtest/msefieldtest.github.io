@@ -184,28 +184,34 @@
 	<img class="preload-hidden" src="../img/dot.png" />
 	<img class="preload-hidden" src="../sets/TOTL-files/logo.png" />
 	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
-		<img class="preload-hidden" src="../sets/ASM-files/icon.png" />
-		<img class="preload-hidden" src="../sets/COD-files/icon.png" />
 		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
-		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
-		<img class="preload-hidden" src="../sets/RNF-files/icon.png" />
-		<img class="preload-hidden" src="../sets/WDW-files/icon.png" />
-		<img class="preload-hidden" src="../sets/BRE-files/icon.png" />
-		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MST-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SSC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WHL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/XCX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ECB-files/icon.png" />
 		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
-		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
-		<img class="preload-hidden" src="../sets/SMB-files/icon.png" />
-		<img class="preload-hidden" src="../sets/TBC-files/icon.png" />
-		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
-		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TFF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WBY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AWA-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EAJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/M6D-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RAW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SPX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TLB-files/icon.png" />
 		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
-		<img class="preload-hidden" src="../sets/BLD-files/icon.png" />
-		<img class="preload-hidden" src="../sets/CLE-files/icon.png" />
-		<img class="preload-hidden" src="../sets/HWK-files/icon.png" />
-		<img class="preload-hidden" src="../sets/KLB-files/icon.png" />
-		<img class="preload-hidden" src="../sets/MOX-files/icon.png" />
-		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
-		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/DRM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EVO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FIM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
 		<div class="header">
 		<div class="search-grid">
 			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
@@ -215,7 +221,9 @@
 				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
 			</div>
 			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
-			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
 			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
 		</div>
 	</div>
@@ -224,8 +232,22 @@
 			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
 			document.getElementById("header-search").src = rootPath + "/img/search.png";
 			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
-			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
 			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
 		});
 
 		function goToSearch() {
@@ -235,51 +257,63 @@
 
 	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
 	
-		<a class="set-bar" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Tin Lau</a>
+		<a class="set-bar" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Towers of Tin Lau</a>
 	
-		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">2HU Miniset Collection</a>
-	
-		<a class="set-bar inactive" href="../previews/ASM"><img src="../sets/ASM-files/icon.png">Amonkhet: Schism</a>
-	
-		<a class="set-bar inactive" href="../previews/COD"><img src="../sets/COD-files/icon.png">Children of Dawn</a>
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">UB Touhou Miniset Collection</a>
 	
 		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
 	
-		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+		<a class="set-bar inactive" href="../previews/HEX"><img src="../sets/HEX-files/icon.png">The Hex Games</a>
 	
-		<a class="set-bar inactive" href="../previews/RNF"><img src="../sets/RNF-files/icon.png">Ravnica’s Awakening</a>
+		<a class="set-bar inactive" href="../previews/MST"><img src="../sets/MST-files/icon.png">Rural Dwellings, in Seafoam Mist</a>
 	
-		<a class="set-bar inactive" href="../previews/WDW"><img src="../sets/WDW-files/icon.png">Waters of a Drowned World</a>
+		<a class="set-bar inactive" href="../previews/SSC"><img src="../sets/SSC-files/icon.png">Shiyue: Soul's Crossing</a>
 	
-		<a class="set-bar inactive" href="../previews/BRE"><img src="../sets/BRE-files/icon.png">Kaldheim: Bretagard’s Revival</a>
+		<a class="set-bar inactive" href="../previews/WHL"><img src="../sets/WHL-files/icon.png">Building Fortune's Wheel</a>
 	
-		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+		<a class="set-bar inactive" href="../previews/XCX"><img src="../sets/XCX-files/icon.png">Xenoblade Chronicles X</a>
+	
+		<a class="set-bar inactive" href="../previews/ECB"><img src="../sets/ECB-files/icon.png">Elnyreth: Contact With Those Beyond</a>
 	
 		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
 	
-		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
 	
-		<a class="set-bar inactive" href="../previews/SMB"><img src="../sets/SMB-files/icon.png">Magic the Gathering | Super Mario Brothers</a>
+		<a class="set-bar inactive" href="../previews/TEX"><img src="../sets/TEX-files/icon.png">Tarkir: Extinction</a>
 	
-		<a class="set-bar inactive" href="../previews/TBC"><img src="../sets/TBC-files/icon.png">Nemyria: The Beautiful Collapse</a>
+		<a class="set-bar inactive" href="../previews/TFF"><img src="../sets/TFF-files/icon.png">Dark Souls: The Fire Fades</a>
 	
-		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WBY"><img src="../sets/WBY-files/icon.png">Wild Blue Yonder</a>
+	
+		<a class="set-bar inactive" href="../previews/AWA"><img src="../sets/AWA-files/icon.png">Anglodoor Awakened</a>
+	
+		<a class="set-bar inactive" href="../previews/EAJ"><img src="../sets/EAJ-files/icon.png">Eternal Autumn of Javor</a>
+	
+		<a class="set-bar inactive" href="../previews/M6D"><img src="../sets/M6D-files/icon.png">Mysticism of the Sixth Day</a>
+	
+		<a class="set-bar inactive" href="../previews/RAW"><img src="../sets/RAW-files/icon.png">Ravnica's Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/SPX"><img src="../sets/SPX-files/icon.png">Splendor of Excelsior</a>
+	
+		<a class="set-bar inactive" href="../previews/TEL"><img src="../sets/TEL-files/icon.png">Theros: The Elekteid</a>
+	
+		<a class="set-bar inactive" href="../previews/TLB"><img src="../sets/TLB-files/icon.png">The Lands Between</a>
 	
 		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
 	
-		<a class="set-bar inactive" href="../previews/BLD"><img src="../sets/BLD-files/icon.png">Bloodborne</a>
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
 	
-		<a class="set-bar inactive" href="../previews/CLE"><img src="../sets/CLE-files/icon.png">Clearingsong</a>
+		<a class="set-bar inactive" href="../previews/DRM"><img src="../sets/DRM-files/icon.png">Dreamers of Antausia</a>
 	
-		<a class="set-bar inactive" href="../previews/HWK"><img src="../sets/HWK-files/icon.png">Haishan: Warring Kingdoms</a>
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
 	
-		<a class="set-bar inactive" href="../previews/KLB"><img src="../sets/KLB-files/icon.png">Kitsuo: the Last Bloom</a>
+		<a class="set-bar inactive" href="../previews/EVO"><img src="../sets/EVO-files/icon.png">Evolution on Srai-Val-Nul</a>
 	
-		<a class="set-bar inactive" href="../previews/MOX"><img src="../sets/MOX-files/icon.png">Midnight Omens of Xogoa</a>
+		<a class="set-bar inactive" href="../previews/FIM"><img src="../sets/FIM-files/icon.png">Periss: Friendship is Magic</a>
 	
-		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
-	
-		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+		<a class="set-bar inactive" href="../previews/ORE"><img src="../sets/ORE-files/icon.png">Orestan</a>
 	
 		</div>
 		<div class="banner">
@@ -287,323 +321,338 @@
 		</div>
 		<div class="main-content" id="main-content">
 			<div class="grid-container">
-					<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/8_Decorated Constable.jpg" id="TOTL_8_Decorated Constable" data-flag="@X" onclick="openSidebar('TOTL_8_Decorated Constable',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/69_She Hides Between Moments.jpg" id="TOTL_69_She Hides Between Moments" data-flag="@X" onclick="openSidebar('TOTL_69_She Hides Between Moments',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/95_Friend of the Departed.jpg" id="TOTL_95_Friend of the Departed" data-flag="@X" onclick="openSidebar('TOTL_95_Friend of the Departed',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/136_Hellpocket Highroller.jpg" id="TOTL_136_Hellpocket Highroller" data-flag="@X" onclick="openSidebar('TOTL_136_Hellpocket Highroller',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/172_Nissa, Out of Place.jpg" id="TOTL_172_Nissa, Out of Place" data-flag="@X" onclick="openSidebar('TOTL_172_Nissa, Out of Place',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/29_Qiangliang.jpg" id="TOTL_29_Qiangliang" data-flag="@X" onclick="openSidebar('TOTL_29_Qiangliang',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/71_Sidestreet Sucker.jpg" id="TOTL_71_Sidestreet Sucker" data-flag="@X" onclick="openSidebar('TOTL_71_Sidestreet Sucker',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/106_Return of the Ninth Dragon.jpg" id="TOTL_106_Return of the Ninth Dragon" data-flag="@X" onclick="openSidebar('TOTL_106_Return of the Ninth Dragon',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/157_Zenith of Exuberance.jpg" id="TOTL_157_Zenith of Exuberance" data-flag="@X" onclick="openSidebar('TOTL_157_Zenith of Exuberance',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/186_Streetlight Psychosis.jpg" id="TOTL_186_Streetlight Psychosis" data-flag="@X" onclick="openSidebar('TOTL_186_Streetlight Psychosis',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/4_Casting Call.jpg" id="TOTL_4_Casting Call" data-flag="@X" onclick="openSidebar('TOTL_4_Casting Call',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/47_The Fisher Who Caught A Kraken.jpg" id="TOTL_47_The Fisher Who Caught A Kraken" data-flag="@X" onclick="openSidebar('TOTL_47_The Fisher Who Caught A Kraken',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/80_Apex Terror.jpg" id="TOTL_80_Apex Terror" data-flag="@X" onclick="openSidebar('TOTL_80_Apex Terror',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/120_Aria of Blood.jpg" id="TOTL_120_Aria of Blood" data-flag="@X" onclick="openSidebar('TOTL_120_Aria of Blood',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/164_Its Coil Tightens Inexorably.jpg" id="TOTL_164_Its Coil Tightens Inexorably" data-flag="@X" onclick="openSidebar('TOTL_164_Its Coil Tightens Inexorably',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/6_Clearsky Aspirant.jpg" id="TOTL_6_Clearsky Aspirant" data-flag="@X" onclick="openSidebar('TOTL_6_Clearsky Aspirant',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/48_Follow the Crowd.jpg" id="TOTL_48_Follow the Crowd" data-flag="@X" onclick="openSidebar('TOTL_48_Follow the Crowd',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/82_Audience with the Ambassador.jpg" id="TOTL_82_Audience with the Ambassador" data-flag="@X" onclick="openSidebar('TOTL_82_Audience with the Ambassador',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/126_Eighty Thousand Point Gamble.jpg" id="TOTL_126_Eighty Thousand Point Gamble" data-flag="@X" onclick="openSidebar('TOTL_126_Eighty Thousand Point Gamble',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/169_Luk Gaai Ancestseer.jpg" id="TOTL_169_Luk Gaai Ancestseer" data-flag="@X" onclick="openSidebar('TOTL_169_Luk Gaai Ancestseer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/15_The Girl Who Ate an Angel.jpg" id="TOTL_15_The Girl Who Ate an Angel" data-flag="@X" onclick="openSidebar('TOTL_15_The Girl Who Ate an Angel',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/55_Melanchozoa.jpg" id="TOTL_55_Melanchozoa" data-flag="@X" onclick="openSidebar('TOTL_55_Melanchozoa',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/88_Creeping Darkness.jpg" id="TOTL_88_Creeping Darkness" data-flag="@X" onclick="openSidebar('TOTL_88_Creeping Darkness',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/135_Hei Foon Nei.jpg" id="TOTL_135_Hei Foon Nei" data-flag="@X" onclick="openSidebar('TOTL_135_Hei Foon Nei',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/170_Mirrored Past.jpg" id="TOTL_170_Mirrored Past" data-flag="@X" onclick="openSidebar('TOTL_170_Mirrored Past',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/17_Hallowed Be Thy Touch.jpg" id="TOTL_17_Hallowed Be Thy Touch" data-flag="@X" onclick="openSidebar('TOTL_17_Hallowed Be Thy Touch',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/61_Omnicephalys.jpg" id="TOTL_61_Omnicephalys" data-flag="@X" onclick="openSidebar('TOTL_61_Omnicephalys',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/104_Omnicidal Teen.jpg" id="TOTL_104_Omnicidal Teen" data-flag="@X" onclick="openSidebar('TOTL_104_Omnicidal Teen',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/141_Kanpai!.jpg" id="TOTL_141_Kanpai!" data-flag="@X" onclick="openSidebar('TOTL_141_Kanpai!',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/179_Rubbertorch Motorist.jpg" id="TOTL_179_Rubbertorch Motorist" data-flag="@X" onclick="openSidebar('TOTL_179_Rubbertorch Motorist',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/30_Regret of a Long-Gone Girl.jpg" id="TOTL_30_Regret of a Long-Gone Girl" data-flag="@X" onclick="openSidebar('TOTL_30_Regret of a Long-Gone Girl',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/72_Spin Cycle.jpg" id="TOTL_72_Spin Cycle" data-flag="@X" onclick="openSidebar('TOTL_72_Spin Cycle',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/109_Shatter Soul.jpg" id="TOTL_109_Shatter Soul" data-flag="@X" onclick="openSidebar('TOTL_109_Shatter Soul',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/142_Lavabat Hooligan.jpg" id="TOTL_142_Lavabat Hooligan" data-flag="@X" onclick="openSidebar('TOTL_142_Lavabat Hooligan',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/192_Traditionalist Ancestseer.jpg" id="TOTL_192_Traditionalist Ancestseer" data-flag="@X" onclick="openSidebar('TOTL_192_Traditionalist Ancestseer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/37_Under the Spotlight.jpg" id="TOTL_37_Under the Spotlight" data-flag="@X" onclick="openSidebar('TOTL_37_Under the Spotlight',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/76_Tsoi Jam Mei Loi.jpg" id="TOTL_76_Tsoi Jam Mei Loi" data-flag="@X" onclick="openSidebar('TOTL_76_Tsoi Jam Mei Loi',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/117_Villainous Endgame.jpg" id="TOTL_117_Villainous Endgame" data-flag="@X" onclick="openSidebar('TOTL_117_Villainous Endgame',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/148_Oukijo's Design.jpg" id="TOTL_148_Oukijos Design" data-flag="@X" onclick="openSidebar('TOTL_148_Oukijos Design',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/193_Ursa Major.jpg" id="TOTL_193_Ursa Major" data-flag="@X" onclick="openSidebar('TOTL_193_Ursa Major',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/39_Waan Tin Soothsayer.jpg" id="TOTL_39_Waan Tin Soothsayer" data-flag="@X" onclick="openSidebar('TOTL_39_Waan Tin Soothsayer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/78_Your Ancestral Mind Recalls All.jpg" id="TOTL_78_Your Ancestral Mind Recalls All" data-flag="@X" onclick="openSidebar('TOTL_78_Your Ancestral Mind Recalls All',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/118_Walking Singularity.jpg" id="TOTL_118_Walking Singularity" data-flag="@X" onclick="openSidebar('TOTL_118_Walking Singularity',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/153_Tetrad Kingpin.jpg" id="TOTL_153_Tetrad Kingpin" data-flag="@X" onclick="openSidebar('TOTL_153_Tetrad Kingpin',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/196_Zodiac Throng.jpg" id="TOTL_196_Zodiac Throng" data-flag="@X" onclick="openSidebar('TOTL_196_Zodiac Throng',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/2_After Crew.jpg" id="TOTL_2_After Crew" data-flag="@X" onclick="openSidebar('TOTL_2_After Crew',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/46_Feathers Above.jpg" id="TOTL_46_Feathers Above" data-flag="@X" onclick="openSidebar('TOTL_46_Feathers Above',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/81_Ascended Giganform.jpg" id="TOTL_81_Ascended Giganform" data-flag="@X" onclick="openSidebar('TOTL_81_Ascended Giganform',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/119_Act on Rumour.jpg" id="TOTL_119_Act on Rumour" data-flag="@X" onclick="openSidebar('TOTL_119_Act on Rumour',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/158_Boomcase Trooper.jpg" id="TOTL_158_Boomcase Trooper" data-flag="@X" onclick="openSidebar('TOTL_158_Boomcase Trooper',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/3_Ancestral Blessing.jpg" id="TOTL_3_Ancestral Blessing" data-flag="@X" onclick="openSidebar('TOTL_3_Ancestral Blessing',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/49_Highrise Hustler.jpg" id="TOTL_49_Highrise Hustler" data-flag="@X" onclick="openSidebar('TOTL_49_Highrise Hustler',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/83_Blightrazer.jpg" id="TOTL_83_Blightrazer" data-flag="@X" onclick="openSidebar('TOTL_83_Blightrazer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/121_Bloodnote Belcher.jpg" id="TOTL_121_Bloodnote Belcher" data-flag="@X" onclick="openSidebar('TOTL_121_Bloodnote Belcher',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/159_Collected Casting.jpg" id="TOTL_159_Collected Casting" data-flag="@X" onclick="openSidebar('TOTL_159_Collected Casting',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/9_Derelicts Denizen.jpg" id="TOTL_9_Derelicts Denizen" data-flag="@X" onclick="openSidebar('TOTL_9_Derelicts Denizen',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/50_Interurban Gridlock.jpg" id="TOTL_50_Interurban Gridlock" data-flag="@X" onclick="openSidebar('TOTL_50_Interurban Gridlock',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/85_Brown Line Cyclops.jpg" id="TOTL_85_Brown Line Cyclops" data-flag="@X" onclick="openSidebar('TOTL_85_Brown Line Cyclops',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/124_Collapse.jpg" id="TOTL_124_Collapse" data-flag="@X" onclick="openSidebar('TOTL_124_Collapse',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/160_Curiosity Cabineteer.jpg" id="TOTL_160_Curiosity Cabineteer" data-flag="@X" onclick="openSidebar('TOTL_160_Curiosity Cabineteer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/12_Floating Voidjaw.jpg" id="TOTL_12_Floating Voidjaw" data-flag="@X" onclick="openSidebar('TOTL_12_Floating Voidjaw',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/51_Laam Lung Channeler.jpg" id="TOTL_51_Laam Lung Channeler" data-flag="@X" onclick="openSidebar('TOTL_51_Laam Lung Channeler',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/86_Buck-Toothed Bloodfiend.jpg" id="TOTL_86_Buck-Toothed Bloodfiend" data-flag="@X" onclick="openSidebar('TOTL_86_Buck-Toothed Bloodfiend',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/125_The Director's Cut.jpg" id="TOTL_125_The Directors Cut" data-flag="@X" onclick="openSidebar('TOTL_125_The Directors Cut',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/161_Fwun Sah Eccentric.jpg" id="TOTL_161_Fwun Sah Eccentric" data-flag="@X" onclick="openSidebar('TOTL_161_Fwun Sah Eccentric',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/14_Fwun Sha Drycleaner.jpg" id="TOTL_14_Fwun Sha Drycleaner" data-flag="@X" onclick="openSidebar('TOTL_14_Fwun Sha Drycleaner',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/54_Maan Tsau Beholder.jpg" id="TOTL_54_Maan Tsau Beholder" data-flag="@X" onclick="openSidebar('TOTL_54_Maan Tsau Beholder',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/91_Disvertebrate.jpg" id="TOTL_91_Disvertebrate" data-flag="@X" onclick="openSidebar('TOTL_91_Disvertebrate',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/127_Filmsnap Addict.jpg" id="TOTL_127_Filmsnap Addict" data-flag="@X" onclick="openSidebar('TOTL_127_Filmsnap Addict',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/173_Obscene Mass.jpg" id="TOTL_173_Obscene Mass" data-flag="@X" onclick="openSidebar('TOTL_173_Obscene Mass',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/16_Golden Revolver.jpg" id="TOTL_16_Golden Revolver" data-flag="@X" onclick="openSidebar('TOTL_16_Golden Revolver',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/56_Ming Yue's Lucky Tile.jpg" id="TOTL_56_Ming Yues Lucky Tile" data-flag="@X" onclick="openSidebar('TOTL_56_Ming Yues Lucky Tile',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/92_Drowsy Jiangshi.jpg" id="TOTL_92_Drowsy Jiangshi" data-flag="@X" onclick="openSidebar('TOTL_92_Drowsy Jiangshi',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/128_Fire in the Hole.jpg" id="TOTL_128_Fire in the Hole" data-flag="@X" onclick="openSidebar('TOTL_128_Fire in the Hole',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/174_Precinct Eight Muscle.jpg" id="TOTL_174_Precinct Eight Muscle" data-flag="@X" onclick="openSidebar('TOTL_174_Precinct Eight Muscle',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/20_Its Fangs Are Sharp as Knives.jpg" id="TOTL_20_Its Fangs Are Sharp as Knives" data-flag="@X" onclick="openSidebar('TOTL_20_Its Fangs Are Sharp as Knives',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/60_Next Century Anxiety.jpg" id="TOTL_60_Next Century Anxiety" data-flag="@X" onclick="openSidebar('TOTL_60_Next Century Anxiety',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/93_Duress.jpg" id="TOTL_93_Duress" data-flag="@X" onclick="openSidebar('TOTL_93_Duress',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/131_Garrotte.jpg" id="TOTL_131_Garrotte" data-flag="@X" onclick="openSidebar('TOTL_131_Garrotte',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/178_Roots Among People.jpg" id="TOTL_178_Roots Among People" data-flag="@X" onclick="openSidebar('TOTL_178_Roots Among People',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/22_Lau Waan Exorsister.jpg" id="TOTL_22_Lau Waan Exorsister" data-flag="@X" onclick="openSidebar('TOTL_22_Lau Waan Exorsister',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/62_Peephole Peekers.jpg" id="TOTL_62_Peephole Peekers" data-flag="@X" onclick="openSidebar('TOTL_62_Peephole Peekers',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/96_Fu Luk Hoarder.jpg" id="TOTL_96_Fu Luk Hoarder" data-flag="@X" onclick="openSidebar('TOTL_96_Fu Luk Hoarder',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/137_Hung Gaai Rumourmonger.jpg" id="TOTL_137_Hung Gaai Rumourmonger" data-flag="@X" onclick="openSidebar('TOTL_137_Hung Gaai Rumourmonger',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/180_Rumour Eater.jpg" id="TOTL_180_Rumour Eater" data-flag="@X" onclick="openSidebar('TOTL_180_Rumour Eater',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/23_Light Before Dawn.jpg" id="TOTL_23_Light Before Dawn" data-flag="@X" onclick="openSidebar('TOTL_23_Light Before Dawn',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/65_Red Pocket Delivery.jpg" id="TOTL_65_Red Pocket Delivery" data-flag="@X" onclick="openSidebar('TOTL_65_Red Pocket Delivery',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/98_Grace Me With Your Presence.jpg" id="TOTL_98_Grace Me With Your Presence" data-flag="@X" onclick="openSidebar('TOTL_98_Grace Me With Your Presence',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/143_Lost Hatchling.jpg" id="TOTL_143_Lost Hatchling" data-flag="@X" onclick="openSidebar('TOTL_143_Lost Hatchling',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/181_The Sailor Who Tamed A Shark.jpg" id="TOTL_181_The Sailor Who Tamed A Shark" data-flag="@X" onclick="openSidebar('TOTL_181_The Sailor Who Tamed A Shark',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/28_Obviate.jpg" id="TOTL_28_Obviate" data-flag="@X" onclick="openSidebar('TOTL_28_Obviate',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/67_Revel in Its Cold Embrace.jpg" id="TOTL_67_Revel in Its Cold Embrace" data-flag="@X" onclick="openSidebar('TOTL_67_Revel in Its Cold Embrace',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/100_Haak Gaai Headhunter.jpg" id="TOTL_100_Haak Gaai Headhunter" data-flag="@X" onclick="openSidebar('TOTL_100_Haak Gaai Headhunter',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/144_Maw of the Pious.jpg" id="TOTL_144_Maw of the Pious" data-flag="@X" onclick="openSidebar('TOTL_144_Maw of the Pious',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/183_A Small Gesture.jpg" id="TOTL_183_A Small Gesture" data-flag="@X" onclick="openSidebar('TOTL_183_A Small Gesture',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/31_Relaxed Rookies.jpg" id="TOTL_31_Relaxed Rookies" data-flag="@X" onclick="openSidebar('TOTL_31_Relaxed Rookies',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/68_Scrapbeak.jpg" id="TOTL_68_Scrapbeak" data-flag="@X" onclick="openSidebar('TOTL_68_Scrapbeak',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/102_Hero's Downfall.jpg" id="TOTL_102_Heros Downfall" data-flag="@X" onclick="openSidebar('TOTL_102_Heros Downfall',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/147_Not My Monkeys.jpg" id="TOTL_147_Not My Monkeys" data-flag="@X" onclick="openSidebar('TOTL_147_Not My Monkeys',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/185_Street Food Break.jpg" id="TOTL_185_Street Food Break" data-flag="@X" onclick="openSidebar('TOTL_185_Street Food Break',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/34_Shrineguard Lion.jpg" id="TOTL_34_Shrineguard Lion" data-flag="@X" onclick="openSidebar('TOTL_34_Shrineguard Lion',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/70_Sick Moves.jpg" id="TOTL_70_Sick Moves" data-flag="@X" onclick="openSidebar('TOTL_70_Sick Moves',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/103_Id Drain.jpg" id="TOTL_103_Id Drain" data-flag="@X" onclick="openSidebar('TOTL_103_Id Drain',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/149_Paper Pusher Pyromaniac.jpg" id="TOTL_149_Paper Pusher Pyromaniac" data-flag="@X" onclick="openSidebar('TOTL_149_Paper Pusher Pyromaniac',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/188_Tetrad's Fist.jpg" id="TOTL_188_Tetrads Fist" data-flag="@X" onclick="openSidebar('TOTL_188_Tetrads Fist',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/36_Sophomore Exorsister.jpg" id="TOTL_36_Sophomore Exorsister" data-flag="@X" onclick="openSidebar('TOTL_36_Sophomore Exorsister',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/74_The Student Who Touched A Cloud.jpg" id="TOTL_74_The Student Who Touched A Cloud" data-flag="@X" onclick="openSidebar('TOTL_74_The Student Who Touched A Cloud',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/110_Smoke From Rubble.jpg" id="TOTL_110_Smoke From Rubble" data-flag="@X" onclick="openSidebar('TOTL_110_Smoke From Rubble',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/151_Shopping Spree.jpg" id="TOTL_151_Shopping Spree" data-flag="@X" onclick="openSidebar('TOTL_151_Shopping Spree',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/190_Tetragram Tracer.jpg" id="TOTL_190_Tetragram Tracer" data-flag="@X" onclick="openSidebar('TOTL_190_Tetragram Tracer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/38_Vigilant Veterans.jpg" id="TOTL_38_Vigilant Veterans" data-flag="@X" onclick="openSidebar('TOTL_38_Vigilant Veterans',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/75_Trawl the Resonet.jpg" id="TOTL_75_Trawl the Resonet" data-flag="@X" onclick="openSidebar('TOTL_75_Trawl the Resonet',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/111_Solitary Exorsister.jpg" id="TOTL_111_Solitary Exorsister" data-flag="@X" onclick="openSidebar('TOTL_111_Solitary Exorsister',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/155_Two-headed Crawler.jpg" id="TOTL_155_Two-headed Crawler" data-flag="@X" onclick="openSidebar('TOTL_155_Two-headed Crawler',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/191_Tower Block Goliath.jpg" id="TOTL_191_Tower Block Goliath" data-flag="@X" onclick="openSidebar('TOTL_191_Tower Block Goliath',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/40_The Warrior Maids of Haute Manor.jpg" id="TOTL_40_The Warrior Maids of Haute Manor" data-flag="@X" onclick="openSidebar('TOTL_40_The Warrior Maids of Haute Manor',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/77_Yih Wu Fiddler.jpg" id="TOTL_77_Yih Wu Fiddler" data-flag="@X" onclick="openSidebar('TOTL_77_Yih Wu Fiddler',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/112_The Soul Who Cheated Death.jpg" id="TOTL_112_The Soul Who Cheated Death" data-flag="@X" onclick="openSidebar('TOTL_112_The Soul Who Cheated Death',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/156_Wind-up Jiangshi.jpg" id="TOTL_156_Wind-up Jiangshi" data-flag="@X" onclick="openSidebar('TOTL_156_Wind-up Jiangshi',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/195_Your Hunger Growls Echo.jpg" id="TOTL_195_Your Hunger Growls Echo" data-flag="@X" onclick="openSidebar('TOTL_195_Your Hunger Growls Echo',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/5_Clanging Steel.jpg" id="TOTL_5_Clanging Steel" data-flag="@X" onclick="openSidebar('TOTL_5_Clanging Steel',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/41_Constrain.jpg" id="TOTL_41_Constrain" data-flag="@X" onclick="openSidebar('TOTL_41_Constrain',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/84_Botched Job.jpg" id="TOTL_84_Botched Job" data-flag="@X" onclick="openSidebar('TOTL_84_Botched Job',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/122_Bloodwhip.jpg" id="TOTL_122_Bloodwhip" data-flag="@X" onclick="openSidebar('TOTL_122_Bloodwhip',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/162_Gutsy Student.jpg" id="TOTL_162_Gutsy Student" data-flag="@X" onclick="openSidebar('TOTL_162_Gutsy Student',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/7_Cong Baak Skymaw.jpg" id="TOTL_7_Cong Baak Skymaw" data-flag="@X" onclick="openSidebar('TOTL_7_Cong Baak Skymaw',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/42_Constructed Cetacean.jpg" id="TOTL_42_Constructed Cetacean" data-flag="@X" onclick="openSidebar('TOTL_42_Constructed Cetacean',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/87_Crawling Shadow.jpg" id="TOTL_87_Crawling Shadow" data-flag="@X" onclick="openSidebar('TOTL_87_Crawling Shadow',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/123_Brighthorn Itinerant.jpg" id="TOTL_123_Brighthorn Itinerant" data-flag="@X" onclick="openSidebar('TOTL_123_Brighthorn Itinerant',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/163_Hirsute Haymaker.jpg" id="TOTL_163_Hirsute Haymaker" data-flag="@X" onclick="openSidebar('TOTL_163_Hirsute Haymaker',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/10_Determined Vigilante.jpg" id="TOTL_10_Determined Vigilante" data-flag="@X" onclick="openSidebar('TOTL_10_Determined Vigilante',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/43_Daring Acrobatics.jpg" id="TOTL_43_Daring Acrobatics" data-flag="@X" onclick="openSidebar('TOTL_43_Daring Acrobatics',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/89_Dark Alley Occultist.jpg" id="TOTL_89_Dark Alley Occultist" data-flag="@X" onclick="openSidebar('TOTL_89_Dark Alley Occultist',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/129_Flametend.jpg" id="TOTL_129_Flametend" data-flag="@X" onclick="openSidebar('TOTL_129_Flametend',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/165_Kaigun Quarter Guide.jpg" id="TOTL_165_Kaigun Quarter Guide" data-flag="@X" onclick="openSidebar('TOTL_165_Kaigun Quarter Guide',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/11_Eightwind Nineshield.jpg" id="TOTL_11_Eightwind Nineshield" data-flag="@X" onclick="openSidebar('TOTL_11_Eightwind Nineshield',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/44_Elevator Octopus Girl.jpg" id="TOTL_44_Elevator Octopus Girl" data-flag="@X" onclick="openSidebar('TOTL_44_Elevator Octopus Girl',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/90_Disparage.jpg" id="TOTL_90_Disparage" data-flag="@X" onclick="openSidebar('TOTL_90_Disparage',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/130_Foxhair Denizen.jpg" id="TOTL_130_Foxhair Denizen" data-flag="@X" onclick="openSidebar('TOTL_130_Foxhair Denizen',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/166_Lost Technique Punch.jpg" id="TOTL_166_Lost Technique Punch" data-flag="@X" onclick="openSidebar('TOTL_166_Lost Technique Punch',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/13_Frostwhip Siu Tse.jpg" id="TOTL_13_Frostwhip Siu Tse" data-flag="@X" onclick="openSidebar('TOTL_13_Frostwhip Siu Tse',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/45_Fangclaw Caller.jpg" id="TOTL_45_Fangclaw Caller" data-flag="@X" onclick="openSidebar('TOTL_45_Fangclaw Caller',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/94_Energy Drainer.jpg" id="TOTL_94_Energy Drainer" data-flag="@X" onclick="openSidebar('TOTL_94_Energy Drainer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/132_Ghost Chit Ignition.jpg" id="TOTL_132_Ghost Chit Ignition" data-flag="@X" onclick="openSidebar('TOTL_132_Ghost Chit Ignition',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/167_Lou Waan Curio Dealer.jpg" id="TOTL_167_Lou Waan Curio Dealer" data-flag="@X" onclick="openSidebar('TOTL_167_Lou Waan Curio Dealer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/18_Heung Street Tagger.jpg" id="TOTL_18_Heung Street Tagger" data-flag="@X" onclick="openSidebar('TOTL_18_Heung Street Tagger',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/52_Lok Seoi Gumshoes.jpg" id="TOTL_52_Lok Seoi Gumshoes" data-flag="@X" onclick="openSidebar('TOTL_52_Lok Seoi Gumshoes',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/97_Glory Be To Your Radiant Scales.jpg" id="TOTL_97_Glory Be To Your Radiant Scales" data-flag="@X" onclick="openSidebar('TOTL_97_Glory Be To Your Radiant Scales',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/133_The Girl Who Literally Blew Up.jpg" id="TOTL_133_The Girl Who Literally Blew Up" data-flag="@X" onclick="openSidebar('TOTL_133_The Girl Who Literally Blew Up',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/168_Lou Waan Vigilante.jpg" id="TOTL_168_Lou Waan Vigilante" data-flag="@X" onclick="openSidebar('TOTL_168_Lou Waan Vigilante',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/19_Impromptu Exorcism.jpg" id="TOTL_19_Impromptu Exorcism" data-flag="@X" onclick="openSidebar('TOTL_19_Impromptu Exorcism',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/53_Lost in the Crowd.jpg" id="TOTL_53_Lost in the Crowd" data-flag="@X" onclick="openSidebar('TOTL_53_Lost in the Crowd',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/99_Haak Gaai Dealer.jpg" id="TOTL_99_Haak Gaai Dealer" data-flag="@X" onclick="openSidebar('TOTL_99_Haak Gaai Dealer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/134_Hauntroom Consultant.jpg" id="TOTL_134_Hauntroom Consultant" data-flag="@X" onclick="openSidebar('TOTL_134_Hauntroom Consultant',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/171_Neon Gaze.jpg" id="TOTL_171_Neon Gaze" data-flag="@X" onclick="openSidebar('TOTL_171_Neon Gaze',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/21_Jiangshi Throng.jpg" id="TOTL_21_Jiangshi Throng" data-flag="@X" onclick="openSidebar('TOTL_21_Jiangshi Throng',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/57_Mobile Monitor.jpg" id="TOTL_57_Mobile Monitor" data-flag="@X" onclick="openSidebar('TOTL_57_Mobile Monitor',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/101_Her Gaze Pierces All Veils.jpg" id="TOTL_101_Her Gaze Pierces All Veils" data-flag="@X" onclick="openSidebar('TOTL_101_Her Gaze Pierces All Veils',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/138_Its Thirst is Unquenchable.jpg" id="TOTL_138_Its Thirst is Unquenchable" data-flag="@X" onclick="openSidebar('TOTL_138_Its Thirst is Unquenchable',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/175_Raining Frogs and Toads.jpg" id="TOTL_175_Raining Frogs and Toads" data-flag="@X" onclick="openSidebar('TOTL_175_Raining Frogs and Toads',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/24_Lowrise Line Cook.jpg" id="TOTL_24_Lowrise Line Cook" data-flag="@X" onclick="openSidebar('TOTL_24_Lowrise Line Cook',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/58_Moongorger.jpg" id="TOTL_58_Moongorger" data-flag="@X" onclick="openSidebar('TOTL_58_Moongorger',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/105_Ragged Beat Cop.jpg" id="TOTL_105_Ragged Beat Cop" data-flag="@X" onclick="openSidebar('TOTL_105_Ragged Beat Cop',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/139_Kaigun Infantry Veteran.jpg" id="TOTL_139_Kaigun Infantry Veteran" data-flag="@X" onclick="openSidebar('TOTL_139_Kaigun Infantry Veteran',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/176_Rainy Alley Devil.jpg" id="TOTL_176_Rainy Alley Devil" data-flag="@X" onclick="openSidebar('TOTL_176_Rainy Alley Devil',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/25_Midtower Lookout.jpg" id="TOTL_25_Midtower Lookout" data-flag="@X" onclick="openSidebar('TOTL_25_Midtower Lookout',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/59_Motorized Private Eye.jpg" id="TOTL_59_Motorized Private Eye" data-flag="@X" onclick="openSidebar('TOTL_59_Motorized Private Eye',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/107_Rumour Milling.jpg" id="TOTL_107_Rumour Milling" data-flag="@X" onclick="openSidebar('TOTL_107_Rumour Milling',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/140_Kaigun Quarter Hotshot.jpg" id="TOTL_140_Kaigun Quarter Hotshot" data-flag="@X" onclick="openSidebar('TOTL_140_Kaigun Quarter Hotshot',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/177_Rockmaw.jpg" id="TOTL_177_Rockmaw" data-flag="@X" onclick="openSidebar('TOTL_177_Rockmaw',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/26_Naau Gok Arcanist.jpg" id="TOTL_26_Naau Gok Arcanist" data-flag="@X" onclick="openSidebar('TOTL_26_Naau Gok Arcanist',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/63_Pocketshine.jpg" id="TOTL_63_Pocketshine" data-flag="@X" onclick="openSidebar('TOTL_63_Pocketshine',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/108_Shadow of Woe.jpg" id="TOTL_108_Shadow of Woe" data-flag="@X" onclick="openSidebar('TOTL_108_Shadow of Woe',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/145_Melting Grimace.jpg" id="TOTL_145_Melting Grimace" data-flag="@X" onclick="openSidebar('TOTL_145_Melting Grimace',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/182_Skyscrape.jpg" id="TOTL_182_Skyscrape" data-flag="@X" onclick="openSidebar('TOTL_182_Skyscrape',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/27_Nowhere Trip.jpg" id="TOTL_27_Nowhere Trip" data-flag="@X" onclick="openSidebar('TOTL_27_Nowhere Trip',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/64_Purple Line Whispermonger.jpg" id="TOTL_64_Purple Line Whispermonger" data-flag="@X" onclick="openSidebar('TOTL_64_Purple Line Whispermonger',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/113_Spiritual Dispute.jpg" id="TOTL_113_Spiritual Dispute" data-flag="@X" onclick="openSidebar('TOTL_113_Spiritual Dispute',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/146_Naau Gok Carver.jpg" id="TOTL_146_Naau Gok Carver" data-flag="@X" onclick="openSidebar('TOTL_146_Naau Gok Carver',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/184_Steelheight Horror.jpg" id="TOTL_184_Steelheight Horror" data-flag="@X" onclick="openSidebar('TOTL_184_Steelheight Horror',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/32_Salaried Seraph.jpg" id="TOTL_32_Salaried Seraph" data-flag="@X" onclick="openSidebar('TOTL_32_Salaried Seraph',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/66_Reflection.jpg" id="TOTL_66_Reflection" data-flag="@X" onclick="openSidebar('TOTL_66_Reflection',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/114_Tetrad Newblood.jpg" id="TOTL_114_Tetrad Newblood" data-flag="@X" onclick="openSidebar('TOTL_114_Tetrad Newblood',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/150_Redgate Ringer.jpg" id="TOTL_150_Redgate Ringer" data-flag="@X" onclick="openSidebar('TOTL_150_Redgate Ringer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/187_Tetrad Hooligan.jpg" id="TOTL_187_Tetrad Hooligan" data-flag="@X" onclick="openSidebar('TOTL_187_Tetrad Hooligan',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/33_Seraphic Bloodwing.jpg" id="TOTL_33_Seraphic Bloodwing" data-flag="@X" onclick="openSidebar('TOTL_33_Seraphic Bloodwing',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/73_Stop.jpg" id="TOTL_73_Stop" data-flag="@X" onclick="openSidebar('TOTL_73_Stop',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/115_Tetrad Shotcaller.jpg" id="TOTL_115_Tetrad Shotcaller" data-flag="@X" onclick="openSidebar('TOTL_115_Tetrad Shotcaller',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/152_Tetrad Capo.jpg" id="TOTL_152_Tetrad Capo" data-flag="@X" onclick="openSidebar('TOTL_152_Tetrad Capo',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/189_Tetrad's Hammer.jpg" id="TOTL_189_Tetrads Hammer" data-flag="@X" onclick="openSidebar('TOTL_189_Tetrads Hammer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/35_Slacking Sergeant.jpg" id="TOTL_35_Slacking Sergeant" data-flag="@X" onclick="openSidebar('TOTL_35_Slacking Sergeant',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/79_Your Thousand Eyes See All.jpg" id="TOTL_79_Your Thousand Eyes See All" data-flag="@X" onclick="openSidebar('TOTL_79_Your Thousand Eyes See All',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/116_Tsim Sha Gourmands.jpg" id="TOTL_116_Tsim Sha Gourmands" data-flag="@X" onclick="openSidebar('TOTL_116_Tsim Sha Gourmands',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/154_Tetrad Tactics.jpg" id="TOTL_154_Tetrad Tactics" data-flag="@X" onclick="openSidebar('TOTL_154_Tetrad Tactics',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/194_Work Horse.jpg" id="TOTL_194_Work Horse" data-flag="@X" onclick="openSidebar('TOTL_194_Work Horse',false)"></div>
+					<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/251.jpg" id="TOTL_251" data-flag="@X" onclick="openSidebar('TOTL_251',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/252.jpg" id="TOTL_252" data-flag="@X" onclick="openSidebar('TOTL_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/253.jpg" id="TOTL_253" data-flag="@X" onclick="openSidebar('TOTL_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/254.jpg" id="TOTL_254" data-flag="@X" onclick="openSidebar('TOTL_254',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/255.jpg" id="TOTL_255" data-flag="@X" onclick="openSidebar('TOTL_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/187.jpg" id="TOTL_187" data-flag="@X" onclick="openSidebar('TOTL_187',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/192.jpg" id="TOTL_192" data-flag="@X" onclick="openSidebar('TOTL_192',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/201.jpg" id="TOTL_201" data-flag="@X" onclick="openSidebar('TOTL_201',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/204.jpg" id="TOTL_204" data-flag="@X" onclick="openSidebar('TOTL_204',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/210.jpg" id="TOTL_210" data-flag="@X" onclick="openSidebar('TOTL_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/190.jpg" id="TOTL_190" data-flag="@X" onclick="openSidebar('TOTL_190',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/196.jpg" id="TOTL_196" data-flag="@X" onclick="openSidebar('TOTL_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/202.jpg" id="TOTL_202" data-flag="@X" onclick="openSidebar('TOTL_202',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/206.jpg" id="TOTL_206" data-flag="@X" onclick="openSidebar('TOTL_206',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/209.jpg" id="TOTL_209" data-flag="@X" onclick="openSidebar('TOTL_209',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/185.jpg" id="TOTL_185" data-flag="@X" onclick="openSidebar('TOTL_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/193.jpg" id="TOTL_193" data-flag="@X" onclick="openSidebar('TOTL_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/198.jpg" id="TOTL_198" data-flag="@X" onclick="openSidebar('TOTL_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/203.jpg" id="TOTL_203" data-flag="@X" onclick="openSidebar('TOTL_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/213.jpg" id="TOTL_213" data-flag="@X" onclick="openSidebar('TOTL_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/186.jpg" id="TOTL_186" data-flag="@X" onclick="openSidebar('TOTL_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/195.jpg" id="TOTL_195" data-flag="@X" onclick="openSidebar('TOTL_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/200.jpg" id="TOTL_200" data-flag="@X" onclick="openSidebar('TOTL_200',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/208.jpg" id="TOTL_208" data-flag="@X" onclick="openSidebar('TOTL_208',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/214.jpg" id="TOTL_214" data-flag="@X" onclick="openSidebar('TOTL_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/188.jpg" id="TOTL_188" data-flag="@X" onclick="openSidebar('TOTL_188',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/194.jpg" id="TOTL_194" data-flag="@X" onclick="openSidebar('TOTL_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/199.jpg" id="TOTL_199" data-flag="@X" onclick="openSidebar('TOTL_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/207.jpg" id="TOTL_207" data-flag="@X" onclick="openSidebar('TOTL_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/212.jpg" id="TOTL_212" data-flag="@X" onclick="openSidebar('TOTL_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/189.jpg" id="TOTL_189" data-flag="@X" onclick="openSidebar('TOTL_189',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/191.jpg" id="TOTL_191" data-flag="@X" onclick="openSidebar('TOTL_191',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/197.jpg" id="TOTL_197" data-flag="@X" onclick="openSidebar('TOTL_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/205.jpg" id="TOTL_205" data-flag="@X" onclick="openSidebar('TOTL_205',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/211.jpg" id="TOTL_211" data-flag="@X" onclick="openSidebar('TOTL_211',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/88.jpg" id="TOTL_88" data-flag="@X" onclick="openSidebar('TOTL_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/109.jpg" id="TOTL_109" data-flag="@X" onclick="openSidebar('TOTL_109',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/118.jpg" id="TOTL_118" data-flag="@X" onclick="openSidebar('TOTL_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/135.jpg" id="TOTL_135" data-flag="@X" onclick="openSidebar('TOTL_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/143.jpg" id="TOTL_143" data-flag="@X" onclick="openSidebar('TOTL_143',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/91.jpg" id="TOTL_91" data-flag="@X" onclick="openSidebar('TOTL_91',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/100.jpg" id="TOTL_100" data-flag="@X" onclick="openSidebar('TOTL_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/122.jpg" id="TOTL_122" data-flag="@X" onclick="openSidebar('TOTL_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/137.jpg" id="TOTL_137" data-flag="@X" onclick="openSidebar('TOTL_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/142.jpg" id="TOTL_142" data-flag="@X" onclick="openSidebar('TOTL_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/94.jpg" id="TOTL_94" data-flag="@X" onclick="openSidebar('TOTL_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/102.jpg" id="TOTL_102" data-flag="@X" onclick="openSidebar('TOTL_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/121.jpg" id="TOTL_121" data-flag="@X" onclick="openSidebar('TOTL_121',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/134.jpg" id="TOTL_134" data-flag="@X" onclick="openSidebar('TOTL_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/151.jpg" id="TOTL_151" data-flag="@X" onclick="openSidebar('TOTL_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/86.jpg" id="TOTL_86" data-flag="@X" onclick="openSidebar('TOTL_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/113.jpg" id="TOTL_113" data-flag="@X" onclick="openSidebar('TOTL_113',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/123.jpg" id="TOTL_123" data-flag="@X" onclick="openSidebar('TOTL_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/141.jpg" id="TOTL_141" data-flag="@X" onclick="openSidebar('TOTL_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/145.jpg" id="TOTL_145" data-flag="@X" onclick="openSidebar('TOTL_145',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/95.jpg" id="TOTL_95" data-flag="@X" onclick="openSidebar('TOTL_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/111.jpg" id="TOTL_111" data-flag="@X" onclick="openSidebar('TOTL_111',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/119.jpg" id="TOTL_119" data-flag="@X" onclick="openSidebar('TOTL_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/139.jpg" id="TOTL_139" data-flag="@X" onclick="openSidebar('TOTL_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/153.jpg" id="TOTL_153" data-flag="@X" onclick="openSidebar('TOTL_153',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/90.jpg" id="TOTL_90" data-flag="@X" onclick="openSidebar('TOTL_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/105.jpg" id="TOTL_105" data-flag="@X" onclick="openSidebar('TOTL_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/125.jpg" id="TOTL_125" data-flag="@X" onclick="openSidebar('TOTL_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/132.jpg" id="TOTL_132" data-flag="@X" onclick="openSidebar('TOTL_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/146.jpg" id="TOTL_146" data-flag="@X" onclick="openSidebar('TOTL_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/99.jpg" id="TOTL_99" data-flag="@X" onclick="openSidebar('TOTL_99',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/108.jpg" id="TOTL_108" data-flag="@X" onclick="openSidebar('TOTL_108',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/126.jpg" id="TOTL_126" data-flag="@X" onclick="openSidebar('TOTL_126',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/128.jpg" id="TOTL_128" data-flag="@X" onclick="openSidebar('TOTL_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/155.jpg" id="TOTL_155" data-flag="@X" onclick="openSidebar('TOTL_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/87.jpg" id="TOTL_87" data-flag="@X" onclick="openSidebar('TOTL_87',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/107.jpg" id="TOTL_107" data-flag="@X" onclick="openSidebar('TOTL_107',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/114.jpg" id="TOTL_114" data-flag="@X" onclick="openSidebar('TOTL_114',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/131.jpg" id="TOTL_131" data-flag="@X" onclick="openSidebar('TOTL_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/147.jpg" id="TOTL_147" data-flag="@X" onclick="openSidebar('TOTL_147',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/96.jpg" id="TOTL_96" data-flag="@X" onclick="openSidebar('TOTL_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/110.jpg" id="TOTL_110" data-flag="@X" onclick="openSidebar('TOTL_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/120.jpg" id="TOTL_120" data-flag="@X" onclick="openSidebar('TOTL_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/136.jpg" id="TOTL_136" data-flag="@X" onclick="openSidebar('TOTL_136',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/152.jpg" id="TOTL_152" data-flag="@X" onclick="openSidebar('TOTL_152',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/98.jpg" id="TOTL_98" data-flag="@X" onclick="openSidebar('TOTL_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/112.jpg" id="TOTL_112" data-flag="@X" onclick="openSidebar('TOTL_112',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/116.jpg" id="TOTL_116" data-flag="@X" onclick="openSidebar('TOTL_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/130.jpg" id="TOTL_130" data-flag="@X" onclick="openSidebar('TOTL_130',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/149.jpg" id="TOTL_149" data-flag="@X" onclick="openSidebar('TOTL_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/89.jpg" id="TOTL_89" data-flag="@X" onclick="openSidebar('TOTL_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/106.jpg" id="TOTL_106" data-flag="@X" onclick="openSidebar('TOTL_106',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/127.jpg" id="TOTL_127" data-flag="@X" onclick="openSidebar('TOTL_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/129.jpg" id="TOTL_129" data-flag="@X" onclick="openSidebar('TOTL_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/148.jpg" id="TOTL_148" data-flag="@X" onclick="openSidebar('TOTL_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/93.jpg" id="TOTL_93" data-flag="@X" onclick="openSidebar('TOTL_93',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/104.jpg" id="TOTL_104" data-flag="@X" onclick="openSidebar('TOTL_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/124.jpg" id="TOTL_124" data-flag="@X" onclick="openSidebar('TOTL_124',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/138.jpg" id="TOTL_138" data-flag="@X" onclick="openSidebar('TOTL_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/154.jpg" id="TOTL_154" data-flag="@X" onclick="openSidebar('TOTL_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/97.jpg" id="TOTL_97" data-flag="@X" onclick="openSidebar('TOTL_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/101.jpg" id="TOTL_101" data-flag="@X" onclick="openSidebar('TOTL_101',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/115.jpg" id="TOTL_115" data-flag="@X" onclick="openSidebar('TOTL_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/133.jpg" id="TOTL_133" data-flag="@X" onclick="openSidebar('TOTL_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/144.jpg" id="TOTL_144" data-flag="@X" onclick="openSidebar('TOTL_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/92.jpg" id="TOTL_92" data-flag="@X" onclick="openSidebar('TOTL_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/103.jpg" id="TOTL_103" data-flag="@X" onclick="openSidebar('TOTL_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/117.jpg" id="TOTL_117" data-flag="@X" onclick="openSidebar('TOTL_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/140.jpg" id="TOTL_140" data-flag="@X" onclick="openSidebar('TOTL_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/150.jpg" id="TOTL_150" data-flag="@X" onclick="openSidebar('TOTL_150',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/11.jpg" id="TOTL_11" data-flag="@X" onclick="openSidebar('TOTL_11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/33.jpg" id="TOTL_33" data-flag="@X" onclick="openSidebar('TOTL_33',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/49.jpg" id="TOTL_49" data-flag="@X" onclick="openSidebar('TOTL_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/64.jpg" id="TOTL_64" data-flag="@X" onclick="openSidebar('TOTL_64',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/67.jpg" id="TOTL_67" data-flag="@X" onclick="openSidebar('TOTL_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/14.jpg" id="TOTL_14" data-flag="@X" onclick="openSidebar('TOTL_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/24.jpg" id="TOTL_24" data-flag="@X" onclick="openSidebar('TOTL_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/39.jpg" id="TOTL_39" data-flag="@X" onclick="openSidebar('TOTL_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/55.jpg" id="TOTL_55" data-flag="@X" onclick="openSidebar('TOTL_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/76.jpg" id="TOTL_76" data-flag="@X" onclick="openSidebar('TOTL_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/19.jpg" id="TOTL_19" data-flag="@X" onclick="openSidebar('TOTL_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/34.jpg" id="TOTL_34" data-flag="@X" onclick="openSidebar('TOTL_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/43.jpg" id="TOTL_43" data-flag="@X" onclick="openSidebar('TOTL_43',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/61.jpg" id="TOTL_61" data-flag="@X" onclick="openSidebar('TOTL_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/68.jpg" id="TOTL_68" data-flag="@X" onclick="openSidebar('TOTL_68',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/7.jpg" id="TOTL_7" data-flag="@X" onclick="openSidebar('TOTL_7',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/32.jpg" id="TOTL_32" data-flag="@X" onclick="openSidebar('TOTL_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/48.jpg" id="TOTL_48" data-flag="@X" onclick="openSidebar('TOTL_48',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/63.jpg" id="TOTL_63" data-flag="@X" onclick="openSidebar('TOTL_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/69.jpg" id="TOTL_69" data-flag="@X" onclick="openSidebar('TOTL_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/9.jpg" id="TOTL_9" data-flag="@X" onclick="openSidebar('TOTL_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/22.jpg" id="TOTL_22" data-flag="@X" onclick="openSidebar('TOTL_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/37.jpg" id="TOTL_37" data-flag="@X" onclick="openSidebar('TOTL_37',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/56.jpg" id="TOTL_56" data-flag="@X" onclick="openSidebar('TOTL_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/73.jpg" id="TOTL_73" data-flag="@X" onclick="openSidebar('TOTL_73',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/16.jpg" id="TOTL_16" data-flag="@X" onclick="openSidebar('TOTL_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/28.jpg" id="TOTL_28" data-flag="@X" onclick="openSidebar('TOTL_28',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/36.jpg" id="TOTL_36" data-flag="@X" onclick="openSidebar('TOTL_36',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/59.jpg" id="TOTL_59" data-flag="@X" onclick="openSidebar('TOTL_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/79.jpg" id="TOTL_79" data-flag="@X" onclick="openSidebar('TOTL_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/18.jpg" id="TOTL_18" data-flag="@X" onclick="openSidebar('TOTL_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/23.jpg" id="TOTL_23" data-flag="@X" onclick="openSidebar('TOTL_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/44.jpg" id="TOTL_44" data-flag="@X" onclick="openSidebar('TOTL_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/57.jpg" id="TOTL_57" data-flag="@X" onclick="openSidebar('TOTL_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/66.jpg" id="TOTL_66" data-flag="@X" onclick="openSidebar('TOTL_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/6.jpg" id="TOTL_6" data-flag="@X" onclick="openSidebar('TOTL_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/21.jpg" id="TOTL_21" data-flag="@X" onclick="openSidebar('TOTL_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/46.jpg" id="TOTL_46" data-flag="@X" onclick="openSidebar('TOTL_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/53.jpg" id="TOTL_53" data-flag="@X" onclick="openSidebar('TOTL_53',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/71.jpg" id="TOTL_71" data-flag="@X" onclick="openSidebar('TOTL_71',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/13.jpg" id="TOTL_13" data-flag="@X" onclick="openSidebar('TOTL_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/20.jpg" id="TOTL_20" data-flag="@X" onclick="openSidebar('TOTL_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/45.jpg" id="TOTL_45" data-flag="@X" onclick="openSidebar('TOTL_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/52.jpg" id="TOTL_52" data-flag="@X" onclick="openSidebar('TOTL_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/78.jpg" id="TOTL_78" data-flag="@X" onclick="openSidebar('TOTL_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/15.jpg" id="TOTL_15" data-flag="@X" onclick="openSidebar('TOTL_15',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/31.jpg" id="TOTL_31" data-flag="@X" onclick="openSidebar('TOTL_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/38.jpg" id="TOTL_38" data-flag="@X" onclick="openSidebar('TOTL_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/60.jpg" id="TOTL_60" data-flag="@X" onclick="openSidebar('TOTL_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/77.jpg" id="TOTL_77" data-flag="@X" onclick="openSidebar('TOTL_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/8.jpg" id="TOTL_8" data-flag="@X" onclick="openSidebar('TOTL_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/27.jpg" id="TOTL_27" data-flag="@X" onclick="openSidebar('TOTL_27',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/42.jpg" id="TOTL_42" data-flag="@X" onclick="openSidebar('TOTL_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/58.jpg" id="TOTL_58" data-flag="@X" onclick="openSidebar('TOTL_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/74.jpg" id="TOTL_74" data-flag="@X" onclick="openSidebar('TOTL_74',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/5.jpg" id="TOTL_5" data-flag="@X" onclick="openSidebar('TOTL_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/25.jpg" id="TOTL_25" data-flag="@X" onclick="openSidebar('TOTL_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/40.jpg" id="TOTL_40" data-flag="@X" onclick="openSidebar('TOTL_40',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/51.jpg" id="TOTL_51" data-flag="@X" onclick="openSidebar('TOTL_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/72.jpg" id="TOTL_72" data-flag="@X" onclick="openSidebar('TOTL_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/10.jpg" id="TOTL_10" data-flag="@X" onclick="openSidebar('TOTL_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/26.jpg" id="TOTL_26" data-flag="@X" onclick="openSidebar('TOTL_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/47.jpg" id="TOTL_47" data-flag="@X" onclick="openSidebar('TOTL_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/50.jpg" id="TOTL_50" data-flag="@X" onclick="openSidebar('TOTL_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/70.jpg" id="TOTL_70" data-flag="@X" onclick="openSidebar('TOTL_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/17.jpg" id="TOTL_17" data-flag="@X" onclick="openSidebar('TOTL_17',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/29.jpg" id="TOTL_29" data-flag="@X" onclick="openSidebar('TOTL_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/41.jpg" id="TOTL_41" data-flag="@X" onclick="openSidebar('TOTL_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/62.jpg" id="TOTL_62" data-flag="@X" onclick="openSidebar('TOTL_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/75.jpg" id="TOTL_75" data-flag="@X" onclick="openSidebar('TOTL_75',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/12.jpg" id="TOTL_12" data-flag="@X" onclick="openSidebar('TOTL_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/30.jpg" id="TOTL_30" data-flag="@X" onclick="openSidebar('TOTL_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/35.jpg" id="TOTL_35" data-flag="@X" onclick="openSidebar('TOTL_35',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/54.jpg" id="TOTL_54" data-flag="@X" onclick="openSidebar('TOTL_54',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/65.jpg" id="TOTL_65" data-flag="@X" onclick="openSidebar('TOTL_65',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div id="gold" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/235_Special Agent Ming Yue.jpg" id="TOTL_235_Special Agent Ming Yue" data-flag="@X" onclick="openSidebar('TOTL_235_Special Agent Ming Yue',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/213_Fatal Finale.jpg" id="TOTL_213_Fatal Finale" data-flag="@X" onclick="openSidebar('TOTL_213_Fatal Finale',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/197_Akane & Kurone.jpg" id="TOTL_197_Akane & Kurone" data-flag="@X" onclick="openSidebar('TOTL_197_Akane & Kurone',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/222_Lily An, Exorcist Extraordinare.jpg" id="TOTL_222_Lily An, Exorcist Extraordinare" data-flag="@X" onclick="openSidebar('TOTL_222_Lily An, Exorcist Extraordinare',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/198_Amateur Threadseeker.jpg" id="TOTL_198_Amateur Threadseeker" data-flag="@X" onclick="openSidebar('TOTL_198_Amateur Threadseeker',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/211_Exorcist's Judgement.jpg" id="TOTL_211_Exorcists Judgement" data-flag="@X" onclick="openSidebar('TOTL_211_Exorcists Judgement',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/221_Laai Ban Jyu & Mystery Girl.jpg" id="TOTL_221_Laai Ban Jyu & Mystery Girl" data-flag="@X" onclick="openSidebar('TOTL_221_Laai Ban Jyu & Mystery Girl',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/236_Their Eons Ought Be Forgotten.jpg" id="TOTL_236_Their Eons Ought Be Forgotten" data-flag="@X" onclick="openSidebar('TOTL_236_Their Eons Ought Be Forgotten',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/212_Fangcurl Denizen.jpg" id="TOTL_212_Fangcurl Denizen" data-flag="@X" onclick="openSidebar('TOTL_212_Fangcurl Denizen',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/226_Qiao Xian & Qiao Hou.jpg" id="TOTL_226_Qiao Xian & Qiao Hou" data-flag="@X" onclick="openSidebar('TOTL_226_Qiao Xian & Qiao Hou',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/233_Smith & Nguyen.jpg" id="TOTL_233_Smith & Nguyen" data-flag="@X" onclick="openSidebar('TOTL_233_Smith & Nguyen',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/218_Invisible Skulker.jpg" id="TOTL_218_Invisible Skulker" data-flag="@X" onclick="openSidebar('TOTL_218_Invisible Skulker',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/209_Dragoncloak Scoundrel.jpg" id="TOTL_209_Dragoncloak Scoundrel" data-flag="@X" onclick="openSidebar('TOTL_209_Dragoncloak Scoundrel',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/230_Siu Coeng & Daai Paau.jpg" id="TOTL_230_Siu Coeng & Daai Paau" data-flag="@X" onclick="openSidebar('TOTL_230_Siu Coeng & Daai Paau',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/203_Citysight Guide.jpg" id="TOTL_203_Citysight Guide" data-flag="@X" onclick="openSidebar('TOTL_203_Citysight Guide',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/206_Curious Pair.jpg" id="TOTL_206_Curious Pair" data-flag="@X" onclick="openSidebar('TOTL_206_Curious Pair',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/227_Rubberneck Lookout.jpg" id="TOTL_227_Rubberneck Lookout" data-flag="@X" onclick="openSidebar('TOTL_227_Rubberneck Lookout',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/219_Joss Twig Tender.jpg" id="TOTL_219_Joss Twig Tender" data-flag="@X" onclick="openSidebar('TOTL_219_Joss Twig Tender',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/204_Copper Street Ride or Die.jpg" id="TOTL_204_Copper Street Ride or Die" data-flag="@X" onclick="openSidebar('TOTL_204_Copper Street Ride or Die',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/220_Kaigun Quarter Everyman.jpg" id="TOTL_220_Kaigun Quarter Everyman" data-flag="@X" onclick="openSidebar('TOTL_220_Kaigun Quarter Everyman',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/224_Precinct Eight Deskjockey.jpg" id="TOTL_224_Precinct Eight Deskjockey" data-flag="@X" onclick="openSidebar('TOTL_224_Precinct Eight Deskjockey',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/256.jpg" id="TOTL_256" data-flag="@X" onclick="openSidebar('TOTL_256',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/216.jpg" id="TOTL_216" data-flag="@X" onclick="openSidebar('TOTL_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/217.jpg" id="TOTL_217" data-flag="@X" onclick="openSidebar('TOTL_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/258.jpg" id="TOTL_258" data-flag="@X" onclick="openSidebar('TOTL_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/229.jpg" id="TOTL_229" data-flag="@X" onclick="openSidebar('TOTL_229',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/225.jpg" id="TOTL_225" data-flag="@X" onclick="openSidebar('TOTL_225',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/226.jpg" id="TOTL_226" data-flag="@X" onclick="openSidebar('TOTL_226',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/227.jpg" id="TOTL_227" data-flag="@X" onclick="openSidebar('TOTL_227',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/228.jpg" id="TOTL_228" data-flag="@X" onclick="openSidebar('TOTL_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/219.jpg" id="TOTL_219" data-flag="@X" onclick="openSidebar('TOTL_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/215.jpg" id="TOTL_215" data-flag="@X" onclick="openSidebar('TOTL_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/167.jpg" id="TOTL_167" data-flag="@X" onclick="openSidebar('TOTL_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/158.jpg" id="TOTL_158" data-flag="@X" onclick="openSidebar('TOTL_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/218.jpg" id="TOTL_218" data-flag="@X" onclick="openSidebar('TOTL_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/170.jpg" id="TOTL_170" data-flag="@X" onclick="openSidebar('TOTL_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/156.jpg" id="TOTL_156" data-flag="@X" onclick="openSidebar('TOTL_156',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/157.jpg" id="TOTL_157" data-flag="@X" onclick="openSidebar('TOTL_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/168.jpg" id="TOTL_168" data-flag="@X" onclick="openSidebar('TOTL_168',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/159.jpg" id="TOTL_159" data-flag="@X" onclick="openSidebar('TOTL_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/160.jpg" id="TOTL_160" data-flag="@X" onclick="openSidebar('TOTL_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/166.jpg" id="TOTL_166" data-flag="@X" onclick="openSidebar('TOTL_166',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/205_Copper Street Ruffian.jpg" id="TOTL_205_Copper Street Ruffian" data-flag="@X" onclick="openSidebar('TOTL_205_Copper Street Ruffian',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/215_Hal Sa-yi the Brightedge.jpg" id="TOTL_215_Hal Sa-yi the Brightedge" data-flag="@X" onclick="openSidebar('TOTL_215_Hal Sa-yi the Brightedge',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/217_Hung Sin & Laam Jyut.jpg" id="TOTL_217_Hung Sin & Laam Jyut" data-flag="@X" onclick="openSidebar('TOTL_217_Hung Sin & Laam Jyut',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/228_Shadow of the Ninth Dragon.jpg" id="TOTL_228_Shadow of the Ninth Dragon" data-flag="@X" onclick="openSidebar('TOTL_228_Shadow of the Ninth Dragon',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/207_Dai Tse & Siu Mui.jpg" id="TOTL_207_Dai Tse & Siu Mui" data-flag="@X" onclick="openSidebar('TOTL_207_Dai Tse & Siu Mui',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/223_Mildred & Teresa.jpg" id="TOTL_223_Mildred & Teresa" data-flag="@X" onclick="openSidebar('TOTL_223_Mildred & Teresa',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/214_Haak Faa & Baak Syut.jpg" id="TOTL_214_Haak Faa & Baak Syut" data-flag="@X" onclick="openSidebar('TOTL_214_Haak Faa & Baak Syut',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/225_Purple Line Arcanist.jpg" id="TOTL_225_Purple Line Arcanist" data-flag="@X" onclick="openSidebar('TOTL_225_Purple Line Arcanist',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/229_Siu Bau & Friendly Jiangshi.jpg" id="TOTL_229_Siu Bau & Friendly Jiangshi" data-flag="@X" onclick="openSidebar('TOTL_229_Siu Bau & Friendly Jiangshi',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/202_Cha Siu Street Butcher.jpg" id="TOTL_202_Cha Siu Street Butcher" data-flag="@X" onclick="openSidebar('TOTL_202_Cha Siu Street Butcher',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/200_Ambitious Ancestseer.jpg" id="TOTL_200_Ambitious Ancestseer" data-flag="@X" onclick="openSidebar('TOTL_200_Ambitious Ancestseer',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/201_Ambitious Phlebotomist.jpg" id="TOTL_201_Ambitious Phlebotomist" data-flag="@X" onclick="openSidebar('TOTL_201_Ambitious Phlebotomist',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/231_Skyline Exorcist.jpg" id="TOTL_231_Skyline Exorcist" data-flag="@X" onclick="openSidebar('TOTL_231_Skyline Exorcist',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/208_Derelicts Hexapod.jpg" id="TOTL_208_Derelicts Hexapod" data-flag="@X" onclick="openSidebar('TOTL_208_Derelicts Hexapod',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/234_Softear Restauranteur.jpg" id="TOTL_234_Softear Restauranteur" data-flag="@X" onclick="openSidebar('TOTL_234_Softear Restauranteur',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/210_Dreambreacher.jpg" id="TOTL_210_Dreambreacher" data-flag="@X" onclick="openSidebar('TOTL_210_Dreambreacher',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/237_Tiger Mother.jpg" id="TOTL_237_Tiger Mother" data-flag="@X" onclick="openSidebar('TOTL_237_Tiger Mother',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/232_Sluice Slinker.jpg" id="TOTL_232_Sluice Slinker" data-flag="@X" onclick="openSidebar('TOTL_232_Sluice Slinker',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/169.jpg" id="TOTL_169" data-flag="@X" onclick="openSidebar('TOTL_169',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/199_Ambassador Oukijo.jpg" id="TOTL_199_Ambassador Oukijo" data-flag="@X" onclick="openSidebar('TOTL_199_Ambassador Oukijo',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/216_The Hour of Heroes.jpg" id="TOTL_216_The Hour of Heroes" data-flag="@X" onclick="openSidebar('TOTL_216_The Hour of Heroes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/260.jpg" id="TOTL_260" data-flag="@X" onclick="openSidebar('TOTL_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/259.jpg" id="TOTL_259" data-flag="@X" onclick="openSidebar('TOTL_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/232.jpg" id="TOTL_232" data-flag="@X" onclick="openSidebar('TOTL_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/257.jpg" id="TOTL_257" data-flag="@X" onclick="openSidebar('TOTL_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/224.jpg" id="TOTL_224" data-flag="@X" onclick="openSidebar('TOTL_224',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/230.jpg" id="TOTL_230" data-flag="@X" onclick="openSidebar('TOTL_230',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/231.jpg" id="TOTL_231" data-flag="@X" onclick="openSidebar('TOTL_231',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/222.jpg" id="TOTL_222" data-flag="@X" onclick="openSidebar('TOTL_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/223.jpg" id="TOTL_223" data-flag="@X" onclick="openSidebar('TOTL_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/234.jpg" id="TOTL_234" data-flag="@X" onclick="openSidebar('TOTL_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/220.jpg" id="TOTL_220" data-flag="@X" onclick="openSidebar('TOTL_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/221.jpg" id="TOTL_221" data-flag="@X" onclick="openSidebar('TOTL_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/163.jpg" id="TOTL_163" data-flag="@X" onclick="openSidebar('TOTL_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/233.jpg" id="TOTL_233" data-flag="@X" onclick="openSidebar('TOTL_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/175.jpg" id="TOTL_175" data-flag="@X" onclick="openSidebar('TOTL_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/171.jpg" id="TOTL_171" data-flag="@X" onclick="openSidebar('TOTL_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/172.jpg" id="TOTL_172" data-flag="@X" onclick="openSidebar('TOTL_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/173.jpg" id="TOTL_173" data-flag="@X" onclick="openSidebar('TOTL_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/174.jpg" id="TOTL_174" data-flag="@X" onclick="openSidebar('TOTL_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/165.jpg" id="TOTL_165" data-flag="@X" onclick="openSidebar('TOTL_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/161.jpg" id="TOTL_161" data-flag="@X" onclick="openSidebar('TOTL_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/162.jpg" id="TOTL_162" data-flag="@X" onclick="openSidebar('TOTL_162',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/164.jpg" id="TOTL_164" data-flag="@X" onclick="openSidebar('TOTL_164',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/261.jpg" id="TOTL_261" data-flag="@X" onclick="openSidebar('TOTL_261',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/262.jpg" id="TOTL_262" data-flag="@X" onclick="openSidebar('TOTL_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/263.jpg" id="TOTL_263" data-flag="@X" onclick="openSidebar('TOTL_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/264.jpg" id="TOTL_264" data-flag="@X" onclick="openSidebar('TOTL_264',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/265.jpg" id="TOTL_265" data-flag="@X" onclick="openSidebar('TOTL_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/266.jpg" id="TOTL_266" data-flag="@X" onclick="openSidebar('TOTL_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/267.jpg" id="TOTL_267" data-flag="@X" onclick="openSidebar('TOTL_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/268.jpg" id="TOTL_268" data-flag="@X" onclick="openSidebar('TOTL_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/269.jpg" id="TOTL_269" data-flag="@X" onclick="openSidebar('TOTL_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/270.jpg" id="TOTL_270" data-flag="@X" onclick="openSidebar('TOTL_270',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div id="colorless" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/249_Urban Labyrinth.jpg" id="TOTL_249_Urban Labyrinth" data-flag="@X" onclick="openSidebar('TOTL_249_Urban Labyrinth',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/250_Wire Bodhisattva.jpg" id="TOTL_250_Wire Bodhisattva" data-flag="@X" onclick="openSidebar('TOTL_250_Wire Bodhisattva',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/1_Ancestral Altar.jpg" id="TOTL_1_Ancestral Altar" data-flag="@X" onclick="openSidebar('TOTL_1_Ancestral Altar',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/238_Ambulating Apartment.jpg" id="TOTL_238_Ambulating Apartment" data-flag="@X" onclick="openSidebar('TOTL_238_Ambulating Apartment',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/239_Arcade Crane Game.jpg" id="TOTL_239_Arcade Crane Game" data-flag="@X" onclick="openSidebar('TOTL_239_Arcade Crane Game',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/240_Backalley Juicesuit.jpg" id="TOTL_240_Backalley Juicesuit" data-flag="@X" onclick="openSidebar('TOTL_240_Backalley Juicesuit',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/241_Coinball.jpg" id="TOTL_241_Coinball" data-flag="@X" onclick="openSidebar('TOTL_241_Coinball',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/246_Neighbourhood Loop Bus.jpg" id="TOTL_246_Neighbourhood Loop Bus" data-flag="@X" onclick="openSidebar('TOTL_246_Neighbourhood Loop Bus',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/247_Paper Dragon.jpg" id="TOTL_247_Paper Dragon" data-flag="@X" onclick="openSidebar('TOTL_247_Paper Dragon',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/248_Rubbersludge Cab.jpg" id="TOTL_248_Rubbersludge Cab" data-flag="@X" onclick="openSidebar('TOTL_248_Rubbersludge Cab',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/242_Decoy Doll.jpg" id="TOTL_242_Decoy Doll" data-flag="@X" onclick="openSidebar('TOTL_242_Decoy Doll',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/243_Futuristic Hoverbike.jpg" id="TOTL_243_Futuristic Hoverbike" data-flag="@X" onclick="openSidebar('TOTL_243_Futuristic Hoverbike',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/244_Mark of Good Fortune.jpg" id="TOTL_244_Mark of Good Fortune" data-flag="@X" onclick="openSidebar('TOTL_244_Mark of Good Fortune',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/245_Mimic.jpg" id="TOTL_245_Mimic" data-flag="@X" onclick="openSidebar('TOTL_245_Mimic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/237.jpg" id="TOTL_237" data-flag="@X" onclick="openSidebar('TOTL_237',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/239.jpg" id="TOTL_239" data-flag="@X" onclick="openSidebar('TOTL_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/238.jpg" id="TOTL_238" data-flag="@X" onclick="openSidebar('TOTL_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/236.jpg" id="TOTL_236" data-flag="@X" onclick="openSidebar('TOTL_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/235.jpg" id="TOTL_235" data-flag="@X" onclick="openSidebar('TOTL_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/177.jpg" id="TOTL_177" data-flag="@X" onclick="openSidebar('TOTL_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/180.jpg" id="TOTL_180" data-flag="@X" onclick="openSidebar('TOTL_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/178.jpg" id="TOTL_178" data-flag="@X" onclick="openSidebar('TOTL_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/179.jpg" id="TOTL_179" data-flag="@X" onclick="openSidebar('TOTL_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/176.jpg" id="TOTL_176" data-flag="@X" onclick="openSidebar('TOTL_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/181.jpg" id="TOTL_181" data-flag="@X" onclick="openSidebar('TOTL_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/182.jpg" id="TOTL_182" data-flag="@X" onclick="openSidebar('TOTL_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/80.jpg" id="TOTL_80" data-flag="@X" onclick="openSidebar('TOTL_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/84.jpg" id="TOTL_84" data-flag="@X" onclick="openSidebar('TOTL_84',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/82.jpg" id="TOTL_82" data-flag="@X" onclick="openSidebar('TOTL_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/85.jpg" id="TOTL_85" data-flag="@X" onclick="openSidebar('TOTL_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/83.jpg" id="TOTL_83" data-flag="@X" onclick="openSidebar('TOTL_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/81.jpg" id="TOTL_81" data-flag="@X" onclick="openSidebar('TOTL_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/240.jpg" id="TOTL_240" data-flag="@X" onclick="openSidebar('TOTL_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/242.jpg" id="TOTL_242" data-flag="@X" onclick="openSidebar('TOTL_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/249.jpg" id="TOTL_249" data-flag="@X" onclick="openSidebar('TOTL_249',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/245.jpg" id="TOTL_245" data-flag="@X" onclick="openSidebar('TOTL_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/241.jpg" id="TOTL_241" data-flag="@X" onclick="openSidebar('TOTL_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/243.jpg" id="TOTL_243" data-flag="@X" onclick="openSidebar('TOTL_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/246.jpg" id="TOTL_246" data-flag="@X" onclick="openSidebar('TOTL_246',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/244.jpg" id="TOTL_244" data-flag="@X" onclick="openSidebar('TOTL_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/250.jpg" id="TOTL_250" data-flag="@X" onclick="openSidebar('TOTL_250',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/248.jpg" id="TOTL_248" data-flag="@X" onclick="openSidebar('TOTL_248',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/247.jpg" id="TOTL_247" data-flag="@X" onclick="openSidebar('TOTL_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/184.jpg" id="TOTL_184" data-flag="@X" onclick="openSidebar('TOTL_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/183.jpg" id="TOTL_183" data-flag="@X" onclick="openSidebar('TOTL_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/253_Deepstar Generator.jpg" id="TOTL_253_Deepstar Generator" data-flag="@X" onclick="openSidebar('TOTL_253_Deepstar Generator',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/256_Sunset Classroom.jpg" id="TOTL_256_Sunset Classroom" data-flag="@X" onclick="openSidebar('TOTL_256_Sunset Classroom',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/254_Midnight Nook.jpg" id="TOTL_254_Midnight Nook" data-flag="@X" onclick="openSidebar('TOTL_254_Midnight Nook',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/252_Daybreak Platform.jpg" id="TOTL_252_Daybreak Platform" data-flag="@X" onclick="openSidebar('TOTL_252_Daybreak Platform',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/257_Twilight Canteen.jpg" id="TOTL_257_Twilight Canteen" data-flag="@X" onclick="openSidebar('TOTL_257_Twilight Canteen',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/251_Cramped Archive.jpg" id="TOTL_251_Cramped Archive" data-flag="@X" onclick="openSidebar('TOTL_251_Cramped Archive',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/255_Skyward Vista.jpg" id="TOTL_255_Skyward Vista" data-flag="@X" onclick="openSidebar('TOTL_255_Skyward Vista',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/258_Warped Cityscape.jpg" id="TOTL_258_Warped Cityscape" data-flag="@X" onclick="openSidebar('TOTL_258_Warped Cityscape',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/0.jpg" id="TOTL_0" data-flag="@X" onclick="openSidebar('TOTL_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/1.jpg" id="TOTL_1" data-flag="@X" onclick="openSidebar('TOTL_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/2.jpg" id="TOTL_2" data-flag="@X" onclick="openSidebar('TOTL_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/3.jpg" id="TOTL_3" data-flag="@X" onclick="openSidebar('TOTL_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/4.jpg" id="TOTL_4" data-flag="@X" onclick="openSidebar('TOTL_4',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="TOTL_er" data-flag="@E" onclick="openSidebar('TOTL_er',false)"></div>
 				<div id="token" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/1t_City's Blessing.jpg" id="TOTL_1t_Citys Blessing" data-flag="@X" onclick="openSidebar('TOTL_1t_Citys Blessing',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/2t_Horror.jpg" id="TOTL_2t_Horror" data-flag="@X" onclick="openSidebar('TOTL_2t_Horror',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/10t_Food.jpg" id="TOTL_10t_Food" data-flag="@X" onclick="openSidebar('TOTL_10t_Food',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/11t_Talisman.jpg" id="TOTL_11t_Talisman" data-flag="@X" onclick="openSidebar('TOTL_11t_Talisman',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/12t_Toy.jpg" id="TOTL_12t_Toy" data-flag="@X" onclick="openSidebar('TOTL_12t_Toy',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/3t_Spirit.jpg" id="TOTL_3t_Spirit" data-flag="@X" onclick="openSidebar('TOTL_3t_Spirit',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/4t_Dragon Illusion.jpg" id="TOTL_4t_Dragon Illusion" data-flag="@X" onclick="openSidebar('TOTL_4t_Dragon Illusion',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/5t_Rogue.jpg" id="TOTL_5t_Rogue" data-flag="@X" onclick="openSidebar('TOTL_5t_Rogue',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/6t_Blood Homunculus.jpg" id="TOTL_6t_Blood Homunculus" data-flag="@X" onclick="openSidebar('TOTL_6t_Blood Homunculus',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/7t_Monkey.jpg" id="TOTL_7t_Monkey" data-flag="@X" onclick="openSidebar('TOTL_7t_Monkey',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/8t_Citizen.jpg" id="TOTL_8t_Citizen" data-flag="@X" onclick="openSidebar('TOTL_8t_Citizen',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/9t_Snake.jpg" id="TOTL_9t_Snake" data-flag="@X" onclick="openSidebar('TOTL_9t_Snake',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/281.jpg" id="TOTL_281" data-flag="@X" onclick="openSidebar('TOTL_281',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/275.jpg" id="TOTL_275" data-flag="@X" onclick="openSidebar('TOTL_275',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/272.jpg" id="TOTL_272" data-flag="@X" onclick="openSidebar('TOTL_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/273.jpg" id="TOTL_273" data-flag="@X" onclick="openSidebar('TOTL_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/280.jpg" id="TOTL_280" data-flag="@X" onclick="openSidebar('TOTL_280',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/277.jpg" id="TOTL_277" data-flag="@X" onclick="openSidebar('TOTL_277',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/278.jpg" id="TOTL_278" data-flag="@X" onclick="openSidebar('TOTL_278',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/276.jpg" id="TOTL_276" data-flag="@X" onclick="openSidebar('TOTL_276',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/271.jpg" id="TOTL_271" data-flag="@X" onclick="openSidebar('TOTL_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/279.jpg" id="TOTL_279" data-flag="@X" onclick="openSidebar('TOTL_279',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/TOTL-files/img/274.jpg" id="TOTL_274" data-flag="@X" onclick="openSidebar('TOTL_274',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="TOTL_e" data-flag="@E" onclick="openSidebar('TOTL_e',false)"></div>
@@ -648,7 +697,7 @@
 					if (card.notes) {
 						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
 						for (const match of tagMatches) {
-							all_tags.add(match[1]);
+							all_tags.add(match[1].toLowerCase());
 						}
 					}
 				});

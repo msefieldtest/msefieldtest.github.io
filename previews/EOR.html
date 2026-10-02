@@ -184,28 +184,34 @@
 	<img class="preload-hidden" src="../img/dot.png" />
 	<img class="preload-hidden" src="../sets/EOR-files/logo.png" />
 	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
-		<img class="preload-hidden" src="../sets/ASM-files/icon.png" />
-		<img class="preload-hidden" src="../sets/COD-files/icon.png" />
 		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
-		<img class="preload-hidden" src="../sets/ONI-files/icon.png" />
-		<img class="preload-hidden" src="../sets/RNF-files/icon.png" />
-		<img class="preload-hidden" src="../sets/WDW-files/icon.png" />
-		<img class="preload-hidden" src="../sets/BRE-files/icon.png" />
-		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MST-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SSC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WHL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/XCX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ECB-files/icon.png" />
 		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
-		<img class="preload-hidden" src="../sets/ORD-files/icon.png" />
-		<img class="preload-hidden" src="../sets/SMB-files/icon.png" />
-		<img class="preload-hidden" src="../sets/TBC-files/icon.png" />
-		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
-		<img class="preload-hidden" src="../sets/VTK-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TFF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WBY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AWA-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EAJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/M6D-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RAW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SPX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TLB-files/icon.png" />
 		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
-		<img class="preload-hidden" src="../sets/BLD-files/icon.png" />
-		<img class="preload-hidden" src="../sets/CLE-files/icon.png" />
-		<img class="preload-hidden" src="../sets/HWK-files/icon.png" />
-		<img class="preload-hidden" src="../sets/KLB-files/icon.png" />
-		<img class="preload-hidden" src="../sets/MOX-files/icon.png" />
-		<img class="preload-hidden" src="../sets/POP2-files/icon.png" />
-		<img class="preload-hidden" src="../sets/SGP-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/DRM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EVO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FIM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
 		<div class="header">
 		<div class="search-grid">
 			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
@@ -215,7 +221,9 @@
 				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
 			</div>
 			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
-			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
 			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
 		</div>
 	</div>
@@ -224,8 +232,22 @@
 			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
 			document.getElementById("header-search").src = rootPath + "/img/search.png";
 			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
-			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
 			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
 		});
 
 		function goToSearch() {
@@ -237,49 +259,61 @@
 	
 		<a class="set-bar" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
 	
-		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">2HU Miniset Collection</a>
-	
-		<a class="set-bar inactive" href="../previews/ASM"><img src="../sets/ASM-files/icon.png">Amonkhet: Schism</a>
-	
-		<a class="set-bar inactive" href="../previews/COD"><img src="../sets/COD-files/icon.png">Children of Dawn</a>
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">UB Touhou Miniset Collection</a>
 	
 		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
 	
-		<a class="set-bar inactive" href="../previews/ONI"><img src="../sets/ONI-files/icon.png">Onigaiko: Future Past</a>
+		<a class="set-bar inactive" href="../previews/HEX"><img src="../sets/HEX-files/icon.png">The Hex Games</a>
 	
-		<a class="set-bar inactive" href="../previews/RNF"><img src="../sets/RNF-files/icon.png">Ravnica’s Awakening</a>
+		<a class="set-bar inactive" href="../previews/MST"><img src="../sets/MST-files/icon.png">Rural Dwellings, in Seafoam Mist</a>
 	
-		<a class="set-bar inactive" href="../previews/WDW"><img src="../sets/WDW-files/icon.png">Waters of a Drowned World</a>
+		<a class="set-bar inactive" href="../previews/SSC"><img src="../sets/SSC-files/icon.png">Shiyue: Soul's Crossing</a>
 	
-		<a class="set-bar inactive" href="../previews/BRE"><img src="../sets/BRE-files/icon.png">Kaldheim: Bretagard’s Revival</a>
+		<a class="set-bar inactive" href="../previews/WHL"><img src="../sets/WHL-files/icon.png">Building Fortune's Wheel</a>
+	
+		<a class="set-bar inactive" href="../previews/XCX"><img src="../sets/XCX-files/icon.png">Xenoblade Chronicles X</a>
+	
+		<a class="set-bar inactive" href="../previews/ECB"><img src="../sets/ECB-files/icon.png">Elnyreth: Contact With Those Beyond</a>
 	
 		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
 	
-		<a class="set-bar inactive" href="../previews/ORD"><img src="../sets/ORD-files/icon.png">Crucible of Ordeval</a>
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
 	
-		<a class="set-bar inactive" href="../previews/SMB"><img src="../sets/SMB-files/icon.png">Magic the Gathering | Super Mario Brothers</a>
+		<a class="set-bar inactive" href="../previews/TEX"><img src="../sets/TEX-files/icon.png">Tarkir: Extinction</a>
 	
-		<a class="set-bar inactive" href="../previews/TBC"><img src="../sets/TBC-files/icon.png">Nemyria: The Beautiful Collapse</a>
+		<a class="set-bar inactive" href="../previews/TFF"><img src="../sets/TFF-files/icon.png">Dark Souls: The Fire Fades</a>
 	
-		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Tin Lau</a>
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
 	
-		<a class="set-bar inactive" href="../previews/VTK"><img src="../sets/VTK-files/icon.png">Vaelcairn, Tomb of Kingdoms</a>
+		<a class="set-bar inactive" href="../previews/WBY"><img src="../sets/WBY-files/icon.png">Wild Blue Yonder</a>
+	
+		<a class="set-bar inactive" href="../previews/AWA"><img src="../sets/AWA-files/icon.png">Anglodoor Awakened</a>
+	
+		<a class="set-bar inactive" href="../previews/EAJ"><img src="../sets/EAJ-files/icon.png">Eternal Autumn of Javor</a>
+	
+		<a class="set-bar inactive" href="../previews/M6D"><img src="../sets/M6D-files/icon.png">Mysticism of the Sixth Day</a>
+	
+		<a class="set-bar inactive" href="../previews/RAW"><img src="../sets/RAW-files/icon.png">Ravnica's Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/SPX"><img src="../sets/SPX-files/icon.png">Splendor of Excelsior</a>
+	
+		<a class="set-bar inactive" href="../previews/TEL"><img src="../sets/TEL-files/icon.png">Theros: The Elekteid</a>
+	
+		<a class="set-bar inactive" href="../previews/TLB"><img src="../sets/TLB-files/icon.png">The Lands Between</a>
 	
 		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
 	
-		<a class="set-bar inactive" href="../previews/BLD"><img src="../sets/BLD-files/icon.png">Bloodborne</a>
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
 	
-		<a class="set-bar inactive" href="../previews/CLE"><img src="../sets/CLE-files/icon.png">Clearingsong</a>
+		<a class="set-bar inactive" href="../previews/DRM"><img src="../sets/DRM-files/icon.png">Dreamers of Antausia</a>
 	
-		<a class="set-bar inactive" href="../previews/HWK"><img src="../sets/HWK-files/icon.png">Haishan: Warring Kingdoms</a>
+		<a class="set-bar inactive" href="../previews/EVO"><img src="../sets/EVO-files/icon.png">Evolution on Srai-Val-Nul</a>
 	
-		<a class="set-bar inactive" href="../previews/KLB"><img src="../sets/KLB-files/icon.png">Kitsuo: the Last Bloom</a>
+		<a class="set-bar inactive" href="../previews/FIM"><img src="../sets/FIM-files/icon.png">Periss: Friendship is Magic</a>
 	
-		<a class="set-bar inactive" href="../previews/MOX"><img src="../sets/MOX-files/icon.png">Midnight Omens of Xogoa</a>
+		<a class="set-bar inactive" href="../previews/ORE"><img src="../sets/ORE-files/icon.png">Orestan</a>
 	
-		<a class="set-bar inactive" href="../previews/POP2"><img src="../sets/POP2-files/icon.png">Prismavision</a>
-	
-		<a class="set-bar inactive" href="../previews/SGP"><img src="../sets/SGP-files/icon.png">Stirrings in Goldport</a>
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Towers of Tin Lau</a>
 	
 		</div>
 		<div class="banner">
@@ -287,269 +321,299 @@
 		</div>
 		<div class="main-content" id="main-content">
 			<div class="grid-container">
-					<div class="container"><img loading="lazy" alt="sets/EOR-files/img/36.jpg" id="EOR_36" data-flag="@X" onclick="openSidebar('EOR_36',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/74.jpg" id="EOR_74" data-flag="@X" onclick="openSidebar('EOR_74',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/114.jpg" id="EOR_114" data-flag="@X" onclick="openSidebar('EOR_114',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/152.jpg" id="EOR_152" data-flag="@X" onclick="openSidebar('EOR_152',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/191.jpg" id="EOR_191" data-flag="@X" onclick="openSidebar('EOR_191',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/37.jpg" id="EOR_37" data-flag="@X" onclick="openSidebar('EOR_37',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/76.jpg" id="EOR_76" data-flag="@X" onclick="openSidebar('EOR_76',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/116.jpg" id="EOR_116" data-flag="@X" onclick="openSidebar('EOR_116',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/155.jpg" id="EOR_155" data-flag="@X" onclick="openSidebar('EOR_155',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/193.jpg" id="EOR_193" data-flag="@X" onclick="openSidebar('EOR_193',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/38.jpg" id="EOR_38" data-flag="@X" onclick="openSidebar('EOR_38',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/75.jpg" id="EOR_75" data-flag="@X" onclick="openSidebar('EOR_75',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/115.jpg" id="EOR_115" data-flag="@X" onclick="openSidebar('EOR_115',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/153.jpg" id="EOR_153" data-flag="@X" onclick="openSidebar('EOR_153',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/194.jpg" id="EOR_194" data-flag="@X" onclick="openSidebar('EOR_194',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/35.jpg" id="EOR_35" data-flag="@X" onclick="openSidebar('EOR_35',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/77.jpg" id="EOR_77" data-flag="@X" onclick="openSidebar('EOR_77',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/113.jpg" id="EOR_113" data-flag="@X" onclick="openSidebar('EOR_113',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/154.jpg" id="EOR_154" data-flag="@X" onclick="openSidebar('EOR_154',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/192.jpg" id="EOR_192" data-flag="@X" onclick="openSidebar('EOR_192',false)"></div>
+					<div class="container"><img loading="lazy" alt="sets/EOR-files/img/35.jpg" id="EOR_35" data-flag="@X" onclick="openSidebar('EOR_35',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/72.jpg" id="EOR_72" data-flag="@X" onclick="openSidebar('EOR_72',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/112.jpg" id="EOR_112" data-flag="@X" onclick="openSidebar('EOR_112',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/150.jpg" id="EOR_150" data-flag="@X" onclick="openSidebar('EOR_150',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/189.jpg" id="EOR_189" data-flag="@X" onclick="openSidebar('EOR_189',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/36.jpg" id="EOR_36" data-flag="@X" onclick="openSidebar('EOR_36',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/74.jpg" id="EOR_74" data-flag="@X" onclick="openSidebar('EOR_74',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/114.jpg" id="EOR_114" data-flag="@X" onclick="openSidebar('EOR_114',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/153.jpg" id="EOR_153" data-flag="@X" onclick="openSidebar('EOR_153',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/191.jpg" id="EOR_191" data-flag="@X" onclick="openSidebar('EOR_191',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/37.jpg" id="EOR_37" data-flag="@X" onclick="openSidebar('EOR_37',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/73.jpg" id="EOR_73" data-flag="@X" onclick="openSidebar('EOR_73',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/113.jpg" id="EOR_113" data-flag="@X" onclick="openSidebar('EOR_113',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/151.jpg" id="EOR_151" data-flag="@X" onclick="openSidebar('EOR_151',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/192.jpg" id="EOR_192" data-flag="@X" onclick="openSidebar('EOR_192',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/34.jpg" id="EOR_34" data-flag="@X" onclick="openSidebar('EOR_34',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/75.jpg" id="EOR_75" data-flag="@X" onclick="openSidebar('EOR_75',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/111.jpg" id="EOR_111" data-flag="@X" onclick="openSidebar('EOR_111',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/152.jpg" id="EOR_152" data-flag="@X" onclick="openSidebar('EOR_152',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/190.jpg" id="EOR_190" data-flag="@X" onclick="openSidebar('EOR_190',true)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/27.jpg" id="EOR_27" data-flag="@X" onclick="openSidebar('EOR_27',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/69.jpg" id="EOR_69" data-flag="@X" onclick="openSidebar('EOR_69',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/70.jpg" id="EOR_70" data-flag="@X" onclick="openSidebar('EOR_70',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/104.jpg" id="EOR_104" data-flag="@X" onclick="openSidebar('EOR_104',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/142.jpg" id="EOR_142" data-flag="@X" onclick="openSidebar('EOR_142',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/184.jpg" id="EOR_184" data-flag="@X" onclick="openSidebar('EOR_184',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/31.jpg" id="EOR_31" data-flag="@X" onclick="openSidebar('EOR_31',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/65.jpg" id="EOR_65" data-flag="@X" onclick="openSidebar('EOR_65',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/106.jpg" id="EOR_106" data-flag="@X" onclick="openSidebar('EOR_106',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/144.jpg" id="EOR_144" data-flag="@X" onclick="openSidebar('EOR_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/149.jpg" id="EOR_149" data-flag="@X" onclick="openSidebar('EOR_149',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/185.jpg" id="EOR_185" data-flag="@X" onclick="openSidebar('EOR_185',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/32.jpg" id="EOR_32" data-flag="@X" onclick="openSidebar('EOR_32',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/251.jpg" id="EOR_251" data-flag="@X" onclick="openSidebar('EOR_251',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/105.jpg" id="EOR_105" data-flag="@X" onclick="openSidebar('EOR_105',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/148.jpg" id="EOR_148" data-flag="@X" onclick="openSidebar('EOR_148',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/186.jpg" id="EOR_186" data-flag="@X" onclick="openSidebar('EOR_186',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/30.jpg" id="EOR_30" data-flag="@X" onclick="openSidebar('EOR_30',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/66.jpg" id="EOR_66" data-flag="@X" onclick="openSidebar('EOR_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/102.jpg" id="EOR_102" data-flag="@X" onclick="openSidebar('EOR_102',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/145.jpg" id="EOR_145" data-flag="@X" onclick="openSidebar('EOR_145',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/187.jpg" id="EOR_187" data-flag="@X" onclick="openSidebar('EOR_187',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/33.jpg" id="EOR_33" data-flag="@X" onclick="openSidebar('EOR_33',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/72.jpg" id="EOR_72" data-flag="@X" onclick="openSidebar('EOR_72',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/67.jpg" id="EOR_67" data-flag="@X" onclick="openSidebar('EOR_67',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/110.jpg" id="EOR_110" data-flag="@X" onclick="openSidebar('EOR_110',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/146.jpg" id="EOR_146" data-flag="@X" onclick="openSidebar('EOR_146',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/181.jpg" id="EOR_181" data-flag="@X" onclick="openSidebar('EOR_181',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/29.jpg" id="EOR_29" data-flag="@X" onclick="openSidebar('EOR_29',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/69.jpg" id="EOR_69" data-flag="@X" onclick="openSidebar('EOR_69',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/108.jpg" id="EOR_108" data-flag="@X" onclick="openSidebar('EOR_108',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/151.jpg" id="EOR_151" data-flag="@X" onclick="openSidebar('EOR_151',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/147.jpg" id="EOR_147" data-flag="@X" onclick="openSidebar('EOR_147',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/188.jpg" id="EOR_188" data-flag="@X" onclick="openSidebar('EOR_188',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/31.jpg" id="EOR_31" data-flag="@X" onclick="openSidebar('EOR_31',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/66.jpg" id="EOR_66" data-flag="@X" onclick="openSidebar('EOR_66',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/250.jpg" id="EOR_250" data-flag="@X" onclick="openSidebar('EOR_250',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/68.jpg" id="EOR_68" data-flag="@X" onclick="openSidebar('EOR_68',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/107.jpg" id="EOR_107" data-flag="@X" onclick="openSidebar('EOR_107',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/150.jpg" id="EOR_150" data-flag="@X" onclick="openSidebar('EOR_150',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/189.jpg" id="EOR_189" data-flag="@X" onclick="openSidebar('EOR_189',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/34.jpg" id="EOR_34" data-flag="@X" onclick="openSidebar('EOR_34',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/144.jpg" id="EOR_144" data-flag="@X" onclick="openSidebar('EOR_144',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/183.jpg" id="EOR_183" data-flag="@X" onclick="openSidebar('EOR_183',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/28.jpg" id="EOR_28" data-flag="@X" onclick="openSidebar('EOR_28',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/71.jpg" id="EOR_71" data-flag="@X" onclick="openSidebar('EOR_71',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/109.jpg" id="EOR_109" data-flag="@X" onclick="openSidebar('EOR_109',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/148.jpg" id="EOR_148" data-flag="@X" onclick="openSidebar('EOR_148',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/183.jpg" id="EOR_183" data-flag="@X" onclick="openSidebar('EOR_183',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/30.jpg" id="EOR_30" data-flag="@X" onclick="openSidebar('EOR_30',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/67.jpg" id="EOR_67" data-flag="@X" onclick="openSidebar('EOR_67',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/104.jpg" id="EOR_104" data-flag="@X" onclick="openSidebar('EOR_104',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/149.jpg" id="EOR_149" data-flag="@X" onclick="openSidebar('EOR_149',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/190.jpg" id="EOR_190" data-flag="@X" onclick="openSidebar('EOR_190',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/29.jpg" id="EOR_29" data-flag="@X" onclick="openSidebar('EOR_29',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/68.jpg" id="EOR_68" data-flag="@X" onclick="openSidebar('EOR_68',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/112.jpg" id="EOR_112" data-flag="@X" onclick="openSidebar('EOR_112',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/146.jpg" id="EOR_146" data-flag="@X" onclick="openSidebar('EOR_146',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/185.jpg" id="EOR_185" data-flag="@X" onclick="openSidebar('EOR_185',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/28.jpg" id="EOR_28" data-flag="@X" onclick="openSidebar('EOR_28',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/70.jpg" id="EOR_70" data-flag="@X" onclick="openSidebar('EOR_70',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/110.jpg" id="EOR_110" data-flag="@X" onclick="openSidebar('EOR_110',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/145.jpg" id="EOR_145" data-flag="@X" onclick="openSidebar('EOR_145',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/184.jpg" id="EOR_184" data-flag="@X" onclick="openSidebar('EOR_184',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/32.jpg" id="EOR_32" data-flag="@X" onclick="openSidebar('EOR_32',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/73.jpg" id="EOR_73" data-flag="@X" onclick="openSidebar('EOR_73',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/111.jpg" id="EOR_111" data-flag="@X" onclick="openSidebar('EOR_111',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/147.jpg" id="EOR_147" data-flag="@X" onclick="openSidebar('EOR_147',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/186.jpg" id="EOR_186" data-flag="@X" onclick="openSidebar('EOR_186',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/17.jpg" id="EOR_17" data-flag="@X" onclick="openSidebar('EOR_17',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/65.jpg" id="EOR_65" data-flag="@X" onclick="openSidebar('EOR_65',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/103.jpg" id="EOR_103" data-flag="@X" onclick="openSidebar('EOR_103',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/138.jpg" id="EOR_138" data-flag="@X" onclick="openSidebar('EOR_138',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/171.jpg" id="EOR_171" data-flag="@X" onclick="openSidebar('EOR_171',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/19.jpg" id="EOR_19" data-flag="@X" onclick="openSidebar('EOR_19',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/59.jpg" id="EOR_59" data-flag="@X" onclick="openSidebar('EOR_59',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/94.jpg" id="EOR_94" data-flag="@X" onclick="openSidebar('EOR_94',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/133.jpg" id="EOR_133" data-flag="@X" onclick="openSidebar('EOR_133',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/178.jpg" id="EOR_178" data-flag="@X" onclick="openSidebar('EOR_178',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/21.jpg" id="EOR_21" data-flag="@X" onclick="openSidebar('EOR_21',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/60.jpg" id="EOR_60" data-flag="@X" onclick="openSidebar('EOR_60',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/99.jpg" id="EOR_99" data-flag="@X" onclick="openSidebar('EOR_99',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/137.jpg" id="EOR_137" data-flag="@X" onclick="openSidebar('EOR_137',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/180.jpg" id="EOR_180" data-flag="@X" onclick="openSidebar('EOR_180',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/15.jpg" id="EOR_15" data-flag="@X" onclick="openSidebar('EOR_15',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/55.jpg" id="EOR_55" data-flag="@X" onclick="openSidebar('EOR_55',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/95.jpg" id="EOR_95" data-flag="@X" onclick="openSidebar('EOR_95',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/143.jpg" id="EOR_143" data-flag="@X" onclick="openSidebar('EOR_143',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/181.jpg" id="EOR_181" data-flag="@X" onclick="openSidebar('EOR_181',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/20.jpg" id="EOR_20" data-flag="@X" onclick="openSidebar('EOR_20',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/58.jpg" id="EOR_58" data-flag="@X" onclick="openSidebar('EOR_58',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/100.jpg" id="EOR_100" data-flag="@X" onclick="openSidebar('EOR_100',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/135.jpg" id="EOR_135" data-flag="@X" onclick="openSidebar('EOR_135',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/173.jpg" id="EOR_173" data-flag="@X" onclick="openSidebar('EOR_173',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/25.jpg" id="EOR_25" data-flag="@X" onclick="openSidebar('EOR_25',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/61.jpg" id="EOR_61" data-flag="@X" onclick="openSidebar('EOR_61',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/101.jpg" id="EOR_101" data-flag="@X" onclick="openSidebar('EOR_101',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/132.jpg" id="EOR_132" data-flag="@X" onclick="openSidebar('EOR_132',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/174.jpg" id="EOR_174" data-flag="@X" onclick="openSidebar('EOR_174',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/24.jpg" id="EOR_24" data-flag="@X" onclick="openSidebar('EOR_24',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/56.jpg" id="EOR_56" data-flag="@X" onclick="openSidebar('EOR_56',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/96.jpg" id="EOR_96" data-flag="@X" onclick="openSidebar('EOR_96',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/141.jpg" id="EOR_141" data-flag="@X" onclick="openSidebar('EOR_141',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/172.jpg" id="EOR_172" data-flag="@X" onclick="openSidebar('EOR_172',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/22.jpg" id="EOR_22" data-flag="@X" onclick="openSidebar('EOR_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/182.jpg" id="EOR_182" data-flag="@X" onclick="openSidebar('EOR_182',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/17.jpg" id="EOR_17" data-flag="@X" onclick="openSidebar('EOR_17',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/64.jpg" id="EOR_64" data-flag="@X" onclick="openSidebar('EOR_64',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/97.jpg" id="EOR_97" data-flag="@X" onclick="openSidebar('EOR_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/101.jpg" id="EOR_101" data-flag="@X" onclick="openSidebar('EOR_101',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/136.jpg" id="EOR_136" data-flag="@X" onclick="openSidebar('EOR_136',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/175.jpg" id="EOR_175" data-flag="@X" onclick="openSidebar('EOR_175',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/26.jpg" id="EOR_26" data-flag="@X" onclick="openSidebar('EOR_26',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/63.jpg" id="EOR_63" data-flag="@X" onclick="openSidebar('EOR_63',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/98.jpg" id="EOR_98" data-flag="@X" onclick="openSidebar('EOR_98',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/142.jpg" id="EOR_142" data-flag="@X" onclick="openSidebar('EOR_142',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/177.jpg" id="EOR_177" data-flag="@X" onclick="openSidebar('EOR_177',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/16.jpg" id="EOR_16" data-flag="@X" onclick="openSidebar('EOR_16',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/57.jpg" id="EOR_57" data-flag="@X" onclick="openSidebar('EOR_57',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/105.jpg" id="EOR_105" data-flag="@X" onclick="openSidebar('EOR_105',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/139.jpg" id="EOR_139" data-flag="@X" onclick="openSidebar('EOR_139',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/179.jpg" id="EOR_179" data-flag="@X" onclick="openSidebar('EOR_179',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/18.jpg" id="EOR_18" data-flag="@X" onclick="openSidebar('EOR_18',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/169.jpg" id="EOR_169" data-flag="@X" onclick="openSidebar('EOR_169',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/19.jpg" id="EOR_19" data-flag="@X" onclick="openSidebar('EOR_19',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/58.jpg" id="EOR_58" data-flag="@X" onclick="openSidebar('EOR_58',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/92.jpg" id="EOR_92" data-flag="@X" onclick="openSidebar('EOR_92',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/131.jpg" id="EOR_131" data-flag="@X" onclick="openSidebar('EOR_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/176.jpg" id="EOR_176" data-flag="@X" onclick="openSidebar('EOR_176',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/21.jpg" id="EOR_21" data-flag="@X" onclick="openSidebar('EOR_21',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/59.jpg" id="EOR_59" data-flag="@X" onclick="openSidebar('EOR_59',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/97.jpg" id="EOR_97" data-flag="@X" onclick="openSidebar('EOR_97',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/135.jpg" id="EOR_135" data-flag="@X" onclick="openSidebar('EOR_135',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/178.jpg" id="EOR_178" data-flag="@X" onclick="openSidebar('EOR_178',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/15.jpg" id="EOR_15" data-flag="@X" onclick="openSidebar('EOR_15',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/54.jpg" id="EOR_54" data-flag="@X" onclick="openSidebar('EOR_54',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/93.jpg" id="EOR_93" data-flag="@X" onclick="openSidebar('EOR_93',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/140.jpg" id="EOR_140" data-flag="@X" onclick="openSidebar('EOR_140',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/182.jpg" id="EOR_182" data-flag="@X" onclick="openSidebar('EOR_182',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/23.jpg" id="EOR_23" data-flag="@X" onclick="openSidebar('EOR_23',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/62.jpg" id="EOR_62" data-flag="@X" onclick="openSidebar('EOR_62',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/102.jpg" id="EOR_102" data-flag="@X" onclick="openSidebar('EOR_102',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/134.jpg" id="EOR_134" data-flag="@X" onclick="openSidebar('EOR_134',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/176.jpg" id="EOR_176" data-flag="@X" onclick="openSidebar('EOR_176',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/13.jpg" id="EOR_13" data-flag="@X" onclick="openSidebar('EOR_13',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/47.jpg" id="EOR_47" data-flag="@X" onclick="openSidebar('EOR_47',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/79.jpg" id="EOR_79" data-flag="@X" onclick="openSidebar('EOR_79',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/128.jpg" id="EOR_128" data-flag="@X" onclick="openSidebar('EOR_128',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/163.jpg" id="EOR_163" data-flag="@X" onclick="openSidebar('EOR_163',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/2.jpg" id="EOR_2" data-flag="@X" onclick="openSidebar('EOR_2',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/52.jpg" id="EOR_52" data-flag="@X" onclick="openSidebar('EOR_52',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/83.jpg" id="EOR_83" data-flag="@X" onclick="openSidebar('EOR_83',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/123.jpg" id="EOR_123" data-flag="@X" onclick="openSidebar('EOR_123',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/158.jpg" id="EOR_158" data-flag="@X" onclick="openSidebar('EOR_158',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/7.jpg" id="EOR_7" data-flag="@X" onclick="openSidebar('EOR_7',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/45.jpg" id="EOR_45" data-flag="@X" onclick="openSidebar('EOR_45',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/81.jpg" id="EOR_81" data-flag="@X" onclick="openSidebar('EOR_81',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/119.jpg" id="EOR_119" data-flag="@X" onclick="openSidebar('EOR_119',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/164.jpg" id="EOR_164" data-flag="@X" onclick="openSidebar('EOR_164',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/5.jpg" id="EOR_5" data-flag="@X" onclick="openSidebar('EOR_5',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/46.jpg" id="EOR_46" data-flag="@X" onclick="openSidebar('EOR_46',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/78.jpg" id="EOR_78" data-flag="@X" onclick="openSidebar('EOR_78',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/118.jpg" id="EOR_118" data-flag="@X" onclick="openSidebar('EOR_118',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/166.jpg" id="EOR_166" data-flag="@X" onclick="openSidebar('EOR_166',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/3.jpg" id="EOR_3" data-flag="@X" onclick="openSidebar('EOR_3',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/51.jpg" id="EOR_51" data-flag="@X" onclick="openSidebar('EOR_51',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/90.jpg" id="EOR_90" data-flag="@X" onclick="openSidebar('EOR_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/141.jpg" id="EOR_141" data-flag="@X" onclick="openSidebar('EOR_141',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/179.jpg" id="EOR_179" data-flag="@X" onclick="openSidebar('EOR_179',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/20.jpg" id="EOR_20" data-flag="@X" onclick="openSidebar('EOR_20',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/57.jpg" id="EOR_57" data-flag="@X" onclick="openSidebar('EOR_57',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/98.jpg" id="EOR_98" data-flag="@X" onclick="openSidebar('EOR_98',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/133.jpg" id="EOR_133" data-flag="@X" onclick="openSidebar('EOR_133',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/171.jpg" id="EOR_171" data-flag="@X" onclick="openSidebar('EOR_171',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/25.jpg" id="EOR_25" data-flag="@X" onclick="openSidebar('EOR_25',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/60.jpg" id="EOR_60" data-flag="@X" onclick="openSidebar('EOR_60',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/99.jpg" id="EOR_99" data-flag="@X" onclick="openSidebar('EOR_99',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/130.jpg" id="EOR_130" data-flag="@X" onclick="openSidebar('EOR_130',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/159.jpg" id="EOR_159" data-flag="@X" onclick="openSidebar('EOR_159',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/0.jpg" id="EOR_0" data-flag="@X" onclick="openSidebar('EOR_0',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/41.jpg" id="EOR_41" data-flag="@X" onclick="openSidebar('EOR_41',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/82.jpg" id="EOR_82" data-flag="@X" onclick="openSidebar('EOR_82',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/127.jpg" id="EOR_127" data-flag="@X" onclick="openSidebar('EOR_127',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/161.jpg" id="EOR_161" data-flag="@X" onclick="openSidebar('EOR_161',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/11.jpg" id="EOR_11" data-flag="@X" onclick="openSidebar('EOR_11',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/49.jpg" id="EOR_49" data-flag="@X" onclick="openSidebar('EOR_49',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/86.jpg" id="EOR_86" data-flag="@X" onclick="openSidebar('EOR_86',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/126.jpg" id="EOR_126" data-flag="@X" onclick="openSidebar('EOR_126',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/157.jpg" id="EOR_157" data-flag="@X" onclick="openSidebar('EOR_157',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/6.jpg" id="EOR_6" data-flag="@X" onclick="openSidebar('EOR_6',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/50.jpg" id="EOR_50" data-flag="@X" onclick="openSidebar('EOR_50',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/85.jpg" id="EOR_85" data-flag="@X" onclick="openSidebar('EOR_85',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/122.jpg" id="EOR_122" data-flag="@X" onclick="openSidebar('EOR_122',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/168.jpg" id="EOR_168" data-flag="@X" onclick="openSidebar('EOR_168',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/9.jpg" id="EOR_9" data-flag="@X" onclick="openSidebar('EOR_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/172.jpg" id="EOR_172" data-flag="@X" onclick="openSidebar('EOR_172',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/24.jpg" id="EOR_24" data-flag="@X" onclick="openSidebar('EOR_24',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/55.jpg" id="EOR_55" data-flag="@X" onclick="openSidebar('EOR_55',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/94.jpg" id="EOR_94" data-flag="@X" onclick="openSidebar('EOR_94',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/137.jpg" id="EOR_137" data-flag="@X" onclick="openSidebar('EOR_137',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/170.jpg" id="EOR_170" data-flag="@X" onclick="openSidebar('EOR_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/22.jpg" id="EOR_22" data-flag="@X" onclick="openSidebar('EOR_22',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/63.jpg" id="EOR_63" data-flag="@X" onclick="openSidebar('EOR_63',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/95.jpg" id="EOR_95" data-flag="@X" onclick="openSidebar('EOR_95',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/140.jpg" id="EOR_140" data-flag="@X" onclick="openSidebar('EOR_140',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/173.jpg" id="EOR_173" data-flag="@X" onclick="openSidebar('EOR_173',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/26.jpg" id="EOR_26" data-flag="@X" onclick="openSidebar('EOR_26',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/62.jpg" id="EOR_62" data-flag="@X" onclick="openSidebar('EOR_62',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/96.jpg" id="EOR_96" data-flag="@X" onclick="openSidebar('EOR_96',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/134.jpg" id="EOR_134" data-flag="@X" onclick="openSidebar('EOR_134',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/175.jpg" id="EOR_175" data-flag="@X" onclick="openSidebar('EOR_175',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/16.jpg" id="EOR_16" data-flag="@X" onclick="openSidebar('EOR_16',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/56.jpg" id="EOR_56" data-flag="@X" onclick="openSidebar('EOR_56',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/103.jpg" id="EOR_103" data-flag="@X" onclick="openSidebar('EOR_103',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/139.jpg" id="EOR_139" data-flag="@X" onclick="openSidebar('EOR_139',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/177.jpg" id="EOR_177" data-flag="@X" onclick="openSidebar('EOR_177',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/18.jpg" id="EOR_18" data-flag="@X" onclick="openSidebar('EOR_18',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/53.jpg" id="EOR_53" data-flag="@X" onclick="openSidebar('EOR_53',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/91.jpg" id="EOR_91" data-flag="@X" onclick="openSidebar('EOR_91',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/125.jpg" id="EOR_125" data-flag="@X" onclick="openSidebar('EOR_125',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/165.jpg" id="EOR_165" data-flag="@X" onclick="openSidebar('EOR_165',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/14.jpg" id="EOR_14" data-flag="@X" onclick="openSidebar('EOR_14',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/39.jpg" id="EOR_39" data-flag="@X" onclick="openSidebar('EOR_39',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/80.jpg" id="EOR_80" data-flag="@X" onclick="openSidebar('EOR_80',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/117.jpg" id="EOR_117" data-flag="@X" onclick="openSidebar('EOR_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/138.jpg" id="EOR_138" data-flag="@X" onclick="openSidebar('EOR_138',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/180.jpg" id="EOR_180" data-flag="@X" onclick="openSidebar('EOR_180',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/23.jpg" id="EOR_23" data-flag="@X" onclick="openSidebar('EOR_23',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/61.jpg" id="EOR_61" data-flag="@X" onclick="openSidebar('EOR_61',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/100.jpg" id="EOR_100" data-flag="@X" onclick="openSidebar('EOR_100',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/132.jpg" id="EOR_132" data-flag="@X" onclick="openSidebar('EOR_132',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/174.jpg" id="EOR_174" data-flag="@X" onclick="openSidebar('EOR_174',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/13.jpg" id="EOR_13" data-flag="@X" onclick="openSidebar('EOR_13',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/46.jpg" id="EOR_46" data-flag="@X" onclick="openSidebar('EOR_46',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/77.jpg" id="EOR_77" data-flag="@X" onclick="openSidebar('EOR_77',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/128.jpg" id="EOR_128" data-flag="@X" onclick="openSidebar('EOR_128',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/161.jpg" id="EOR_161" data-flag="@X" onclick="openSidebar('EOR_161',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/2.jpg" id="EOR_2" data-flag="@X" onclick="openSidebar('EOR_2',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/51.jpg" id="EOR_51" data-flag="@X" onclick="openSidebar('EOR_51',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/81.jpg" id="EOR_81" data-flag="@X" onclick="openSidebar('EOR_81',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/126.jpg" id="EOR_126" data-flag="@X" onclick="openSidebar('EOR_126',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/156.jpg" id="EOR_156" data-flag="@X" onclick="openSidebar('EOR_156',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/10.jpg" id="EOR_10" data-flag="@X" onclick="openSidebar('EOR_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/7.jpg" id="EOR_7" data-flag="@X" onclick="openSidebar('EOR_7',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/40.jpg" id="EOR_40" data-flag="@X" onclick="openSidebar('EOR_40',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/88.jpg" id="EOR_88" data-flag="@X" onclick="openSidebar('EOR_88',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/129.jpg" id="EOR_129" data-flag="@X" onclick="openSidebar('EOR_129',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/160.jpg" id="EOR_160" data-flag="@X" onclick="openSidebar('EOR_160',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/8.jpg" id="EOR_8" data-flag="@X" onclick="openSidebar('EOR_8',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/44.jpg" id="EOR_44" data-flag="@X" onclick="openSidebar('EOR_44',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/92.jpg" id="EOR_92" data-flag="@X" onclick="openSidebar('EOR_92',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/120.jpg" id="EOR_120" data-flag="@X" onclick="openSidebar('EOR_120',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/167.jpg" id="EOR_167" data-flag="@X" onclick="openSidebar('EOR_167',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/4.jpg" id="EOR_4" data-flag="@X" onclick="openSidebar('EOR_4',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/43.jpg" id="EOR_43" data-flag="@X" onclick="openSidebar('EOR_43',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/89.jpg" id="EOR_89" data-flag="@X" onclick="openSidebar('EOR_89',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/131.jpg" id="EOR_131" data-flag="@X" onclick="openSidebar('EOR_131',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/79.jpg" id="EOR_79" data-flag="@X" onclick="openSidebar('EOR_79',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/121.jpg" id="EOR_121" data-flag="@X" onclick="openSidebar('EOR_121',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/162.jpg" id="EOR_162" data-flag="@X" onclick="openSidebar('EOR_162',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/1.jpg" id="EOR_1" data-flag="@X" onclick="openSidebar('EOR_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/5.jpg" id="EOR_5" data-flag="@X" onclick="openSidebar('EOR_5',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/44.jpg" id="EOR_44" data-flag="@X" onclick="openSidebar('EOR_44',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/76.jpg" id="EOR_76" data-flag="@X" onclick="openSidebar('EOR_76',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/117.jpg" id="EOR_117" data-flag="@X" onclick="openSidebar('EOR_117',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/159.jpg" id="EOR_159" data-flag="@X" onclick="openSidebar('EOR_159',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/3.jpg" id="EOR_3" data-flag="@X" onclick="openSidebar('EOR_3',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/45.jpg" id="EOR_45" data-flag="@X" onclick="openSidebar('EOR_45',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/88.jpg" id="EOR_88" data-flag="@X" onclick="openSidebar('EOR_88',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/116.jpg" id="EOR_116" data-flag="@X" onclick="openSidebar('EOR_116',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/164.jpg" id="EOR_164" data-flag="@X" onclick="openSidebar('EOR_164',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/0.jpg" id="EOR_0" data-flag="@X" onclick="openSidebar('EOR_0',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/50.jpg" id="EOR_50" data-flag="@X" onclick="openSidebar('EOR_50',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/80.jpg" id="EOR_80" data-flag="@X" onclick="openSidebar('EOR_80',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/125.jpg" id="EOR_125" data-flag="@X" onclick="openSidebar('EOR_125',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/157.jpg" id="EOR_157" data-flag="@X" onclick="openSidebar('EOR_157',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/11.jpg" id="EOR_11" data-flag="@X" onclick="openSidebar('EOR_11',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/48.jpg" id="EOR_48" data-flag="@X" onclick="openSidebar('EOR_48',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/84.jpg" id="EOR_84" data-flag="@X" onclick="openSidebar('EOR_84',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/124.jpg" id="EOR_124" data-flag="@X" onclick="openSidebar('EOR_124',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/169.jpg" id="EOR_169" data-flag="@X" onclick="openSidebar('EOR_169',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/12.jpg" id="EOR_12" data-flag="@X" onclick="openSidebar('EOR_12',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/42.jpg" id="EOR_42" data-flag="@X" onclick="openSidebar('EOR_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/155.jpg" id="EOR_155" data-flag="@X" onclick="openSidebar('EOR_155',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/6.jpg" id="EOR_6" data-flag="@X" onclick="openSidebar('EOR_6',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/49.jpg" id="EOR_49" data-flag="@X" onclick="openSidebar('EOR_49',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/83.jpg" id="EOR_83" data-flag="@X" onclick="openSidebar('EOR_83',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/120.jpg" id="EOR_120" data-flag="@X" onclick="openSidebar('EOR_120',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/166.jpg" id="EOR_166" data-flag="@X" onclick="openSidebar('EOR_166',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/9.jpg" id="EOR_9" data-flag="@X" onclick="openSidebar('EOR_9',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/52.jpg" id="EOR_52" data-flag="@X" onclick="openSidebar('EOR_52',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/89.jpg" id="EOR_89" data-flag="@X" onclick="openSidebar('EOR_89',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/123.jpg" id="EOR_123" data-flag="@X" onclick="openSidebar('EOR_123',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/163.jpg" id="EOR_163" data-flag="@X" onclick="openSidebar('EOR_163',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/14.jpg" id="EOR_14" data-flag="@X" onclick="openSidebar('EOR_14',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/38.jpg" id="EOR_38" data-flag="@X" onclick="openSidebar('EOR_38',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/86.jpg" id="EOR_86" data-flag="@X" onclick="openSidebar('EOR_86',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/115.jpg" id="EOR_115" data-flag="@X" onclick="openSidebar('EOR_115',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/154.jpg" id="EOR_154" data-flag="@X" onclick="openSidebar('EOR_154',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/10.jpg" id="EOR_10" data-flag="@X" onclick="openSidebar('EOR_10',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/39.jpg" id="EOR_39" data-flag="@X" onclick="openSidebar('EOR_39',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/90.jpg" id="EOR_90" data-flag="@X" onclick="openSidebar('EOR_90',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/127.jpg" id="EOR_127" data-flag="@X" onclick="openSidebar('EOR_127',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/158.jpg" id="EOR_158" data-flag="@X" onclick="openSidebar('EOR_158',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/4.jpg" id="EOR_4" data-flag="@X" onclick="openSidebar('EOR_4',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/43.jpg" id="EOR_43" data-flag="@X" onclick="openSidebar('EOR_43',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/87.jpg" id="EOR_87" data-flag="@X" onclick="openSidebar('EOR_87',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/121.jpg" id="EOR_121" data-flag="@X" onclick="openSidebar('EOR_121',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/170.jpg" id="EOR_170" data-flag="@X" onclick="openSidebar('EOR_170',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/118.jpg" id="EOR_118" data-flag="@X" onclick="openSidebar('EOR_118',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/165.jpg" id="EOR_165" data-flag="@X" onclick="openSidebar('EOR_165',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/1.jpg" id="EOR_1" data-flag="@X" onclick="openSidebar('EOR_1',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/42.jpg" id="EOR_42" data-flag="@X" onclick="openSidebar('EOR_42',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/82.jpg" id="EOR_82" data-flag="@X" onclick="openSidebar('EOR_82',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/129.jpg" id="EOR_129" data-flag="@X" onclick="openSidebar('EOR_129',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/160.jpg" id="EOR_160" data-flag="@X" onclick="openSidebar('EOR_160',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/12.jpg" id="EOR_12" data-flag="@X" onclick="openSidebar('EOR_12',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/47.jpg" id="EOR_47" data-flag="@X" onclick="openSidebar('EOR_47',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/85.jpg" id="EOR_85" data-flag="@X" onclick="openSidebar('EOR_85',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/122.jpg" id="EOR_122" data-flag="@X" onclick="openSidebar('EOR_122',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/167.jpg" id="EOR_167" data-flag="@X" onclick="openSidebar('EOR_167',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/8.jpg" id="EOR_8" data-flag="@X" onclick="openSidebar('EOR_8',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/41.jpg" id="EOR_41" data-flag="@X" onclick="openSidebar('EOR_41',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/78.jpg" id="EOR_78" data-flag="@X" onclick="openSidebar('EOR_78',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/119.jpg" id="EOR_119" data-flag="@X" onclick="openSidebar('EOR_119',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/168.jpg" id="EOR_168" data-flag="@X" onclick="openSidebar('EOR_168',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div id="gold" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/241.jpg" id="EOR_241" data-flag="@X" onclick="openSidebar('EOR_241',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/242.jpg" id="EOR_242" data-flag="@X" onclick="openSidebar('EOR_242',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/243.jpg" id="EOR_243" data-flag="@X" onclick="openSidebar('EOR_243',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/244.jpg" id="EOR_244" data-flag="@X" onclick="openSidebar('EOR_244',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/245.jpg" id="EOR_245" data-flag="@X" onclick="openSidebar('EOR_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/232.jpg" id="EOR_232" data-flag="@X" onclick="openSidebar('EOR_232',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/233.jpg" id="EOR_233" data-flag="@X" onclick="openSidebar('EOR_233',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/259.jpg" id="EOR_259" data-flag="@X" onclick="openSidebar('EOR_259',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/260.jpg" id="EOR_260" data-flag="@X" onclick="openSidebar('EOR_260',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/234.jpg" id="EOR_234" data-flag="@X" onclick="openSidebar('EOR_234',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/203.jpg" id="EOR_203" data-flag="@X" onclick="openSidebar('EOR_203',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/204.jpg" id="EOR_204" data-flag="@X" onclick="openSidebar('EOR_204',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/205.jpg" id="EOR_205" data-flag="@X" onclick="openSidebar('EOR_205',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/206.jpg" id="EOR_206" data-flag="@X" onclick="openSidebar('EOR_206',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/207.jpg" id="EOR_207" data-flag="@X" onclick="openSidebar('EOR_207',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/193.jpg" id="EOR_193" data-flag="@X" onclick="openSidebar('EOR_193',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/241.jpg" id="EOR_241" data-flag="@X" onclick="openSidebar('EOR_241',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/242.jpg" id="EOR_242" data-flag="@X" onclick="openSidebar('EOR_242',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/243.jpg" id="EOR_243" data-flag="@X" onclick="openSidebar('EOR_243',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/197.jpg" id="EOR_197" data-flag="@X" onclick="openSidebar('EOR_197',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/240.jpg" id="EOR_240" data-flag="@X" onclick="openSidebar('EOR_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/194.jpg" id="EOR_194" data-flag="@X" onclick="openSidebar('EOR_194',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/195.jpg" id="EOR_195" data-flag="@X" onclick="openSidebar('EOR_195',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/196.jpg" id="EOR_196" data-flag="@X" onclick="openSidebar('EOR_196',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/244.jpg" id="EOR_244" data-flag="@X" onclick="openSidebar('EOR_244',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/208.jpg" id="EOR_208" data-flag="@X" onclick="openSidebar('EOR_208',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/209.jpg" id="EOR_209" data-flag="@X" onclick="openSidebar('EOR_209',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/195.jpg" id="EOR_195" data-flag="@X" onclick="openSidebar('EOR_195',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/252.jpg" id="EOR_252" data-flag="@X" onclick="openSidebar('EOR_252',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/253.jpg" id="EOR_253" data-flag="@X" onclick="openSidebar('EOR_253',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/254.jpg" id="EOR_254" data-flag="@X" onclick="openSidebar('EOR_254',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/199.jpg" id="EOR_199" data-flag="@X" onclick="openSidebar('EOR_199',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/251.jpg" id="EOR_251" data-flag="@X" onclick="openSidebar('EOR_251',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/196.jpg" id="EOR_196" data-flag="@X" onclick="openSidebar('EOR_196',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/197.jpg" id="EOR_197" data-flag="@X" onclick="openSidebar('EOR_197',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/198.jpg" id="EOR_198" data-flag="@X" onclick="openSidebar('EOR_198',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/255.jpg" id="EOR_255" data-flag="@X" onclick="openSidebar('EOR_255',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/210.jpg" id="EOR_210" data-flag="@X" onclick="openSidebar('EOR_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/237.jpg" id="EOR_237" data-flag="@X" onclick="openSidebar('EOR_237',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/211.jpg" id="EOR_211" data-flag="@X" onclick="openSidebar('EOR_211',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/248.jpg" id="EOR_248" data-flag="@X" onclick="openSidebar('EOR_248',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/213.jpg" id="EOR_213" data-flag="@X" onclick="openSidebar('EOR_213',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/250.jpg" id="EOR_250" data-flag="@X" onclick="openSidebar('EOR_250',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/246.jpg" id="EOR_246" data-flag="@X" onclick="openSidebar('EOR_246',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/247.jpg" id="EOR_247" data-flag="@X" onclick="openSidebar('EOR_247',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/212.jpg" id="EOR_212" data-flag="@X" onclick="openSidebar('EOR_212',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/235.jpg" id="EOR_235" data-flag="@X" onclick="openSidebar('EOR_235',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/236.jpg" id="EOR_236" data-flag="@X" onclick="openSidebar('EOR_236',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/210.jpg" id="EOR_210" data-flag="@X" onclick="openSidebar('EOR_210',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/238.jpg" id="EOR_238" data-flag="@X" onclick="openSidebar('EOR_238',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/239.jpg" id="EOR_239" data-flag="@X" onclick="openSidebar('EOR_239',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/198.jpg" id="EOR_198" data-flag="@X" onclick="openSidebar('EOR_198',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/199.jpg" id="EOR_199" data-flag="@X" onclick="openSidebar('EOR_199',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/247.jpg" id="EOR_247" data-flag="@X" onclick="openSidebar('EOR_247',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/248.jpg" id="EOR_248" data-flag="@X" onclick="openSidebar('EOR_248',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/249.jpg" id="EOR_249" data-flag="@X" onclick="openSidebar('EOR_249',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/214.jpg" id="EOR_214" data-flag="@X" onclick="openSidebar('EOR_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/245.jpg" id="EOR_245" data-flag="@X" onclick="openSidebar('EOR_245',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/246.jpg" id="EOR_246" data-flag="@X" onclick="openSidebar('EOR_246',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/200.jpg" id="EOR_200" data-flag="@X" onclick="openSidebar('EOR_200',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/201.jpg" id="EOR_201" data-flag="@X" onclick="openSidebar('EOR_201',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/258.jpg" id="EOR_258" data-flag="@X" onclick="openSidebar('EOR_258',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/259.jpg" id="EOR_259" data-flag="@X" onclick="openSidebar('EOR_259',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/260.jpg" id="EOR_260" data-flag="@X" onclick="openSidebar('EOR_260',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/256.jpg" id="EOR_256" data-flag="@X" onclick="openSidebar('EOR_256',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/257.jpg" id="EOR_257" data-flag="@X" onclick="openSidebar('EOR_257',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/202.jpg" id="EOR_202" data-flag="@X" onclick="openSidebar('EOR_202',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/203.jpg" id="EOR_203" data-flag="@X" onclick="openSidebar('EOR_203',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/204.jpg" id="EOR_204" data-flag="@X" onclick="openSidebar('EOR_204',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/252.jpg" id="EOR_252" data-flag="@X" onclick="openSidebar('EOR_252',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/222.jpg" id="EOR_222" data-flag="@X" onclick="openSidebar('EOR_222',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/221.jpg" id="EOR_221" data-flag="@X" onclick="openSidebar('EOR_221',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/223.jpg" id="EOR_223" data-flag="@X" onclick="openSidebar('EOR_223',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/217.jpg" id="EOR_217" data-flag="@X" onclick="openSidebar('EOR_217',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/219.jpg" id="EOR_219" data-flag="@X" onclick="openSidebar('EOR_219',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/218.jpg" id="EOR_218" data-flag="@X" onclick="openSidebar('EOR_218',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/220.jpg" id="EOR_220" data-flag="@X" onclick="openSidebar('EOR_220',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/214.jpg" id="EOR_214" data-flag="@X" onclick="openSidebar('EOR_214',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/215.jpg" id="EOR_215" data-flag="@X" onclick="openSidebar('EOR_215',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/216.jpg" id="EOR_216" data-flag="@X" onclick="openSidebar('EOR_216',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/213.jpg" id="EOR_213" data-flag="@X" onclick="openSidebar('EOR_213',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/262.jpg" id="EOR_262" data-flag="@X" onclick="openSidebar('EOR_262',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EOR_e" data-flag="@E" onclick="openSidebar('EOR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="EOR_e" data-flag="@E" onclick="openSidebar('EOR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/272.jpg" id="EOR_272" data-flag="@X" onclick="openSidebar('EOR_272',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/263.jpg" id="EOR_263" data-flag="@X" onclick="openSidebar('EOR_263',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/264.jpg" id="EOR_264" data-flag="@X" onclick="openSidebar('EOR_264',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/267.jpg" id="EOR_267" data-flag="@X" onclick="openSidebar('EOR_267',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/270.jpg" id="EOR_270" data-flag="@X" onclick="openSidebar('EOR_270',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/265.jpg" id="EOR_265" data-flag="@X" onclick="openSidebar('EOR_265',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/268.jpg" id="EOR_268" data-flag="@X" onclick="openSidebar('EOR_268',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/266.jpg" id="EOR_266" data-flag="@X" onclick="openSidebar('EOR_266',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/271.jpg" id="EOR_271" data-flag="@X" onclick="openSidebar('EOR_271',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/269.jpg" id="EOR_269" data-flag="@X" onclick="openSidebar('EOR_269',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/226.jpg" id="EOR_226" data-flag="@X" onclick="openSidebar('EOR_226',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/225.jpg" id="EOR_225" data-flag="@X" onclick="openSidebar('EOR_225',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/224.jpg" id="EOR_224" data-flag="@X" onclick="openSidebar('EOR_224',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/223.jpg" id="EOR_223" data-flag="@X" onclick="openSidebar('EOR_223',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/226.jpg" id="EOR_226" data-flag="@X" onclick="openSidebar('EOR_226',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/219.jpg" id="EOR_219" data-flag="@X" onclick="openSidebar('EOR_219',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/221.jpg" id="EOR_221" data-flag="@X" onclick="openSidebar('EOR_221',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/220.jpg" id="EOR_220" data-flag="@X" onclick="openSidebar('EOR_220',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/222.jpg" id="EOR_222" data-flag="@X" onclick="openSidebar('EOR_222',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/216.jpg" id="EOR_216" data-flag="@X" onclick="openSidebar('EOR_216',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/217.jpg" id="EOR_217" data-flag="@X" onclick="openSidebar('EOR_217',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/218.jpg" id="EOR_218" data-flag="@X" onclick="openSidebar('EOR_218',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/215.jpg" id="EOR_215" data-flag="@X" onclick="openSidebar('EOR_215',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="EOR_e" data-flag="@E" onclick="openSidebar('EOR_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="EOR_e" data-flag="@E" onclick="openSidebar('EOR_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="EOR_e" data-flag="@E" onclick="openSidebar('EOR_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
@@ -557,34 +621,24 @@
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/229.jpg" id="EOR_229" data-flag="@X" onclick="openSidebar('EOR_229',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/228.jpg" id="EOR_228" data-flag="@X" onclick="openSidebar('EOR_228',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/227.jpg" id="EOR_227" data-flag="@X" onclick="openSidebar('EOR_227',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="EOR_e" data-flag="@E" onclick="openSidebar('EOR_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="EOR_e" data-flag="@E" onclick="openSidebar('EOR_e',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/228.jpg" id="EOR_228" data-flag="@X" onclick="openSidebar('EOR_228',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/229.jpg" id="EOR_229" data-flag="@X" onclick="openSidebar('EOR_229',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/230.jpg" id="EOR_230" data-flag="@X" onclick="openSidebar('EOR_230',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/231.jpg" id="EOR_231" data-flag="@X" onclick="openSidebar('EOR_231',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/232.jpg" id="EOR_232" data-flag="@X" onclick="openSidebar('EOR_232',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/233.jpg" id="EOR_233" data-flag="@X" onclick="openSidebar('EOR_233',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/234.jpg" id="EOR_234" data-flag="@X" onclick="openSidebar('EOR_234',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
 				<div id="token" class="anchor"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/237.jpg" id="EOR_237" data-flag="@X" onclick="openSidebar('EOR_237',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/238.jpg" id="EOR_238" data-flag="@X" onclick="openSidebar('EOR_238',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/239.jpg" id="EOR_239" data-flag="@X" onclick="openSidebar('EOR_239',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/240.jpg" id="EOR_240" data-flag="@X" onclick="openSidebar('EOR_240',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/256.jpg" id="EOR_256" data-flag="@X" onclick="openSidebar('EOR_256',false)"></div>
 				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/261.jpg" id="EOR_261" data-flag="@X" onclick="openSidebar('EOR_261',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/235.jpg" id="EOR_235" data-flag="@X" onclick="openSidebar('EOR_235',false)"></div>
-				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/236.jpg" id="EOR_236" data-flag="@X" onclick="openSidebar('EOR_236',false)"></div>
-				<div class="container"><img loading="lazy" alt="img/e.png" id="EOR_e" data-flag="@E" onclick="openSidebar('EOR_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/257.jpg" id="EOR_257" data-flag="@X" onclick="openSidebar('EOR_257',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/255.jpg" id="EOR_255" data-flag="@X" onclick="openSidebar('EOR_255',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/258.jpg" id="EOR_258" data-flag="@X" onclick="openSidebar('EOR_258',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/273.jpg" id="EOR_273" data-flag="@X" onclick="openSidebar('EOR_273',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/253.jpg" id="EOR_253" data-flag="@X" onclick="openSidebar('EOR_253',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/EOR-files/img/254.jpg" id="EOR_254" data-flag="@X" onclick="openSidebar('EOR_254',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="EOR_e" data-flag="@E" onclick="openSidebar('EOR_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/e.png" id="EOR_e" data-flag="@E" onclick="openSidebar('EOR_e',false)"></div>
 				<div class="container"><img loading="lazy" alt="img/er.png" id="EOR_er" data-flag="@E" onclick="openSidebar('EOR_er',false)"></div>
@@ -628,7 +682,7 @@
 					if (card.notes) {
 						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
 						for (const match of tagMatches) {
-							all_tags.add(match[1]);
+							all_tags.add(match[1].toLowerCase());
 						}
 					}
 				});

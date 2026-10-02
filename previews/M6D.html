@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/M6D-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>M6D visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/M6D-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MST-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SSC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WHL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/XCX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ECB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TFF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WBY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AWA-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EAJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/M6D-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RAW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SPX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/DRM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EVO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FIM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/M6D"><img src="../sets/M6D-files/icon.png">Mysticism of the Sixth Day</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">UB Touhou Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/HEX"><img src="../sets/HEX-files/icon.png">The Hex Games</a>
+	
+		<a class="set-bar inactive" href="../previews/MST"><img src="../sets/MST-files/icon.png">Rural Dwellings, in Seafoam Mist</a>
+	
+		<a class="set-bar inactive" href="../previews/SSC"><img src="../sets/SSC-files/icon.png">Shiyue: Soul's Crossing</a>
+	
+		<a class="set-bar inactive" href="../previews/WHL"><img src="../sets/WHL-files/icon.png">Building Fortune's Wheel</a>
+	
+		<a class="set-bar inactive" href="../previews/XCX"><img src="../sets/XCX-files/icon.png">Xenoblade Chronicles X</a>
+	
+		<a class="set-bar inactive" href="../previews/ECB"><img src="../sets/ECB-files/icon.png">Elnyreth: Contact With Those Beyond</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/TEX"><img src="../sets/TEX-files/icon.png">Tarkir: Extinction</a>
+	
+		<a class="set-bar inactive" href="../previews/TFF"><img src="../sets/TFF-files/icon.png">Dark Souls: The Fire Fades</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WBY"><img src="../sets/WBY-files/icon.png">Wild Blue Yonder</a>
+	
+		<a class="set-bar inactive" href="../previews/AWA"><img src="../sets/AWA-files/icon.png">Anglodoor Awakened</a>
+	
+		<a class="set-bar inactive" href="../previews/EAJ"><img src="../sets/EAJ-files/icon.png">Eternal Autumn of Javor</a>
+	
+		<a class="set-bar inactive" href="../previews/RAW"><img src="../sets/RAW-files/icon.png">Ravnica's Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/SPX"><img src="../sets/SPX-files/icon.png">Splendor of Excelsior</a>
+	
+		<a class="set-bar inactive" href="../previews/TEL"><img src="../sets/TEL-files/icon.png">Theros: The Elekteid</a>
+	
+		<a class="set-bar inactive" href="../previews/TLB"><img src="../sets/TLB-files/icon.png">The Lands Between</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/DRM"><img src="../sets/DRM-files/icon.png">Dreamers of Antausia</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/EVO"><img src="../sets/EVO-files/icon.png">Evolution on Srai-Val-Nul</a>
+	
+		<a class="set-bar inactive" href="../previews/FIM"><img src="../sets/FIM-files/icon.png">Periss: Friendship is Magic</a>
+	
+		<a class="set-bar inactive" href="../previews/ORE"><img src="../sets/ORE-files/icon.png">Orestan</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Towers of Tin Lau</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/M6D-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/M6D-files/img/21_Kokhiyah At My Left.jpg" id="M6D_21_Kokhiyah At My Left" data-flag="@X" onclick="openSidebar('M6D_21_Kokhiyah At My Left',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/50_Oriyah In Front of Me.jpg" id="M6D_50_Oriyah In Front of Me" data-flag="@X" onclick="openSidebar('M6D_50_Oriyah In Front of Me',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/68_Hosniyah Behind Me.jpg" id="M6D_68_Hosniyah Behind Me" data-flag="@X" onclick="openSidebar('M6D_68_Hosniyah Behind Me',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/104_Peleyah At My Right.jpg" id="M6D_104_Peleyah At My Right" data-flag="@X" onclick="openSidebar('M6D_104_Peleyah At My Right',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/139_A Tree Of Life For Those Who Grasp It.jpg" id="M6D_139_A Tree Of Life For Those Who Grasp It" data-flag="@X" onclick="openSidebar('M6D_139_A Tree Of Life For Those Who Grasp It',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/10_For Good.jpg" id="M6D_10_For Good" data-flag="@X" onclick="openSidebar('M6D_10_For Good',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/41_Hammer of Strictures.jpg" id="M6D_41_Hammer of Strictures" data-flag="@X" onclick="openSidebar('M6D_41_Hammer of Strictures',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/60_Bneishachat Rise.jpg" id="M6D_60_Bneishachat Rise" data-flag="@X" onclick="openSidebar('M6D_60_Bneishachat Rise',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/87_Bewailing Effigies.jpg" id="M6D_87_Bewailing Effigies" data-flag="@X" onclick="openSidebar('M6D_87_Bewailing Effigies',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/121_Engineers of Bodily Form.jpg" id="M6D_121_Engineers of Bodily Form" data-flag="@X" onclick="openSidebar('M6D_121_Engineers of Bodily Form',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/5_Alphabetical Shift.jpg" id="M6D_5_Alphabetical Shift" data-flag="@X" onclick="openSidebar('M6D_5_Alphabetical Shift',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/35_Dreamcast Apprenticeship.jpg" id="M6D_35_Dreamcast Apprenticeship" data-flag="@X" onclick="openSidebar('M6D_35_Dreamcast Apprenticeship',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/75_Peaceblossom.jpg" id="M6D_75_Peaceblossom" data-flag="@X" onclick="openSidebar('M6D_75_Peaceblossom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/102_Lilyata, First Benshachat.jpg" id="M6D_102_Lilyata, First Benshachat" data-flag="@X" onclick="openSidebar('M6D_102_Lilyata, First Benshachat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/118_Division Undoes.jpg" id="M6D_118_Division Undoes" data-flag="@X" onclick="openSidebar('M6D_118_Division Undoes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/14_Imago Dei.jpg" id="M6D_14_Imago Dei" data-flag="@X" onclick="openSidebar('M6D_14_Imago Dei',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/39_Firmament Swimmer.jpg" id="M6D_39_Firmament Swimmer" data-flag="@X" onclick="openSidebar('M6D_39_Firmament Swimmer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/63_Day of Ire.jpg" id="M6D_63_Day of Ire" data-flag="@X" onclick="openSidebar('M6D_63_Day of Ire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/112_War In Heaven.jpg" id="M6D_112_War In Heaven" data-flag="@X" onclick="openSidebar('M6D_112_War In Heaven',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/126_Keeper of Meitohu's Force.jpg" id="M6D_126_Keeper of Meitohus Force" data-flag="@X" onclick="openSidebar('M6D_126_Keeper of Meitohus Force',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/19_Keter of Legions.jpg" id="M6D_19_Keter of Legions" data-flag="@X" onclick="openSidebar('M6D_19_Keter of Legions',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/40_Gives-Wisdom-To-Its-Seekers.jpg" id="M6D_40_Gives-Wisdom-To-Its-Seekers" data-flag="@X" onclick="openSidebar('M6D_40_Gives-Wisdom-To-Its-Seekers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/64_Divisor of Welfare.jpg" id="M6D_64_Divisor of Welfare" data-flag="@X" onclick="openSidebar('M6D_64_Divisor of Welfare',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/91_Devises-Galaxies-In-Wisdom.jpg" id="M6D_91_Devises-Galaxies-In-Wisdom" data-flag="@X" onclick="openSidebar('M6D_91_Devises-Galaxies-In-Wisdom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/137_Symmetry Sage.jpg" id="M6D_137_Symmetry Sage" data-flag="@X" onclick="openSidebar('M6D_137_Symmetry Sage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/20_Keter-Mother.jpg" id="M6D_20_Keter-Mother" data-flag="@X" onclick="openSidebar('M6D_20_Keter-Mother',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/57_Writes-Myriad-Meanings.jpg" id="M6D_57_Writes-Myriad-Meanings" data-flag="@X" onclick="openSidebar('M6D_57_Writes-Myriad-Meanings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/67_Herald of the Final Day.jpg" id="M6D_67_Herald of the Final Day" data-flag="@X" onclick="openSidebar('M6D_67_Herald of the Final Day',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/96_Hail of Brimstone.jpg" id="M6D_96_Hail of Brimstone" data-flag="@X" onclick="openSidebar('M6D_96_Hail of Brimstone',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/140_Watcher of Consecrations.jpg" id="M6D_140_Watcher of Consecrations" data-flag="@X" onclick="openSidebar('M6D_140_Watcher of Consecrations',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/6_Arbiter of Verdicts.jpg" id="M6D_6_Arbiter of Verdicts" data-flag="@X" onclick="openSidebar('M6D_6_Arbiter of Verdicts',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/34_Deem Forbidden.jpg" id="M6D_34_Deem Forbidden" data-flag="@X" onclick="openSidebar('M6D_34_Deem Forbidden',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/74_Nameless Keter.jpg" id="M6D_74_Nameless Keter" data-flag="@X" onclick="openSidebar('M6D_74_Nameless Keter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/106_Seraphic Speech of Secrets.jpg" id="M6D_106_Seraphic Speech of Secrets" data-flag="@X" onclick="openSidebar('M6D_106_Seraphic Speech of Secrets',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/115_Beast of Folded Wings.jpg" id="M6D_115_Beast of Folded Wings" data-flag="@X" onclick="openSidebar('M6D_115_Beast of Folded Wings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/9_Contemplative Silence.jpg" id="M6D_9_Contemplative Silence" data-flag="@X" onclick="openSidebar('M6D_9_Contemplative Silence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/38_Engraver of Form.jpg" id="M6D_38_Engraver of Form" data-flag="@X" onclick="openSidebar('M6D_38_Engraver of Form',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/59_Blasphemous Watcher.jpg" id="M6D_59_Blasphemous Watcher" data-flag="@X" onclick="openSidebar('M6D_59_Blasphemous Watcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/110_Tselmiyah, Quickener.jpg" id="M6D_110_Tselmiyah, Quickener" data-flag="@X" onclick="openSidebar('M6D_110_Tselmiyah, Quickener',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/116_Bestial Speaker.jpg" id="M6D_116_Bestial Speaker" data-flag="@X" onclick="openSidebar('M6D_116_Bestial Speaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/12_Gives-Absolute-Decrees.jpg" id="M6D_12_Gives-Absolute-Decrees" data-flag="@X" onclick="openSidebar('M6D_12_Gives-Absolute-Decrees',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/42_Heavenly Counsel.jpg" id="M6D_42_Heavenly Counsel" data-flag="@X" onclick="openSidebar('M6D_42_Heavenly Counsel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/61_Collect-Will-Collect.jpg" id="M6D_61_Collect-Will-Collect" data-flag="@X" onclick="openSidebar('M6D_61_Collect-Will-Collect',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/89_Cackling Shedata.jpg" id="M6D_89_Cackling Shedata" data-flag="@X" onclick="openSidebar('M6D_89_Cackling Shedata',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/119_Double Exigesis.jpg" id="M6D_119_Double Exigesis" data-flag="@X" onclick="openSidebar('M6D_119_Double Exigesis',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/13_Gizbor of Radiance.jpg" id="M6D_13_Gizbor of Radiance" data-flag="@X" onclick="openSidebar('M6D_13_Gizbor of Radiance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/44_Keter of the Firmament.jpg" id="M6D_44_Keter of the Firmament" data-flag="@X" onclick="openSidebar('M6D_44_Keter of the Firmament',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/65_Doubtwrack.jpg" id="M6D_65_Doubtwrack" data-flag="@X" onclick="openSidebar('M6D_65_Doubtwrack',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/90_Clearsight Lecturer.jpg" id="M6D_90_Clearsight Lecturer" data-flag="@X" onclick="openSidebar('M6D_90_Clearsight Lecturer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/120_Doyen of Sorcerous Acts.jpg" id="M6D_120_Doyen of Sorcerous Acts" data-flag="@X" onclick="openSidebar('M6D_120_Doyen of Sorcerous Acts',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/16_Inspire.jpg" id="M6D_16_Inspire" data-flag="@X" onclick="openSidebar('M6D_16_Inspire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/47_Meitohu Chorister.jpg" id="M6D_47_Meitohu Chorister" data-flag="@X" onclick="openSidebar('M6D_47_Meitohu Chorister',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/72_Keter of Death.jpg" id="M6D_72_Keter of Death" data-flag="@X" onclick="openSidebar('M6D_72_Keter of Death',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/92_Erase-Will-Not-Erase.jpg" id="M6D_92_Erase-Will-Not-Erase" data-flag="@X" onclick="openSidebar('M6D_92_Erase-Will-Not-Erase',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/124_Hymnal Naturalist.jpg" id="M6D_124_Hymnal Naturalist" data-flag="@X" onclick="openSidebar('M6D_124_Hymnal Naturalist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/24_Paradisacal Gate.jpg" id="M6D_24_Paradisacal Gate" data-flag="@X" onclick="openSidebar('M6D_24_Paradisacal Gate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/52_Seraphic Girdle.jpg" id="M6D_52_Seraphic Girdle" data-flag="@X" onclick="openSidebar('M6D_52_Seraphic Girdle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/73_Master of Artifice.jpg" id="M6D_73_Master of Artifice" data-flag="@X" onclick="openSidebar('M6D_73_Master of Artifice',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/94_Forge In Flames.jpg" id="M6D_94_Forge In Flames" data-flag="@X" onclick="openSidebar('M6D_94_Forge In Flames',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/125_Indulge in Knowledge.jpg" id="M6D_125_Indulge in Knowledge" data-flag="@X" onclick="openSidebar('M6D_125_Indulge in Knowledge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/26_Raises-From-the-Pit.jpg" id="M6D_26_Raises-From-the-Pit" data-flag="@X" onclick="openSidebar('M6D_26_Raises-From-the-Pit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/54_Valor of Women.jpg" id="M6D_54_Valor of Women" data-flag="@X" onclick="openSidebar('M6D_54_Valor of Women',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/76_Proscribed Seer.jpg" id="M6D_76_Proscribed Seer" data-flag="@X" onclick="openSidebar('M6D_76_Proscribed Seer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/98_Keening Poet.jpg" id="M6D_98_Keening Poet" data-flag="@X" onclick="openSidebar('M6D_98_Keening Poet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/129_Letters of Life.jpg" id="M6D_129_Letters of Life" data-flag="@X" onclick="openSidebar('M6D_129_Letters of Life',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/28_Return to Form.jpg" id="M6D_28_Return to Form" data-flag="@X" onclick="openSidebar('M6D_28_Return to Form',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/55_Visions of a Burnt House.jpg" id="M6D_55_Visions of a Burnt House" data-flag="@X" onclick="openSidebar('M6D_55_Visions of a Burnt House',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/78_Redeemer of Heaven's Blood.jpg" id="M6D_78_Redeemer of Heavens Blood" data-flag="@X" onclick="openSidebar('M6D_78_Redeemer of Heavens Blood',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/99_Keeper of the Faithful.jpg" id="M6D_99_Keeper of the Faithful" data-flag="@X" onclick="openSidebar('M6D_99_Keeper of the Faithful',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/132_Meitohu-Wind Artisan.jpg" id="M6D_132_Meitohu-Wind Artisan" data-flag="@X" onclick="openSidebar('M6D_132_Meitohu-Wind Artisan',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/30_Wheelform Codex.jpg" id="M6D_30_Wheelform Codex" data-flag="@X" onclick="openSidebar('M6D_30_Wheelform Codex',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/56_Vivacous Meitohu.jpg" id="M6D_56_Vivacous Meitohu" data-flag="@X" onclick="openSidebar('M6D_56_Vivacous Meitohu',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/82_Test of Paradise.jpg" id="M6D_82_Test of Paradise" data-flag="@X" onclick="openSidebar('M6D_82_Test of Paradise',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/100_Keter of Briliance.jpg" id="M6D_100_Keter of Briliance" data-flag="@X" onclick="openSidebar('M6D_100_Keter of Briliance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/133_Multifarious Teacher.jpg" id="M6D_133_Multifarious Teacher" data-flag="@X" onclick="openSidebar('M6D_133_Multifarious Teacher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/4_Abase.jpg" id="M6D_4_Abase" data-flag="@X" onclick="openSidebar('M6D_4_Abase',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/31_Austere Tanna.jpg" id="M6D_31_Austere Tanna" data-flag="@X" onclick="openSidebar('M6D_31_Austere Tanna',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/84_Vivisected Effigy.jpg" id="M6D_84_Vivisected Effigy" data-flag="@X" onclick="openSidebar('M6D_84_Vivisected Effigy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/103_Mud-Slinging.jpg" id="M6D_103_Mud-Slinging" data-flag="@X" onclick="openSidebar('M6D_103_Mud-Slinging',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/117_Churlish Mockery.jpg" id="M6D_117_Churlish Mockery" data-flag="@X" onclick="openSidebar('M6D_117_Churlish Mockery',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/7_Censuskeeper of the Living.jpg" id="M6D_7_Censuskeeper of the Living" data-flag="@X" onclick="openSidebar('M6D_7_Censuskeeper of the Living',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/32_Celestial Cherem.jpg" id="M6D_32_Celestial Cherem" data-flag="@X" onclick="openSidebar('M6D_32_Celestial Cherem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/58_Beater of Plowshares.jpg" id="M6D_58_Beater of Plowshares" data-flag="@X" onclick="openSidebar('M6D_58_Beater of Plowshares',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/108_Spiritual Sever.jpg" id="M6D_108_Spiritual Sever" data-flag="@X" onclick="openSidebar('M6D_108_Spiritual Sever',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/122_Grafted Taunt.jpg" id="M6D_122_Grafted Taunt" data-flag="@X" onclick="openSidebar('M6D_122_Grafted Taunt',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/8_Cite.jpg" id="M6D_8_Cite" data-flag="@X" onclick="openSidebar('M6D_8_Cite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/33_Clarity Sage.jpg" id="M6D_33_Clarity Sage" data-flag="@X" onclick="openSidebar('M6D_33_Clarity Sage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/62_Contemplate Ruin.jpg" id="M6D_62_Contemplate Ruin" data-flag="@X" onclick="openSidebar('M6D_62_Contemplate Ruin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/86_Anatomism.jpg" id="M6D_86_Anatomism" data-flag="@X" onclick="openSidebar('M6D_86_Anatomism',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/123_Heavengilt Cameo.jpg" id="M6D_123_Heavengilt Cameo" data-flag="@X" onclick="openSidebar('M6D_123_Heavengilt Cameo',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/11_Gabbai of Blessing.jpg" id="M6D_11_Gabbai of Blessing" data-flag="@X" onclick="openSidebar('M6D_11_Gabbai of Blessing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/36_Drench.jpg" id="M6D_36_Drench" data-flag="@X" onclick="openSidebar('M6D_36_Drench',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/66_Entropic Gurgle.jpg" id="M6D_66_Entropic Gurgle" data-flag="@X" onclick="openSidebar('M6D_66_Entropic Gurgle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/88_Burrow Into Understanding.jpg" id="M6D_88_Burrow Into Understanding" data-flag="@X" onclick="openSidebar('M6D_88_Burrow Into Understanding',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/127_Keter of Might.jpg" id="M6D_127_Keter of Might" data-flag="@X" onclick="openSidebar('M6D_127_Keter of Might',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/15_Inextensible Doll.jpg" id="M6D_15_Inextensible Doll" data-flag="@X" onclick="openSidebar('M6D_15_Inextensible Doll',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/37_Drown In Dreamstuff.jpg" id="M6D_37_Drown In Dreamstuff" data-flag="@X" onclick="openSidebar('M6D_37_Drown In Dreamstuff',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/69_Ignominous Fall.jpg" id="M6D_69_Ignominous Fall" data-flag="@X" onclick="openSidebar('M6D_69_Ignominous Fall',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/93_Flayer of Words.jpg" id="M6D_93_Flayer of Words" data-flag="@X" onclick="openSidebar('M6D_93_Flayer of Words',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/128_Lay Bare the Heart.jpg" id="M6D_128_Lay Bare the Heart" data-flag="@X" onclick="openSidebar('M6D_128_Lay Bare the Heart',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/17_Ivory-Tower Watcher.jpg" id="M6D_17_Ivory-Tower Watcher" data-flag="@X" onclick="openSidebar('M6D_17_Ivory-Tower Watcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/43_Keter of Smoke.jpg" id="M6D_43_Keter of Smoke" data-flag="@X" onclick="openSidebar('M6D_43_Keter of Smoke',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/70_Judges-Measure-For-Measure.jpg" id="M6D_70_Judges-Measure-For-Measure" data-flag="@X" onclick="openSidebar('M6D_70_Judges-Measure-For-Measure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/95_Glorified Creation.jpg" id="M6D_95_Glorified Creation" data-flag="@X" onclick="openSidebar('M6D_95_Glorified Creation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/130_Lifeseed Addler.jpg" id="M6D_130_Lifeseed Addler" data-flag="@X" onclick="openSidebar('M6D_130_Lifeseed Addler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/18_Keter of Judgement.jpg" id="M6D_18_Keter of Judgement" data-flag="@X" onclick="openSidebar('M6D_18_Keter of Judgement',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/45_Keter of Wisdom.jpg" id="M6D_45_Keter of Wisdom" data-flag="@X" onclick="openSidebar('M6D_45_Keter of Wisdom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/71_Justifier of Judgement.jpg" id="M6D_71_Justifier of Judgement" data-flag="@X" onclick="openSidebar('M6D_71_Justifier of Judgement',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/97_Heavenly Trumpet.jpg" id="M6D_97_Heavenly Trumpet" data-flag="@X" onclick="openSidebar('M6D_97_Heavenly Trumpet',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/131_Mapper of Newborn Land.jpg" id="M6D_131_Mapper of Newborn Land" data-flag="@X" onclick="openSidebar('M6D_131_Mapper of Newborn Land',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/22_Mollify.jpg" id="M6D_22_Mollify" data-flag="@X" onclick="openSidebar('M6D_22_Mollify',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/46_Mane of Righteous Kings.jpg" id="M6D_46_Mane of Righteous Kings" data-flag="@X" onclick="openSidebar('M6D_46_Mane of Righteous Kings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/77_Received Griefmage.jpg" id="M6D_77_Received Griefmage" data-flag="@X" onclick="openSidebar('M6D_77_Received Griefmage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/101_Keter of Flame.jpg" id="M6D_101_Keter of Flame" data-flag="@X" onclick="openSidebar('M6D_101_Keter of Flame',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/134_Orders-the-Planets-And-Stars.jpg" id="M6D_134_Orders-the-Planets-And-Stars" data-flag="@X" onclick="openSidebar('M6D_134_Orders-the-Planets-And-Stars',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/23_Nefeshef Phial.jpg" id="M6D_23_Nefeshef Phial" data-flag="@X" onclick="openSidebar('M6D_23_Nefeshef Phial',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/48_Mighty of Prattle.jpg" id="M6D_48_Mighty of Prattle" data-flag="@X" onclick="openSidebar('M6D_48_Mighty of Prattle',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/79_Shade-Wreathed Bailif.jpg" id="M6D_79_Shade-Wreathed Bailif" data-flag="@X" onclick="openSidebar('M6D_79_Shade-Wreathed Bailif',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/105_Reconstructive Operation.jpg" id="M6D_105_Reconstructive Operation" data-flag="@X" onclick="openSidebar('M6D_105_Reconstructive Operation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/135_Sere Rememberancer.jpg" id="M6D_135_Sere Rememberancer" data-flag="@X" onclick="openSidebar('M6D_135_Sere Rememberancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/25_Polytropic Erel.jpg" id="M6D_25_Polytropic Erel" data-flag="@X" onclick="openSidebar('M6D_25_Polytropic Erel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/49_Numeric Veto.jpg" id="M6D_49_Numeric Veto" data-flag="@X" onclick="openSidebar('M6D_49_Numeric Veto',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/80_Smokemirror Sage.jpg" id="M6D_80_Smokemirror Sage" data-flag="@X" onclick="openSidebar('M6D_80_Smokemirror Sage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/107_Spins-A-World-From-Water.jpg" id="M6D_107_Spins-A-World-From-Water" data-flag="@X" onclick="openSidebar('M6D_107_Spins-A-World-From-Water',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/136_Shaping Hand.jpg" id="M6D_136_Shaping Hand" data-flag="@X" onclick="openSidebar('M6D_136_Shaping Hand',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/27_Reforge From Dross.jpg" id="M6D_27_Reforge From Dross" data-flag="@X" onclick="openSidebar('M6D_27_Reforge From Dross',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/51_Sanctity's Allure.jpg" id="M6D_51_Sanctitys Allure" data-flag="@X" onclick="openSidebar('M6D_51_Sanctitys Allure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/81_Snuff.jpg" id="M6D_81_Snuff" data-flag="@X" onclick="openSidebar('M6D_81_Snuff',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/109_Splat.jpg" id="M6D_109_Splat" data-flag="@X" onclick="openSidebar('M6D_109_Splat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/138_Thing of Beauty.jpg" id="M6D_138_Thing of Beauty" data-flag="@X" onclick="openSidebar('M6D_138_Thing of Beauty',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/29_Shamash Of Glory.jpg" id="M6D_29_Shamash Of Glory" data-flag="@X" onclick="openSidebar('M6D_29_Shamash Of Glory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/53_Succumb To License.jpg" id="M6D_53_Succumb To License" data-flag="@X" onclick="openSidebar('M6D_53_Succumb To License',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/83_Tormented Cry.jpg" id="M6D_83_Tormented Cry" data-flag="@X" onclick="openSidebar('M6D_83_Tormented Cry',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/111_Wail Out.jpg" id="M6D_111_Wail Out" data-flag="@X" onclick="openSidebar('M6D_111_Wail Out',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/141_Weaver of Storms.jpg" id="M6D_141_Weaver of Storms" data-flag="@X" onclick="openSidebar('M6D_141_Weaver of Storms',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/85_Void-Magic Binder.jpg" id="M6D_85_Void-Magic Binder" data-flag="@X" onclick="openSidebar('M6D_85_Void-Magic Binder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/113_Welfare-Book Sofer.jpg" id="M6D_113_Welfare-Book Sofer" data-flag="@X" onclick="openSidebar('M6D_113_Welfare-Book Sofer',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/114_Writes-Account-of-Sin.jpg" id="M6D_114_Writes-Account-of-Sin" data-flag="@X" onclick="openSidebar('M6D_114_Writes-Account-of-Sin',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div id="gold" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/167_Fraying Chacham.jpg" id="M6D_167_Fraying Chacham" data-flag="@X" onclick="openSidebar('M6D_167_Fraying Chacham',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/154_Chaotic Assemblage.jpg" id="M6D_154_Chaotic Assemblage" data-flag="@X" onclick="openSidebar('M6D_154_Chaotic Assemblage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/158_Destructive Builder.jpg" id="M6D_158_Destructive Builder" data-flag="@X" onclick="openSidebar('M6D_158_Destructive Builder',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/190_Scribe's Keter.jpg" id="M6D_190_Scribes Keter" data-flag="@X" onclick="openSidebar('M6D_190_Scribes Keter',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/164_Evil Inclination.jpg" id="M6D_164_Evil Inclination" data-flag="@X" onclick="openSidebar('M6D_164_Evil Inclination',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/199_Weaver of Harsh Decrees.jpg" id="M6D_199_Weaver of Harsh Decrees" data-flag="@X" onclick="openSidebar('M6D_199_Weaver of Harsh Decrees',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/160_Downcast.jpg" id="M6D_160_Downcast" data-flag="@X" onclick="openSidebar('M6D_160_Downcast',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/143_Agents of the Chariot.jpg" id="M6D_143_Agents of the Chariot" data-flag="@X" onclick="openSidebar('M6D_143_Agents of the Chariot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/180_Noble Keterweaver.jpg" id="M6D_180_Noble Keterweaver" data-flag="@X" onclick="openSidebar('M6D_180_Noble Keterweaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/192_Sets-The-Sun-To-Rise-Each-Day.jpg" id="M6D_192_Sets-The-Sun-To-Rise-Each-Day" data-flag="@X" onclick="openSidebar('M6D_192_Sets-The-Sun-To-Rise-Each-Day',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/156_Court of Death's Claim.jpg" id="M6D_156_Court of Deaths Claim" data-flag="@X" onclick="openSidebar('M6D_156_Court of Deaths Claim',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/185_Ram of the Binding.jpg" id="M6D_185_Ram of the Binding" data-flag="@X" onclick="openSidebar('M6D_185_Ram of the Binding',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/193_Solacent Keruv.jpg" id="M6D_193_Solacent Keruv" data-flag="@X" onclick="openSidebar('M6D_193_Solacent Keruv',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/200_Were It Not Written.jpg" id="M6D_200_Were It Not Written" data-flag="@X" onclick="openSidebar('M6D_200_Were It Not Written',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/201_Witchcraft Whisperer.jpg" id="M6D_201_Witchcraft Whisperer" data-flag="@X" onclick="openSidebar('M6D_201_Witchcraft Whisperer',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/169_Glory-Cloaked Zealot.jpg" id="M6D_169_Glory-Cloaked Zealot" data-flag="@X" onclick="openSidebar('M6D_169_Glory-Cloaked Zealot',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/148_Axe of Perlis.jpg" id="M6D_148_Axe of Perlis" data-flag="@X" onclick="openSidebar('M6D_148_Axe of Perlis',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/174_Keter of Libations.jpg" id="M6D_174_Keter of Libations" data-flag="@X" onclick="openSidebar('M6D_174_Keter of Libations',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/191_Sees-All-Secrets.jpg" id="M6D_191_Sees-All-Secrets" data-flag="@X" onclick="openSidebar('M6D_191_Sees-All-Secrets',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/189_Sanctifier of Bloodgifts.jpg" id="M6D_189_Sanctifier of Bloodgifts" data-flag="@X" onclick="openSidebar('M6D_189_Sanctifier of Bloodgifts',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/178_Moral Nihlist.jpg" id="M6D_178_Moral Nihlist" data-flag="@X" onclick="openSidebar('M6D_178_Moral Nihlist',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/166_The First Key.jpg" id="M6D_166_The First Key" data-flag="@X" onclick="openSidebar('M6D_166_The First Key',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/155_Chaytiv, Who Chose To Know.jpg" id="M6D_155_Chaytiv, Who Chose To Know" data-flag="@X" onclick="openSidebar('M6D_155_Chaytiv, Who Chose To Know',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/144_Armaments of Heaven.jpg" id="M6D_144_Armaments of Heaven" data-flag="@X" onclick="openSidebar('M6D_144_Armaments of Heaven',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/162_Dumiyah's Sofer.jpg" id="M6D_162_Dumiyahs Sofer" data-flag="@X" onclick="openSidebar('M6D_162_Dumiyahs Sofer',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/153_Brood Savant.jpg" id="M6D_153_Brood Savant" data-flag="@X" onclick="openSidebar('M6D_153_Brood Savant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/196_The-True-Judge.jpg" id="M6D_196_The-True-Judge" data-flag="@X" onclick="openSidebar('M6D_196_The-True-Judge',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/157_Court of Life's Variety.jpg" id="M6D_157_Court of Lifes Variety" data-flag="@X" onclick="openSidebar('M6D_157_Court of Lifes Variety',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/147_Avta's Cast.jpg" id="M6D_147_Avtas Cast" data-flag="@X" onclick="openSidebar('M6D_147_Avtas Cast',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/173_Keter of Ingenuity.jpg" id="M6D_173_Keter of Ingenuity" data-flag="@X" onclick="openSidebar('M6D_173_Keter of Ingenuity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/149_Balanced Dayan.jpg" id="M6D_149_Balanced Dayan" data-flag="@X" onclick="openSidebar('M6D_149_Balanced Dayan',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/202_A World Lacking Nothing.jpg" id="M6D_202_A World Lacking Nothing" data-flag="@X" onclick="openSidebar('M6D_202_A World Lacking Nothing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/172_Keter of Balance.jpg" id="M6D_172_Keter of Balance" data-flag="@X" onclick="openSidebar('M6D_172_Keter of Balance',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/170_Grandiloquent Teacher.jpg" id="M6D_170_Grandiloquent Teacher" data-flag="@X" onclick="openSidebar('M6D_170_Grandiloquent Teacher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/187_Remembers-Each-Soul.jpg" id="M6D_187_Remembers-Each-Soul" data-flag="@X" onclick="openSidebar('M6D_187_Remembers-Each-Soul',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/184_Pulchritude Scribe.jpg" id="M6D_184_Pulchritude Scribe" data-flag="@X" onclick="openSidebar('M6D_184_Pulchritude Scribe',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/188_Root of Insolence.jpg" id="M6D_188_Root of Insolence" data-flag="@X" onclick="openSidebar('M6D_188_Root of Insolence',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/161_Dumiyah, The Only Certainty.jpg" id="M6D_161_Dumiyah, The Only Certainty" data-flag="@X" onclick="openSidebar('M6D_161_Dumiyah, The Only Certainty',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/198_Vine-Fruit Weaver.jpg" id="M6D_198_Vine-Fruit Weaver" data-flag="@X" onclick="openSidebar('M6D_198_Vine-Fruit Weaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/182_Olamiyah, Covenantal Scribe.jpg" id="M6D_182_Olamiyah, Covenantal Scribe" data-flag="@X" onclick="openSidebar('M6D_182_Olamiyah, Covenantal Scribe',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/145_Avenges-In-Envy.jpg" id="M6D_145_Avenges-In-Envy" data-flag="@X" onclick="openSidebar('M6D_145_Avenges-In-Envy',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/177_Lav-Kofe, Serpent In the Garden.jpg" id="M6D_177_Lav-Kofe, Serpent In the Garden" data-flag="@X" onclick="openSidebar('M6D_177_Lav-Kofe, Serpent In the Garden',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/168_Generosity.jpg" id="M6D_168_Generosity" data-flag="@X" onclick="openSidebar('M6D_168_Generosity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/151_Bind In Prohibitions.jpg" id="M6D_151_Bind In Prohibitions" data-flag="@X" onclick="openSidebar('M6D_151_Bind In Prohibitions',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/152_Blesser of Hearths.jpg" id="M6D_152_Blesser of Hearths" data-flag="@X" onclick="openSidebar('M6D_152_Blesser of Hearths',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/176_Keter of the Moon.jpg" id="M6D_176_Keter of the Moon" data-flag="@X" onclick="openSidebar('M6D_176_Keter of the Moon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/171_Grants-A-Perfect-Law.jpg" id="M6D_171_Grants-A-Perfect-Law" data-flag="@X" onclick="openSidebar('M6D_171_Grants-A-Perfect-Law',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/159_Divvies-Life-For-All-Living.jpg" id="M6D_159_Divvies-Life-For-All-Living" data-flag="@X" onclick="openSidebar('M6D_159_Divvies-Life-For-All-Living',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/194_Spirit Over the Meitohu.jpg" id="M6D_194_Spirit Over the Meitohu" data-flag="@X" onclick="openSidebar('M6D_194_Spirit Over the Meitohu',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/142_Agent of Revealed Truth.jpg" id="M6D_142_Agent of Revealed Truth" data-flag="@X" onclick="openSidebar('M6D_142_Agent of Revealed Truth',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/181_Nova Alchemist.jpg" id="M6D_181_Nova Alchemist" data-flag="@X" onclick="openSidebar('M6D_181_Nova Alchemist',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/183_Preening Hayyah.jpg" id="M6D_183_Preening Hayyah" data-flag="@X" onclick="openSidebar('M6D_183_Preening Hayyah',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/146_Avta, Prosecutorial Prince.jpg" id="M6D_146_Avta, Prosecutorial Prince" data-flag="@X" onclick="openSidebar('M6D_146_Avta, Prosecutorial Prince',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/203_Ziz, King Under Heaven.jpg" id="M6D_203_Ziz, King Under Heaven" data-flag="@X" onclick="openSidebar('M6D_203_Ziz, King Under Heaven',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/197_Vindictive Seir.jpg" id="M6D_197_Vindictive Seir" data-flag="@X" onclick="openSidebar('M6D_197_Vindictive Seir',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/165_Finishing Stroke.jpg" id="M6D_165_Finishing Stroke" data-flag="@X" onclick="openSidebar('M6D_165_Finishing Stroke',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/175_Keter of Multiplicty.jpg" id="M6D_175_Keter of Multiplicty" data-flag="@X" onclick="openSidebar('M6D_175_Keter of Multiplicty',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/150_Benshachat Praetorian.jpg" id="M6D_150_Benshachat Praetorian" data-flag="@X" onclick="openSidebar('M6D_150_Benshachat Praetorian',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/179_Multitude Cleaver.jpg" id="M6D_179_Multitude Cleaver" data-flag="@X" onclick="openSidebar('M6D_179_Multitude Cleaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/195_Sunrise Seraph.jpg" id="M6D_195_Sunrise Seraph" data-flag="@X" onclick="openSidebar('M6D_195_Sunrise Seraph',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/186_Reaps-With-Loving-Care.jpg" id="M6D_186_Reaps-With-Loving-Care" data-flag="@X" onclick="openSidebar('M6D_186_Reaps-With-Loving-Care',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/163_Enacts-Signs-And-Wonders.jpg" id="M6D_163_Enacts-Signs-And-Wonders" data-flag="@X" onclick="openSidebar('M6D_163_Enacts-Signs-And-Wonders',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/1_Empty One.jpg" id="M6D_1_Empty One" data-flag="@X" onclick="openSidebar('M6D_1_Empty One',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/205_Covenant of Truth.jpg" id="M6D_205_Covenant of Truth" data-flag="@X" onclick="openSidebar('M6D_205_Covenant of Truth',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/208_Harp of Sin.jpg" id="M6D_208_Harp of Sin" data-flag="@X" onclick="openSidebar('M6D_208_Harp of Sin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/209_Molten Keter.jpg" id="M6D_209_Molten Keter" data-flag="@X" onclick="openSidebar('M6D_209_Molten Keter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/2_Foundation Scribe.jpg" id="M6D_2_Foundation Scribe" data-flag="@X" onclick="openSidebar('M6D_2_Foundation Scribe',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/3_Vessel Of Disrespect.jpg" id="M6D_3_Vessel Of Disrespect" data-flag="@X" onclick="openSidebar('M6D_3_Vessel Of Disrespect',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/204_Almanac of Days.jpg" id="M6D_204_Almanac of Days" data-flag="@X" onclick="openSidebar('M6D_204_Almanac of Days',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/206_Foundation Colossus.jpg" id="M6D_206_Foundation Colossus" data-flag="@X" onclick="openSidebar('M6D_206_Foundation Colossus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/207_Garden Statuary.jpg" id="M6D_207_Garden Statuary" data-flag="@X" onclick="openSidebar('M6D_207_Garden Statuary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/210_Prophetic Prism.jpg" id="M6D_210_Prophetic Prism" data-flag="@X" onclick="openSidebar('M6D_210_Prophetic Prism',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/227_Lofty Prophecyscape.jpg" id="M6D_227_Lofty Prophecyscape" data-flag="@X" onclick="openSidebar('M6D_227_Lofty Prophecyscape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/217_Diluvian Prophecyscape.jpg" id="M6D_217_Diluvian Prophecyscape" data-flag="@X" onclick="openSidebar('M6D_217_Diluvian Prophecyscape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/222_Grieving Prophecyscape.jpg" id="M6D_222_Grieving Prophecyscape" data-flag="@X" onclick="openSidebar('M6D_222_Grieving Prophecyscape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/221_Fecund Prophecyscape.jpg" id="M6D_221_Fecund Prophecyscape" data-flag="@X" onclick="openSidebar('M6D_221_Fecund Prophecyscape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/224_Imperial Prophecyscape.jpg" id="M6D_224_Imperial Prophecyscape" data-flag="@X" onclick="openSidebar('M6D_224_Imperial Prophecyscape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/223_Hall of Wisdom.jpg" id="M6D_223_Hall of Wisdom" data-flag="@X" onclick="openSidebar('M6D_223_Hall of Wisdom',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/211_Blasted Refuse.jpg" id="M6D_211_Blasted Refuse" data-flag="@X" onclick="openSidebar('M6D_211_Blasted Refuse',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/212_Bloodied Altar.jpg" id="M6D_212_Bloodied Altar" data-flag="@X" onclick="openSidebar('M6D_212_Bloodied Altar',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/236_World Egg.jpg" id="M6D_236_World Egg" data-flag="@X" onclick="openSidebar('M6D_236_World Egg',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/216_Conserving Garden.jpg" id="M6D_216_Conserving Garden" data-flag="@X" onclick="openSidebar('M6D_216_Conserving Garden',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/218_Dire Prophecyscape.jpg" id="M6D_218_Dire Prophecyscape" data-flag="@X" onclick="openSidebar('M6D_218_Dire Prophecyscape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/233_Vibrant Prophecyscape.jpg" id="M6D_233_Vibrant Prophecyscape" data-flag="@X" onclick="openSidebar('M6D_233_Vibrant Prophecyscape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/231_Slick Prophecyscape.jpg" id="M6D_231_Slick Prophecyscape" data-flag="@X" onclick="openSidebar('M6D_231_Slick Prophecyscape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/214_Bustling Prophecyscpe.jpg" id="M6D_214_Bustling Prophecyscpe" data-flag="@X" onclick="openSidebar('M6D_214_Bustling Prophecyscpe',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/215_Cavernous Prophecyscape.jpg" id="M6D_215_Cavernous Prophecyscape" data-flag="@X" onclick="openSidebar('M6D_215_Cavernous Prophecyscape',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/226_Lesser Throne.jpg" id="M6D_226_Lesser Throne" data-flag="@X" onclick="openSidebar('M6D_226_Lesser Throne',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/229_Pillars of Creation.jpg" id="M6D_229_Pillars of Creation" data-flag="@X" onclick="openSidebar('M6D_229_Pillars of Creation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/234_Wailing Barrens.jpg" id="M6D_234_Wailing Barrens" data-flag="@X" onclick="openSidebar('M6D_234_Wailing Barrens',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/230_Productive Smithy.jpg" id="M6D_230_Productive Smithy" data-flag="@X" onclick="openSidebar('M6D_230_Productive Smithy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/235_Water-Drawing Site.jpg" id="M6D_235_Water-Drawing Site" data-flag="@X" onclick="openSidebar('M6D_235_Water-Drawing Site',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/213_The Boiler.jpg" id="M6D_213_The Boiler" data-flag="@X" onclick="openSidebar('M6D_213_The Boiler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/219_The Engine Room.jpg" id="M6D_219_The Engine Room" data-flag="@X" onclick="openSidebar('M6D_219_The Engine Room',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/225_The Judicary.jpg" id="M6D_225_The Judicary" data-flag="@X" onclick="openSidebar('M6D_225_The Judicary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/228_The Orchard.jpg" id="M6D_228_The Orchard" data-flag="@X" onclick="openSidebar('M6D_228_The Orchard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/232_The Study Hall.jpg" id="M6D_232_The Study Hall" data-flag="@X" onclick="openSidebar('M6D_232_The Study Hall',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/220_Evolving Wilds.jpg" id="M6D_220_Evolving Wilds" data-flag="@X" onclick="openSidebar('M6D_220_Evolving Wilds',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/239_Swamp.jpg" id="M6D_239_Swamp" data-flag="@X" onclick="openSidebar('M6D_239_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/237_Plains.jpg" id="M6D_237_Plains" data-flag="@X" onclick="openSidebar('M6D_237_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/241_Forest.jpg" id="M6D_241_Forest" data-flag="@X" onclick="openSidebar('M6D_241_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/238_Island.jpg" id="M6D_238_Island" data-flag="@X" onclick="openSidebar('M6D_238_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/240_Mountain.jpg" id="M6D_240_Mountain" data-flag="@X" onclick="openSidebar('M6D_240_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/1t_.jpg" id="M6D_1t_" data-flag="@X" onclick="openSidebar('M6D_1t_',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/2t_Angel.jpg" id="M6D_2t_Angel" data-flag="@X" onclick="openSidebar('M6D_2t_Angel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/10t_Conch Horn.jpg" id="M6D_10t_Conch Horn" data-flag="@X" onclick="openSidebar('M6D_10t_Conch Horn',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/11t_Equipment.jpg" id="M6D_11t_Equipment" data-flag="@X" onclick="openSidebar('M6D_11t_Equipment',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/12t_First Thing.jpg" id="M6D_12t_First Thing" data-flag="@X" onclick="openSidebar('M6D_12t_First Thing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/13t_Keter of 248 Organs.jpg" id="M6D_13t_Keter of 248 Organs" data-flag="@X" onclick="openSidebar('M6D_13t_Keter of 248 Organs',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/14t_Law.jpg" id="M6D_14t_Law" data-flag="@X" onclick="openSidebar('M6D_14t_Law',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/15t_Meitohu Sludge.jpg" id="M6D_15t_Meitohu Sludge" data-flag="@X" onclick="openSidebar('M6D_15t_Meitohu Sludge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/16t_Treasure.jpg" id="M6D_16t_Treasure" data-flag="@X" onclick="openSidebar('M6D_16t_Treasure',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/3t_Angel.jpg" id="M6D_3t_Angel" data-flag="@X" onclick="openSidebar('M6D_3t_Angel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/4t_Angel.jpg" id="M6D_4t_Angel" data-flag="@X" onclick="openSidebar('M6D_4t_Angel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/5t_Angel Devil.jpg" id="M6D_5t_Angel Devil" data-flag="@X" onclick="openSidebar('M6D_5t_Angel Devil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/6t_Demon.jpg" id="M6D_6t_Demon" data-flag="@X" onclick="openSidebar('M6D_6t_Demon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/7t_Angel Wizard.jpg" id="M6D_7t_Angel Wizard" data-flag="@X" onclick="openSidebar('M6D_7t_Angel Wizard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/8t_Homunculus.jpg" id="M6D_8t_Homunculus" data-flag="@X" onclick="openSidebar('M6D_8t_Homunculus',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/M6D-files/img/9t_Homunculus Beast.jpg" id="M6D_9t_Homunculus Beast" data-flag="@X" onclick="openSidebar('M6D_9t_Homunculus Beast',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="M6D_e" data-flag="@E" onclick="openSidebar('M6D_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="M6D_er" data-flag="@E" onclick="openSidebar('M6D_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1].toLowerCase());
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

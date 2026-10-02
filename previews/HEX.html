@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" type="image/png" href="../sets/HEX-files/icon.png"/>
+	<link rel="stylesheet" href="../resources/header.css">
+	<title>HEX visual preview</title>
+	<script title="root">
+		const rootPath = "..";
+	</script>
+	<style>
+		@font-face {
+			font-family: Beleren;
+			src: url('../resources/beleren.ttf');
+		}
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			overscroll-behavior: none;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.main-content {
+			position: relative;
+			width: 100%;
+			float: left;
+			z-index: 2;
+			justify-items: center;
+		}
+		.sidebar {
+			position: sticky;
+			top: 0;
+			display: none;
+			text-align: center;
+			padding-right: 3%;
+			z-index: 1;
+			justify-items: center;
+		}
+		.sidebar-container {
+			width: 80%;
+			max-width: 375px;
+			position: relative;
+		}
+		.sidebar-h-img {
+			opacity: 0;
+			transform: rotateY(0deg) rotate(90deg);
+			position: absolute;
+			left: 10%;
+			top: 10%;
+			width: 85%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.sidebar-img {
+			vertical-align: middle;
+			width: 100%;
+			border-radius: 3.733% / 2.677%;
+		}
+		.close-btn {
+			background: url('../img/close.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 10%;
+			height: 10%;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			right: 4%;
+		}
+		.close-btn:hover {
+			background: url('../img/close-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.grid-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 2px;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 1%;
+			justify-items: center;
+			max-width: 1200px;
+		}
+		.grid-container img {
+			width: 100%;
+			height: auto;
+			display: block;
+			visibility: hidden;
+			cursor: pointer;
+			border-radius: 3.733% / 2.677%;
+		}
+		.banner {
+			width: 100%;
+			height: auto;
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
+		.logo {
+			display: block;
+			margin: auto;
+			max-width: 30%;
+			max-height: 320px;
+		}
+		.container {
+			position: relative;
+			width: 100%;
+		}
+		.container img {
+			width: 100%;
+			height: auto;
+			border-radius: 3.733% / 2.677%;
+		}
+		.flip-btn {
+			background: url('../img/flip.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+			width: 15%;
+			height: 11%;
+			cursor: pointer;
+			border: none;
+			position: absolute;
+			left: 50%;
+			top: 48%;
+			transform: translate(-50%, -50%);
+			opacity: 0.5;
+		}
+		.flip-btn:hover {
+			background: url('../img/flip-hover.png') no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+		.dropdown {
+			background: rgba(23, 23, 23, 0.8);
+			border-radius: 8px;
+			position: absolute;
+			left: 5%;
+			width: fit-content;
+			max-width: 90%;
+			margin: 20px 0;
+			padding: 5px 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			z-index: 3;
+		}
+		.dropdown .set-bar {
+			font-family: Beleren;
+			font-size: 20px;
+			text-decoration: none;
+			color: #e3e3e3;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			padding: 0 12px;
+			margin: 5px;
+		}
+		.dropdown .set-bar:hover {
+			background: rgba(163, 163, 163, 0.5);
+			color: #f3f3f3;
+		}
+		.dropdown .set-bar img {
+			width: 32px;
+		}
+		.dropdown .inactive {
+			height: 0px;
+			overflow: hidden;
+			margin: 0px 5px;
+		}
+		.preload-hidden {
+			display: none;
+		}
+		.addenda-container {
+			text-align: center;
+			width: fit-content;
+			max-width: 1200px;
+			padding: 0 5%;
+		}
+		/* This is here to enable the stickiness in a Float environment. I don't know why it works but it does */
+		.footer {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<img class="preload-hidden" src="../img/dot.png" />
+	<img class="preload-hidden" src="../sets/HEX-files/logo.png" />
+	<img class="preload-hidden" src="../sets/2MC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/F2HU-files/icon.png" />
+		<img class="preload-hidden" src="../sets/HEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MST-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SSC-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WHL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/XCX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ECB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FRT-files/icon.png" />
+		<img class="preload-hidden" src="../sets/MVX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TFF-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TVN-files/icon.png" />
+		<img class="preload-hidden" src="../sets/WBY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AWA-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EAJ-files/icon.png" />
+		<img class="preload-hidden" src="../sets/M6D-files/icon.png" />
+		<img class="preload-hidden" src="../sets/RAW-files/icon.png" />
+		<img class="preload-hidden" src="../sets/SPX-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TEL-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TLB-files/icon.png" />
+		<img class="preload-hidden" src="../sets/AJY-files/icon.png" />
+		<img class="preload-hidden" src="../sets/BLV-files/icon.png" />
+		<img class="preload-hidden" src="../sets/DRM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EOR-files/icon.png" />
+		<img class="preload-hidden" src="../sets/EVO-files/icon.png" />
+		<img class="preload-hidden" src="../sets/FIM-files/icon.png" />
+		<img class="preload-hidden" src="../sets/ORE-files/icon.png" />
+		<img class="preload-hidden" src="../sets/TOTL-files/icon.png" />
+		<div class="header">
+		<div class="search-grid">
+			<a onclick="window.location.href = rootPath + '/'"><img class="sg-logo" id="header-banner"></a>
+			<img class="sg-icon" id="header-search" onclick="goToSearch()">
+			<div style="position: relative; width: 100%;">
+				<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+			</div>
+			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
+			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
+			document.getElementById("header-search").src = rootPath + "/img/search.png";
+			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
+			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
+		});
+
+		function goToSearch() {
+			window.location.href = rootPath + "/search";
+		}
+	</script>
+
+	<div class="dropdown" id="dropdown" onmouseenter="rolldown()" onmouseleave="rollup()">
+	
+		<a class="set-bar" href="../previews/HEX"><img src="../sets/HEX-files/icon.png">The Hex Games</a>
+	
+		<a class="set-bar inactive" href="../previews/2MC"><img src="../sets/2MC-files/icon.png">UB Touhou Miniset Collection</a>
+	
+		<a class="set-bar inactive" href="../previews/F2HU"><img src="../sets/F2HU-files/icon.png">Universes Beyond: Touhou Fangames/Albums</a>
+	
+		<a class="set-bar inactive" href="../previews/MST"><img src="../sets/MST-files/icon.png">Rural Dwellings, in Seafoam Mist</a>
+	
+		<a class="set-bar inactive" href="../previews/SSC"><img src="../sets/SSC-files/icon.png">Shiyue: Soul's Crossing</a>
+	
+		<a class="set-bar inactive" href="../previews/WHL"><img src="../sets/WHL-files/icon.png">Building Fortune's Wheel</a>
+	
+		<a class="set-bar inactive" href="../previews/XCX"><img src="../sets/XCX-files/icon.png">Xenoblade Chronicles X</a>
+	
+		<a class="set-bar inactive" href="../previews/ECB"><img src="../sets/ECB-files/icon.png">Elnyreth: Contact With Those Beyond</a>
+	
+		<a class="set-bar inactive" href="../previews/FRT"><img src="../sets/FRT-files/icon.png">Felidea: Rising Tensions</a>
+	
+		<a class="set-bar inactive" href="../previews/MVX"><img src="../sets/MVX-files/icon.png">Merveaux</a>
+	
+		<a class="set-bar inactive" href="../previews/TEX"><img src="../sets/TEX-files/icon.png">Tarkir: Extinction</a>
+	
+		<a class="set-bar inactive" href="../previews/TFF"><img src="../sets/TFF-files/icon.png">Dark Souls: The Fire Fades</a>
+	
+		<a class="set-bar inactive" href="../previews/TVN"><img src="../sets/TVN-files/icon.png">Titans of Viludin</a>
+	
+		<a class="set-bar inactive" href="../previews/WBY"><img src="../sets/WBY-files/icon.png">Wild Blue Yonder</a>
+	
+		<a class="set-bar inactive" href="../previews/AWA"><img src="../sets/AWA-files/icon.png">Anglodoor Awakened</a>
+	
+		<a class="set-bar inactive" href="../previews/EAJ"><img src="../sets/EAJ-files/icon.png">Eternal Autumn of Javor</a>
+	
+		<a class="set-bar inactive" href="../previews/M6D"><img src="../sets/M6D-files/icon.png">Mysticism of the Sixth Day</a>
+	
+		<a class="set-bar inactive" href="../previews/RAW"><img src="../sets/RAW-files/icon.png">Ravnica's Awakening</a>
+	
+		<a class="set-bar inactive" href="../previews/SPX"><img src="../sets/SPX-files/icon.png">Splendor of Excelsior</a>
+	
+		<a class="set-bar inactive" href="../previews/TEL"><img src="../sets/TEL-files/icon.png">Theros: The Elekteid</a>
+	
+		<a class="set-bar inactive" href="../previews/TLB"><img src="../sets/TLB-files/icon.png">The Lands Between</a>
+	
+		<a class="set-bar inactive" href="../previews/AJY"><img src="../sets/AJY-files/icon.png">Alder Jane in: The Prince of Years</a>
+	
+		<a class="set-bar inactive" href="../previews/BLV"><img src="../sets/BLV-files/icon.png">Blood and Velvet</a>
+	
+		<a class="set-bar inactive" href="../previews/DRM"><img src="../sets/DRM-files/icon.png">Dreamers of Antausia</a>
+	
+		<a class="set-bar inactive" href="../previews/EOR"><img src="../sets/EOR-files/icon.png">Defenders of Eorzea</a>
+	
+		<a class="set-bar inactive" href="../previews/EVO"><img src="../sets/EVO-files/icon.png">Evolution on Srai-Val-Nul</a>
+	
+		<a class="set-bar inactive" href="../previews/FIM"><img src="../sets/FIM-files/icon.png">Periss: Friendship is Magic</a>
+	
+		<a class="set-bar inactive" href="../previews/ORE"><img src="../sets/ORE-files/icon.png">Orestan</a>
+	
+		<a class="set-bar inactive" href="../previews/TOTL"><img src="../sets/TOTL-files/icon.png">Towers of Tin Lau</a>
+	
+		</div>
+		<div class="banner">
+		<img class="logo" src="../sets/HEX-files/logo.png">
+		</div>
+		<div class="main-content" id="main-content">
+			<div class="grid-container">
+					<div class="container"><img loading="lazy" alt="sets/HEX-files/img/17_Ascendancy.jpg" id="HEX_17_Ascendancy" data-flag="@X" onclick="openSidebar('HEX_17_Ascendancy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/66_Gift of Revelation.jpg" id="HEX_66_Gift of Revelation" data-flag="@X" onclick="openSidebar('HEX_66_Gift of Revelation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/110_Pactbound Contestant.jpg" id="HEX_110_Pactbound Contestant" data-flag="@X" onclick="openSidebar('HEX_110_Pactbound Contestant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/122_All That Is Possible.jpg" id="HEX_122_All That Is Possible" data-flag="@X" onclick="openSidebar('HEX_122_All That Is Possible',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/161_Brood War.jpg" id="HEX_161_Brood War" data-flag="@X" onclick="openSidebar('HEX_161_Brood War',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/22_The Competitive Spirit.jpg" id="HEX_22_The Competitive Spirit" data-flag="@X" onclick="openSidebar('HEX_22_The Competitive Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/75_Pina, the Returned.jpg" id="HEX_75_Pina, the Returned" data-flag="@X" onclick="openSidebar('HEX_75_Pina, the Returned',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/119_Verce's Nightmare.jpg" id="HEX_119_Verces Nightmare" data-flag="@X" onclick="openSidebar('HEX_119_Verces Nightmare',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/143_Path to Victory.jpg" id="HEX_143_Path to Victory" data-flag="@X" onclick="openSidebar('HEX_143_Path to Victory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/171_Glimpse at Greatness.jpg" id="HEX_171_Glimpse at Greatness" data-flag="@X" onclick="openSidebar('HEX_171_Glimpse at Greatness',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/20_Challenge Seeker.jpg" id="HEX_20_Challenge Seeker" data-flag="@X" onclick="openSidebar('HEX_20_Challenge Seeker',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/HEX-files/img/51_Ael, the Second Chance_back.jpg" alt="sets/HEX-files/img/51_Ael, the Second Chance_front.jpg" id="HEX_51_Ael, the Second Chance" data-flag="@XD" onclick="openSidebar('HEX_51_Ael, the Second Chance',false)"><button class="flip-btn" onclick="imgFlip('HEX_51_Ael, the Second Chance')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/87_Baroness of Calerast.jpg" id="HEX_87_Baroness of Calerast" data-flag="@X" onclick="openSidebar('HEX_87_Baroness of Calerast',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/123_Ascendant's Outburst.jpg" id="HEX_123_Ascendants Outburst" data-flag="@X" onclick="openSidebar('HEX_123_Ascendants Outburst',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/159_Anvy, Thorns of Sefol.jpg" id="HEX_159_Anvy, Thorns of Sefol" data-flag="@X" onclick="openSidebar('HEX_159_Anvy, Thorns of Sefol',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/25_Finality.jpg" id="HEX_25_Finality" data-flag="@X" onclick="openSidebar('HEX_25_Finality',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/54_Afterthought.jpg" id="HEX_54_Afterthought" data-flag="@X" onclick="openSidebar('HEX_54_Afterthought',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/91_Brutal Victory.jpg" id="HEX_91_Brutal Victory" data-flag="@X" onclick="openSidebar('HEX_91_Brutal Victory',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/HEX-files/img/124_Ba, the Sixth Sense_back.jpg" alt="sets/HEX-files/img/124_Ba, the Sixth Sense_front.jpg" id="HEX_124_Ba, the Sixth Sense" data-flag="@XD" onclick="openSidebar('HEX_124_Ba, the Sixth Sense',false)"><button class="flip-btn" onclick="imgFlip('HEX_124_Ba, the Sixth Sense')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/162_Broodnest Raider.jpg" id="HEX_162_Broodnest Raider" data-flag="@X" onclick="openSidebar('HEX_162_Broodnest Raider',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/28_High-End Security.jpg" id="HEX_28_High-End Security" data-flag="@X" onclick="openSidebar('HEX_28_High-End Security',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/58_Comfy, the Final Game.jpg" id="HEX_58_Comfy, the Final Game" data-flag="@X" onclick="openSidebar('HEX_58_Comfy, the Final Game',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/HEX-files/img/93_Cenari, the Fifth Desire_back.jpg" alt="sets/HEX-files/img/93_Cenari, the Fifth Desire_front.jpg" id="HEX_93_Cenari, the Fifth Desire" data-flag="@XD" onclick="openSidebar('HEX_93_Cenari, the Fifth Desire',false)"><button class="flip-btn" onclick="imgFlip('HEX_93_Cenari, the Fifth Desire')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/134_Embrace the Chaos.jpg" id="HEX_134_Embrace the Chaos" data-flag="@X" onclick="openSidebar('HEX_134_Embrace the Chaos',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/164_Changemancer.jpg" id="HEX_164_Changemancer" data-flag="@X" onclick="openSidebar('HEX_164_Changemancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/34_Patron of the Bold.jpg" id="HEX_34_Patron of the Bold" data-flag="@X" onclick="openSidebar('HEX_34_Patron of the Bold',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/60_Eve, the Paradoxical.jpg" id="HEX_60_Eve, the Paradoxical" data-flag="@X" onclick="openSidebar('HEX_60_Eve, the Paradoxical',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/103_Host Seeker.jpg" id="HEX_103_Host Seeker" data-flag="@X" onclick="openSidebar('HEX_103_Host Seeker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/137_Gigi, the Game Ender.jpg" id="HEX_137_Gigi, the Game Ender" data-flag="@X" onclick="openSidebar('HEX_137_Gigi, the Game Ender',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/180_Palace Councillor.jpg" id="HEX_180_Palace Councillor" data-flag="@X" onclick="openSidebar('HEX_180_Palace Councillor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/39_Stoic Steward.jpg" id="HEX_39_Stoic Steward" data-flag="@X" onclick="openSidebar('HEX_39_Stoic Steward',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/61_Eve's Will.jpg" id="HEX_61_Eves Will" data-flag="@X" onclick="openSidebar('HEX_61_Eves Will',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/107_Living Infestation.jpg" id="HEX_107_Living Infestation" data-flag="@X" onclick="openSidebar('HEX_107_Living Infestation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/138_Impossible Oddsmaker.jpg" id="HEX_138_Impossible Oddsmaker" data-flag="@X" onclick="openSidebar('HEX_138_Impossible Oddsmaker',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/HEX-files/img/186_Sih, the Fourth Season_back.jpg" alt="sets/HEX-files/img/186_Sih, the Fourth Season_front.jpg" id="HEX_186_Sih, the Fourth Season" data-flag="@XD" onclick="openSidebar('HEX_186_Sih, the Fourth Season',false)"><button class="flip-btn" onclick="imgFlip('HEX_186_Sih, the Fourth Season')"></button></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/HEX-files/img/40_Tarase, the Third Charm_back.jpg" alt="sets/HEX-files/img/40_Tarase, the Third Charm_front.jpg" id="HEX_40_Tarase, the Third Charm" data-flag="@XD" onclick="openSidebar('HEX_40_Tarase, the Third Charm',false)"><button class="flip-btn" onclick="imgFlip('HEX_40_Tarase, the Third Charm')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/73_Meet Your Match.jpg" id="HEX_73_Meet Your Match" data-flag="@X" onclick="openSidebar('HEX_73_Meet Your Match',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/111_Price for Victory.jpg" id="HEX_111_Price for Victory" data-flag="@X" onclick="openSidebar('HEX_111_Price for Victory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/139_Merciless Reaver.jpg" id="HEX_139_Merciless Reaver" data-flag="@X" onclick="openSidebar('HEX_139_Merciless Reaver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/192_Trophyless.jpg" id="HEX_192_Trophyless" data-flag="@X" onclick="openSidebar('HEX_192_Trophyless',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/44_Tournament Recruiter.jpg" id="HEX_44_Tournament Recruiter" data-flag="@X" onclick="openSidebar('HEX_44_Tournament Recruiter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/79_Sunstan Mage.jpg" id="HEX_79_Sunstan Mage" data-flag="@X" onclick="openSidebar('HEX_79_Sunstan Mage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/116_Tunnel Keeper.jpg" id="HEX_116_Tunnel Keeper" data-flag="@X" onclick="openSidebar('HEX_116_Tunnel Keeper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/154_Trophy Hunter.jpg" id="HEX_154_Trophy Hunter" data-flag="@X" onclick="openSidebar('HEX_154_Trophy Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/193_Xysth Guard.jpg" id="HEX_193_Xysth Guard" data-flag="@X" onclick="openSidebar('HEX_193_Xysth Guard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/14_Adversary's Navigator.jpg" id="HEX_14_Adversarys Navigator" data-flag="@X" onclick="openSidebar('HEX_14_Adversarys Navigator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/52_Ael's Trial.jpg" id="HEX_52_Aels Trial" data-flag="@X" onclick="openSidebar('HEX_52_Aels Trial',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/88_Battle Medic.jpg" id="HEX_88_Battle Medic" data-flag="@X" onclick="openSidebar('HEX_88_Battle Medic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/125_Ba's Prodigy.jpg" id="HEX_125_Bas Prodigy" data-flag="@X" onclick="openSidebar('HEX_125_Bas Prodigy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/158_Aggressive Hazard.jpg" id="HEX_158_Aggressive Hazard" data-flag="@X" onclick="openSidebar('HEX_158_Aggressive Hazard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/15_Arcane Rallier.jpg" id="HEX_15_Arcane Rallier" data-flag="@X" onclick="openSidebar('HEX_15_Arcane Rallier',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/56_Attention Grab.jpg" id="HEX_56_Attention Grab" data-flag="@X" onclick="openSidebar('HEX_56_Attention Grab',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/90_Brooding Pact.jpg" id="HEX_90_Brooding Pact" data-flag="@X" onclick="openSidebar('HEX_90_Brooding Pact',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/126_Ba's Trial.jpg" id="HEX_126_Bas Trial" data-flag="@X" onclick="openSidebar('HEX_126_Bas Trial',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/165_Cross-Pollinate.jpg" id="HEX_165_Cross-Pollinate" data-flag="@X" onclick="openSidebar('HEX_165_Cross-Pollinate',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/16_Arena Boss.jpg" id="HEX_16_Arena Boss" data-flag="@X" onclick="openSidebar('HEX_16_Arena Boss',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/59_Cravakian Ring Dancer.jpg" id="HEX_59_Cravakian Ring Dancer" data-flag="@X" onclick="openSidebar('HEX_59_Cravakian Ring Dancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/97_Corrupted Worker.jpg" id="HEX_97_Corrupted Worker" data-flag="@X" onclick="openSidebar('HEX_97_Corrupted Worker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/131_Competitive Spirit Tamer.jpg" id="HEX_131_Competitive Spirit Tamer" data-flag="@X" onclick="openSidebar('HEX_131_Competitive Spirit Tamer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/166_Detached Finger.jpg" id="HEX_166_Detached Finger" data-flag="@X" onclick="openSidebar('HEX_166_Detached Finger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/18_Bound as Brothers.jpg" id="HEX_18_Bound as Brothers" data-flag="@X" onclick="openSidebar('HEX_18_Bound as Brothers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/64_Fortune's Favor.jpg" id="HEX_64_Fortunes Favor" data-flag="@X" onclick="openSidebar('HEX_64_Fortunes Favor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/100_Expendable Paladin.jpg" id="HEX_100_Expendable Paladin" data-flag="@X" onclick="openSidebar('HEX_100_Expendable Paladin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/135_Fortune's Channeler.jpg" id="HEX_135_Fortunes Channeler" data-flag="@X" onclick="openSidebar('HEX_135_Fortunes Channeler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/172_Grist's Devoted.jpg" id="HEX_172_Grists Devoted" data-flag="@X" onclick="openSidebar('HEX_172_Grists Devoted',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/19_Catch the Show.jpg" id="HEX_19_Catch the Show" data-flag="@X" onclick="openSidebar('HEX_19_Catch the Show',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/69_Kryslavar Golem.jpg" id="HEX_69_Kryslavar Golem" data-flag="@X" onclick="openSidebar('HEX_69_Kryslavar Golem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/101_Forgotten Deity.jpg" id="HEX_101_Forgotten Deity" data-flag="@X" onclick="openSidebar('HEX_101_Forgotten Deity',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/136_Game Master.jpg" id="HEX_136_Game Master" data-flag="@X" onclick="openSidebar('HEX_136_Game Master',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/173_Hive Explorer.jpg" id="HEX_173_Hive Explorer" data-flag="@X" onclick="openSidebar('HEX_173_Hive Explorer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/21_Claimed by Trials.jpg" id="HEX_21_Claimed by Trials" data-flag="@X" onclick="openSidebar('HEX_21_Claimed by Trials',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/70_Let the Games Begin.jpg" id="HEX_70_Let the Games Begin" data-flag="@X" onclick="openSidebar('HEX_70_Let the Games Begin',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/102_Hiveheart Guardian.jpg" id="HEX_102_Hiveheart Guardian" data-flag="@X" onclick="openSidebar('HEX_102_Hiveheart Guardian',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/140_A Moment to Strike.jpg" id="HEX_140_A Moment to Strike" data-flag="@X" onclick="openSidebar('HEX_140_A Moment to Strike',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/174_Hive Sentinel.jpg" id="HEX_174_Hive Sentinel" data-flag="@X" onclick="openSidebar('HEX_174_Hive Sentinel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/23_Competitor's Hammer.jpg" id="HEX_23_Competitors Hammer" data-flag="@X" onclick="openSidebar('HEX_23_Competitors Hammer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/71_Lost Cause.jpg" id="HEX_71_Lost Cause" data-flag="@X" onclick="openSidebar('HEX_71_Lost Cause',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/104_A House and a Brood.jpg" id="HEX_104_A House and a Brood" data-flag="@X" onclick="openSidebar('HEX_104_A House and a Brood',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/142_Overwhelming Offense.jpg" id="HEX_142_Overwhelming Offense" data-flag="@X" onclick="openSidebar('HEX_142_Overwhelming Offense',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/175_Host the Tournament.jpg" id="HEX_175_Host the Tournament" data-flag="@X" onclick="openSidebar('HEX_175_Host the Tournament',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/31_Medical Field.jpg" id="HEX_31_Medical Field" data-flag="@X" onclick="openSidebar('HEX_31_Medical Field',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/72_Master of Nari's Veil.jpg" id="HEX_72_Master of Naris Veil" data-flag="@X" onclick="openSidebar('HEX_72_Master of Naris Veil',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/105_Kiss of Defeat.jpg" id="HEX_105_Kiss of Defeat" data-flag="@X" onclick="openSidebar('HEX_105_Kiss of Defeat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/146_Plan Bee.jpg" id="HEX_146_Plan Bee" data-flag="@X" onclick="openSidebar('HEX_146_Plan Bee',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/179_Opposing Form.jpg" id="HEX_179_Opposing Form" data-flag="@X" onclick="openSidebar('HEX_179_Opposing Form',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/32_Mimi, Grounds Explorer.jpg" id="HEX_32_Mimi, Grounds Explorer" data-flag="@X" onclick="openSidebar('HEX_32_Mimi, Grounds Explorer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/74_Out in the Cold.jpg" id="HEX_74_Out in the Cold" data-flag="@X" onclick="openSidebar('HEX_74_Out in the Cold',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/106_Last of the Lost.jpg" id="HEX_106_Last of the Lost" data-flag="@X" onclick="openSidebar('HEX_106_Last of the Lost',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/147_Rage of the Warrior.jpg" id="HEX_147_Rage of the Warrior" data-flag="@X" onclick="openSidebar('HEX_147_Rage of the Warrior',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/181_Pit Hydra.jpg" id="HEX_181_Pit Hydra" data-flag="@X" onclick="openSidebar('HEX_181_Pit Hydra',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/33_Paragon of Competition.jpg" id="HEX_33_Paragon of Competition" data-flag="@X" onclick="openSidebar('HEX_33_Paragon of Competition',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/76_Reality Referee.jpg" id="HEX_76_Reality Referee" data-flag="@X" onclick="openSidebar('HEX_76_Reality Referee',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/109_Morgan's Order.jpg" id="HEX_109_Morgans Order" data-flag="@X" onclick="openSidebar('HEX_109_Morgans Order',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/149_Relentless Rival.jpg" id="HEX_149_Relentless Rival" data-flag="@X" onclick="openSidebar('HEX_149_Relentless Rival',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/182_Power to Devour.jpg" id="HEX_182_Power to Devour" data-flag="@X" onclick="openSidebar('HEX_182_Power to Devour',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/35_Peak Performer.jpg" id="HEX_35_Peak Performer" data-flag="@X" onclick="openSidebar('HEX_35_Peak Performer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/77_Reality Slip.jpg" id="HEX_77_Reality Slip" data-flag="@X" onclick="openSidebar('HEX_77_Reality Slip',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/113_Sponsor's Decree.jpg" id="HEX_113_Sponsors Decree" data-flag="@X" onclick="openSidebar('HEX_113_Sponsors Decree',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/150_Rookie's Mentor.jpg" id="HEX_150_Rookies Mentor" data-flag="@X" onclick="openSidebar('HEX_150_Rookies Mentor',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/185_Return from the Fallen.jpg" id="HEX_185_Return from the Fallen" data-flag="@X" onclick="openSidebar('HEX_185_Return from the Fallen',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/37_Seto San's Wake.jpg" id="HEX_37_Seto Sans Wake" data-flag="@X" onclick="openSidebar('HEX_37_Seto Sans Wake',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/81_Trophy Mage.jpg" id="HEX_81_Trophy Mage" data-flag="@X" onclick="openSidebar('HEX_81_Trophy Mage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/115_Tarase's Trial.jpg" id="HEX_115_Tarases Trial" data-flag="@X" onclick="openSidebar('HEX_115_Tarases Trial',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/151_Second Burst.jpg" id="HEX_151_Second Burst" data-flag="@X" onclick="openSidebar('HEX_151_Second Burst',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/187_Sih's Servant.jpg" id="HEX_187_Sihs Servant" data-flag="@X" onclick="openSidebar('HEX_187_Sihs Servant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/41_Tarase's Immortal.jpg" id="HEX_41_Tarases Immortal" data-flag="@X" onclick="openSidebar('HEX_41_Tarases Immortal',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/83_Vioradell Javelineer.jpg" id="HEX_83_Vioradell Javelineer" data-flag="@X" onclick="openSidebar('HEX_83_Vioradell Javelineer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/118_Verce, the Big Dreamer.jpg" id="HEX_118_Verce, the Big Dreamer" data-flag="@X" onclick="openSidebar('HEX_118_Verce, the Big Dreamer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/152_Self-Made Champ.jpg" id="HEX_152_Self-Made Champ" data-flag="@X" onclick="openSidebar('HEX_152_Self-Made Champ',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/188_Sih's Trial.jpg" id="HEX_188_Sihs Trial" data-flag="@X" onclick="openSidebar('HEX_188_Sihs Trial',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/46_Victory Summoner.jpg" id="HEX_46_Victory Summoner" data-flag="@X" onclick="openSidebar('HEX_46_Victory Summoner',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/85_Wide Receiver.jpg" id="HEX_85_Wide Receiver" data-flag="@X" onclick="openSidebar('HEX_85_Wide Receiver',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/121_Woven Lies.jpg" id="HEX_121_Woven Lies" data-flag="@X" onclick="openSidebar('HEX_121_Woven Lies',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/155_Wild Invoker.jpg" id="HEX_155_Wild Invoker" data-flag="@X" onclick="openSidebar('HEX_155_Wild Invoker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/190_Thaloren Caretaker.jpg" id="HEX_190_Thaloren Caretaker" data-flag="@X" onclick="openSidebar('HEX_190_Thaloren Caretaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/24_Daring Combatant.jpg" id="HEX_24_Daring Combatant" data-flag="@X" onclick="openSidebar('HEX_24_Daring Combatant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/50_Acceptance.jpg" id="HEX_50_Acceptance" data-flag="@X" onclick="openSidebar('HEX_50_Acceptance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/86_Ael's Experiment.jpg" id="HEX_86_Aels Experiment" data-flag="@X" onclick="openSidebar('HEX_86_Aels Experiment',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/127_Burning Desire.jpg" id="HEX_127_Burning Desire" data-flag="@X" onclick="openSidebar('HEX_127_Burning Desire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/160_Api's Blessing.jpg" id="HEX_160_Apis Blessing" data-flag="@X" onclick="openSidebar('HEX_160_Apis Blessing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/26_Grand Hexetic.jpg" id="HEX_26_Grand Hexetic" data-flag="@X" onclick="openSidebar('HEX_26_Grand Hexetic',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/53_Aftershow.jpg" id="HEX_53_Aftershow" data-flag="@X" onclick="openSidebar('HEX_53_Aftershow',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/89_Bitter History.jpg" id="HEX_89_Bitter History" data-flag="@X" onclick="openSidebar('HEX_89_Bitter History',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/128_Champion's Strike.jpg" id="HEX_128_Champions Strike" data-flag="@X" onclick="openSidebar('HEX_128_Champions Strike',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/163_Cenari's Pulverizer.jpg" id="HEX_163_Cenaris Pulverizer" data-flag="@X" onclick="openSidebar('HEX_163_Cenaris Pulverizer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/27_Head Hunter.jpg" id="HEX_27_Head Hunter" data-flag="@X" onclick="openSidebar('HEX_27_Head Hunter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/55_Answer the Call.jpg" id="HEX_55_Answer the Call" data-flag="@X" onclick="openSidebar('HEX_55_Answer the Call',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/92_Calerast Courtess.jpg" id="HEX_92_Calerast Courtess" data-flag="@X" onclick="openSidebar('HEX_92_Calerast Courtess',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/129_Chaotic Pyromancer.jpg" id="HEX_129_Chaotic Pyromancer" data-flag="@X" onclick="openSidebar('HEX_129_Chaotic Pyromancer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/167_Explorer of the Den.jpg" id="HEX_167_Explorer of the Den" data-flag="@X" onclick="openSidebar('HEX_167_Explorer of the Den',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/29_Isald Avenger.jpg" id="HEX_29_Isald Avenger" data-flag="@X" onclick="openSidebar('HEX_29_Isald Avenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/57_Blade of the Fair.jpg" id="HEX_57_Blade of the Fair" data-flag="@X" onclick="openSidebar('HEX_57_Blade of the Fair',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/94_Cenari's Youngling.jpg" id="HEX_94_Cenaris Youngling" data-flag="@X" onclick="openSidebar('HEX_94_Cenaris Youngling',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/130_Child of Chance.jpg" id="HEX_130_Child of Chance" data-flag="@X" onclick="openSidebar('HEX_130_Child of Chance',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/168_Field Patrol.jpg" id="HEX_168_Field Patrol" data-flag="@X" onclick="openSidebar('HEX_168_Field Patrol',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/30_Just Like We Practiced.jpg" id="HEX_30_Just Like We Practiced" data-flag="@X" onclick="openSidebar('HEX_30_Just Like We Practiced',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/62_Festive Jester.jpg" id="HEX_62_Festive Jester" data-flag="@X" onclick="openSidebar('HEX_62_Festive Jester',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/95_Challenger Mantis.jpg" id="HEX_95_Challenger Mantis" data-flag="@X" onclick="openSidebar('HEX_95_Challenger Mantis',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/132_Dragonborn Spear.jpg" id="HEX_132_Dragonborn Spear" data-flag="@X" onclick="openSidebar('HEX_132_Dragonborn Spear',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/169_Field Stitcher.jpg" id="HEX_169_Field Stitcher" data-flag="@X" onclick="openSidebar('HEX_169_Field Stitcher',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/36_Practice Partners.jpg" id="HEX_36_Practice Partners" data-flag="@X" onclick="openSidebar('HEX_36_Practice Partners',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/63_Final Preperations.jpg" id="HEX_63_Final Preperations" data-flag="@X" onclick="openSidebar('HEX_63_Final Preperations',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/96_Concession.jpg" id="HEX_96_Concession" data-flag="@X" onclick="openSidebar('HEX_96_Concession',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/133_Dribble Bomber.jpg" id="HEX_133_Dribble Bomber" data-flag="@X" onclick="openSidebar('HEX_133_Dribble Bomber',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/170_Flight of the Bumblebee.jpg" id="HEX_170_Flight of the Bumblebee" data-flag="@X" onclick="openSidebar('HEX_170_Flight of the Bumblebee',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/38_Shaken by the Arena.jpg" id="HEX_38_Shaken by the Arena" data-flag="@X" onclick="openSidebar('HEX_38_Shaken by the Arena',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/65_Gambler's Hex.jpg" id="HEX_65_Gamblers Hex" data-flag="@X" onclick="openSidebar('HEX_65_Gamblers Hex',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/98_Crowd's Favorite.jpg" id="HEX_98_Crowds Favorite" data-flag="@X" onclick="openSidebar('HEX_98_Crowds Favorite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/141_Nari's Disciple.jpg" id="HEX_141_Naris Disciple" data-flag="@X" onclick="openSidebar('HEX_141_Naris Disciple',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/176_Lady's Favorite.jpg" id="HEX_176_Ladys Favorite" data-flag="@X" onclick="openSidebar('HEX_176_Ladys Favorite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/42_Team Spirit.jpg" id="HEX_42_Team Spirit" data-flag="@X" onclick="openSidebar('HEX_42_Team Spirit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/67_Hex Mage.jpg" id="HEX_67_Hex Mage" data-flag="@X" onclick="openSidebar('HEX_67_Hex Mage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/99_Ex-House Dealer.jpg" id="HEX_99_Ex-House Dealer" data-flag="@X" onclick="openSidebar('HEX_99_Ex-House Dealer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/144_Personal Gain.jpg" id="HEX_144_Personal Gain" data-flag="@X" onclick="openSidebar('HEX_144_Personal Gain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/177_Little Victory.jpg" id="HEX_177_Little Victory" data-flag="@X" onclick="openSidebar('HEX_177_Little Victory',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/43_Tournament Favorite.jpg" id="HEX_43_Tournament Favorite" data-flag="@X" onclick="openSidebar('HEX_43_Tournament Favorite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/68_Kick Off.jpg" id="HEX_68_Kick Off" data-flag="@X" onclick="openSidebar('HEX_68_Kick Off',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/108_Match Fix.jpg" id="HEX_108_Match Fix" data-flag="@X" onclick="openSidebar('HEX_108_Match Fix',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/145_Petty Adversary.jpg" id="HEX_145_Petty Adversary" data-flag="@X" onclick="openSidebar('HEX_145_Petty Adversary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/178_Natural Conclusion.jpg" id="HEX_178_Natural Conclusion" data-flag="@X" onclick="openSidebar('HEX_178_Natural Conclusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/45_Training Regimen.jpg" id="HEX_45_Training Regimen" data-flag="@X" onclick="openSidebar('HEX_45_Training Regimen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/78_Rising Contender.jpg" id="HEX_78_Rising Contender" data-flag="@X" onclick="openSidebar('HEX_78_Rising Contender',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/112_Sind's Rule Setter.jpg" id="HEX_112_Sinds Rule Setter" data-flag="@X" onclick="openSidebar('HEX_112_Sinds Rule Setter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/148_Reality Shatter.jpg" id="HEX_148_Reality Shatter" data-flag="@X" onclick="openSidebar('HEX_148_Reality Shatter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/183_Rampant Charge.jpg" id="HEX_183_Rampant Charge" data-flag="@X" onclick="openSidebar('HEX_183_Rampant Charge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/47_Warrior's Bond.jpg" id="HEX_47_Warriors Bond" data-flag="@X" onclick="openSidebar('HEX_47_Warriors Bond',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/80_Take Your Chances.jpg" id="HEX_80_Take Your Chances" data-flag="@X" onclick="openSidebar('HEX_80_Take Your Chances',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/114_Tarase's Influence.jpg" id="HEX_114_Tarases Influence" data-flag="@X" onclick="openSidebar('HEX_114_Tarases Influence',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/153_Soaring Striker.jpg" id="HEX_153_Soaring Striker" data-flag="@X" onclick="openSidebar('HEX_153_Soaring Striker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/184_Retired General.jpg" id="HEX_184_Retired General" data-flag="@X" onclick="openSidebar('HEX_184_Retired General',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/48_Wayward Warrior.jpg" id="HEX_48_Wayward Warrior" data-flag="@X" onclick="openSidebar('HEX_48_Wayward Warrior',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/82_Unbroken Resolve.jpg" id="HEX_82_Unbroken Resolve" data-flag="@X" onclick="openSidebar('HEX_82_Unbroken Resolve',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/117_Undazzling Magician.jpg" id="HEX_117_Undazzling Magician" data-flag="@X" onclick="openSidebar('HEX_117_Undazzling Magician',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/156_Will of Ba.jpg" id="HEX_156_Will of Ba" data-flag="@X" onclick="openSidebar('HEX_156_Will of Ba',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/189_Sticky Situation.jpg" id="HEX_189_Sticky Situation" data-flag="@X" onclick="openSidebar('HEX_189_Sticky Situation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/49_Worthy Opponent.jpg" id="HEX_49_Worthy Opponent" data-flag="@X" onclick="openSidebar('HEX_49_Worthy Opponent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/84_Ward Off.jpg" id="HEX_84_Ward Off" data-flag="@X" onclick="openSidebar('HEX_84_Ward Off',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/120_Waste None.jpg" id="HEX_120_Waste None" data-flag="@X" onclick="openSidebar('HEX_120_Waste None',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/157_Written In Fire.jpg" id="HEX_157_Written In Fire" data-flag="@X" onclick="openSidebar('HEX_157_Written In Fire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/191_Thorn In Your Side.jpg" id="HEX_191_Thorn In Your Side" data-flag="@X" onclick="openSidebar('HEX_191_Thorn In Your Side',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/207_Fraid, Once Banished.jpg" id="HEX_207_Fraid, Once Banished" data-flag="@X" onclick="openSidebar('HEX_207_Fraid, Once Banished',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/195_Archmage's Gambit.jpg" id="HEX_195_Archmages Gambit" data-flag="@X" onclick="openSidebar('HEX_195_Archmages Gambit',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/211_Grist and Cenari.jpg" id="HEX_211_Grist and Cenari" data-flag="@X" onclick="openSidebar('HEX_211_Grist and Cenari',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/238_Saba, the First Champion.jpg" id="HEX_238_Saba, the First Champion" data-flag="@X" onclick="openSidebar('HEX_238_Saba, the First Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/206_Field Designer.jpg" id="HEX_206_Field Designer" data-flag="@X" onclick="openSidebar('HEX_206_Field Designer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/243_Soul Painter.jpg" id="HEX_243_Soul Painter" data-flag="@X" onclick="openSidebar('HEX_243_Soul Painter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/218_King of the House.jpg" id="HEX_218_King of the House" data-flag="@X" onclick="openSidebar('HEX_218_King of the House',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/212_Grist, the World Hunger.jpg" id="HEX_212_Grist, the World Hunger" data-flag="@X" onclick="openSidebar('HEX_212_Grist, the World Hunger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/241_Seto San, the Defending.jpg" id="HEX_241_Seto San, the Defending" data-flag="@X" onclick="openSidebar('HEX_241_Seto San, the Defending',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/204_Dragon of the Springs.jpg" id="HEX_204_Dragon of the Springs" data-flag="@X" onclick="openSidebar('HEX_204_Dragon of the Springs',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/208_Fraid's Mercenary.jpg" id="HEX_208_Fraids Mercenary" data-flag="@X" onclick="openSidebar('HEX_208_Fraids Mercenary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/225_Nari, Possibility Archmage.jpg" id="HEX_225_Nari, Possibility Archmage" data-flag="@X" onclick="openSidebar('HEX_225_Nari, Possibility Archmage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/199_Brood Rivalbreaker.jpg" id="HEX_199_Brood Rivalbreaker" data-flag="@X" onclick="openSidebar('HEX_199_Brood Rivalbreaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/197_Born for Entertainment.jpg" id="HEX_197_Born for Entertainment" data-flag="@X" onclick="openSidebar('HEX_197_Born for Entertainment',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/205_Everwing Phoenix.jpg" id="HEX_205_Everwing Phoenix" data-flag="@X" onclick="openSidebar('HEX_205_Everwing Phoenix',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/229_Order of the Tribunal.jpg" id="HEX_229_Order of the Tribunal" data-flag="@X" onclick="openSidebar('HEX_229_Order of the Tribunal',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/247_Take Fate.jpg" id="HEX_247_Take Fate" data-flag="@X" onclick="openSidebar('HEX_247_Take Fate',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/201_Conflicting Minds.jpg" id="HEX_201_Conflicting Minds" data-flag="@X" onclick="openSidebar('HEX_201_Conflicting Minds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/226_A New Challenger.jpg" id="HEX_226_A New Challenger" data-flag="@X" onclick="openSidebar('HEX_226_A New Challenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/236_Returning Roots.jpg" id="HEX_236_Returning Roots" data-flag="@X" onclick="openSidebar('HEX_236_Returning Roots',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/235_Remove the Competition.jpg" id="HEX_235_Remove the Competition" data-flag="@X" onclick="openSidebar('HEX_235_Remove the Competition',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/253_Wade Through Chaos.jpg" id="HEX_253_Wade Through Chaos" data-flag="@X" onclick="openSidebar('HEX_253_Wade Through Chaos',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/233_Princess of the Hive.jpg" id="HEX_233_Princess of the Hive" data-flag="@X" onclick="openSidebar('HEX_233_Princess of the Hive',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/231_Overwhelming Verdict.jpg" id="HEX_231_Overwhelming Verdict" data-flag="@X" onclick="openSidebar('HEX_231_Overwhelming Verdict',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/251_Victims of Fate.jpg" id="HEX_251_Victims of Fate" data-flag="@X" onclick="openSidebar('HEX_251_Victims of Fate',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/250_Vengeful Adversary.jpg" id="HEX_250_Vengeful Adversary" data-flag="@X" onclick="openSidebar('HEX_250_Vengeful Adversary',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/209_The Game Cube.jpg" id="HEX_209_The Game Cube" data-flag="@X" onclick="openSidebar('HEX_209_The Game Cube',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/249_Underdog Story.jpg" id="HEX_249_Underdog Story" data-flag="@X" onclick="openSidebar('HEX_249_Underdog Story',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/237_Rex, Two-Time Champion.jpg" id="HEX_237_Rex, Two-Time Champion" data-flag="@X" onclick="openSidebar('HEX_237_Rex, Two-Time Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/220_Matthue, Forever Dreaming.jpg" id="HEX_220_Matthue, Forever Dreaming" data-flag="@X" onclick="openSidebar('HEX_220_Matthue, Forever Dreaming',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/196_Arena for the Fallen.jpg" id="HEX_196_Arena for the Fallen" data-flag="@X" onclick="openSidebar('HEX_196_Arena for the Fallen',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/217_Jaroh, the Dearing.jpg" id="HEX_217_Jaroh, the Dearing" data-flag="@X" onclick="openSidebar('HEX_217_Jaroh, the Dearing',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/202_Det, Cenari's Favorite.jpg" id="HEX_202_Det, Cenaris Favorite" data-flag="@X" onclick="openSidebar('HEX_202_Det, Cenaris Favorite',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/194_Acewing Striker.jpg" id="HEX_194_Acewing Striker" data-flag="@X" onclick="openSidebar('HEX_194_Acewing Striker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/246_Sweetsong Whisperer.jpg" id="HEX_246_Sweetsong Whisperer" data-flag="@X" onclick="openSidebar('HEX_246_Sweetsong Whisperer',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/223_Morgan, Hexetic Leader.jpg" id="HEX_223_Morgan, Hexetic Leader" data-flag="@X" onclick="openSidebar('HEX_223_Morgan, Hexetic Leader',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/245_Streetsmart Gambler.jpg" id="HEX_245_Streetsmart Gambler" data-flag="@X" onclick="openSidebar('HEX_245_Streetsmart Gambler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/232_Praying Mantis.jpg" id="HEX_232_Praying Mantis" data-flag="@X" onclick="openSidebar('HEX_232_Praying Mantis',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/228_One More Round.jpg" id="HEX_228_One More Round" data-flag="@X" onclick="openSidebar('HEX_228_One More Round',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/252_Victory Chimes.jpg" id="HEX_252_Victory Chimes" data-flag="@X" onclick="openSidebar('HEX_252_Victory Chimes',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/230_Overseer of the Show.jpg" id="HEX_230_Overseer of the Show" data-flag="@X" onclick="openSidebar('HEX_230_Overseer of the Show',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/263_Risk and Reward.jpg" id="HEX_263_Risk and Reward" data-flag="@X" onclick="openSidebar('HEX_263_Risk and Reward',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/234_Reap Benefits.jpg" id="HEX_234_Reap Benefits" data-flag="@X" onclick="openSidebar('HEX_234_Reap Benefits',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/240_Sers, the Unbound.jpg" id="HEX_240_Sers, the Unbound" data-flag="@X" onclick="openSidebar('HEX_240_Sers, the Unbound',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/264_Shared Dreams.jpg" id="HEX_264_Shared Dreams" data-flag="@X" onclick="openSidebar('HEX_264_Shared Dreams',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/254_Deepest Desires.jpg" id="HEX_254_Deepest Desires" data-flag="@X" onclick="openSidebar('HEX_254_Deepest Desires',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/210_Gateway Gambler.jpg" id="HEX_210_Gateway Gambler" data-flag="@X" onclick="openSidebar('HEX_210_Gateway Gambler',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/261_Mother's Touch.jpg" id="HEX_261_Mothers Touch" data-flag="@X" onclick="openSidebar('HEX_261_Mothers Touch',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/265_Sponsor's Gift.jpg" id="HEX_265_Sponsors Gift" data-flag="@X" onclick="openSidebar('HEX_265_Sponsors Gift',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/200_Ceremonial Opening.jpg" id="HEX_200_Ceremonial Opening" data-flag="@X" onclick="openSidebar('HEX_200_Ceremonial Opening',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/203_Display of Power.jpg" id="HEX_203_Display of Power" data-flag="@X" onclick="openSidebar('HEX_203_Display of Power',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/213_Hex-Event Broadcaster.jpg" id="HEX_213_Hex-Event Broadcaster" data-flag="@X" onclick="openSidebar('HEX_213_Hex-Event Broadcaster',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/198_Brood Grubbers.jpg" id="HEX_198_Brood Grubbers" data-flag="@X" onclick="openSidebar('HEX_198_Brood Grubbers',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/216_Idow Tiebreaker.jpg" id="HEX_216_Idow Tiebreaker" data-flag="@X" onclick="openSidebar('HEX_216_Idow Tiebreaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/239_Sefolian Acrobat.jpg" id="HEX_239_Sefolian Acrobat" data-flag="@X" onclick="openSidebar('HEX_239_Sefolian Acrobat',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/215_House Guard.jpg" id="HEX_215_House Guard" data-flag="@X" onclick="openSidebar('HEX_215_House Guard',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/244_Stack the Odds.jpg" id="HEX_244_Stack the Odds" data-flag="@X" onclick="openSidebar('HEX_244_Stack the Odds',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/214_Hexbound Duel.jpg" id="HEX_214_Hexbound Duel" data-flag="@X" onclick="openSidebar('HEX_214_Hexbound Duel',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/221_Mob's Ringleader.jpg" id="HEX_221_Mobs Ringleader" data-flag="@X" onclick="openSidebar('HEX_221_Mobs Ringleader',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/242_Sih's Combatant.jpg" id="HEX_242_Sihs Combatant" data-flag="@X" onclick="openSidebar('HEX_242_Sihs Combatant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/248_Tarase's Collector.jpg" id="HEX_248_Tarases Collector" data-flag="@X" onclick="openSidebar('HEX_248_Tarases Collector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/255_Experimental Research.jpg" id="HEX_255_Experimental Research" data-flag="@X" onclick="openSidebar('HEX_255_Experimental Research',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/222_Molted Juggernaut.jpg" id="HEX_222_Molted Juggernaut" data-flag="@X" onclick="openSidebar('HEX_222_Molted Juggernaut',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/224_Morgan's Teachings.jpg" id="HEX_224_Morgans Teachings" data-flag="@X" onclick="openSidebar('HEX_224_Morgans Teachings',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/262_Nature's Awakening.jpg" id="HEX_262_Natures Awakening" data-flag="@X" onclick="openSidebar('HEX_262_Natures Awakening',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/256_Frestith Heavyweight.jpg" id="HEX_256_Frestith Heavyweight" data-flag="@X" onclick="openSidebar('HEX_256_Frestith Heavyweight',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/268_Verrith Imager.jpg" id="HEX_268_Verrith Imager" data-flag="@X" onclick="openSidebar('HEX_268_Verrith Imager',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/257_Grim Salvage.jpg" id="HEX_257_Grim Salvage" data-flag="@X" onclick="openSidebar('HEX_257_Grim Salvage',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/258_Kaomor Ex-Captain.jpg" id="HEX_258_Kaomor Ex-Captain" data-flag="@X" onclick="openSidebar('HEX_258_Kaomor Ex-Captain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/269_Vioradell Dragon.jpg" id="HEX_269_Vioradell Dragon" data-flag="@X" onclick="openSidebar('HEX_269_Vioradell Dragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/267_Unmake.jpg" id="HEX_267_Unmake" data-flag="@X" onclick="openSidebar('HEX_267_Unmake',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HEX_e" data-flag="@E" onclick="openSidebar('HEX_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/266_Ulkk'Ther Mother.jpg" id="HEX_266_UlkkTher Mother" data-flag="@X" onclick="openSidebar('HEX_266_UlkkTher Mother',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/259_Kaomor's Might.jpg" id="HEX_259_Kaomors Might" data-flag="@X" onclick="openSidebar('HEX_259_Kaomors Might',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HEX_e" data-flag="@E" onclick="openSidebar('HEX_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/219_The Living Dream.jpg" id="HEX_219_The Living Dream" data-flag="@X" onclick="openSidebar('HEX_219_The Living Dream',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/227_Obeka, Bracket Breaker.jpg" id="HEX_227_Obeka, Bracket Breaker" data-flag="@X" onclick="openSidebar('HEX_227_Obeka, Bracket Breaker',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/260_Let It Commence.jpg" id="HEX_260_Let It Commence" data-flag="@X" onclick="openSidebar('HEX_260_Let It Commence',true)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HEX_e" data-flag="@E" onclick="openSidebar('HEX_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HEX_e" data-flag="@E" onclick="openSidebar('HEX_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div id="colorless" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/11_A Queen is Waiting.jpg" id="HEX_11_A Queen is Waiting" data-flag="@X" onclick="openSidebar('HEX_11_A Queen is Waiting',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/275_The Champion's Prize.jpg" id="HEX_275_The Champions Prize" data-flag="@X" onclick="openSidebar('HEX_275_The Champions Prize',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/HEX-files/img/1_Api, the First Thought_back.jpg" alt="sets/HEX-files/img/1_Api, the First Thought_front.jpg" id="HEX_1_Api, the First Thought" data-flag="@XD" onclick="openSidebar('HEX_1_Api, the First Thought',false)"><button class="flip-btn" onclick="imgFlip('HEX_1_Api, the First Thought')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/5_Event Helper.jpg" id="HEX_5_Event Helper" data-flag="@X" onclick="openSidebar('HEX_5_Event Helper',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/13_Tournament Host.jpg" id="HEX_13_Tournament Host" data-flag="@X" onclick="openSidebar('HEX_13_Tournament Host',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/279_Head Judge.jpg" id="HEX_279_Head Judge" data-flag="@X" onclick="openSidebar('HEX_279_Head Judge',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/282_Idolized Colossus.jpg" id="HEX_282_Idolized Colossus" data-flag="@X" onclick="openSidebar('HEX_282_Idolized Colossus',false)"></div>
+				<div class="container"><img loading="lazy" data-alt_src="sets/HEX-files/img/283_Royal Jewel_back.jpg" alt="sets/HEX-files/img/283_Royal Jewel_front.jpg" id="HEX_283_Royal Jewel" data-flag="@XD" onclick="openSidebar('HEX_283_Royal Jewel',false)"><button class="flip-btn" onclick="imgFlip('HEX_283_Royal Jewel')"></button></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/2_Api's Trial.jpg" id="HEX_2_Apis Trial" data-flag="@X" onclick="openSidebar('HEX_2_Apis Trial',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/3_Api's Wish.jpg" id="HEX_3_Apis Wish" data-flag="@X" onclick="openSidebar('HEX_3_Apis Wish',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/4_Aspire.jpg" id="HEX_4_Aspire" data-flag="@X" onclick="openSidebar('HEX_4_Aspire',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/6_Harmon, the Messenger.jpg" id="HEX_6_Harmon, the Messenger" data-flag="@X" onclick="openSidebar('HEX_6_Harmon, the Messenger',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/10_Opening Bout.jpg" id="HEX_10_Opening Bout" data-flag="@X" onclick="openSidebar('HEX_10_Opening Bout',true)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/12_Talented Sentrysmith.jpg" id="HEX_12_Talented Sentrysmith" data-flag="@X" onclick="openSidebar('HEX_12_Talented Sentrysmith',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/273_Brood Infiltrator.jpg" id="HEX_273_Brood Infiltrator" data-flag="@X" onclick="openSidebar('HEX_273_Brood Infiltrator',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/276_Chosen Eye.jpg" id="HEX_276_Chosen Eye" data-flag="@X" onclick="openSidebar('HEX_276_Chosen Eye',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/277_Game Promoter.jpg" id="HEX_277_Game Promoter" data-flag="@X" onclick="openSidebar('HEX_277_Game Promoter',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/280_Hexrena.jpg" id="HEX_280_Hexrena" data-flag="@X" onclick="openSidebar('HEX_280_Hexrena',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/286_Training Bot.jpg" id="HEX_286_Training Bot" data-flag="@X" onclick="openSidebar('HEX_286_Training Bot',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/7_Honorable Duelist.jpg" id="HEX_7_Honorable Duelist" data-flag="@X" onclick="openSidebar('HEX_7_Honorable Duelist',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/8_In This Together.jpg" id="HEX_8_In This Together" data-flag="@X" onclick="openSidebar('HEX_8_In This Together',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/9_Kingdom's Champion.jpg" id="HEX_9_Kingdoms Champion" data-flag="@X" onclick="openSidebar('HEX_9_Kingdoms Champion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/270_Ael's Reward.jpg" id="HEX_270_Aels Reward" data-flag="@X" onclick="openSidebar('HEX_270_Aels Reward',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/271_Api's Reward.jpg" id="HEX_271_Apis Reward" data-flag="@X" onclick="openSidebar('HEX_271_Apis Reward',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/272_Ba's Reward.jpg" id="HEX_272_Bas Reward" data-flag="@X" onclick="openSidebar('HEX_272_Bas Reward',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/274_Cenari's Reward.jpg" id="HEX_274_Cenaris Reward" data-flag="@X" onclick="openSidebar('HEX_274_Cenaris Reward',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/278_Gate's Inspector.jpg" id="HEX_278_Gates Inspector" data-flag="@X" onclick="openSidebar('HEX_278_Gates Inspector',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/281_Hexrena Golem.jpg" id="HEX_281_Hexrena Golem" data-flag="@X" onclick="openSidebar('HEX_281_Hexrena Golem',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/284_Sih's Reward.jpg" id="HEX_284_Sihs Reward" data-flag="@X" onclick="openSidebar('HEX_284_Sihs Reward',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/285_Tarase's Reward.jpg" id="HEX_285_Tarases Reward" data-flag="@X" onclick="openSidebar('HEX_285_Tarases Reward',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div id="land" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/299_Sinis, Tarase's Network.jpg" id="HEX_299_Sinis, Tarases Network" data-flag="@X" onclick="openSidebar('HEX_299_Sinis, Tarases Network',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/302_Verrith, Ael's Illusion.jpg" id="HEX_302_Verrith, Aels Illusion" data-flag="@X" onclick="openSidebar('HEX_302_Verrith, Aels Illusion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/304_Xysth, Cenari's Nest.jpg" id="HEX_304_Xysth, Cenaris Nest" data-flag="@X" onclick="openSidebar('HEX_304_Xysth, Cenaris Nest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/293_Kaomor, Ba's Arena.jpg" id="HEX_293_Kaomor, Bas Arena" data-flag="@X" onclick="openSidebar('HEX_293_Kaomor, Bas Arena',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/303_Vioradell, Sih's Haven.jpg" id="HEX_303_Vioradell, Sihs Haven" data-flag="@X" onclick="openSidebar('HEX_303_Vioradell, Sihs Haven',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/288_Desolate Barrens.jpg" id="HEX_288_Desolate Barrens" data-flag="@X" onclick="openSidebar('HEX_288_Desolate Barrens',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/297_Roaring Cascade.jpg" id="HEX_297_Roaring Cascade" data-flag="@X" onclick="openSidebar('HEX_297_Roaring Cascade',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/300_Somber Marsh.jpg" id="HEX_300_Somber Marsh" data-flag="@X" onclick="openSidebar('HEX_300_Somber Marsh',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/292_Jagged Crag.jpg" id="HEX_292_Jagged Crag" data-flag="@X" onclick="openSidebar('HEX_292_Jagged Crag',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/296_Rainforest Spring.jpg" id="HEX_296_Rainforest Spring" data-flag="@X" onclick="openSidebar('HEX_296_Rainforest Spring',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/287_Barren Desolation.jpg" id="HEX_287_Barren Desolation" data-flag="@X" onclick="openSidebar('HEX_287_Barren Desolation',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/290_Glazed Palace.jpg" id="HEX_290_Glazed Palace" data-flag="@X" onclick="openSidebar('HEX_290_Glazed Palace',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/291_Grim Bastion.jpg" id="HEX_291_Grim Bastion" data-flag="@X" onclick="openSidebar('HEX_291_Grim Bastion',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/294_Magmatic Torrent.jpg" id="HEX_294_Magmatic Torrent" data-flag="@X" onclick="openSidebar('HEX_294_Magmatic Torrent',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/295_Mysterious Cataract.jpg" id="HEX_295_Mysterious Cataract" data-flag="@X" onclick="openSidebar('HEX_295_Mysterious Cataract',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/301_Sunlit Highland.jpg" id="HEX_301_Sunlit Highland" data-flag="@X" onclick="openSidebar('HEX_301_Sunlit Highland',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/289_Eye of Api.jpg" id="HEX_289_Eye of Api" data-flag="@X" onclick="openSidebar('HEX_289_Eye of Api',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/298_Shifting Arena.jpg" id="HEX_298_Shifting Arena" data-flag="@X" onclick="openSidebar('HEX_298_Shifting Arena',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HEX_e" data-flag="@E" onclick="openSidebar('HEX_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HEX_e" data-flag="@E" onclick="openSidebar('HEX_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/305_Plains.jpg" id="HEX_305_Plains" data-flag="@X" onclick="openSidebar('HEX_305_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/306_Island.jpg" id="HEX_306_Island" data-flag="@X" onclick="openSidebar('HEX_306_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/307_Swamp.jpg" id="HEX_307_Swamp" data-flag="@X" onclick="openSidebar('HEX_307_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/308_Mountain.jpg" id="HEX_308_Mountain" data-flag="@X" onclick="openSidebar('HEX_308_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/309_Forest.jpg" id="HEX_309_Forest" data-flag="@X" onclick="openSidebar('HEX_309_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/310_Plains.jpg" id="HEX_310_Plains" data-flag="@X" onclick="openSidebar('HEX_310_Plains',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/311_Island.jpg" id="HEX_311_Island" data-flag="@X" onclick="openSidebar('HEX_311_Island',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/314_Swamp.jpg" id="HEX_314_Swamp" data-flag="@X" onclick="openSidebar('HEX_314_Swamp',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/312_Mountain.jpg" id="HEX_312_Mountain" data-flag="@X" onclick="openSidebar('HEX_312_Mountain',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/313_Forest.jpg" id="HEX_313_Forest" data-flag="@X" onclick="openSidebar('HEX_313_Forest',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div id="token" class="anchor"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/1t_colorless Spirit 11HEX.jpg" id="HEX_1t_colorless Spirit 11HEX" data-flag="@X" onclick="openSidebar('HEX_1t_colorless Spirit 11HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/15t_Warrior 22HEX.jpg" id="HEX_15t_Warrior 22HEX" data-flag="@X" onclick="openSidebar('HEX_15t_Warrior 22HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/16t_Chest of Desires HEX.jpg" id="HEX_16t_Chest of Desires HEX" data-flag="@X" onclick="openSidebar('HEX_16t_Chest of Desires HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/17t_colorless Insect Construct 11.jpg" id="HEX_17t_colorless Insect Construct 11" data-flag="@X" onclick="openSidebar('HEX_17t_colorless Insect Construct 11',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/18t_Sigil of Conquest HEX.jpg" id="HEX_18t_Sigil of Conquest HEX" data-flag="@X" onclick="openSidebar('HEX_18t_Sigil of Conquest HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/19t_Sword of Victory HEX.jpg" id="HEX_19t_Sword of Victory HEX" data-flag="@X" onclick="openSidebar('HEX_19t_Sword of Victory HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/20t_Treasure HEX.jpg" id="HEX_20t_Treasure HEX" data-flag="@X" onclick="openSidebar('HEX_20t_Treasure HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/21t_Trophy Reminder.jpg" id="HEX_21t_Trophy Reminder" data-flag="@X" onclick="openSidebar('HEX_21t_Trophy Reminder',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/2t_white Warrior 11HEX.jpg" id="HEX_2t_white Warrior 11HEX" data-flag="@X" onclick="openSidebar('HEX_2t_white Warrior 11HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/3t_blue Illusion 11HEX.jpg" id="HEX_3t_blue Illusion 11HEX" data-flag="@X" onclick="openSidebar('HEX_3t_blue Illusion 11HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/4t_black Zombie Insect 11HEX.jpg" id="HEX_4t_black Zombie Insect 11HEX" data-flag="@X" onclick="openSidebar('HEX_4t_black Zombie Insect 11HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/5t_Dragon.jpg" id="HEX_5t_Dragon" data-flag="@X" onclick="openSidebar('HEX_5t_Dragon',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/6t_Plant.jpg" id="HEX_6t_Plant" data-flag="@X" onclick="openSidebar('HEX_6t_Plant',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/7t_Call.jpg" id="HEX_7t_Call" data-flag="@X" onclick="openSidebar('HEX_7t_Call',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/8t_blue and red Dice 33HEX.jpg" id="HEX_8t_blue and red Dice 33HEX" data-flag="@X" onclick="openSidebar('HEX_8t_blue and red Dice 33HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/9t_green and blue Elemental 00HEX.jpg" id="HEX_9t_green and blue Elemental 00HEX" data-flag="@X" onclick="openSidebar('HEX_9t_green and blue Elemental 00HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/10t_black and green Insect 11HEX.jpg" id="HEX_10t_black and green Insect 11HEX" data-flag="@X" onclick="openSidebar('HEX_10t_black and green Insect 11HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/11t_black and green Insect 11HEX.jpg" id="HEX_11t_black and green Insect 11HEX" data-flag="@X" onclick="openSidebar('HEX_11t_black and green Insect 11HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/12t_Saba's Trophy.jpg" id="HEX_12t_Sabas Trophy" data-flag="@X" onclick="openSidebar('HEX_12t_Sabas Trophy',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/13t_white and black Spirit Warrior 11HEX.jpg" id="HEX_13t_white and black Spirit Warrior 11HEX" data-flag="@X" onclick="openSidebar('HEX_13t_white and black Spirit Warrior 11HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/14t_red and white Warrior 11HEX.jpg" id="HEX_14t_red and white Warrior 11HEX" data-flag="@X" onclick="openSidebar('HEX_14t_red and white Warrior 11HEX',false)"></div>
+				<div class="container"><img loading="lazy" alt="sets/HEX-files/img/22t_Emblem.jpg" id="HEX_22t_Emblem" data-flag="@X" onclick="openSidebar('HEX_22t_Emblem',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HEX_e" data-flag="@E" onclick="openSidebar('HEX_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HEX_e" data-flag="@E" onclick="openSidebar('HEX_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/e.png" id="HEX_e" data-flag="@E" onclick="openSidebar('HEX_e',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+				<div class="container"><img loading="lazy" alt="img/er.png" id="HEX_er" data-flag="@E" onclick="openSidebar('HEX_er',false)"></div>
+	</div>
+	</div>
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-container">
+			<img id="sidebar_img" class="sidebar-img">
+			<img id="sidebar_h_img" class="sidebar-h-img">
+			<button class="flip-btn" id="sidebar-flip-btn" onclick="imgFlip('sidebar_img')"></button>
+		</div>
+		<button class="close-btn" onclick="closeSidebar()"></button>
+	</div>
+	<div class="footer"></div>
+
+	<script>
+	const delay = ms => new Promise(res => setTimeout(res, ms));
+		let specialchars = "";
+
+	document.addEventListener('DOMContentLoaded', async function() {
+		await fetch(rootPath + '/lists/all-cards.json')
+					.then(response => response.json())
+					.then(json => {
+						card_list = json;
+				}).catch(error => console.error('Error:', error));
+
+				await fetch(rootPath + '/resources/replacechars.txt')
+					.then(response => response.text())
+					.then(text => {
+						specialchars = text; 
+				}).catch(error => console.error('Error:', error));
+
+				card_list_arrayified = card_list.cards;
+
+				let all_tags = new Set();
+				card_list_arrayified.forEach(card => {
+					if (card.notes) {
+						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
+						for (const match of tagMatches) {
+							all_tags.add(match[1].toLowerCase());
+						}
+					}
+				});
+
+				const searchInput = document.getElementById("search");
+				const tagDropdown = document.getElementById("tag-dropdown");
+
+				// Create a mirror element for position calculation
+				const mirror = document.createElement("div");
+				Object.assign(mirror.style, {
+					position: "absolute",
+					visibility: "hidden",
+					whiteSpace: "pre",
+					font: getComputedStyle(searchInput).font,
+					padding: "0", // No padding for pure text measurement
+					border: "none",
+					boxSizing: "content-box"
+				});
+				document.body.appendChild(mirror);
+
+				if (searchInput && tagDropdown) {
+					tagDropdown.style.width = "auto";
+					tagDropdown.style.minWidth = "75px";
+					tagDropdown.style.maxWidth = "300px";
+					tagDropdown.style.maxHeight = "200px";
+					tagDropdown.style.overflowY = "auto";
+
+					const updateDropdown = function() {
+						const value = searchInput.value;
+						const cursorPosition = searchInput.selectionStart;
+						
+						// Find the tag: prefix immediately preceding the cursor
+						const lastTagIndex = value.substring(0, cursorPosition).lastIndexOf("tag:");
+						
+						if (lastTagIndex !== -1) {
+							const queryStart = lastTagIndex + 4;
+							const query = value.substring(queryStart, cursorPosition);
+							
+							if (!query.includes(" ")) {
+								const filteredTags = Array.from(all_tags).filter(tag => tag.toLowerCase().startsWith(query.toLowerCase())).sort();
+								if (filteredTags.length > 0) {
+									tagDropdown.innerHTML = "";
+									filteredTags.forEach(tag => {
+										const div = document.createElement("div");
+										div.innerText = tag;
+										div.style.padding = "5px 10px";
+										div.style.cursor = "pointer";
+										div.style.whiteSpace = "nowrap";
+										div.onmouseover = () => div.style.background = "#f0f0f0";
+										div.onmouseout = () => div.style.background = "white";
+										div.onclick = () => {
+											const newValue = value.substring(0, queryStart) + tag + " " + value.substring(cursorPosition);
+											searchInput.value = newValue;
+											tagDropdown.style.display = "none";
+											searchInput.focus();
+											const newCursorPos = queryStart + tag.length + 1;
+											searchInput.setSelectionRange(newCursorPos, newCursorPos);
+										};
+										tagDropdown.appendChild(div);
+									});
+
+									// Calculate position
+									mirror.textContent = value.substring(0, lastTagIndex + 4);
+									const textWidth = mirror.getBoundingClientRect().width;
+									const inputPaddingLeft = parseFloat(getComputedStyle(searchInput).paddingLeft) || 0;
+									
+									tagDropdown.style.left = Math.min(textWidth + inputPaddingLeft, searchInput.offsetWidth - tagDropdown.offsetWidth) + "px";
+									tagDropdown.style.display = "block";
+									return;
+								}
+							}
+						}
+						tagDropdown.style.display = "none";
+					};
+
+					searchInput.addEventListener("input", updateDropdown);
+					searchInput.addEventListener("click", updateDropdown);
+					searchInput.addEventListener("keyup", updateDropdown);
+
+					document.addEventListener("click", function(e) {
+						if (e.target !== searchInput && e.target !== tagDropdown) {
+							tagDropdown.style.display = "none";
+						}
+					});
+				}
+
+		preloadImgs = document.getElementsByClassName('preload-hidden');
+
+		let images_loaded = [];
+
+		do {
+			await delay(100);
+			images_loaded = []
+			for (const img of preloadImgs)
+			{
+				images_loaded.push(isImageOk(img));
+			}
+		}
+		while (images_loaded.includes(false));
+
+		
+		loadImages();
+	});
+
+	function isImageOk(img) {
+		if (!img.complete || img.naturalWidth == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	function loadImages() {
+		const images = document.querySelectorAll('.grid-container img');
+
+		images.forEach(img => {
+			const flag = img.getAttribute('data-flag');
+
+			if (flag === '@N') {
+				img.src = rootPath + '/img/card_back.png';
+				img.removeAttribute("onclick");
+				img.style.cursor = 'default';
+			}
+			else
+			{
+				img.src = rootPath + '/' + img.alt;
+				if (img.dataset.alt_src) {
+					img.dataset.alt_src = rootPath + '/' + img.dataset.alt_src;
+				}
+
+				if (flag === '@E') {
+					img.removeAttribute("onclick");
+					img.style.cursor = 'default';
+				}
+			}
+
+			img.style.visibility = 'visible';
+		});
+	}
+
+	window.addEventListener('resize', function(event) {
+		setSidebarTop();
+	}, true);
+
+	function setSidebarTop() {
+		let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		let sh = document.getElementById('sidebar').offsetHeight;
+		let height = 100 * ((vh - sh) / 2) / vh;
+		document.getElementById('sidebar').style.top = height + '%';
+	}
+
+	let horizontal = false;
+
+	function imgFlip(num) {
+		const img = document.getElementById(num);
+		const seconds = 0.2;
+		const rotated_img = document.getElementById('sidebar_h_img');
+
+        img.style.transition = seconds.toString() + "s";
+        img.style.transform = "rotateY(90deg)";
+
+        if (num == 'sidebar_img')
+		{
+			const sidebar_img = document.getElementById('sidebar_img');
+
+			if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(90deg) rotate(90deg)";
+
+           		if (rotated_img.style.opacity != "0") {
+		            setTimeout(() => {
+		                rotated_img.style.opacity = "0";
+		                img.style.filter = "none";
+		            }, (seconds / 2) * 1000);
+		        }
+		        else {
+		        	setTimeout(() => {
+		                rotated_img.style.opacity = "1";
+		                img.style.filter = "blur(2px) brightness(0.7)";
+		            }, (seconds / 2) * 1000);
+		        }
+            }
+		}
+
+         setTimeout(function() {
+            tmp = document.getElementById(num).src;
+			document.getElementById(num).src = document.getElementById(num).dataset.alt_src;
+			document.getElementById(num).dataset.alt_src = tmp;
+
+            img.style.transition = seconds.toString() + "s";
+            img.style.transform = "rotateY(0deg)";
+
+            if (horizontal)
+            {
+            	rotated_img.style.transition = seconds.toString() + "s";
+           		rotated_img.style.transform = "rotateY(0deg) rotate(90deg)";
+            }
+        }, seconds * 1000);
+	}
+
+	function openSidebar(id, h = false) {
+		horizontal = h;
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'grid';
+
+		const rotated_img = document.getElementById('sidebar_h_img');
+		const sidebar_img = document.getElementById('sidebar_img');
+
+		sidebar_img.style.transition = "none";
+		rotated_img.style.transition = "none";
+		sidebar_img.src = document.getElementById(id).src;
+		rotated_img.src = document.getElementById(id).src.replace("_back", "_front");
+
+		if (horizontal && !sidebar_img.src.includes("_back"))
+		{
+			rotated_img.style.opacity = "1";
+			sidebar_img.style.filter = "blur(2px) brightness(0.7)";
+		}
+		else
+		{
+			rotated_img.style.opacity = "0";
+			sidebar_img.style.filter = "";
+		}
+
+		if (document.getElementById(id).dataset.alt_src)
+		{
+			document.getElementById('sidebar_img').dataset.alt_src = document.getElementById(id).dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'block';
+		}
+		else
+		{
+			delete document.getElementById('sidebar_img').dataset.alt_src;
+			document.getElementById('sidebar-flip-btn').style.display = 'none';
+		}
+		document.getElementById('main-content').style.width = '60%';
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+		setSidebarTop();
+	}
+
+	function closeSidebar() {
+		scroll_pct = window.scrollY / document.documentElement.scrollHeight;
+
+		document.getElementById('sidebar').style.display = 'none';
+		document.getElementById('main-content').style.width = '100%';
+
+
+		scroll_pos = scroll_pct * document.documentElement.scrollHeight;
+		window.scrollTo(window.scrollX, scroll_pos);
+	}
+
+	function rolldown() {
+		dropdown.style.gridTemplateColumns = "repeat(3, 1fr)";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "auto";
+			set.style.margin = "5px";
+		}
+	}
+
+	function rollup() {
+		dropdown.style.gridTemplateColumns = "1fr";
+		var sets = document.querySelectorAll('.inactive');
+		for(const set of sets)
+		{
+			set.style.height = "0px";
+			set.style.margin = "0px 5px";
+		}
+	}
+
+	document.getElementById("search").addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			search();
+		}
+	});
+
+	function search() {
+		const url = new URL(rootPath + '/search', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+		url.searchParams.append('search', document.getElementById("search").value);
+		window.location.href = url.pathname + url.search;
+	}
+
+		function randomCard() {
+				let i = Math.floor(Math.random() * (card_list_arrayified.length + 1));
+				let random_card = card_list_arrayified[i];
+
+				const url = new URL(rootPath + '/card', window.location.href.split('?')[0].split('/').slice(0, -1).join('/') + '/');
+				const params = {
+					set: random_card.set,
+					num: random_card.number,
+					name: random_card.card_name
+				}
+				for (const key in params) {
+					url.searchParams.append(key, params[key]);
+				}
+
+				window.location.href = url.pathname + url.search;
+			}
+	</script>
+</body>
+</html>

@@ -89,7 +89,9 @@
 				<div id="tag-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #d5d9d9; z-index: 1000; max-height: 200px; overflow-y: auto; color: black; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
 			</div>
 			<a onclick="window.location.href = rootPath + '/all-sets'"><img id="header-sets" class="sg-icon">Sets</a>
-			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deck" class="sg-icon">Deckbuilder</a>
+			<a id="header-articles-link" onclick="window.location.href = rootPath + '/all-articles'" style="display: none;"><img id="header-articles" class="sg-icon">Articles</a>
+			<a id="header-decks-link" onclick="window.location.href = rootPath + '/decks'" style="display: none;"><img id="header-decks" class="sg-icon">Decks</a>
+			<a onclick="window.location.href = rootPath + '/deckbuilder'"><img id="header-deckbuilder" class="sg-icon">Deckbuilder</a>
 			<a onclick="randomCard()"><img id="header-random" class="sg-icon">Random</a>
 		</div>
 	</div>
@@ -98,14 +100,28 @@
 			document.getElementById("header-banner").src = rootPath + "/img/banner.png";
 			document.getElementById("header-search").src = rootPath + "/img/search.png";
 			document.getElementById("header-sets").src = rootPath + "/img/sets.png";
-			document.getElementById("header-deck").src = rootPath + "/img/deck.png";
+			document.getElementById("header-articles").src = rootPath + "/img/articles.png";
+			document.getElementById("header-decks").src = rootPath + "/img/deck.png";
+			document.getElementById("header-deckbuilder").src = rootPath + "/img/deckbuilder.png";
 			document.getElementById("header-random").src = rootPath + "/img/random.png";
+
+			// Hide Articles if none exist
+			fetch(rootPath + '/all-articles.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-articles-link').style.display = 'flex';
+				}).catch(() => {});
+
+			// Hide Decks if none exist
+			fetch(rootPath + '/decks.html', { method: 'HEAD' })
+				.then(response => {
+					if (response.ok) document.getElementById('header-decks-link').style.display = 'flex';
+				}).catch(() => {});
 		});
 
 		function goToSearch() {
 			window.location.href = rootPath + "/search";
 		}
-	</script>			<div class="set-group">Alvin</div>
+	</script>			<div class="set-group">War</div>
 		
 			<div class="set-table">
 			<div class="set-header-row">
@@ -117,54 +133,54 @@
 		
 			<a href="sets/2MC" class="set-row"> 
 				<img src="sets/2MC-files/icon.png">
-				<div class="set-title">2HU Miniset Collection</div>
+				<div class="set-title">UB Touhou Miniset Collection</div>
 				<div>2MC</div>
-				<div>156</div>
-			</a>
-			
-			<a href="sets/ASM" class="set-row"> 
-				<img src="sets/ASM-files/icon.png">
-				<div class="set-title">Amonkhet: Schism</div>
-				<div>ASM</div>
-				<div>258</div>
-			</a>
-			
-			<a href="sets/COD" class="set-row"> 
-				<img src="sets/COD-files/icon.png">
-				<div class="set-title">Children of Dawn</div>
-				<div>COD</div>
-				<div>238</div>
+				<div>209</div>
 			</a>
 			
 			<a href="sets/F2HU" class="set-row"> 
 				<img src="sets/F2HU-files/icon.png">
 				<div class="set-title">Universes Beyond: Touhou Fangames/Albums</div>
 				<div>F2HU</div>
-				<div>294</div>
+				<div>315</div>
 			</a>
 			
-			<a href="sets/ONI" class="set-row"> 
-				<img src="sets/ONI-files/icon.png">
-				<div class="set-title">Onigaiko: Future Past</div>
-				<div>ONI</div>
-				<div>277</div>
+			<a href="sets/HEX" class="set-row"> 
+				<img src="sets/HEX-files/icon.png">
+				<div class="set-title">The Hex Games</div>
+				<div>HEX</div>
+				<div>304</div>
 			</a>
 			
-			<a href="sets/RNF" class="set-row"> 
-				<img src="sets/RNF-files/icon.png">
-				<div class="set-title">Ravnica’s Awakening</div>
-				<div>RNF</div>
-				<div>270</div>
+			<a href="sets/MST" class="set-row"> 
+				<img src="sets/MST-files/icon.png">
+				<div class="set-title">Rural Dwellings, in Seafoam Mist</div>
+				<div>MST</div>
+				<div>136</div>
 			</a>
 			
-			<a href="sets/WDW" class="set-row"> 
-				<img src="sets/WDW-files/icon.png">
-				<div class="set-title">Waters of a Drowned World</div>
-				<div>WDW</div>
-				<div>271</div>
+			<a href="sets/SSC" class="set-row"> 
+				<img src="sets/SSC-files/icon.png">
+				<div class="set-title">Shiyue: Soul's Crossing</div>
+				<div>SSC</div>
+				<div>273</div>
+			</a>
+			
+			<a href="sets/WHL" class="set-row"> 
+				<img src="sets/WHL-files/icon.png">
+				<div class="set-title">Building Fortune's Wheel</div>
+				<div>WHL</div>
+				<div>279</div>
+			</a>
+			
+			<a href="sets/XCX" class="set-row"> 
+				<img src="sets/XCX-files/icon.png">
+				<div class="set-title">Xenoblade Chronicles X</div>
+				<div>XCX</div>
+				<div>315</div>
 			</a>
 			</div>
-					<div class="set-group">Simon</div>
+					<div class="set-group">Famine</div>
 		
 			<div class="set-table">
 			<div class="set-header-row">
@@ -174,63 +190,115 @@
 				<div>CARDS</div>
 			</div>
 		
-			<a href="sets/BRE" class="set-row"> 
-				<img src="sets/BRE-files/icon.png">
-				<div class="set-title">Kaldheim: Bretagard’s Revival</div>
-				<div>BRE</div>
-				<div>270</div>
-			</a>
-			
-			<a href="sets/EOR" class="set-row"> 
-				<img src="sets/EOR-files/icon.png">
-				<div class="set-title">Defenders of Eorzea</div>
-				<div>EOR</div>
-				<div>250</div>
+			<a href="sets/ECB" class="set-row"> 
+				<img src="sets/ECB-files/icon.png">
+				<div class="set-title">Elnyreth: Contact With Those Beyond</div>
+				<div>ECB</div>
+				<div>131</div>
 			</a>
 			
 			<a href="sets/FRT" class="set-row"> 
 				<img src="sets/FRT-files/icon.png">
 				<div class="set-title">Felidea: Rising Tensions</div>
 				<div>FRT</div>
-				<div>271</div>
+				<div>272</div>
 			</a>
 			
-			<a href="sets/ORD" class="set-row"> 
-				<img src="sets/ORD-files/icon.png">
-				<div class="set-title">Crucible of Ordeval</div>
-				<div>ORD</div>
-				<div>143</div>
+			<a href="sets/MVX" class="set-row"> 
+				<img src="sets/MVX-files/icon.png">
+				<div class="set-title">Merveaux</div>
+				<div>MVX</div>
+				<div>295</div>
 			</a>
 			
-			<a href="sets/SMB" class="set-row"> 
-				<img src="sets/SMB-files/icon.png">
-				<div class="set-title">Magic the Gathering | Super Mario Brothers</div>
-				<div>SMB</div>
-				<div>269</div>
+			<a href="sets/TEX" class="set-row"> 
+				<img src="sets/TEX-files/icon.png">
+				<div class="set-title">Tarkir: Extinction</div>
+				<div>TEX</div>
+				<div>260</div>
 			</a>
 			
-			<a href="sets/TBC" class="set-row"> 
-				<img src="sets/TBC-files/icon.png">
-				<div class="set-title">Nemyria: The Beautiful Collapse</div>
-				<div>TBC</div>
-				<div>271</div>
+			<a href="sets/TFF" class="set-row"> 
+				<img src="sets/TFF-files/icon.png">
+				<div class="set-title">Dark Souls: The Fire Fades</div>
+				<div>TFF</div>
+				<div>276</div>
 			</a>
 			
-			<a href="sets/TOTL" class="set-row"> 
-				<img src="sets/TOTL-files/icon.png">
-				<div class="set-title">Tin Lau</div>
-				<div>TOTL</div>
-				<div>258</div>
+			<a href="sets/TVN" class="set-row"> 
+				<img src="sets/TVN-files/icon.png">
+				<div class="set-title">Titans of Viludin</div>
+				<div>TVN</div>
+				<div>279</div>
 			</a>
 			
-			<a href="sets/VTK" class="set-row"> 
-				<img src="sets/VTK-files/icon.png">
-				<div class="set-title">Vaelcairn, Tomb of Kingdoms</div>
-				<div>VTK</div>
-				<div>284</div>
+			<a href="sets/WBY" class="set-row"> 
+				<img src="sets/WBY-files/icon.png">
+				<div class="set-title">Wild Blue Yonder</div>
+				<div>WBY</div>
+				<div>315</div>
 			</a>
 			</div>
-					<div class="set-group">Theodore</div>
+					<div class="set-group">Pestilence</div>
+		
+			<div class="set-table">
+			<div class="set-header-row">
+				<div></div> <!-- empty div for spacing -->
+				<div>NAME</div>
+				<div>CODE</div>
+				<div>CARDS</div>
+			</div>
+		
+			<a href="sets/AWA" class="set-row"> 
+				<img src="sets/AWA-files/icon.png">
+				<div class="set-title">Anglodoor Awakened</div>
+				<div>AWA</div>
+				<div>254</div>
+			</a>
+			
+			<a href="sets/EAJ" class="set-row"> 
+				<img src="sets/EAJ-files/icon.png">
+				<div class="set-title">Eternal Autumn of Javor</div>
+				<div>EAJ</div>
+				<div>212</div>
+			</a>
+			
+			<a href="sets/M6D" class="set-row"> 
+				<img src="sets/M6D-files/icon.png">
+				<div class="set-title">Mysticism of the Sixth Day</div>
+				<div>M6D</div>
+				<div>236</div>
+			</a>
+			
+			<a href="sets/RAW" class="set-row"> 
+				<img src="sets/RAW-files/icon.png">
+				<div class="set-title">Ravnica's Awakening</div>
+				<div>RAW</div>
+				<div>270</div>
+			</a>
+			
+			<a href="sets/SPX" class="set-row"> 
+				<img src="sets/SPX-files/icon.png">
+				<div class="set-title">Splendor of Excelsior</div>
+				<div>SPX</div>
+				<div>295</div>
+			</a>
+			
+			<a href="sets/TEL" class="set-row"> 
+				<img src="sets/TEL-files/icon.png">
+				<div class="set-title">Theros: The Elekteid</div>
+				<div>TEL</div>
+				<div>295</div>
+			</a>
+			
+			<a href="sets/TLB" class="set-row"> 
+				<img src="sets/TLB-files/icon.png">
+				<div class="set-title">The Lands Between</div>
+				<div>TLB</div>
+				<div>321</div>
+			</a>
+			</div>
+					<div class="set-group">Death</div>
 		
 			<div class="set-table">
 			<div class="set-header-row">
@@ -244,56 +312,56 @@
 				<img src="sets/AJY-files/icon.png">
 				<div class="set-title">Alder Jane in: The Prince of Years</div>
 				<div>AJY</div>
-				<div>291</div>
+				<div>292</div>
 			</a>
 			
-			<a href="sets/BLD" class="set-row"> 
-				<img src="sets/BLD-files/icon.png">
-				<div class="set-title">Bloodborne</div>
-				<div>BLD</div>
-				<div>190</div>
-			</a>
-			
-			<a href="sets/CLE" class="set-row"> 
-				<img src="sets/CLE-files/icon.png">
-				<div class="set-title">Clearingsong</div>
-				<div>CLE</div>
+			<a href="sets/BLV" class="set-row"> 
+				<img src="sets/BLV-files/icon.png">
+				<div class="set-title">Blood and Velvet</div>
+				<div>BLV</div>
 				<div>271</div>
 			</a>
 			
-			<a href="sets/HWK" class="set-row"> 
-				<img src="sets/HWK-files/icon.png">
-				<div class="set-title">Haishan: Warring Kingdoms</div>
-				<div>HWK</div>
-				<div>289</div>
+			<a href="sets/DRM" class="set-row"> 
+				<img src="sets/DRM-files/icon.png">
+				<div class="set-title">Dreamers of Antausia</div>
+				<div>DRM</div>
+				<div>246</div>
 			</a>
 			
-			<a href="sets/KLB" class="set-row"> 
-				<img src="sets/KLB-files/icon.png">
-				<div class="set-title">Kitsuo: the Last Bloom</div>
-				<div>KLB</div>
-				<div>295</div>
+			<a href="sets/EOR" class="set-row"> 
+				<img src="sets/EOR-files/icon.png">
+				<div class="set-title">Defenders of Eorzea</div>
+				<div>EOR</div>
+				<div>261</div>
 			</a>
 			
-			<a href="sets/MOX" class="set-row"> 
-				<img src="sets/MOX-files/icon.png">
-				<div class="set-title">Midnight Omens of Xogoa</div>
-				<div>MOX</div>
-				<div>205</div>
+			<a href="sets/EVO" class="set-row"> 
+				<img src="sets/EVO-files/icon.png">
+				<div class="set-title">Evolution on Srai-Val-Nul</div>
+				<div>EVO</div>
+				<div>287</div>
 			</a>
 			
-			<a href="sets/POP2" class="set-row"> 
-				<img src="sets/POP2-files/icon.png">
-				<div class="set-title">Prismavision</div>
-				<div>POP2</div>
+			<a href="sets/FIM" class="set-row"> 
+				<img src="sets/FIM-files/icon.png">
+				<div class="set-title">Periss: Friendship is Magic</div>
+				<div>FIM</div>
+				<div>191</div>
+			</a>
+			
+			<a href="sets/ORE" class="set-row"> 
+				<img src="sets/ORE-files/icon.png">
+				<div class="set-title">Orestan</div>
+				<div>ORE</div>
+				<div>260</div>
+			</a>
+			
+			<a href="sets/TOTL" class="set-row"> 
+				<img src="sets/TOTL-files/icon.png">
+				<div class="set-title">Towers of Tin Lau</div>
+				<div>TOTL</div>
 				<div>266</div>
-			</a>
-			
-			<a href="sets/SGP" class="set-row"> 
-				<img src="sets/SGP-files/icon.png">
-				<div class="set-title">Stirrings in Goldport</div>
-				<div>SGP</div>
-				<div>272</div>
 			</a>
 			</div>
 		
@@ -322,7 +390,7 @@
 					if (card.notes) {
 						const tagMatches = card.notes.matchAll(/!tag(?:<\w+>)?\s+([^\s\n\b]+)/g);
 						for (const match of tagMatches) {
-							all_tags.add(match[1]);
+							all_tags.add(match[1].toLowerCase());
 						}
 					}
 				});
