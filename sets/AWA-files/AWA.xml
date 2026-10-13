@@ -5,7 +5,7 @@
 			<name>AWA</name>
 			<longname>Anglodoor Awakened</longname>
 			<settype>Custom</settype>
-			<releasedate>2026-10-02</releasedate>
+			<releasedate>2026-10-13</releasedate>
 		</set>
 	</sets>
 	<cards>
@@ -102,7 +102,7 @@ Whenever a token enters under your control, each opponent loses 1 life. If this 
 		<card>
 			<name>Abir, Renegade Sorcerer</name>
 			<text>Whenever you cast an instant or sorcery spell, scry 1.
-At the beginning of your end step, look at the top card of your library. If it&apos;s an instant or sorcery card, you may reveal it and put it into your hand. Otherwise, you may put it into your graveyard.</text>
+Whenever Abir attacks, draw a card, then discard a card. If an instant or sorcery card was discarded this way, put a +1/+1 counter on Abir.</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/AWA-files/img/5.jpg" num="215">AWA</set>
 			<prop>
 				<layout>normal</layout>
@@ -2448,7 +2448,7 @@ Whenever one or more nontoken creatures you control attack, create a copy of tar
 		</card>
 		<card>
 			<name>Friend of the Forest</name>
-			<text>Whenever a token enters under your control, you lose 1 life and draw a card. This ability triggers only once each turn.</text>
+			<text>Whenever a token enters under your control, you draw a card and you lose 1 life. This ability triggers only once each turn.</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/AWA-files/img/134.jpg" num="103">AWA</set>
 			<prop>
 				<layout>normal</layout>
@@ -2814,14 +2814,14 @@ Target creature loses indestructible until end of turn. Spiteful Flames deals 4 
 		<card>
 			<name>Burn the Fields</name>
 			<text>As an additional cost to cast this spell, you may exile an instant or sorcery card from your graveyard.
-Burn the Fields deals 2 damage to each creature. If a card was exiled to cast this spell, Burn the Fields deals damage equal to that card&apos;s mana value instead.</text>
+Burn the Fields deals 2 damage to each creature. If a card was exiled to cast this spell, Burn the Fields deals 4 damage to each creature instead.</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/AWA-files/img/152.jpg" num="135">AWA</set>
 			<prop>
 				<layout>normal</layout>
 				<side>front</side>
 				<type>Sorcery</type>
 				<maintype>Sorcery</maintype>
-				<manacost>2R</manacost>
+				<manacost>1RR</manacost>
 				<cmc>3</cmc>
 				<colors>R</colors>
 				<coloridentity>R</coloridentity>
@@ -3326,7 +3326,7 @@ Whenever Legged Hut attacks, exile up to one card from a graveyard.</text>
 		</card>
 		<card>
 			<name>Silence Heresy</name>
-			<text>Counter target noncreature spell, activated ability or triggered ability. If an ability of a permanent was countered this way, it phases out.</text>
+			<text>Counter target noncreature spell, activated ability or triggered ability from a nonland source. If an ability of a permanent was countered this way, it phases out.</text>
 			<set rarity="uncommon" picurl="https://msefieldtest.github.io/sets/AWA-files/img/179.jpg" num="234">AWA</set>
 			<prop>
 				<layout>normal</layout>
@@ -3564,8 +3564,8 @@ Exile Gruesome Revelation.</text>
 				<side>front</side>
 				<type>Creature — Spirit</type>
 				<maintype>Creature</maintype>
-				<manacost>U</manacost>
-				<cmc>1</cmc>
+				<manacost>1U</manacost>
+				<cmc>2</cmc>
 				<colors>U</colors>
 				<coloridentity>U</coloridentity>
 				<pt>1/1</pt>
@@ -4057,15 +4057,18 @@ When Eulphinian Song-Bearer enters or attacks, creatures you control get +1/+1 a
 		</card>
 		<card>
 			<name>Strength from the Lost</name>
-			<text>Mill three cards. When you do, distribute X +1/+1 counters among any number of target creatures you control, where X is the number of creature cards in your graveyard.</text>
+			<text>Mill three cards, then choose one for each card type among cards in your graveyard. You may choose the same mode more than once —
+• Put a +1/+1 counter on target creature you control.
+• You gain 2 life.
+• Create a 1/1 white Human creature token.</text>
 			<set rarity="rare" picurl="https://msefieldtest.github.io/sets/AWA-files/img/215.jpg" num="207">AWA</set>
 			<prop>
 				<layout>normal</layout>
 				<side>front</side>
-				<type>Instant</type>
-				<maintype>Instant</maintype>
-				<manacost>1G</manacost>
-				<cmc>2</cmc>
+				<type>Sorcery</type>
+				<maintype>Sorcery</maintype>
+				<manacost>2G</manacost>
+				<cmc>3</cmc>
 				<colors>G</colors>
 				<coloridentity>G</coloridentity>
 			</prop>
@@ -4471,7 +4474,7 @@ Creatures your opponents control with counters on them don&apos;t untap during t
 		</card>
 		<card>
 			<name>Echoes of Time</name>
-			<text>Stutter {6}{U}{U} (If you cast this spell for its stutter cost, exile it as it resolves. At the beginning of your next upkeep, you may cast it from exile without paying its mana cost.)
+			<text>Stutter {7}{U}{U} (If you cast this spell for its stutter cost, exile it as it resolves. At the beginning of your next upkeep, you may cast it from exile without paying its mana cost.)
 Take an extra turn after this one. If Echoes of Time would be put into a graveyard this turn, exile it instead.</text>
 			<set rarity="mythic" picurl="https://msefieldtest.github.io/sets/AWA-files/img/237.jpg" num="56">AWA</set>
 			<prop>
@@ -4479,8 +4482,8 @@ Take an extra turn after this one. If Echoes of Time would be put into a graveya
 				<side>front</side>
 				<type>Sorcery</type>
 				<maintype>Sorcery</maintype>
-				<manacost>3UU</manacost>
-				<cmc>5</cmc>
+				<manacost>4UU</manacost>
+				<cmc>6</cmc>
 				<colors>U</colors>
 				<coloridentity>U</coloridentity>
 			</prop>
@@ -4653,8 +4656,8 @@ Sacrifice five Prayers: Search your library for an Angel card, put it onto the b
 		</card>
 		<card>
 			<name>Keeper of the Barrier</name>
-			<text>Vigilance, lifelink
-During each of your turns, spells your opponents cast cost {X} more to cast, where X is the number of permanents you control with counters on them.
+			<text>Vigilance
+Your opponents can&apos;t cast spells during your turn as long as you control three or more creatures with counters on them.
 Whenever Keeper of the Barrier attacks, put a +1/+1 counter on up to one target creature you control with base power 2 or less.</text>
 			<set rarity="mythic" picurl="https://msefieldtest.github.io/sets/AWA-files/img/247.jpg" num="27">AWA</set>
 			<prop>
@@ -4690,7 +4693,7 @@ Whenever you cast a spell or activate an ability that targets a single creature 
 		</card>
 		<card>
 			<name>Cristine, the Redeemed</name>
-			<text>[+1]: Draw a card. Tap or untap up to one permanent.
+			<text>[+1]: Draw a card, then discard a card unless you cast an instant or sorcery spell this turn.
 [-2]: Target nonland permanent an opponent controls phases out. It doesn&apos;t phase in during its owner&apos;s next turn.
 [-7]: Take an extra turn after this one. During that turn, noncreature spells you cast cost {8} less to cast.
 [-1]: Timekeeper deals 3 damage to any target. You may transform her. (She retain loyalty.)
